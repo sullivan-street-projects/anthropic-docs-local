@@ -260,33 +260,33 @@
       "name": "Models Overview",
       "category": "models",
       "local_path": "models/overview.md",
-      "source_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+      "source_url": "https://platform.claude.com/docs/en/about-claude/pricing",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:05:00Z",
+      "status": "current"
     },
     {
       "id": "model-opus-4-5",
       "name": "Claude Opus 4.5",
       "category": "models",
       "local_path": "models/claude-opus-4-5.md",
-      "source_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+      "source_url": "https://www.anthropic.com/news/claude-opus-4-5",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:05:00Z",
+      "status": "current"
     },
     {
       "id": "model-sonnet-4-5",
       "name": "Claude Sonnet 4.5",
       "category": "models",
       "local_path": "models/claude-sonnet-4-5.md",
-      "source_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+      "source_url": "https://www.anthropic.com/news/claude-sonnet-4-5",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:05:00Z",
+      "status": "current"
     },
     {
       "id": "model-haiku-4-5",
@@ -296,19 +296,19 @@
       "source_url": "https://docs.anthropic.com/en/docs/about-claude/models",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:05:00Z",
+      "status": "current"
     },
     {
       "id": "models-deprecations",
       "name": "Model Deprecations",
       "category": "models",
       "local_path": "models/deprecations.md",
-      "source_url": "https://docs.anthropic.com/en/docs/resources/model-deprecations",
+      "source_url": "https://docs.claude.com/en/docs/about-claude/model-deprecations",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:05:00Z",
+      "status": "current"
     },
     {
       "id": "agent-sdk-readme",
