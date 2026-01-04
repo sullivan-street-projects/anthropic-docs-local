@@ -32,8 +32,8 @@
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
       "priority": 4,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:15:00Z",
+      "status": "current"
     },
     {
       "id": "claude-code-hooks",
@@ -43,8 +43,8 @@
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
       "priority": 4,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:15:00Z",
+      "status": "current"
     },
     {
       "id": "claude-code-mcp",
@@ -54,8 +54,8 @@
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
       "priority": 4,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:15:00Z",
+      "status": "current"
     },
     {
       "id": "claude-code-plugins",
@@ -65,8 +65,8 @@
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
       "priority": 4,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:15:00Z",
+      "status": "current"
     },
     {
       "id": "python-sdk-readme",
@@ -120,8 +120,8 @@
       "source_url": "https://docs.anthropic.com/en/api/client-sdks",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:25:00Z",
+      "status": "current"
     },
     {
       "id": "skills-readme",
@@ -142,8 +142,8 @@
       "source_url": "https://github.com/anthropics/skills",
       "source_type": "web-extracted",
       "priority": 4,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:25:00Z",
+      "status": "current"
     },
     {
       "id": "github-repos-index",
@@ -318,8 +318,8 @@
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
       "priority": 4,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:20:00Z",
+      "status": "current"
     },
     {
       "id": "agent-sdk-quickstart",
@@ -329,8 +329,8 @@
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
       "priority": 4,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:20:00Z",
+      "status": "current"
     },
     {
       "id": "agent-sdk-examples",
@@ -340,8 +340,8 @@
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
       "priority": 4,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T06:20:00Z",
+      "status": "current"
     },
     {
       "id": "cookbooks-index",
