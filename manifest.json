@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": null,
+  "last_full_update": "2026-01-04T18:35:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -153,7 +153,7 @@
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
       "priority": 1,
-      "last_fetched": "2026-01-04T05:43:46Z",
+      "last_fetched": "2026-01-04T18:30:00Z",
       "status": "current"
     },
     {
