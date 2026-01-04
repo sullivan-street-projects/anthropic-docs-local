@@ -197,8 +197,8 @@
       "source_url": "https://docs.anthropic.com/",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T05:55:00Z",
+      "status": "current"
     },
     {
       "id": "api-messages",
@@ -208,8 +208,8 @@
       "source_url": "https://docs.anthropic.com/en/api/messages",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T05:55:00Z",
+      "status": "current"
     },
     {
       "id": "api-tool-use",
@@ -219,8 +219,8 @@
       "source_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T05:55:00Z",
+      "status": "current"
     },
     {
       "id": "api-vision",
@@ -230,8 +230,8 @@
       "source_url": "https://docs.anthropic.com/en/docs/build-with-claude/vision",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T05:55:00Z",
+      "status": "current"
     },
     {
       "id": "api-streaming",
@@ -241,8 +241,8 @@
       "source_url": "https://docs.anthropic.com/en/api/streaming",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T05:55:00Z",
+      "status": "current"
     },
     {
       "id": "api-errors",
@@ -252,8 +252,8 @@
       "source_url": "https://docs.anthropic.com/en/api/errors",
       "source_type": "web-extracted",
       "priority": 3,
-      "last_fetched": null,
-      "status": "pending"
+      "last_fetched": "2026-01-04T05:55:00Z",
+      "status": "current"
     },
     {
       "id": "models-overview",
