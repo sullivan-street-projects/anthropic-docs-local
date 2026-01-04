@@ -2,12 +2,16 @@
 
 ## Quick Commands
 
+Run these commands from the project directory in Claude Code:
+
 | Command | Description |
 |---------|-------------|
 | `/update-anthropic-docs` | Update all sources |
 | `/update-anthropic-docs <category>` | Update specific category |
 | `/update-anthropic-docs --check` | Dry run, report changes only |
 | `/update-anthropic-docs --discover` | Search for new sources |
+
+The update command is stored in `.claude/commands/update-anthropic-docs.md`.
 
 ## Adding a New Source
 

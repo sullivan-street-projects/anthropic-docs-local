@@ -36,13 +36,15 @@ Navigate to any `.md` file to read documentation. Each file includes:
 - Original content from the source
 
 ### Update Documentation
-Use the update command to refresh content:
-```
+Use the project's update command to refresh content (run from this directory):
+```bash
 /update-anthropic-docs              # Full update (all sources)
 /update-anthropic-docs claude-code  # Category update
 /update-anthropic-docs --check      # Dry run, report changes only
 /update-anthropic-docs --discover   # Search for new sources
 ```
+
+The command is stored in `.claude/commands/update-anthropic-docs.md`.
 
 ### View Change History
 ```bash
