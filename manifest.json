@@ -69,6 +69,17 @@
       "status": "current"
     },
     {
+      "id": "claude-code-best-practices",
+      "name": "Claude Code Best Practices",
+      "category": "claude-code",
+      "local_path": "claude-code/best-practices.md",
+      "source_url": "https://twitter-thread.com/t/2007179832300581177",
+      "source_type": "web-extracted",
+      "priority": 2,
+      "last_fetched": "2026-01-07T00:00:00Z",
+      "status": "current"
+    },
+    {
       "id": "python-sdk-readme",
       "name": "Python SDK README",
       "category": "sdks",
