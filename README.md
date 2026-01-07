@@ -1,6 +1,6 @@
 # Anthropic Documentation Local Repository
 
-A **pristine, comprehensive, always-current** local documentation repository for Anthropic resources. Designed for developers building solutions with Claude.
+A local documentation repository for Anthropic resources. Designed for developers building solutions with Claude.
 
 ## Overview
 
@@ -8,7 +8,6 @@ This repository provides offline access to Anthropic documentation with:
 - **Self-documenting files** - Every Markdown file has YAML frontmatter with source provenance
 - **Git-versioned** - Track changes over time with real diffs
 - **GitHub-first** - Raw GitHub content for highest fidelity
-- **Validation on fetch** - Content verified before saving
 
 ## Directory Structure
 
@@ -36,12 +35,11 @@ Navigate to any `.md` file to read documentation. Each file includes:
 - Original content from the source
 
 ### Update Documentation
-Use the project's update command to refresh content (run from this directory):
+Use the project's update command to refresh content:
 ```bash
 /update-anthropic-docs              # Full update (all sources)
 /update-anthropic-docs claude-code  # Category update
 /update-anthropic-docs --check      # Dry run, report changes only
-/update-anthropic-docs --discover   # Search for new sources
 ```
 
 The command is stored in `.claude/commands/update-anthropic-docs.md`.
@@ -50,7 +48,6 @@ The command is stored in `.claude/commands/update-anthropic-docs.md`.
 ```bash
 git log --oneline           # View update history
 git diff HEAD~1             # View last changes
-git log --diff-filter=D     # View deleted files
 ```
 
 ## File Format
@@ -78,12 +75,24 @@ category: "category-name"
 | `github-api` | Data from GitHub API |
 | `manual` | Manually curated/synthesized content |
 
+## Design Decisions
+
+### Why Both Frontmatter and Manifest?
+
+This repository uses two complementary data stores:
+
+- **Frontmatter** (in each `.md` file): Makes each file self-contained. You can read any file and know exactly where it came from without looking elsewhere. Serves humans reading individual documents.
+
+- **Manifest** (in `manifest.json`): Central index for the automation system. Tracks all sources in one place for updates and management. Serves the update command.
+
+This is intentional redundancy for different audiences, not duplication.
+
 ## Manifest
 
 The `manifest.json` file tracks all documentation sources with:
 - Source URLs and local paths
-- Fetch timestamps and status
-- Priority levels for update ordering
+- Fetch timestamps
+- Source type classification
 
 ## Maintenance
 

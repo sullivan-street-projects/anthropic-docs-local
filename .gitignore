@@ -1,0 +1,9 @@
+# Local settings (may contain API keys)
+.claude/settings.local.json
+
+# OS files
+.DS_Store
+*/.DS_Store
+
+# Archive
+.archive/

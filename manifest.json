@@ -9,9 +9,7 @@
       "local_path": "claude-code/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md",
       "source_type": "github-raw",
-      "priority": 1,
-      "last_fetched": "2026-01-04T05:43:46Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:43:46Z"
     },
     {
       "id": "claude-code-changelog",
@@ -20,9 +18,7 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "priority": 1,
-      "last_fetched": "2026-01-04T05:43:46Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:43:46Z"
     },
     {
       "id": "claude-code-features",
@@ -31,9 +27,7 @@
       "local_path": "claude-code/features.md",
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
-      "priority": 4,
-      "last_fetched": "2026-01-04T06:15:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:15:00Z"
     },
     {
       "id": "claude-code-hooks",
@@ -42,9 +36,7 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
-      "priority": 4,
-      "last_fetched": "2026-01-04T06:15:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:15:00Z"
     },
     {
       "id": "claude-code-mcp",
@@ -53,9 +45,7 @@
       "local_path": "claude-code/mcp-servers.md",
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
-      "priority": 4,
-      "last_fetched": "2026-01-04T06:15:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:15:00Z"
     },
     {
       "id": "claude-code-plugins",
@@ -64,9 +54,7 @@
       "local_path": "claude-code/plugins.md",
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
-      "priority": 4,
-      "last_fetched": "2026-01-04T06:15:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:15:00Z"
     },
     {
       "id": "claude-code-best-practices",
@@ -75,9 +63,7 @@
       "local_path": "claude-code/best-practices.md",
       "source_url": "https://twitter-thread.com/t/2007179832300581177",
       "source_type": "web-extracted",
-      "priority": 2,
-      "last_fetched": "2026-01-07T00:00:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-07T00:00:00Z"
     },
     {
       "id": "python-sdk-readme",
@@ -86,9 +72,7 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "priority": 1,
-      "last_fetched": "2026-01-04T05:43:46Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:43:46Z"
     },
     {
       "id": "python-sdk-changelog",
@@ -97,9 +81,7 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "priority": 1,
-      "last_fetched": "2026-01-04T05:43:46Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:43:46Z"
     },
     {
       "id": "typescript-sdk-readme",
@@ -108,9 +90,7 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "priority": 1,
-      "last_fetched": "2026-01-04T05:43:46Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:43:46Z"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -119,9 +99,7 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "priority": 1,
-      "last_fetched": "2026-01-04T05:43:46Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:43:46Z"
     },
     {
       "id": "other-sdks-overview",
@@ -130,9 +108,7 @@
       "local_path": "sdks/other/overview.md",
       "source_url": "https://docs.anthropic.com/en/api/client-sdks",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T06:25:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:25:00Z"
     },
     {
       "id": "skills-readme",
@@ -141,9 +117,7 @@
       "local_path": "skills/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/README.md",
       "source_type": "github-raw",
-      "priority": 1,
-      "last_fetched": "2026-01-04T05:43:46Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:43:46Z"
     },
     {
       "id": "skills-catalog",
@@ -152,9 +126,7 @@
       "local_path": "skills/catalog.md",
       "source_url": "https://github.com/anthropics/skills",
       "source_type": "web-extracted",
-      "priority": 4,
-      "last_fetched": "2026-01-04T06:25:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:25:00Z"
     },
     {
       "id": "github-repos-index",
@@ -163,9 +135,7 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "priority": 1,
-      "last_fetched": "2026-01-04T18:30:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T18:30:00Z"
     },
     {
       "id": "release-notes-platform",
@@ -174,9 +144,7 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "priority": 2,
-      "last_fetched": "2026-01-04T05:50:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:50:00Z"
     },
     {
       "id": "release-notes-api",
@@ -185,9 +153,7 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://docs.anthropic.com/en/release-notes",
       "source_type": "web-extracted",
-      "priority": 2,
-      "last_fetched": "2026-01-04T05:50:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:50:00Z"
     },
     {
       "id": "release-notes-help-center",
@@ -196,9 +162,7 @@
       "local_path": "release-notes/help-center.md",
       "source_url": "https://support.claude.com/en/articles/12138966-release-notes",
       "source_type": "web-extracted",
-      "priority": 2,
-      "last_fetched": "2026-01-04T05:50:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:50:00Z"
     },
     {
       "id": "api-overview",
@@ -207,9 +171,7 @@
       "local_path": "api/overview.md",
       "source_url": "https://docs.anthropic.com/",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T05:55:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:55:00Z"
     },
     {
       "id": "api-messages",
@@ -218,9 +180,7 @@
       "local_path": "api/messages-api.md",
       "source_url": "https://docs.anthropic.com/en/api/messages",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T05:55:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:55:00Z"
     },
     {
       "id": "api-tool-use",
@@ -229,9 +189,7 @@
       "local_path": "api/tool-use.md",
       "source_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T05:55:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:55:00Z"
     },
     {
       "id": "api-vision",
@@ -240,9 +198,7 @@
       "local_path": "api/vision.md",
       "source_url": "https://docs.anthropic.com/en/docs/build-with-claude/vision",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T05:55:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:55:00Z"
     },
     {
       "id": "api-streaming",
@@ -251,9 +207,7 @@
       "local_path": "api/streaming.md",
       "source_url": "https://docs.anthropic.com/en/api/streaming",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T05:55:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:55:00Z"
     },
     {
       "id": "api-errors",
@@ -262,9 +216,7 @@
       "local_path": "api/errors.md",
       "source_url": "https://docs.anthropic.com/en/api/errors",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T05:55:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:55:00Z"
     },
     {
       "id": "models-overview",
@@ -273,9 +225,7 @@
       "local_path": "models/overview.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/pricing",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T06:05:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:05:00Z"
     },
     {
       "id": "model-opus-4-5",
@@ -284,9 +234,7 @@
       "local_path": "models/claude-opus-4-5.md",
       "source_url": "https://www.anthropic.com/news/claude-opus-4-5",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T06:05:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:05:00Z"
     },
     {
       "id": "model-sonnet-4-5",
@@ -295,9 +243,7 @@
       "local_path": "models/claude-sonnet-4-5.md",
       "source_url": "https://www.anthropic.com/news/claude-sonnet-4-5",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T06:05:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:05:00Z"
     },
     {
       "id": "model-haiku-4-5",
@@ -306,9 +252,7 @@
       "local_path": "models/claude-haiku-4-5.md",
       "source_url": "https://docs.anthropic.com/en/docs/about-claude/models",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T06:05:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:05:00Z"
     },
     {
       "id": "models-deprecations",
@@ -317,9 +261,7 @@
       "local_path": "models/deprecations.md",
       "source_url": "https://docs.claude.com/en/docs/about-claude/model-deprecations",
       "source_type": "web-extracted",
-      "priority": 3,
-      "last_fetched": "2026-01-04T06:05:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:05:00Z"
     },
     {
       "id": "agent-sdk-readme",
@@ -328,9 +270,7 @@
       "local_path": "agent-sdk/README.md",
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
-      "priority": 4,
-      "last_fetched": "2026-01-04T06:20:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:20:00Z"
     },
     {
       "id": "agent-sdk-quickstart",
@@ -339,9 +279,7 @@
       "local_path": "agent-sdk/quickstart.md",
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
-      "priority": 4,
-      "last_fetched": "2026-01-04T06:20:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:20:00Z"
     },
     {
       "id": "agent-sdk-examples",
@@ -350,9 +288,7 @@
       "local_path": "agent-sdk/examples.md",
       "source_url": "claude-code-guide-agent",
       "source_type": "manual",
-      "priority": 4,
-      "last_fetched": "2026-01-04T06:20:00Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T06:20:00Z"
     },
     {
       "id": "cookbooks-index",
@@ -361,9 +297,7 @@
       "local_path": "cookbooks/index.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md",
       "source_type": "github-raw",
-      "priority": 4,
-      "last_fetched": "2026-01-04T05:43:46Z",
-      "status": "current"
+      "last_fetched": "2026-01-04T05:43:46Z"
     }
   ]
 }

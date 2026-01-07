@@ -1,9 +1,9 @@
 ---
-title: Claude Code Best Practices
-description: Expert setup and workflow practices from Boris Cherny, creator of Claude Code
-source: https://twitter-thread.com/t/2007179832300581177
-author: Boris Cherny (@bcherny)
-date_extracted: 2025-01-07
+title: "Claude Code Best Practices"
+source_url: "https://twitter-thread.com/t/2007179832300581177"
+source_type: "web-extracted"
+fetched_at: "2026-01-07T00:00:00Z"
+category: "claude-code"
 ---
 
 # Claude Code Setup Guide by Boris Cherny

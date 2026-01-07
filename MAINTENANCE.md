@@ -9,7 +9,6 @@ Run these commands from the project directory in Claude Code:
 | `/update-anthropic-docs` | Update all sources |
 | `/update-anthropic-docs <category>` | Update specific category |
 | `/update-anthropic-docs --check` | Dry run, report changes only |
-| `/update-anthropic-docs --discover` | Search for new sources |
 
 The update command is stored in `.claude/commands/update-anthropic-docs.md`.
 
@@ -25,9 +24,7 @@ The update command is stored in `.claude/commands/update-anthropic-docs.md`.
   "local_path": "category/filename.md",
   "source_url": "https://...",
   "source_type": "github-raw|web-extracted|github-api|manual",
-  "priority": 1,
-  "last_fetched": null,
-  "status": "pending"
+  "last_fetched": null
 }
 ```
 
@@ -44,11 +41,11 @@ git add manifest.json category/filename.md
 git commit -m "Add source: source-name"
 ```
 
-## Deprecating a Source
+## Removing a Source
 
-1. Set status to `"deprecated"` in `manifest.json`
-2. Optionally remove the file: `git rm <file>`
-3. Commit: `git commit -m "Deprecate: source-name"`
+1. Remove entry from `manifest.json`
+2. Delete the file: `git rm <file>`
+3. Commit: `git commit -m "Remove: source-name"`
 
 ## Source Types
 
@@ -58,24 +55,6 @@ git commit -m "Add source: source-name"
 | `web-extracted` | Content extracted from web pages via WebFetch |
 | `github-api` | Structured data from GitHub API |
 | `manual` | Content synthesized from multiple sources or documentation |
-
-## Priority Levels
-
-| Priority | Description |
-|----------|-------------|
-| 1 | Critical - Core documentation (README, SDK docs) |
-| 2 | High - Release notes, changelogs |
-| 3 | Medium - API reference, guides |
-| 4 | Low - Extended content, examples |
-
-## Scheduled Checks (Optional)
-
-Add to crontab for weekly checks:
-
-```bash
-# Check for updates every Monday at 9am
-0 9 * * 1 cd /path/to/anthropic-docs-local && /update-anthropic-docs --check >> /var/log/anthropic-docs.log 2>&1
-```
 
 ## Troubleshooting
 
