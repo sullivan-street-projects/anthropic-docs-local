@@ -298,6 +298,51 @@
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md",
       "source_type": "github-raw",
       "last_fetched": "2026-01-10T00:00:00Z"
+    },
+    {
+      "id": "research-index",
+      "name": "Research Index",
+      "category": "research",
+      "local_path": "research/index.md",
+      "source_url": "https://www.anthropic.com/research",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-01-10T00:00:00Z"
+    },
+    {
+      "id": "research-alignment",
+      "name": "Alignment Research",
+      "category": "research",
+      "local_path": "research/alignment.md",
+      "source_url": "https://www.anthropic.com/research",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-01-10T00:00:00Z"
+    },
+    {
+      "id": "research-interpretability",
+      "name": "Interpretability Research",
+      "category": "research",
+      "local_path": "research/interpretability.md",
+      "source_url": "https://www.anthropic.com/research",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-01-10T00:00:00Z"
+    },
+    {
+      "id": "research-societal-impacts",
+      "name": "Societal Impacts Research",
+      "category": "research",
+      "local_path": "research/societal-impacts.md",
+      "source_url": "https://www.anthropic.com/research",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-01-10T00:00:00Z"
+    },
+    {
+      "id": "research-policy",
+      "name": "Policy Research",
+      "category": "research",
+      "local_path": "research/policy.md",
+      "source_url": "https://www.anthropic.com/research",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-01-10T00:00:00Z"
     }
   ]
 }
