@@ -2,7 +2,7 @@
 title: "Claude Code README"
 source_url: "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-01-04T05:43:46Z"
+fetched_at: "2026-01-10T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -14,7 +14,7 @@ category: "claude-code"
 
 Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows -- all through natural language commands. Use it in your terminal, IDE, or tag @claude on Github.
 
-**Learn more in the [official documentation](https://docs.anthropic.com/en/docs/claude-code/overview)**.
+**Learn more in the [official documentation](https://code.claude.com/docs/en/overview)**.
 
 ## Get started
 
@@ -62,7 +62,7 @@ When you use Claude Code, we collect feedback, which includes usage data (such a
 
 ### How we use your data
 
-See our [data usage policies](https://docs.anthropic.com/en/docs/claude-code/data-usage).
+See our [data usage policies](https://code.claude.com/docs/en/data-usage).
 
 ### Privacy safeguards
 

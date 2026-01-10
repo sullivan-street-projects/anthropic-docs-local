@@ -2,43 +2,15 @@
 title: "Python SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-01-04T05:43:46Z"
+fetched_at: "2026-01-10T00:00:00Z"
 category: "sdks"
 ---
 
 # Anthropic Python API Library
 
-The Anthropic Python library provides developers with convenient access to Claude through the REST API.
+[![PyPI version](https://img.shields.io/pypi/v/anthropic.svg?label=pypi%20(stable))](https://pypi.org/project/anthropic/)
 
-## Core Features
-
-**Installation and Setup**: Install via `pip install anthropic` and configure with an API key, preferably through environment variables using python-dotenv.
-
-**Synchronous and Asynchronous Support**: The library offers both `Anthropic` and `AsyncAnthropic` clients, with identical functionality between them.
-
-## API Capabilities
-
-The library supports several important features:
-
-- **Streaming responses** using Server Side Events (SSE) for real-time message generation
-- **Tool helpers** enabling developers to "define and run tools as pure python functions" with automatic execution
-- **Message batches** for processing multiple requests efficiently
-- **Token counting** to estimate API costs before making requests
-- **File uploads** accepting bytes, PathLike instances, or tuples with filename and media type
-
-## Advanced Options
-
-**HTTP Customization**: Developers can override the httpx client for proxy support, custom transports, and advanced functionality configuration.
-
-**Error Handling**: The library provides specific error classes (BadRequestError, AuthenticationError, RateLimitError, etc.) for handling different API responses.
-
-**Retry and Timeout Configuration**: Automatic retries with exponential backoff are enabled by default, with configurable timeout settings.
-
-## Platform Support
-
-Beyond the standard Anthropic API, the library extends to AWS Bedrock and Google Vertex platforms through optional extras (`anthropic[bedrock]` and `anthropic[vertex]`).
-
-**Requirement**: Python 3.9 or higher.
+The Anthropic Python library provides convenient access to the Anthropic REST API from Python 3.9+ applications, with type definitions and both synchronous and asynchronous clients.
 
 ## Installation
 
@@ -63,6 +35,40 @@ message = client.messages.create(
 print(message.content)
 ```
 
+## Async Usage
+
+```python
+import asyncio
+from anthropic import AsyncAnthropic
+
+client = AsyncAnthropic()
+
+async def main():
+    message = await client.messages.create(
+        model="claude-sonnet-4-5-20250929",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": "Hello, Claude"}]
+    )
+    print(message.content)
+
+asyncio.run(main())
+```
+
+### With aiohttp
+
+For improved concurrency performance:
+
+```bash
+pip install anthropic[aiohttp]
+```
+
+```python
+from anthropic import DefaultAioHttpClient, AsyncAnthropic
+
+async with AsyncAnthropic(http_client=DefaultAioHttpClient()) as client:
+    message = await client.messages.create(...)
+```
+
 ## Streaming
 
 ```python
@@ -75,4 +81,72 @@ with client.messages.stream(
         print(text, end="", flush=True)
 ```
 
-For more information, see the [official documentation](https://docs.anthropic.com/).
+## Tool Helpers
+
+```python
+from anthropic import Anthropic, beta_tool
+
+@beta_tool
+def get_weather(location: str) -> str:
+    """Get the weather for a location."""
+    return f"Weather in {location}: Sunny, 68F"
+
+client = Anthropic()
+runner = client.beta.messages.tool_runner(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    tools=[get_weather],
+    messages=[{"role": "user", "content": "What's the weather in SF?"}],
+)
+for message in runner:
+    print(message)
+```
+
+## Token Counting
+
+```python
+count = client.messages.count_tokens(
+    model="claude-sonnet-4-5-20250929",
+    messages=[{"role": "user", "content": "Hello, world"}]
+)
+print(count.input_tokens)  # 10
+```
+
+## Message Batches
+
+```python
+await client.messages.batches.create(
+    requests=[
+        {
+            "custom_id": "request-1",
+            "params": {
+                "model": "claude-sonnet-4-5-20250929",
+                "max_tokens": 1024,
+                "messages": [{"role": "user", "content": "Hello"}],
+            },
+        },
+    ]
+)
+```
+
+## Platform Support
+
+- **AWS Bedrock**: `pip install anthropic[bedrock]`
+- **Google Vertex**: `pip install anthropic[vertex]`
+
+## Error Handling
+
+| Status Code | Error Type              |
+|-------------|-------------------------|
+| 400         | `BadRequestError`       |
+| 401         | `AuthenticationError`   |
+| 403         | `PermissionDeniedError` |
+| 404         | `NotFoundError`         |
+| 429         | `RateLimitError`        |
+| >=500       | `InternalServerError`   |
+
+## Requirements
+
+Python 3.9 or higher.
+
+For more information, see [docs.anthropic.com](https://docs.anthropic.com/).

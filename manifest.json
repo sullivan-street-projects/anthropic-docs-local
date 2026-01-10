@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-01-04T18:35:00Z",
+  "last_full_update": "2026-01-10T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -9,7 +9,7 @@
       "local_path": "claude-code/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-04T05:43:46Z"
+      "last_fetched": "2026-01-10T00:00:00Z"
     },
     {
       "id": "claude-code-changelog",
@@ -18,7 +18,7 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-04T05:43:46Z"
+      "last_fetched": "2026-01-10T00:00:00Z"
     },
     {
       "id": "claude-code-features",
@@ -72,7 +72,7 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-04T05:43:46Z"
+      "last_fetched": "2026-01-10T00:00:00Z"
     },
     {
       "id": "python-sdk-changelog",
@@ -90,7 +90,7 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-04T05:43:46Z"
+      "last_fetched": "2026-01-10T00:00:00Z"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -117,7 +117,7 @@
       "local_path": "skills/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-04T05:43:46Z"
+      "last_fetched": "2026-01-10T00:00:00Z"
     },
     {
       "id": "skills-catalog",
@@ -135,7 +135,7 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-01-04T18:30:00Z"
+      "last_fetched": "2026-01-10T00:00:00Z"
     },
     {
       "id": "release-notes-platform",
@@ -297,7 +297,7 @@
       "local_path": "cookbooks/index.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-04T05:43:46Z"
+      "last_fetched": "2026-01-10T00:00:00Z"
     }
   ]
 }
