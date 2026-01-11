@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anthropic-docs-local/schemas/frontmatter.schema.json",
+  "title": "Markdown Frontmatter",
+  "description": "Schema for YAML frontmatter in documentation markdown files",
+  "type": "object",
+  "required": ["title", "source_url", "source_type", "fetched_at", "category"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Document title"
+    },
+    "source_url": {
+      "type": "string",
+      "description": "Original source URL or agent identifier"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "github-raw",
+        "github-api",
+        "web-extracted",
+        "manual",
+        "arxiv-pdfs"
+      ],
+      "description": "How the source was fetched"
+    },
+    "fetched_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when content was fetched"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "api",
+        "models",
+        "sdks",
+        "claude-code",
+        "agent-sdk",
+        "skills",
+        "cookbooks",
+        "release-notes",
+        "github-repos",
+        "research"
+      ],
+      "description": "Content category (must match manifest)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional document description"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional tags for categorization"
+    }
+  },
+  "additionalProperties": false
+}
