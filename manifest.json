@@ -343,6 +343,31 @@
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
       "last_fetched": "2026-01-10T00:00:00Z"
+    },
+    {
+      "id": "research-papers-index",
+      "name": "Research Papers Index",
+      "category": "research",
+      "local_path": "research/papers/index.md",
+      "source_url": "https://arxiv.org/search/?query=anthropic&searchtype=all",
+      "source_type": "arxiv-pdfs",
+      "last_fetched": "2026-01-10T00:00:00Z",
+      "papers": [
+        {"file": "constitutional-ai.pdf", "arxiv": "2212.08073", "title": "Constitutional AI"},
+        {"file": "rlhf-helpful-harmless.pdf", "arxiv": "2204.05862", "title": "Training a Helpful and Harmless Assistant"},
+        {"file": "sleeper-agents.pdf", "arxiv": "2401.05566", "title": "Sleeper Agents"},
+        {"file": "alignment-faking.pdf", "arxiv": "2412.14093", "title": "Alignment Faking in LLMs"},
+        {"file": "sycophancy-to-subterfuge.pdf", "arxiv": "2406.10162", "title": "Sycophancy to Subterfuge"},
+        {"file": "model-written-evals.pdf", "arxiv": "2212.09251", "title": "Model-Written Evaluations"},
+        {"file": "transformer-circuits.pdf", "arxiv": "2112.00791", "title": "Transformer Circuits Framework"},
+        {"file": "induction-heads.pdf", "arxiv": "2209.11895", "title": "Induction Heads"},
+        {"file": "toy-models-superposition.pdf", "arxiv": "2209.10652", "title": "Toy Models of Superposition"},
+        {"file": "towards-monosemanticity.pdf", "arxiv": "2310.08164", "title": "Towards Monosemanticity"},
+        {"file": "scaling-monosemanticity.pdf", "arxiv": "2405.14860", "title": "Scaling Monosemanticity"},
+        {"file": "influence-functions.pdf", "arxiv": "2308.03296", "title": "Influence Functions"},
+        {"file": "red-teaming.pdf", "arxiv": "2202.03286", "title": "Red Teaming Language Models"},
+        {"file": "collective-constitutional-ai.pdf", "arxiv": "2310.17567", "title": "Collective Constitutional AI"}
+      ]
     }
   ]
 }
