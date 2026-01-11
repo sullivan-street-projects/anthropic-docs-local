@@ -11,7 +11,8 @@
       "source_type": "github-raw",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "auto",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "sha256": "b991bff5d1e402bc88ab86934ec1dc8b2abb70d2330053de656a674c9c65c7f1"
     },
     {
       "id": "claude-code-changelog",
@@ -22,7 +23,8 @@
       "source_type": "github-raw",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "auto",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "sha256": "ccbf4462ada8b23027af63db5316235cc074f49bcc10435ce631f355c1980f4b"
     },
     {
       "id": "claude-code-features",
@@ -33,7 +35,8 @@
       "source_type": "manual",
       "last_fetched": "2026-01-04T06:15:00Z",
       "review_status": "needs-review",
-      "confidence": 0.7
+      "confidence": 0.7,
+      "sha256": "c294d8323a26a8966706b72223d9432cff64829cf5b73a86da8ad51a9ec7241b"
     },
     {
       "id": "claude-code-hooks",
@@ -44,7 +47,8 @@
       "source_type": "manual",
       "last_fetched": "2026-01-04T06:15:00Z",
       "review_status": "needs-review",
-      "confidence": 0.7
+      "confidence": 0.7,
+      "sha256": "deda901bfced459c33f7365306c8da98009b38bde911bb9f3df5734de7f76810"
     },
     {
       "id": "claude-code-mcp",
@@ -55,7 +59,8 @@
       "source_type": "manual",
       "last_fetched": "2026-01-04T06:15:00Z",
       "review_status": "needs-review",
-      "confidence": 0.7
+      "confidence": 0.7,
+      "sha256": "c117575f47eaf659810a6364d8941ad6f1b38b3b1d80927de9dc35557b799394"
     },
     {
       "id": "claude-code-plugins",
@@ -66,7 +71,8 @@
       "source_type": "manual",
       "last_fetched": "2026-01-04T06:15:00Z",
       "review_status": "needs-review",
-      "confidence": 0.7
+      "confidence": 0.7,
+      "sha256": "74f322f6380a75f06b37d302d130ac2f4415077596f8895666e2882e8771a8df"
     },
     {
       "id": "claude-code-best-practices",
@@ -77,7 +83,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-07T00:00:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "67a03360d52b47db1bd404b7fd6be8eb62e0b9b8fb6b20246b2e47da0f619ac5"
     },
     {
       "id": "python-sdk-readme",
@@ -88,7 +95,8 @@
       "source_type": "github-raw",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "auto",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "sha256": "1a209c21a7ace3ba6711723da131691c0c3e6fde7a2602d7fcf98a4c8dfe33f8"
     },
     {
       "id": "python-sdk-changelog",
@@ -99,7 +107,8 @@
       "source_type": "github-raw",
       "last_fetched": "2026-01-04T05:43:46Z",
       "review_status": "auto",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "sha256": "4120b540a836131ff507ddfb29dd329ee8c675410450c7856153d365e3e118f9"
     },
     {
       "id": "typescript-sdk-readme",
@@ -110,7 +119,8 @@
       "source_type": "github-raw",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "auto",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "sha256": "141d227dab5d61510df7c4ae133834079f8e89ad927af8d2f6409cffc8fd4dfe"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -121,7 +131,8 @@
       "source_type": "github-raw",
       "last_fetched": "2026-01-04T05:43:46Z",
       "review_status": "auto",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "sha256": "10a0ae84f29eb55d5b5144a77591f9d1afbec884afa1569ae1c80d8541e5dd13"
     },
     {
       "id": "other-sdks-overview",
@@ -132,7 +143,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T06:25:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "582bb1afb6f19a56c496240fd2c1cf078bfa87c4dd19c3eddc540a681bbc2338"
     },
     {
       "id": "skills-readme",
@@ -143,7 +155,8 @@
       "source_type": "github-raw",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "auto",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "sha256": "8c450af4a47b561ef064270c7dd932d14de8c0a2d14a21d9b68620f4890957ff"
     },
     {
       "id": "skills-catalog",
@@ -154,7 +167,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T06:25:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "5040695a997a1a5c8a8f36ccfed3c25ec1026a7ea7b8f0b21d864956b0ef545c"
     },
     {
       "id": "github-repos-index",
@@ -165,7 +179,8 @@
       "source_type": "github-api",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "auto",
-      "confidence": 0.9
+      "confidence": 0.9,
+      "sha256": "c30575aa6dd82a6156d573710634080d8ae97f3c6dcb79852fbb653fc94f2c3d"
     },
     {
       "id": "release-notes-platform",
@@ -176,7 +191,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T05:50:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "10294940009a2f6e859d81896c58ac5f4c6838fcb35c7dbe789bc8ea7a4e82e6"
     },
     {
       "id": "release-notes-api",
@@ -187,7 +203,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T05:50:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "e3fb190e10be8bbd0a52bd8a4d42ecf4f7c1d6bf5b5bf6be2c3ba1c0aa2a7ce3"
     },
     {
       "id": "release-notes-help-center",
@@ -198,7 +215,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T05:50:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "8147be2289742a3454d2399b5e2b27764ff1d8c1a23e8be23b2828c8b780c3c0"
     },
     {
       "id": "api-overview",
@@ -209,7 +227,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T05:55:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "8dcfb9c5b472cb3317e3509ac916f172e7bd6410f96ca3974505f17ff5146563"
     },
     {
       "id": "api-messages",
@@ -220,7 +239,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T05:55:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "ec981d816ab07465e9455797a861240542781a610180428f803934c25725df73"
     },
     {
       "id": "api-tool-use",
@@ -231,7 +251,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T05:55:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "b04e75106f8f3300edf5792f4171f8124b200885d527cfb752c199966e284090"
     },
     {
       "id": "api-vision",
@@ -242,7 +263,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T05:55:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "4d71459a60bfd58a0072ca293e338afa77de2f280b5ec6d6e9cfff1d9ecae55b"
     },
     {
       "id": "api-streaming",
@@ -253,7 +275,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T05:55:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "318f543f0e71951f92218e081b386e2e0df1b1e4d8eba83e23af77f84d007a41"
     },
     {
       "id": "api-errors",
@@ -264,7 +287,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T05:55:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "263c80f721bbfd42de6deab1c62395712021630d73f5a67c8c85cc8109dce782"
     },
     {
       "id": "models-overview",
@@ -275,7 +299,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T06:05:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "9dac2dd496f6d04cc05a15db824872975fbfd4870e43b66d9f2de6e1ad1c810b"
     },
     {
       "id": "model-opus-4-5",
@@ -286,7 +311,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T06:05:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "cf9d13c129e4bc366bd14c8f65c207f557f2343d35a7a590102d78f6a6db6222"
     },
     {
       "id": "model-sonnet-4-5",
@@ -297,7 +323,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T06:05:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "1ef3f2f33f360a9697928fa5813e83c8f76c90579f75779781d38d9ad67c5303"
     },
     {
       "id": "model-haiku-4-5",
@@ -308,7 +335,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T06:05:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "cd505aeea57d745c3e7332ef756b973c2fb29497ba5f343fb17c92e1d3759534"
     },
     {
       "id": "models-deprecations",
@@ -319,7 +347,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-04T06:05:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "758874d26c0bf91e737581188b2a781ee5844bb90e146c0509bb9b1a7c128ac2"
     },
     {
       "id": "agent-sdk-readme",
@@ -330,7 +359,8 @@
       "source_type": "manual",
       "last_fetched": "2026-01-04T06:20:00Z",
       "review_status": "needs-review",
-      "confidence": 0.7
+      "confidence": 0.7,
+      "sha256": "24a7cbdbb91fe47dc183a5e4cc88a722d8c97508f536cd6ed66f27050d460678"
     },
     {
       "id": "agent-sdk-quickstart",
@@ -341,7 +371,8 @@
       "source_type": "manual",
       "last_fetched": "2026-01-04T06:20:00Z",
       "review_status": "needs-review",
-      "confidence": 0.7
+      "confidence": 0.7,
+      "sha256": "da55a6353050e84ea0197058d0d76ca6034531ae554e64b96ddc13c5d05f9be8"
     },
     {
       "id": "agent-sdk-examples",
@@ -352,7 +383,8 @@
       "source_type": "manual",
       "last_fetched": "2026-01-04T06:20:00Z",
       "review_status": "needs-review",
-      "confidence": 0.7
+      "confidence": 0.7,
+      "sha256": "6e62cdb5ca678a942ec3be36bc9cfea5e6601bbe001d00903bcd1ca526964800"
     },
     {
       "id": "cookbooks-index",
@@ -363,7 +395,8 @@
       "source_type": "github-raw",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "auto",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "sha256": "d9ebf66539c91f56257060152d5bbb628398e480168d07e4bef7ad2600429312"
     },
     {
       "id": "research-index",
@@ -374,7 +407,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "7d231cfbabbdf46765370336e933ef572251de07262ce5482da185b7fbb1b858"
     },
     {
       "id": "research-alignment",
@@ -385,7 +419,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "caa461d97bae591b043f26d73179bca538f6c0ba644ddfcc80adbb0cd8de085a"
     },
     {
       "id": "research-interpretability",
@@ -396,7 +431,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "0623a1c12a52b172e854d219ebf71f6ee4a49e82b07cafc8d4e9c3c47fe413ab"
     },
     {
       "id": "research-societal-impacts",
@@ -407,7 +443,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "a65581cd47140c5283e64b39600a353efde0be50454591f3b731a6735593d0d0"
     },
     {
       "id": "research-policy",
@@ -418,7 +455,8 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-01-10T00:00:00Z",
       "review_status": "needs-review",
-      "confidence": 0.75
+      "confidence": 0.75,
+      "sha256": "c34d587c4fd90501667c53bf712290d66e688e8aa4fb24dce896c4125ddc50b9"
     },
     {
       "id": "research-papers-index",
@@ -432,76 +470,91 @@
         {
           "file": "constitutional-ai.pdf",
           "arxiv": "2212.08073",
-          "title": "Constitutional AI"
+          "title": "Constitutional AI",
+          "sha256": "9a456a07ad346e3372f9867d346f69f5b0f68b4c65f060aca0b8a13fa9d98e83"
         },
         {
           "file": "rlhf-helpful-harmless.pdf",
           "arxiv": "2204.05862",
-          "title": "Training a Helpful and Harmless Assistant"
+          "title": "Training a Helpful and Harmless Assistant",
+          "sha256": "26e390d4f76938d2e2591225603637c643cc108e94afb756c65f5d2e0fc9037b"
         },
         {
           "file": "sleeper-agents.pdf",
           "arxiv": "2401.05566",
-          "title": "Sleeper Agents"
+          "title": "Sleeper Agents",
+          "sha256": "988e62785a47533775a543c78415dd0994341987f3124d57a81f46c931227bed"
         },
         {
           "file": "alignment-faking.pdf",
           "arxiv": "2412.14093",
-          "title": "Alignment Faking in LLMs"
+          "title": "Alignment Faking in LLMs",
+          "sha256": "f448dfe38f2144f0fe61bd78ceab01e44a17b363df1cb6df6c6c1bbea9568abc"
         },
         {
           "file": "sycophancy-to-subterfuge.pdf",
           "arxiv": "2406.10162",
-          "title": "Sycophancy to Subterfuge"
+          "title": "Sycophancy to Subterfuge",
+          "sha256": "13d4293ad3146ec3e612351693e4036758bd83a7ec1b0f5decff7454db2c8022"
         },
         {
           "file": "model-written-evals.pdf",
           "arxiv": "2212.09251",
-          "title": "Model-Written Evaluations"
+          "title": "Model-Written Evaluations",
+          "sha256": "7fd476342abaa95cbde50e1c5108765f2c53c3c84a7d55c4f2584fb8aaa01b10"
         },
         {
           "file": "transformer-circuits.pdf",
           "arxiv": "2112.00791",
-          "title": "Transformer Circuits Framework"
+          "title": "Transformer Circuits Framework",
+          "sha256": "03e6e766d689a18cacd9fb2278bb6f1ce75ab4aba30da104a80f89871cee82e9"
         },
         {
           "file": "induction-heads.pdf",
           "arxiv": "2209.11895",
-          "title": "Induction Heads"
+          "title": "Induction Heads",
+          "sha256": "9fa4a667e559431efac5bf1d9463f3b0005633e0b78f3ebbacfb901e4ed36e50"
         },
         {
           "file": "toy-models-superposition.pdf",
           "arxiv": "2209.10652",
-          "title": "Toy Models of Superposition"
+          "title": "Toy Models of Superposition",
+          "sha256": "0acd3e05e40c1b703be3aed15c8cdbd5713a1840df9738b495d2bde2e8eb1e3a"
         },
         {
           "file": "towards-monosemanticity.pdf",
           "arxiv": "2310.08164",
-          "title": "Towards Monosemanticity"
+          "title": "Towards Monosemanticity",
+          "sha256": "ffe08da82420d412f951ca80bb53ff1f11d26e355c1b2b6b792b08315b60d834"
         },
         {
           "file": "scaling-monosemanticity.pdf",
           "arxiv": "2405.14860",
-          "title": "Scaling Monosemanticity"
+          "title": "Scaling Monosemanticity",
+          "sha256": "7deac9292ce973801611fee3f07478731f982088b52ae70a55e5f5e146476cb6"
         },
         {
           "file": "influence-functions.pdf",
           "arxiv": "2308.03296",
-          "title": "Influence Functions"
+          "title": "Influence Functions",
+          "sha256": "74cc21aa67ba7f4309982321f1ef76b26e60c3b9359832696bef918df4cff66e"
         },
         {
           "file": "red-teaming.pdf",
           "arxiv": "2202.03286",
-          "title": "Red Teaming Language Models"
+          "title": "Red Teaming Language Models",
+          "sha256": "9d55d0ac9691ff8b9aee8e472dcab867d6650d36b0ae02f94865e3cea3068d51"
         },
         {
           "file": "collective-constitutional-ai.pdf",
           "arxiv": "2310.17567",
-          "title": "Collective Constitutional AI"
+          "title": "Collective Constitutional AI",
+          "sha256": "234907340b8c07ec22274ca8d658378b49164b91213f32bf6c958878728b2702"
         }
       ],
       "review_status": "auto",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "sha256": "07ee7ce67d846ba7ca0ae36a550d6aa680d2434408f33754e7a8c3bced642157"
     }
   ]
 }
