@@ -2,17 +2,26 @@
 title: "Claude Code CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-01-21T00:00:00Z"
 category: "claude-code"
 ---
 
 # Claude Code Changelog
 
-The changelog documents Claude Code's evolution from version 0.2.21 through 2.1.3, tracking significant feature additions, bug fixes, and improvements.
+The changelog documents Claude Code's evolution from version 0.2.21 through 2.1.15, tracking significant feature additions, bug fixes, and improvements.
 
-## Latest Release: 2.1.3
+## Latest Release: 2.1.15
 
 ### Highlights
+- Deprecation notification for npm installations, with guidance toward alternative installation methods
+- History-based autocomplete in bash mode using Tab completion
+- Search functionality for installed plugins list
+- Support for pinning plugins to specific git commit SHAs
+- [VSCode] `/usage` command for displaying current plan usage
+
+## Recent Major Releases
+
+### 2.1.3
 - Merged slash commands and skills, simplifying the mental model with no change in behavior
 - Added release channel (`stable` or `latest`) toggle to `/config`
 - Added detection and warnings for unreachable permission rules
@@ -20,8 +29,6 @@ The changelog documents Claude Code's evolution from version 0.2.21 through 2.1.
 - Improved terminal rendering stability
 - Changed tool hook execution timeout from 60 seconds to 10 minutes
 - [VSCode] Added clickable destination selector for permission requests
-
-## Recent Major Releases
 
 ### 2.1.2
 - Clickable hyperlinks for file paths in tool output (OSC 8 terminals)
@@ -76,6 +83,10 @@ The changelog documents Claude Code's evolution from version 0.2.21 through 2.1.
 ## Notable Fixes
 
 Recent updates addressed:
+- Context window blocking limit was calculated too aggressively at ~65% instead of ~98%
+- Memory leaks in long-running sessions
+- Command injection vulnerability in bash processing
+- Permission bypass via shell line continuation
 - IME (Input Method Editor) support for CJK languages
 - Word navigation for non-Latin scripts
 - Permission rule validation for bash commands

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-01-10T00:00:00Z",
+  "last_full_update": "2026-01-21T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -21,7 +21,7 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-10T00:00:00Z",
+      "last_fetched": "2026-01-21T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
       "sha256": "ccbf4462ada8b23027af63db5316235cc074f49bcc10435ce631f355c1980f4b"
@@ -105,7 +105,7 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-04T05:43:46Z",
+      "last_fetched": "2026-01-21T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
       "sha256": "4120b540a836131ff507ddfb29dd329ee8c675410450c7856153d365e3e118f9"
@@ -117,7 +117,7 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-10T00:00:00Z",
+      "last_fetched": "2026-01-21T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
       "sha256": "141d227dab5d61510df7c4ae133834079f8e89ad927af8d2f6409cffc8fd4dfe"
@@ -177,7 +177,7 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-01-10T00:00:00Z",
+      "last_fetched": "2026-01-21T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
       "sha256": "c30575aa6dd82a6156d573710634080d8ae97f3c6dcb79852fbb653fc94f2c3d"
@@ -295,9 +295,9 @@
       "name": "Models Overview",
       "category": "models",
       "local_path": "models/overview.md",
-      "source_url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "source_url": "https://platform.claude.com/docs/en/about-claude/models/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-04T06:05:00Z",
+      "last_fetched": "2026-01-21T00:00:00Z",
       "review_status": "needs-review",
       "confidence": 0.75,
       "sha256": "9dac2dd496f6d04cc05a15db824872975fbfd4870e43b66d9f2de6e1ad1c810b"

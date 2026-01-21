@@ -2,7 +2,7 @@
 title: "TypeScript SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-01-21T00:00:00Z"
 category: "sdks"
 ---
 
@@ -24,7 +24,7 @@ npm install @anthropic-ai/sdk
 import Anthropic from '@anthropic-ai/sdk';
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'],
+  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
 });
 
 const message = await client.messages.create({
@@ -45,12 +45,28 @@ const stream = await client.messages.create({
   model: 'claude-sonnet-4-5-20250929',
   stream: true,
 });
-for await (const event of stream) {
-  console.log(event.type);
+for await (const messageStreamEvent of stream) {
+  console.log(messageStreamEvent.type);
 }
 ```
 
-To cancel: `break` from the loop or call `stream.controller.abort()`.
+To cancel a stream: `break` from the loop or call `stream.controller.abort()`.
+
+### Streaming Helpers
+
+```ts
+const stream = client.messages
+  .stream({
+    model: 'claude-sonnet-4-5-20250929',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: 'Say hello there!' }],
+  })
+  .on('text', (text) => {
+    console.log(text);
+  });
+
+const message = await stream.finalMessage();
+```
 
 ## Tool Helpers
 
@@ -61,14 +77,14 @@ import { z } from 'zod';
 const weatherTool = betaZodTool({
   name: 'get_weather',
   inputSchema: z.object({ location: z.string() }),
-  description: 'Get the current weather',
-  run: (input) => `Weather in ${input.location}: 60F`,
+  description: 'Get the current weather in a given location',
+  run: (input) => `The weather in ${input.location} is foggy and 60°F`,
 });
 
-const result = await client.beta.messages.toolRunner({
-  model: 'claude-sonnet-4-5-20250929',
+const finalMessage = await client.beta.messages.toolRunner({
+  model: 'claude-3-5-sonnet-20241022',
   max_tokens: 1000,
-  messages: [{ role: 'user', content: 'Weather in SF?' }],
+  messages: [{ role: 'user', content: 'What is the weather in San Francisco?' }],
   tools: [weatherTool],
 });
 ```
@@ -79,15 +95,23 @@ const result = await client.beta.messages.toolRunner({
 await client.messages.batches.create({
   requests: [
     {
-      custom_id: 'my-request',
+      custom_id: 'my-first-request',
       params: {
         model: 'claude-sonnet-4-5-20250929',
         max_tokens: 1024,
-        messages: [{ role: 'user', content: 'Hello' }],
+        messages: [{ role: 'user', content: 'Hello, world' }],
       },
     },
   ],
 });
+
+// Get results
+const results = await client.messages.batches.results(batch_id);
+for await (const entry of results) {
+  if (entry.result.type === 'succeeded') {
+    console.log(entry.result.message.content);
+  }
+}
 ```
 
 ## File Uploads
@@ -104,24 +128,42 @@ await client.beta.files.upload({
 
 ## Error Handling
 
-| Status Code | Error Type              |
-|-------------|-------------------------|
-| 400         | `BadRequestError`       |
-| 401         | `AuthenticationError`   |
-| 403         | `PermissionDeniedError` |
-| 404         | `NotFoundError`         |
-| 429         | `RateLimitError`        |
-| >=500       | `InternalServerError`   |
+```ts
+const message = await client.messages
+  .create({
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: 'Hello, Claude' }],
+    model: 'claude-sonnet-4-5-20250929',
+  })
+  .catch(async (err) => {
+    if (err instanceof Anthropic.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
+```
+
+| Status Code | Error Type                 |
+| ----------- | -------------------------- |
+| 400         | `BadRequestError`          |
+| 401         | `AuthenticationError`      |
+| 403         | `PermissionDeniedError`    |
+| 404         | `NotFoundError`            |
+| 422         | `UnprocessableEntityError` |
+| 429         | `RateLimitError`           |
+| >=500       | `InternalServerError`      |
 
 ## Retries & Timeouts
 
-- Default: 2 retries with exponential backoff
-- Default timeout: 10 minutes (scales with `max_tokens` for non-streaming)
+Default: 2 retries with exponential backoff. Default timeout: 10 minutes (scales with `max_tokens` for non-streaming).
 
 ```ts
 const client = new Anthropic({
-  maxRetries: 0,  // Disable retries
-  timeout: 20 * 1000,  // 20 seconds
+  maxRetries: 0, // Disable retries
+  timeout: 20 * 1000, // 20 seconds
 });
 ```
 
@@ -133,11 +175,34 @@ Set `ANTHROPIC_LOG=debug` or use the `logLevel` option:
 const client = new Anthropic({ logLevel: 'debug' });
 ```
 
+Available levels: `'debug'`, `'info'`, `'warn'`, `'error'`, `'off'`
+
+## Platform Support
+
+- **AWS Bedrock**: Available through [separate package](https://github.com/anthropics/anthropic-sdk-typescript/tree/main/packages/bedrock-sdk)
+- **Google Vertex AI**: Supported
+- **Proxies**: Configurable via `fetchOptions` with runtime-specific options
+
+## Beta Features
+
+Access beta features through the `beta` property with appropriate beta headers:
+
+```ts
+const response = await client.beta.messages.create({
+  max_tokens: 1024,
+  model: 'claude-sonnet-4-5-20250929',
+  messages: [{ role: 'user', content: "What's 4242424242 * 4242424242?" }],
+  tools: [{ name: 'code_execution', type: 'code_execution_20250522' }],
+  betas: ['code-execution-2025-05-22'],
+});
+```
+
 ## Requirements
 
 - TypeScript >= 4.9
-- Node.js 20 LTS or later
+- Node.js 20 LTS or later (non-EOL versions)
 - Deno v1.28.0+, Bun 1.0+
 - Cloudflare Workers, Vercel Edge Runtime
+- Jest 28+ with "node" environment
 
 For more information, see [docs.anthropic.com](https://docs.anthropic.com/).

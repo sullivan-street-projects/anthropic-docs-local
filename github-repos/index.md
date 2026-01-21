@@ -2,7 +2,7 @@
 title: "GitHub Repos Index"
 source_url: "https://api.github.com/orgs/anthropics/repos?per_page=100"
 source_type: "github-api"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-01-21T00:00:00Z"
 category: "github-repos"
 ---
 
@@ -10,7 +10,7 @@ category: "github-repos"
 
 Complete listing of public repositories in the [Anthropic GitHub organization](https://github.com/anthropics).
 
-> **Last updated:** January 10, 2026
+> **Last updated:** January 21, 2026
 
 ## Featured Repositories
 
@@ -18,7 +18,7 @@ Complete listing of public repositories in the [Anthropic GitHub organization](h
 |------------|-------|-------------|
 | [claude-code](https://github.com/anthropics/claude-code) | 54,630 | Terminal-based agentic coding tool |
 | [skills](https://github.com/anthropics/skills) | 37,052 | Agent Skills - dynamic instruction sets |
-| [anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook) | 30,842 | Usage patterns and examples |
+| [anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook) | 31,429 | Usage patterns and examples |
 | [prompt-eng-interactive-tutorial](https://github.com/anthropics/prompt-eng-interactive-tutorial) | 28,617 | Interactive Prompt Engineering Tutorial |
 | [courses](https://github.com/anthropics/courses) | 18,038 | Anthropic's educational courses |
 | [claude-quickstarts](https://github.com/anthropics/claude-quickstarts) | 13,415 | Rapid development projects |
@@ -27,8 +27,8 @@ Complete listing of public repositories in the [Anthropic GitHub organization](h
 
 | Repository | Stars | Description |
 |------------|-------|-------------|
-| [anthropic-sdk-python](https://github.com/anthropics/anthropic-sdk-python) | 2,605 | Official Python SDK |
-| [anthropic-sdk-typescript](https://github.com/anthropics/anthropic-sdk-typescript) | 1,509 | Official TypeScript SDK |
+| [anthropic-sdk-python](https://github.com/anthropics/anthropic-sdk-python) | 2,646 | Official Python SDK |
+| [anthropic-sdk-typescript](https://github.com/anthropics/anthropic-sdk-typescript) | 1,531 | Official TypeScript SDK |
 | [anthropic-sdk-go](https://github.com/anthropics/anthropic-sdk-go) | 696 | Official Go SDK |
 | [anthropic-sdk-ruby](https://github.com/anthropics/anthropic-sdk-ruby) | 272 | Official Ruby SDK |
 | [anthropic-sdk-java](https://github.com/anthropics/anthropic-sdk-java) | 203 | Official Java SDK |
