@@ -1,6 +1,6 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-01-11T16:40:07.514Z"
+generated_at: "2026-01-11T16:48:41.988Z"
 generator: "scripts/generate-architecture.js"
 ---
 
