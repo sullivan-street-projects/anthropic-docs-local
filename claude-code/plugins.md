@@ -2,19 +2,19 @@
 title: "Claude Code Plugins"
 source_url: "claude-code-guide-agent"
 source_type: "manual"
-fetched_at: "2026-01-04T06:15:00Z"
+fetched_at: "2026-01-31T00:00:00Z"
 category: "claude-code"
 ---
 
 # Claude Code Plugins
 
-Plugins extend Claude Code with custom functionality that can be shared across projects and teams, including slash commands, agents, Skills, hooks, and MCP server integrations.
+Plugins extend Claude Code with custom functionality that can be shared across projects and teams, including skills, agents, hooks, and MCP server integrations.
 
 ## When to Use Plugins
 
 **Use plugins when:**
 - Sharing functionality with team or community
-- Same commands needed across multiple projects
+- Same skills needed across multiple projects
 - Version control and easy updates required
 - Distributing through a marketplace
 
@@ -30,20 +30,26 @@ Plugins extend Claude Code with custom functionality that can be shared across p
 my-plugin/
 ├── .claude-plugin/           # REQUIRED
 │   └── plugin.json          # Plugin manifest
-├── commands/                 # Slash commands
-│   └── hello.md
+├── commands/                 # Slash commands (legacy)
+│   └── status.md
+├── skills/                   # Agent Skills (recommended)
+│   └── code-review/
+│       ├── SKILL.md         # Required
+│       └── reference.md     # Optional supporting files
 ├── agents/                   # Custom agents
-│   └── reviewer.md
-├── skills/                   # Agent Skills
-│   └── pdf-processing/
-│       └── SKILL.md
+│   └── security-reviewer.md
 ├── hooks/                    # Hook configurations
-│   └── hooks.json
+│   ├── hooks.json
+│   └── security-hooks.json
 ├── .mcp.json                # MCP server definitions
-└── scripts/                 # Utility scripts
+├── .lsp.json                # LSP server configurations
+├── scripts/                 # Utility scripts
+│   └── format.sh
+├── LICENSE
+└── CHANGELOG.md
 ```
 
-**Important**: Component directories (`commands/`, `agents/`, etc.) must be at plugin root, NOT inside `.claude-plugin/`.
+**Important**: Component directories (`commands/`, `agents/`, `skills/`, etc.) must be at plugin root, NOT inside `.claude-plugin/`.
 
 ## plugin.json Manifest
 
@@ -73,24 +79,77 @@ my-plugin/
 }
 ```
 
+### Component Path Fields
+
+```json
+{
+  "commands": ["./custom/cmd.md"],
+  "agents": "./custom/agents/",
+  "skills": "./custom/skills/",
+  "hooks": "./config/hooks.json",
+  "mcpServers": "./mcp-config.json",
+  "outputStyles": "./styles/",
+  "lspServers": "./.lsp.json"
+}
+```
+
+Custom paths supplement default directories, not replace them.
+
 ## Creating Components
 
-### Slash Commands
+### Skills (Recommended)
 
-Create Markdown files in `commands/`:
+Create directories with `SKILL.md` in `skills/`:
 
-```markdown
+```yaml
 ---
+name: code-review
 description: Review code for bugs and best practices
+argument-hint: "[file-or-directory]"
+disable-model-invocation: false
+user-invocable: true
+allowed-tools: Read, Grep, Glob
+model: opus
+context: fork
+agent: Explore
 ---
-
-# Code Review
 
 Review the code for potential bugs, security issues, and style.
 Be concise and actionable.
 ```
 
-**With arguments** (`$ARGUMENTS` or `$1`, `$2`):
+**Frontmatter Fields**:
+- `name`: Skill name (uses directory name if omitted)
+- `description`: What the skill does
+- `argument-hint`: Autocomplete hint
+- `disable-model-invocation`: Prevent Claude from auto-using
+- `user-invocable`: Show in `/` menu
+- `allowed-tools`: Tools Claude can use
+- `model`: Model to use
+- `context: fork`: Run in forked subagent
+- `agent`: Subagent type for context: fork
+
+**Dynamic Context** with shell commands:
+
+```yaml
+---
+name: pr-summary
+description: Summarize PR changes
+context: fork
+agent: Explore
+---
+
+PR diff: !`gh pr diff`
+Changed files: !`gh pr diff --name-only`
+
+Summarize this pull request...
+```
+
+**Usage**: `/my-plugin:code-review src/auth.ts`
+
+### Slash Commands (Legacy)
+
+Create Markdown files in `commands/`:
 
 ```markdown
 ---
@@ -109,8 +168,8 @@ Create Markdown files in `agents/`:
 
 ```markdown
 ---
-name: security-reviewer
 description: Security specialist for code reviews
+capabilities: ["vulnerability scanning", "secret detection"]
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---
@@ -122,28 +181,6 @@ When reviewing code:
 2. Check for hardcoded secrets
 3. Verify input validation
 4. Review access control
-```
-
-### Skills
-
-Create directories with `SKILL.md` in `skills/`:
-
-```yaml
----
-name: pdf-processing
-description: Extract text and data from PDFs
-allowed-tools: Read, Bash(python:*)
----
-
-# PDF Processing
-
-## Quick Start
-
-```python
-import pdfplumber
-with pdfplumber.open("document.pdf") as pdf:
-    text = pdf.pages[0].extract_text()
-```
 ```
 
 ### Hooks
@@ -167,6 +204,8 @@ Create `hooks/hooks.json`:
   }
 }
 ```
+
+Hook types: `command`, `prompt`, `agent`
 
 ### MCP Servers
 
@@ -194,10 +233,12 @@ Create `.mcp.json`:
 /plugin
 ```
 
+Tabs: Discover, Installed, Marketplaces, Errors
+
 ### CLI Commands
 
 ```bash
-# Install to user scope
+# Install to user scope (default)
 claude plugin install formatter@marketplace
 
 # Install to project scope (team)
@@ -221,10 +262,51 @@ claude plugin uninstall <plugin>
 
 | Scope | Settings File | Use Case |
 |-------|---------------|----------|
-| user | `~/.claude/settings.json` | Personal plugins |
+| user | `~/.claude/settings.json` | Personal plugins (default) |
 | project | `.claude/settings.json` | Team plugins (git) |
 | local | `.claude/settings.local.json` | Gitignored |
 | managed | `managed-settings.json` | Enterprise |
+
+## Plugin Marketplaces
+
+### Add Marketplace
+
+```bash
+/plugin marketplace add anthropics/claude-code
+/plugin marketplace add https://gitlab.com/company/plugins.git
+/plugin marketplace add ./my-local-marketplace
+```
+
+### Create Marketplace
+
+Create `.claude-plugin/marketplace.json`:
+
+```json
+{
+  "name": "company-tools",
+  "plugins": [
+    {
+      "name": "code-formatter",
+      "source": "./plugins/formatter",
+      "description": "Automatic code formatting"
+    }
+  ]
+}
+```
+
+### Plugin Sources
+
+```json
+{
+  "name": "my-plugin",
+  "source": {
+    "source": "github",
+    "repo": "owner/plugin-repo",
+    "ref": "v2.0.0",
+    "sha": "a1b2c3d4e5f6..."
+  }
+}
+```
 
 ## Team Configuration
 
@@ -246,6 +328,19 @@ Add to `.claude/settings.json`:
 }
 ```
 
+### Managed Marketplace Restrictions
+
+```json
+{
+  "strictKnownMarketplaces": [
+    {
+      "source": "github",
+      "repo": "acme-corp/approved-plugins"
+    }
+  ]
+}
+```
+
 ## Testing During Development
 
 ```bash
@@ -259,27 +354,23 @@ claude --plugin-dir ./plugin-one --plugin-dir ./plugin-two
 ## Best Practices
 
 ### Design
-
 - Single responsibility per component
-- Clear, specific descriptions
-- Include trigger keywords
+- Clear, specific descriptions with trigger keywords
+- Keep `SKILL.md` under 500 lines
 
 ### Versioning
-
 Follow semantic versioning:
 - MAJOR: Breaking changes
 - MINOR: New features
 - PATCH: Bug fixes
 
 ### Security
-
 - Never hardcode secrets
 - Validate input in hooks
 - Use `allowed-tools` in Skills
 - Review hook scripts carefully
 
 ### Documentation
-
 - Include README.md
 - Document all commands and agents
 - Provide setup instructions
@@ -288,57 +379,52 @@ Follow semantic versioning:
 ## Converting Standalone to Plugin
 
 ```bash
-# Create plugin structure
 mkdir -p my-plugin/.claude-plugin
-
-# Create manifest
 cat > my-plugin/.claude-plugin/plugin.json << 'EOF'
-{
-  "name": "my-plugin",
-  "version": "1.0.0"
-}
+{"name": "my-plugin", "version": "1.0.0"}
 EOF
 
 # Copy existing files
 cp -r .claude/commands my-plugin/
+cp -r .claude/skills my-plugin/
 cp -r .claude/agents my-plugin/
 
 # Test
 claude --plugin-dir ./my-plugin
 ```
 
-## Example: Simple Plugin
+## Recent Additions
 
-```
-greeting-plugin/
-├── .claude-plugin/
-│   └── plugin.json
-└── commands/
-    └── hello.md
-```
+### Automatic Skill Hot-Reload (v2.1.0)
+Skills automatically reload without restarting Claude Code.
 
-**plugin.json**:
+### Skill Context Fork (v2.1.0)
+```yaml
+context: fork
+agent: Explore
+```
+Run skills in isolated subagent contexts.
+
+### Merged Slash Commands and Skills (v2.1.3)
+Both create `/command-name` endpoints. Skills are recommended for new development.
+
+### Search in Installed Plugins List (v2.1.15)
+Type to filter plugins by name in the `/plugin` Installed tab.
+
+### Pin Plugins to Git Commits (v2.1.15)
 ```json
 {
-  "name": "greeting",
-  "description": "Simple greeting plugin",
-  "version": "1.0.0"
+  "source": {
+    "source": "github",
+    "repo": "owner/repo",
+    "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0"
+  }
 }
 ```
-
-**commands/hello.md**:
-```markdown
----
-description: Greet the user warmly
----
-
-Greet the user and ask how you can help today.
-```
-
-**Usage**: `/greeting:hello`
 
 ## Resources
 
 - **Plugin Reference**: https://code.claude.com/docs/en/plugins-reference.md
 - **Skills Guide**: https://code.claude.com/docs/en/skills.md
 - **Hooks Reference**: https://code.claude.com/docs/en/hooks.md
+- **Plugin Marketplaces**: https://code.claude.com/docs/en/plugin-marketplaces.md
