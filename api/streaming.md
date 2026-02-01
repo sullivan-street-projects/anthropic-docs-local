@@ -1,8 +1,8 @@
 ---
 title: "Streaming API"
-source_url: "https://docs.anthropic.com/en/api/streaming"
+source_url: "https://platform.claude.com/docs/en/api/streaming"
 source_type: "web-extracted"
-fetched_at: "2026-01-04T05:55:00Z"
+fetched_at: "2026-01-31T00:00:00Z"
 category: "api"
 ---
 

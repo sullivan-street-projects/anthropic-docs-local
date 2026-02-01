@@ -1,8 +1,8 @@
 ---
 title: "Vision API"
-source_url: "https://docs.anthropic.com/en/docs/build-with-claude/vision"
+source_url: "https://platform.claude.com/docs/en/build-with-claude/vision"
 source_type: "web-extracted"
-fetched_at: "2026-01-04T05:55:00Z"
+fetched_at: "2026-01-31T00:00:00Z"
 category: "api"
 ---
 

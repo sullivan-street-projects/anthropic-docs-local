@@ -1,8 +1,8 @@
 ---
 title: "Messages API"
-source_url: "https://docs.anthropic.com/en/api/messages"
+source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-01-04T05:55:00Z"
+fetched_at: "2026-01-31T00:00:00Z"
 category: "api"
 ---
 
@@ -44,8 +44,11 @@ Content can be a string or array of content blocks (text, images, documents).
 | `stop_sequences` | array | - | Custom stop sequences |
 | `stream` | boolean | false | Enable streaming |
 | `tools` | array | - | Tool definitions |
-| `tool_choice` | object | - | Tool usage control |
+| `tool_choice` | object | - | Tool usage control (auto/any/none/specific) |
 | `thinking` | object | - | Extended thinking config |
+| `metadata` | object | - | External user_id for abuse detection |
+| `service_tier` | string | - | `"auto"` or `"standard_only"` |
+| `output_config` | object | - | JSON schema for Structured Outputs |
 
 ## Example Request
 
@@ -90,6 +93,8 @@ curl https://api.anthropic.com/v1/messages \
 | `max_tokens` | Token limit reached |
 | `stop_sequence` | Hit custom stop sequence |
 | `tool_use` | Model invoked a tool |
+| `pause_turn` | Long-running turn paused |
+| `refusal` | Policy violation detected |
 
 ## Multi-turn Conversations
 
@@ -200,6 +205,45 @@ Process multiple requests asynchronously at 50% cost.
 }
 ```
 
+## Structured Outputs
+
+Define JSON schema for guaranteed structured responses:
+
+```json
+{
+  "output_config": {
+    "format": {
+      "type": "json_schema",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "age": {"type": "number"}
+        },
+        "required": ["name"]
+      }
+    }
+  }
+}
+```
+
+## Built-in Server Tools
+
+### Web Search
+```json
+{"type": "web_search_20250305", "name": "web_search", "max_uses": 5}
+```
+
+### Text Editor
+```json
+{"type": "text_editor_20250728", "name": "str_replace_based_edit_tool"}
+```
+
+### Bash
+```json
+{"type": "bash_20250124", "name": "bash"}
+```
+
 ## Best Practices
 
 1. Use `count_tokens` before requests to budget tokens
@@ -208,3 +252,5 @@ Process multiple requests asynchronously at 50% cost.
 4. Implement retry logic for rate limits
 5. Use caching for large reusable contexts
 6. Use batches for non-urgent bulk processing
+7. Use Structured Outputs for guaranteed schema conformance
+8. Maximum 100,000 messages per request; 32 MB request size limit

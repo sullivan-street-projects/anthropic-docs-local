@@ -2,28 +2,32 @@
 title: "Python SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-01-21T00:00:00Z"
+fetched_at: "2026-01-31T00:00:00Z"
 category: "sdks"
 ---
 
 # Anthropic SDK Python Changelog
 
-The changelog documents the evolution of the Anthropic Python SDK from version 0.3.4 (July 2023) through 0.76.0 (January 2026).
+The changelog documents the evolution of the Anthropic Python SDK from version 0.3.4 (July 2023) through 0.77.0 (January 2026).
 
-## Latest Release: 0.76.0 (January 13, 2026)
+## Latest Release: 0.77.0 (January 29, 2026)
 
 ### Key Features
+- Support for Structured Outputs in the Messages API
+- Migrated message format sending to use `output_config` rather than `output_format`
+- Custom JSON encoder for extended type support
+
+### Notable Improvements
+- Fixed avoiding beta headers when `output_format` is missing
+
+## Recent Major Releases
+
+### 0.76.0 (January 13, 2026)
 - Raw JSON schema support for `messages.stream()`
 - Binary request streaming capability for the client
 - Server-side tools support in the tool runner
-
-### Notable Improvements
 - Loosened auth header validation
 - Ensured streams are always properly closed
-- Enhanced type inference for TypedDict types
-- Improved async file handling in PATCH requests
-
-## Recent Major Releases
 
 ### 0.75.0 (November 24, 2025)
 Added support for Claude Opus 4.5, along with effort controls, advanced tool use features, autocompaction, and Computer Use v5.
@@ -61,6 +65,7 @@ Consistent updates to dependencies, type checking tools (pyright, mypy), and lin
 
 | Version | Date | Key Changes |
 |---------|------|-------------|
+| 0.77.0 | Jan 2026 | Structured Outputs in Messages API |
 | 0.76.0 | Jan 2026 | JSON schema streaming, binary streaming |
 | 0.75.0 | Nov 2025 | Claude Opus 4.5 support |
 | 0.74.0 | Nov 2025 | Foundry SDK integration |

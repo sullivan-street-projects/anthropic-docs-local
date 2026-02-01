@@ -2,24 +2,47 @@
 title: "Claude Code CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-01-21T00:00:00Z"
+fetched_at: "2026-01-31T00:00:00Z"
 category: "claude-code"
 ---
 
 # Claude Code Changelog
 
-The changelog documents Claude Code's evolution from version 0.2.21 through 2.1.15, tracking significant feature additions, bug fixes, and improvements.
+The changelog documents Claude Code's evolution from version 0.2.21 through 2.1.29, tracking significant feature additions, bug fixes, and improvements.
 
-## Latest Release: 2.1.15
+## Latest Release: 2.1.29
 
 ### Highlights
+- Fixed startup performance issues when resuming sessions with saved hook context
+- Resolved VSCode OAuth token expiration causing 401 errors
+
+## Recent Major Releases
+
+### 2.1.23
+- Customizable spinner verbs setting for personalized feedback
+- Optimized terminal rendering performance with improved screen data layout
+- Fixed mTLS and proxy connectivity for corporate environments
+- Fixed per-user temp directory isolation on shared systems
+- Fixed race condition causing 400 errors with prompt caching
+- Fixed tab completion not updating input field properly
+- Fixed ripgrep search timeouts silently failing
+
+### 2.1.21
+- Enhanced reading/search progress indicators showing real-time status
+- Automatic Python virtual environment activation in VSCode
+- Fixed message action button background colors
+
+### 2.1.20
+- PR review status indicator in prompt footer showing approval state
+- External editor shortcut (Ctrl+G) for prompt editing
+- Support for loading CLAUDE.md files from additional directories
+
+### 2.1.15
 - Deprecation notification for npm installations, with guidance toward alternative installation methods
 - History-based autocomplete in bash mode using Tab completion
 - Search functionality for installed plugins list
 - Support for pinning plugins to specific git commit SHAs
 - [VSCode] `/usage` command for displaying current plan usage
-
-## Recent Major Releases
 
 ### 2.1.3
 - Merged slash commands and skills, simplifying the mental model with no change in behavior

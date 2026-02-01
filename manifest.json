@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-01-21T00:00:00Z",
+  "last_full_update": "2026-01-31T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -21,7 +21,7 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-21T00:00:00Z",
+      "last_fetched": "2026-01-31T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
       "sha256": "ccbf4462ada8b23027af63db5316235cc074f49bcc10435ce631f355c1980f4b"
@@ -105,7 +105,7 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-21T00:00:00Z",
+      "last_fetched": "2026-01-31T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
       "sha256": "4120b540a836131ff507ddfb29dd329ee8c675410450c7856153d365e3e118f9"
@@ -129,7 +129,7 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-04T05:43:46Z",
+      "last_fetched": "2026-01-31T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
       "sha256": "10a0ae84f29eb55d5b5144a77591f9d1afbec884afa1569ae1c80d8541e5dd13"
@@ -235,9 +235,9 @@
       "name": "Messages API",
       "category": "api",
       "local_path": "api/messages-api.md",
-      "source_url": "https://docs.anthropic.com/en/api/messages",
+      "source_url": "https://platform.claude.com/docs/en/api/messages",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-04T05:55:00Z",
+      "last_fetched": "2026-01-31T00:00:00Z",
       "review_status": "needs-review",
       "confidence": 0.75,
       "sha256": "ec981d816ab07465e9455797a861240542781a610180428f803934c25725df73"
@@ -247,9 +247,9 @@
       "name": "Tool Use Guide",
       "category": "api",
       "local_path": "api/tool-use.md",
-      "source_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+      "source_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-04T05:55:00Z",
+      "last_fetched": "2026-01-31T00:00:00Z",
       "review_status": "needs-review",
       "confidence": 0.75,
       "sha256": "b04e75106f8f3300edf5792f4171f8124b200885d527cfb752c199966e284090"
@@ -259,9 +259,9 @@
       "name": "Vision API",
       "category": "api",
       "local_path": "api/vision.md",
-      "source_url": "https://docs.anthropic.com/en/docs/build-with-claude/vision",
+      "source_url": "https://platform.claude.com/docs/en/build-with-claude/vision",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-04T05:55:00Z",
+      "last_fetched": "2026-01-31T00:00:00Z",
       "review_status": "needs-review",
       "confidence": 0.75,
       "sha256": "4d71459a60bfd58a0072ca293e338afa77de2f280b5ec6d6e9cfff1d9ecae55b"
@@ -271,9 +271,9 @@
       "name": "Streaming API",
       "category": "api",
       "local_path": "api/streaming.md",
-      "source_url": "https://docs.anthropic.com/en/api/streaming",
+      "source_url": "https://platform.claude.com/docs/en/api/streaming",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-04T05:55:00Z",
+      "last_fetched": "2026-01-31T00:00:00Z",
       "review_status": "needs-review",
       "confidence": 0.75,
       "sha256": "318f543f0e71951f92218e081b386e2e0df1b1e4d8eba83e23af77f84d007a41"
@@ -283,9 +283,9 @@
       "name": "API Errors",
       "category": "api",
       "local_path": "api/errors.md",
-      "source_url": "https://docs.anthropic.com/en/api/errors",
+      "source_url": "https://platform.claude.com/docs/en/api/errors",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-04T05:55:00Z",
+      "last_fetched": "2026-01-31T00:00:00Z",
       "review_status": "needs-review",
       "confidence": 0.75,
       "sha256": "263c80f721bbfd42de6deab1c62395712021630d73f5a67c8c85cc8109dce782"
