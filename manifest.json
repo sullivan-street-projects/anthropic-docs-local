@@ -76,15 +76,39 @@
     },
     {
       "id": "claude-code-best-practices",
-      "name": "Claude Code Best Practices",
+      "name": "Boris Cherny Personal Setup (Jan 2)",
       "category": "claude-code",
       "local_path": "claude-code/best-practices.md",
-      "source_url": "https://twitter-thread.com/t/2007179832300581177",
+      "source_url": "https://x.com/bcherny/status/2007179832300581177",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-07T00:00:00Z",
-      "review_status": "needs-review",
-      "confidence": 0.75,
-      "sha256": "67a03360d52b47db1bd404b7fd6be8eb62e0b9b8fb6b20246b2e47da0f619ac5"
+      "last_fetched": "2026-02-02T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.9,
+      "sha256": "21a1a3faf3e5563f4c335a7eb35c74c5362b6b19746e4e576ea27f5f92a41432"
+    },
+    {
+      "id": "claude-code-boris-team-tips",
+      "name": "Boris Cherny Team Tips (Jan 31)",
+      "category": "claude-code",
+      "local_path": "claude-code/boris-thread-jan31.md",
+      "source_url": "https://x.com/bcherny/status/2017742741636321619",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-02-02T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.9,
+      "sha256": "b73e29749325e85e18f033810ecd40c183065d5f42d6fffa8bc08b2cc029b735"
+    },
+    {
+      "id": "claude-code-claudemd-template",
+      "name": "CLAUDE.md Instructions Template (Community)",
+      "category": "claude-code",
+      "local_path": "claude-code/claude-md-instructions.md",
+      "source_url": "https://x.com/exm7777/status/2018022297345654870",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-02-02T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.85,
+      "sha256": "784f529c647c680a3bf2e9e9c44eb856f67d9294fb2eae75f0de9e55c19ea3bc"
     },
     {
       "id": "python-sdk-readme",
