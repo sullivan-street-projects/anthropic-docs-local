@@ -201,10 +201,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-01-21T00:00:00Z",
+      "last_fetched": "2026-02-02T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "c30575aa6dd82a6156d573710634080d8ae97f3c6dcb79852fbb653fc94f2c3d"
+      "sha256": "3139b0c2bf067831f05ee317f537475f6fa47b4dd93b49b5546a07698ec453a0"
     },
     {
       "id": "release-notes-platform",
