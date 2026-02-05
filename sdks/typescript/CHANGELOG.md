@@ -2,17 +2,24 @@
 title: "TypeScript SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-05T00:00:00Z"
 category: "sdks"
 ---
 
 # Anthropic SDK TypeScript Changelog
 
-The changelog documents releases from v0.72.1 (January 2026) through v0.5.4 (July 2023).
+The changelog documents releases from v0.73.0 (February 2026) through v0.5.4 (July 2023).
 
 ## Recent Highlights
 
-**Latest Release (0.72.1):** Bug fix removing OutputFormat exports from index.ts.
+**Latest Release (0.73.0 - February 5, 2026):**
+- Manual API updates
+- Fixed memory leak in abort signal listener
+- Fixed abort controller binding issues
+- Fixed response parsing with empty content-length headers
+
+### 0.72.1 (January 30, 2026)
+- Bug fix removing OutputFormat exports from index.ts
 
 ### 0.72.0 (January 29, 2026)
 - Support for Structured Outputs in the Messages API
@@ -54,6 +61,7 @@ The changelog documents releases from v0.72.1 (January 2026) through v0.5.4 (Jul
 
 | Version | Date | Key Changes |
 |---------|------|-------------|
+| 0.73.0 | Feb 2026 | API updates, memory leak fixes |
 | 0.72.1 | Jan 2026 | Structured Outputs, MCP helpers |
 | 0.71.2 | Dec 2025 | Stream error fix |
 | 0.70.0 | Nov 2025 | Foundation SDK |

@@ -2,17 +2,41 @@
 title: "Claude Code CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-05T00:00:00Z"
 category: "claude-code"
 ---
 
 # Claude Code Changelog
 
-The changelog documents Claude Code's evolution from version 0.2.21 through 2.1.29, tracking significant feature additions, bug fixes, and improvements.
+The changelog documents Claude Code's evolution from version 0.2.21 through 2.1.32, tracking significant feature additions, bug fixes, and improvements.
 
-## Latest Release: 2.1.29
+## Latest Release: 2.1.32
 
 ### Highlights
+- **Claude Opus 4.6 is now available!**
+- Research preview agent teams feature for multi-agent collaboration (requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`)
+- Claude now automatically records and recalls memories as it works
+- Added "Summarize from here" to message selector for partial conversation summarization
+- Skills defined in `.claude/skills/` within additional directories (`--add-dir`) are now loaded automatically
+- Skill character budget now scales with context window (2% of context)
+- Fixed `@` file completion showing incorrect relative paths when running from a subdirectory
+- Fixed Bash tool "Bad substitution" errors when heredocs contain JavaScript template literals like `${index + 1}`
+- Fixed Thai/Lao spacing vowels rendering in input field
+
+### 2.1.31
+- Added session resume hint on exit
+- Fixed PDF too large errors permanently locking up sessions
+- Fixed bash commands incorrectly reporting "Read-only file system" errors in sandbox mode
+- Improved system prompts to guide model toward using dedicated tools instead of bash equivalents
+
+### 2.1.30
+- Added `pages` parameter to Read tool for PDFs (e.g., `pages: "1-5"`)
+- Large PDFs (>10 pages) now return lightweight reference when `@` mentioned
+- Added pre-configured OAuth client credentials for MCP servers without Dynamic Client Registration
+- Added `/debug` command for troubleshooting
+- Improved memory usage for `--resume` (68% reduction)
+
+### 2.1.29
 - Fixed startup performance issues when resuming sessions with saved hook context
 - Resolved VSCode OAuth token expiration causing 401 errors
 
@@ -77,7 +101,9 @@ The changelog documents Claude Code's evolution from version 0.2.21 through 2.1.
 ## Major Features Added
 
 ### AI & Model Capabilities
-- Opus 4.5 and Haiku 4.5 model support with plan mode integration
+- **Opus 4.6**, Opus 4.5 and Haiku 4.5 model support with plan mode integration
+- Automatic memory recording and recall during work sessions
+- Agent teams (research preview) for multi-agent collaboration
 - "Thinking mode" for deeper reasoning, now enabled by default for Opus 4.5
 - Web search functionality
 - Background agent support allowing concurrent work

@@ -2,25 +2,29 @@
 title: "Python SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-05T00:00:00Z"
 category: "sdks"
 ---
 
 # Anthropic SDK Python Changelog
 
-The changelog documents the evolution of the Anthropic Python SDK from version 0.3.4 (July 2023) through 0.77.0 (January 2026).
+The changelog documents the evolution of the Anthropic Python SDK from version 0.3.4 (July 2023) through 0.78.0 (February 2026).
 
-## Latest Release: 0.77.0 (January 29, 2026)
+## Latest Release: 0.78.0 (February 5, 2026)
 
 ### Key Features
+- Manual API updates
+
+### 0.77.1 (February 3, 2026)
+- Fixed: Send structured output beta header when format is omitted
+
+## Recent Major Releases
+
+### 0.77.0 (January 29, 2026)
 - Support for Structured Outputs in the Messages API
 - Migrated message format sending to use `output_config` rather than `output_format`
 - Custom JSON encoder for extended type support
-
-### Notable Improvements
 - Fixed avoiding beta headers when `output_format` is missing
-
-## Recent Major Releases
 
 ### 0.76.0 (January 13, 2026)
 - Raw JSON schema support for `messages.stream()`
