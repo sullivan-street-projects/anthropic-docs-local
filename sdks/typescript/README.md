@@ -2,15 +2,17 @@
 title: "TypeScript SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-01-21T00:00:00Z"
+fetched_at: "2026-02-14T00:00:00Z"
 category: "sdks"
 ---
 
-# Anthropic TypeScript API Library
+# Claude SDK for TypeScript
 
-[![NPM version](https://img.shields.io/npm/v/@anthropic-ai/sdk.svg?label=npm%20(stable))](https://npmjs.org/package/@anthropic-ai/sdk)
+[![NPM version](https://img.shields.io/npm/v/@anthropic-ai/sdk.svg?label=npm%20(stable))](https://npmjs.org/package/@anthropic-ai/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@anthropic-ai/sdk)
 
-Server-side TypeScript/JavaScript library for the Anthropic REST API.
+This library provides convenient access to the Claude API from TypeScript or JavaScript.
+
+The full API documentation can be found at [platform.claude.com/docs](https://platform.claude.com/docs/en/api/typescript/messages/create) or in [api.md](api.md).
 
 ## Installation
 

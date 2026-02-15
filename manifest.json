@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-02-05T00:00:00Z",
+  "last_full_update": "2026-02-14T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -9,10 +9,10 @@
       "local_path": "claude-code/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-10T00:00:00Z",
+      "last_fetched": "2026-02-14T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "b991bff5d1e402bc88ab86934ec1dc8b2abb70d2330053de656a674c9c65c7f1"
+      "sha256": "eda627f276b1b3de2d12df382384a6a3eaaa91ff395336cccf14a1f85a5b5278"
     },
     {
       "id": "claude-code-changelog",
@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-02-05T00:00:00Z",
+      "last_fetched": "2026-02-14T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "efcd53550ac620b299cd2228f5405e04daf519d0c6af6a810bca4ecb00e6b705"
+      "sha256": "0ff75b9be409961d7e4ee5e9e8ed688e996406ec507c3f8e236cc748b1656bbe"
     },
     {
       "id": "claude-code-features",
@@ -117,10 +117,10 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-10T00:00:00Z",
+      "last_fetched": "2026-02-14T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "1a209c21a7ace3ba6711723da131691c0c3e6fde7a2602d7fcf98a4c8dfe33f8"
+      "sha256": "f2dd0da4f2f80ae529495d5be5097a651d6c3b03422ad02665954fd57582ede0"
     },
     {
       "id": "python-sdk-changelog",
@@ -129,10 +129,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-02-05T00:00:00Z",
+      "last_fetched": "2026-02-14T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "481e62313d4b8f756bc34422151b13fc0e2ca69beb23ace6f6b129ef4a52fbe9"
+      "sha256": "ccf30ed78bbaec06aa1a53c7ffa8a96cd34de24a20ca9aaa382ca8226759b1e9"
     },
     {
       "id": "typescript-sdk-readme",
@@ -141,10 +141,10 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-21T00:00:00Z",
+      "last_fetched": "2026-02-14T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "141d227dab5d61510df7c4ae133834079f8e89ad927af8d2f6409cffc8fd4dfe"
+      "sha256": "846c9a36cd42cada660e2fdbf6c670c33b5460d6be3e12e2cd897f28f9ba35a0"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -153,10 +153,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-02-05T00:00:00Z",
+      "last_fetched": "2026-02-14T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "c0b27ecce10b431dab49edeb242cad4794325d9cc0e2dfea19898f73df75c6ea"
+      "sha256": "e94284fc15c1e155f85e9bc21debc4f48c12ff5144ae86d6a7d1f8b7f38b90aa"
     },
     {
       "id": "other-sdks-overview",
@@ -177,10 +177,10 @@
       "local_path": "skills/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-10T00:00:00Z",
+      "last_fetched": "2026-02-14T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "8c450af4a47b561ef064270c7dd932d14de8c0a2d14a21d9b68620f4890957ff"
+      "sha256": "cf5664cf90e489f72a671fd424b7ccc5b1304ceeaaac7d478d96d7b86b4e889a"
     },
     {
       "id": "skills-catalog",
@@ -201,10 +201,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-02-02T00:00:00Z",
+      "last_fetched": "2026-02-14T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "3139b0c2bf067831f05ee317f537475f6fa47b4dd93b49b5546a07698ec453a0"
+      "sha256": "00bb000138d9b3ae2974a56d32f21eb946657a5be41d1f02a2b4caad93b40a7e"
     },
     {
       "id": "release-notes-platform",
@@ -417,10 +417,10 @@
       "local_path": "cookbooks/index.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-01-10T00:00:00Z",
+      "last_fetched": "2026-02-14T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "d9ebf66539c91f56257060152d5bbb628398e480168d07e4bef7ad2600429312"
+      "sha256": "b3f244e25253fdfa9c756755e73a3d6f569d5a202a8ad4609a7953630dd2685c"
     },
     {
       "id": "research-index",

@@ -2,21 +2,25 @@
 title: "TypeScript SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-02-05T00:00:00Z"
+fetched_at: "2026-02-14T00:00:00Z"
 category: "sdks"
 ---
 
 # Anthropic SDK TypeScript Changelog
 
-The changelog documents releases from v0.73.0 (February 2026) through v0.5.4 (July 2023).
+The changelog documents releases from v0.74.0 (February 2026) through v0.5.4 (July 2023).
 
 ## Recent Highlights
 
-**Latest Release (0.73.0 - February 5, 2026):**
-- Manual API updates
+**Latest Release (0.74.0 - February 7, 2026):**
+- Enabling fast-mode in claude-opus-4-6
+
+### 0.73.0 (February 5, 2026)
+- Release Claude Opus 4.6, adaptive thinking, and other features
 - Fixed memory leak in abort signal listener
 - Fixed abort controller binding issues
 - Fixed response parsing with empty content-length headers
+- Fixed pagination internals not accepting option promises
 
 ### 0.72.1 (January 30, 2026)
 - Bug fix removing OutputFormat exports from index.ts
@@ -31,9 +35,10 @@ The changelog documents releases from v0.73.0 (February 2026) through v0.5.4 (Ju
 - Bug fix ensuring errors are catchable in streams
 
 **Key Recent Features:**
+- Fast mode for Opus 4.6
 - Structured Outputs in Messages API (GA)
 - MCP SDK helper functions
-- Support for Claude Opus 4.5, Computer Use v5, and advanced tool use
+- Support for Claude Opus 4.5/4.6, Computer Use v5, and advanced tool use
 - Message batches API with streaming support
 - Web search integration and PDFs in messages
 - Token counting and prompt caching features
@@ -61,7 +66,8 @@ The changelog documents releases from v0.73.0 (February 2026) through v0.5.4 (Ju
 
 | Version | Date | Key Changes |
 |---------|------|-------------|
-| 0.73.0 | Feb 2026 | API updates, memory leak fixes |
+| 0.74.0 | Feb 2026 | Fast mode for Opus 4.6 |
+| 0.73.0 | Feb 2026 | Opus 4.6, memory leak fixes |
 | 0.72.1 | Jan 2026 | Structured Outputs, MCP helpers |
 | 0.71.2 | Dec 2025 | Stream error fix |
 | 0.70.0 | Nov 2025 | Foundation SDK |

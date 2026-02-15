@@ -2,15 +2,19 @@
 title: "Python SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-02-14T00:00:00Z"
 category: "sdks"
 ---
 
-# Anthropic Python API Library
+# Anthropic Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/anthropic.svg?label=pypi%20(stable))](https://pypi.org/project/anthropic/)
 
-The Anthropic Python library provides convenient access to the Anthropic REST API from Python 3.9+ applications, with type definitions and both synchronous and asynchronous clients.
+The Anthropic Python library provides convenient access to the Anthropic REST API from any Python 3.9+ application. It includes type definitions for all request params and response fields, and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
+
+## Documentation
+
+The REST API documentation can be found on [docs.anthropic.com](https://docs.anthropic.com/claude/reference/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 

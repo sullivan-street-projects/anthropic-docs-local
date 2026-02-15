@@ -2,18 +2,22 @@
 title: "Python SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-02-05T00:00:00Z"
+fetched_at: "2026-02-14T00:00:00Z"
 category: "sdks"
 ---
 
 # Anthropic SDK Python Changelog
 
-The changelog documents the evolution of the Anthropic Python SDK from version 0.3.4 (July 2023) through 0.78.0 (February 2026).
+The changelog documents the evolution of the Anthropic Python SDK from version 0.3.4 (July 2023) through 0.79.0 (February 2026).
 
-## Latest Release: 0.78.0 (February 5, 2026)
+## Latest Release: 0.79.0 (February 7, 2026)
 
 ### Key Features
-- Manual API updates
+- Enabling fast-mode in claude-opus-4-6
+- Fixed: pass speed parameter through in sync beta count_tokens
+
+### 0.78.0 (February 5, 2026)
+- Release Claude Opus 4.6, adaptive thinking, and other features
 
 ### 0.77.1 (February 3, 2026)
 - Fixed: Send structured output beta header when format is omitted
@@ -44,7 +48,7 @@ Added support for structured outputs beta functionality.
 
 ## Major Features Added
 
-**Model & API Support**: The SDK progressively added support for newer Claude models, including Claude 3.5 Sonnet, Claude Opus 4.5, and Haiku variants. New capabilities like tool use, structured outputs, web search, and file handling were incorporated.
+**Model & API Support**: The SDK progressively added support for newer Claude models, including Claude 3.5 Sonnet, Claude Opus 4.5/4.6, and Haiku variants. New capabilities like tool use, structured outputs, web search, fast mode, and file handling were incorporated.
 
 **Streaming & Helpers**: Significant refactoring introduced event-iterator patterns for streaming. The SDK added "helper methods" for common tasks like prompt caching and message accumulation.
 
@@ -69,6 +73,8 @@ Consistent updates to dependencies, type checking tools (pyright, mypy), and lin
 
 | Version | Date | Key Changes |
 |---------|------|-------------|
+| 0.79.0 | Feb 2026 | Fast mode for Opus 4.6 |
+| 0.78.0 | Feb 2026 | Opus 4.6, adaptive thinking |
 | 0.77.0 | Jan 2026 | Structured Outputs in Messages API |
 | 0.76.0 | Jan 2026 | JSON schema streaming, binary streaming |
 | 0.75.0 | Nov 2025 | Claude Opus 4.5 support |

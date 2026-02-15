@@ -2,65 +2,88 @@
 title: "Skills README"
 source_url: "https://raw.githubusercontent.com/anthropics/skills/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-02-14T00:00:00Z"
 category: "skills"
 ---
 
-# Skills: Extending Claude Capabilities
+> **Note:** This repository contains Anthropic's implementation of skills for Claude. For information about the Agent Skills standard, see [agentskills.io](http://agentskills.io).
 
-Skills are folders containing instructions and resources that enhance Claude's capabilities for specialized tasks. They enable Claude to handle specific workflows consistently, from document creation with brand guidelines to data analysis using organizational processes.
+# Skills
 
-## Key Resources
+Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. Skills teach Claude how to complete specific tasks in a repeatable way, whether that's creating documents with your company's brand guidelines, analyzing data using your organization's specific workflows, or automating personal tasks.
 
-The repository provides:
-- "What are skills?" documentation
-- Instructions for using and creating custom skills
-- Engineering insights on deploying agent skills
+For more information, check out:
+- [What are skills?](https://support.claude.com/en/articles/12512176-what-are-skills)
+- [Using skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude)
+- [How to create custom skills](https://support.claude.com/en/articles/12512198-creating-custom-skills)
+- [Equipping agents for the real world with Agent Skills](https://anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
 
-## Repository Contents
+# About This Repository
 
-Skills span multiple domains:
-- **Creative**: art, music, design
-- **Technical**: web app testing, server generation
-- **Enterprise**: communications, branding
-- **Documents**: DOCX, PDF, PPTX, XLSX manipulation
+This repository contains skills that demonstrate what's possible with Claude's skills system. These skills range from creative applications (art, music, design) to technical tasks (testing web apps, MCP server generation) to enterprise workflows (communications, branding, etc.).
 
-Each skill includes a `SKILL.md` file with instructions Claude follows. Document manipulation skills are source-available references for production implementations.
+Each skill is self-contained in its own folder with a `SKILL.md` file containing the instructions and metadata that Claude uses. Browse through these skills to get inspiration for your own skills or to understand different patterns and approaches.
 
-## Skill Structure
+Many skills in this repo are open source (Apache 2.0). Document creation & editing skills that power [Claude's document capabilities](https://www.anthropic.com/news/create-files) are in the `skills/docx`, `skills/pdf`, `skills/pptx`, and `skills/xlsx` subfolders. These are source-available, not open source, but shared as a reference for complex production skills.
 
-A minimal skill requires:
-1. A folder containing a `SKILL.md` file
-2. YAML frontmatter with name and description
-3. Markdown instructions for Claude
+## Disclaimer
 
-### Example SKILL.md
+**These skills are provided for demonstration and educational purposes only.** Implementations and behaviors you receive from Claude may differ from what is shown in these skills. Always test skills thoroughly in your own environment before relying on them for critical tasks.
 
-```yaml
----
-name: my-skill
-description: What this skill does and when to use it
----
+# Skill Sets
+- [./skills](./skills): Skill examples for Creative & Design, Development & Technical, Enterprise & Communication, and Document Skills
+- [./spec](./spec): The Agent Skills specification
+- [./template](./template): Skill template
 
-# Instructions
-Your instructions here...
+# Try in Claude Code, Claude.ai, and the API
+
+## Claude Code
+Register this repository as a Claude Code Plugin marketplace:
+```
+/plugin marketplace add anthropics/skills
 ```
 
-## Access Methods
-
-**Claude Code**: Register the repository as a plugin marketplace
+Then install specific sets:
 ```
 /plugin install document-skills@anthropic-agent-skills
+/plugin install example-skills@anthropic-agent-skills
 ```
 
-**Claude.ai**: Available to paid plan users; upload custom skills via the interface
+## Claude.ai
+Example skills are all already available to paid plans in Claude.ai. To use any skill or upload custom skills, follow [Using skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude#h_a4222fa77b).
 
-**Claude API**: Integrate pre-built or custom skills programmatically
+## Claude API
+Use pre-built or custom skills via the Claude API. See the [Skills API Quickstart](https://docs.claude.com/en/api/skills-guide#creating-a-skill).
 
-## Creating Custom Skills
+# Creating a Basic Skill
 
-1. Start with the template skill in the repository
-2. Define `name` (lowercase, hyphen-separated) and `description` in YAML frontmatter
-3. Write clear instructions in Markdown
-4. Test in Claude Code or via API
-5. Share with the community
+Skills are simple to create - just a folder with a `SKILL.md` file containing YAML frontmatter and instructions:
+
+```markdown
+---
+name: my-skill-name
+description: A clear description of what this skill does and when to use it
+---
+
+# My Skill Name
+
+[Add your instructions here that Claude will follow when this skill is active]
+
+## Examples
+- Example usage 1
+- Example usage 2
+
+## Guidelines
+- Guideline 1
+- Guideline 2
+```
+
+The frontmatter requires only two fields:
+- `name` - A unique identifier for your skill (lowercase, hyphens for spaces)
+- `description` - A complete description of what the skill does and when to use it
+
+For more details, see [How to create custom skills](https://support.claude.com/en/articles/12512198-creating-custom-skills).
+
+# Partner Skills
+
+- **Notion** - [Notion Skills for Claude](https://www.notion.so/notiondevs/Notion-Skills-for-Claude-28da4445d27180c7af1df7d8615723d0)
