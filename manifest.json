@@ -195,6 +195,32 @@
       "sha256": "5040695a997a1a5c8a8f36ccfed3c25ec1026a7ea7b8f0b21d864956b0ef545c"
     },
     {
+      "id": "skills-building-guide",
+      "name": "The Complete Guide to Building Skills for Claude",
+      "category": "skills",
+      "local_path": "skills/building-skills-guide.md",
+      "source_url": "https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-02-14T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.95,
+      "sha256": "e79608b6c5cd7a0a7eb70e8c828668bf17a87e964771f4f5d09f63128e770908",
+      "notes": "Official Anthropic PDF (30 pages). Local PDF copy at skills/building-skills-guide.pdf"
+    },
+    {
+      "id": "skills-building-guide-pdf",
+      "name": "Building Skills Guide (PDF)",
+      "category": "skills",
+      "local_path": "skills/building-skills-guide.pdf",
+      "source_url": "https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-02-14T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 1.0,
+      "sha256": "66cbcc06df9271e0bb59986582646f0c4c7c94697554f893f937a5a55cef736d",
+      "notes": "Original PDF, 30 pages, 548KB"
+    },
+    {
       "id": "github-repos-index",
       "name": "GitHub Repos Index",
       "category": "github-repos",
