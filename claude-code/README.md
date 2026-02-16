@@ -2,10 +2,9 @@
 title: "Claude Code README"
 source_url: "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-02-14T00:00:00Z"
+fetched_at: "2026-02-15T00:00:00Z"
 category: "claude-code"
 ---
-
 # Claude Code
 
 ![](https://img.shields.io/badge/Node.js-18%2B-brightgreen?style=flat-square) [![npm]](https://www.npmjs.com/package/@anthropic-ai/claude-code)
@@ -15,6 +14,8 @@ category: "claude-code"
 Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows -- all through natural language commands. Use it in your terminal, IDE, or tag @claude on Github.
 
 **Learn more in the [official documentation](https://code.claude.com/docs/en/overview)**.
+
+<img src="./demo.gif" />
 
 ## Get started
 > [!NOTE]
