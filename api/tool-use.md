@@ -2,7 +2,7 @@
 title: "Tool Use Guide"
 source_url: "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
 source_type: "web-extracted"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "api"
 ---
 
@@ -10,217 +10,118 @@ category: "api"
 
 Claude can interact with tools and functions, extending its capabilities to perform a wider variety of tasks.
 
-## Types of Tools
+## How Tool Use Works
 
-1. **Client tools**: Execute on your systems
-   - User-defined custom tools
-   - Anthropic-defined tools (computer use, text editor)
+Claude supports two types of tools:
 
-2. **Server tools**: Execute on Anthropic's servers
-   - Web search
-   - Web fetch
+### 1. Client Tools
+Tools that execute on your systems:
+- User-defined custom tools you create and implement
+- Anthropic-defined tools like computer use and text editor that require client implementation
 
-## How It Works
+**Workflow:**
+1. Provide Claude with tools and a user prompt (define tools with names, descriptions, and input schemas)
+2. Claude decides to use a tool (response has `stop_reason: "tool_use"`)
+3. Execute the tool and return results in a `tool_result` content block
+4. Claude uses tool result to formulate a response
 
-### Client Tools
+### 2. Server Tools
+Tools that execute on Anthropic's servers (web search, web fetch). No client implementation needed.
 
-1. **Provide tools and prompt**: Define tools with names, descriptions, and input schemas
-2. **Claude decides to use a tool**: Returns `stop_reason: "tool_use"`
-3. **Execute and return results**: Run the tool, return `tool_result`
-4. **Claude formulates response**: Uses tool results for final answer
+**Workflow:**
+1. Provide tools and user prompt
+2. Claude executes the server tool (up to 10 iterations in sampling loop)
+3. Results automatically incorporated into response
 
-### Server Tools
+**Note:** If the server-side loop reaches 10 iterations, the API returns `stop_reason="pause_turn"`. Continue the conversation by sending the response back.
 
-1. **Provide tools and prompt**: Specify server tools like web search
-2. **Claude executes the tool**: Results automatically incorporated
-3. **Claude formulates response**: Uses results for final answer
+## Using MCP Tools
 
-## Defining Tools
-
-```json
-{
-  "tools": [
-    {
-      "name": "get_weather",
-      "description": "Get the current weather in a given location",
-      "input_schema": {
-        "type": "object",
-        "properties": {
-          "location": {
-            "type": "string",
-            "description": "The city and state, e.g. San Francisco, CA"
-          }
-        },
-        "required": ["location"]
-      }
-    }
-  ]
-}
-```
-
-## Example Request
+Convert MCP tool definitions by renaming `inputSchema` to `input_schema`:
 
 ```python
-import anthropic
-
-client = anthropic.Anthropic()
-
-response = client.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=1024,
-    tools=[
-        {
-            "name": "get_weather",
-            "description": "Get the current weather",
-            "input_schema": {
-                "type": "object",
-                "properties": {
-                    "location": {"type": "string"}
-                },
-                "required": ["location"]
-            }
-        }
-    ],
-    messages=[{"role": "user", "content": "What's the weather in SF?"}]
-)
-```
-
-## Tool Response
-
-```json
-{
-  "type": "tool_use",
-  "id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
-  "name": "get_weather",
-  "input": {"location": "San Francisco, CA"}
-}
-```
-
-## Providing Tool Results
-
-```json
-{
-  "role": "user",
-  "content": [
+claude_tools = [
     {
-      "type": "tool_result",
-      "tool_use_id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
-      "content": "Currently 65F and sunny"
+        "name": tool.name,
+        "description": tool.description or "",
+        "input_schema": tool.inputSchema,  # Rename inputSchema to input_schema
     }
-  ]
-}
+    for tool in mcp_tools.tools
+]
 ```
 
-## Tool Choice Control
+Use the MCP connector to connect directly to remote MCP servers without implementing a client.
+
+## Tool Definition
 
 ```json
 {
-  "tool_choice": {
-    "type": "auto"  // or "any", "none", {"type": "tool", "name": "..."}
-  }
+  "tools": [{
+    "name": "get_weather",
+    "description": "Get the current weather in a given location",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "location": {"type": "string", "description": "City and state, e.g. San Francisco, CA"}
+      },
+      "required": ["location"]
+    }
+  }]
 }
 ```
 
-Options:
-- `auto`: Let Claude decide (default)
-- `any`: Force tool use
-- `none`: Prevent tool use
-- `tool`: Force specific tool
+Add `strict: true` to tool definitions for guaranteed schema validation via Structured Outputs.
+
+## Tool Choice
+
+```json
+{"tool_choice": {"type": "auto"}}
+{"tool_choice": {"type": "any"}}
+{"tool_choice": {"type": "tool", "name": "get_weather"}}
+{"tool_choice": {"type": "none"}}
+```
+
+Set `disable_parallel_tool_use: true` to limit to one tool per response.
 
 ## Parallel Tool Use
 
-Claude can call multiple tools in a single response. All tool results must be returned in one user message.
+Claude can call multiple tools in a single response when operations are independent. All `tool_use` blocks appear in one assistant message; return all `tool_result` blocks in the subsequent user message.
 
-```json
-{
-  "tool_choice": {
-    "type": "auto",
-    "disable_parallel_tool_use": true  // Optional
-  }
-}
-```
+## Sequential Tool Use
 
-## Sequential Tools
+For dependent operations, Claude calls tools one at a time, using output from one as input to the next.
 
-Chain tools together by returning results and letting Claude call the next tool.
+## Missing Information
 
-Example flow:
-1. User asks "What's the weather where I am?"
-2. Claude calls `get_location`
-3. You return location result
-4. Claude calls `get_weather` with that location
-5. You return weather result
-6. Claude gives final answer
-
-## Structured Outputs (Strict Mode)
-
-Guarantee schema conformance:
-
-```json
-{
-  "tools": [
-    {
-      "name": "get_data",
-      "strict": true,
-      "input_schema": {...}
-    }
-  ]
-}
-```
-
-## MCP Tools
-
-Convert MCP tools to Claude format:
-
-```python
-async def get_claude_tools(mcp_session):
-    mcp_tools = await mcp_session.list_tools()
-    return [
-        {
-            "name": tool.name,
-            "description": tool.description or "",
-            "input_schema": tool.inputSchema  # Rename to input_schema
-        }
-        for tool in mcp_tools.tools
-    ]
-```
+Claude Opus is more likely to ask for missing required parameters. Claude Sonnet may attempt to infer values. Use chain-of-thought prompting to improve parameter assessment.
 
 ## Built-in Tools
 
-### Web Search
-```json
-{"type": "web_search_20250305", "name": "web_search", "max_uses": 5}
-```
-
-### Web Fetch
-```json
-{"type": "web_fetch_20250305", "name": "web_fetch"}
-```
-
-### Computer Use
-```json
-{"type": "computer_20250124", "name": "computer"}
-```
-
-### Text Editor
-```json
-{"type": "text_editor_20250124", "name": "str_replace_editor"}
-```
+### Anthropic-defined tools (versioned types):
+- **Web Search**: `web_search_20250305` — with `max_uses`, `allowed_domains`, `blocked_domains`, `user_location`
+- **Web Fetch**: Server-side URL fetching
+- **Text Editor**: `text_editor_20250728` — with optional `max_characters`
+- **Bash**: `bash_20250124`
+- **Computer Use**: `computer_20250124`
+- **Code Execution**: Secure sandboxed code execution (v2 beta)
+- **MCP Connector**: Direct connection to remote MCP servers
 
 ## Pricing
 
-Tool use adds tokens from:
-- Tool definitions (names, descriptions, schemas)
-- `tool_use` blocks in responses
-- `tool_result` blocks in requests
+Tool use is priced based on total input and output tokens. Additional tokens come from:
+- The `tools` parameter (names, descriptions, schemas)
+- `tool_use` content blocks in requests and responses
+- `tool_result` content blocks
+- System prompt for tool use enablement
 
-Server tools may incur additional charges based on usage.
+### Tool Use System Prompt Tokens
 
-## Best Practices
+| Model | auto/none | any/tool |
+|:------|:----------|:---------|
+| Claude Opus 4.6 | 346 tokens | 313 tokens |
+| Claude Opus 4.5 | 346 tokens | 313 tokens |
+| Claude Sonnet 4.5 | 346 tokens | 313 tokens |
+| Claude Haiku 4.5 | 346 tokens | 313 tokens |
+| Claude Haiku 3.5 | 264 tokens | 340 tokens |
 
-1. Write clear, detailed tool descriptions
-2. Use specific input schemas with descriptions
-3. Handle missing parameters gracefully
-4. Validate tool inputs before execution
-5. Return structured, parseable results
-6. Use chain-of-thought prompting for complex decisions
+Server-side tools may incur additional usage-based charges (e.g., web search charges per search performed).

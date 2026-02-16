@@ -1,227 +1,135 @@
 ---
 title: "Other SDKs Overview"
-source_url: "https://docs.anthropic.com/en/api/client-sdks"
+source_url: "https://platform.claude.com/docs/en/api/client-sdks"
 source_type: "web-extracted"
-fetched_at: "2026-01-04T06:25:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "sdks"
 ---
 
-# Claude Client SDKs
+# Client SDKs
 
-Anthropic provides official client SDKs for multiple programming languages to access Claude APIs.
+Official SDKs for building with the Claude API in Python, TypeScript, Java, Go, Ruby, C#, and PHP.
 
-## Official SDKs
+## SDK Overview
 
-### Python SDK
+| SDK | Status | Install | Min Version |
+|:----|:-------|:--------|:------------|
+| Python | GA | `pip install anthropic` | Python 3.9+ |
+| TypeScript | GA | `npm install @anthropic-ai/sdk` | TypeScript 4.9+, Node.js 20+ |
+| Java | GA | `com.anthropic:anthropic-java:2.11.1` | Java 8+ |
+| Go | GA | `go get github.com/anthropics/anthropic-sdk-go` | Go 1.22+ |
+| Ruby | GA | `bundler add anthropic` | Ruby 3.2.0+ |
+| C# | Beta | `dotnet add package Anthropic` | .NET Standard 2.0 |
+| PHP | Beta | `composer require anthropic-ai/sdk` | PHP 8.1.0+ |
 
-The primary SDK with full feature support.
+## Quick Start
 
-```bash
-pip install anthropic
-```
-
+### Python
 ```python
-from anthropic import Anthropic
+import anthropic
 
-client = Anthropic()
-response = client.messages.create(
-    model="claude-opus-4-5",
+client = anthropic.Anthropic()
+message = client.messages.create(
+    model="claude-opus-4-6",
     max_tokens=1024,
-    messages=[{"role": "user", "content": "Hello!"}]
+    messages=[{"role": "user", "content": "Hello, Claude"}],
 )
+print(message.content)
 ```
 
-- **GitHub**: https://github.com/anthropics/anthropic-sdk-python
-- **PyPI**: https://pypi.org/project/anthropic/
-
-### TypeScript/JavaScript SDK
-
-Full-featured SDK for Node.js and browser environments.
-
-```bash
-npm install @anthropic-ai/sdk
-```
-
+### TypeScript
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic();
-const response = await client.messages.create({
-    model: "claude-opus-4-5",
-    max_tokens: 1024,
-    messages: [{ role: "user", content: "Hello!" }]
+const message = await client.messages.create({
+  model: "claude-opus-4-6",
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Hello, Claude" }]
+});
+console.log(message.content);
+```
+
+### Java
+```java
+AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+MessageCreateParams params = MessageCreateParams.builder()
+    .model(Model.CLAUDE_OPUS_4_6)
+    .maxTokens(1024L)
+    .addUserMessage("Hello, Claude")
+    .build();
+Message message = client.messages().create(params);
+```
+
+### Go
+```go
+client := anthropic.NewClient()
+message, _ := client.Messages.New(context.Background(), anthropic.MessageNewParams{
+    Model:     anthropic.ModelClaudeOpus4_6,
+    MaxTokens: 1024,
+    Messages: []anthropic.MessageParam{
+        anthropic.NewUserMessage(anthropic.NewTextBlock("Hello, Claude")),
+    },
+})
+```
+
+### Ruby
+```ruby
+client = Anthropic::Client.new
+message = client.messages.create(
+  model: "claude-opus-4-6",
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Hello, Claude" }]
+)
+```
+
+### C#
+```csharp
+var client = new AnthropicClient();
+var message = await client.Messages.Create(new MessageCreateParams {
+    Model = "claude-opus-4-6",
+    MaxTokens = 1024,
+    Messages = [new() { Role = Role.User, Content = "Hello, Claude" }]
 });
 ```
 
-- **GitHub**: https://github.com/anthropics/anthropic-sdk-typescript
-- **npm**: https://www.npmjs.com/package/@anthropic-ai/sdk
-
-### Go SDK
-
-Official Go library for server-side applications.
-
-```bash
-go get github.com/anthropics/anthropic-sdk-go
+### PHP
+```php
+$client = new Client(apiKey: getenv('ANTHROPIC_API_KEY'));
+$message = $client->messages->create(
+    model: 'claude-opus-4-6',
+    maxTokens: 1024,
+    messages: [['role' => 'user', 'content' => 'Hello, Claude']],
+);
 ```
 
-```go
-package main
+## Platform Support
 
-import (
-    "context"
-    "github.com/anthropics/anthropic-sdk-go"
-    "github.com/anthropics/anthropic-sdk-go/option"
-)
+All SDKs support multiple deployment options:
+- **Claude API** — Direct access to Claude API endpoints
+- **Amazon Bedrock** — Use Claude through AWS
+- **Google Vertex AI** — Use Claude through Google Cloud
+- **Microsoft Foundry** — Use Claude through Microsoft Azure
 
-func main() {
-    client := anthropic.NewClient(
-        option.WithAPIKey("my-api-key"),
-    )
+## Beta Features
 
-    message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-        Model:     anthropic.ModelClaudeOpus4_5,
-        MaxTokens: 1024,
-        Messages: []anthropic.MessageParam{
-            anthropic.NewUserMessage(anthropic.NewTextBlock("Hello!")),
-        },
-    })
-}
-```
+Access beta features using the `beta` namespace in any SDK. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers) for available beta features.
 
-- **GitHub**: https://github.com/anthropics/anthropic-sdk-go
-- **Go Package**: pkg.go.dev/github.com/anthropics/anthropic-sdk-go
-- **Requires**: Go 1.22+
+## SDK Features
 
-### Java SDK
+All SDKs provide:
+- Automatic header management (x-api-key, anthropic-version, content-type)
+- Type-safe request and response handling
+- Built-in retry logic and error handling
+- Streaming support
+- Request timeouts and connection management
 
-Official Java library available on Maven Central.
+## GitHub Repositories
 
-**Maven**:
-```xml
-<dependency>
-    <groupId>com.anthropic</groupId>
-    <artifactId>anthropic-java</artifactId>
-    <version>2.11.1</version>
-</dependency>
-```
-
-**Gradle**:
-```groovy
-implementation 'com.anthropic:anthropic-java:2.11.1'
-```
-
-```java
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.*;
-
-AnthropicClient client = AnthropicOkHttpClient.builder()
-    .apiKey("my-api-key")
-    .build();
-
-Message message = client.messages().create(MessageCreateParams.builder()
-    .model("claude-opus-4-5")
-    .maxTokens(1024)
-    .addUserMessage("Hello!")
-    .build());
-```
-
-- **GitHub**: https://github.com/anthropics/anthropic-sdk-java
-- **Maven Central**: https://central.sonatype.com/artifact/com.anthropic/anthropic-java
-- **License**: MIT
-
-### C# SDK (Beta)
-
-.NET SDK currently in beta.
-
-```bash
-dotnet add package Anthropic
-```
-
-- **GitHub**: https://github.com/anthropics/anthropic-sdk-dotnet
-- **NuGet**: https://www.nuget.org/packages/Anthropic
-
-### PHP SDK (Beta)
-
-PHP SDK currently in beta.
-
-```bash
-composer require anthropic/sdk
-```
-
-- **GitHub**: https://github.com/anthropics/anthropic-sdk-php
-- **Packagist**: https://packagist.org/packages/anthropic/sdk
-
-## Partner Platform Support
-
-Claude is available through partner platforms with SDK support:
-
-### Amazon Bedrock
-
-```python
-from anthropic import AnthropicBedrock
-
-client = AnthropicBedrock()
-response = client.messages.create(
-    model="anthropic.claude-opus-4-5-20251101-v1:0",
-    max_tokens=1024,
-    messages=[{"role": "user", "content": "Hello!"}]
-)
-```
-
-### Google Cloud Vertex AI
-
-```python
-from anthropic import AnthropicVertex
-
-client = AnthropicVertex(region="us-central1", project_id="my-project")
-response = client.messages.create(
-    model="claude-opus-4-5@20251101",
-    max_tokens=1024,
-    messages=[{"role": "user", "content": "Hello!"}]
-)
-```
-
-## Community Libraries
-
-### Kotlin (Klaude)
-
-Unofficial community-maintained Kotlin/Java library.
-
-```kotlin
-// Maven
-implementation("com.klaude:klaude:0.0.1")
-```
-
-- **GitHub**: https://github.com/paulotaylor/klaude
-- **Note**: Not officially affiliated with Anthropic
-
-## SDK Features Comparison
-
-| Feature | Python | TypeScript | Go | Java | C# | PHP |
-|---------|--------|------------|-----|------|-----|-----|
-| Messages API | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Streaming | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Tool Use | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Vision | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Bedrock | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Vertex AI | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Extended Thinking | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Prompt Caching | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Beta Status | Stable | Stable | Stable | Stable | Beta | Beta |
-
-## Authentication
-
-All SDKs support API key authentication:
-
-```bash
-export ANTHROPIC_API_KEY="your-api-key"
-```
-
-Or pass directly to client constructor.
-
-## Resources
-
-- **API Reference**: https://docs.anthropic.com/en/api
-- **Python SDK Docs**: See sdks/python/README.md
-- **TypeScript SDK Docs**: See sdks/typescript/README.md
+- [anthropic-sdk-python](https://github.com/anthropics/anthropic-sdk-python)
+- [anthropic-sdk-typescript](https://github.com/anthropics/anthropic-sdk-typescript)
+- [anthropic-sdk-java](https://github.com/anthropics/anthropic-sdk-java)
+- [anthropic-sdk-go](https://github.com/anthropics/anthropic-sdk-go)
+- [anthropic-sdk-ruby](https://github.com/anthropics/anthropic-sdk-ruby)
+- [anthropic-sdk-csharp](https://github.com/anthropics/anthropic-sdk-csharp)
+- [anthropic-sdk-php](https://github.com/anthropics/anthropic-sdk-php)

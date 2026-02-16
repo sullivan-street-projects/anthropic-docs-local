@@ -1,177 +1,65 @@
 ---
 title: "Claude Haiku 4.5"
-source_url: "https://docs.anthropic.com/en/docs/about-claude/models"
+source_url: "https://www.anthropic.com/news/claude-haiku-4-5"
 source_type: "web-extracted"
-fetched_at: "2026-01-04T06:05:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "models"
 ---
 
 # Claude Haiku 4.5
 
-Claude Haiku 4.5 is Anthropic's fastest, most cost-efficient model. Released October 15, 2025.
+Claude Haiku 4.5 is the fastest model with near-frontier intelligence. Launched October 15, 2025.
 
-## Model Details
+## Model ID
 
-| Property | Value |
-|----------|-------|
-| **Model ID** | `claude-haiku-4-5-20251001` |
-| **Context Window** | 200,000 tokens |
-| **Max Output** | 64,000 tokens |
-| **Training Cutoff** | April 2025 |
-| **Release Date** | October 15, 2025 |
+| Platform | Model ID |
+|:---------|:---------|
+| Claude API | `claude-haiku-4-5-20251001` |
+| Claude API alias | `claude-haiku-4-5` |
+| AWS Bedrock | `anthropic.claude-haiku-4-5-20251001-v1:0` |
+| GCP Vertex AI | `claude-haiku-4-5@20251001` |
 
 ## Pricing
 
-| Usage Type | Cost |
-|------------|------|
-| Base Input | $1 / MTok |
-| Output | $5 / MTok |
-| Batch Input | $0.50 / MTok |
-| Batch Output | $2.50 / MTok |
-| 5m Cache Write | $1.25 / MTok |
-| 1h Cache Write | $2 / MTok |
-| Cache Read | $0.10 / MTok |
+$1 / MTok input, $5 / MTok output
 
-## Key Features
+## Specifications
 
-### Performance Breakthrough
-Haiku 4.5 matches Sonnet 4's performance on:
-- Coding tasks
-- Computer use
-- Agent workflows
+| Feature | Detail |
+|:--------|:-------|
+| Context window | 200K tokens |
+| Max output | 64K tokens |
+| Extended thinking | Yes |
+| Reliable knowledge cutoff | February 2025 |
+| Training data cutoff | July 2025 |
+| Comparative latency | Fastest |
 
-...at **one-third the cost** and **more than twice the speed**.
+## Key Capabilities
 
-### Extended Max Output
-First Haiku to support 64K output tokens, enabling:
-- Long-form content generation
-- Extensive code generation
-- Detailed analysis
-
-### First Haiku with Extended Thinking
-```json
-{
-  "thinking": {
-    "type": "enabled",
-    "budget_tokens": 8000
-  }
-}
-```
-
-### Computer Use
-Full computer use support:
-- Screen capture and analysis
-- Mouse and keyboard control
-- Multi-application workflows
-
-### Vision
-Complete vision capabilities:
-- Image understanding
-- Document processing
-- Chart analysis
+- Similar coding performance to Claude Sonnet 4 at one-third the cost and 2x+ speed
+- Surpasses Claude Sonnet 4 at certain tasks (e.g., computer use)
+- Runs 4-5x faster than Sonnet 4.5 at a fraction of the cost
+- Ideal for real-time, low-latency applications
 
 ## Use Cases
 
-### High-Volume Processing
-```python
-# Process thousands of requests cost-effectively
-for doc in documents:
-    response = client.messages.create(
-        model="claude-haiku-4-5-20251001",
-        max_tokens=1024,
-        messages=[{"role": "user", "content": f"Summarize: {doc}"}]
-    )
-```
+- Chat assistants and customer service agents
+- Pair programming and code generation
+- Real-time, low-latency applications
+- Multi-agent orchestration
+- Computer use tasks
 
-### Real-Time Applications
-- Chatbots and virtual assistants
-- Live customer support
-- Interactive coding tools
+## Performance Benchmarks
 
-### Cost-Sensitive Workloads
-- Batch document processing
-- Data extraction
-- Classification tasks
+- **SWE-bench Verified**: 73.3% (averaged over 50 trials)
+- Achieves 90% of Sonnet 4.5's performance in agentic coding
+- Outperformed premium-tier models in instruction-following tests
 
-### Agent Subroutines
-- Quick tool calls in larger workflows
-- Validation and filtering steps
-- Parallel task execution
+## Safety
 
-## API Examples
+- AI Safety Level: ASL-2
+- Statistically significantly lower overall rate of misaligned behaviors compared to Sonnet 4.5 and Opus 4.1
 
-### Basic Request
+## Status
 
-```python
-import anthropic
-
-client = anthropic.Anthropic()
-
-message = client.messages.create(
-    model="claude-haiku-4-5-20251001",
-    max_tokens=2048,
-    messages=[
-        {"role": "user", "content": "Summarize this article..."}
-    ]
-)
-```
-
-### With Streaming
-
-```python
-with client.messages.stream(
-    model="claude-haiku-4-5-20251001",
-    max_tokens=4096,
-    messages=[{"role": "user", "content": "Generate a report..."}]
-) as stream:
-    for text in stream.text_stream:
-        print(text, end="", flush=True)
-```
-
-### Batch Processing
-
-```python
-# 50% cost savings with batch API
-batch = client.messages.batches.create(
-    requests=[
-        {
-            "custom_id": f"doc-{i}",
-            "params": {
-                "model": "claude-haiku-4-5-20251001",
-                "max_tokens": 1024,
-                "messages": [{"role": "user", "content": doc}]
-            }
-        }
-        for i, doc in enumerate(documents)
-    ]
-)
-```
-
-## Comparison to Other Haiku Models
-
-| Feature | Haiku 4.5 | Haiku 3.5 | Haiku 3 |
-|---------|-----------|-----------|---------|
-| Input Price | $1/MTok | $0.80/MTok | $0.25/MTok |
-| Max Output | 64K | 8K | 4K |
-| Extended Thinking | Yes | No | No |
-| Computer Use | Yes | No | No |
-| Vision | Yes | Yes | Yes |
-
-## Cost Comparison (1M tokens)
-
-| Model | Input Cost | Output Cost | Total |
-|-------|------------|-------------|-------|
-| Haiku 4.5 | $1 | $5 | $6 |
-| Sonnet 4.5 | $3 | $15 | $18 |
-| Opus 4.5 | $5 | $25 | $30 |
-
-Haiku 4.5 provides **3x cost savings** vs Sonnet with comparable quality.
-
-## Best Practices
-
-1. **Default for high-volume**: Best cost-per-quality ratio
-2. **Use for agent subroutines**: Fast execution in larger workflows
-3. **Enable streaming** for interactive applications
-4. **Batch non-urgent work**: Additional 50% savings
-5. **Consider for prototyping**: Fast iteration at low cost
-6. **Scale up as needed**: Switch to Sonnet for complex cases
+Active. Tentative retirement: not sooner than October 15, 2026.

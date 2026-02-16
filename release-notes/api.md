@@ -1,31 +1,40 @@
 ---
 title: "API Release Notes"
-source_url: "https://docs.anthropic.com/en/release-notes"
+source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-01-04T05:50:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "release-notes"
-note: "Redirects to platform.claude.com/docs/en/release-notes"
+note: "Redirects to platform.claude.com/docs/en/release-notes - see platform.md for full timeline"
 ---
 
 # API Release Notes
 
-This document tracks API-specific changes. For the complete platform release notes, see [platform.md](platform.md).
+This document tracks key API-specific changes in summary form. For the complete chronological platform release notes, see [platform.md](platform.md).
 
-## Key API Changes (2025)
+## Key API Changes (2025-2026)
 
 ### Model Releases
 | Date | Model | Notes |
 |------|-------|-------|
-| Nov 24, 2025 | Claude Opus 4.5 | Most intelligent model |
-| Oct 15, 2025 | Claude Haiku 4.5 | Fastest Haiku |
+| Feb 5, 2026 | Claude Opus 4.6 | Most intelligent model; adaptive thinking, fast mode, compaction API |
+| Nov 24, 2025 | Claude Opus 4.5 | Premium model combining intelligence + performance |
+| Oct 15, 2025 | Claude Haiku 4.5 | Fastest Haiku model |
 | Sep 29, 2025 | Claude Sonnet 4.5 | Best for agents/coding |
 | Aug 5, 2025 | Claude Opus 4.1 | Incremental update |
-| May 22, 2025 | Claude Opus 4, Sonnet 4 | Extended thinking |
+| May 22, 2025 | Claude Opus 4, Sonnet 4 | Extended thinking, Files API, Code Execution |
 | Feb 24, 2025 | Claude Sonnet 3.7 | Extended thinking |
 
 ### API Features
 | Date | Feature | Status |
 |------|---------|--------|
+| Feb 7, 2026 | Fast mode (Opus 4.6) | Research preview |
+| Feb 5, 2026 | Compaction API | Beta |
+| Feb 5, 2026 | Data residency controls | GA |
+| Feb 5, 2026 | 1M context (Opus 4.6) | Beta |
+| Feb 5, 2026 | Effort parameter | GA (no beta header) |
+| Feb 5, 2026 | Fine-grained tool streaming | GA (no beta header) |
+| Jan 29, 2026 | Structured outputs | GA |
+| Nov 24, 2025 | Programmatic tool calling | Public beta |
 | Nov 14, 2025 | Structured outputs | Public beta |
 | Oct 16, 2025 | Agent Skills | Beta |
 | Sep 29, 2025 | Memory tool | Beta |
@@ -50,23 +59,22 @@ This document tracks API-specific changes. For the complete platform release not
 ### Model Deprecations
 | Announced | Model | Retired |
 |-----------|-------|---------|
-| Dec 19, 2025 | Claude Haiku 3.5 | TBD |
-| Oct 28, 2025 | Claude Sonnet 3.7 | TBD |
+| Dec 19, 2025 | Claude Haiku 3.5 | Feb 19, 2026 |
+| Oct 28, 2025 | Claude Sonnet 3.7 | Feb 19, 2026 |
 | Oct 28, 2025 | Claude Sonnet 3.5 | Oct 28, 2025 |
-| Aug 13, 2025 | Claude Sonnet 3.5 | Oct 28, 2025 |
-| Jul 21, 2025 | Claude 2.0/2.1, Sonnet 3 | Jul 21, 2025 |
-| Jun 30, 2025 | Claude Opus 3 | TBD |
+| Jun 30, 2025 | Claude Opus 3 | Jan 5, 2026 |
 | Jan 21, 2025 | Claude 2/2.1, Sonnet 3 | Jul 21, 2025 |
 | Nov 6, 2024 | Claude 1, Instant | Nov 6, 2024 |
 
 ### Breaking Changes
 | Date | Change |
 |------|--------|
+| Jan 29, 2026 | `output_format` moved to `output_config.format` |
+| Jan 12, 2026 | console.anthropic.com redirects to platform.claude.com |
+| Jan 5, 2026 | Claude Opus 3 retired |
 | May 1, 2025 | Cache control must be in parent content block |
-| Nov 20, 2024 | Rate limits changed to input/output tokens per minute |
-| Oct 8, 2024 | Build and Scale plans deprecated |
 
-## Rate Limit Updates
+### Rate Limit Updates
+- Aug 26, 2025: Increased limits on 1M context window
 - Jul 24, 2025: Increased limits for Claude Opus 4
 - Jul 17, 2025: Increased limits for Claude Sonnet 4
-- Aug 26, 2025: Increased limits on 1M context window

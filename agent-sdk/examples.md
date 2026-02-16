@@ -1,423 +1,372 @@
 ---
 title: "Agent SDK Examples"
-source_url: "claude-code-guide-agent"
+source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "agent-sdk"
 ---
 
 # Agent SDK Examples
 
-Practical code examples for building agents with the Claude Agent SDK.
+Production-ready patterns for the Claude Agent SDK covering subagents, hooks, MCP integration, custom tools, and advanced configurations.
 
-## Streaming Agent
+> **Last updated:** February 16, 2026
 
-Real-time response with multi-turn conversation history:
+## Subagent Delegation
 
-```python
-import asyncio
-from claude_agent_sdk import ClaudeSDKClient, ClaudeAgentOptions, AssistantMessage, TextBlock
+Delegate specialized tasks to subagents with focused toolsets:
 
-async def streaming_agent():
-    options = ClaudeAgentOptions(
-        model="claude-opus-4-5-20251101",
-        allowed_tools=["Read", "Write", "Bash"],
-        permission_mode="acceptEdits"
-    )
-
-    async with ClaudeSDKClient(options=options) as client:
-        await client.query("What are the key features of Python?")
-
-        async for message in client.receive_response():
-            if isinstance(message, AssistantMessage):
-                for block in message.content:
-                    if isinstance(block, TextBlock):
-                        print(block.text, end="", flush=True)
-        print()
-
-        # Follow-up with context
-        await client.query("Which makes it best for data science?")
-
-        async for message in client.receive_response():
-            if isinstance(message, AssistantMessage):
-                for block in message.content:
-                    if isinstance(block, TextBlock):
-                        print(block.text, end="", flush=True)
-
-asyncio.run(streaming_agent())
-```
-
-## Structured Output Agent
-
-Guaranteed JSON responses using `output_format` with JSON Schema:
+### Python
 
 ```python
-import asyncio
-from claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage
-from pydantic import BaseModel
-from typing import List
+from claude_agent_sdk import query, ClaudeAgentOptions, AgentDefinition
 
-class Feature(BaseModel):
-    name: str
-    description: str
-    priority: str  # "high", "medium", "low"
-
-class ProductAnalysis(BaseModel):
-    product_name: str
-    category: str
-    key_features: List[Feature]
-    market_fit_score: float
-    recommendation: str
-
-async def structured_output():
-    schema = ProductAnalysis.model_json_schema()
-
-    async for message in query(
-        prompt="Analyze Python as a product: features, market fit, recommendation",
-        options=ClaudeAgentOptions(
-            model="claude-opus-4-5-20251101",
-            output_format={"type": "json_schema", "schema": schema}
-        )
-    ):
-        if isinstance(message, ResultMessage):
-            if message.subtype == "success" and message.structured_output:
-                result = ProductAnalysis.model_validate(message.structured_output)
-                print(f"Product: {result.product_name}")
-                print(f"Market Fit: {result.market_fit_score}")
-                for f in result.key_features:
-                    print(f"  - {f.name} ({f.priority}): {f.description}")
-
-asyncio.run(structured_output())
-```
-
-## File Processing Agent
-
-Read and write files with the automatic tool execution loop:
-
-```python
-import asyncio
-from claude_agent_sdk import query, ClaudeAgentOptions, AssistantMessage, ResultMessage
-
-async def file_agent():
-    async for message in query(
-        prompt="""
-        1. Create a file called "data.txt" with sample data
-        2. Read it back to verify
-        3. Create a summary file
-        Then tell me what you created.
-        """,
-        options=ClaudeAgentOptions(
-            model="claude-opus-4-5-20251101",
-            allowed_tools=["Read", "Write", "Glob", "Edit"],
-            permission_mode="acceptEdits",
-            cwd="/tmp"
-        )
-    ):
-        if isinstance(message, AssistantMessage):
-            for block in message.content:
-                if hasattr(block, "text"):
-                    print(block.text)
-                elif hasattr(block, "name"):
-                    print(f"Tool: {block.name}")
-        elif isinstance(message, ResultMessage):
-            print(f"\nDone: {message.subtype}")
-
-asyncio.run(file_agent())
-```
-
-## Extended Thinking Agent
-
-Complex reasoning with thinking budget:
-
-```python
-import asyncio
-from claude_agent_sdk import query, ClaudeAgentOptions, AssistantMessage, TextBlock
-
-async def thinking_agent():
-    async for message in query(
-        prompt="""Solve this logic puzzle:
-        5 houses, 5 colors, 5 nationalities, 5 beverages, 5 pets.
-        British lives in red house. Swedish has dog. Danish drinks tea.
-        Green house left of white. Green house person drinks coffee.
-        Who has the fish?""",
-        options=ClaudeAgentOptions(
-            model="claude-opus-4-5-20251101",
-            max_thinking_tokens=8000
-        )
-    ):
-        if isinstance(message, AssistantMessage):
-            for block in message.content:
-                if hasattr(block, 'thinking'):
-                    print("=== Thinking ===")
-                    print(block.thinking[:300] + "...")
-                elif isinstance(block, TextBlock):
-                    print("\n=== Answer ===")
-                    print(block.text)
-
-asyncio.run(thinking_agent())
-```
-
-## Multi-Step Workflow Agent
-
-Coordinate search, document creation, and reporting:
-
-```python
-import asyncio
-from claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage
-
-async def workflow_agent():
-    async for message in query(
-        prompt="""
-        Execute this workflow:
-        1. Search for "latest AI developments 2025"
-        2. Create "ai_report.md" with executive summary and key findings
-        3. Create a summary for email notification
-        4. Show the final report content
-        """,
-        options=ClaudeAgentOptions(
-            model="claude-opus-4-5-20251101",
-            allowed_tools=["WebSearch", "Write", "Read", "Bash"],
-            permission_mode="acceptEdits"
-        )
-    ):
-        if isinstance(message, ResultMessage):
-            if message.subtype == "success":
-                print("Workflow completed!")
-                if message.result:
-                    print(f"Result: {message.result}")
-
-asyncio.run(workflow_agent())
-```
-
-## Image Analysis Agent
-
-Process visual content with base64 encoding:
-
-```python
-import base64
-import anthropic
-
-def vision_agent():
-    client = anthropic.Anthropic()
-
-    # Read and encode image
-    with open("screenshot.png", "rb") as f:
-        image_data = base64.standard_b64encode(f.read()).decode("utf-8")
-
-    response = client.messages.create(
-        model="claude-opus-4-5-20251101",
-        max_tokens=1024,
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "image",
-                        "source": {
-                            "type": "base64",
-                            "media_type": "image/png",
-                            "data": image_data
-                        }
-                    },
-                    {
-                        "type": "text",
-                        "text": "Describe what you see and identify any issues."
-                    }
-                ]
-            }
-        ]
-    )
-
-    for block in response.content:
-        if hasattr(block, 'text'):
-            print(block.text)
-
-vision_agent()
-```
-
-## Prompt Caching Agent
-
-Using cache_control for large reusable contexts:
-
-```python
-import anthropic
-
-def caching_agent():
-    client = anthropic.Anthropic()
-
-    large_document = "..." # Large reference document
-
-    # First request - establishes cache
-    response1 = client.messages.create(
-        model="claude-opus-4-5-20251101",
-        max_tokens=1024,
-        system=[
-            {"type": "text", "text": "You are a documentation assistant."},
-            {
-                "type": "text",
-                "text": large_document,
-                "cache_control": {"type": "ephemeral"}
-            }
-        ],
-        messages=[{"role": "user", "content": "What are the main topics?"}]
-    )
-    print(f"Cache creation tokens: {response1.usage.cache_creation_input_tokens}")
-
-    # Second request - reuses cache at 10% cost
-    response2 = client.messages.create(
-        model="claude-opus-4-5-20251101",
-        max_tokens=1024,
-        system=[
-            {"type": "text", "text": "You are a documentation assistant."},
-            {
-                "type": "text",
-                "text": large_document,
-                "cache_control": {"type": "ephemeral"}
-            }
-        ],
-        messages=[{"role": "user", "content": "Which topic is most important?"}]
-    )
-    print(f"Cache read tokens: {response2.usage.cache_read_input_tokens}")
-
-caching_agent()
-```
-
-## Server-Side Tools Agent
-
-Using built-in server-side tools (web search, text editor, bash):
-
-```python
-import anthropic
-
-def server_tools_agent():
-    client = anthropic.Anthropic()
-
-    response = client.messages.create(
-        model="claude-opus-4-5-20251101",
-        max_tokens=4096,
-        tools=[
-            {"type": "web_search_20250305", "name": "web_search", "max_uses": 5},
-            {"type": "text_editor_20250728", "name": "str_replace_based_edit_tool"},
-            {"type": "bash_20250124", "name": "bash"}
-        ],
-        messages=[
-            {"role": "user", "content": "Search for Python 3.13 features and summarize the top 3."}
-        ]
-    )
-
-    # Handle tool use loop
-    messages = [{"role": "user", "content": "Search for Python 3.13 features and summarize."}]
-    messages.append({"role": "assistant", "content": response.content})
-
-    while response.stop_reason == "tool_use":
-        tool_results = []
-        for block in response.content:
-            if block.type == "tool_use":
-                # Server-side tools execute automatically
-                tool_results.append({
-                    "type": "tool_result",
-                    "tool_use_id": block.id,
-                    "content": "Tool executed server-side"
-                })
-
-        messages.append({"role": "user", "content": tool_results})
-
-        response = client.messages.create(
-            model="claude-opus-4-5-20251101",
-            max_tokens=4096,
-            tools=[
-                {"type": "web_search_20250305", "name": "web_search", "max_uses": 5}
-            ],
-            messages=messages
-        )
-        messages.append({"role": "assistant", "content": response.content})
-
-    for block in response.content:
-        if hasattr(block, 'text'):
-            print(block.text)
-
-server_tools_agent()
-```
-
-## Batch Processing Example
-
-Process multiple requests asynchronously at 50% cost:
-
-```python
-import time
-from anthropic import Anthropic
-from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
-from anthropic.types.messages.batch_create_params import Request
-
-def batch_processing():
-    client = Anthropic()
-
-    requests = [
-        Request(
-            custom_id="summary-python",
-            params=MessageCreateParamsNonStreaming(
-                model="claude-opus-4-5-20251101",
-                max_tokens=500,
-                messages=[{"role": "user", "content": "Summarize Python's key features."}]
-            )
+options = ClaudeAgentOptions(
+    allowed_tools=["Read", "Glob", "Grep", "Task"],
+    agents={
+        "code-reviewer": AgentDefinition(
+            description="Expert code reviewer for quality analysis",
+            prompt="Analyze code quality, identify bugs, and suggest improvements",
+            tools=["Read", "Glob", "Grep"]
         ),
-        Request(
-            custom_id="code-fibonacci",
-            params=MessageCreateParamsNonStreaming(
-                model="claude-opus-4-5-20251101",
-                max_tokens=300,
-                messages=[{"role": "user", "content": "Write a Fibonacci function in Python."}]
-            )
-        ),
-        Request(
-            custom_id="sentiment",
-            params=MessageCreateParamsNonStreaming(
-                model="claude-opus-4-5-20251101",
-                max_tokens=200,
-                messages=[{"role": "user", "content": "Analyze sentiment: 'Python is amazing!'"}]
-            )
+        "test-writer": AgentDefinition(
+            description="Test generation specialist",
+            prompt="Write comprehensive tests following project conventions",
+            tools=["Read", "Write", "Edit", "Bash"]
         )
-    ]
+    }
+)
 
-    # Create batch
-    batch = client.messages.batches.create(requests=requests)
-    print(f"Batch created: {batch.id}")
-
-    # Poll for completion
-    while True:
-        batch = client.messages.batches.retrieve(batch.id)
-        if batch.processing_status == "ended":
-            print(f"Succeeded: {batch.request_counts.succeeded}")
-            break
-        print(f"Status: {batch.processing_status}")
-        time.sleep(5)
-
-    # Process results
-    for result in client.messages.batches.results(batch.id):
-        print(f"\n{result.custom_id}:")
-        if result.result.type == "succeeded":
-            print(result.result.message.content[0].text)
-        elif result.result.type == "errored":
-            print(f"Error: {result.result.error.message}")
-
-    print("\nCost savings: 50% off standard API pricing")
-
-batch_processing()
+async for message in query(
+    prompt="Review auth module and add missing tests",
+    options=options
+):
+    if hasattr(message, "result"):
+        print(message.result)
 ```
 
-## Best Practices
+## Hooks for Audit Logging
 
-1. **Stateful Conversations**: Use `ClaudeSDKClient` for multi-turn, `query()` for one-off
-2. **Tool Use**: Minimize tool scope for better performance
-3. **Streaming**: Use `include_partial_messages=True` for real-time output
-4. **Structured Output**: Use `output_format` with Pydantic schemas
-5. **Workflow Orchestration**: Combine tools for multi-step coordination
-6. **Cost Control**: Use `max_budget_usd`, `max_turns`, and prompt caching
-7. **Error Handling**: Catch `CLINotFoundError`, `ProcessError`
+Intercept tool usage for compliance and audit trails:
 
-## Next Steps
+### Python
 
-- See [Tool Use Guide](../api/tool-use.md) for advanced tool patterns
-- Review [Streaming API](../api/streaming.md) for streaming details
-- Check [API Errors](../api/errors.md) for error handling
-- Official docs: https://platform.claude.com/docs/en/agent-sdk/
+```python
+from datetime import datetime
+from claude_agent_sdk import query, ClaudeAgentOptions, HookMatcher
+
+async def log_file_change(input_data, tool_use_id, context):
+    file_path = input_data.get("tool_input", {}).get("file_path", "unknown")
+    with open("./audit.log", "a") as f:
+        f.write(f"{datetime.now()}: modified {file_path}\n")
+    return {}
+
+async def block_env_files(input_data, tool_use_id, context):
+    file_path = input_data.get("tool_input", {}).get("file_path", "")
+    if ".env" in file_path:
+        return {"permissionDecision": "deny", "reason": "Cannot modify .env files"}
+    return {}
+
+options = ClaudeAgentOptions(
+    allowed_tools=["Read", "Edit", "Write", "Bash"],
+    hooks={
+        "PostToolUse": [
+            HookMatcher(matcher="Edit|Write", hooks=[log_file_change])
+        ],
+        "PreToolUse": [
+            HookMatcher(matcher="Edit|Write", hooks=[block_env_files])
+        ]
+    }
+)
+```
+
+## MCP Server Integration
+
+Connect Claude to external services via MCP:
+
+### Python
+
+```python
+import os
+from claude_agent_sdk import query, ClaudeAgentOptions
+
+options = ClaudeAgentOptions(
+    allowed_tools=[
+        "Read", "Write",
+        "mcp__github__list_issues",
+        "mcp__github__create_issue",
+        "mcp__slack__send_message"
+    ],
+    mcp_servers={
+        "github": {
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-github"],
+            "env": {"GITHUB_TOKEN": os.environ["GITHUB_TOKEN"]}
+        },
+        "slack": {
+            "command": "npx",
+            "args": ["-y", "@anthropic-ai/mcp-server-slack"],
+            "env": {"SLACK_TOKEN": os.environ["SLACK_TOKEN"]}
+        }
+    }
+)
+
+async for message in query(
+    prompt="Check for critical bugs and notify the team on Slack",
+    options=options
+):
+    pass
+```
+
+## Custom Tools via SDK MCP Servers
+
+Create custom tools that Claude can call:
+
+### Python
+
+```python
+import ast
+import operator
+from claude_agent_sdk import tool, create_sdk_mcp_server, query, ClaudeAgentOptions
+
+# Safe math evaluator using ast module
+SAFE_OPS = {ast.Add: operator.add, ast.Sub: operator.sub,
+            ast.Mult: operator.mul, ast.Div: operator.truediv}
+
+def safe_calc(expr: str) -> float:
+    tree = ast.parse(expr, mode="eval")
+    return _eval_node(tree.body)
+
+def _eval_node(node):
+    if isinstance(node, ast.Constant):
+        return node.value
+    if isinstance(node, ast.BinOp):
+        return SAFE_OPS[type(node.op)](_eval_node(node.left), _eval_node(node.right))
+    raise ValueError(f"Unsupported: {type(node)}")
+
+@tool("calculate", "Perform mathematical calculations", {"expression": str})
+async def calculate(args):
+    result = safe_calc(args["expression"])
+    return {"content": [{"type": "text", "text": f"Result: {result}"}]}
+
+@tool("lookup_user", "Look up user by ID", {"user_id": str})
+async def lookup_user(args):
+    # In production, query your database
+    return {"content": [{"type": "text", "text": f"User {args['user_id']}: John Doe"}]}
+
+calculator = create_sdk_mcp_server(
+    name="calculator",
+    tools=[calculate, lookup_user]
+)
+
+options = ClaudeAgentOptions(
+    mcp_servers={"calc": calculator},
+    allowed_tools=["mcp__calc__calculate", "mcp__calc__lookup_user"]
+)
+
+async for message in query(
+    prompt="Calculate 42 * 17 and look up user U123",
+    options=options
+):
+    pass
+```
+
+## Sandbox Configuration
+
+Run agents with OS-level isolation:
+
+### TypeScript
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+const result = await query({
+  prompt: "Build and test the project",
+  options: {
+    allowedTools: ["Read", "Edit", "Bash"],
+    sandbox: {
+      enabled: true,
+      autoAllowBashIfSandboxed: true,
+      network: {
+        allowLocalBinding: true
+      }
+    }
+  }
+});
+```
+
+### With Unsandboxed Commands
+
+```typescript
+const result = await query({
+  prompt: "Deploy the application",
+  options: {
+    sandbox: {
+      enabled: true,
+      allowUnsandboxedCommands: true
+    },
+    permissionMode: "default",
+    canUseTool: async (tool, input) => {
+      if (tool === "Bash" && input.dangerouslyDisableSandbox) {
+        console.log(`Unsandboxed command: ${input.command}`);
+        return isCommandAuthorized(input.command);
+      }
+      return true;
+    }
+  }
+});
+```
+
+## CI/CD Pipeline Agent
+
+Automated code review and testing in CI:
+
+### Python
+
+```python
+import asyncio
+from claude_agent_sdk import query, ClaudeAgentOptions
+
+async def ci_review():
+    results = []
+    async for message in query(
+        prompt="""Review the changes in this PR:
+        1. Check for bugs and security issues
+        2. Verify test coverage
+        3. Ensure code style consistency
+        Output a structured review.""",
+        options=ClaudeAgentOptions(
+            allowed_tools=["Read", "Glob", "Grep", "Bash"],
+            permission_mode="bypassPermissions",
+            max_turns=30,
+            max_budget_usd=2.00,
+            cwd="/workspace"
+        )
+    ):
+        if hasattr(message, "result"):
+            results.append(message.result)
+    return "\n".join(results)
+
+asyncio.run(ci_review())
+```
+
+## Multi-Turn Conversation Client
+
+Interactive agent with session persistence:
+
+### Python
+
+```python
+from claude_agent_sdk import ClaudeSDKClient
+
+async def interactive_session():
+    client = ClaudeSDKClient(
+        options={
+            "allowed_tools": ["Read", "Edit", "Bash", "Glob", "Grep"],
+            "setting_sources": ["project"],
+            "cwd": "/path/to/project"
+        }
+    )
+
+    # First exchange
+    response1 = await client.send("Explain the project architecture")
+    print(response1.text)
+
+    # Follow-up with full context
+    response2 = await client.send("Now add a new API endpoint for /users")
+    print(response2.text)
+
+    # Another follow-up
+    response3 = await client.send("Write tests for the new endpoint")
+    print(response3.text)
+```
+
+## Structured Output
+
+Get typed, validated responses:
+
+### TypeScript
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+const schema = {
+  type: "object",
+  properties: {
+    bugs: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          file: { type: "string" },
+          line: { type: "number" },
+          severity: { enum: ["low", "medium", "high", "critical"] },
+          description: { type: "string" }
+        },
+        required: ["file", "line", "severity", "description"]
+      }
+    },
+    summary: { type: "string" }
+  },
+  required: ["bugs", "summary"]
+};
+
+for await (const message of query({
+  prompt: "Analyze the codebase for bugs",
+  options: {
+    allowedTools: ["Read", "Glob", "Grep"],
+    outputFormat: { type: "json_schema", schema }
+  }
+})) {
+  if ("result" in message) {
+    const report = JSON.parse(message.result);
+    console.log(`Found ${report.bugs.length} bugs`);
+  }
+}
+```
+
+## Error Handling
+
+### Python
+
+```python
+from claude_agent_sdk import (
+    query, ClaudeAgentOptions,
+    CLINotFoundError, CLIConnectionError, ProcessError
+)
+
+try:
+    async for message in query(
+        prompt="Fix the build",
+        options=ClaudeAgentOptions(allowed_tools=["Read", "Edit", "Bash"])
+    ):
+        pass
+except CLINotFoundError:
+    print("Claude Code CLI not installed. Run: npm install -g @anthropic-ai/claude-code")
+except CLIConnectionError as e:
+    print(f"Connection failed: {e}")
+except ProcessError as e:
+    print(f"Process error: {e}")
+```
+
+## Beta Features
+
+### 1M Context Window
+
+```python
+options = ClaudeAgentOptions(
+    model="claude-opus-4-6",
+    betas=["context-1m-2025-08-07"]
+)
+```
+
+Compatible with: Claude Opus 4.6, Claude Sonnet 4.5, Claude Sonnet 4.
+
+## Resources
+
+- [Agent SDK Demos](https://github.com/anthropics/claude-agent-sdk-demos) — Full production examples
+- [Python SDK Reference](https://platform.claude.com/docs/en/agent-sdk/python)
+- [TypeScript SDK Reference](https://platform.claude.com/docs/en/agent-sdk/typescript)
+- [Hooks Documentation](https://platform.claude.com/docs/en/agent-sdk/hooks)
+- [Sessions Documentation](https://platform.claude.com/docs/en/agent-sdk/sessions)
+- [Secure Deployment](https://platform.claude.com/docs/en/agent-sdk/secure-deployment)

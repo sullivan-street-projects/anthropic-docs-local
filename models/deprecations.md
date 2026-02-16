@@ -1,139 +1,93 @@
 ---
 title: "Model Deprecations"
-source_url: "https://docs.claude.com/en/docs/about-claude/model-deprecations"
+source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-01-04T06:05:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "models"
 ---
 
 # Model Deprecations
 
-This document tracks Claude model deprecations, retirement dates, and migration guidance.
+As Anthropic launches safer and more capable models, older models are regularly retired. This page lists all API deprecations and recommended replacements.
 
-## Deprecation Policy
+## Model Lifecycle
 
-- **60-day notice** minimum before model retirement for publicly released models
-- Notification sent to customers with active deployments
-- Usage audit available at https://console.anthropic.com/settings/usage
+- **Active**: Fully supported and recommended for use
+- **Legacy**: No longer receiving updates; may be deprecated in the future
+- **Deprecated**: No longer available for new customers; available for existing users until retirement
+- **Retired**: No longer available; requests will fail
 
-## Retired Models
+Anthropic provides at least 60 days notice before model retirement for publicly released models.
 
-These models are no longer available:
+## Model Status
 
-| Model | Deprecated | Retired | Migration Target |
-|-------|------------|---------|------------------|
-| Claude 1.x | Sep 4, 2024 | Nov 6, 2024 | Claude 3+ |
-| Claude Instant | Sep 4, 2024 | Nov 6, 2024 | Claude 3 Haiku |
-| Claude 2.1 | - | Jul 21, 2025 | Claude Sonnet 4 |
-| Claude 3 Sonnet (2024-02-29) | - | Jul 21, 2025 | Claude Sonnet 4 |
+| API Model Name | Current State | Deprecated | Tentative Retirement Date |
+|:---|:---|:---|:---|
+| `claude-opus-4-6` | Active | N/A | Not sooner than February 5, 2027 |
+| `claude-opus-4-5-20251101` | Active | N/A | Not sooner than November 24, 2026 |
+| `claude-opus-4-1-20250805` | Active | N/A | Not sooner than August 5, 2026 |
+| `claude-opus-4-20250514` | Active | N/A | Not sooner than May 14, 2026 |
+| `claude-sonnet-4-5-20250929` | Active | N/A | Not sooner than September 29, 2026 |
+| `claude-sonnet-4-20250514` | Active | N/A | Not sooner than May 14, 2026 |
+| `claude-3-7-sonnet-20250219` | Deprecated | October 28, 2025 | February 19, 2026 |
+| `claude-haiku-4-5-20251001` | Active | N/A | Not sooner than October 15, 2026 |
+| `claude-3-5-haiku-20241022` | Deprecated | December 19, 2025 | February 19, 2026 |
+| `claude-3-haiku-20240307` | Active | N/A | Not sooner than March 7, 2025 |
 
-## Deprecated Models (Active with Retirement Date)
+## Deprecation History
 
-These models are deprecated and will be retired:
+### 2025-12-19: Claude Haiku 3.5
 
-| Model | Model ID | Deprecated | Retirement Date | Migration Target |
-|-------|----------|------------|-----------------|------------------|
-| Claude 3 Opus | `claude-3-opus-20240229` | Jun 30, 2025 | Jan 5, 2026 | Claude Opus 4.1 |
-| Claude 3.5 Sonnet v1 | `claude-3-5-sonnet-20240620` | Aug 20, 2025 | Feb 19, 2026 | Claude Sonnet 4.5 |
-| Claude 3.5 Sonnet v2 | `claude-3-5-sonnet-20241022` | Aug 20, 2025 | Feb 19, 2026 | Claude Sonnet 4.5 |
-| Claude 3.7 Sonnet | `claude-3-7-sonnet-20250219` | Nov 11, 2025 | May 11, 2026 | Claude Sonnet 4.5 |
+| Retirement Date | Deprecated Model | Recommended Replacement |
+|:---|:---|:---|
+| February 19, 2026 | `claude-3-5-haiku-20241022` | `claude-haiku-4-5-20251001` |
 
-## AWS Bedrock Specific
+### 2025-10-28: Claude Sonnet 3.7
 
-| Model | Region Impact | Sunset Date | Extended Access |
-|-------|--------------|-------------|-----------------|
-| claude-3-5-sonnet-20240620-v1:0 | US-EAST-1, US-EAST-2, US-WEST-2, EU-CENTRAL-1, EU-CENTRAL-2, EU-WEST-1, EU-WEST-3 | Dec 1, 2025 | Until Mar 1, 2026 (premium pricing) |
+| Retirement Date | Deprecated Model | Recommended Replacement |
+|:---|:---|:---|
+| February 19, 2026 | `claude-3-7-sonnet-20250219` | `claude-opus-4-6` |
 
-## Current Recommended Models
+### 2025-08-13: Claude Sonnet 3.5 (Retired October 28, 2025)
 
-All Claude 4.x models are General Availability (GA) and actively maintained:
+| Retirement Date | Deprecated Model | Recommended Replacement |
+|:---|:---|:---|
+| October 28, 2025 | `claude-3-5-sonnet-20240620` | `claude-opus-4-6` |
+| October 28, 2025 | `claude-3-5-sonnet-20241022` | `claude-opus-4-6` |
 
-| Model | Status | Recommended Use |
-|-------|--------|-----------------|
-| Claude Opus 4.5 | GA | Complex reasoning, research |
-| Claude Opus 4.1 | GA | Agentic tasks, real-world coding |
-| Claude Opus 4 | GA | Premium tier (legacy) |
-| Claude Sonnet 4.5 | GA | Coding, agents, computer use |
-| Claude Sonnet 4 | GA | General balanced use |
-| Claude Haiku 4.5 | GA | Fast, cost-efficient |
-| Claude Haiku 3.5 | GA | Budget-conscious applications |
-| Claude Haiku 3 | GA | Lowest cost option |
+### 2025-06-30: Claude Opus 3 (Retired January 5, 2026)
 
-## Migration Guide
+| Retirement Date | Deprecated Model | Recommended Replacement |
+|:---|:---|:---|
+| January 5, 2026 | `claude-3-opus-20240229` | `claude-opus-4-6` |
 
-### From Claude 3 Opus to Opus 4.1
+### 2025-01-21: Claude 2, 2.1, Sonnet 3 (Retired July 21, 2025)
 
-```python
-# Before
-model = "claude-3-opus-20240229"
+| Retirement Date | Deprecated Model | Recommended Replacement |
+|:---|:---|:---|
+| July 21, 2025 | `claude-2.0` | `claude-opus-4-6` |
+| July 21, 2025 | `claude-2.1` | `claude-opus-4-6` |
+| July 21, 2025 | `claude-3-sonnet-20240229` | `claude-opus-4-6` |
 
-# After
-model = "claude-opus-4-1-20250805"
-```
+### 2024-09-04: Claude 1 and Instant (Retired November 6, 2024)
 
-Key differences:
-- Improved agentic task performance
-- Better real-world coding capabilities
-- Enhanced reasoning
-- Same pricing ($15/$75 per MTok)
+| Retirement Date | Deprecated Model | Recommended Replacement |
+|:---|:---|:---|
+| November 6, 2024 | `claude-1.0` through `claude-1.3` | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-instant-1.0` through `claude-instant-1.2` | `claude-haiku-4-5-20251001` |
 
-### From Claude 3.5/3.7 Sonnet to Sonnet 4.5
+## Best Practices
 
-```python
-# Before
-model = "claude-3-5-sonnet-20241022"
-# or
-model = "claude-3-7-sonnet-20250219"
+1. Regularly check documentation for deprecation updates
+2. Test applications with newer models well before retirement dates
+3. Update code to use recommended replacement as soon as possible
+4. Audit usage via Console Usage page (Export → CSV)
+5. Contact support for migration assistance
 
-# After
-model = "claude-sonnet-4-5-20250929"
-```
+## Migrating
 
-Key differences:
-- 77-82% on SWE-bench (up from 62%)
-- 1M context window beta available
-- Improved computer use
-- Same pricing ($3/$15 per MTok)
+For specific migration instructions, see the [Migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide).
 
-### Checking Current Model Usage
+## Commitments
 
-Visit the Anthropic Console to audit your API usage:
-- https://console.anthropic.com/settings/usage
-
-Review which models your applications are calling to identify deprecated model usage.
-
-## Deprecation Timeline Visual
-
-```
-2024
-├── Sep 4: Claude 1.x, Instant deprecated
-├── Nov 6: Claude 1.x, Instant retired
-
-2025
-├── Jun 30: Claude 3 Opus deprecated
-├── Jul 21: Claude 2.1, Claude 3 Sonnet retired
-├── Aug 20: Claude 3.5 Sonnet deprecated
-├── Nov 11: Claude 3.7 Sonnet deprecated
-├── Dec 1: AWS Bedrock v1 sunset (some regions)
-
-2026
-├── Jan 5: Claude 3 Opus retirement
-├── Feb 19: Claude 3.5 Sonnet retirement
-├── Mar 1: AWS Bedrock v1 extended access ends
-├── May 11: Claude 3.7 Sonnet retirement
-```
-
-## Best Practices for Migration
-
-1. **Audit usage now**: Identify all deprecated model usage
-2. **Test migration targets**: Validate behavior with new models
-3. **Update model strings**: Replace deprecated model IDs
-4. **Update SDKs**: Ensure you have latest SDK versions
-5. **Monitor performance**: Track any differences post-migration
-6. **Plan ahead**: Don't wait until retirement date
-
-## Additional Resources
-
-- [Anthropic Deprecation Commitments](https://www.anthropic.com/research/deprecation-commitments)
-- [API Console Usage](https://console.anthropic.com/settings/usage)
-- [Migration to Claude 4.5 Guide](https://platform.claude.com/docs/en/migration)
+Anthropic has committed to long-term preservation of model weights and other measures to mitigate deprecation impacts. See [Commitments on Model Deprecation and Preservation](https://www.anthropic.com/research/deprecation-commitments).

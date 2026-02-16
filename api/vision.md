@@ -2,196 +2,97 @@
 title: "Vision API"
 source_url: "https://platform.claude.com/docs/en/build-with-claude/vision"
 source_type: "web-extracted"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "api"
 ---
 
 # Vision
 
-Claude's vision capabilities allow understanding and analyzing images for multimodal interaction.
+Claude's vision capabilities allow it to understand and analyze images, opening up multimodal interaction possibilities.
 
 ## How to Use Vision
 
-- **claude.ai**: Upload or drag-and-drop images
-- **Console Workbench**: Add images button in User messages
-- **API**: Include image content blocks
+- **claude.ai**: Upload or drag-and-drop images into chat
+- **Console Workbench**: Image button at top-right of User message blocks
+- **API**: Include image content blocks in messages
 
-## Limits and Requirements
+## Limits
 
-### Image Limits
-- **API**: Up to 100 images per request
-- **claude.ai**: Up to 20 images per turn
-- **Max size**: 8000x8000 px (rejected if larger)
-- **File size**: 5MB (API), 10MB (claude.ai)
+- Up to 20 images per turn on claude.ai, 100 per API request
+- Maximum image size: 8000x8000 px (2000x2000 if >20 images)
+- 32 MB request size limit for standard endpoints
+- API: Max 5 MB per image; claude.ai: Max 10 MB per image
 
-### Supported Formats
-- `image/jpeg`
-- `image/png`
-- `image/gif`
-- `image/webp`
+## Image Sizing
 
-### Size Recommendations
-For optimal performance, resize images:
-- Long edge: max 1568 pixels
-- Total: max ~1.15 megapixels
-- Very small images (<200px) may degrade performance
+For optimal performance, resize images before uploading. If the long edge exceeds 1568 pixels or the image exceeds ~1,600 tokens, it will be scaled down preserving aspect ratio. Very small images under 200 pixels may degrade performance.
 
-### Optimal Sizes by Aspect Ratio
+### Maximum Sizes (no resize needed)
 
-| Aspect Ratio | Size |
-|--------------|------|
+| Aspect Ratio | Image Size |
+|:-------------|:-----------|
 | 1:1 | 1092x1092 px |
 | 3:4 | 951x1268 px |
 | 2:3 | 896x1344 px |
 | 9:16 | 819x1456 px |
 | 1:2 | 784x1568 px |
 
-## Token Calculation
+## Image Costs
 
-```
-tokens = (width * height) / 750
-```
+Token calculation: `tokens = (width px * height px) / 750`
 
-Cost examples (Claude Sonnet 4.5 at $3/M input tokens):
+| Image Size | Tokens | Cost/image (Opus 4.6) | Cost/1K images |
+|:-----------|:-------|:----------------------|:---------------|
+| 200x200 px | ~54 | ~$0.00016 | ~$0.16 |
+| 1000x1000 px | ~1334 | ~$0.004 | ~$4.00 |
+| 1092x1092 px | ~1590 | ~$0.0048 | ~$4.80 |
 
-| Size | Tokens | Cost/image |
-|------|--------|------------|
-| 200x200 | ~54 | ~$0.00016 |
-| 1000x1000 | ~1334 | ~$0.004 |
-| 1092x1092 | ~1590 | ~$0.0048 |
+## Supported Formats
 
-## API Examples
+- JPEG (`image/jpeg`)
+- PNG (`image/png`)
+- GIF (`image/gif`)
+- WebP (`image/webp`)
 
-### Base64-Encoded Image
+## Image Sources
 
-```python
-import anthropic
-import base64
-import httpx
-
-# Encode image
-image_data = base64.standard_b64encode(
-    httpx.get("https://example.com/image.jpg").content
-).decode("utf-8")
-
-client = anthropic.Anthropic()
-message = client.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=1024,
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "image",
-                    "source": {
-                        "type": "base64",
-                        "media_type": "image/jpeg",
-                        "data": image_data
-                    }
-                },
-                {"type": "text", "text": "Describe this image."}
-            ]
-        }
-    ]
-)
+### Base64 Encoded
+```json
+{"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": "<base64>"}}
 ```
 
-### URL-Based Image
-
-```python
-message = client.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=1024,
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "image",
-                    "source": {
-                        "type": "url",
-                        "url": "https://example.com/image.jpg"
-                    }
-                },
-                {"type": "text", "text": "Describe this image."}
-            ]
-        }
-    ]
-)
+### URL Reference
+```json
+{"type": "image", "source": {"type": "url", "url": "https://example.com/image.jpg"}}
 ```
 
 ### Files API
-
-```python
-# Upload image
-with open("image.jpg", "rb") as f:
-    file = client.beta.files.upload(file=("image.jpg", f, "image/jpeg"))
-
-# Use in message
-message = client.beta.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=1024,
-    betas=["files-api-2025-04-14"],
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "image",
-                    "source": {"type": "file", "file_id": file.id}
-                },
-                {"type": "text", "text": "Describe this image."}
-            ]
-        }
-    ]
-)
-```
-
-## Multiple Images
-
-```python
-messages=[
-    {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": "Image 1:"},
-            {"type": "image", "source": {"type": "url", "url": url1}},
-            {"type": "text", "text": "Image 2:"},
-            {"type": "image", "source": {"type": "url", "url": url2}},
-            {"type": "text", "text": "How are these different?"}
-        ]
-    }
-]
+```json
+{"type": "image", "source": {"type": "file", "file_id": "file_abc123"}}
 ```
 
 ## Best Practices
 
-1. Place images before text/questions
-2. Use clear, high-quality images
-3. Ensure text in images is legible
-4. Pre-resize large images to reduce latency
-5. Label multiple images ("Image 1:", "Image 2:")
+- Place images before text in prompts for best results
+- Use clear, high-quality images (not blurry or pixelated)
+- Ensure text in images is legible
+- Label multiple images: "Image 1:", "Image 2:", etc.
 
 ## Limitations
 
-- **People identification**: Cannot identify (name) people
-- **Accuracy**: May struggle with low-quality, rotated, or tiny images
-- **Spatial reasoning**: Limited precision for layouts
-- **Counting**: Approximate counts, not always precise
-- **AI detection**: Cannot reliably detect AI-generated images
-- **Medical**: Not for diagnostic scans (CT, MRI)
+- **People identification**: Cannot identify (name) people in images
+- **Accuracy**: May hallucinate on low-quality, rotated, or very small images
+- **Spatial reasoning**: Limited precision for localization and layouts
+- **Counting**: Approximate counts only, especially with many small objects
+- **AI-generated images**: Cannot reliably detect synthetic images
+- **Inappropriate content**: Will not process content violating Acceptable Use Policy
+- **Healthcare**: Not a substitute for professional medical diagnosis
 
 ## FAQ
 
-**Can Claude read image URLs?**
-Yes, use `"type": "url"` source blocks.
-
-**Does Claude read image metadata?**
-No, metadata is not parsed or received.
-
-**Can Claude generate images?**
-No, Claude is image understanding only - no generation or editing.
-
-**Can I delete uploaded images?**
-Uploads are ephemeral and automatically deleted after processing.
+- **File types**: JPEG, PNG, GIF, WebP
+- **URL images**: Yes, via `"source": {"type": "url", "url": "..."}`
+- **Size limits**: API 5 MB, claude.ai 10 MB per image
+- **Image count**: API up to 100, claude.ai up to 20 per turn
+- **Metadata**: Claude does not parse or receive image metadata
+- **Image generation**: Claude cannot generate, edit, or create images

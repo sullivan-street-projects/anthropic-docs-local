@@ -2,205 +2,123 @@
 title: "Streaming API"
 source_url: "https://platform.claude.com/docs/en/api/streaming"
 source_type: "web-extracted"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "api"
 ---
 
 # Streaming Messages
 
-Set `"stream": true` to incrementally stream responses using server-sent events (SSE).
+Set `"stream": true` when creating a Message to incrementally stream the response using server-sent events (SSE).
 
 ## SDK Streaming
 
 ### Python
-
 ```python
-import anthropic
-
-client = anthropic.Anthropic()
-
 with client.messages.stream(
     max_tokens=1024,
     messages=[{"role": "user", "content": "Hello"}],
-    model="claude-sonnet-4-5",
+    model="claude-opus-4-6",
 ) as stream:
     for text in stream.text_stream:
         print(text, end="", flush=True)
 ```
 
 ### TypeScript
-
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic();
-
 await client.messages.stream({
-    messages: [{role: 'user', content: "Hello"}],
-    model: 'claude-sonnet-4-5',
-    max_tokens: 1024,
-}).on('text', (text) => {
-    console.log(text);
-});
+  messages: [{ role: "user", content: "Hello" }],
+  model: "claude-opus-4-6",
+  max_tokens: 1024
+}).on("text", (text) => { console.log(text); });
+```
+
+## Get Final Message Without Events
+
+Use `.stream()` with `.get_final_message()` (Python) or `.finalMessage()` (TypeScript) to get the complete `Message` object without event handling. Useful for large `max_tokens` values where SDKs require streaming to avoid HTTP timeouts.
+
+```python
+with client.messages.stream(
+    max_tokens=128000,
+    messages=[{"role": "user", "content": "Write a detailed analysis..."}],
+    model="claude-opus-4-6",
+) as stream:
+    message = stream.get_final_message()
 ```
 
 ## Event Types
 
-Stream event flow:
+### Event Flow
+1. `message_start`: Message object with empty content
+2. Content blocks (each with `content_block_start`, `content_block_delta` events, `content_block_stop`)
+3. `message_delta`: Top-level changes, cumulative usage
+4. `message_stop`: Stream complete
 
-1. `message_start` - Contains `Message` object with empty content
-2. Content blocks (for each):
-   - `content_block_start`
-   - `content_block_delta` (one or more)
-   - `content_block_stop`
-3. `message_delta` - Top-level message changes
-4. `message_stop` - Final event
+### Ping Events
+May appear at any point in the stream.
 
-### Event Format
-
+### Error Events
 ```json
-event: content_block_delta
-data: {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Hello"}}
+{"type": "error", "error": {"type": "overloaded_error", "message": "Overloaded"}}
 ```
 
-## Delta Types
+## Content Block Delta Types
 
 ### Text Delta
-
 ```json
-{
-  "type": "content_block_delta",
-  "index": 0,
-  "delta": {"type": "text_delta", "text": "ello frien"}
-}
+{"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "ello frien"}}
 ```
 
 ### Input JSON Delta (Tool Use)
-
+Partial JSON strings accumulated until `content_block_stop`. Parse with partial JSON library or SDK helpers.
 ```json
-{
-  "type": "content_block_delta",
-  "index": 1,
-  "delta": {"type": "input_json_delta", "partial_json": "{\"location\": \"San Fra"}
-}
+{"type": "content_block_delta", "index": 1, "delta": {"type": "input_json_delta", "partial_json": "{\"location\": \"San Fra"}}
 ```
-
-Note: Accumulate partial JSON strings and parse after `content_block_stop`.
 
 ### Thinking Delta (Extended Thinking)
-
 ```json
-{
-  "type": "content_block_delta",
-  "index": 0,
-  "delta": {"type": "thinking_delta", "thinking": "Let me solve this step by step..."}
-}
+{"type": "content_block_delta", "index": 0, "delta": {"type": "thinking_delta", "thinking": "I need to find..."}}
 ```
 
-### Signature Delta
-
-Sent before `content_block_stop` for thinking blocks:
-
+A `signature_delta` is sent before `content_block_stop` for thinking blocks:
 ```json
-{
-  "type": "content_block_delta",
-  "index": 0,
-  "delta": {"type": "signature_delta", "signature": "EqQBCgIYAhIM..."}
-}
+{"type": "content_block_delta", "index": 0, "delta": {"type": "signature_delta", "signature": "EqQBCgIYAh..."}}
 ```
 
-## Ping Events
+## Streaming with Tool Use
 
-Streams may include `ping` events to keep connections alive.
-
-## Error Events
-
-Errors can occur during streaming:
-
-```json
-event: error
-data: {"type": "error", "error": {"type": "overloaded_error", "message": "Overloaded"}}
-```
-
-## Basic Streaming Request
-
-```bash
-curl https://api.anthropic.com/v1/messages \
-     --header "anthropic-version: 2023-06-01" \
-     --header "content-type: application/json" \
-     --header "x-api-key: $ANTHROPIC_API_KEY" \
-     --data '{
-       "model": "claude-sonnet-4-5",
-       "messages": [{"role": "user", "content": "Hello"}],
-       "max_tokens": 256,
-       "stream": true
-     }'
-```
-
-## Example Response
-
-```
-event: message_start
-data: {"type": "message_start", "message": {"id": "msg_...", ...}}
-
-event: content_block_start
-data: {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}}
-
-event: content_block_delta
-data: {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Hello"}}
-
-event: content_block_delta
-data: {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "!"}}
-
-event: content_block_stop
-data: {"type": "content_block_stop", "index": 0}
-
-event: message_delta
-data: {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 15}}
-
-event: message_stop
-data: {"type": "message_stop"}
-```
-
-## Streaming with Tools
-
-Tool use blocks stream with `input_json_delta`:
-
-```json
-event: content_block_start
-data: {"type":"content_block_start","index":1,"content_block":{"type":"tool_use","id":"toolu_...","name":"get_weather","input":{}}}
-
-event: content_block_delta
-data: {"type":"content_block_delta","index":1,"delta":{"type":"input_json_delta","partial_json":"{\"location\":"}}
-```
+Fine-grained streaming supported per tool with `eager_input_streaming`. Tool use blocks stream `input_json_delta` events for partial parameters.
 
 ## Streaming with Extended Thinking
 
+Thinking content arrives via `thinking_delta` events followed by `signature_delta`. Handle both event types:
+
 ```python
 with client.messages.stream(
-    model="claude-sonnet-4-5",
+    model="claude-opus-4-6",
     max_tokens=20000,
     thinking={"type": "enabled", "budget_tokens": 16000},
-    messages=[{"role": "user", "content": "What is 27 * 453?"}],
+    messages=[{"role": "user", "content": "What is GCD of 1071 and 462?"}],
 ) as stream:
     for event in stream:
         if event.type == "content_block_delta":
             if event.delta.type == "thinking_delta":
-                print(event.delta.thinking, end="")
+                print(event.delta.thinking, end="", flush=True)
             elif event.delta.type == "text_delta":
-                print(event.delta.text, end="")
+                print(event.delta.text, end="", flush=True)
 ```
+
+## Streaming with Web Search
+
+Server tool use blocks (`server_tool_use`) and results (`web_search_tool_result`) appear as content blocks in the stream. Usage includes `server_tool_use.web_search_requests` count.
 
 ## Error Recovery
 
-When streaming is interrupted:
+For Claude 4.5 models and earlier: capture partial response, construct continuation request with partial assistant message, resume streaming.
 
-1. **Capture partial response**: Save all received content
-2. **Construct continuation request**: Include partial assistant response
-3. **Resume streaming**: Continue from interruption point
+For Claude Opus 4.6: add a user message instructing the model to continue from where it left off.
 
-Best practices:
-- Use SDK's built-in accumulation
-- Handle all content types (text, tool_use, thinking)
-- Tool use and thinking blocks cannot be partially recovered
+### Best Practices
+- Use SDK built-in message accumulation and error handling
+- Handle multiple content types (text, tool_use, thinking)
+- Tool use and extended thinking blocks cannot be partially recovered
 - Resume from the most recent text block

@@ -1,430 +1,198 @@
 ---
 title: "Claude Code Plugins"
-source_url: "claude-code-guide-agent"
+source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "claude-code"
 ---
 
 # Claude Code Plugins
 
-Plugins extend Claude Code with custom functionality that can be shared across projects and teams, including skills, agents, hooks, and MCP server integrations.
+Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, and LSP servers into a single installable unit.
 
-## When to Use Plugins
+> **Last updated:** February 16, 2026
 
-**Use plugins when:**
-- Sharing functionality with team or community
-- Same skills needed across multiple projects
-- Version control and easy updates required
-- Distributing through a marketplace
+## Plugins vs Standalone Configuration
 
-**Use standalone `.claude/` when:**
-- Customizing for a single project
-- Personal configuration
-- Experimenting before packaging
-- Want short command names (`/hello` vs `/plugin:hello`)
+| Aspect | Standalone (`.claude/`) | Plugin |
+|--------|------------------------|--------|
+| Skill names | `/review` | `/plugin:review` |
+| Sharing | Manual copy | Install via marketplace |
+| Best for | Personal, single project | Team/community distribution |
+| Versioning | Via git | Semantic versioning |
 
 ## Plugin Directory Structure
 
 ```
 my-plugin/
-├── .claude-plugin/           # REQUIRED
-│   └── plugin.json          # Plugin manifest
-├── commands/                 # Slash commands (legacy)
-│   └── status.md
-├── skills/                   # Agent Skills (recommended)
-│   └── code-review/
-│       ├── SKILL.md         # Required
-│       └── reference.md     # Optional supporting files
-├── agents/                   # Custom agents
-│   └── security-reviewer.md
-├── hooks/                    # Hook configurations
-│   ├── hooks.json
-│   └── security-hooks.json
-├── .mcp.json                # MCP server definitions
-├── .lsp.json                # LSP server configurations
-├── scripts/                 # Utility scripts
-│   └── format.sh
-├── LICENSE
-└── CHANGELOG.md
+├── .claude-plugin/
+│   └── plugin.json          # Required manifest
+├── skills/
+│   └── skill-name/
+│       └── SKILL.md
+├── commands/
+│   └── command-name.md      # Alias for skills
+├── agents/
+│   └── agent-name.md        # Custom agents
+├── hooks/
+│   └── hooks.json           # Event handlers
+├── .mcp.json                # MCP servers
+├── .lsp.json                # LSP servers
+├── README.md
+└── LICENSE
 ```
 
-**Important**: Component directories (`commands/`, `agents/`, `skills/`, etc.) must be at plugin root, NOT inside `.claude-plugin/`.
+## Plugin Manifest (`plugin.json`)
 
-## plugin.json Manifest
-
-### Required Fields
-
-```json
-{
-  "name": "my-plugin"
-}
-```
-
-### Complete Example
-
-```json
-{
-  "name": "deployment-tools",
-  "version": "1.2.0",
-  "description": "Deployment automation tools",
-  "author": {
-    "name": "DevOps Team",
-    "email": "devops@example.com"
-  },
-  "homepage": "https://docs.example.com/plugins/deployment",
-  "repository": "https://github.com/company/deployment-plugin",
-  "license": "MIT",
-  "keywords": ["deployment", "ci-cd", "automation"]
-}
-```
-
-### Component Path Fields
-
-```json
-{
-  "commands": ["./custom/cmd.md"],
-  "agents": "./custom/agents/",
-  "skills": "./custom/skills/",
-  "hooks": "./config/hooks.json",
-  "mcpServers": "./mcp-config.json",
-  "outputStyles": "./styles/",
-  "lspServers": "./.lsp.json"
-}
-```
-
-Custom paths supplement default directories, not replace them.
-
-## Creating Components
-
-### Skills (Recommended)
-
-Create directories with `SKILL.md` in `skills/`:
-
-```yaml
----
-name: code-review
-description: Review code for bugs and best practices
-argument-hint: "[file-or-directory]"
-disable-model-invocation: false
-user-invocable: true
-allowed-tools: Read, Grep, Glob
-model: opus
-context: fork
-agent: Explore
----
-
-Review the code for potential bugs, security issues, and style.
-Be concise and actionable.
-```
-
-**Frontmatter Fields**:
-- `name`: Skill name (uses directory name if omitted)
-- `description`: What the skill does
-- `argument-hint`: Autocomplete hint
-- `disable-model-invocation`: Prevent Claude from auto-using
-- `user-invocable`: Show in `/` menu
-- `allowed-tools`: Tools Claude can use
-- `model`: Model to use
-- `context: fork`: Run in forked subagent
-- `agent`: Subagent type for context: fork
-
-**Dynamic Context** with shell commands:
-
-```yaml
----
-name: pr-summary
-description: Summarize PR changes
-context: fork
-agent: Explore
----
-
-PR diff: !`gh pr diff`
-Changed files: !`gh pr diff --name-only`
-
-Summarize this pull request...
-```
-
-**Usage**: `/my-plugin:code-review src/auth.ts`
-
-### Slash Commands (Legacy)
-
-Create Markdown files in `commands/`:
-
-```markdown
----
-description: Deploy to specified environment
----
-
-Deploy the application to "$1" environment.
-Notes: "$2"
-```
-
-**Usage**: `/my-plugin:deploy staging "hotfix"`
-
-### Agents
-
-Create Markdown files in `agents/`:
-
-```markdown
----
-description: Security specialist for code reviews
-capabilities: ["vulnerability scanning", "secret detection"]
-tools: Read, Grep, Glob, Bash
-model: sonnet
----
-
-You are a security code review expert.
-
-When reviewing code:
-1. Search for common vulnerabilities
-2. Check for hardcoded secrets
-3. Verify input validation
-4. Review access control
-```
-
-### Hooks
-
-Create `hooks/hooks.json`:
-
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/format.sh"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-Hook types: `command`, `prompt`, `agent`
-
-### MCP Servers
-
-Create `.mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "plugin-api": {
-      "command": "${CLAUDE_PLUGIN_ROOT}/servers/api-server",
-      "args": ["--config", "${CLAUDE_PLUGIN_ROOT}/config.json"],
-      "env": {
-        "API_KEY": "${API_KEY}"
-      }
-    }
-  }
-}
-```
-
-## Installing Plugins
-
-### Interactive Menu
-
-```bash
-/plugin
-```
-
-Tabs: Discover, Installed, Marketplaces, Errors
-
-### CLI Commands
-
-```bash
-# Install to user scope (default)
-claude plugin install formatter@marketplace
-
-# Install to project scope (team)
-claude plugin install formatter@marketplace --scope project
-
-# Install to local scope
-claude plugin install formatter@marketplace --scope local
-```
-
-### Management Commands
-
-```bash
-claude plugin list
-claude plugin enable <plugin>
-claude plugin disable <plugin>
-claude plugin update <plugin>
-claude plugin uninstall <plugin>
-```
-
-## Plugin Scopes
-
-| Scope | Settings File | Use Case |
-|-------|---------------|----------|
-| user | `~/.claude/settings.json` | Personal plugins (default) |
-| project | `.claude/settings.json` | Team plugins (git) |
-| local | `.claude/settings.local.json` | Gitignored |
-| managed | `managed-settings.json` | Enterprise |
-
-## Plugin Marketplaces
-
-### Add Marketplace
-
-```bash
-/plugin marketplace add anthropics/claude-code
-/plugin marketplace add https://gitlab.com/company/plugins.git
-/plugin marketplace add ./my-local-marketplace
-```
-
-### Create Marketplace
-
-Create `.claude-plugin/marketplace.json`:
-
-```json
-{
-  "name": "company-tools",
-  "plugins": [
-    {
-      "name": "code-formatter",
-      "source": "./plugins/formatter",
-      "description": "Automatic code formatting"
-    }
-  ]
-}
-```
-
-### Plugin Sources
+### Minimal
 
 ```json
 {
   "name": "my-plugin",
-  "source": {
-    "source": "github",
-    "repo": "owner/plugin-repo",
-    "ref": "v2.0.0",
-    "sha": "a1b2c3d4e5f6..."
-  }
+  "description": "What this plugin does",
+  "version": "1.0.0",
+  "author": { "name": "Your Name" }
 }
 ```
 
-## Team Configuration
-
-Add to `.claude/settings.json`:
+### Complete Schema
 
 ```json
 {
-  "extraKnownMarketplaces": {
-    "company-tools": {
-      "source": {
-        "source": "github",
-        "repo": "your-org/claude-plugins"
-      }
-    }
+  "name": "plugin-id",
+  "displayName": "Display Name",
+  "description": "One-liner description",
+  "longDescription": "Detailed description",
+  "version": "1.0.0",
+  "author": {
+    "name": "Author Name",
+    "email": "email@example.com",
+    "url": "https://example.com"
   },
-  "enabledPlugins": {
-    "code-formatter@company-tools": true
+  "homepage": "https://example.com",
+  "repository": { "type": "git", "url": "https://github.com/..." },
+  "license": "MIT",
+  "keywords": ["keyword1", "keyword2"],
+  "components": {
+    "skills": "skills/",
+    "agents": "agents/",
+    "commands": "commands/",
+    "hooks": "hooks/hooks.json",
+    "mcpServers": ".mcp.json"
   }
 }
 ```
 
-### Managed Marketplace Restrictions
+## Plugin Components
+
+### Skills (`skills/skillname/SKILL.md`)
+- Standard Agent Skills format with YAML frontmatter
+- Namespaced: `/plugin-name:skill-name`
+- Automatically discovered from directory names
+
+### Agents (`agents/agent-name.md`)
+- Custom subagent definitions
+- Define when to use agent automatically via `description`
+- Specify tools, permissions, and model
+
+### Hooks (`hooks/hooks.json`)
+- Same format as settings hooks
+- Optional `description` field for documentation
+- Scoped to plugin lifecycle
+
+### MCP Servers (`.mcp.json`)
+- Bundled external tool integrations
+- Auto-start when plugin enables
+- Require restart for changes
+
+### LSP Servers (`.lsp.json`)
+- Language server integrations for code intelligence
+
+## Installation & Management
+
+```bash
+# Install from marketplace
+/plugin install <plugin-name>
+/plugin install github:author/repo
+
+# Manage plugins
+/plugin list
+/plugin disable <plugin-name>
+/plugin enable <plugin-name>
+/plugin update <plugin-name>
+/plugin uninstall <plugin-name>
+```
+
+### Local Testing
+
+```bash
+claude --plugin-dir ./my-plugin
+```
+
+## Marketplace
+
+### Marketplace File Format
 
 ```json
 {
-  "strictKnownMarketplaces": [
+  "version": "1",
+  "plugins": [
     {
-      "source": "github",
-      "repo": "acme-corp/approved-plugins"
+      "name": "my-plugin",
+      "displayName": "My Plugin",
+      "description": "Description",
+      "source": "github:owner/repo",
+      "tags": ["productivity", "development"]
     }
   ]
 }
 ```
 
-## Testing During Development
+### Hosting Options
+- GitHub repositories (recommended)
+- Git services (GitLab, Gitea, etc.)
+- Local paths
+- Remote URLs
+
+### Managing Marketplaces
 
 ```bash
-# Test your plugin locally
-claude --plugin-dir ./my-plugin
-
-# Test multiple plugins
-claude --plugin-dir ./plugin-one --plugin-dir ./plugin-two
+/plugin marketplace add https://raw.githubusercontent.com/.../marketplace.json
+/plugin marketplace list
 ```
 
-## Best Practices
+### Auto-Update Configuration
 
-### Design
-- Single responsibility per component
-- Clear, specific descriptions with trigger keywords
-- Keep `SKILL.md` under 500 lines
-
-### Versioning
-Follow semantic versioning:
-- MAJOR: Breaking changes
-- MINOR: New features
-- PATCH: Bug fixes
-
-### Security
-- Never hardcode secrets
-- Validate input in hooks
-- Use `allowed-tools` in Skills
-- Review hook scripts carefully
-
-### Documentation
-- Include README.md
-- Document all commands and agents
-- Provide setup instructions
-- Include CHANGELOG.md
-
-## Converting Standalone to Plugin
-
-```bash
-mkdir -p my-plugin/.claude-plugin
-cat > my-plugin/.claude-plugin/plugin.json << 'EOF'
-{"name": "my-plugin", "version": "1.0.0"}
-EOF
-
-# Copy existing files
-cp -r .claude/commands my-plugin/
-cp -r .claude/skills my-plugin/
-cp -r .claude/agents my-plugin/
-
-# Test
-claude --plugin-dir ./my-plugin
-```
-
-## Recent Additions
-
-### Automatic Skill Hot-Reload (v2.1.0)
-Skills automatically reload without restarting Claude Code.
-
-### Skill Context Fork (v2.1.0)
-```yaml
-context: fork
-agent: Explore
-```
-Run skills in isolated subagent contexts.
-
-### Merged Slash Commands and Skills (v2.1.3)
-Both create `/command-name` endpoints. Skills are recommended for new development.
-
-### Search in Installed Plugins List (v2.1.15)
-Type to filter plugins by name in the `/plugin` Installed tab.
-
-### Pin Plugins to Git Commits (v2.1.15)
 ```json
 {
-  "source": {
-    "source": "github",
-    "repo": "owner/repo",
-    "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0"
-  }
+  "extraKnownMarketplaces": ["url"],
+  "strictKnownMarketplaces": false
 }
 ```
 
-## Resources
+## Versioning
 
-- **Plugin Reference**: https://code.claude.com/docs/en/plugins-reference.md
-- **Skills Guide**: https://code.claude.com/docs/en/skills.md
-- **Hooks Reference**: https://code.claude.com/docs/en/hooks.md
-- **Plugin Marketplaces**: https://code.claude.com/docs/en/plugin-marketplaces.md
+Semantic Versioning: `MAJOR.MINOR.PATCH`
+
+Version constraints:
+- `"1.0.0"` — exact version
+- `"^1.0.0"` — compatible with 1.x.x
+- `"~1.0.0"` — compatible with 1.0.x
+
+## Official Plugins
+
+The [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) repository contains Anthropic's official plugins (7,509 stars). Additional knowledge work plugins are available at [knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) (7,428 stars).
+
+## Security Considerations
+
+- Hooks execute with user permissions
+- Validate all inputs in hook scripts
+- Use absolute paths in commands
+- Avoid exposing sensitive files
+- Review plugin code before installation
+- Recommend `plan` permission mode for initial review
+
+## Sources
+
+- [Plugins Guide](https://code.claude.com/docs/en/plugins)
+- [Skills Documentation](https://code.claude.com/docs/en/skills)

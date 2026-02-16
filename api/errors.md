@@ -2,7 +2,7 @@
 title: "API Errors"
 source_url: "https://platform.claude.com/docs/en/api/errors"
 source_type: "web-extracted"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "api"
 ---
 
@@ -11,26 +11,30 @@ category: "api"
 ## HTTP Error Codes
 
 | Code | Type | Description |
-|------|------|-------------|
+|:-----|:-----|:------------|
 | 400 | `invalid_request_error` | Issue with request format or content |
 | 401 | `authentication_error` | Issue with API key |
-| 403 | `permission_error` | API key lacks permission |
-| 404 | `not_found_error` | Resource not found |
-| 413 | `request_too_large` | Exceeds max request size |
-| 429 | `rate_limit_error` | Rate limit hit |
-| 500 | `api_error` | Internal server error |
+| 403 | `permission_error` | API key lacks permission for the resource |
+| 404 | `not_found_error` | Requested resource not found |
+| 413 | `request_too_large` | Request exceeds maximum allowed bytes |
+| 429 | `rate_limit_error` | Account hit rate limit |
+| 500 | `api_error` | Unexpected internal error |
 | 529 | `overloaded_error` | API temporarily overloaded |
+
+**Note:** 529 errors occur during high traffic across all users. In rare cases, sharp usage increases may trigger 429 errors due to acceleration limits. Ramp traffic gradually and maintain consistent patterns.
+
+When streaming via SSE, errors can occur after a 200 response is returned.
 
 ## Request Size Limits
 
-| Endpoint | Max Size |
-|----------|----------|
+| Endpoint Type | Maximum Size |
+|:---|:---|
 | Messages API | 32 MB |
 | Token Counting API | 32 MB |
 | Batch API | 256 MB |
 | Files API | 500 MB |
 
-Exceeding limits returns 413 `request_too_large` from Cloudflare.
+Exceeding limits returns a 413 `request_too_large` error from Cloudflare before reaching API servers.
 
 ## Error Response Format
 
@@ -47,102 +51,39 @@ Exceeding limits returns 413 `request_too_large` from Cloudflare.
 
 ## Request ID
 
-Every response includes a `request-id` header. Include this when contacting support.
+Every API response includes a `request-id` header. Include this when contacting support.
 
-### Accessing Request ID
-
-**Python:**
 ```python
-message = client.messages.create(...)
+message = client.messages.create(
+    model="claude-opus-4-6",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Hello, Claude"}],
+)
 print(f"Request ID: {message._request_id}")
-```
-
-**TypeScript:**
-```typescript
-const message = await client.messages.create({...});
-console.log('Request ID:', message._request_id);
-```
-
-## Rate Limiting
-
-429 errors occur when hitting rate limits. 529 errors occur during high API traffic.
-
-In rare cases, sharp usage increases can trigger acceleration limits (429 errors). To avoid:
-- Ramp up traffic gradually
-- Maintain consistent usage patterns
-
-## Streaming Errors
-
-Errors can occur after a 200 response during streaming:
-
-```json
-event: error
-data: {"type": "error", "error": {"type": "overloaded_error", "message": "Overloaded"}}
 ```
 
 ## Long Requests
 
-**Recommendations:**
-- Use streaming for long-running requests
-- Use Message Batches API for bulk processing
-- Avoid large `max_tokens` without streaming
+Use streaming Messages API or Message Batches API for requests over 10 minutes. Networks may drop idle connections. Set TCP socket keep-alive to reduce timeout impact.
 
-**Issues with long requests:**
-- Networks may drop idle connections
-- Variable network reliability
-- SDKs validate 10-minute timeout for non-streaming
+SDKs validate that non-streaming requests won't exceed 10-minute timeout and set TCP keep-alive.
 
-**Mitigations:**
-- Set TCP socket keep-alive
-- Use SDKs (they set appropriate options)
-- Prefer streaming or batch APIs
+For large `max_tokens`, use `.stream()` with `.get_final_message()` (Python) or `.finalMessage()` (TypeScript) to get the complete Message without event handling.
 
-## Error Handling Best Practices
+## Common Validation Errors
 
-1. **Retry logic**: Implement exponential backoff for 429 and 529 errors
-2. **Request IDs**: Log request IDs for debugging
-3. **Graceful degradation**: Handle errors without crashing
-4. **Monitor limits**: Check rate limit headers
-5. **Validate input**: Catch 400 errors early
+### Prefill Not Supported
 
-## SDK Error Handling
+Claude Opus 4.6 does not support prefilling assistant messages:
 
-**Python:**
-```python
-import anthropic
-
-try:
-    message = client.messages.create(...)
-except anthropic.APIConnectionError as e:
-    print("Connection failed:", e)
-except anthropic.RateLimitError as e:
-    print("Rate limited:", e)
-except anthropic.APIStatusError as e:
-    print(f"API error {e.status_code}:", e.message)
-```
-
-**TypeScript:**
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-try {
-  const message = await client.messages.create({...});
-} catch (error) {
-  if (error instanceof Anthropic.APIError) {
-    console.log(error.status, error.message);
+```json
+{
+  "type": "error",
+  "error": {
+    "type": "invalid_request_error",
+    "message": "Prefilling assistant messages is not supported for this model."
   }
 }
 ```
 
-## Error Type Reference
-
-| Error Class | Description |
-|-------------|-------------|
-| `BadRequestError` | 400 - Invalid request |
-| `AuthenticationError` | 401 - Auth failed |
-| `PermissionDeniedError` | 403 - Not permitted |
-| `NotFoundError` | 404 - Not found |
-| `UnprocessableEntityError` | 422 - Can't process |
-| `RateLimitError` | 429 - Too many requests |
-| `InternalServerError` | 500+ - Server error |
-| `APIConnectionError` | Connection failed |
+Use structured outputs, system prompt instructions, or `output_config.format` instead.

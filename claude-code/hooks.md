@@ -1,416 +1,245 @@
 ---
 title: "Claude Code Hooks"
-source_url: "claude-code-guide-agent"
+source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "claude-code"
 ---
 
 # Claude Code Hooks
 
-Hooks are user-defined shell commands and LLM-based evaluations that execute at various points in Claude Code's lifecycle, providing deterministic control over Claude Code's behavior.
+Hooks are lifecycle event handlers that execute shell commands, LLM prompts, or subagents in response to Claude Code events. They enable deterministic automation, validation, and customization.
 
-## Hook Events
+> **Last updated:** February 16, 2026
 
-| Event | When | Can Block |
-|-------|------|-----------|
-| `PreToolUse` | Before tool execution | Yes |
-| `PostToolUse` | After tool completes | No (feedback only) |
-| `PostToolUseFailure` | After tool call fails | No (feedback only) |
-| `PermissionRequest` | Permission dialog shown | Yes |
-| `UserPromptSubmit` | User submits prompt | Yes |
-| `Notification` | Claude sends notification | No |
-| `Stop` | Claude finishes responding | Yes (force continue) |
-| `SubagentStart` | Subagent is spawned | No |
-| `SubagentStop` | Subagent finishes | Yes |
-| `SessionStart` | Session begins or resumes | No |
-| `SessionEnd` | Session ends | No |
-| `PreCompact` | Before compaction | No |
+## Hook Events (14 Total)
 
-## Configuration
-
-### Configuration Files
-
-- `~/.claude/settings.json` - User settings (all projects)
-- `.claude/settings.json` - Project settings (team-shared)
-- `.claude/settings.local.json` - Local project settings (gitignored)
-- Plugin `hooks/hooks.json` - Plugin-scoped hooks
-
-### Basic Structure
-
-```json
-{
-  "hooks": {
-    "EventName": [
-      {
-        "matcher": "ToolPattern",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "your-command-here",
-            "timeout": 600
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+| Event | Description | Matcher |
+|-------|-------------|---------|
+| `SessionStart` | Session begins or resumes | `startup`, `resume`, `clear`, `compact` |
+| `UserPromptSubmit` | Before Claude processes user input | None |
+| `PreToolUse` | Before tool executes (can block) | Tool name |
+| `PermissionRequest` | Permission dialog appears | Tool name |
+| `PostToolUse` | After tool succeeds | Tool name |
+| `PostToolUseFailure` | After tool fails | Tool name |
+| `Notification` | Notification events fire | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog` |
+| `SubagentStart` | Subagent spawned | Agent type |
+| `SubagentStop` | Subagent finishes | Agent type |
+| `Stop` | Main Claude finishes responding | None |
+| `TeammateIdle` | Agent team teammate about to go idle | None (exit code 2 only) |
+| `TaskCompleted` | Task marked as completed | None (exit code 2 only) |
+| `PreCompact` | Before context compaction | `manual`, `auto` |
+| `SessionEnd` | Session terminates | `clear`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other` |
 
 ## Hook Types
 
-### Command Hooks
+### Command Hooks (`type: "command"`)
 
-Execute shell scripts:
+Execute shell scripts. Receive JSON input on stdin, communicate via exit codes and stdout/stderr.
 
 ```json
 {
   "type": "command",
-  "command": "${CLAUDE_PROJECT_DIR}/scripts/validate.sh",
-  "timeout": 600,
-  "async": false
-}
-```
-
-Default timeout: 600 seconds (10 minutes, changed from 60s in v2.1.3).
-
-### Prompt Hooks
-
-Use LLM for evaluation (single-turn, returns `ok: true/false`):
-
-```json
-{
-  "type": "prompt",
-  "prompt": "Evaluate if task is complete: $ARGUMENTS",
-  "model": "default_fast_model",
+  "command": "./scripts/validate.sh",
   "timeout": 30
 }
 ```
 
-### Agent Hooks
+### Prompt-Based Hooks (`type: "prompt"`)
 
-Spawn subagent with tool access for multi-turn verification:
+Single LLM turn for decision-making. Respond with `{"ok": true}` or `{"ok": false, "reason": "..."}`.
+
+```json
+{
+  "type": "prompt",
+  "prompt": "Check if this edit follows our coding standards",
+  "model": "claude-haiku-4-5",
+  "timeout": 30
+}
+```
+
+### Agent-Based Hooks (`type: "agent"`)
+
+Spawn a subagent for multi-turn verification. Can use tools: Read, Grep, Glob, Bash. Up to 50 tool turns.
 
 ```json
 {
   "type": "agent",
-  "prompt": "Verify that tests pass. Run the test suite. $ARGUMENTS",
-  "model": "default_fast_model",
+  "prompt": "Verify the test suite still passes after this change",
   "timeout": 60
 }
 ```
 
-Up to 50 tool-use turns. Use when verification requires file inspection.
+## Configuration Locations
 
-## Matchers
+| Location | Scope |
+|----------|-------|
+| `~/.claude/settings.json` | User-wide (all projects) |
+| `.claude/settings.json` | Project-wide (shared via git) |
+| `.claude/settings.local.json` | Project local (gitignored) |
+| Plugin `hooks/hooks.json` | Plugin scope |
+| Skill/Agent frontmatter | Component scope |
+| Managed settings | Organization-wide |
 
-### Tool Events (PreToolUse, PostToolUse, PermissionRequest)
-
-| Pattern | Matches |
-|---------|---------|
-| `"Write"` | Exact match for Write tool |
-| `"Edit\|Write"` | Either Edit or Write |
-| `"Notebook.*"` | Notebook and any suffix |
-| `"mcp__memory__.*"` | All memory server MCP tools |
-| `"*"` or `""` | All tools |
-
-### SessionStart Matchers
-
-`startup`, `resume`, `clear`, `compact`
-
-### SessionEnd Matchers
-
-`clear`, `logout`, `prompt_input_exit`, `other`
-
-### Notification Matchers
-
-`permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`
-
-### SubagentStart/SubagentStop Matchers
-
-Match on agent type: `Bash`, `Explore`, `Plan`, `custom-agent-name`
-
-### PreCompact Matchers
-
-`manual` (from `/compact`), `auto` (automatic compaction)
-
-## Hook Input
-
-All hooks receive JSON via stdin:
+## Hook Handler Fields
 
 ```json
 {
-  "session_id": "abc123",
-  "transcript_path": "/path/to/session.jsonl",
-  "cwd": "/project/path",
-  "permission_mode": "default",
-  "hook_event_name": "PreToolUse",
-  "tool_name": "Write",
-  "tool_input": {
-    "file_path": "/path/to/file.txt",
-    "content": "file content"
-  },
-  "tool_use_id": "toolu_01ABC123..."
+  "type": "command|prompt|agent",
+  "command": "shell command",
+  "prompt": "prompt text",
+  "model": "claude-haiku-4-5",
+  "timeout": 600,
+  "async": true,
+  "statusMessage": "Custom message",
+  "once": true
 }
 ```
 
-### Tool Input Fields by Tool
+| Field | Type | Description |
+|-------|------|-------------|
+| `type` | string | `command`, `prompt`, or `agent` |
+| `command` | string | Shell command (command hooks) |
+| `prompt` | string | Prompt text (prompt/agent hooks) |
+| `model` | string | Model override (default: Haiku) |
+| `timeout` | number | Timeout in seconds |
+| `async` | boolean | Run in background (command hooks only) |
+| `statusMessage` | string | Custom status message |
+| `once` | boolean | Run only once per session (skill hooks) |
 
-- **Bash**: `command`, `description`, `timeout`, `run_in_background`
-- **Write**: `file_path`, `content`
-- **Edit**: `file_path`, `old_string`, `new_string`, `replace_all`
-- **Read**: `file_path`, `offset`, `limit`
-- **Glob**: `pattern`, `path`
-- **Grep**: `pattern`, `path`, `glob`, `output_mode`
+## Matcher Patterns
 
-## Exit Code Meanings
+- Case-sensitive regex matching
+- Empty string or `*` matches all events
+- Complex patterns: `Edit|Write`, `mcp__.*`, `Bash`
 
-| Code | Meaning | Behavior |
-|------|---------|----------|
-| **0** | Success | Parses JSON output for decision fields |
-| **2** | Block action | Prevents execution; stderr becomes error message |
-| **Other** | Non-blocking error | stderr shown in verbose mode; action proceeds |
+## Exit Codes
 
-### Exit Code 2 Behavior by Event
+| Code | Behavior |
+|------|----------|
+| `0` | Action proceeds (or allows with JSON output) |
+| `2` | Action blocked (cannot be combined with JSON) |
+| Other | Non-blocking error logged in verbose mode |
 
-| Event | Can block? | What happens |
-|-------|-----------|-------------|
-| PreToolUse | Yes | Blocks tool call |
-| PermissionRequest | Yes | Denies permission |
-| UserPromptSubmit | Yes | Blocks prompt |
-| Stop | Yes | Prevents Claude from stopping |
-| SubagentStop | Yes | Prevents subagent from stopping |
-| PostToolUse | No | stderr shown to Claude |
-| Notification | No | stderr shown to user |
-| SessionStart | No | stderr shown to user |
+## JSON Output Patterns
 
-## JSON Output Format
-
-On exit 0, hooks can output JSON to stdout:
+### PreToolUse Output
 
 ```json
 {
-  "continue": true,
-  "stopReason": "Optional stop message",
-  "suppressOutput": false,
-  "systemMessage": "Warning message to user",
   "hookSpecificOutput": {
     "hookEventName": "PreToolUse",
     "permissionDecision": "allow|deny|ask",
-    "permissionDecisionReason": "Your reason here",
-    "additionalContext": "Context for Claude",
-    "updatedInput": {
-      "modified_field": "new_value"
-    }
+    "permissionDecisionReason": "reason text",
+    "updatedInput": { "field": "new_value" },
+    "additionalContext": "context for Claude"
   }
 }
 ```
 
-### Prompt/Agent Hook Response
+### Stop/PostToolUse Output
 
 ```json
 {
-  "ok": true,
-  "reason": "Explanation if ok is false"
+  "decision": "block",
+  "reason": "explanation"
 }
 ```
+
+### Universal Fields
+
+| Field | Description |
+|-------|-------------|
+| `continue: false` | Stop Claude entirely |
+| `stopReason: "message"` | Reason shown to user |
+| `systemMessage: "message"` | Warning shown to user |
+| `suppressOutput: true` | Hide from verbose output |
+
+## Async Hooks
+
+Set `"async": true` on command hooks for background execution:
+- Claude continues while hook executes
+- Results delivered on next turn
+- Timeout applies to background process
+- Cannot block or control behavior
 
 ## Environment Variables
 
-Available in hook scripts:
+| Variable | Description |
+|----------|-------------|
+| `$CLAUDE_PROJECT_DIR` | Project root directory |
+| `${CLAUDE_PLUGIN_ROOT}` | Plugin root directory |
+| `CLAUDE_ENV_FILE` | File path for SessionStart hooks to persist env vars |
+| `$CLAUDE_CODE_REMOTE` | Set to "true" in web environments |
 
-| Variable | Available in | Description |
-|----------|-------------|-------------|
-| `CLAUDE_PROJECT_DIR` | All hooks | Project root directory |
-| `CLAUDE_PLUGIN_ROOT` | Plugin hooks | Plugin root directory |
-| `CLAUDE_CODE_REMOTE` | All hooks | `"true"` in web environments |
-| `CLAUDE_ENV_FILE` | SessionStart only | File for persisting env vars |
+## Common Hook Patterns
 
-### Persisting Environment Variables (SessionStart)
-
-```bash
-#!/bin/bash
-if [ -n "$CLAUDE_ENV_FILE" ]; then
-  echo 'export NODE_ENV=production' >> "$CLAUDE_ENV_FILE"
-fi
-exit 0
-```
-
-## Examples
-
-### Log All Bash Commands
-
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "jq -r '.tool_input.command' >> ~/.claude/commands.log"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-### Auto-Format TypeScript Files
-
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-### Block Sensitive File Modifications
-
-```bash
-#!/bin/bash
-# .claude/hooks/protect-files.sh
-INPUT=$(cat)
-FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
-
-PROTECTED_PATTERNS=(".env" "package-lock.json" ".git/")
-for pattern in "${PROTECTED_PATTERNS[@]}"; do
-  if [[ "$FILE_PATH" == *"$pattern"* ]]; then
-    echo "Blocked: $FILE_PATH matches protected pattern '$pattern'" >&2
-    exit 2
-  fi
-done
-exit 0
-```
-
-### Custom Desktop Notifications
-
+### Desktop Notifications
 ```json
 {
   "hooks": {
     "Notification": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "osascript -e 'display notification \"Claude Code needs attention\" with title \"Claude Code\"'"
-          }
-        ]
-      }
+      { "matcher": "permission_prompt", "hooks": [
+        { "type": "command", "command": "osascript -e 'display notification \"Claude needs input\"'" }
+      ]}
     ]
   }
 }
 ```
 
-### Re-inject Context After Compaction
+### Auto-Format After Edits
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      { "matcher": "Edit|Write", "hooks": [
+        { "type": "command", "command": "npx prettier --write \"$TOOL_INPUT_FILE_PATH\"" }
+      ]}
+    ]
+  }
+}
+```
 
+### Protected Files
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Edit|Write", "hooks": [
+        { "type": "command", "command": "echo $TOOL_INPUT | jq -r '.file_path' | grep -qE '\\.(env|lock)$' && exit 2 || exit 0" }
+      ]}
+    ]
+  }
+}
+```
+
+### Context Re-injection After Compaction
 ```json
 {
   "hooks": {
     "SessionStart": [
-      {
-        "matcher": "compact",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo 'Reminder: use Bun, not npm. Run bun test before committing.'"
-          }
-        ]
-      }
+      { "matcher": "compact", "hooks": [
+        { "type": "command", "command": "cat .claude/context-reminder.txt" }
+      ]}
     ]
   }
 }
 ```
 
-### Stop Hook with Prompt Evaluation
-
+### Quality Gates (Task Completion)
 ```json
 {
   "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Check if all tasks are complete. If not, respond with {\"ok\": false, \"reason\": \"what remains to be done\"}."
-          }
-        ]
-      }
+    "TaskCompleted": [
+      { "matcher": "", "hooks": [
+        { "type": "agent", "prompt": "Verify all tests pass before marking complete", "timeout": 120 }
+      ]}
     ]
   }
 }
 ```
 
-### Agent Hook for Test Verification
+## Sources
 
-```json
-{
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "agent",
-            "prompt": "Verify that all unit tests pass. Run the test suite and check the results. $ARGUMENTS",
-            "timeout": 120
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-## Security Considerations
-
-**USE AT YOUR OWN RISK**: Hooks execute with your full system user permissions.
-
-Best practices:
-1. Always quote shell variables (`"$VAR"`)
-2. Validate and sanitize inputs
-3. Block path traversal (`..` in paths)
-4. Use absolute paths for scripts
-5. Skip sensitive files (.env, credentials)
-6. Test hook scripts manually before deployment
-
-## Debugging
-
-```bash
-# Run with debug output
-claude --debug
-
-# Toggle verbose mode
-Ctrl+O
-
-# Test hooks manually
-echo '{"tool_name":"Write","tool_input":{"file_path":"test.txt"}}' | ./my-hook.sh
-echo $?
-```
-
-### Common Issues
-
-- **Hook not firing**: Check matcher is case-sensitive and exact; verify correct event
-- **"command not found"**: Use absolute paths or `$CLAUDE_PROJECT_DIR`
-- **Scripts not executing**: Make executable with `chmod +x`
-- **JSON validation failed**: Check shell profile for unconditional `echo` statements
-- **Stop hook runs forever**: Check `stop_hook_active` field and exit early if `true`
-- **PermissionRequest not firing in `-p` mode**: Use `PreToolUse` instead for headless
-
-## Recent Changes
-
-- **v2.1.3**: Tool hook execution timeout changed from 60 seconds to 10 minutes
-- **v2.1.29**: Fixed startup performance with saved hook context
+- [Hooks Guide](https://code.claude.com/docs/en/hooks-guide)
+- [Hooks Reference](https://code.claude.com/docs/en/hooks)

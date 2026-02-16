@@ -2,69 +2,148 @@
 title: "Messages API"
 source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-01-31T00:00:00Z"
+fetched_at: "2026-02-16T00:00:00Z"
 category: "api"
 ---
 
-# Messages API Documentation
-
-The Messages API is the core interface for interacting with Claude models. It supports single queries and stateless multi-turn conversations.
-
-## Endpoint
+# Messages API
 
 **POST** `/v1/messages`
 
-## Required Parameters
+Send structured input messages and receive model-generated responses.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `model` | string | Model ID (e.g., `claude-sonnet-4-5-20250929`) |
-| `max_tokens` | number | Maximum tokens to generate |
-| `messages` | array | Array of message objects |
+## Authentication
 
-## Message Structure
-
-```json
-{
-  "role": "user",
-  "content": "Hello, Claude"
-}
+```
+x-api-key: $ANTHROPIC_API_KEY
+anthropic-version: 2023-06-01
+content-type: application/json
 ```
 
-Content can be a string or array of content blocks (text, images, documents).
+## Required Parameters
+
+### `model` (string)
+Available models: `claude-opus-4-6`, `claude-opus-4-5-20251101`, `claude-sonnet-4-5-20250929`, `claude-haiku-4-5-20251001`
+
+### `max_tokens` (number)
+Maximum tokens to generate before stopping.
+
+### `messages` (array)
+Array of message objects with `role` ("user" or "assistant") and `content` (string or array of content blocks).
+
+## Content Block Types
+
+### Text Content
+```json
+{"type": "text", "text": "Hello, Claude"}
+```
+
+### Image Content (base64 or URL)
+```json
+{"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": "<base64>"}}
+{"type": "image", "source": {"type": "url", "url": "https://example.com/image.jpg"}}
+```
+
+### Document Content (PDF or plain text)
+```json
+{"type": "document", "source": {"type": "base64", "media_type": "application/pdf", "data": "<base64>"}}
+```
+
+### Tool Use / Tool Result
+```json
+{"type": "tool_use", "id": "toolu_...", "name": "get_stock_price", "input": {"ticker": "^GSPC"}}
+{"type": "tool_result", "tool_use_id": "toolu_...", "content": "259.75 USD"}
+```
+
+### Thinking Block
+```json
+{"type": "thinking", "thinking": "...", "signature": "..."}
+```
+
+### Search Result Block
+```json
+{"type": "search_result", "title": "...", "source": "https://...", "content": [{"type": "text", "text": "..."}]}
+```
 
 ## Optional Parameters
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `system` | string/array | - | System prompt |
-| `temperature` | number | 1.0 | Randomness (0.0-1.0) |
-| `top_p` | number | - | Nucleus sampling |
-| `top_k` | number | - | Top-K sampling |
-| `stop_sequences` | array | - | Custom stop sequences |
-| `stream` | boolean | false | Enable streaming |
-| `tools` | array | - | Tool definitions |
-| `tool_choice` | object | - | Tool usage control (auto/any/none/specific) |
-| `thinking` | object | - | Extended thinking config |
-| `metadata` | object | - | External user_id for abuse detection |
-| `service_tier` | string | - | `"auto"` or `"standard_only"` |
-| `output_config` | object | - | JSON schema for Structured Outputs |
+### `system` (string or array)
+System prompt for the conversation. Supports cache control.
 
-## Example Request
+### `temperature` (number, default: 1.0)
+Range 0.0-1.0. Use 0.0 for analytical, 1.0 for creative.
 
-```bash
-curl https://api.anthropic.com/v1/messages \
-  -H 'Content-Type: application/json' \
-  -H 'anthropic-version: 2023-06-01' \
-  -H "X-Api-Key: $ANTHROPIC_API_KEY" \
-  -d '{
-    "model": "claude-sonnet-4-5-20250929",
-    "max_tokens": 1024,
-    "messages": [
-      {"role": "user", "content": "Hello, Claude"}
-    ]
-  }'
+### `top_p` (number)
+Nucleus sampling. Use either `top_p` OR `temperature`, not both.
+
+### `top_k` (number)
+Sample from top K options only.
+
+### `stop_sequences` (array of strings)
+Model stops when encountering these sequences.
+
+### `stream` (boolean)
+Enable incremental streaming via server-sent events.
+
+### `metadata` (object)
+- `user_id`: External identifier for abuse detection (no PII).
+
+### `inference_geo` (string)
+Geographic region for inference (e.g., `"us"`). Falls back to workspace default.
+
+### `service_tier` (string)
+`"auto"` (use priority if available) or `"standard_only"`.
+
+## Extended Thinking
+
+```json
+{"thinking": {"type": "enabled", "budget_tokens": 5000}}
+{"thinking": {"type": "disabled"}}
+{"thinking": {"type": "adaptive"}}
 ```
+
+- Minimum `budget_tokens`: 1024
+- Must be less than `max_tokens`
+- Thinking tokens count toward `max_tokens`
+- `"adaptive"` recommended for Opus 4.6
+
+## Output Configuration
+
+```json
+{
+  "output_config": {
+    "format": {"type": "json_schema", "schema": {...}},
+    "effort": "high"
+  }
+}
+```
+
+Effort levels: `"low"`, `"medium"`, `"high"` (default), `"max"`.
+
+## Tool Use
+
+```json
+{
+  "tools": [{"name": "...", "description": "...", "input_schema": {...}}],
+  "tool_choice": {"type": "auto", "disable_parallel_tool_use": false}
+}
+```
+
+Tool choice types: `"auto"`, `"any"`, `"tool"` (with `name`), `"none"`.
+
+### Built-in Tools
+
+- **Web Search**: `type: "web_search_20250305"` with `max_uses`, `allowed_domains`, `blocked_domains`, `user_location`
+- **Text Editor**: `type: "text_editor_20250728"` with optional `max_characters`
+- **Bash**: `type: "bash_20250124"`
+
+## Cache Control
+
+```json
+{"cache_control": {"type": "ephemeral", "ttl": "5m"}}
+```
+
+TTL options: `"5m"` (default), `"1h"`.
 
 ## Response Format
 
@@ -73,184 +152,50 @@ curl https://api.anthropic.com/v1/messages \
   "id": "msg_...",
   "type": "message",
   "role": "assistant",
-  "content": [
-    {"type": "text", "text": "Response text"}
-  ],
-  "model": "claude-sonnet-4-5-20250929",
+  "model": "claude-opus-4-6",
+  "content": [{"type": "text", "text": "..."}],
   "stop_reason": "end_turn",
   "usage": {
     "input_tokens": 10,
-    "output_tokens": 20
+    "output_tokens": 15,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "inference_geo": "us",
+    "service_tier": "standard"
   }
 }
 ```
 
-## Stop Reasons
+### Stop Reasons
+- `"end_turn"`: Natural stopping point
+- `"max_tokens"`: Reached token limit
+- `"stop_sequence"`: Hit custom stop sequence
+- `"tool_use"`: Model invoked tools
+- `"pause_turn"`: Long-running turn paused
+- `"refusal"`: Policy violation detected
 
-| Reason | Description |
-|--------|-------------|
-| `end_turn` | Natural stopping point |
-| `max_tokens` | Token limit reached |
-| `stop_sequence` | Hit custom stop sequence |
-| `tool_use` | Model invoked a tool |
-| `pause_turn` | Long-running turn paused |
-| `refusal` | Policy violation detected |
-
-## Multi-turn Conversations
-
-```json
-{
-  "messages": [
-    {"role": "user", "content": "Hello"},
-    {"role": "assistant", "content": "Hi! How can I help?"},
-    {"role": "user", "content": "Explain LLMs"}
-  ]
-}
-```
-
-## Content Block Types
-
-### Text
-```json
-{"type": "text", "text": "Hello"}
-```
-
-### Images (Base64)
-```json
-{
-  "type": "image",
-  "source": {
-    "type": "base64",
-    "media_type": "image/jpeg",
-    "data": "base64_string"
-  }
-}
-```
-
-### Images (URL)
-```json
-{
-  "type": "image",
-  "source": {
-    "type": "url",
-    "url": "https://example.com/image.jpg"
-  }
-}
-```
-
-### Documents (PDF)
-```json
-{
-  "type": "document",
-  "source": {
-    "type": "base64",
-    "media_type": "application/pdf",
-    "data": "base64_pdf"
-  }
-}
-```
+### Response Content Types
+- `TextBlock`: text with optional citations
+- `ThinkingBlock`: thinking with signature
+- `RedactedThinkingBlock`: redacted thinking data
+- `ToolUseBlock`: tool call with id, name, input
+- `ServerToolUseBlock`: server-side tool use
+- `WebSearchToolResultBlock`: web search results
 
 ## Token Counting
 
 **POST** `/v1/messages/count_tokens`
 
 ```json
-{
-  "model": "claude-sonnet-4-5-20250929",
-  "messages": [{"role": "user", "content": "Hello"}]
-}
+{"messages": [{"role": "user", "content": "Hello, Claude"}]}
 ```
 
 Response: `{"input_tokens": 10}`
 
-## Batch Processing
+## Key Notes
 
-**POST** `/v1/messages/batches`
-
-Process multiple requests asynchronously at 50% cost.
-
-```json
-{
-  "requests": [
-    {
-      "custom_id": "request-1",
-      "params": {
-        "model": "claude-sonnet-4-5-20250929",
-        "max_tokens": 1024,
-        "messages": [{"role": "user", "content": "First request"}]
-      }
-    }
-  ]
-}
-```
-
-## Extended Thinking
-
-```json
-{
-  "thinking": {
-    "type": "enabled",
-    "budget_tokens": 2048
-  }
-}
-```
-
-## Prompt Caching
-
-```json
-{
-  "type": "text",
-  "text": "Large prompt",
-  "cache_control": {"type": "ephemeral", "ttl": "5m"}
-}
-```
-
-## Structured Outputs
-
-Define JSON schema for guaranteed structured responses:
-
-```json
-{
-  "output_config": {
-    "format": {
-      "type": "json_schema",
-      "schema": {
-        "type": "object",
-        "properties": {
-          "name": {"type": "string"},
-          "age": {"type": "number"}
-        },
-        "required": ["name"]
-      }
-    }
-  }
-}
-```
-
-## Built-in Server Tools
-
-### Web Search
-```json
-{"type": "web_search_20250305", "name": "web_search", "max_uses": 5}
-```
-
-### Text Editor
-```json
-{"type": "text_editor_20250728", "name": "str_replace_based_edit_tool"}
-```
-
-### Bash
-```json
-{"type": "bash_20250124", "name": "bash"}
-```
-
-## Best Practices
-
-1. Use `count_tokens` before requests to budget tokens
-2. Provide clear system prompts
-3. Use 0.0 temperature for analytical tasks
-4. Implement retry logic for rate limits
-5. Use caching for large reusable contexts
-6. Use batches for non-urgent bulk processing
-7. Use Structured Outputs for guaranteed schema conformance
-8. Maximum 100,000 messages per request; 32 MB request size limit
+- Consecutive same-role turns are combined
+- Maximum 100,000 messages per request
+- Results not fully deterministic even with temperature 0.0
+- Thinking tokens count toward max_tokens
+- Claude Opus 4.6 does not support prefilling assistant messages
