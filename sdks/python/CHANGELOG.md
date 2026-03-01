@@ -2,10 +2,95 @@
 title: "Python SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-02-15T00:00:00Z"
+fetched_at: "2026-02-28T00:00:00Z"
 category: "sdks"
 ---
 # Changelog
+
+## 0.84.0 (2026-02-25)
+
+Full Changelog: [v0.83.0...v0.84.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.83.0...v0.84.0)
+
+### Features
+
+* **api:** change array_format to brackets ([925d2ad](https://github.com/anthropics/anthropic-sdk-python/commit/925d2ad6b76ad7c15de07b9b2768738775f71631))
+* **api:** remove publishing section from cli target ([7bc7ceb](https://github.com/anthropics/anthropic-sdk-python/commit/7bc7cebc68db70f08fce23e7e0b24acbc9ff37a7))
+* **helpers:** add conversion helpers for MCP tools, prompts, and resources ([#1383](https://github.com/anthropics/anthropic-sdk-python/issues/1383)) ([9489751](https://github.com/anthropics/anthropic-sdk-python/commit/9489751386d1540bf80eff63ab47ca2b3cc18fa1))
+
+
+### Chores
+
+* add missing raw jsonl results method ([1009d4a](https://github.com/anthropics/anthropic-sdk-python/commit/1009d4aca8be42973ca39104bc9bd8087f51ff9c))
+* **internal:** add request options to SSE classes ([4f4bc8e](https://github.com/anthropics/anthropic-sdk-python/commit/4f4bc8e6241c2ccee8dfe4cdbc522081e3e30f08))
+* **internal:** make `test_proxy_environment_variables` more resilient ([f7056e0](https://github.com/anthropics/anthropic-sdk-python/commit/f7056e09411a45798a678be5766a7b7d6dcbc7a9))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([143efcc](https://github.com/anthropics/anthropic-sdk-python/commit/143efccfcc20c12f920b6ba242eff7c0feeea7c4))
+* **internal:** simplify http snapshots ([#1092](https://github.com/anthropics/anthropic-sdk-python/issues/1092)) ([4a4dc9f](https://github.com/anthropics/anthropic-sdk-python/commit/4a4dc9f6b36ab0224095790f4311c7f60c9845f7))
+* **internal:** update jsonl tests ([a8e6a6e](https://github.com/anthropics/anthropic-sdk-python/commit/a8e6a6e5544b9f1626e3fb5faa31a1accfc81441))
+
+
+### Documentation
+
+* rebrand to Claude SDK and streamline README ([6b54405](https://github.com/anthropics/anthropic-sdk-python/commit/6b544058ab19e55e1c76a4ba9816205d1eedc630))
+
+## 0.83.0 (2026-02-19)
+
+Full Changelog: [v0.82.0...v0.83.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.82.0...v0.83.0)
+
+### Features
+
+* **api:** Add top-level cache control (automatic caching) ([a940123](https://github.com/anthropics/anthropic-sdk-python/commit/a940123da34ac33f0b6f20ce91807829451d1233))
+
+
+### Chores
+
+* update mock server docs ([34ef48c](https://github.com/anthropics/anthropic-sdk-python/commit/34ef48ceb0f1734d6b695890f689dc42eb0b004e))
+
+## 0.82.0 (2026-02-18)
+
+Full Changelog: [v0.81.0...v0.82.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.81.0...v0.82.0)
+
+### Features
+
+* **api:** fix shared UserLocation and error code types ([da3b931](https://github.com/anthropics/anthropic-sdk-python/commit/da3b931a2be768d77c228a4804d2f7f75caeb71c))
+
+
+### Bug Fixes
+
+* add backward-compat aliases for removed nested UserLocation classes ([#1409](https://github.com/anthropics/anthropic-sdk-python/issues/1409)) ([56db1e3](https://github.com/anthropics/anthropic-sdk-python/commit/56db1e3db6108e1c0f4e9363a5f23b54976dc877))
+
+## 0.81.0 (2026-02-18)
+
+Full Changelog: [v0.80.0...v0.81.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.80.0...v0.81.0)
+
+### Features
+
+* **api:** manual updates ([0a385c2](https://github.com/anthropics/anthropic-sdk-python/commit/0a385c29d26981f846b7394aefc89eebb43a4b60))
+
+## 0.80.0 (2026-02-17)
+
+Full Changelog: [v0.79.0...v0.80.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.79.0...v0.80.0)
+
+### Features
+
+* **api:** Releasing claude-sonnet-4-6 ([d518d6e](https://github.com/anthropics/anthropic-sdk-python/commit/d518d6ecede3d0638f0b14950dc2be8efa0b4ff4))
+
+
+### Bug Fixes
+
+* **api:** fix spec errors ([1413a76](https://github.com/anthropics/anthropic-sdk-python/commit/1413a76f905e590fab583417f5cb1eef9f537c2c))
+* remove speed from ga messages ([#1402](https://github.com/anthropics/anthropic-sdk-python/issues/1402)) ([f6ce67c](https://github.com/anthropics/anthropic-sdk-python/commit/f6ce67c3ed5f2fc4a2fc48fb9d7bc6f1bbb5bd4a))
+
+
+### Chores
+
+* format all `api.md` files ([28a0eb5](https://github.com/anthropics/anthropic-sdk-python/commit/28a0eb55c031a9ed584eafe7f9096b32f9883e6f))
+* **internal:** bump dependencies ([99f3014](https://github.com/anthropics/anthropic-sdk-python/commit/99f301460a3933229768d19fa7ae725072012592))
+* **internal:** fix lint error on Python 3.14 ([a90d71b](https://github.com/anthropics/anthropic-sdk-python/commit/a90d71bfcdef5592f0f7f9a176cf347163ee2137))
+
+
+### Refactors
+
+* **vertex:** remove redundant isinstance check in `load_auth` ([#1387](https://github.com/anthropics/anthropic-sdk-python/issues/1387)) ([6b7a7dc](https://github.com/anthropics/anthropic-sdk-python/commit/6b7a7dce065b7bfbf6c5d8ed41825f36b36fc402))
 
 ## 0.79.0 (2026-02-07)
 

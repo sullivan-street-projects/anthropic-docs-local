@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-02-16T00:00:00Z"
+fetched_at: "2026-02-28T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -15,6 +15,18 @@ Updates to Claude consumer and business applications.
 ---
 
 ## February 2026
+
+### February 25, 2026
+- Scheduled tasks now available in Cowork for automating recurring workflows
+- New Customize section in Claude Desktop for personalized settings and preferences
+
+### February 24, 2026
+- Plugin marketplace launched for Team and Enterprise plans with curated integrations
+- Admin controls for Cowork plugins: manage allowed plugins and permissions at the organization level
+
+### February 17, 2026
+- Claude Sonnet 4.6 released with improved speed-intelligence balance
+- 1M token context window now available in beta for supported models
 
 ### February 13, 2026
 - Analytics API for Enterprise plans: programmatic access to usage and engagement data for Claude and Claude Code Remote usage

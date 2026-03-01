@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-02-16T00:00:00Z"
+fetched_at: "2026-02-28T00:00:00Z"
 category: "agent-sdk"
 ---
 

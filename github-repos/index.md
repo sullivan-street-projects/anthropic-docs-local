@@ -2,7 +2,7 @@
 title: "GitHub Repos Index"
 source_url: "https://api.github.com/orgs/anthropics/repos?per_page=100"
 source_type: "github-api"
-fetched_at: "2026-02-16T00:00:00Z"
+fetched_at: "2026-02-28T00:00:00Z"
 category: "github-repos"
 ---
 
@@ -10,7 +10,7 @@ category: "github-repos"
 
 Complete listing of public repositories in the [Anthropic GitHub organization](https://github.com/anthropics).
 
-> **Last updated:** February 16, 2026
+> **Last updated:** February 28, 2026
 
 ## Featured Repositories
 
@@ -56,22 +56,23 @@ Complete listing of public repositories in the [Anthropic GitHub organization](h
 | Repository | Stars | Description |
 |------------|-------|-------------|
 | [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | 7,509 | Official Claude Code plugins |
-| [knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | 7,428 | Plugins for knowledge workers in Claude Cowork |
+| [financial-services-plugins](https://github.com/anthropics/financial-services-plugins) | 4,922 | Financial services plugins |
+| [knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | 8,277 | Plugins for knowledge workers in Claude Cowork |
 | [life-sciences](https://github.com/anthropics/life-sciences) | 209 | Life sciences MCP servers |
-| [healthcare](https://github.com/anthropics/healthcare) | 97 | Healthcare resources |
+| [healthcare](https://github.com/anthropics/healthcare) | 103 | Healthcare resources |
 
 ## MCP Servers
 
 | Repository | Stars | Description |
 |------------|-------|-------------|
-| [claude-ai-mcp](https://github.com/anthropics/claude-ai-mcp) | 75 | Claude AI MCP |
+| [claude-ai-mcp](https://github.com/anthropics/claude-ai-mcp) | 95 | Claude AI MCP |
 | [github-mcp-server](https://github.com/anthropics/github-mcp-server) | 71 | GitHub's official MCP Server |
 
 ## Demos & Showcases
 
 | Repository | Stars | Description |
 |------------|-------|-------------|
-| [claudes-c-compiler](https://github.com/anthropics/claudes-c-compiler) | 2,166 | Claude Opus 4.6 wrote a C compiler in Rust with x86/ARM/RISC-V backends |
+| [claudes-c-compiler](https://github.com/anthropics/claudes-c-compiler) | 2,430 | Claude Opus 4.6 wrote a C compiler in Rust with x86/ARM/RISC-V backends |
 | [riv2025-long-horizon-coding-agent-demo](https://github.com/anthropics/riv2025-long-horizon-coding-agent-demo) | 43 | Long-horizon coding agent demo |
 
 ## Research
@@ -86,15 +87,16 @@ Complete listing of public repositories in the [Anthropic GitHub organization](h
 | [political-neutrality-eval](https://github.com/anthropics/political-neutrality-eval) | 112 | Political neutrality evaluation |
 | [attribution-graphs-frontend](https://github.com/anthropics/attribution-graphs-frontend) | 91 | Attribution graphs visualization |
 | [sycophancy-to-subterfuge-paper](https://github.com/anthropics/sycophancy-to-subterfuge-paper) | 25 | Sycophancy to subterfuge research |
-| [claude-constitution](https://github.com/anthropics/claude-constitution) | 22 | Foundational document describing Claude's values |
+| [claude-constitution](https://github.com/anthropics/claude-constitution) | 42 | Foundational document describing Claude's values |
 | [rogue-deploy-eval](https://github.com/anthropics/rogue-deploy-eval) | 11 | Rogue deployment evaluation |
-| [model-cards](https://github.com/anthropics/model-cards) | 10 | Supplementary materials for Claude Model Cards |
+| [model-cards](https://github.com/anthropics/model-cards) | 12 | Supplementary materials for Claude Model Cards |
 
 ## Tools & Utilities
 
 | Repository | Stars | Description |
 |------------|-------|-------------|
-| [original_performance_takehome](https://github.com/anthropics/original_performance_takehome) | 3,464 | Anthropic's original performance take-home |
+| [anthropic-cli](https://github.com/anthropics/anthropic-cli) | 190 | Anthropic CLI tool |
+| [original_performance_takehome](https://github.com/anthropics/original_performance_takehome) | 3,547 | Anthropic's original performance take-home |
 | [anthropic-tools](https://github.com/anthropics/anthropic-tools) | 346 | Tools and utilities |
 | [devcontainer-features](https://github.com/anthropics/devcontainer-features) | 213 | Dev container features |
 | [anthropic-retrieval-demo](https://github.com/anthropics/anthropic-retrieval-demo) | 178 | Search and retrieval demo |

@@ -2,7 +2,7 @@
 title: "API Errors"
 source_url: "https://platform.claude.com/docs/en/api/errors"
 source_type: "web-extracted"
-fetched_at: "2026-02-16T00:00:00Z"
+fetched_at: "2026-02-28T00:00:00Z"
 category: "api"
 ---
 
@@ -16,7 +16,7 @@ category: "api"
 | 401 | `authentication_error` | Issue with API key |
 | 403 | `permission_error` | API key lacks permission for the resource |
 | 404 | `not_found_error` | Requested resource not found |
-| 413 | `request_too_large` | Request exceeds maximum allowed bytes |
+| 413 | `request_too_large` | Request exceeds maximum allowed bytes (e.g., 32 MB for Messages API) |
 | 429 | `rate_limit_error` | Account hit rate limit |
 | 500 | `api_error` | Unexpected internal error |
 | 529 | `overloaded_error` | API temporarily overloaded |
@@ -48,6 +48,8 @@ Exceeding limits returns a 413 `request_too_large` error from Cloudflare before 
   "request_id": "req_011CSHoEeqs5C35K2UUqR7Fy"
 }
 ```
+
+All error responses now include a `request_id` field in the response body (in addition to the `request-id` response header). Include this when contacting support.
 
 ## Request ID
 
@@ -87,3 +89,19 @@ Claude Opus 4.6 does not support prefilling assistant messages:
 ```
 
 Use structured outputs, system prompt instructions, or `output_config.format` instead.
+
+### Request Too Large
+
+When a request exceeds the size limit for the endpoint (e.g., 32 MB for Messages API):
+
+```json
+{
+  "type": "error",
+  "error": {
+    "type": "request_too_large",
+    "message": "Request body exceeds maximum allowed size of 33554432 bytes."
+  }
+}
+```
+
+Reduce request size by using the Files API to upload large content separately, or use the Batch API (256 MB limit) for bulk processing.

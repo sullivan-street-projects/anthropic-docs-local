@@ -2,10 +2,72 @@
 title: "TypeScript SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-02-15T00:00:00Z"
+fetched_at: "2026-02-28T00:00:00Z"
 category: "sdks"
 ---
 # Changelog
+
+## 0.78.0 (2026-02-19)
+
+Full Changelog: [sdk-v0.77.0...sdk-v0.78.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.77.0...sdk-v0.78.0)
+
+### Features
+
+* **api:** Add top-level cache control (automatic caching) ([1e2f83d](https://github.com/anthropics/anthropic-sdk-typescript/commit/1e2f83d0bb2c3e98302d1b17fcb4888b17889f6d))
+
+
+### Bug Fixes
+
+* **bedrock:** eliminate race condition in AWS credential resolution ([#901](https://github.com/anthropics/anthropic-sdk-typescript/issues/901)) ([e5a101d](https://github.com/anthropics/anthropic-sdk-typescript/commit/e5a101d060cdce65872ec787e792c94799dcc295))
+* **client:** format batches test file ([821e9bf](https://github.com/anthropics/anthropic-sdk-typescript/commit/821e9bf13db32c8b632352292948f64a057a9d55))
+* **tests:** fix issue in batches test ([5f4ccf8](https://github.com/anthropics/anthropic-sdk-typescript/commit/5f4ccf8779e69226a5c9307e3422f6779e8fda6b))
+
+
+### Chores
+
+* update mock server docs ([25d337f](https://github.com/anthropics/anthropic-sdk-typescript/commit/25d337f484b9236b03e26e1f4c67b1a2d96c6c23))
+
+## 0.77.0 (2026-02-18)
+
+Full Changelog: [sdk-v0.76.0...sdk-v0.77.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.76.0...sdk-v0.77.0)
+
+### Features
+
+* **api:** fix shared UserLocation and error code types ([c84038f](https://github.com/anthropics/anthropic-sdk-typescript/commit/c84038f4eddafc2c5415ab4eaef40326b7af376c))
+
+
+### Bug Fixes
+
+* add backward-compat namespace re-exports for UserLocation ([#706](https://github.com/anthropics/anthropic-sdk-typescript/issues/706)) ([b88834f](https://github.com/anthropics/anthropic-sdk-typescript/commit/b88834fc82bb9d1ae0cf16bd264d5ef4d1edbcff))
+
+## 0.76.0 (2026-02-18)
+
+Full Changelog: [sdk-v0.75.0...sdk-v0.76.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.75.0...sdk-v0.76.0)
+
+### Features
+
+* **api:** manual updates ([25fe41c](https://github.com/anthropics/anthropic-sdk-typescript/commit/25fe41cdf61a1d8c0a5700955bf3c00f28900339))
+
+## 0.75.0 (2026-02-17)
+
+Full Changelog: [sdk-v0.74.0...sdk-v0.75.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.74.0...sdk-v0.75.0)
+
+### Features
+
+* **api:** Releasing claude-sonnet-4-6 ([d75e1c0](https://github.com/anthropics/anthropic-sdk-typescript/commit/d75e1c07bf8c1082610c6493eaa2864a9c042ae8))
+
+
+### Bug Fixes
+
+* **api:** fix spec errors ([aa99e46](https://github.com/anthropics/anthropic-sdk-typescript/commit/aa99e46bbb1d7d8bbc79a1fd974091bc87d75688))
+* **tests:** fix erroneous speed tests  ([#699](https://github.com/anthropics/anthropic-sdk-typescript/issues/699)) ([fcac1ca](https://github.com/anthropics/anthropic-sdk-typescript/commit/fcac1ca6d25051073e4e13470730fbb1872926e7))
+
+
+### Chores
+
+* **internal/client:** fix form-urlencoded requests ([cba82b4](https://github.com/anthropics/anthropic-sdk-typescript/commit/cba82b422f5f6d64d127b367ec247bb4953f75ef))
+* **internal:** avoid type checking errors with ts-reset ([c723296](https://github.com/anthropics/anthropic-sdk-typescript/commit/c723296478726adece8fbc72d2b0bf434e83eee8))
+* **readme:** change badge color to blue ([3f7e788](https://github.com/anthropics/anthropic-sdk-typescript/commit/3f7e7881ce851049fb1aa208d52eaa3796b6b6e1))
 
 ## 0.74.0 (2026-02-07)
 

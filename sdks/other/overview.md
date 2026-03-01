@@ -2,7 +2,7 @@
 title: "Other SDKs Overview"
 source_url: "https://platform.claude.com/docs/en/api/client-sdks"
 source_type: "web-extracted"
-fetched_at: "2026-02-16T00:00:00Z"
+fetched_at: "2026-02-28T00:00:00Z"
 category: "sdks"
 ---
 
@@ -106,10 +106,10 @@ $message = $client->messages->create(
 ## Platform Support
 
 All SDKs support multiple deployment options:
-- **Claude API** — Direct access to Claude API endpoints
-- **Amazon Bedrock** — Use Claude through AWS
-- **Google Vertex AI** — Use Claude through Google Cloud
-- **Microsoft Foundry** — Use Claude through Microsoft Azure
+- **Claude API** -- Direct access to Claude API endpoints
+- **Amazon Bedrock** -- Use Claude through AWS
+- **Google Vertex AI** -- Use Claude through Google Cloud
+- **Microsoft Foundry** -- Use Claude through Microsoft Azure
 
 ## Beta Features
 

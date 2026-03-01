@@ -2,7 +2,7 @@
 title: "API Overview"
 source_url: "https://platform.claude.com/docs/en/api/overview"
 source_type: "web-extracted"
-fetched_at: "2026-02-16T00:00:00Z"
+fetched_at: "2026-02-28T00:00:00Z"
 category: "api"
 ---
 
@@ -45,14 +45,17 @@ SDKs handle these headers automatically.
 
 ## Client SDKs
 
-Official SDKs are available for:
-- **Python** — GA
-- **TypeScript** — GA
-- **Java** — GA
-- **Go** — GA
-- **Ruby** — GA
-- **C#** — Beta
-- **PHP** — Beta
+Official SDKs are available in 7 languages:
+
+| SDK | Status | Install Command |
+|:----|:-------|:----------------|
+| Python | GA | `pip install anthropic` |
+| TypeScript | GA | `npm install @anthropic-ai/sdk` |
+| Java | GA | Maven/Gradle: `com.anthropic:anthropic-java` |
+| Go | GA | `go get github.com/anthropics/anthropic-sdk-go` |
+| Ruby | GA | `bundler add anthropic` |
+| C# | Beta | `dotnet add package Anthropic` |
+| PHP | Beta | `composer require anthropic-ai/sdk` |
 
 Example (Python):
 ```python
@@ -73,7 +76,7 @@ message = client.messages.create(
 | Claude API | Anthropic | Direct access, latest features first |
 | Amazon Bedrock | AWS | Existing AWS commitments, consolidated billing |
 | Vertex AI | Google Cloud | GCP integrations |
-| Azure AI | Microsoft | Azure ecosystem |
+| Azure AI (Foundry) | Microsoft | Azure ecosystem |
 
 ## Request Size Limits
 
