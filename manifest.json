@@ -112,7 +112,7 @@
     },
     {
       "id": "claude-code-felix-lee-designer",
-      "name": "Claude Code Guide for Designers — Felix Lee",
+      "name": "Claude Code Guide for Designers \u2014 Felix Lee",
       "category": "claude-code",
       "local_path": "claude-code/felix-lee-designer-guide.md",
       "source_url": "https://adplist.substack.com/p/claude-code-guide-for-designers",
@@ -629,6 +629,193 @@
       "review_status": "auto",
       "confidence": 0.95,
       "sha256": "07ee7ce67d846ba7ca0ae36a550d6aa680d2434408f33754e7a8c3bced642157"
+    },
+    {
+      "id": "news-claude-code-security",
+      "name": "Claude Code Security: Frontier Cybersecurity Now Available",
+      "category": "news",
+      "local_path": "news/claude-code-security.md",
+      "source_url": "https://www.anthropic.com/news/claude-code-security",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "news-detecting-distillation-attacks",
+      "name": "Detecting and Preventing Distillation Attacks",
+      "category": "news",
+      "local_path": "news/detecting-distillation-attacks.md",
+      "source_url": "https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "news-responsible-scaling-policy-v3",
+      "name": "Responsible Scaling Policy Version 3.0",
+      "category": "news",
+      "local_path": "news/responsible-scaling-policy-v3.md",
+      "source_url": "https://www.anthropic.com/news/responsible-scaling-policy-v3",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "news-acquires-vercept",
+      "name": "Anthropic Acquires Vercept",
+      "category": "news",
+      "local_path": "news/acquires-vercept.md",
+      "source_url": "https://www.anthropic.com/news/acquires-vercept",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "news-statement-department-of-war",
+      "name": "Statement from Dario Amodei on Department of War",
+      "category": "news",
+      "local_path": "news/statement-department-of-war.md",
+      "source_url": "https://www.anthropic.com/news/statement-department-of-war",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "news-statement-secretary-war-comments",
+      "name": "Statement on Secretary of War Comments",
+      "category": "news",
+      "local_path": "news/statement-secretary-war-comments.md",
+      "source_url": "https://www.anthropic.com/news/statement-comments-secretary-war",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "news-labor-market-impacts",
+      "name": "Labor Market Impacts of AI",
+      "category": "news",
+      "local_path": "news/labor-market-impacts.md",
+      "source_url": "https://www.anthropic.com/research/labor-market-impacts",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "research-deprecation-updates-opus-3",
+      "name": "Deprecation Updates for Claude Opus 3",
+      "category": "research",
+      "local_path": "research/deprecation-updates-opus-3.md",
+      "source_url": "https://www.anthropic.com/research/deprecation-updates-opus-3",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "research-persona-selection-model",
+      "name": "The Persona Selection Model",
+      "category": "research",
+      "local_path": "research/persona-selection-model.md",
+      "source_url": "https://www.anthropic.com/research/persona-selection-model",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "research-ai-fluency-index",
+      "name": "The AI Fluency Index",
+      "category": "research",
+      "local_path": "research/ai-fluency-index.md",
+      "source_url": "https://www.anthropic.com/research/AI-fluency-index",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "engineering-effective-context-engineering",
+      "name": "Effective context engineering for AI agents",
+      "category": "engineering",
+      "local_path": "engineering/effective-context-engineering.md",
+      "source_url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "engineering-effective-harnesses",
+      "name": "Effective harnesses for long-running agents",
+      "category": "engineering",
+      "local_path": "engineering/effective-harnesses-for-long-running-agents.md",
+      "source_url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "engineering-multi-agent-research-system",
+      "name": "How we built our multi-agent research system",
+      "category": "engineering",
+      "local_path": "engineering/multi-agent-research-system.md",
+      "source_url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "engineering-writing-tools-for-agents",
+      "name": "Writing Effective Tools for Agents",
+      "category": "engineering",
+      "local_path": "engineering/writing-tools-for-agents.md",
+      "source_url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "engineering-ai-resistant-technical-evaluations",
+      "name": "Designing AI-resistant technical evaluations",
+      "category": "engineering",
+      "local_path": "engineering/ai-resistant-technical-evaluations.md",
+      "source_url": "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "engineering-postmortem-three-recent-issues",
+      "name": "A postmortem of three recent issues",
+      "category": "engineering",
+      "local_path": "engineering/postmortem-three-recent-issues.md",
+      "source_url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
+    },
+    {
+      "id": "engineering-demystifying-evals",
+      "name": "Demystifying Evals for AI Agents",
+      "category": "engineering",
+      "local_path": "engineering/demystifying-evals-for-ai-agents.md",
+      "source_url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85
     }
   ]
 }
