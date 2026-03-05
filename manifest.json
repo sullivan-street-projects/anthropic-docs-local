@@ -111,6 +111,18 @@
       "sha256": "784f529c647c680a3bf2e9e9c44eb856f67d9294fb2eae75f0de9e55c19ea3bc"
     },
     {
+      "id": "claude-code-felix-lee-designer",
+      "name": "Claude Code Guide for Designers — Felix Lee",
+      "category": "claude-code",
+      "local_path": "claude-code/felix-lee-designer-guide.md",
+      "source_url": "https://adplist.substack.com/p/claude-code-guide-for-designers",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.9,
+      "sha256": "84b0a3b2d9bede09f2fe201f560e193700f3f9e5871c95a0985ccf6dcd049c5c"
+    },
+    {
       "id": "python-sdk-readme",
       "name": "Python SDK README",
       "category": "sdks",

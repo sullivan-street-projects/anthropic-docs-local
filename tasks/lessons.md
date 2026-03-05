@@ -9,7 +9,7 @@ Accumulated corrections and patterns from working on this repository. Review at 
 
 ## Source Updates
 
-- **X/Twitter scraping:** WebFetch cannot read tweets (requires JS). Use vxTwitter API (`api.vxtwitter.com`) for single tweet text, ThreadReaderApp via Apify for full threads. Direct Apify tweet scrapers often return `noResults` for individual tweet URLs.
+- **X/Twitter scraping:** WebFetch cannot read tweets directly (requires JS). Use the **fxtwitter API** (`api.fxtwitter.com/user/status/id`) for tweet text extraction — this is the only reliable method as of March 2026. The HTML variants (fxtwitter.com, vxtwitter.com) now redirect back to X. Nitter is dead (503). ThreadReaderApp only works for pre-unrolled threads. For full articles linked from tweets, extract the URL from the fxtwitter API response and fetch that separately.
 - **Manual sources depend on model knowledge:** Files with `source_type: manual` are synthesized from Claude's training data, not fetched from URLs. Confidence is capped at 0.7 and `review_status` stays `needs-review`. Always spot-check against official docs.
 - **SHA256 hashes in manifest:** These are computed from local file content, not from source URLs. Must recompute after every file write using `shasum -a 256`.
 
