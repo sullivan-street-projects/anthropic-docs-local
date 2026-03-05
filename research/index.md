@@ -30,6 +30,7 @@ Comprehensive index of Anthropic's research papers, studies, and publications sp
 | Feb 23, 2026 | Anthropic Education Report: The AI Fluency Index | Societal Impacts |
 | Feb 18, 2026 | Measuring AI Agent Autonomy in Practice | Societal Impacts |
 | Feb 16, 2026 | India Country Brief: Anthropic Economic Index | Economic Research |
+| Jan 30, 2026 | The Hot Mess of AI: Misalignment Scaling (ICLR 2026) | Alignment |
 | Jan 29, 2026 | How AI Assistance Impacts the Formation of Coding Skills | Alignment |
 | Jan 28, 2026 | Disempowerment Patterns in Real-World AI Usage | Alignment |
 | Jan 22, 2026 | Claude's New Constitution | Alignment |

@@ -10,7 +10,24 @@ category: "research"
 
 Anthropic's policy research explores responsible AI deployment, governance frameworks, and real-world testing of AI capabilities in controlled settings.
 
-## Latest Work (2025)
+## Latest Work (2026)
+
+### Deprecation Updates for Claude Opus 3 (Feb 25, 2026)
+Specific timeline and migration support details for the deprecation of Claude Opus 3 models. Follow-up to the Nov 2025 deprecation commitments.
+
+### Claude's New Constitution (Jan 22, 2026)
+Updated constitutional principles guiding Claude's behavior and alignment. Represents the latest iteration of constitutional AI principles applied to deployment.
+
+### Anthropic Fellows Program (2026 Applications Open)
+Accepting applications for May and July 2026 cohorts, covering:
+- Scalable oversight
+- Adversarial robustness and AI control
+- Model organisms
+- Mechanistic interpretability
+- AI security
+- Model welfare
+
+## Work from 2025
 
 ### Project Vend: Phase Two (Dec 18, 2025)
 Follow-up research on AI operating a physical shop in Anthropic's office lunchroom.
@@ -100,7 +117,15 @@ Experiment in public input on AI values.
 - Tension resolution is challenging
 - Transparency increases trust
 
+## Security Research
+
+### SkillFortify: Supply Chain Security for Agent Skills (External, Mar 2026)
+External researchers published [arXiv: 2603.00195](https://arxiv.org/abs/2603.00195) addressing security vulnerabilities in Anthropic Agent Skills marketplace, highlighting the need for supply chain security in agentic AI ecosystems.
+
 ## Responsible Scaling
+
+### Deprecation Updates for Claude Opus 3 (Feb 25, 2026)
+Updated deprecation timeline and migration guidance for Claude Opus 3, building on the original Nov 2025 commitments.
 
 ### Model Deprecation Commitments (Nov 4, 2025)
 Policies for legacy model management.
@@ -135,9 +160,10 @@ Anthropic emphasizes testing in realistic conditions:
 
 ### Proactive Governance
 Moving beyond reactive harm mitigation:
-- Public input mechanisms
-- Advance deprecation planning
+- Public input mechanisms (Collective Constitutional AI)
+- Advance deprecation planning with specific timelines
 - Security-first agentic design
+- Fellowship programs for safety research talent
 
 ### Transparency
 Building trust through openness:
@@ -169,5 +195,6 @@ Anthropic's policy research often involves:
 - Government consultations
 - Industry partnerships
 - Civil society engagement
+- Fellowship programs (next cohorts: May and July 2026)
 
 This multi-stakeholder approach informs both research directions and policy recommendations.

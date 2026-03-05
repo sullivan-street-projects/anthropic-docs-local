@@ -27,6 +27,9 @@ Research on whether AI coding assistance helps or hinders the development of pro
 ### Claude's New Constitution (Jan 22, 2026)
 Updated constitutional principles guiding Claude's behavior and alignment.
 
+### The Hot Mess of AI: Misalignment Scaling (Jan 30, 2026, ICLR 2026)
+Research from the Anthropic Fellows Program ([arXiv: 2601.23045](https://arxiv.org/abs/2601.23045)) examining how misalignment scales with model intelligence and task complexity. Key finding: as tasks get harder and reasoning gets longer, model failures become increasingly dominated by incoherence rather than systematic misalignment. Suggests safety priorities should focus on preventing reward hacking during training (bias term) rather than solely constraining a coherent optimizer. By Hägele, Gema, Sleight, Perez, Sohl-Dickstein.
+
 ### Next-generation Constitutional Classifiers (Jan 9, 2026)
 Constitutional Classifiers++ ([arXiv 2601.04603](https://arxiv.org/abs/2601.04603)): Two-stage classifier cascade achieves 40x cost reduction while maintaining 0.05% refusal rate. Over 1,700 hours of red teaming with no universal jailbreak found.
 

@@ -40,6 +40,9 @@ Methodology:
 
 Implications for economic modeling of AI impact.
 
+### Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption (Nov 2025)
+Published on arXiv ([2511.15080](https://arxiv.org/abs/2511.15080)). Documents patterns of Claude usage over time, in 150+ countries, across US states, and among businesses deploying Claude through the API. Found that users increasingly entrust Claude with more autonomy, with directive task delegation rising from 27% to 39% in eight months.
+
 ## Privacy-Preserving Research
 
 ### Clio: Privacy-Preserving Insights (Dec 12, 2024)

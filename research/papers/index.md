@@ -10,7 +10,7 @@ category: "research"
 
 This directory contains the full PDF versions of Anthropic's key research papers from arXiv. These papers form the theoretical and empirical foundation for Claude's development.
 
-> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 7 new (2025-2026, not yet downloaded)
+> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 9 new (2025-2026, not yet downloaded)
 
 ## New Papers (2025-2026)
 
@@ -25,6 +25,8 @@ The following papers have been identified since the last full update. PDFs have 
 | Emergent Introspective Awareness in Large Language Models | [2601.01828](https://arxiv.org/abs/2601.01828) | Jan 2026 | Models can detect injected concepts in their activations with some accuracy. Claude Opus 4/4.1 showed greatest introspective awareness. By Lindsey et al. |
 | Constitutional Classifiers++: Efficient Production-Grade Defenses | [2601.04603](https://arxiv.org/abs/2601.04603) | Jan 2026 | Two-stage classifier cascade achieves 40x cost reduction vs baseline while maintaining 0.05% refusal rate. 1,700+ hours of red teaming. By Cunningham, Wei et al. |
 | The Assistant Axis: Situating and Stabilizing the Default Persona of LLMs | [2601.10387](https://arxiv.org/abs/2601.10387) | Jan 2026 | Identifies leading persona-space component ("Assistant Axis") and activation capping technique to reduce persona-based jailbreaks. Anthropic Fellows Program. |
+| The Hot Mess of AI: Misalignment Scaling with Intelligence and Task Complexity | [2601.23045](https://arxiv.org/abs/2601.23045) | Jan 2026 | ICLR 2026. As tasks get harder, model failures become increasingly incoherent rather than systematically misaligned. Anthropic Fellows Program. By Hägele et al. |
+| Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption | [2511.15080](https://arxiv.org/abs/2511.15080) | Nov 2025 | Documents Claude usage patterns in 150+ countries, finding directive task delegation rose from 27% to 39% in eight months. |
 
 ### Non-arXiv Notable Research (2025)
 
@@ -87,10 +89,11 @@ For those new to Anthropic's research, suggested reading order:
 14. **Constitutional Classifiers** (2025) - Practical jailbreak defense
 15. **Reasoning Models CoT Faithfulness** (2025) - Limits of monitoring
 16. **Emergent Misalignment** (2025) - Reward hacking to sabotage
+17. **The Hot Mess of AI** (2026, ICLR) - Incoherence vs. systematic misalignment at scale
 
 ### Governance Track
-17. **Collective Constitutional AI** - Democratic input on AI values
-18. **Influence Functions** - Tracing outputs to training data
+18. **Collective Constitutional AI** - Democratic input on AI values
+19. **Influence Functions** - Tracing outputs to training data
 
 ## Citation Information
 
