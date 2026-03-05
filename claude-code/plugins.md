@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, and LSP servers into a single installable unit.
 
-> **Last updated:** February 16, 2026
+> **Last updated:** March 5, 2026
 
 ## Plugins vs Standalone Configuration
 
@@ -107,6 +107,29 @@ my-plugin/
 
 ### LSP Servers (`.lsp.json`)
 - Language server integrations for code intelligence
+- Configure language-to-server mappings with extension rules
+- Users must have language server binaries installed
+
+```json
+{
+  "go": {
+    "command": "gopls",
+    "args": ["serve"],
+    "extensionToLanguage": { ".go": "go" }
+  }
+}
+```
+
+### Settings (`settings.json`)
+- Ship default configuration with plugin
+- Currently supports `agent` key to set a custom agent as main thread
+- Settings from `settings.json` take priority over `settings` in `plugin.json`
+
+## Official Marketplace Submission
+
+Submit plugins to the official Anthropic marketplace:
+- Claude.ai: `claude.ai/settings/plugins/submit`
+- Console: `platform.claude.com/plugins/submit`
 
 ## Installation & Management
 

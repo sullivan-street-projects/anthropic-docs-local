@@ -2,7 +2,7 @@
 title: "Research Index"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 Comprehensive index of Anthropic's research papers, studies, and publications spanning AI safety, interpretability, alignment, and societal impacts.
 
-> **Last updated:** January 10, 2026
+> **Last updated:** March 5, 2026
 
 ## Research Categories
 
@@ -25,6 +25,16 @@ Comprehensive index of Anthropic's research papers, studies, and publications sp
 
 | Date | Title | Category |
 |------|-------|----------|
+| Feb 25, 2026 | Update on Model Deprecation Commitments for Claude Opus 3 | Alignment |
+| Feb 23, 2026 | The Persona Selection Model | Alignment |
+| Feb 23, 2026 | Anthropic Education Report: The AI Fluency Index | Societal Impacts |
+| Feb 18, 2026 | Measuring AI Agent Autonomy in Practice | Societal Impacts |
+| Feb 16, 2026 | India Country Brief: Anthropic Economic Index | Economic Research |
+| Jan 29, 2026 | How AI Assistance Impacts the Formation of Coding Skills | Alignment |
+| Jan 28, 2026 | Disempowerment Patterns in Real-World AI Usage | Alignment |
+| Jan 22, 2026 | Claude's New Constitution | Alignment |
+| Jan 19, 2026 | The Assistant Axis: Situating and Stabilizing LLM Character | Interpretability |
+| Jan 15, 2026 | Anthropic Economic Index: Building Blocks for Understanding AI Use | Economic Research |
 | Jan 9, 2026 | Next-generation Constitutional Classifiers | Alignment |
 | Dec 19, 2025 | Introducing Bloom (behavioral eval tool) | Alignment |
 | Dec 18, 2025 | Project Vend: Phase two | Policy |
@@ -36,6 +46,7 @@ Comprehensive index of Anthropic's research papers, studies, and publications sp
 | Nov 12, 2025 | Project Fetch: Robot Dog Training | Policy |
 | Nov 4, 2025 | Model Deprecation Commitments | Alignment |
 | Oct 29, 2025 | Signs of Introspection in LLMs | Interpretability |
+| May 8, 2025 | Reasoning Models Don't Always Say What They Think | Alignment |
 | Mar 27, 2025 | Tracing Thoughts in Language Models | Interpretability |
 | Feb 3, 2025 | Constitutional Classifiers | Alignment |
 

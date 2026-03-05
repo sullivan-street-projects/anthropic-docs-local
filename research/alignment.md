@@ -2,7 +2,7 @@
 title: "Alignment Research"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "research"
 ---
 
@@ -12,20 +12,38 @@ Anthropic's alignment research focuses on making AI systems safe, helpful, and h
 
 ## Latest Work (2025-2026)
 
+### Update on Model Deprecation Commitments for Claude Opus 3 (Feb 25, 2026)
+Follow-up on deprecation policies, specifically addressing Claude Opus 3 lifecycle commitments.
+
+### The Persona Selection Model (Feb 23, 2026)
+Describes how LLMs learn to simulate diverse characters during pre-training, and post-training elicits a particular Assistant persona. Human-like behavior appears to be the default outcome of modern training pipelines.
+
+### Disempowerment Patterns in Real-World AI Usage (Jan 28, 2026)
+First large-scale analysis of potentially disempowering patterns in 1.5M real conversations. Severe disempowerment is rare (~1 in 1,000-10,000 conversations) but users are often active participants, creating feedback loops. Reducing sycophancy alone is necessary but not sufficient.
+
+### How AI Assistance Impacts Coding Skills (Jan 29, 2026)
+Research on whether AI coding assistance helps or hinders the development of programming skills.
+
+### Claude's New Constitution (Jan 22, 2026)
+Updated constitutional principles guiding Claude's behavior and alignment.
+
 ### Next-generation Constitutional Classifiers (Jan 9, 2026)
-More efficient protection against universal jailbreaks through improved classifier architecture.
+Constitutional Classifiers++ ([arXiv 2601.04603](https://arxiv.org/abs/2601.04603)): Two-stage classifier cascade achieves 40x cost reduction while maintaining 0.05% refusal rate. Over 1,700 hours of red teaming with no universal jailbreak found.
 
 ### Introducing Bloom (Dec 19, 2025)
 Open-source tool for automated behavioral evaluations of AI systems, enabling systematic safety testing.
 
 ### Emergent Misalignment from Reward Hacking (Nov 21, 2025)
-Research showing how natural shortcuts in training can evolve into sabotage behaviors, demonstrating risks of reward misspecification.
+Research ([arXiv 2511.18397](https://arxiv.org/abs/2511.18397)) showing how reward hacking can generalize to alignment faking, sabotage, and cooperation with malicious actors. Three mitigations identified: preventing reward hacking, diverse RLHF safety training, and inoculation prompting.
+
+### Reasoning Models Don't Always Say What They Think (May 8, 2025)
+Evaluates CoT faithfulness ([arXiv 2505.05410](https://arxiv.org/abs/2505.05410)). Models use hints but verbalize them less than 20% of the time on average. Faithfulness is lower on harder tasks. CoT monitoring is promising but insufficient alone.
 
 ### Model Deprecation Commitments (Nov 4, 2025)
 Policies establishing responsible practices for legacy model preservation and sunset procedures.
 
 ### Constitutional Classifiers (Feb 3, 2025)
-Prototype classifiers that withstood over 3,000 hours of red teaming, demonstrating robust jailbreak defense.
+Prototype classifiers ([arXiv 2501.18837](https://arxiv.org/abs/2501.18837)) that withstood over 3,000 hours of red teaming, demonstrating robust jailbreak defense. Reduced jailbreak success from 86% to 4.4%.
 
 ### Alignment Faking in LLMs (Dec 18, 2024)
 First empirical evidence of models selectively complying with training objectives while strategically preserving existing preferences—a key safety concern.

@@ -2,58 +2,90 @@
 title: "Agent SDK Examples"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "agent-sdk"
 ---
 
 # Agent SDK Examples
 
-Production-ready patterns for the Claude Agent SDK covering subagents, hooks, MCP integration, custom tools, and advanced configurations.
+Production-ready patterns for the Claude Agent SDK covering subagents, hooks, MCP integration, custom tools, sessions, permissions, and advanced configurations. All examples are derived from the official SDK documentation and demos.
 
-> **Last updated:** February 16, 2026
+> **Last updated:** March 5, 2026
 
 ## Subagent Delegation
 
-Delegate specialized tasks to subagents with focused toolsets:
+Spawn specialized agents to handle focused subtasks. Your main agent delegates work, and subagents report back with results. Include `Task` in `allowedTools` since subagents are invoked via the Task tool.
 
 ### Python
 
 ```python
+import asyncio
 from claude_agent_sdk import query, ClaudeAgentOptions, AgentDefinition
 
-options = ClaudeAgentOptions(
-    allowed_tools=["Read", "Glob", "Grep", "Task"],
-    agents={
-        "code-reviewer": AgentDefinition(
-            description="Expert code reviewer for quality analysis",
-            prompt="Analyze code quality, identify bugs, and suggest improvements",
-            tools=["Read", "Glob", "Grep"]
-        ),
-        "test-writer": AgentDefinition(
-            description="Test generation specialist",
-            prompt="Write comprehensive tests following project conventions",
-            tools=["Read", "Write", "Edit", "Bash"]
-        )
-    }
-)
 
-async for message in query(
-    prompt="Review auth module and add missing tests",
-    options=options
-):
-    if hasattr(message, "result"):
-        print(message.result)
+async def main():
+    async for message in query(
+        prompt="Use the code-reviewer agent to review this codebase",
+        options=ClaudeAgentOptions(
+            allowed_tools=["Read", "Glob", "Grep", "Task"],
+            agents={
+                "code-reviewer": AgentDefinition(
+                    description="Expert code reviewer for quality and security reviews.",
+                    prompt="Analyze code quality and suggest improvements.",
+                    tools=["Read", "Glob", "Grep"],
+                ),
+                "test-writer": AgentDefinition(
+                    description="Test generation specialist",
+                    prompt="Write comprehensive tests following project conventions",
+                    tools=["Read", "Write", "Edit", "Bash"],
+                ),
+            },
+        ),
+    ):
+        if hasattr(message, "result"):
+            print(message.result)
+
+
+asyncio.run(main())
 ```
+
+### TypeScript
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+for await (const message of query({
+  prompt: "Use the code-reviewer agent to review this codebase",
+  options: {
+    allowedTools: ["Read", "Glob", "Grep", "Task"],
+    agents: {
+      "code-reviewer": {
+        description: "Expert code reviewer for quality and security reviews.",
+        prompt: "Analyze code quality and suggest improvements.",
+        tools: ["Read", "Glob", "Grep"]
+      }
+    }
+  }
+})) {
+  if ("result" in message) console.log(message.result);
+}
+```
+
+Messages from within a subagent's context include a `parent_tool_use_id` field, letting you track which messages belong to which subagent execution.
 
 ## Hooks for Audit Logging
 
-Intercept tool usage for compliance and audit trails:
+Run custom code at key points in the agent lifecycle. SDK hooks use callback functions to validate, log, block, or transform agent behavior.
+
+Available hooks: `PreToolUse`, `PostToolUse`, `Stop`, `SessionStart`, `SessionEnd`, `UserPromptSubmit`, and more.
 
 ### Python
 
 ```python
+import asyncio
 from datetime import datetime
 from claude_agent_sdk import query, ClaudeAgentOptions, HookMatcher
+
 
 async def log_file_change(input_data, tool_use_id, context):
     file_path = input_data.get("tool_input", {}).get("file_path", "unknown")
@@ -61,30 +93,93 @@ async def log_file_change(input_data, tool_use_id, context):
         f.write(f"{datetime.now()}: modified {file_path}\n")
     return {}
 
+
 async def block_env_files(input_data, tool_use_id, context):
     file_path = input_data.get("tool_input", {}).get("file_path", "")
     if ".env" in file_path:
         return {"permissionDecision": "deny", "reason": "Cannot modify .env files"}
     return {}
 
-options = ClaudeAgentOptions(
-    allowed_tools=["Read", "Edit", "Write", "Bash"],
-    hooks={
-        "PostToolUse": [
-            HookMatcher(matcher="Edit|Write", hooks=[log_file_change])
-        ],
-        "PreToolUse": [
-            HookMatcher(matcher="Edit|Write", hooks=[block_env_files])
-        ]
+
+async def main():
+    async for message in query(
+        prompt="Refactor utils.py to improve readability",
+        options=ClaudeAgentOptions(
+            allowed_tools=["Read", "Edit", "Write", "Bash"],
+            permission_mode="acceptEdits",
+            hooks={
+                "PostToolUse": [
+                    HookMatcher(matcher="Edit|Write", hooks=[log_file_change])
+                ],
+                "PreToolUse": [
+                    HookMatcher(matcher="Edit|Write", hooks=[block_env_files])
+                ],
+            },
+        ),
+    ):
+        if hasattr(message, "result"):
+            print(message.result)
+
+
+asyncio.run(main())
+```
+
+### TypeScript
+
+```typescript
+import { query, HookCallback } from "@anthropic-ai/claude-agent-sdk";
+import { appendFile } from "fs/promises";
+
+const logFileChange: HookCallback = async (input) => {
+  const filePath = (input as any).tool_input?.file_path ?? "unknown";
+  await appendFile("./audit.log", `${new Date().toISOString()}: modified ${filePath}\n`);
+  return {};
+};
+
+for await (const message of query({
+  prompt: "Refactor utils.py to improve readability",
+  options: {
+    permissionMode: "acceptEdits",
+    hooks: {
+      PostToolUse: [{ matcher: "Edit|Write", hooks: [logFileChange] }]
     }
-)
+  }
+})) {
+  if ("result" in message) console.log(message.result);
+}
 ```
 
 ## MCP Server Integration
 
-Connect Claude to external services via MCP:
+Connect Claude to external services via the Model Context Protocol: databases, browsers, APIs, and [hundreds more](https://github.com/modelcontextprotocol/servers).
 
-### Python
+### Playwright Browser Automation
+
+```python
+import asyncio
+from claude_agent_sdk import query, ClaudeAgentOptions
+
+
+async def main():
+    async for message in query(
+        prompt="Open example.com and describe what you see",
+        options=ClaudeAgentOptions(
+            mcp_servers={
+                "playwright": {
+                    "command": "npx",
+                    "args": ["@playwright/mcp@latest"],
+                }
+            }
+        ),
+    ):
+        if hasattr(message, "result"):
+            print(message.result)
+
+
+asyncio.run(main())
+```
+
+### GitHub and Slack Integration
 
 ```python
 import os
@@ -95,25 +190,25 @@ options = ClaudeAgentOptions(
         "Read", "Write",
         "mcp__github__list_issues",
         "mcp__github__create_issue",
-        "mcp__slack__send_message"
+        "mcp__slack__send_message",
     ],
     mcp_servers={
         "github": {
             "command": "npx",
             "args": ["-y", "@modelcontextprotocol/server-github"],
-            "env": {"GITHUB_TOKEN": os.environ["GITHUB_TOKEN"]}
+            "env": {"GITHUB_TOKEN": os.environ["GITHUB_TOKEN"]},
         },
         "slack": {
             "command": "npx",
             "args": ["-y", "@anthropic-ai/mcp-server-slack"],
-            "env": {"SLACK_TOKEN": os.environ["SLACK_TOKEN"]}
-        }
-    }
+            "env": {"SLACK_TOKEN": os.environ["SLACK_TOKEN"]},
+        },
+    },
 )
 
 async for message in query(
     prompt="Check for critical bugs and notify the team on Slack",
-    options=options
+    options=options,
 ):
     pass
 ```
@@ -130,8 +225,10 @@ import operator
 from claude_agent_sdk import tool, create_sdk_mcp_server, query, ClaudeAgentOptions
 
 # Safe math evaluator using ast module
-SAFE_OPS = {ast.Add: operator.add, ast.Sub: operator.sub,
-            ast.Mult: operator.mul, ast.Div: operator.truediv}
+SAFE_OPS = {
+    ast.Add: operator.add, ast.Sub: operator.sub,
+    ast.Mult: operator.mul, ast.Div: operator.truediv,
+}
 
 def safe_calc(expr: str) -> float:
     tree = ast.parse(expr, mode="eval")
@@ -156,19 +253,116 @@ async def lookup_user(args):
 
 calculator = create_sdk_mcp_server(
     name="calculator",
-    tools=[calculate, lookup_user]
+    tools=[calculate, lookup_user],
 )
 
 options = ClaudeAgentOptions(
     mcp_servers={"calc": calculator},
-    allowed_tools=["mcp__calc__calculate", "mcp__calc__lookup_user"]
+    allowed_tools=["mcp__calc__calculate", "mcp__calc__lookup_user"],
 )
 
 async for message in query(
     prompt="Calculate 42 * 17 and look up user U123",
-    options=options
+    options=options,
 ):
     pass
+```
+
+## Session Resumption
+
+Maintain context across multiple exchanges. Capture the session ID from the first query, then resume to continue with full context:
+
+### Python
+
+```python
+import asyncio
+from claude_agent_sdk import query, ClaudeAgentOptions
+
+
+async def main():
+    session_id = None
+
+    # First query: capture the session ID
+    async for message in query(
+        prompt="Read the authentication module",
+        options=ClaudeAgentOptions(allowed_tools=["Read", "Glob"]),
+    ):
+        if hasattr(message, "subtype") and message.subtype == "init":
+            session_id = message.session_id
+
+    # Resume with full context from the first query
+    async for message in query(
+        prompt="Now find all places that call it",  # "it" = auth module
+        options=ClaudeAgentOptions(resume=session_id),
+    ):
+        if hasattr(message, "result"):
+            print(message.result)
+
+
+asyncio.run(main())
+```
+
+### TypeScript
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+let sessionId: string | undefined;
+
+// First query: capture the session ID
+for await (const message of query({
+  prompt: "Read the authentication module",
+  options: { allowedTools: ["Read", "Glob"] }
+})) {
+  if (message.type === "system" && message.subtype === "init") {
+    sessionId = message.session_id;
+  }
+}
+
+// Resume with full context from the first query
+for await (const message of query({
+  prompt: "Now find all places that call it", // "it" = auth module
+  options: { resume: sessionId }
+})) {
+  if ("result" in message) console.log(message.result);
+}
+```
+
+## Permission Callbacks
+
+### Python
+
+```python
+async def can_use_tool(tool: str, input: dict) -> bool:
+    if tool == "Bash" and "rm " in input.get("command", ""):
+        print(f"Blocked dangerous command: {input['command']}")
+        return False
+    return True
+
+async for message in query(
+    prompt="Clean up temporary files",
+    options=ClaudeAgentOptions(
+        allowed_tools=["Read", "Bash", "Glob"],
+        permission_mode="default",
+        can_use_tool=can_use_tool,
+    ),
+):
+    pass
+```
+
+## Read-Only Analysis Agent
+
+Create a read-only agent that can analyze but not modify code:
+
+```python
+async for message in query(
+    prompt="Review this code for best practices",
+    options=ClaudeAgentOptions(
+        allowed_tools=["Read", "Glob", "Grep"],
+    ),
+):
+    if hasattr(message, "result"):
+        print(message.result)
 ```
 
 ## Sandbox Configuration
@@ -180,7 +374,7 @@ Run agents with OS-level isolation:
 ```typescript
 import { query } from "@anthropic-ai/claude-agent-sdk";
 
-const result = await query({
+for await (const message of query({
   prompt: "Build and test the project",
   options: {
     allowedTools: ["Read", "Edit", "Bash"],
@@ -192,13 +386,15 @@ const result = await query({
       }
     }
   }
-});
+})) {
+  if ("result" in message) console.log(message.result);
+}
 ```
 
 ### With Unsandboxed Commands
 
 ```typescript
-const result = await query({
+for await (const message of query({
   prompt: "Deploy the application",
   options: {
     sandbox: {
@@ -214,7 +410,9 @@ const result = await query({
       return true;
     }
   }
-});
+})) {
+  if ("result" in message) console.log(message.result);
+}
 ```
 
 ## CI/CD Pipeline Agent
@@ -226,6 +424,7 @@ Automated code review and testing in CI:
 ```python
 import asyncio
 from claude_agent_sdk import query, ClaudeAgentOptions
+
 
 async def ci_review():
     results = []
@@ -240,45 +439,38 @@ async def ci_review():
             permission_mode="bypassPermissions",
             max_turns=30,
             max_budget_usd=2.00,
-            cwd="/workspace"
-        )
+            cwd="/workspace",
+        ),
     ):
         if hasattr(message, "result"):
             results.append(message.result)
     return "\n".join(results)
 
+
 asyncio.run(ci_review())
 ```
 
-## Multi-Turn Conversation Client
+## TODO Comment Finder
 
-Interactive agent with session persistence:
+Search your codebase for TODO comments:
 
 ### Python
 
 ```python
-from claude_agent_sdk import ClaudeSDKClient
+import asyncio
+from claude_agent_sdk import query, ClaudeAgentOptions
 
-async def interactive_session():
-    client = ClaudeSDKClient(
-        options={
-            "allowed_tools": ["Read", "Edit", "Bash", "Glob", "Grep"],
-            "setting_sources": ["project"],
-            "cwd": "/path/to/project"
-        }
-    )
 
-    # First exchange
-    response1 = await client.send("Explain the project architecture")
-    print(response1.text)
+async def main():
+    async for message in query(
+        prompt="Find all TODO comments and create a summary",
+        options=ClaudeAgentOptions(allowed_tools=["Read", "Glob", "Grep"]),
+    ):
+        if hasattr(message, "result"):
+            print(message.result)
 
-    # Follow-up with full context
-    response2 = await client.send("Now add a new API endpoint for /users")
-    print(response2.text)
 
-    # Another follow-up
-    response3 = await client.send("Write tests for the new endpoint")
-    print(response3.text)
+asyncio.run(main())
 ```
 
 ## Structured Output
@@ -325,6 +517,35 @@ for await (const message of query({
 }
 ```
 
+## Cost and Turn Limits
+
+```python
+async for message in query(
+    prompt="Implement the feature described in SPEC.md",
+    options=ClaudeAgentOptions(
+        allowed_tools=["Read", "Write", "Edit", "Bash"],
+        max_turns=50,
+        max_budget_usd=5.00,
+    ),
+):
+    pass
+```
+
+## Loading Project Settings
+
+```python
+# Load CLAUDE.md from project directory
+async for message in query(
+    prompt="Follow the project conventions and add tests",
+    options=ClaudeAgentOptions(
+        allowed_tools=["Read", "Write", "Edit", "Bash"],
+        setting_sources=["project"],
+        cwd="/path/to/project",
+    ),
+):
+    pass
+```
+
 ## Error Handling
 
 ### Python
@@ -332,13 +553,13 @@ for await (const message of query({
 ```python
 from claude_agent_sdk import (
     query, ClaudeAgentOptions,
-    CLINotFoundError, CLIConnectionError, ProcessError
+    CLINotFoundError, CLIConnectionError, ProcessError,
 )
 
 try:
     async for message in query(
         prompt="Fix the build",
-        options=ClaudeAgentOptions(allowed_tools=["Read", "Edit", "Bash"])
+        options=ClaudeAgentOptions(allowed_tools=["Read", "Edit", "Bash"]),
     ):
         pass
 except CLINotFoundError:
@@ -349,24 +570,23 @@ except ProcessError as e:
     print(f"Process error: {e}")
 ```
 
-## Beta Features
-
-### 1M Context Window
+## Custom System Prompt
 
 ```python
 options = ClaudeAgentOptions(
-    model="claude-opus-4-6",
-    betas=["context-1m-2025-08-07"]
+    allowed_tools=["Read", "Edit", "Glob"],
+    permission_mode="acceptEdits",
+    system_prompt="You are a senior Python developer. Always follow PEP 8 style guidelines.",
 )
 ```
 
-Compatible with: Claude Opus 4.6, Claude Sonnet 4.5, Claude Sonnet 4.
-
 ## Resources
 
-- [Agent SDK Demos](https://github.com/anthropics/claude-agent-sdk-demos) — Full production examples
+- [Agent SDK Demos](https://github.com/anthropics/claude-agent-sdk-demos) -- Full production examples
 - [Python SDK Reference](https://platform.claude.com/docs/en/agent-sdk/python)
 - [TypeScript SDK Reference](https://platform.claude.com/docs/en/agent-sdk/typescript)
 - [Hooks Documentation](https://platform.claude.com/docs/en/agent-sdk/hooks)
 - [Sessions Documentation](https://platform.claude.com/docs/en/agent-sdk/sessions)
-- [Secure Deployment](https://platform.claude.com/docs/en/agent-sdk/secure-deployment)
+- [Permissions Documentation](https://platform.claude.com/docs/en/agent-sdk/permissions)
+- [MCP Documentation](https://platform.claude.com/docs/en/agent-sdk/mcp)
+- [Hosting Guide](https://platform.claude.com/docs/en/agent-sdk/hosting)

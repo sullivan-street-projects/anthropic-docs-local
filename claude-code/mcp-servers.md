@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources.
 
-> **Last updated:** February 16, 2026
+> **Last updated:** March 5, 2026
 
 ## Available MCP Server Categories
 
@@ -94,6 +94,34 @@ Within Claude Code interactive mode:
 /mcp
 # Follow browser login flow
 ```
+
+### OAuth Metadata Override
+
+If an MCP server doesn't support standard OAuth discovery but has a working OIDC endpoint:
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "type": "http",
+      "url": "https://mcp.example.com/mcp",
+      "oauth": {
+        "authServerMetadataUrl": "https://auth.example.com/.well-known/openid-configuration"
+      }
+    }
+  }
+}
+```
+
+Requires Claude Code v2.1.64+.
+
+## Claude.ai MCP Servers
+
+MCP servers configured in Claude.ai are automatically available in Claude Code when logged in with a Claude.ai account. Configure at `claude.ai/settings/connectors`. Disable with `ENABLE_CLAUDEAI_MCP_SERVERS=false`.
+
+## Dynamic Tool Updates
+
+Claude Code supports MCP `list_changed` notifications, allowing servers to dynamically update available tools without reconnection.
 
 ## Tool Search
 

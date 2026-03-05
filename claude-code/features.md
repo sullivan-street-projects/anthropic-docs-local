@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,21 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment.
 
-> **Last updated:** February 16, 2026
+> **Last updated:** March 5, 2026
+
+## Extension Architecture
+
+Claude Code combines a model that reasons about your code with built-in tools for file operations, search, execution, and web access. Beyond the built-in tools, Claude Code provides an extension layer for customization:
+
+| Feature | What It Does | When to Use |
+|---------|-------------|-------------|
+| **CLAUDE.md** | Persistent context loaded every conversation | Project conventions, "always do X" rules |
+| **Skills** | Instructions, knowledge, and workflows Claude can use | Reusable content, reference docs, repeatable tasks |
+| **Subagents** | Isolated execution context that returns summarized results | Context isolation, parallel tasks, specialized workers |
+| **Agent Teams** | Coordinate multiple independent Claude Code sessions | Parallel research, feature development, debugging |
+| **MCP** | Connect to external services | External data or actions |
+| **Hooks** | Deterministic scripts that run on events | Predictable automation, no LLM involved |
+| **Plugins** | Package and distribute feature sets | Reuse across repos, share with teams |
 
 ## Built-in Tools
 
@@ -38,7 +52,7 @@ Comprehensive overview of Claude Code's features and capabilities. Claude Code i
 
 ## Extended Thinking
 
-Claude reasons through complex problems with step-by-step internal reasoning. With Opus 4.6, adaptive thinking is available — Claude automatically adjusts reasoning depth based on task complexity.
+Claude reasons through complex problems with step-by-step internal reasoning. With Opus 4.6, adaptive thinking is available -- Claude automatically adjusts reasoning depth based on task complexity.
 
 ## Fast Mode
 
@@ -85,6 +99,61 @@ Research preview feature for Opus 4.6 that provides ~2.5x faster output at the s
 - Network restrictions derived from permission rules
 - Configurable via settings or SDK
 
+## Context Loading by Feature
+
+Each extension has different context costs:
+
+| Feature | When It Loads | Context Cost |
+|---------|--------------|--------------|
+| **CLAUDE.md** | Session start | Every request |
+| **Skills** | Session start + when used | Low (descriptions every request) |
+| **MCP servers** | Session start | Every request |
+| **Subagents** | When spawned | Isolated from main session |
+| **Hooks** | On trigger | Zero, unless hook returns additional context |
+
+Skills with `disable-model-invocation: true` have zero context cost until manually invoked. Tool search (default for MCP) loads tools up to 10% of context and defers the rest.
+
+## CLAUDE.md (Project Memory)
+
+Persistent instructions loaded every session:
+
+| Location | Scope |
+|----------|-------|
+| `~/.claude/CLAUDE.md` | User-wide (all projects) |
+| `CLAUDE.md` | Project root |
+| `.claude/CLAUDE.md` | Nested subdirectories |
+
+- Supports `@path` imports for splitting large configs
+- Best kept under 500 lines; move reference material to skills
+- `.claude/rules/` files can be scoped to specific file paths
+
+## Skills
+
+Reusable knowledge and invocable workflows:
+- Invoke with `/skill-name` commands
+- Claude can auto-load relevant skills based on task context
+- Support `$ARGUMENTS` placeholder for dynamic behavior
+- Can run in current context or isolated via subagents (`context: fork`)
+- Set `disable-model-invocation: true` to hide from Claude until manually invoked
+- Bundled skills include `/simplify`, `/batch`, `/debug`
+
+## Subagents
+
+Isolated execution contexts:
+- Fresh context window; results return summarized to caller
+- Can preload specific skills via `skills:` field
+- Do not inherit conversation history from main session
+- Useful when context window is getting full
+
+## Agent Teams (Experimental)
+
+Coordinate multiple independent Claude sessions working on related tasks:
+- Shared task boards for coordination
+- Inter-agent messaging (peer-to-peer)
+- Parallel execution across git worktrees
+- Quality gates and verification
+- Disabled by default
+
 ## IDE Integrations
 
 ### VS Code Extension
@@ -108,13 +177,6 @@ Built-in output style system for formatting Claude's responses:
 - Custom output styles with themes and formatting rules
 - Toggle between styles during a session
 
-## Chrome Integration
-
-- Browser automation and web testing via Playwright MCP
-- Form filling and data extraction
-- Screenshot and GIF recording
-- Multi-site workflows
-
 ## Platform Support
 
 | Platform | Description |
@@ -125,14 +187,6 @@ Built-in output style system for formatting Claude's responses:
 | Claude Code on the Web | Cloud-hosted environment |
 | GitHub Actions | CI/CD automation via `claude-code-action` |
 | GitLab CI/CD | Pipeline integration |
-
-## Agent Teams (Experimental)
-
-Coordinate multiple independent Claude sessions working on related tasks:
-- Shared task boards for coordination
-- Inter-agent messaging
-- Parallel execution across git worktrees
-- Quality gates and verification
 
 ## Git Worktrees
 
@@ -154,19 +208,6 @@ cat build-error.txt | claude -p 'explain the root cause' > output.txt
 claude -p 'analyze code' --output-format json
 claude -p 'parse logs' --output-format stream-json
 ```
-
-## CLAUDE.md (Project Memory)
-
-Persistent instructions loaded every session:
-
-| Location | Scope |
-|----------|-------|
-| `~/.claude/CLAUDE.md` | User-wide (all projects) |
-| `CLAUDE.md` | Project root |
-| `.claude/CLAUDE.md` | Nested subdirectories |
-
-- Supports `@path` imports for splitting large configs
-- Best kept under 500 lines; move reference material to skills
 
 ## Team & Enterprise Features
 
@@ -199,9 +240,12 @@ Persistent instructions loaded every session:
 | `/mcp` | Manage MCP servers |
 | `/plugin` | Manage plugins |
 | `/tasks` | View running background tasks |
+| `/agents` | View available agents |
 
 ## Sources
 
-- [Features Overview](https://code.claude.com/docs/en/features-overview)
-- [Common Workflows](https://code.claude.com/docs/en/common-workflows)
+- [Extend Claude Code (Features Overview)](https://code.claude.com/docs/en/features-overview)
 - [How Claude Code Works](https://code.claude.com/docs/en/how-claude-code-works)
+- [Skills](https://code.claude.com/docs/en/skills)
+- [Subagents](https://code.claude.com/docs/en/sub-agents)
+- [Agent Teams](https://code.claude.com/docs/en/agent-teams)

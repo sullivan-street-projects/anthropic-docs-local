@@ -2,236 +2,262 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "agent-sdk"
 ---
 
 # Claude Agent SDK Quickstart
 
-Get started building autonomous agents with the Claude Agent SDK in Python or TypeScript.
+Get started with the Python or TypeScript Agent SDK to build AI agents that work autonomously. This quickstart walks you through building an agent that reads your code, finds bugs, and fixes them without manual intervention.
 
-> **Last updated:** February 16, 2026
+> **Last updated:** March 5, 2026
+
+**What you'll do:**
+1. Set up a project with the Agent SDK
+2. Create a file with some buggy code
+3. Run an agent that finds and fixes the bugs automatically
 
 ## Prerequisites
 
-- API key from https://platform.claude.com
-- Environment variable: `ANTHROPIC_API_KEY=your-api-key`
-- Python 3.10+ or Node.js 18+
+- **Node.js 18+** or **Python 3.10+**
+- An **Anthropic account** ([sign up here](https://platform.claude.com/))
+- API key from the [Claude Console](https://platform.claude.com/)
 
-## Installation
+## Setup
 
-### Python
+### 1. Create a Project Folder
 
 ```bash
-# Using uv (recommended)
-uv init && uv add claude-agent-sdk
-
-# Using pip
-python3 -m venv .venv && source .venv/bin/activate
-pip3 install claude-agent-sdk
+mkdir my-agent && cd my-agent
 ```
 
-### TypeScript
+For your own projects, you can run the SDK from any folder; it will have access to files in that directory and its subdirectories by default.
+
+### 2. Install the SDK
+
+#### TypeScript
 
 ```bash
 npm install @anthropic-ai/claude-agent-sdk
 ```
 
-## Basic Agent — Python
+#### Python (uv -- recommended)
+
+[uv](https://docs.astral.sh/uv/) is a fast Python package manager that handles virtual environments automatically:
+
+```bash
+uv init && uv add claude-agent-sdk
+```
+
+#### Python (pip)
+
+Create a virtual environment first, then install:
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip3 install claude-agent-sdk
+```
+
+### 3. Set Your API Key
+
+Create a `.env` file in your project directory:
+
+```bash
+ANTHROPIC_API_KEY=your-api-key
+```
+
+The SDK also supports authentication via third-party API providers:
+
+- **Amazon Bedrock**: set `CLAUDE_CODE_USE_BEDROCK=1` and configure AWS credentials
+- **Google Vertex AI**: set `CLAUDE_CODE_USE_VERTEX=1` and configure Google Cloud credentials
+- **Microsoft Azure**: set `CLAUDE_CODE_USE_FOUNDRY=1` and configure Azure credentials
+
+See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Azure AI Foundry](https://code.claude.com/docs/en/azure-ai-foundry) for details.
+
+> **Note:** Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Use the API key authentication methods instead.
+
+## Create a Buggy File
+
+Create `utils.py` in the `my-agent` directory with intentional bugs for the agent to fix:
 
 ```python
-import asyncio
-from claude_agent_sdk import query, ClaudeAgentOptions
+def calculate_average(numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total / len(numbers)
 
-async def main():
-    async for message in query(
-        prompt="Find and fix the bug in auth.py",
-        options=ClaudeAgentOptions(
-            allowed_tools=["Read", "Edit", "Bash"]
-        )
-    ):
-        if hasattr(message, "result"):
-            print(message.result)
 
-asyncio.run(main())
+def get_user_name(user):
+    return user["name"].upper()
 ```
 
-## Basic Agent — TypeScript
+This code has two bugs:
+1. `calculate_average([])` crashes with division by zero
+2. `get_user_name(None)` crashes with a TypeError
 
-```typescript
-import { query } from "@anthropic-ai/claude-agent-sdk";
-
-for await (const message of query({
-  prompt: "Find and fix the bug in auth.py",
-  options: {
-    allowedTools: ["Read", "Edit", "Bash"]
-  }
-})) {
-  if ("result" in message) {
-    console.log(message.result);
-  }
-}
-```
-
-## Streaming Progress
+## Build the Bug-Fixing Agent
 
 ### Python
 
 ```python
-async for message in query(
-    prompt="Refactor the authentication module",
-    options=ClaudeAgentOptions(
-        allowed_tools=["Read", "Edit", "Glob", "Grep", "Bash"]
-    )
-):
-    if hasattr(message, "content"):
-        for block in message.content:
-            if hasattr(block, "text"):
-                print(block.text, end="", flush=True)
-    if hasattr(message, "result"):
-        print(f"\nDone! Cost: ${message.cost_usd:.4f}")
+import asyncio
+from claude_agent_sdk import query, ClaudeAgentOptions, AssistantMessage, ResultMessage
+
+
+async def main():
+    # Agentic loop: streams messages as Claude works
+    async for message in query(
+        prompt="Review utils.py for bugs that would cause crashes. Fix any issues you find.",
+        options=ClaudeAgentOptions(
+            allowed_tools=["Read", "Edit", "Glob"],  # Tools Claude can use
+            permission_mode="acceptEdits",  # Auto-approve file edits
+        ),
+    ):
+        # Print human-readable output
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if hasattr(block, "text"):
+                    print(block.text)  # Claude's reasoning
+                elif hasattr(block, "name"):
+                    print(f"Tool: {block.name}")  # Tool being called
+        elif isinstance(message, ResultMessage):
+            print(f"Done: {message.subtype}")  # Final result
+
+
+asyncio.run(main())
 ```
 
 ### TypeScript
 
 ```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+// Agentic loop: streams messages as Claude works
 for await (const message of query({
-  prompt: "Refactor the authentication module",
+  prompt: "Review utils.py for bugs that would cause crashes. Fix any issues you find.",
   options: {
-    allowedTools: ["Read", "Edit", "Glob", "Grep", "Bash"]
+    allowedTools: ["Read", "Edit", "Glob"], // Tools Claude can use
+    permissionMode: "acceptEdits" // Auto-approve file edits
   }
 })) {
-  if ("content" in message) {
-    for (const block of message.content) {
-      if ("text" in block) process.stdout.write(block.text);
+  // Print human-readable output
+  if (message.type === "assistant" && message.message?.content) {
+    for (const block of message.message.content) {
+      if ("text" in block) {
+        console.log(block.text); // Claude's reasoning
+      } else if ("name" in block) {
+        console.log(`Tool: ${block.name}`); // Tool being called
+      }
     }
-  }
-  if ("result" in message) {
-    console.log(`\nDone! Cost: $${message.costUsd.toFixed(4)}`);
+  } else if (message.type === "result") {
+    console.log(`Done: ${message.subtype}`); // Final result
   }
 }
 ```
 
-## With Permission Callbacks
+### How It Works
 
-### Python
+1. **`query`**: the main entry point that creates the agentic loop. Returns an async iterator that streams messages as Claude works. See the full API in the [Python](https://platform.claude.com/docs/en/agent-sdk/python#query) or [TypeScript](https://platform.claude.com/docs/en/agent-sdk/typescript#query) SDK reference.
 
-```python
-async def can_use_tool(tool: str, input: dict) -> bool:
-    if tool == "Bash" and "rm " in input.get("command", ""):
-        print(f"Blocked dangerous command: {input['command']}")
-        return False
-    return True
+2. **`prompt`**: what you want Claude to do. Claude figures out which tools to use based on the task.
 
-async for message in query(
-    prompt="Clean up temporary files",
-    options=ClaudeAgentOptions(
-        allowed_tools=["Read", "Bash", "Glob"],
-        permission_mode="default",
-        can_use_tool=can_use_tool
-    )
-):
-    pass
+3. **`options`**: configuration for the agent. `allowedTools` pre-approves specific tools, and `permissionMode: "acceptEdits"` auto-approves file changes. Other options include `systemPrompt`, `mcpServers`, and more.
+
+The `async for` loop keeps running as Claude thinks, calls tools, observes results, and decides what to do next. Each iteration yields a message: Claude's reasoning, a tool call, a tool result, or the final outcome. The SDK handles orchestration (tool execution, context management, retries) so you just consume the stream.
+
+### Run Your Agent
+
+#### Python
+
+```bash
+python3 agent.py
 ```
 
-## With MCP Servers
+#### TypeScript
 
-### Python
-
-```python
-async for message in query(
-    prompt="List open issues and create a summary",
-    options=ClaudeAgentOptions(
-        allowed_tools=["Read", "mcp__github__list_issues"],
-        mcp_servers={
-            "github": {
-                "command": "npx",
-                "args": ["-y", "@modelcontextprotocol/server-github"],
-                "env": {"GITHUB_TOKEN": os.environ["GITHUB_TOKEN"]}
-            }
-        }
-    )
-):
-    pass
+```bash
+npx tsx agent.ts
 ```
 
-## With Subagents
+After running, check `utils.py`. You'll see defensive code handling empty lists and null users. Your agent autonomously:
 
-### Python
+1. **Read** `utils.py` to understand the code
+2. **Analyzed** the logic and identified edge cases that would crash
+3. **Edited** the file to add proper error handling
 
-```python
-from claude_agent_sdk import query, ClaudeAgentOptions, AgentDefinition
+> **Tip:** If you see "API key not found", make sure you've set the `ANTHROPIC_API_KEY` environment variable in your `.env` file or shell environment. See the [full troubleshooting guide](https://code.claude.com/docs/en/troubleshooting) for more help.
 
-async for message in query(
-    prompt="Review and improve the codebase quality",
-    options=ClaudeAgentOptions(
-        allowed_tools=["Read", "Glob", "Grep", "Task"],
-        agents={
-            "code-reviewer": AgentDefinition(
-                description="Expert code reviewer",
-                prompt="Analyze code quality and suggest improvements",
-                tools=["Read", "Glob", "Grep"]
-            )
-        }
-    )
-):
-    pass
-```
+## Try Other Prompts
 
-## Session Resumption
+- `"Add docstrings to all functions in utils.py"`
+- `"Add type hints to all functions in utils.py"`
+- `"Create a README.md documenting the functions in utils.py"`
 
-### Python
+## Customize Your Agent
+
+### Add Web Search Capability
 
 ```python
-# First query — capture session ID
-session_id = None
-async for message in query(
-    prompt="Read the authentication module",
-    options=ClaudeAgentOptions(allowed_tools=["Read", "Glob"])
-):
-    if message.subtype == "init":
-        session_id = message.session_id
-
-# Resume with full context
-async for message in query(
-    prompt="Now find all places that call it",
-    options=ClaudeAgentOptions(resume=session_id)
-):
-    pass
+options = ClaudeAgentOptions(
+    allowed_tools=["Read", "Edit", "Glob", "WebSearch"],
+    permission_mode="acceptEdits"
+)
 ```
 
-## Cost & Turn Limits
+### Give Claude a Custom System Prompt
 
 ```python
-async for message in query(
-    prompt="Implement the feature described in SPEC.md",
-    options=ClaudeAgentOptions(
-        allowed_tools=["Read", "Write", "Edit", "Bash"],
-        max_turns=50,
-        max_budget_usd=5.00
-    )
-):
-    pass
+options = ClaudeAgentOptions(
+    allowed_tools=["Read", "Edit", "Glob"],
+    permission_mode="acceptEdits",
+    system_prompt="You are a senior Python developer. Always follow PEP 8 style guidelines.",
+)
 ```
 
-## Loading Project Settings
+### Run Commands in the Terminal
 
 ```python
-# Load CLAUDE.md from project directory
-async for message in query(
-    prompt="Follow the project conventions and add tests",
-    options=ClaudeAgentOptions(
-        allowed_tools=["Read", "Write", "Edit", "Bash"],
-        setting_sources=["project"],
-        cwd="/path/to/project"
-    )
-):
-    pass
+options = ClaudeAgentOptions(
+    allowed_tools=["Read", "Edit", "Glob", "Bash"],
+    permission_mode="acceptEdits"
+)
 ```
+
+With `Bash` enabled, try: `"Write unit tests for utils.py, run them, and fix any failures"`
+
+## Key Concepts
+
+### Tools
+
+Tools control what your agent can do:
+
+| Tools | What the agent can do |
+|-------|----------------------|
+| `Read`, `Glob`, `Grep` | Read-only analysis |
+| `Read`, `Edit`, `Glob` | Analyze and modify code |
+| `Read`, `Edit`, `Bash`, `Glob`, `Grep` | Full automation |
+
+### Permission Modes
+
+Permission modes control how much human oversight you want:
+
+| Mode | Behavior | Use case |
+|------|----------|----------|
+| `acceptEdits` | Auto-approves file edits, asks for other actions | Trusted development workflows |
+| `dontAsk` (TypeScript only) | Denies anything not in `allowedTools` | Locked-down headless agents |
+| `bypassPermissions` | Runs every tool without prompts | Sandboxed CI, fully trusted environments |
+| `default` | Requires a `canUseTool` callback to handle approval | Custom approval flows |
+
+## Streaming vs Single-Turn Mode
+
+The quickstart uses streaming to show progress in real-time. If you don't need live output (e.g., for background jobs or CI pipelines), you can collect all messages at once. See [Streaming vs. single-turn mode](https://platform.claude.com/docs/en/agent-sdk/streaming-vs-single-mode) for details.
 
 ## Next Steps
 
-- [Agent SDK Overview](https://platform.claude.com/docs/en/agent-sdk/overview) — Architecture and concepts
-- [Python Reference](https://platform.claude.com/docs/en/agent-sdk/python) — Full Python API
-- [TypeScript Reference](https://platform.claude.com/docs/en/agent-sdk/typescript) — Full TypeScript API
-- [Example Agents](https://github.com/anthropics/claude-agent-sdk-demos) — Production-ready examples
+- [Permissions](https://platform.claude.com/docs/en/agent-sdk/permissions) -- control what your agent can do and when it needs approval
+- [Hooks](https://platform.claude.com/docs/en/agent-sdk/hooks) -- run custom code before or after tool calls
+- [Sessions](https://platform.claude.com/docs/en/agent-sdk/sessions) -- build multi-turn agents that maintain context
+- [MCP servers](https://platform.claude.com/docs/en/agent-sdk/mcp) -- connect to databases, browsers, APIs, and other external systems
+- [Hosting](https://platform.claude.com/docs/en/agent-sdk/hosting) -- deploy agents to Docker, cloud, and CI/CD
+- [Example agents](https://github.com/anthropics/claude-agent-sdk-demos) -- see complete examples: email assistant, research agent, and more

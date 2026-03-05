@@ -422,7 +422,7 @@
       "last_fetched": "2026-03-05T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "6059a5fff4b10f7e2ca353d5ac9bd9dd8a543323e9fc9339c203e3ad26f9f291"
+      "sha256": "d63fcbe92cbf20300a3d0389b104a9ce6c272e063cfb897a7aae9c2e4aae476f"
     },
     {
       "id": "agent-sdk-quickstart",
@@ -434,7 +434,7 @@
       "last_fetched": "2026-03-05T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "ba5d74b98dd260254b336567c8671a180352a9a827e7df60e12c0324bff289cb"
+      "sha256": "6c2e9c68043683a38443f86cb530638303f9cc776088596f81319fc692d480d4"
     },
     {
       "id": "agent-sdk-examples",
@@ -446,7 +446,7 @@
       "last_fetched": "2026-03-05T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "4f28bc4cedc3ae661b5b3cbcbcb03b305fab7a840d388b6f4eea0673f9b1a5f7"
+      "sha256": "5fa42c026a7c6734b00900beb7ecb3745da1c0a2e3b772bca351b2d2e18a3d78"
     },
     {
       "id": "cookbooks-index",
@@ -467,9 +467,9 @@
       "local_path": "research/index.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-10T00:00:00Z",
-      "review_status": "needs-review",
-      "confidence": 0.75,
+      "last_fetched": "2026-03-05T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
       "sha256": "7d231cfbabbdf46765370336e933ef572251de07262ce5482da185b7fbb1b858"
     },
     {
@@ -479,9 +479,9 @@
       "local_path": "research/alignment.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-10T00:00:00Z",
-      "review_status": "needs-review",
-      "confidence": 0.75,
+      "last_fetched": "2026-03-05T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
       "sha256": "caa461d97bae591b043f26d73179bca538f6c0ba644ddfcc80adbb0cd8de085a"
     },
     {
@@ -491,9 +491,9 @@
       "local_path": "research/interpretability.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-10T00:00:00Z",
-      "review_status": "needs-review",
-      "confidence": 0.75,
+      "last_fetched": "2026-03-05T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
       "sha256": "0623a1c12a52b172e854d219ebf71f6ee4a49e82b07cafc8d4e9c3c47fe413ab"
     },
     {
@@ -503,9 +503,9 @@
       "local_path": "research/societal-impacts.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-10T00:00:00Z",
-      "review_status": "needs-review",
-      "confidence": 0.75,
+      "last_fetched": "2026-03-05T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
       "sha256": "a65581cd47140c5283e64b39600a353efde0be50454591f3b731a6735593d0d0"
     },
     {
@@ -515,9 +515,9 @@
       "local_path": "research/policy.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-01-10T00:00:00Z",
-      "review_status": "needs-review",
-      "confidence": 0.75,
+      "last_fetched": "2026-03-05T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
       "sha256": "c34d587c4fd90501667c53bf712290d66e688e8aa4fb24dce896c4125ddc50b9"
     },
     {
@@ -527,7 +527,7 @@
       "local_path": "research/papers/index.md",
       "source_url": "https://arxiv.org/search/?query=anthropic&searchtype=all",
       "source_type": "arxiv-pdfs",
-      "last_fetched": "2026-01-10T00:00:00Z",
+      "last_fetched": "2026-03-05T00:00:00Z",
       "papers": [
         {
           "file": "constitutional-ai.pdf",

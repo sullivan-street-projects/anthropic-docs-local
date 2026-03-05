@@ -2,7 +2,7 @@
 title: "Interpretability Research"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "research"
 ---
 
@@ -10,13 +10,19 @@ category: "research"
 
 Anthropic's interpretability research aims to understand what happens inside neural networks—reverse-engineering the algorithms learned during training to build mechanistic understanding of AI systems.
 
-## Latest Work (2025)
+## Latest Work (2025-2026)
+
+### The Assistant Axis: Situating and Stabilizing LLM Character (Jan 19, 2026)
+Research from MATS and the Anthropic Fellows Program ([arXiv 2601.10387](https://arxiv.org/abs/2601.10387)). Extracted activation directions for diverse character archetypes and found the leading persona-space component is an "Assistant Axis." Steering toward it reinforces helpful/harmless behavior; steering away increases tendency to adopt other identities. Developed activation capping technique to reduce persona-based jailbreaks.
+
+### Emergent Introspective Awareness in LLMs (Jan 5, 2026)
+Full arXiv paper ([2601.01828](https://arxiv.org/abs/2601.01828)) based on Oct 2025 research. Injected known concepts into model activations and measured self-reporting accuracy. Claude Opus 4/4.1 showed greatest introspective awareness, though capacity is highly unreliable and context-dependent. By Jack Lindsey et al.
 
 ### Signs of Introspection in LLMs (Oct 29, 2025)
 Evidence that language models can accurately report their own internal states, suggesting a form of machine self-awareness that could be leveraged for safety.
 
-### Tracing Thoughts in Language Models (Mar 27, 2025)
-Circuit tracing reveals how models share conceptual spaces across different contexts, showing unexpected generalization patterns.
+### Tracing Thoughts in Language Models / Circuit Tracing (Mar 27, 2025)
+Two companion papers on [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html): "Circuit Tracing" (methods) and "On the Biology of a Large Language Model" (applications). Attribution graphs trace computation through interpretable features in Claude 3.5 Haiku. Key discoveries: models plan rhyming words before writing poetry lines, hallucination mechanisms involve "default refusal" circuits being incorrectly inhibited, and jailbreak circuits revealed how obfuscated inputs bypass safety.
 
 ## The Transformer Circuits Thread
 

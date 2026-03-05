@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,15 +10,16 @@ category: "claude-code"
 
 Hooks are lifecycle event handlers that execute shell commands, LLM prompts, or subagents in response to Claude Code events. They enable deterministic automation, validation, and customization.
 
-> **Last updated:** February 16, 2026
+> **Last updated:** March 5, 2026
 
-## Hook Events (14 Total)
+## Hook Events (15 Total)
 
 | Event | Description | Matcher |
 |-------|-------------|---------|
+| `InstructionsLoaded` | CLAUDE.md and rules files loaded | None |
 | `SessionStart` | Session begins or resumes | `startup`, `resume`, `clear`, `compact` |
 | `UserPromptSubmit` | Before Claude processes user input | None |
-| `PreToolUse` | Before tool executes (can block) | Tool name |
+| `PreToolUse` | Before tool executes (can block) | Tool name (also matches MCP tools: `mcp__servername__toolname`) |
 | `PermissionRequest` | Permission dialog appears | Tool name |
 | `PostToolUse` | After tool succeeds | Tool name |
 | `PostToolUseFailure` | After tool fails | Tool name |
@@ -30,6 +31,22 @@ Hooks are lifecycle event handlers that execute shell commands, LLM prompts, or 
 | `TaskCompleted` | Task marked as completed | None (exit code 2 only) |
 | `PreCompact` | Before context compaction | `manual`, `auto` |
 | `SessionEnd` | Session terminates | `clear`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other` |
+
+### HTTP Hooks
+
+In addition to command hooks, hooks can call HTTP endpoints:
+
+```json
+{
+  "type": "http",
+  "url": "https://api.example.com/hook",
+  "method": "POST",
+  "headers": { "Authorization": "Bearer ${API_KEY}" },
+  "timeout": 30
+}
+```
+
+HTTP hooks receive the same JSON input as command hooks (as the POST body) and return JSON responses.
 
 ## Hook Types
 

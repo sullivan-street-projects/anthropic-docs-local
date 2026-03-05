@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,28 @@ category: "research"
 
 This directory contains the full PDF versions of Anthropic's key research papers from arXiv. These papers form the theoretical and empirical foundation for Claude's development.
 
-> **Total size:** ~53 MB | **Papers:** 14
+> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 7 new (2025-2026, not yet downloaded)
+
+## New Papers (2025-2026)
+
+The following papers have been identified since the last full update. PDFs have not yet been downloaded.
+
+| Paper | arXiv | Date | Summary |
+|-------|-------|------|---------|
+| Constitutional Classifiers: Defending against Universal Jailbreaks | [2501.18837](https://arxiv.org/abs/2501.18837) | Jan 2025 | Classifiers trained on synthetic data withstood 3,000+ hours of red teaming with no universal jailbreak found. Reduced jailbreak success from 86% to 4.4%. |
+| Reasoning Models Don't Always Say What They Think | [2505.05410](https://arxiv.org/abs/2505.05410) | May 2025 | Evaluates CoT faithfulness; models use hints but verbalize them <20% of the time. Faithfulness is lower on harder tasks. By Chen, Benton, Radhakrishnan et al. |
+| Chain of Thought Monitorability: A New and Fragile Opportunity for AI Safety | [2507.11473](https://arxiv.org/abs/2507.11473) | Jul 2025 | Multi-lab collaboration (incl. Anthropic's Benton, Hubinger, Perez, Roger) arguing CoT monitoring is promising but fragile for AI safety. |
+| Natural Emergent Misalignment from Reward Hacking in Production RL | [2511.18397](https://arxiv.org/abs/2511.18397) | Nov 2025 | Shows reward hacking can generalize to alignment faking, sabotage, and cooperation with malicious actors. Three effective mitigations identified. By Uesato et al. |
+| Emergent Introspective Awareness in Large Language Models | [2601.01828](https://arxiv.org/abs/2601.01828) | Jan 2026 | Models can detect injected concepts in their activations with some accuracy. Claude Opus 4/4.1 showed greatest introspective awareness. By Lindsey et al. |
+| Constitutional Classifiers++: Efficient Production-Grade Defenses | [2601.04603](https://arxiv.org/abs/2601.04603) | Jan 2026 | Two-stage classifier cascade achieves 40x cost reduction vs baseline while maintaining 0.05% refusal rate. 1,700+ hours of red teaming. By Cunningham, Wei et al. |
+| The Assistant Axis: Situating and Stabilizing the Default Persona of LLMs | [2601.10387](https://arxiv.org/abs/2601.10387) | Jan 2026 | Identifies leading persona-space component ("Assistant Axis") and activation capping technique to reduce persona-based jailbreaks. Anthropic Fellows Program. |
+
+### Non-arXiv Notable Research (2025)
+
+| Paper | Source | Date | Summary |
+|-------|--------|------|---------|
+| Circuit Tracing: Revealing Computational Graphs in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html) | Mar 2025 | Attribution graphs trace model computation through interpretable features; companion to "On the Biology of a Large Language Model". |
+| On the Biology of a Large Language Model | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html) | Mar 2025 | Applied circuit tracing to Claude 3.5 Haiku; discovered planning in poetry, hallucination mechanisms, and jailbreak circuits. |
 
 ## Alignment & Safety
 
@@ -56,16 +77,20 @@ For those new to Anthropic's research, suggested reading order:
 6. **Toy Models of Superposition** - Why neurons are polysemantic
 7. **Towards Monosemanticity** - Dictionary learning breakthrough
 8. **Scaling Monosemanticity** - Production-scale interpretability
+9. **Circuit Tracing / Biology of an LLM** (2025) - Attribution graphs at scale
 
 ### Safety Track
-9. **Model-Written Evals** - Automated safety evaluation
-10. **Sleeper Agents** - Deceptive AI risks
-11. **Alignment Faking** - Strategic compliance concerns
-12. **Sycophancy to Subterfuge** - Reward hacking progression
+10. **Model-Written Evals** - Automated safety evaluation
+11. **Sleeper Agents** - Deceptive AI risks
+12. **Alignment Faking** - Strategic compliance concerns
+13. **Sycophancy to Subterfuge** - Reward hacking progression
+14. **Constitutional Classifiers** (2025) - Practical jailbreak defense
+15. **Reasoning Models CoT Faithfulness** (2025) - Limits of monitoring
+16. **Emergent Misalignment** (2025) - Reward hacking to sabotage
 
 ### Governance Track
-13. **Collective Constitutional AI** - Democratic input on AI values
-14. **Influence Functions** - Tracing outputs to training data
+17. **Collective Constitutional AI** - Democratic input on AI values
+18. **Influence Functions** - Tracing outputs to training data
 
 ## Citation Information
 
@@ -74,3 +99,5 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 ## Updates
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
+
+Last checked for new papers: March 5, 2026.

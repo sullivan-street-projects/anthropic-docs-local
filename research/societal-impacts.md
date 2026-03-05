@@ -2,7 +2,7 @@
 title: "Societal Impacts Research"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-01-10T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "research"
 ---
 
@@ -11,6 +11,18 @@ category: "research"
 Anthropic's societal impacts research examines how AI systems affect work, economics, and society. This includes productivity studies, bias analysis, and understanding real-world AI usage patterns.
 
 ## Latest Work (2025-2026)
+
+### Anthropic Education Report: The AI Fluency Index (Feb 23, 2026)
+Measures whether individuals are developing AI fluency -- the skills needed for safe, effective collaboration with AI tools. AI adoption is accelerating but adoption alone doesn't capture whether people are using AI well.
+
+### Measuring AI Agent Autonomy in Practice (Feb 18, 2026)
+Analysis of millions of human-agent interactions across Claude Code and the public API. Key findings: Claude Code autonomous session length nearly doubled in 3 months (from ~25 min to ~45 min). Experienced users auto-approve more but also interrupt more often, suggesting a shift from reviewing every action to intervening only when needed.
+
+### India Country Brief: Anthropic Economic Index (Feb 16, 2026)
+Country-specific analysis of AI adoption and economic impact patterns in India.
+
+### Anthropic Economic Index: Building Blocks for Understanding AI Use (Jan 15, 2026)
+New analytical framework for measuring and understanding AI usage across the economy.
 
 ### Anthropic Interviewer (Dec 4, 2025)
 Insights from interviews with 1,250 professionals across industries about their experiences working with AI tools. Key findings on adoption patterns, productivity perceptions, and workflow integration.
