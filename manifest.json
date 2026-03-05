@@ -816,6 +816,116 @@
       "last_fetched": "2026-03-05T12:00:00Z",
       "review_status": "auto",
       "confidence": 0.85
+    },
+    {
+      "id": "api-adaptive-thinking",
+      "name": "Adaptive Thinking",
+      "category": "api",
+      "local_path": "api/adaptive-thinking.md",
+      "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "api-compaction",
+      "name": "Server-Side Context Compaction",
+      "category": "api",
+      "local_path": "api/compaction.md",
+      "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/compaction",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "api-context-windows",
+      "name": "Context Windows",
+      "category": "api",
+      "local_path": "api/context-windows.md",
+      "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "api-models-overview",
+      "name": "Models Overview",
+      "category": "api",
+      "local_path": "api/models-overview.md",
+      "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "api-migration-guide",
+      "name": "Migration Guide - Claude 4.6",
+      "category": "api",
+      "local_path": "api/migration-guide.md",
+      "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models/migration-guide",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "api-extended-thinking",
+      "name": "Extended Thinking",
+      "category": "api",
+      "local_path": "api/extended-thinking.md",
+      "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "api-effort-parameter",
+      "name": "Effort Parameter (Fast Mode)",
+      "category": "api",
+      "local_path": "api/effort-parameter.md",
+      "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/effort",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "api-memory-tool",
+      "name": "Memory Tool",
+      "category": "api",
+      "local_path": "api/memory-tool.md",
+      "source_url": "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/memory-tool",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "api-web-search-tool",
+      "name": "Web Search Tool",
+      "category": "api",
+      "local_path": "api/web-search-tool.md",
+      "source_url": "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/web-search-tool",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "agent-sdk-typescript-v2",
+      "name": "Agent SDK - TypeScript v2 Preview",
+      "category": "agent-sdk",
+      "local_path": "agent-sdk/typescript-v2-preview.md",
+      "source_url": "https://github.com/anthropics/agent-sdk",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-05T12:00:00Z",
+      "review_status": "verified",
+      "confidence": "medium"
     }
   ]
 }
