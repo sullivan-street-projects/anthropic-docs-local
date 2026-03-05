@@ -2,7 +2,7 @@
 title: "API Overview"
 source_url: "https://platform.claude.com/docs/en/api/overview"
 source_type: "web-extracted"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "api"
 ---
 
@@ -16,6 +16,8 @@ To use the Claude API, you'll need:
 
 - An [Anthropic Console account](https://platform.claude.com)
 - An [API key](https://platform.claude.com/settings/keys)
+
+For step-by-step setup instructions, see [Get started](https://platform.claude.com/docs/en/get-started).
 
 ## Available APIs
 
@@ -43,6 +45,10 @@ All requests to the Claude API must include these headers:
 
 SDKs handle these headers automatically.
 
+### Getting API Keys
+
+The API is made available via the web [Console](https://platform.claude.com). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and control spend by use case.
+
 ## Client SDKs
 
 Official SDKs are available in 7 languages:
@@ -57,6 +63,13 @@ Official SDKs are available in 7 languages:
 | C# | Beta | `dotnet add package Anthropic` |
 | PHP | Beta | `composer require anthropic-ai/sdk` |
 
+**Benefits:**
+- Automatic header management (x-api-key, anthropic-version, content-type)
+- Type-safe request and response handling
+- Built-in retry logic and error handling
+- Streaming support
+- Request timeouts and connection management
+
 Example (Python):
 ```python
 from anthropic import Anthropic
@@ -70,6 +83,19 @@ message = client.messages.create(
 ```
 
 ## Claude API vs Third-Party Platforms
+
+### Claude API
+
+- **Direct access** to the latest models and features first
+- **Anthropic billing and support**
+- **Best for**: New integrations, full feature access, direct relationship with Anthropic
+
+### Third-Party Platform APIs
+
+Access Claude through AWS, Google Cloud, or Microsoft Azure:
+- **Integrated** with cloud provider billing and IAM
+- **May have feature delays** or differences from the direct API
+- **Best for**: Existing cloud commitments, specific compliance requirements, consolidated cloud billing
 
 | Platform | Provider | Best For |
 |----------|----------|----------|

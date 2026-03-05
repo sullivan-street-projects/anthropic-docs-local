@@ -2,7 +2,7 @@
 title: "Messages API"
 source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "api"
 ---
 

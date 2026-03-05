@@ -2,13 +2,13 @@
 title: "Tool Use Guide"
 source_url: "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
 source_type: "web-extracted"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "api"
 ---
 
 # Tool Use with Claude
 
-Claude can interact with tools and functions, extending its capabilities to perform tasks such as searching the web, executing code, and interacting with external APIs.
+Claude can interact with tools and functions, extending its capabilities to perform tasks such as searching the web, executing code, and interacting with external APIs. Each tool defines a contract: you specify what operations are available and what they return; Claude decides when and how to call them. Tool access is one of the highest-leverage primitives you can give an agent. On benchmarks like LAB-Bench FigQA (scientific figure interpretation) and SWE-bench (real-world software engineering), adding even simple tools produces outsized capability gains, often surpassing human expert baselines.
 
 ## Tool Types
 

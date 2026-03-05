@@ -2,7 +2,7 @@
 title: "Other SDKs Overview"
 source_url: "https://platform.claude.com/docs/en/api/client-sdks"
 source_type: "web-extracted"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "sdks"
 ---
 
@@ -16,7 +16,7 @@ Official SDKs for building with the Claude API in Python, TypeScript, Java, Go, 
 |:----|:-------|:--------|:------------|
 | Python | GA | `pip install anthropic` | Python 3.9+ |
 | TypeScript | GA | `npm install @anthropic-ai/sdk` | TypeScript 4.9+, Node.js 20+ |
-| Java | GA | `com.anthropic:anthropic-java:2.11.1` | Java 8+ |
+| Java | GA | `com.anthropic:anthropic-java:2.15.0` | Java 8+ |
 | Go | GA | `go get github.com/anthropics/anthropic-sdk-go` | Go 1.22+ |
 | Ruby | GA | `bundler add anthropic` | Ruby 3.2.0+ |
 | C# | Beta | `dotnet add package Anthropic` | .NET Standard 2.0 |
@@ -101,6 +101,7 @@ $message = $client->messages->create(
     maxTokens: 1024,
     messages: [['role' => 'user', 'content' => 'Hello, Claude']],
 );
+echo $message->content[0]->text;
 ```
 
 ## Platform Support

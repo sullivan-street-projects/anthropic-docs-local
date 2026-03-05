@@ -2,7 +2,7 @@
 title: "GitHub Repos Index"
 source_url: "https://api.github.com/orgs/anthropics/repos?per_page=100"
 source_type: "github-api"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T00:00:00Z"
 category: "github-repos"
 ---
 
@@ -10,7 +10,7 @@ category: "github-repos"
 
 Complete listing of public repositories in the [Anthropic GitHub organization](https://github.com/anthropics).
 
-> **Last updated:** February 28, 2026
+> **Last updated:** March 5, 2026
 
 ## Featured Repositories
 
