@@ -8,45 +8,32 @@ category: "claude-code"
 
 # Claude Code Hooks
 
-Hooks are lifecycle event handlers that execute shell commands, LLM prompts, or subagents in response to Claude Code events. They enable deterministic automation, validation, and customization.
+Hooks are user-defined shell commands, HTTP endpoints, or LLM prompts that execute automatically at specific points in Claude Code's lifecycle. They enable deterministic automation, validation, and customization without involving the LLM.
 
 > **Last updated:** March 5, 2026
 
-## Hook Events (15 Total)
+## Hook Lifecycle
 
-| Event | Description | Matcher |
-|-------|-------------|---------|
-| `InstructionsLoaded` | CLAUDE.md and rules files loaded | None |
-| `SessionStart` | Session begins or resumes | `startup`, `resume`, `clear`, `compact` |
-| `UserPromptSubmit` | Before Claude processes user input | None |
-| `PreToolUse` | Before tool executes (can block) | Tool name (also matches MCP tools: `mcp__servername__toolname`) |
-| `PermissionRequest` | Permission dialog appears | Tool name |
-| `PostToolUse` | After tool succeeds | Tool name |
-| `PostToolUseFailure` | After tool fails | Tool name |
-| `Notification` | Notification events fire | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog` |
-| `SubagentStart` | Subagent spawned | Agent type |
-| `SubagentStop` | Subagent finishes | Agent type |
-| `Stop` | Main Claude finishes responding | None |
-| `TeammateIdle` | Agent team teammate about to go idle | None (exit code 2 only) |
-| `TaskCompleted` | Task marked as completed | None (exit code 2 only) |
-| `PreCompact` | Before context compaction | `manual`, `auto` |
-| `SessionEnd` | Session terminates | `clear`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other` |
+Hooks fire at specific points during a Claude Code session. When an event fires and a matcher matches, Claude Code passes JSON context about the event to your hook handler. For command hooks, input arrives on stdin. For HTTP hooks, it arrives as the POST request body. Your handler can then inspect the input, take action, and optionally return a decision.
 
-### HTTP Hooks
+## Hook Events (14 Total)
 
-In addition to command hooks, hooks can call HTTP endpoints:
-
-```json
-{
-  "type": "http",
-  "url": "https://api.example.com/hook",
-  "method": "POST",
-  "headers": { "Authorization": "Bearer ${API_KEY}" },
-  "timeout": 30
-}
-```
-
-HTTP hooks receive the same JSON input as command hooks (as the POST body) and return JSON responses.
+| Event | Description | Matcher | Fires |
+|-------|-------------|---------|-------|
+| `SessionStart` | Session begins or resumes | `startup`, `resume`, `clear`, `compact` | Once per session |
+| `UserPromptSubmit` | Before Claude processes user input | None | Each user message |
+| `PreToolUse` | Before tool executes (can block) | Tool name | Each tool call |
+| `PermissionRequest` | Permission dialog appears | Tool name | Each permission prompt |
+| `PostToolUse` | After tool succeeds | Tool name | Each tool call |
+| `PostToolUseFailure` | After tool fails | Tool name | Each failed tool call |
+| `Notification` | Notification events fire | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog` | Various |
+| `SubagentStart` | Subagent spawned | Agent type | Each subagent spawn |
+| `SubagentStop` | Subagent finishes | Agent type | Each subagent finish |
+| `Stop` | Main Claude finishes responding | None | Each response |
+| `TeammateIdle` | Agent team teammate about to go idle | None (exit code 2 only) | Agent teams |
+| `TaskCompleted` | Task marked as completed | None (exit code 2 only) | Task completion |
+| `PreCompact` | Before context compaction | `manual`, `auto` | Each compaction |
+| `SessionEnd` | Session terminates | `clear`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other` | Once per session |
 
 ## Hook Types
 
@@ -59,6 +46,18 @@ Execute shell scripts. Receive JSON input on stdin, communicate via exit codes a
   "type": "command",
   "command": "./scripts/validate.sh",
   "timeout": 30
+}
+```
+
+### HTTP Hooks (`type: "http"`)
+
+Send JSON input as POST request body to an HTTP endpoint. The response body is parsed as JSON output.
+
+```json
+{
+  "type": "http",
+  "url": "https://hooks.example.com/pre-tool-use",
+  "timeout": 10
 }
 ```
 
@@ -87,6 +86,33 @@ Spawn a subagent for multi-turn verification. Can use tools: Read, Grep, Glob, B
 }
 ```
 
+## Configuration
+
+Hooks are defined in JSON settings files. The configuration has three levels of nesting:
+
+1. **Event level**: Which lifecycle event triggers the hook
+2. **Matcher level**: Which specific events to match (regex pattern)
+3. **Handler level**: What to execute when the hook fires
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/lint-check.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 ## Configuration Locations
 
 | Location | Scope |
@@ -102,9 +128,10 @@ Spawn a subagent for multi-turn verification. Can use tools: Read, Grep, Glob, B
 
 ```json
 {
-  "type": "command|prompt|agent",
+  "type": "command|prompt|agent|http",
   "command": "shell command",
   "prompt": "prompt text",
+  "url": "https://endpoint.example.com/hook",
   "model": "claude-haiku-4-5",
   "timeout": 600,
   "async": true,
@@ -115,9 +142,10 @@ Spawn a subagent for multi-turn verification. Can use tools: Read, Grep, Glob, B
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `type` | string | `command`, `prompt`, or `agent` |
+| `type` | string | `command`, `prompt`, `agent`, or `http` |
 | `command` | string | Shell command (command hooks) |
 | `prompt` | string | Prompt text (prompt/agent hooks) |
+| `url` | string | HTTP endpoint URL (http hooks) |
 | `model` | string | Model override (default: Haiku) |
 | `timeout` | number | Timeout in seconds |
 | `async` | boolean | Run in background (command hooks only) |
@@ -129,6 +157,7 @@ Spawn a subagent for multi-turn verification. Can use tools: Read, Grep, Glob, B
 - Case-sensitive regex matching
 - Empty string or `*` matches all events
 - Complex patterns: `Edit|Write`, `mcp__.*`, `Bash`
+- Matchers are optional; omitting means the hook runs on every occurrence of the event
 
 ## Exit Codes
 
@@ -153,6 +182,13 @@ Spawn a subagent for multi-turn verification. Can use tools: Read, Grep, Glob, B
   }
 }
 ```
+
+PreToolUse hooks can:
+- **Allow** tool calls (bypass permission prompts)
+- **Deny** tool calls (block execution)
+- **Ask** (defer to normal permission flow)
+- **Modify input** (change tool arguments before execution)
+- **Add context** (inject additional information for Claude)
 
 ### Stop/PostToolUse Output
 
@@ -188,6 +224,10 @@ Set `"async": true` on command hooks for background execution:
 | `${CLAUDE_PLUGIN_ROOT}` | Plugin root directory |
 | `CLAUDE_ENV_FILE` | File path for SessionStart hooks to persist env vars |
 | `$CLAUDE_CODE_REMOTE` | Set to "true" in web environments |
+
+## How Hooks Layer
+
+Hooks merge across all sources: all registered hooks fire for their matching events regardless of source (user settings, project settings, plugins, managed settings). This differs from skills and MCP servers which override by name.
 
 ## Common Hook Patterns
 
@@ -230,6 +270,19 @@ Set `"async": true` on command hooks for background execution:
 }
 ```
 
+### Block Destructive Commands
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Bash", "hooks": [
+        { "type": "command", "command": "jq -r '.tool_input.command' | grep -qE 'rm -rf' && exit 2 || exit 0" }
+      ]}
+    ]
+  }
+}
+```
+
 ### Context Re-injection After Compaction
 ```json
 {
@@ -256,7 +309,20 @@ Set `"async": true` on command hooks for background execution:
 }
 ```
 
+### HTTP Hook Example
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      { "matcher": "Edit|Write", "hooks": [
+        { "type": "http", "url": "https://hooks.example.com/log-edits", "timeout": 5 }
+      ]}
+    ]
+  }
+}
+```
+
 ## Sources
 
-- [Hooks Guide](https://code.claude.com/docs/en/hooks-guide)
 - [Hooks Reference](https://code.claude.com/docs/en/hooks)
+- [Hooks Guide](https://code.claude.com/docs/en/hooks-guide)
