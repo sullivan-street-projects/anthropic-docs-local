@@ -68,6 +68,14 @@ Complete listing of public repositories in the [Anthropic GitHub organization](h
 | [claude-ai-mcp](https://github.com/anthropics/claude-ai-mcp) | 95 | Claude AI MCP |
 | [github-mcp-server](https://github.com/anthropics/github-mcp-server) | 71 | GitHub's official MCP Server |
 
+## Workshops & Examples
+
+| Repository | Stars | Description |
+|------------|-------|-------------|
+| [agent-sdk-workshop](https://github.com/anthropics/agent-sdk-workshop) | — | Workshop materials for building with the Agent SDK |
+| [maestro](https://github.com/anthropics/maestro) | — | Multi-agent orchestration framework |
+| [moka](https://github.com/anthropics/moka) | — | Model evaluation and testing toolkit |
+
 ## Demos & Showcases
 
 | Repository | Stars | Description |

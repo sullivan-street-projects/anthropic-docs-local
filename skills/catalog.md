@@ -2,7 +2,7 @@
 title: "Skills Catalog"
 source_url: "https://github.com/anthropics/skills"
 source_type: "web-extracted"
-fetched_at: "2026-02-16T00:00:00Z"
+fetched_at: "2026-03-05T12:00:00Z"
 category: "skills"
 ---
 
@@ -71,6 +71,18 @@ Example skills are available to paid plans. Upload custom skills following the [
 
 ### Claude API
 Use pre-built or custom skills via the [Skills API Quickstart](https://docs.claude.com/en/api/skills-guide#creating-a-skill).
+
+## Partner Skills
+
+Anthropic has launched a partner-built skills directory, with organizations creating skills that integrate their products with Claude. Partner skills are available through the plugin marketplace and Claude.ai for Team and Enterprise plans.
+
+Key partner skill categories:
+- **Productivity:** Notion, Google Workspace, Slack integrations
+- **Development:** GitHub, Jira, Linear integrations
+- **Data:** Database connectors, analytics tools
+- **Design:** Figma, design system integrations
+
+Skills are also available on the free tier for Claude.ai users (limited selection). The Claude API supports skills through the Skills API endpoint.
 
 ## Licensing
 

@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-02-28T00:00:00Z"
+fetched_at: "2026-03-05T12:00:00Z"
 category: "release-notes"
 ---
 
@@ -11,6 +11,13 @@ category: "release-notes"
 Updates to Claude consumer and business applications.
 
 > For developer platform release notes, see [Platform Release Notes](platform.md).
+
+---
+
+## March 2026
+
+### March 2, 2026
+- Memory capabilities now available to all Claude users, including free plans. Users can build on previous context through chat history, with chat search functionality and the ability to import/export memory data.
 
 ---
 
