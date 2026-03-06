@@ -16,7 +16,8 @@ const MANIFEST_PATH = path.join(ROOT, 'manifest.json');
 // Valid enums from schemas
 const VALID_CATEGORIES = [
   'api', 'models', 'sdks', 'claude-code', 'agent-sdk',
-  'skills', 'cookbooks', 'release-notes', 'github-repos', 'research'
+  'skills', 'cookbooks', 'release-notes', 'github-repos', 'research',
+  'news', 'engineering'
 ];
 
 const VALID_SOURCE_TYPES = [

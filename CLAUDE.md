@@ -37,6 +37,8 @@ anthropic-docs-local/
 | release-notes | Release notes | web-extracted |
 | github-repos | Repository index | github-api |
 | research | Research papers and summaries | web-extracted, arxiv-pdfs |
+| news | Anthropic news and announcements | web-extracted |
+| engineering | Engineering blog posts | web-extracted |
 
 ## Update Procedures
 
