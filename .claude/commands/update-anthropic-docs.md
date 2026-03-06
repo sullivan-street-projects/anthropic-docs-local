@@ -3,7 +3,7 @@ name: update-anthropic-docs
 description: Update local Anthropic documentation repository
 arguments:
   - name: category
-    description: Category to update (api, models, sdks, claude-code, agent-sdk, skills, cookbooks, release-notes, github-repos, research)
+    description: Category to update (api, models, sdks, claude-code, agent-sdk, skills, cookbooks, release-notes, github-repos, research, news, engineering)
     required: false
   - name: --check
     description: Dry run - report changes without saving
@@ -212,3 +212,13 @@ Valid categories for filtering:
 - `release-notes` - Release notes
 - `github-repos` - GitHub repository index
 - `research` - Research papers and publications
+- `news` - Anthropic news and announcements (anthropic.com/news)
+- `engineering` - Engineering blog posts (anthropic.com/engineering)
+
+## Post-Push Branch Check
+
+After pushing, ALWAYS run:
+```bash
+git fetch --all && git branch -r --no-merged master
+```
+If any unmerged remote branches exist, report them to the user. Do NOT say "in sync" unless this check returns empty.
