@@ -123,6 +123,17 @@
       "sha256": "84b0a3b2d9bede09f2fe201f560e193700f3f9e5871c95a0985ccf6dcd049c5c"
     },
     {
+      "id": "claude-code-scheduled-tasks",
+      "name": "Claude Code Scheduled Tasks",
+      "category": "claude-code",
+      "local_path": "claude-code/scheduled-tasks.md",
+      "source_url": "https://code.claude.com/docs/en/scheduled-tasks",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-07T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.9
+    },
+    {
       "id": "python-sdk-readme",
       "name": "Python SDK README",
       "category": "sdks",
