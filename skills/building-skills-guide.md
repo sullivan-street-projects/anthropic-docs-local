@@ -2,7 +2,7 @@
 title: "The Complete Guide to Building Skills for Claude"
 source_url: "https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf"
 source_type: "web-extracted"
-fetched_at: "2026-02-14T00:00:00Z"
+fetched_at: "2026-03-10T00:00:00Z"
 category: "skills"
 format: "pdf-summary"
 pages: 30

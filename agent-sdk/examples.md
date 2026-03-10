@@ -2,7 +2,7 @@
 title: "Agent SDK Examples"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-03-05T00:00:00Z"
+fetched_at: "2026-03-10T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -14,7 +14,7 @@ Production-ready patterns for the Claude Agent SDK covering subagents, hooks, MC
 
 ## Subagent Delegation
 
-Spawn specialized agents to handle focused subtasks. Your main agent delegates work, and subagents report back with results. Include `Task` in `allowedTools` since subagents are invoked via the Task tool.
+Spawn specialized agents to handle focused subtasks. Your main agent delegates work, and subagents report back with results. Include `Agent` in `allowedTools` since subagents are invoked via the Agent tool.
 
 ### Python
 
@@ -27,7 +27,7 @@ async def main():
     async for message in query(
         prompt="Use the code-reviewer agent to review this codebase",
         options=ClaudeAgentOptions(
-            allowed_tools=["Read", "Glob", "Grep", "Task"],
+            allowed_tools=["Read", "Glob", "Grep", "Agent"],
             agents={
                 "code-reviewer": AgentDefinition(
                     description="Expert code reviewer for quality and security reviews.",
@@ -57,7 +57,7 @@ import { query } from "@anthropic-ai/claude-agent-sdk";
 for await (const message of query({
   prompt: "Use the code-reviewer agent to review this codebase",
   options: {
-    allowedTools: ["Read", "Glob", "Grep", "Task"],
+    allowedTools: ["Read", "Glob", "Grep", "Agent"],
     agents: {
       "code-reviewer": {
         description: "Expert code reviewer for quality and security reviews.",

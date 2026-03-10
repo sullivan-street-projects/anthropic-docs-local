@@ -2,7 +2,7 @@
 title: "TypeScript SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-03-05T00:00:00Z"
+fetched_at: "2026-03-10T00:00:00Z"
 category: "sdks"
 ---
 # Changelog

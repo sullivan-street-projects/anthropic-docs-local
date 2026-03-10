@@ -2,7 +2,7 @@
 title: "Claude Code Security: Frontier Cybersecurity Now Available"
 source_url: "https://www.anthropic.com/news/claude-code-security"
 source_type: "web-extracted"
-fetched_at: "2026-03-05T12:00:00Z"
+fetched_at: "2026-03-10T00:00:00Z"
 category: "news"
 published: "2026-02-20"
 ---

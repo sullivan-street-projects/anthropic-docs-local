@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-03-05T00:00:00Z"
+fetched_at: "2026-03-10T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -38,7 +38,7 @@ Claude Code combines a model that reasons about your code with built-in tools fo
 | Bash | Shell command execution with timeout and background support |
 | WebFetch | Fetch and process web content |
 | WebSearch | Internet search with domain filtering |
-| Task | Spawn subagents for isolated, parallel execution |
+| Agent | Spawn subagents for isolated, parallel execution |
 | TodoWrite | Structured task tracking |
 | AskUserQuestion | Interactive user prompts with options |
 | NotebookEdit | Jupyter notebook cell editing |

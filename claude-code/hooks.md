@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-03-05T00:00:00Z"
+fetched_at: "2026-03-10T00:00:00Z"
 category: "claude-code"
 ---
 
