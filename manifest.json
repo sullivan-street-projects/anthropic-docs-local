@@ -651,6 +651,18 @@
       "review_status": "auto",
       "confidence": 0.95,
       "sha256": "07ee7ce67d846ba7ca0ae36a550d6aa680d2434408f33754e7a8c3bced642157"
+    },
+    {
+      "id": "research-opendev-coding-agents",
+      "name": "OpenDev: Building Effective AI Coding Agents for the Terminal",
+      "category": "research",
+      "local_path": "research/opendev-coding-agents.md",
+      "source_url": "https://arxiv.org/abs/2603.05344",
+      "source_type": "arxiv-pdfs",
+      "last_fetched": "2026-03-11T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.9,
+      "notes": "External paper (Nghi D. Q. Bui). Relevant to coding agent architecture and context engineering."
     }
   ]
 }
