@@ -948,6 +948,40 @@
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
       "confidence": "high"
+    },
+    {
+      "id": "research-opendev-coding-agents",
+      "name": "OpenDev: Building Effective AI Coding Agents for the Terminal",
+      "category": "research",
+      "local_path": "research/opendev-coding-agents.md",
+      "source_url": "https://arxiv.org/abs/2603.05344",
+      "source_type": "arxiv-pdfs",
+      "last_fetched": "2026-03-11T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.9,
+      "notes": "External paper (Nghi D. Q. Bui). Relevant to coding agent architecture and context engineering."
+    },
+    {
+      "id": "claude-code-scheduled-tasks",
+      "name": "Claude Code Scheduled Tasks",
+      "category": "claude-code",
+      "local_path": "claude-code/scheduled-tasks.md",
+      "source_url": "https://code.claude.com/docs/en/scheduled-tasks",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-07T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.9
+    },
+    {
+      "id": "claude-code-context-engineering",
+      "name": "Effective Context Engineering for AI Agents",
+      "category": "claude-code",
+      "local_path": "claude-code/context-engineering.md",
+      "source_url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-11T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.9
     }
   ]
 }
