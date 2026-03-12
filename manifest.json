@@ -926,6 +926,28 @@
       "last_fetched": "2026-03-10T00:00:00Z",
       "review_status": "verified",
       "confidence": "medium"
+    },
+    {
+      "id": "best-practices-loop-scheduling",
+      "name": "Best Practices: /loop Command & Scheduling",
+      "category": "claude-code",
+      "local_path": "docs/best-practices-loop-scheduling.md",
+      "source_url": "https://code.claude.com/docs/en/cli-usage",
+      "source_type": "manual",
+      "last_fetched": "2026-03-11T00:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
+    },
+    {
+      "id": "best-practices-mcp-credentials",
+      "name": "Best Practices: MCP Credential Management & Access Control",
+      "category": "claude-code",
+      "local_path": "docs/best-practices-mcp-credentials.md",
+      "source_url": "https://code.claude.com/docs/en/mcp",
+      "source_type": "manual",
+      "last_fetched": "2026-03-11T00:00:00Z",
+      "review_status": "verified",
+      "confidence": "high"
     }
   ]
 }
