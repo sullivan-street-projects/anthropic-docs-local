@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-03-05T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "research"
 ---
 
@@ -103,4 +103,4 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
-Last checked for new papers: March 5, 2026.
+Last checked for new papers: March 11, 2026. (Note: arXiv search was unavailable during this update cycle; no new papers could be discovered.)

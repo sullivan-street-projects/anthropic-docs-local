@@ -2,7 +2,7 @@
 title: "Statement from Dario Amodei on our discussions with the Department of War"
 source_url: "https://www.anthropic.com/news/statement-department-of-war"
 source_type: "web-extracted"
-fetched_at: "2026-03-05T12:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "news"
 published: "2026-02-26"
 ---

@@ -2,7 +2,7 @@
 title: "Claude Agent SDK"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-03-05T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -12,7 +12,7 @@ Build production AI agents with Claude Code as a library. The Agent SDK gives yo
 
 > **Note:** The Claude Code SDK has been renamed to the Claude Agent SDK. See the [Migration Guide](https://platform.claude.com/docs/en/agent-sdk/migration-guide) if migrating from the old SDK.
 
-> **Last updated:** March 5, 2026
+> **Last updated:** March 11, 2026
 
 ## Overview
 

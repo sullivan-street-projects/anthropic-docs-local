@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-03-05T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Get started with the Python or TypeScript Agent SDK to build AI agents that work autonomously. This quickstart walks you through building an agent that reads your code, finds bugs, and fixes them without manual intervention.
 
-> **Last updated:** March 5, 2026
+> **Last updated:** March 11, 2026
 
 **What you'll do:**
 1. Set up a project with the Agent SDK
@@ -260,4 +260,5 @@ The quickstart uses streaming to show progress in real-time. If you don't need l
 - [Sessions](https://platform.claude.com/docs/en/agent-sdk/sessions) -- build multi-turn agents that maintain context
 - [MCP servers](https://platform.claude.com/docs/en/agent-sdk/mcp) -- connect to databases, browsers, APIs, and other external systems
 - [Hosting](https://platform.claude.com/docs/en/agent-sdk/hosting) -- deploy agents to Docker, cloud, and CI/CD
+- [Streaming vs. single-turn mode](https://platform.claude.com/docs/en/agent-sdk/streaming-vs-single-mode) -- choose between live output and batch collection
 - [Example agents](https://github.com/anthropics/claude-agent-sdk-demos) -- see complete examples: email assistant, research agent, and more

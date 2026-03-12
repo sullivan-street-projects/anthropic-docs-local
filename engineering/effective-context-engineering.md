@@ -2,7 +2,7 @@
 title: "Effective context engineering for AI agents"
 source_url: "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
 source_type: "web-extracted"
-fetched_at: "2026-03-05T12:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "engineering"
 published: "2025-09-29"
 ---

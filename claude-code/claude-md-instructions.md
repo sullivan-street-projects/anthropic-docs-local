@@ -2,7 +2,7 @@
 title: "CLAUDE.md Instructions Template (Community)"
 source_url: "https://x.com/exm7777/status/2018022297345654870"
 source_type: "web-extracted"
-fetched_at: "2026-02-02T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "claude-code"
 ---
 

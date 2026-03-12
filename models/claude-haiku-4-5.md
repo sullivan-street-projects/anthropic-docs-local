@@ -2,7 +2,7 @@
 title: "Claude Haiku 4.5"
 source_url: "https://www.anthropic.com/news/claude-haiku-4-5"
 source_type: "web-extracted"
-fetched_at: "2026-02-16T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "models"
 ---
 
