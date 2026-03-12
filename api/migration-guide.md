@@ -2,7 +2,7 @@
 title: "Migration Guide - Claude 4.6"
 source_url: "https://platform.claude.com/docs/en/docs/about-claude/models/migration-guide"
 source_type: "web-extracted"
-fetched_at: "2026-03-10T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "api"
 ---
 

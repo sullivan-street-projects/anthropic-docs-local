@@ -2,9 +2,10 @@
 title: "Claude Code README"
 source_url: "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-03-10T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "claude-code"
 ---
+
 # Claude Code
 
 ![](https://img.shields.io/badge/Node.js-18%2B-brightgreen?style=flat-square) [![npm]](https://www.npmjs.com/package/@anthropic-ai/claude-code)

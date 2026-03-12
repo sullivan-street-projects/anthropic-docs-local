@@ -2,7 +2,7 @@
 title: "Claude Code Guide for Designers — Felix Lee"
 source_url: "https://adplist.substack.com/p/claude-code-guide-for-designers"
 source_type: "web-extracted"
-fetched_at: "2026-03-10T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "claude-code"
 ---
 

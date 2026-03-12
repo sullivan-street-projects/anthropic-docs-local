@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-03-10T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, and LSP servers into a single installable unit.
 
-> **Last updated:** March 5, 2026
+> **Last updated:** March 11, 2026
 
 ## Plugins vs Standalone Configuration
 
@@ -34,6 +34,40 @@ Plugins are reusable, distributable packages of Claude Code extensions. They bun
 - You want version control and easy updates
 - Distributing through a marketplace
 
+## Quickstart
+
+1. Create a plugin directory and manifest:
+   ```bash
+   mkdir -p my-plugin/.claude-plugin
+   ```
+   Create `my-plugin/.claude-plugin/plugin.json`:
+   ```json
+   {
+     "name": "my-plugin",
+     "description": "A greeting plugin",
+     "version": "1.0.0",
+     "author": { "name": "Your Name" }
+   }
+   ```
+
+2. Add a skill:
+   ```bash
+   mkdir -p my-plugin/skills/hello
+   ```
+   Create `my-plugin/skills/hello/SKILL.md`:
+   ```markdown
+   ---
+   description: Greet the user with a personalized message
+   ---
+   Greet the user named "$ARGUMENTS" warmly.
+   ```
+
+3. Test locally:
+   ```bash
+   claude --plugin-dir ./my-plugin
+   ```
+   Then use `/my-plugin:hello Alex` to invoke the skill. Run `/reload-plugins` to pick up changes without restarting.
+
 ## Plugin Directory Structure
 
 ```
@@ -55,6 +89,17 @@ settings.json            # Default settings applied when plugin enabled
 README.md
 LICENSE
 ```
+
+| Directory | Location | Purpose |
+|-----------|----------|---------|
+| `.claude-plugin/` | Plugin root | Contains `plugin.json` manifest |
+| `commands/` | Plugin root | Skills as Markdown files |
+| `agents/` | Plugin root | Custom agent definitions |
+| `skills/` | Plugin root | Agent Skills with `SKILL.md` files |
+| `hooks/` | Plugin root | Event handlers in `hooks.json` |
+| `.mcp.json` | Plugin root | MCP server configurations |
+| `.lsp.json` | Plugin root | LSP server configurations for code intelligence |
+| `settings.json` | Plugin root | Default settings applied when the plugin is enabled |
 
 > **Important:** Do not put `commands/`, `agents/`, `skills/`, or `hooks/` inside `.claude-plugin/`. Only `plugin.json` goes inside `.claude-plugin/`. All other directories must be at the plugin root level.
 
@@ -199,6 +244,9 @@ When reviewing code, check for:
 /plugin enable <plugin-name>
 /plugin update <plugin-name>
 /plugin uninstall <plugin-name>
+
+# Reload after changes (no restart needed, except LSP server config changes)
+/reload-plugins
 ```
 
 ### Local Testing
@@ -210,6 +258,8 @@ claude --plugin-dir ./my-plugin
 # Load multiple plugins
 claude --plugin-dir ./plugin-one --plugin-dir ./plugin-two
 ```
+
+As you make changes, run `/reload-plugins` to pick up updates without restarting. Changes to LSP server configuration still require a full restart.
 
 ## Marketplace
 

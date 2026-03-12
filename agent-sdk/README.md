@@ -2,7 +2,7 @@
 title: "Claude Agent SDK"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-03-10T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -12,7 +12,7 @@ Build production AI agents with Claude Code as a library. The Agent SDK gives yo
 
 > **Note:** The Claude Code SDK has been renamed to the Claude Agent SDK. See the [Migration Guide](https://platform.claude.com/docs/en/agent-sdk/migration-guide) if migrating from the old SDK.
 
-> **Last updated:** March 5, 2026
+> **Last updated:** March 11, 2026
 
 ## Overview
 
@@ -115,7 +115,7 @@ pip3 install claude-agent-sdk
 | **Grep** | Search file contents with regex |
 | **WebSearch** | Search the web for current information |
 | **WebFetch** | Fetch and parse web page content |
-| **Agent** | Spawn subagents for delegation |
+| **Task** | Spawn subagents for delegation |
 | **AskUserQuestion** | Ask the user clarifying questions with multiple choice options |
 | **TodoWrite** | Task tracking |
 
@@ -129,7 +129,7 @@ Available hooks: `PreToolUse`, `PostToolUse`, `Stop`, `SessionStart`, `SessionEn
 
 ### Subagents
 
-Spawn specialized agents to handle focused subtasks. Your main agent delegates work, and subagents report back with results. Define custom agents with specialized instructions. Include `Agent` in `allowedTools` since subagents are invoked via the Agent tool.
+Spawn specialized agents to handle focused subtasks. Your main agent delegates work, and subagents report back with results. Define custom agents with specialized instructions. Include `Task` in `allowedTools` since subagents are invoked via the Task tool.
 
 Messages from within a subagent's context include a `parent_tool_use_id` field for tracking.
 

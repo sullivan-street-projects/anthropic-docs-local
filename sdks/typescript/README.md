@@ -2,9 +2,10 @@
 title: "TypeScript SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-03-10T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "sdks"
 ---
+
 # <img src=".github/logo.svg" alt="" width="32"> Claude SDK for TypeScript
 
 [![NPM version](<https://img.shields.io/npm/v/@anthropic-ai/sdk.svg?label=npm%20(stable)&color=blue>)](https://npmjs.org/package/@anthropic-ai/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@anthropic-ai/sdk)

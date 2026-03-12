@@ -2,9 +2,10 @@
 title: "Python SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-03-10T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "sdks"
 ---
+
 # Changelog
 
 ## 0.84.0 (2026-02-25)

@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-03-10T00:00:00Z"
+fetched_at: "2026-03-11T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,21 +10,21 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment.
 
-> **Last updated:** March 5, 2026
+> **Last updated:** March 11, 2026
 
 ## Extension Architecture
 
 Claude Code combines a model that reasons about your code with built-in tools for file operations, search, execution, and web access. Beyond the built-in tools, Claude Code provides an extension layer for customization:
 
-| Feature | What It Does | When to Use |
-|---------|-------------|-------------|
-| **CLAUDE.md** | Persistent context loaded every conversation | Project conventions, "always do X" rules |
-| **Skills** | Instructions, knowledge, and workflows Claude can use | Reusable content, reference docs, repeatable tasks |
-| **Subagents** | Isolated execution context that returns summarized results | Context isolation, parallel tasks, specialized workers |
-| **Agent Teams** | Coordinate multiple independent Claude Code sessions | Parallel research, feature development, debugging |
-| **MCP** | Connect to external services | External data or actions |
-| **Hooks** | Deterministic scripts that run on events | Predictable automation, no LLM involved |
-| **Plugins** | Package and distribute feature sets | Reuse across repos, share with teams |
+| Feature | What It Does | When to Use | Example |
+|---------|-------------|-------------|---------|
+| **CLAUDE.md** | Persistent context loaded every conversation | Project conventions, "always do X" rules | "Use pnpm, not npm. Run tests before committing." |
+| **Skills** | Instructions, knowledge, and workflows Claude can use | Reusable content, reference docs, repeatable tasks | `/deploy` runs your deployment checklist; API docs skill with endpoint patterns |
+| **Subagents** | Isolated execution context that returns summarized results | Context isolation, parallel tasks, specialized workers | Research task that reads many files but returns only key findings |
+| **Agent Teams** | Coordinate multiple independent Claude Code sessions | Parallel research, feature development, debugging | Spawn reviewers to check security, performance, and tests simultaneously |
+| **MCP** | Connect to external services | External data or actions | Query your database, post to Slack, control a browser |
+| **Hooks** | Deterministic scripts that run on events | Predictable automation, no LLM involved | Run ESLint after every file edit |
+| **Plugins** | Package and distribute feature sets | Reuse across repos, share with teams | Namespaced skills like `/my-plugin:review` |
 
 ## Built-in Tools
 
@@ -38,7 +38,7 @@ Claude Code combines a model that reasons about your code with built-in tools fo
 | Bash | Shell command execution with timeout and background support |
 | WebFetch | Fetch and process web content |
 | WebSearch | Internet search with domain filtering |
-| Agent | Spawn subagents for isolated, parallel execution |
+| Task | Spawn subagents for isolated, parallel execution |
 | TodoWrite | Structured task tracking |
 | AskUserQuestion | Interactive user prompts with options |
 | NotebookEdit | Jupyter notebook cell editing |
@@ -103,15 +103,40 @@ Research preview feature for Opus 4.6 that provides ~2.5x faster output at the s
 
 Each extension has different context costs:
 
-| Feature | When It Loads | Context Cost |
-|---------|--------------|--------------|
-| **CLAUDE.md** | Session start | Every request |
-| **Skills** | Session start + when used | Low (descriptions every request) |
-| **MCP servers** | Session start | Every request |
-| **Subagents** | When spawned | Isolated from main session |
-| **Hooks** | On trigger | Zero, unless hook returns additional context |
+| Feature | When It Loads | What Loads | Context Cost |
+|---------|--------------|------------|--------------|
+| **CLAUDE.md** | Session start | Full content | Every request |
+| **Skills** | Session start + when used | Descriptions at start, full content when used | Low (descriptions every request)* |
+| **MCP servers** | Session start | All tool definitions and schemas | Every request |
+| **Subagents** | When spawned | Fresh context with specified skills | Isolated from main session |
+| **Hooks** | On trigger | Nothing (runs externally) | Zero, unless hook returns additional context |
+
+*By default, skill descriptions load at session start so Claude can decide when to use them. Set `disable-model-invocation: true` in a skill's frontmatter to hide it from Claude entirely until you invoke it manually. This reduces context cost to zero for skills you only trigger yourself.
 
 Skills with `disable-model-invocation: true` have zero context cost until manually invoked. Tool search (default for MCP) loads tools up to 10% of context and defers the rest.
+
+## Comparing Similar Features
+
+### Skill vs Subagent
+- **Skills** are reusable content you can load into any context
+- **Subagents** are isolated workers that run separately from your main conversation
+- Skills can be reference or action; subagents provide context isolation
+- They combine: a subagent can preload specific skills (`skills:` field), and a skill can run in isolated context using `context: fork`
+
+### CLAUDE.md vs Skill
+- **CLAUDE.md** loads every session automatically; best for "always do X" rules
+- **Skills** load on demand; best for reference material and invocable workflows
+- Rule of thumb: Keep CLAUDE.md under 200 lines; move reference content to skills
+
+### CLAUDE.md vs Rules vs Skills
+- **CLAUDE.md**: Loads every session, whole project scope
+- **`.claude/rules/`**: Every session or when matching files are opened; can be scoped to file paths
+- **Skills**: On demand, task-specific
+
+### Subagent vs Agent Team
+- **Subagents** run inside your session and report results back to main context
+- **Agent teams** are independent Claude Code sessions that communicate with each other
+- Use subagents for focused tasks; use agent teams when teammates need to share findings and coordinate
 
 ## CLAUDE.md (Project Memory)
 
@@ -153,6 +178,15 @@ Coordinate multiple independent Claude sessions working on related tasks:
 - Parallel execution across git worktrees
 - Quality gates and verification
 - Disabled by default
+
+## How Features Layer
+
+Features can be defined at multiple levels: user-wide, per-project, via plugins, or through managed policies:
+
+- **CLAUDE.md files** are additive: all levels contribute content simultaneously
+- **Skills and subagents** override by name: one definition wins based on priority
+- **MCP servers** override by name: local > project > user
+- **Hooks** merge: all registered hooks fire for their matching events regardless of source
 
 ## IDE Integrations
 
@@ -239,8 +273,10 @@ claude -p 'parse logs' --output-format stream-json
 | `/fast` | Toggle fast mode |
 | `/mcp` | Manage MCP servers |
 | `/plugin` | Manage plugins |
+| `/hooks` | Interactive hooks manager |
 | `/tasks` | View running background tasks |
 | `/agents` | View available agents |
+| `/reload-plugins` | Reload plugin configurations |
 
 ## Sources
 
