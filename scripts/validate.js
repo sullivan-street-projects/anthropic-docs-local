@@ -3,11 +3,12 @@
 /**
  * Validation script for anthropic-docs-local
  *
- * Four-layer validation architecture (inspired by engineering/demystifying-evals):
+ * Five-layer validation architecture (inspired by engineering/demystifying-evals):
  *   Layer 1 - Schema:    JSON structure, enum values, required fields
  *   Layer 2 - Reference: Manifest <-> file consistency, orphan detection
  *   Layer 3 - Content:   Frontmatter completeness, timestamp alignment
  *   Layer 4 - Integrity: Confidence types, staleness detection, hash verification
+ *   Layer 5 - Meta:      Memory files, optimization plan, synthesis log
  *
  * Usage: node scripts/validate.js [--quick]
  *   --quick: Run only Layer 1 (schema) for fast sanity checks
@@ -379,13 +380,68 @@ function validateIntegrity(manifest) {
 }
 
 // ═══════════════════════════════════════════════════════════
+// Layer 5: Meta-Synthesis Infrastructure
+// ═══════════════════════════════════════════════════════════
+
+function validateMetaSynthesis() {
+  console.log('\n🔄 Layer 5: Meta-Synthesis Infrastructure\n');
+
+  // Check required memory files exist
+  const memoryFiles = [
+    { path: 'tasks/lessons.md', name: 'Lessons learned' },
+    { path: 'tasks/update-failures.md', name: 'Update failures' },
+    { path: 'tasks/discovery-log.md', name: 'Discovery log' },
+    { path: 'tasks/meta-synthesis-log.md', name: 'Meta-synthesis log' }
+  ];
+
+  let memoryOk = 0;
+  memoryFiles.forEach(f => {
+    const filePath = path.join(ROOT, f.path);
+    if (!fs.existsSync(filePath)) {
+      warn(`Missing memory file: ${f.path} (${f.name})`);
+    } else {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      if (content.trim().length < 10) {
+        warn(`Memory file appears empty: ${f.path}`);
+      } else {
+        memoryOk++;
+      }
+    }
+  });
+
+  ok(`${memoryOk}/${memoryFiles.length} memory files present and non-empty`);
+
+  // Check optimization plan exists
+  const planPath = path.join(ROOT, 'docs/plans/meta-analysis-optimizations.md');
+  if (!fs.existsSync(planPath)) {
+    warn('Missing optimization plan: docs/plans/meta-analysis-optimizations.md');
+  } else {
+    ok('Optimization plan file exists');
+  }
+
+  // Check meta-synthesis log has valid frontmatter
+  const logPath = path.join(ROOT, 'tasks/meta-synthesis-log.md');
+  if (fs.existsSync(logPath)) {
+    const content = fs.readFileSync(logPath, 'utf-8');
+    const frontmatter = parseFrontmatter(content);
+    if (!frontmatter) {
+      warn('meta-synthesis-log.md missing frontmatter');
+    } else if (!frontmatter.title) {
+      warn('meta-synthesis-log.md frontmatter missing title');
+    } else {
+      ok('meta-synthesis-log.md has valid frontmatter');
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
 // Main
 // ═══════════════════════════════════════════════════════════
 
 function main() {
   console.log('═══════════════════════════════════════════════════════════');
   console.log('  Anthropic Docs Local - Validation');
-  console.log(isQuick ? '  (Quick mode — Layer 1 only)' : '  (Full — Layers 1-4)');
+  console.log(isQuick ? '  (Quick mode — Layer 1 only)' : '  (Full — Layers 1-5)');
   console.log('═══════════════════════════════════════════════════════════');
 
   // Load manifest
@@ -418,6 +474,9 @@ function main() {
 
     // Layer 4: Integrity
     validateIntegrity(manifest);
+
+    // Layer 5: Meta-Synthesis Infrastructure
+    validateMetaSynthesis();
   }
 
   // Summary

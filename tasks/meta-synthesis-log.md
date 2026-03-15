@@ -27,6 +27,10 @@ Improvements deferred: N
 - [principle] from [source_file] — matched by [infrastructure_file]
 ```
 
+## Trends (auto-generated)
+
+_Will be generated automatically after 3+ logged cycles._
+
 ## Entries
 
 _No entries yet. First entry will be generated after the next full update cycle._

@@ -241,8 +241,8 @@ NO ACTION NEEDED:
 
 Check for sources that may be dead or relocated:
 
-1. Parse manifest.json for each source's `last_fetched` and `content_hash`
-2. Flag any source where **content has not changed for 3+ consecutive full updates** (same hash across runs)
+1. Parse manifest.json for each source's `last_fetched` and `sha256`
+2. Flag any source where **content has not changed for 3+ consecutive full updates** (same `sha256` across runs)
 3. For flagged sources, attempt a fresh fetch to confirm:
    - **Still accessible, just stable**: Mark as `stable` in the report (no action needed)
    - **404 / connection error**: Mark as `possibly-dead` — log to `tasks/update-failures.md` and alert user
@@ -257,7 +257,25 @@ Check for sources that may be dead or relocated:
      - {source_id}: {old_url} → {new_url}
    ```
 
-#### 4f. Update memory files
+#### 4f. Trend summary
+
+If `tasks/meta-synthesis-log.md` has 3+ entries, generate a running trend summary at the top of the file (replacing any previous summary):
+
+```
+## Trends (auto-generated)
+
+Total cycles logged: {N}
+Total improvements applied: {N}
+Total improvements deferred: {N}
+Most-improved infrastructure: {file} ({N} changes)
+Most-informative category: {category} ({N} insights sourced from it)
+Staleness alerts: {N} sources flagged across all cycles
+Last cycle: {date} — {applied} applied, {deferred} deferred
+```
+
+This gives a quick health check without reading every entry.
+
+#### 4g. Update memory files
 
 After the meta-synthesis:
 1. **Append to `tasks/meta-synthesis-log.md`** — structured entry for this run (see log format in that file)
