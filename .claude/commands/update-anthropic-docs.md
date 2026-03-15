@@ -171,6 +171,81 @@ Files updated:
 - file2.md (content changed / timestamp only)
 ```
 
+### Phase 4: Meta-synthesis (self-improvement)
+
+**This phase runs after every full update.** Its purpose: the repo just ingested the latest Anthropic intelligence — now use it to improve the repo itself.
+
+Skip this phase if:
+- Only a single category was updated (not a full run)
+- The user explicitly says to skip it
+- No content actually changed (timestamp-only updates)
+
+#### 4a. Identify content changes with improvement potential
+
+Review `git diff` from the Phase 3 commit. Focus on files where **content actually changed** (not just timestamps). For each changed file, ask:
+
+> "Does this updated content contain principles, patterns, or practices that our own infrastructure (scripts, schemas, skill, validation, CLAUDE.md) should follow but currently doesn't?"
+
+Prioritize changes in:
+- `engineering/*.md` — engineering best practices
+- `claude-code/*.md` — Claude Code features and patterns
+- `skills/*.md` — skill design guidance
+- `research/*.md` — alignment and evaluation principles
+- `api/*.md` — API patterns (error handling, structured outputs, rate limiting)
+
+#### 4b. Cross-reference against current infrastructure
+
+For each actionable finding, check whether the repo already implements it:
+1. Read `scripts/validate.js` — does validation cover this?
+2. Read `.claude/commands/update-anthropic-docs.md` — does the update skill follow this?
+3. Read `CLAUDE.md` — is this documented as a project guideline?
+4. Read `schemas/*.json` — does the schema support this?
+5. Read `tasks/lessons.md` — is this already a known pattern?
+
+#### 4c. Generate improvement report
+
+If improvements are found, output a structured report:
+
+```
+=== Meta-Synthesis Report ===
+Date: {current_date}
+Content changes analyzed: {count}
+Improvements identified: {count}
+
+INFRASTRUCTURE IMPROVEMENTS:
+  1. [source_file] teaches [principle]
+     Currently: [what the repo does now]
+     Should: [what it should do instead]
+     Files to change: [list]
+     Effort: LOW / MEDIUM / HIGH
+
+  2. ...
+
+ALREADY ALIGNED:
+  - [principle] from [source_file] — already implemented in [infrastructure_file]
+
+NO ACTION NEEDED:
+  - {count} content changes had no infrastructure implications
+```
+
+#### 4d. Apply or defer
+
+- **LOW effort improvements** (adding a field to schema, updating a description, adding a validation check): Apply immediately, include in a follow-up commit:
+  ```
+  Refactor: meta-synthesis - apply lessons from {source_file}
+  ```
+- **MEDIUM effort** (rewriting a function, restructuring a skill section): Add to `docs/plans/meta-analysis-optimizations.md` as a pending item
+- **HIGH effort** (new scripts, architectural changes): Add to the plan and ask the user whether to proceed
+
+#### 4e. Update memory files
+
+After the meta-synthesis:
+1. **Update `tasks/lessons.md`** with any new patterns discovered
+2. **Update `tasks/discovery-log.md`** if new sources were found in Phase 2.5
+3. **Log any failures** from this update run to `tasks/update-failures.md`
+
+This creates a continuous improvement loop: content updates feed infrastructure improvements, which produce better content updates.
+
 ## Check Mode (--check)
 
 1. Read manifest.json
@@ -389,10 +464,14 @@ See `references/failure-patterns.md` for detailed failure diagnosis and resoluti
 
 Before reporting completion, verify:
 - [ ] `git diff --stat HEAD` shows changes for ALL source types (not just github-raw)
-- [ ] `node scripts/validate.js` passes
+- [ ] `node scripts/validate.js` passes (0 errors; warnings are advisory)
+- [ ] `node scripts/generate-architecture.js` ran successfully
 - [ ] Manual sources have updated `fetched_at` timestamps
 - [ ] Research papers index has been checked for new papers
 - [ ] manifest.json `last_fetched` timestamps match file `fetched_at` timestamps
+- [ ] Phase 4 meta-synthesis ran (for full updates) or was explicitly skipped
+- [ ] `tasks/lessons.md` updated if new patterns were discovered
+- [ ] `tasks/update-failures.md` updated if any sources failed
 
 ## Categories
 
