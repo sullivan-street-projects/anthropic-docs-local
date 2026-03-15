@@ -21,7 +21,7 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ### 2026-03-15 — Quick Discovery Scan (during full update)
 - **New sources found**: 25
-- **Added**: none (quick scan — report only)
+- **Added**: All 25 sources added to manifest and fetched (see below)
 - **Deferred (Tier 1 — add immediately)**:
   - https://www.anthropic.com/news/claude-partner-network — news (2026-03-12)
 - **Deferred (Tier 2 — March, pre-last-update)**:

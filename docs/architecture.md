@@ -1,6 +1,6 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-03-15T03:16:55.483Z"
+generated_at: "2026-03-15T03:36:28.665Z"
 generator: "scripts/generate-architecture.js"
 ---
 
@@ -12,7 +12,7 @@ generator: "scripts/generate-architecture.js"
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 79 |
+| Total Sources | 104 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 59 | WebFetch with content extraction |
+| web-extracted | 84 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 56 | High-confidence sources, auto-trusted |
+| auto | 81 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -106,6 +106,16 @@ generator: "scripts/generate-architecture.js"
 | [Designing AI-resistant technical evaluations](../engineering/ai-resistant-technical-evaluations.md) | web-extracted | 0.85 |
 | [A postmortem of three recent issues](../engineering/postmortem-three-recent-issues.md) | web-extracted | 0.85 |
 | [Demystifying Evals for AI Agents](../engineering/demystifying-evals-for-ai-agents.md) | web-extracted | 0.85 |
+| [Eval awareness in Claude Opus 4.6's BrowseComp performance](../engineering/eval-awareness-browsecomp.md) | web-extracted | 0.85 |
+| [Building a C compiler with a team of parallel Claudes](../engineering/building-c-compiler.md) | web-extracted | 0.85 |
+| [Quantifying infrastructure noise in agentic coding evals](../engineering/infrastructure-noise.md) | web-extracted | 0.85 |
+| [Introducing advanced tool use on the Claude Developer Platform](../engineering/advanced-tool-use.md) | web-extracted | 0.85 |
+| [Code execution with MCP: Building more efficient agents](../engineering/code-execution-with-mcp.md) | web-extracted | 0.85 |
+| [Beyond permission prompts: making Claude Code more secure and autonomous](../engineering/claude-code-sandboxing.md) | web-extracted | 0.85 |
+| [Desktop Extensions: One-click MCP server installation](../engineering/desktop-extensions.md) | web-extracted | 0.85 |
+| [The think tool](../engineering/claude-think-tool.md) | web-extracted | 0.85 |
+| [Building effective agents](../engineering/building-effective-agents.md) | web-extracted | 0.85 |
+| [Contextual Retrieval](../engineering/contextual-retrieval.md) | web-extracted | 0.85 |
 
 ### github-repos
 
@@ -123,6 +133,7 @@ generator: "scripts/generate-architecture.js"
 | [Claude Sonnet 4.5](../models/claude-sonnet-4-5.md) | web-extracted | 0.85 |
 | [Claude Haiku 4.5](../models/claude-haiku-4-5.md) | web-extracted | 0.85 |
 | [Model Deprecations](../models/deprecations.md) | web-extracted | 0.85 |
+| [Claude Sonnet 4.6](../models/claude-sonnet-4-6.md) | web-extracted | 0.85 |
 
 ### news
 
@@ -135,6 +146,14 @@ generator: "scripts/generate-architecture.js"
 | [Statement from Dario Amodei on Department of War](../news/statement-department-of-war.md) | web-extracted | 0.85 |
 | [Statement on Secretary of War Comments](../news/statement-secretary-war-comments.md) | web-extracted | 0.85 |
 | [Labor Market Impacts of AI](../news/labor-market-impacts.md) | web-extracted | 0.85 |
+| [Anthropic invests $100M into the Claude Partner Network](../news/claude-partner-network.md) | web-extracted | 0.85 |
+| [Where things stand with the Department of War](../news/where-stand-department-war.md) | web-extracted | 0.85 |
+| [Partnering with Mozilla to improve Firefox's security](../news/mozilla-firefox-security.md) | web-extracted | 0.85 |
+| [Sydney will become Anthropic's fourth office in Asia-Pacific](../news/sydney-fourth-office-asia-pacific.md) | web-extracted | 0.85 |
+| [Introducing The Anthropic Institute](../news/the-anthropic-institute.md) | web-extracted | 0.85 |
+| [Claude is a space to think](../news/claude-is-a-space-to-think.md) | web-extracted | 0.85 |
+| [Claude's new constitution](../news/claude-new-constitution.md) | web-extracted | 0.85 |
+| [Claude on Mars](../news/claude-on-mars.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -158,6 +177,12 @@ generator: "scripts/generate-architecture.js"
 | [The Persona Selection Model](../research/persona-selection-model.md) | web-extracted | 0.85 |
 | [The AI Fluency Index](../research/ai-fluency-index.md) | web-extracted | 0.85 |
 | [OpenDev: Building Effective AI Coding Agents for the Terminal](../research/opendev-coding-agents.md) | arxiv-pdfs | 0.9 |
+| [Measuring AI agent autonomy in practice](../research/measuring-agent-autonomy.md) | web-extracted | 0.85 |
+| [India Country Brief: The Anthropic Economic Index](../research/india-brief-economic-index.md) | web-extracted | 0.85 |
+| [How AI assistance impacts the formation of coding skills](../research/ai-assistance-coding-skills.md) | web-extracted | 0.85 |
+| [Disempowerment patterns in real-world AI usage](../research/disempowerment-patterns.md) | web-extracted | 0.85 |
+| [The assistant axis: situating and stabilizing character in LLMs](../research/assistant-axis.md) | web-extracted | 0.85 |
+| [Project Vend: Phase two](../research/project-vend-2.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -239,7 +264,17 @@ anthropic-docs-local/
 │   ├── writing-tools-for-agents.md
 │   ├── ai-resistant-technical-evaluations.md
 │   ├── postmortem-three-recent-issues.md
-│   └── demystifying-evals-for-ai-agents.md
+│   ├── demystifying-evals-for-ai-agents.md
+│   ├── eval-awareness-browsecomp.md
+│   ├── building-c-compiler.md
+│   ├── infrastructure-noise.md
+│   ├── advanced-tool-use.md
+│   ├── code-execution-with-mcp.md
+│   ├── claude-code-sandboxing.md
+│   ├── desktop-extensions.md
+│   ├── claude-think-tool.md
+│   ├── building-effective-agents.md
+│   └── contextual-retrieval.md
 ├── github-repos/
 │   └── index.md
 ├── models/
@@ -248,7 +283,8 @@ anthropic-docs-local/
 │   ├── claude-opus-4-5.md
 │   ├── claude-sonnet-4-5.md
 │   ├── claude-haiku-4-5.md
-│   └── deprecations.md
+│   ├── deprecations.md
+│   └── claude-sonnet-4-6.md
 ├── news/
 │   ├── claude-code-security.md
 │   ├── detecting-distillation-attacks.md
@@ -256,7 +292,15 @@ anthropic-docs-local/
 │   ├── acquires-vercept.md
 │   ├── statement-department-of-war.md
 │   ├── statement-secretary-war-comments.md
-│   └── labor-market-impacts.md
+│   ├── labor-market-impacts.md
+│   ├── claude-partner-network.md
+│   ├── where-stand-department-war.md
+│   ├── mozilla-firefox-security.md
+│   ├── sydney-fourth-office-asia-pacific.md
+│   ├── the-anthropic-institute.md
+│   ├── claude-is-a-space-to-think.md
+│   ├── claude-new-constitution.md
+│   └── claude-on-mars.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -271,7 +315,13 @@ anthropic-docs-local/
 │   ├── deprecation-updates-opus-3.md
 │   ├── persona-selection-model.md
 │   ├── ai-fluency-index.md
-│   └── opendev-coding-agents.md
+│   ├── opendev-coding-agents.md
+│   ├── measuring-agent-autonomy.md
+│   ├── india-brief-economic-index.md
+│   ├── ai-assistance-coding-skills.md
+│   ├── disempowerment-patterns.md
+│   ├── assistant-axis.md
+│   └── project-vend-2.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md
