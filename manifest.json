@@ -982,6 +982,32 @@
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9
+    },
+    {
+      "id": "claude-code-how-anthropic-teams-use",
+      "name": "How Anthropic Teams Use Claude Code",
+      "category": "claude-code",
+      "local_path": "claude-code/how-anthropic-teams-use-claude-code.md",
+      "source_url": "https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-15T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 0.9,
+      "sha256": "3bd64bc9ec9e177b4163500cdf4658f3a9acc0afa284719292390898a18fef9a",
+      "notes": "Official Anthropic PDF (23 pages). Local PDF copy at claude-code/how-anthropic-teams-use-claude-code.pdf"
+    },
+    {
+      "id": "claude-code-how-anthropic-teams-use-pdf",
+      "name": "How Anthropic Teams Use Claude Code (PDF)",
+      "category": "claude-code",
+      "local_path": "claude-code/how-anthropic-teams-use-claude-code.pdf",
+      "source_url": "https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-03-15T00:00:00Z",
+      "review_status": "verified",
+      "confidence": 1.0,
+      "sha256": "985d98409f946834b8bacd52edcf74b87960e350393e3568abf25d4551167383",
+      "notes": "Original PDF, 23 pages, 6.2MB"
     }
   ]
 }
