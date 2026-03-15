@@ -1,6 +1,9 @@
 ---
 name: update-anthropic-docs
-description: Update local Anthropic documentation repository
+description: |
+  Fetch and update Anthropic documentation sources from external URLs (GitHub, anthropic.com, arXiv).
+  Use when: "refresh docs", "update sources", "sync documentation", "run discovery", "check for new content".
+  Do NOT use for: manually editing docs, reviewing specific content, answering questions about docs.
 arguments:
   - name: category
     description: Category to update (api, models, sdks, claude-code, agent-sdk, skills, cookbooks, release-notes, github-repos, research, news, engineering)
@@ -9,7 +12,13 @@ arguments:
     description: Dry run - report changes without saving
     required: false
   - name: --discover
-    description: Search for new Anthropic sources
+    description: Search for new Anthropic sources not yet tracked
+    required: false
+  - name: --diff
+    description: Show content differences between local files and sources
+    required: false
+  - name: --resume
+    description: Resume an interrupted update from .update-session.json
     required: false
 ---
 
@@ -28,20 +37,67 @@ You are updating the local Anthropic documentation repository.
 
 **Do NOT skip any source type.** The most common failure mode is skipping `manual` and `arxiv-pdfs` sources. These MUST be updated every time.
 
+## Pre-Run: Load Context
+
+Before any mode, read these files for accumulated project knowledge:
+- `tasks/lessons.md` — known issues and patterns
+- `tasks/update-failures.md` — source-specific failure history (if exists)
+
 ## Mode Detection
 
 Parse the arguments to determine the mode:
 - If `$ARGUMENTS` contains `--check`: **Check Mode** (dry run)
 - If `$ARGUMENTS` contains `--discover`: **Discovery Mode**
+- If `$ARGUMENTS` contains `--diff`: **Diff Mode** (content drift detection)
+- If `$ARGUMENTS` contains `--resume`: **Resume Mode** (continue interrupted update)
 - Otherwise: **Update Mode**
 
 If a category is provided (e.g., `claude-code`, `api`, `models`, `research`), only update sources in that category.
 
+### Resume Mode (--resume)
+
+If `.update-session.json` exists in the repo root:
+1. Read the session state file
+2. Skip sources listed in `completed_sources`
+3. Retry sources listed in `failed_sources` (they may have been transient failures)
+4. Continue from the last recorded `phase`
+5. Report: "Resuming update from Phase {N}. {X} sources already completed, {Y} to go."
+
+If no session file exists, report "No interrupted session found" and exit.
+
 ## Update Mode (Default)
 
-### Phase 1: Read manifest and plan
+### Phase 0: Plan confirmation
+
+1. Read `manifest.json`
+2. Count sources by `source_type` and `category` (filtered if category provided)
+3. Present the plan to the user:
+   ```
+   Update plan:
+   - X github-raw sources
+   - Y web-extracted sources
+   - Z manual sources
+   - W arxiv-pdfs entries
+   - V github-api sources
+   Total: N sources across M categories
+   ```
+4. Wait for user confirmation before proceeding
+5. If user says "skip" or "just do it", proceed without further confirmation
+
+### Phase 1: Read manifest and plan (write session state)
 
 1. Read `manifest.json` from the repository
+1b. **Write session state**: Create `.update-session.json` with:
+    ```json
+    {
+      "started_at": "<ISO timestamp>",
+      "phase": 1,
+      "category_filter": "<category or null>",
+      "total_sources": <N>,
+      "completed_sources": [],
+      "failed_sources": []
+    }
+    ```
 2. Filter sources by category if provided
 3. Group sources by `source_type`
 4. Report the plan to the user: "Updating X github-raw, Y web-extracted, Z manual, W arxiv-pdfs sources"
@@ -96,11 +152,13 @@ Launch 1 agent in parallel with Phase 2 to:
 ### Phase 3: Verify and commit
 
 1. **VERIFY writes persisted**: After agents complete, check `git diff --stat HEAD` to confirm files were actually modified. If an agent reported changes but `git status` shows no modifications, the agent failed to write — you must redo those updates directly.
-2. Run `node scripts/validate.js` — all checks must pass
-3. Update `last_full_update` in manifest.json if doing full update
-4. Stage all changed files by name (not `git add -A`)
-5. Create a git commit with summary of changes
-6. Push to the current branch
+2. Run `node scripts/validate.js` — all checks must pass (Layer 1 errors are blocking; Layer 4 warnings are advisory)
+3. Run `node scripts/generate-architecture.js` — regenerate the architecture overview
+4. Update `last_full_update` in manifest.json if doing full update
+5. Stage all changed files by name (not `git add -A`)
+6. Create a git commit with summary of changes
+7. Push to the current branch
+8. **Clean up session state**: Delete `.update-session.json` (successful completion)
 
 ### Commit Message Format
 ```
@@ -130,6 +188,34 @@ Files updated:
    Changed files:
    - path/to/file1.md
    - path/to/file2.md
+   ```
+4. Do NOT save any files or create commits
+
+## Diff Mode (--diff)
+
+Content drift detection — compare local files against their sources to find subtle changes.
+
+1. Read manifest.json (filter by category if provided)
+2. For each source:
+   - Fetch current content from `source_url`
+   - Compare against local file content (not just hash)
+   - Analyze the diff:
+     - **Size change**: Is the fetched content significantly shorter (>20% reduction)? Flag as possible truncation
+     - **Section changes**: Are major headings missing or renamed?
+     - **Content additions**: New sections in the source not in local file
+3. Output report:
+   ```
+   === Content Drift Report ===
+
+   SIGNIFICANT DRIFT:
+   - path/to/file.md — 30% shorter than source (possible truncation)
+   - path/to/file2.md — 3 sections removed, 1 added
+
+   MINOR CHANGES:
+   - path/to/file3.md — wording updates, no structural change
+
+   UNCHANGED:
+   - X files match their sources
    ```
 4. Do NOT save any files or create commits
 
@@ -282,41 +368,22 @@ SUGGESTIONS:
 
 ## Source Type Handling
 
-| Type | Fetch Method | Notes |
-|------|--------------|-------|
-| `github-raw` | WebFetch direct URL | Highest fidelity, use raw content as-is |
-| `web-extracted` | WebFetch with extraction prompt | Parse HTML, extract main content |
-| `github-api` | WebFetch API endpoint | Parse JSON response |
-| `manual` | WebFetch source URL + re-synthesize | Read source page, rewrite local file with current content |
-| `arxiv-pdfs` | WebSearch + arXiv search | Find new papers, update index |
+See `references/source-types.md` for detailed handling instructions per source type.
 
-### Manual Source Update Protocol
+**Quick reference:** github-raw (direct fetch), web-extracted (WebFetch + extract), github-api (API parse), manual (re-synthesize from source), arxiv-pdfs (search + download).
 
-Manual sources require special handling because they are agent-synthesized:
-
-1. **Read** the existing local file completely
-2. **Fetch** the source URL with WebFetch
-3. **Compare** fetched content to existing file
-4. **Re-synthesize**: Update the local file with new information while preserving the established structure (headings, tables, code blocks)
-5. **Update timestamp** in frontmatter to current date
-6. **VERIFY**: Read the file back to confirm the write succeeded
-
-The key manual sources that MUST be updated every run:
-- `claude-code/features.md` — from https://code.claude.com/docs/en/features-overview
-- `claude-code/hooks.md` — from https://code.claude.com/docs/en/hooks
-- `claude-code/mcp-servers.md` — from https://code.claude.com/docs/en/mcp
-- `claude-code/plugins.md` — from https://code.claude.com/docs/en/plugins
-- `agent-sdk/README.md` — from https://platform.claude.com/docs/en/agent-sdk/overview
-- `agent-sdk/quickstart.md` — from https://platform.claude.com/docs/en/agent-sdk/quickstart
-- `agent-sdk/examples.md` — from https://platform.claude.com/docs/en/agent-sdk/overview
+**Manual sources MUST be updated every run** — see the key list in `references/source-types.md`.
 
 ## Error Handling
 
-- If a source fails to fetch, log the error and continue with other sources
-- Report all errors at the end
-- Do not commit if all sources failed
-- For rate limits: wait and retry once, then skip if still failing
-- If an agent reports success but files are unchanged on disk, retry the update directly (not via agent)
+See `references/failure-patterns.md` for detailed failure diagnosis and resolution.
+
+**Key rules:**
+- If a source fails, log the error and continue with others
+- Do not commit if ALL sources failed
+- For rate limits: retry once with backoff, then skip
+- If an agent reports success but files unchanged on disk: retry directly
+- **After any failure**: log to `tasks/update-failures.md`
 
 ## Post-Update Verification Checklist
 

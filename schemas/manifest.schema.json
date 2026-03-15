@@ -16,6 +16,11 @@
       "format": "date-time",
       "description": "ISO 8601 timestamp of last full update"
     },
+    "last_discovery_run": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last discovery scan"
+    },
     "sources": {
       "type": "array",
       "description": "Array of documentation source entries",
@@ -52,7 +57,9 @@
             "cookbooks",
             "release-notes",
             "github-repos",
-            "research"
+            "research",
+            "news",
+            "engineering"
           ],
           "description": "Content category"
         },
@@ -101,6 +108,15 @@
           "type": "string",
           "pattern": "^[a-f0-9]{64}$",
           "description": "SHA-256 checksum for integrity verification"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Human-readable notes or annotations"
+        },
+        "lifecycle_status": {
+          "type": "string",
+          "enum": ["active", "legacy", "deprecated", "archived"],
+          "description": "Source lifecycle status (active by default)"
         },
         "papers": {
           "type": "array",

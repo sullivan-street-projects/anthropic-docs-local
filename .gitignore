@@ -11,5 +11,8 @@
 
 # Plans - tracked for project optimization history
 
+# Update session state (ephemeral, used for --resume)
+.update-session.json
+
 # Archive
 .archive/

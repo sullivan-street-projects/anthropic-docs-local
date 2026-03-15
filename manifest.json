@@ -826,7 +826,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "api-compaction",
@@ -837,7 +837,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "api-context-windows",
@@ -848,7 +848,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "api-models-overview",
@@ -859,7 +859,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "api-migration-guide",
@@ -870,7 +870,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "api-extended-thinking",
@@ -881,7 +881,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "api-effort-parameter",
@@ -892,7 +892,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "api-memory-tool",
@@ -903,7 +903,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "api-web-search-tool",
@@ -914,7 +914,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "agent-sdk-typescript-v2",
@@ -925,7 +925,7 @@
       "source_type": "web-extracted",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "medium"
+      "confidence": 0.7
     },
     {
       "id": "best-practices-loop-scheduling",
@@ -936,7 +936,7 @@
       "source_type": "manual",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "best-practices-mcp-credentials",
@@ -947,7 +947,7 @@
       "source_type": "manual",
       "last_fetched": "2026-03-11T00:00:00Z",
       "review_status": "verified",
-      "confidence": "high"
+      "confidence": 0.9
     },
     {
       "id": "research-opendev-coding-agents",

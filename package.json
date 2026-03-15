@@ -1,0 +1,10 @@
+{
+  "name": "anthropic-docs-local",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local repository of Anthropic documentation, research, and resources",
+  "scripts": {
+    "validate": "node scripts/validate.js",
+    "generate-architecture": "node scripts/generate-architecture.js"
+  }
+}

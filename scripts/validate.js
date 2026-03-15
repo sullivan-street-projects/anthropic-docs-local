@@ -2,18 +2,27 @@
 
 /**
  * Validation script for anthropic-docs-local
- * Checks manifest.json and markdown frontmatter against schemas
  *
- * Usage: node scripts/validate.js [--fix]
+ * Four-layer validation architecture (inspired by engineering/demystifying-evals):
+ *   Layer 1 - Schema:    JSON structure, enum values, required fields
+ *   Layer 2 - Reference: Manifest <-> file consistency, orphan detection
+ *   Layer 3 - Content:   Frontmatter completeness, timestamp alignment
+ *   Layer 4 - Integrity: Confidence types, staleness detection, hash verification
+ *
+ * Usage: node scripts/validate.js [--quick]
+ *   --quick: Run only Layer 1 (schema) for fast sanity checks
  */
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..');
 const MANIFEST_PATH = path.join(ROOT, 'manifest.json');
 
-// Valid enums from schemas
+const isQuick = process.argv.includes('--quick');
+
+// Valid enums (single source of truth — must match schemas/)
 const VALID_CATEGORIES = [
   'api', 'models', 'sdks', 'claude-code', 'agent-sdk',
   'skills', 'cookbooks', 'release-notes', 'github-repos', 'research',
@@ -24,22 +33,24 @@ const VALID_SOURCE_TYPES = [
   'github-raw', 'github-api', 'web-extracted', 'manual', 'arxiv-pdfs'
 ];
 
+const VALID_LIFECYCLE_STATUSES = ['active', 'legacy', 'deprecated', 'archived'];
+
 // Tracking
 let errors = [];
 let warnings = [];
 
 function error(msg) {
   errors.push(msg);
-  console.error(`❌ ERROR: ${msg}`);
+  console.error(`  ❌ ${msg}`);
 }
 
 function warn(msg) {
   warnings.push(msg);
-  console.warn(`⚠️  WARN: ${msg}`);
+  console.warn(`  ⚠️  ${msg}`);
 }
 
 function ok(msg) {
-  console.log(`✓ ${msg}`);
+  console.log(`  ✓ ${msg}`);
 }
 
 // Parse YAML frontmatter from markdown
@@ -68,9 +79,12 @@ function parseFrontmatter(content) {
   return result;
 }
 
-// Validate manifest.json structure
-function validateManifest(manifest) {
-  console.log('\n📋 Validating manifest.json...\n');
+// ═══════════════════════════════════════════════════════════
+// Layer 1: Schema Validation
+// ═══════════════════════════════════════════════════════════
+
+function validateSchema(manifest) {
+  console.log('\n📋 Layer 1: Schema Validation\n');
 
   // Required top-level fields
   if (!manifest.schema_version) {
@@ -89,17 +103,18 @@ function validateManifest(manifest) {
 
   if (!Array.isArray(manifest.sources)) {
     error('manifest.json missing sources array');
-    return;
+    return null;
   }
 
   ok(`sources: ${manifest.sources.length} entries`);
 
-  // Validate each source
+  // Validate each source entry
   const ids = new Set();
   const paths = new Set();
 
   manifest.sources.forEach((source, i) => {
     const prefix = `sources[${i}]`;
+    const label = source.id || `index ${i}`;
 
     // Required fields
     if (!source.id) {
@@ -114,51 +129,50 @@ function validateManifest(manifest) {
       ids.add(source.id);
     }
 
-    if (!source.name) {
-      error(`${prefix} (${source.id}) missing name`);
-    }
+    if (!source.name) error(`${prefix} (${label}) missing name`);
 
     if (!source.category) {
-      error(`${prefix} (${source.id}) missing category`);
+      error(`${prefix} (${label}) missing category`);
     } else if (!VALID_CATEGORIES.includes(source.category)) {
-      error(`${prefix} (${source.id}) invalid category: ${source.category}`);
+      error(`${prefix} (${label}) invalid category: ${source.category}`);
     }
 
     if (!source.local_path) {
-      error(`${prefix} (${source.id}) missing local_path`);
+      error(`${prefix} (${label}) missing local_path`);
     } else {
       if (paths.has(source.local_path)) {
-        error(`${prefix} (${source.id}) duplicate local_path: ${source.local_path}`);
+        error(`${prefix} (${label}) duplicate local_path: ${source.local_path}`);
       }
       paths.add(source.local_path);
     }
 
-    if (!source.source_url) {
-      error(`${prefix} (${source.id}) missing source_url`);
-    }
+    if (!source.source_url) error(`${prefix} (${label}) missing source_url`);
 
     if (!source.source_type) {
-      error(`${prefix} (${source.id}) missing source_type`);
+      error(`${prefix} (${label}) missing source_type`);
     } else if (!VALID_SOURCE_TYPES.includes(source.source_type)) {
-      error(`${prefix} (${source.id}) invalid source_type: ${source.source_type}`);
+      error(`${prefix} (${label}) invalid source_type: ${source.source_type}`);
     }
 
-    if (!source.last_fetched) {
-      error(`${prefix} (${source.id}) missing last_fetched`);
+    if (!source.last_fetched) error(`${prefix} (${label}) missing last_fetched`);
+
+    // Optional field type checks
+    if (source.confidence !== undefined && typeof source.confidence !== 'number') {
+      error(`${prefix} (${label}) confidence must be a number, got ${typeof source.confidence}: ${JSON.stringify(source.confidence)}`);
+    } else if (typeof source.confidence === 'number' && (source.confidence < 0 || source.confidence > 1)) {
+      error(`${prefix} (${label}) confidence must be 0.0-1.0, got ${source.confidence}`);
+    }
+
+    if (source.lifecycle_status && !VALID_LIFECYCLE_STATUSES.includes(source.lifecycle_status)) {
+      error(`${prefix} (${label}) invalid lifecycle_status: ${source.lifecycle_status}`);
     }
 
     // Validate papers array for arxiv-pdfs type
     if (source.source_type === 'arxiv-pdfs' && source.papers) {
       source.papers.forEach((paper, j) => {
-        if (!paper.file) {
-          error(`${prefix}.papers[${j}] missing file`);
-        }
-        if (!paper.arxiv) {
-          error(`${prefix}.papers[${j}] missing arxiv`);
-        }
-        if (!paper.title) {
-          error(`${prefix}.papers[${j}] missing title`);
-        }
+        if (!paper.file) error(`${prefix}.papers[${j}] missing file`);
+        if (!paper.arxiv) error(`${prefix}.papers[${j}] missing arxiv`);
+        if (!paper.title) error(`${prefix}.papers[${j}] missing title`);
       });
     }
   });
@@ -166,25 +180,29 @@ function validateManifest(manifest) {
   return { ids, paths };
 }
 
-// Validate that all manifest paths exist and have valid frontmatter
-function validateFiles(manifest, manifestPaths) {
-  console.log('\n📁 Validating files...\n');
+// ═══════════════════════════════════════════════════════════
+// Layer 2: Reference Validation
+// ═══════════════════════════════════════════════════════════
+
+function validateReferences(manifest, manifestPaths) {
+  console.log('\n📁 Layer 2: Reference Validation\n');
 
   let checked = 0;
   let skipped = 0;
+  let missing = 0;
 
   manifest.sources.forEach(source => {
     const filePath = path.join(ROOT, source.local_path);
 
-    // Skip PDF files and directories
+    // Skip PDF files and arxiv-pdfs index entries
     if (source.local_path.endsWith('.pdf') || source.source_type === 'arxiv-pdfs') {
       if (source.source_type === 'arxiv-pdfs' && source.papers) {
-        // Check that paper PDFs exist
         const paperDir = path.dirname(path.join(ROOT, source.local_path));
         source.papers.forEach(paper => {
           const pdfPath = path.join(paperDir, paper.file);
           if (!fs.existsSync(pdfPath)) {
             error(`Missing PDF: ${paper.file} (${source.id})`);
+            missing++;
           }
         });
       }
@@ -195,50 +213,22 @@ function validateFiles(manifest, manifestPaths) {
     // Check file exists
     if (!fs.existsSync(filePath)) {
       error(`Missing file: ${source.local_path} (${source.id})`);
+      missing++;
       return;
     }
 
-    // Check frontmatter for markdown files
-    if (source.local_path.endsWith('.md')) {
-      const content = fs.readFileSync(filePath, 'utf-8');
-      const frontmatter = parseFrontmatter(content);
-
-      if (!frontmatter) {
-        error(`Missing frontmatter: ${source.local_path}`);
-        return;
-      }
-
-      // Validate required frontmatter fields
-      const required = ['title', 'source_url', 'source_type', 'fetched_at', 'category'];
-      required.forEach(field => {
-        if (!frontmatter[field]) {
-          error(`${source.local_path} frontmatter missing: ${field}`);
-        }
-      });
-
-      // Check category matches manifest
-      if (frontmatter.category && frontmatter.category !== source.category) {
-        warn(`${source.local_path} category mismatch: frontmatter=${frontmatter.category}, manifest=${source.category}`);
-      }
-
-      // Check source_type matches manifest
-      if (frontmatter.source_type && frontmatter.source_type !== source.source_type) {
-        warn(`${source.local_path} source_type mismatch: frontmatter=${frontmatter.source_type}, manifest=${source.source_type}`);
-      }
-
-      checked++;
-    }
+    checked++;
   });
 
-  ok(`Checked ${checked} markdown files (skipped ${skipped} non-markdown)`);
-}
+  ok(`${checked} files found (${skipped} non-markdown skipped${missing > 0 ? `, ${missing} missing` : ''})`);
 
-// Check for orphan files (files with frontmatter not in manifest)
-function checkOrphans(manifestPaths) {
-  console.log('\n🔍 Checking for orphan files...\n');
-
-  const dirs = ['api', 'models', 'sdks', 'claude-code', 'agent-sdk',
-                'skills', 'cookbooks', 'release-notes', 'github-repos', 'research'];
+  // Orphan detection — check all content directories
+  console.log('');
+  const dirs = [
+    'api', 'models', 'sdks', 'claude-code', 'agent-sdk',
+    'skills', 'cookbooks', 'release-notes', 'github-repos', 'research',
+    'news', 'engineering'
+  ];
 
   let orphans = 0;
 
@@ -248,7 +238,6 @@ function checkOrphans(manifestPaths) {
 
     function scanDir(currentPath, relativePath) {
       const entries = fs.readdirSync(currentPath, { withFileTypes: true });
-
       entries.forEach(entry => {
         const fullPath = path.join(currentPath, entry.name);
         const relPath = path.join(relativePath, entry.name);
@@ -272,10 +261,131 @@ function checkOrphans(manifestPaths) {
   }
 }
 
+// ═══════════════════════════════════════════════════════════
+// Layer 3: Content Validation
+// ═══════════════════════════════════════════════════════════
+
+function validateContent(manifest) {
+  console.log('\n📝 Layer 3: Content Validation\n');
+
+  let checked = 0;
+  let timestampMismatches = 0;
+
+  manifest.sources.forEach(source => {
+    // Skip non-markdown
+    if (!source.local_path.endsWith('.md')) return;
+    if (source.source_type === 'arxiv-pdfs') return;
+
+    const filePath = path.join(ROOT, source.local_path);
+    if (!fs.existsSync(filePath)) return;
+
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const frontmatter = parseFrontmatter(content);
+
+    if (!frontmatter) {
+      error(`Missing frontmatter: ${source.local_path}`);
+      return;
+    }
+
+    // Required frontmatter fields
+    const required = ['title', 'source_url', 'source_type', 'fetched_at', 'category'];
+    required.forEach(field => {
+      if (!frontmatter[field]) {
+        error(`${source.local_path} frontmatter missing: ${field}`);
+      }
+    });
+
+    // Category consistency
+    if (frontmatter.category && frontmatter.category !== source.category) {
+      warn(`${source.local_path} category mismatch: frontmatter=${frontmatter.category}, manifest=${source.category}`);
+    }
+
+    // Source type consistency
+    if (frontmatter.source_type && frontmatter.source_type !== source.source_type) {
+      warn(`${source.local_path} source_type mismatch: frontmatter=${frontmatter.source_type}, manifest=${source.source_type}`);
+    }
+
+    // Timestamp consistency (fetched_at vs last_fetched)
+    if (frontmatter.fetched_at && source.last_fetched) {
+      const fmDate = frontmatter.fetched_at.split('T')[0];
+      const manDate = source.last_fetched.split('T')[0];
+      if (fmDate !== manDate) {
+        warn(`${source.local_path} timestamp mismatch: frontmatter=${fmDate}, manifest=${manDate}`);
+        timestampMismatches++;
+      }
+    }
+
+    checked++;
+  });
+
+  ok(`Checked ${checked} files for content consistency`);
+  if (timestampMismatches > 0) {
+    warn(`${timestampMismatches} timestamp mismatch(es) between frontmatter and manifest`);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// Layer 4: Integrity Validation
+// ═══════════════════════════════════════════════════════════
+
+function validateIntegrity(manifest) {
+  console.log('\n🔒 Layer 4: Integrity Validation\n');
+
+  const lastUpdate = new Date(manifest.last_full_update);
+  const STALENESS_THRESHOLD_DAYS = 30;
+  let staleCount = 0;
+  let hashMismatches = 0;
+  let hashesChecked = 0;
+
+  manifest.sources.forEach(source => {
+    // Staleness detection
+    if (source.last_fetched) {
+      const fetchDate = new Date(source.last_fetched);
+      const daysBehind = Math.floor((lastUpdate - fetchDate) / (1000 * 60 * 60 * 24));
+      if (daysBehind > STALENESS_THRESHOLD_DAYS) {
+        warn(`Stale source: ${source.id} — ${daysBehind} days behind last_full_update`);
+        staleCount++;
+      }
+    }
+
+    // SHA-256 hash verification (for files that have hashes)
+    if (source.sha256 && source.local_path.endsWith('.md')) {
+      const filePath = path.join(ROOT, source.local_path);
+      if (fs.existsSync(filePath)) {
+        const content = fs.readFileSync(filePath);
+        const hash = crypto.createHash('sha256').update(content).digest('hex');
+        if (hash !== source.sha256) {
+          warn(`Hash mismatch: ${source.local_path} — file changed since last recorded hash`);
+          hashMismatches++;
+        }
+        hashesChecked++;
+      }
+    }
+  });
+
+  if (staleCount === 0) {
+    ok('No stale sources detected');
+  } else {
+    warn(`${staleCount} source(s) are >${STALENESS_THRESHOLD_DAYS} days behind last_full_update`);
+  }
+
+  if (hashesChecked > 0) {
+    if (hashMismatches === 0) {
+      ok(`${hashesChecked} SHA-256 hashes verified`);
+    } else {
+      warn(`${hashMismatches}/${hashesChecked} hash mismatch(es) — files modified since last hash`);
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
 // Main
+// ═══════════════════════════════════════════════════════════
+
 function main() {
   console.log('═══════════════════════════════════════════════════════════');
   console.log('  Anthropic Docs Local - Validation');
+  console.log(isQuick ? '  (Quick mode — Layer 1 only)' : '  (Full — Layers 1-4)');
   console.log('═══════════════════════════════════════════════════════════');
 
   // Load manifest
@@ -292,10 +402,23 @@ function main() {
     process.exit(1);
   }
 
-  // Run validations
-  const { ids, paths } = validateManifest(manifest) || { ids: new Set(), paths: new Set() };
-  validateFiles(manifest, paths);
-  checkOrphans(paths);
+  // Layer 1: Schema (always runs)
+  const result = validateSchema(manifest);
+  if (!result) {
+    console.log('\n❌ Schema validation failed — cannot continue.\n');
+    process.exit(1);
+  }
+
+  if (!isQuick) {
+    // Layer 2: References
+    validateReferences(manifest, result.paths);
+
+    // Layer 3: Content
+    validateContent(manifest);
+
+    // Layer 4: Integrity
+    validateIntegrity(manifest);
+  }
 
   // Summary
   console.log('\n═══════════════════════════════════════════════════════════');
