@@ -130,6 +130,7 @@ At the start of every session working on this repo, read:
 1. `tasks/lessons.md` — accumulated patterns and corrections
 2. `tasks/update-failures.md` — source-specific failure history
 3. `tasks/discovery-log.md` — what's been found and added/deferred
+4. `tasks/meta-synthesis-log.md` — self-improvement history and pending items from Phase 4
 
 ## Self-Correction Protocol
 
@@ -162,6 +163,7 @@ Before committing changes:
 - [tasks/lessons.md](tasks/lessons.md) - Accumulated project lessons
 - [tasks/update-failures.md](tasks/update-failures.md) - Failure history with resolutions
 - [tasks/discovery-log.md](tasks/discovery-log.md) - Discovery run history
+- [tasks/meta-synthesis-log.md](tasks/meta-synthesis-log.md) - Self-improvement history from Phase 4
 - [docs/architecture.md](docs/architecture.md) - Generated architecture overview (auto-regenerated)
 - [docs/plans/meta-analysis-optimizations.md](docs/plans/meta-analysis-optimizations.md) - Optimization plan
 - [RALPH-PROMPT.md](RALPH-PROMPT.md) - Iterative improvement prompt

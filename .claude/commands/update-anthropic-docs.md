@@ -237,12 +237,33 @@ NO ACTION NEEDED:
 - **MEDIUM effort** (rewriting a function, restructuring a skill section): Add to `docs/plans/meta-analysis-optimizations.md` as a pending item
 - **HIGH effort** (new scripts, architectural changes): Add to the plan and ask the user whether to proceed
 
-#### 4e. Update memory files
+#### 4e. Staleness detection
+
+Check for sources that may be dead or relocated:
+
+1. Parse manifest.json for each source's `last_fetched` and `content_hash`
+2. Flag any source where **content has not changed for 3+ consecutive full updates** (same hash across runs)
+3. For flagged sources, attempt a fresh fetch to confirm:
+   - **Still accessible, just stable**: Mark as `stable` in the report (no action needed)
+   - **404 / connection error**: Mark as `possibly-dead` — log to `tasks/update-failures.md` and alert user
+   - **Redirects to new URL**: Mark as `relocated` — update `source_url` in manifest.json
+4. Output a staleness summary:
+   ```
+   === Staleness Report ===
+   Stable (unchanged but accessible): {count}
+   Possibly dead: {count}
+     - {source_id}: {url} — {error}
+   Relocated: {count}
+     - {source_id}: {old_url} → {new_url}
+   ```
+
+#### 4f. Update memory files
 
 After the meta-synthesis:
-1. **Update `tasks/lessons.md`** with any new patterns discovered
-2. **Update `tasks/discovery-log.md`** if new sources were found in Phase 2.5
-3. **Log any failures** from this update run to `tasks/update-failures.md`
+1. **Append to `tasks/meta-synthesis-log.md`** — structured entry for this run (see log format in that file)
+2. **Update `tasks/lessons.md`** with any new patterns discovered
+3. **Update `tasks/discovery-log.md`** if new sources were found in Phase 2.5
+4. **Log any failures** from this update run to `tasks/update-failures.md`
 
 This creates a continuous improvement loop: content updates feed infrastructure improvements, which produce better content updates.
 
