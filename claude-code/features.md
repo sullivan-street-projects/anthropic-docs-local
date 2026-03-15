@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment.
 
-> **Last updated:** March 11, 2026
+> **Last updated:** March 15, 2026
 
 ## Extension Architecture
 

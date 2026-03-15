@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 This directory contains the full PDF versions of Anthropic's key research papers from arXiv. These papers form the theoretical and empirical foundation for Claude's development.
 
-> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 9 new (2025-2026, not yet downloaded)
+> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 10 new (2025-2026, not yet downloaded)
 
 ## New Papers (2025-2026)
 
@@ -27,6 +27,7 @@ The following papers have been identified since the last full update. PDFs have 
 | The Assistant Axis: Situating and Stabilizing the Default Persona of LLMs | [2601.10387](https://arxiv.org/abs/2601.10387) | Jan 2026 | Identifies leading persona-space component ("Assistant Axis") and activation capping technique to reduce persona-based jailbreaks. Anthropic Fellows Program. |
 | The Hot Mess of AI: Misalignment Scaling with Intelligence and Task Complexity | [2601.23045](https://arxiv.org/abs/2601.23045) | Jan 2026 | ICLR 2026. As tasks get harder, model failures become increasingly incoherent rather than systematically misaligned. Anthropic Fellows Program. By Hägele et al. |
 | Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption | [2511.15080](https://arxiv.org/abs/2511.15080) | Nov 2025 | Documents Claude usage patterns in 150+ countries, finding directive task delegation rose from 27% to 39% in eight months. |
+| The Impact of AI Assistance on Coding Skills | [2601.20245](https://arxiv.org/abs/2601.20245) | Jan 2026 | Experiment measuring how AI coding assistance affects developer skill retention. v2 corrected statistical errors from v1. |
 
 ### Non-arXiv Notable Research (2025)
 
@@ -103,4 +104,4 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
-Last checked for new papers: March 11, 2026. (Note: arXiv search was unavailable during this update cycle; no new papers could be discovered.)
+Last checked for new papers: March 15, 2026.

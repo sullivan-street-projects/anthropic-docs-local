@@ -2,41 +2,45 @@
 title: "API Errors"
 source_url: "https://platform.claude.com/docs/en/api/errors"
 source_type: "web-extracted"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "api"
 ---
 
-# API Errors
+# Errors
 
-## HTTP Error Codes
+## HTTP errors
 
-| Code | Type | Description |
-|:-----|:-----|:------------|
-| 400 | `invalid_request_error` | Issue with request format or content |
-| 401 | `authentication_error` | Issue with API key |
-| 403 | `permission_error` | API key lacks permission for the resource |
-| 404 | `not_found_error` | Requested resource not found |
-| 413 | `request_too_large` | Request exceeds maximum allowed bytes (e.g., 32 MB for Messages API) |
-| 429 | `rate_limit_error` | Account hit rate limit |
-| 500 | `api_error` | Unexpected internal error |
-| 529 | `overloaded_error` | API temporarily overloaded |
+The API follows a predictable HTTP error code format:
 
-**Note:** 529 errors occur during high traffic across all users. In rare cases, sharp usage increases may trigger 429 errors due to acceleration limits. Ramp traffic gradually and maintain consistent patterns.
+* 400 - `invalid_request_error`: There was an issue with the format or content of your request. This error type may also be used for other 4XX status codes not listed below.
+* 401 - `authentication_error`: There's an issue with your API key.
+* 403 - `permission_error`: Your API key does not have permission to use the specified resource.
+* 404 - `not_found_error`: The requested resource was not found.
+* 413 - `request_too_large`: Request exceeds the maximum allowed number of bytes. The maximum request size is 32 MB for standard API endpoints.
+* 429 - `rate_limit_error`: Your account has hit a rate limit.
+* 500 - `api_error`: An unexpected error has occurred internal to Anthropic's systems.
+* 529 - `overloaded_error`: The API is temporarily overloaded.
 
-When streaming via SSE, errors can occur after a 200 response is returned.
+> **Warning:** 529 errors can occur when APIs experience high traffic across all users. In rare cases, if your organization has a sharp increase in usage, you might see 429 errors due to acceleration limits on the API. To avoid hitting acceleration limits, ramp up your traffic gradually and maintain consistent usage patterns.
 
-## Request Size Limits
+When receiving a [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) response via SSE, it's possible that an error can occur after returning a 200 response, in which case error handling wouldn't follow these standard mechanisms.
 
-| Endpoint Type | Maximum Size |
+## Request size limits
+
+The API enforces request size limits to ensure optimal performance:
+
+| Endpoint Type | Maximum Request Size |
 |:---|:---|
 | Messages API | 32 MB |
 | Token Counting API | 32 MB |
-| Batch API | 256 MB |
-| Files API | 500 MB |
+| [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | 256 MB |
+| [Files API](https://platform.claude.com/docs/en/build-with-claude/files) | 500 MB |
 
-Exceeding limits returns a 413 `request_too_large` error from Cloudflare before reaching API servers.
+If you exceed these limits, you'll receive a 413 `request_too_large` error. The error is returned from Cloudflare before the request reaches the API servers.
 
-## Error Response Format
+## Error shapes
+
+Errors are always returned as JSON, with a top-level `error` object that always includes a `type` and `message` value. The response also includes a `request_id` field for easier tracking and debugging. For example:
 
 ```json
 {
@@ -49,13 +53,19 @@ Exceeding limits returns a 413 `request_too_large` error from Cloudflare before 
 }
 ```
 
-All error responses now include a `request_id` field in the response body (in addition to the `request-id` response header). Include this when contacting support.
+In accordance with the [versioning](https://platform.claude.com/docs/en/api/versioning) policy, the values within these objects may expand, and it is possible that the `type` values will grow over time.
 
-## Request ID
+## Request id
 
-Every API response includes a `request-id` header. Include this when contacting support.
+Every API response includes a unique `request-id` header. This header contains a value such as `req_018EeWyXxfu5pfWkrYcMdjWG`. When contacting support about a specific request, include this ID to help quickly resolve your issue.
+
+The official SDKs provide this value as a property on top-level response objects:
 
 ```python
+import anthropic
+
+client = anthropic.Anthropic()
+
 message = client.messages.create(
     model="claude-opus-4-6",
     max_tokens=1024,
@@ -64,19 +74,59 @@ message = client.messages.create(
 print(f"Request ID: {message._request_id}")
 ```
 
-## Long Requests
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
 
-Use streaming Messages API or Message Batches API for requests over 10 minutes. Networks may drop idle connections. Set TCP socket keep-alive to reduce timeout impact.
+const client = new Anthropic();
 
-SDKs validate that non-streaming requests won't exceed 10-minute timeout and set TCP keep-alive.
+const message = await client.messages.create({
+  model: "claude-opus-4-6",
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Hello, Claude" }]
+});
+console.log("Request ID:", message._request_id);
+```
 
-For large `max_tokens`, use `.stream()` with `.get_final_message()` (Python) or `.finalMessage()` (TypeScript) to get the complete Message without event handling.
+## Long requests
 
-## Common Validation Errors
+> **Warning:** Consider using the [streaming Messages API](https://platform.claude.com/docs/en/build-with-claude/streaming) or [Message Batches API](https://platform.claude.com/docs/en/api/creating-message-batches) for long running requests, especially those over 10 minutes.
 
-### Prefill Not Supported
+Avoid setting a large `max_tokens` value without using the streaming Messages API or Message Batches API:
 
-Claude Opus 4.6 does not support prefilling assistant messages:
+- Some networks may drop idle connections after a variable period of time, which can cause the request to fail or timeout without receiving a response from Anthropic.
+- Networks differ in reliability; the Message Batches API can help you manage the risk of network issues by allowing you to poll for results rather than requiring an uninterrupted network connection.
+
+If you are building a direct API integration, you should be aware that setting a [TCP socket keep-alive](https://tldp.org/HOWTO/TCP-Keepalive-HOWTO/programming.html) can reduce the impact of idle connection timeouts on some networks.
+
+The [SDKs](https://platform.claude.com/docs/en/api/client-sdks) validate that your non-streaming Messages API requests are not expected to exceed a 10 minute timeout and also will set a socket option for TCP keep-alive.
+
+If you don't need to process events incrementally, use `.stream()` with `.get_final_message()` (Python) or `.finalMessage()` (TypeScript) to get the complete `Message` object without writing event-handling code:
+
+```python
+with client.messages.stream(
+    max_tokens=128000,
+    messages=[{"role": "user", "content": "Write a detailed analysis..."}],
+    model="claude-opus-4-6",
+) as stream:
+    message = stream.get_final_message()
+```
+
+```typescript
+const stream = client.messages.stream({
+  max_tokens: 128000,
+  messages: [{ role: "user", content: "Write a detailed analysis..." }],
+  model: "claude-opus-4-6"
+});
+const message = await stream.finalMessage();
+```
+
+See [Streaming Messages](https://platform.claude.com/docs/en/build-with-claude/streaming#get-the-final-message-without-handling-events) for more details.
+
+## Common validation errors
+
+### Prefill not supported
+
+Claude Opus 4.6 does not support prefilling assistant messages. Sending a request with a prefilled last assistant message to this model returns a 400 `invalid_request_error`:
 
 ```json
 {
@@ -88,20 +138,4 @@ Claude Opus 4.6 does not support prefilling assistant messages:
 }
 ```
 
-Use structured outputs, system prompt instructions, or `output_config.format` instead.
-
-### Request Too Large
-
-When a request exceeds the size limit for the endpoint (e.g., 32 MB for Messages API):
-
-```json
-{
-  "type": "error",
-  "error": {
-    "type": "request_too_large",
-    "message": "Request body exceeds maximum allowed size of 33554432 bytes."
-  }
-}
-```
-
-Reduce request size by using the Files API to upload large content separately, or use the Batch API (256 MB limit) for bulk processing.
+Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs), system prompt instructions, or [`output_config.format`](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#json-outputs) instead.

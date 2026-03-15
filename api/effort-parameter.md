@@ -2,7 +2,7 @@
 title: "Effort Parameter (Fast Mode)"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/effort"
 source_type: "web-extracted"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "api"
 ---
 

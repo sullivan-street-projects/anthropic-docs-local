@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,13 +10,13 @@ category: "claude-code"
 
 Hooks are user-defined shell commands, HTTP endpoints, or LLM prompts that execute automatically at specific points in Claude Code's lifecycle. Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
 
-> **Last updated:** March 11, 2026
+> **Last updated:** March 15, 2026
 
 ## Hook Lifecycle
 
 Hooks fire at specific points during a Claude Code session. When an event fires and a matcher matches, Claude Code passes JSON context about the event to your hook handler. For command hooks, input arrives on stdin. For HTTP hooks, it arrives as the POST request body. Your handler can then inspect the input, take action, and optionally return a decision. Some events fire once per session, while others fire repeatedly inside the agentic loop.
 
-## Hook Events (18 Total)
+## Hook Events (24 Total)
 
 | Event | Description | Matcher | Fires |
 |-------|-------------|---------|-------|
@@ -37,7 +37,10 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `WorktreeCreate` | Worktree being created via `--worktree` or `isolation: "worktree"` | No matcher support | Worktree creation |
 | `WorktreeRemove` | Worktree being removed at session exit or subagent finish | No matcher support | Worktree removal |
 | `PreCompact` | Before context compaction | `manual`, `auto` | Each compaction |
-| `SessionEnd` | Session terminates | `clear`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other` | Once per session |
+| `PostCompact` | After context compaction completes | `manual`, `auto` | Each compaction |
+| `Elicitation` | MCP server requests structured user input | MCP server name | MCP elicitation requests |
+| `ElicitationResult` | After MCP elicitation response from user | MCP server name | After elicitation response |
+| `SessionEnd` | Session terminates (1.5s default timeout) | `clear`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other` | Once per session |
 
 ## Hook Types
 
@@ -197,8 +200,9 @@ hooks:
 | `SessionEnd` | Why session ended | `clear`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other` |
 | `Notification` | Notification type | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog` |
 | `SubagentStart`, `SubagentStop` | Agent type | `Bash`, `Explore`, `Plan`, or custom agent names |
-| `PreCompact` | What triggered compaction | `manual`, `auto` |
+| `PreCompact`, `PostCompact` | What triggered compaction | `manual`, `auto` |
 | `ConfigChange` | Configuration source | `user_settings`, `project_settings`, `local_settings`, `policy_settings`, `skills` |
+| `Elicitation`, `ElicitationResult` | MCP server name | Server-specific elicitation handling |
 | `UserPromptSubmit`, `Stop`, `TeammateIdle`, `TaskCompleted`, `WorktreeCreate`, `WorktreeRemove`, `InstructionsLoaded` | No matcher support | Always fires on every occurrence |
 
 ### Match MCP Tools
@@ -241,6 +245,9 @@ Use regex patterns to target specific MCP tools or groups:
 | `SessionStart` | No | Shows stderr to user only |
 | `SessionEnd` | No | Shows stderr to user only |
 | `PreCompact` | No | Shows stderr to user only |
+| `PostCompact` | No | Shows stderr to user only |
+| `Elicitation` | Yes | Denies the elicitation request |
+| `ElicitationResult` | Yes | Blocks user response, becomes decline |
 | `WorktreeRemove` | No | Failures logged in debug mode only |
 | `InstructionsLoaded` | No | Exit code is ignored |
 
@@ -254,8 +261,10 @@ Use regex patterns to target specific MCP tools or groups:
 | TeammateIdle, TaskCompleted | Exit code or `continue: false` | Exit code 2 blocks; JSON `continue: false` also stops |
 | PreToolUse | `hookSpecificOutput` | `permissionDecision` (allow/deny/ask), `permissionDecisionReason` |
 | PermissionRequest | `hookSpecificOutput` | `decision.behavior` (allow/deny) |
+| Elicitation | `hookSpecificOutput` | `action` (accept/decline/cancel), `content` |
+| ElicitationResult | `hookSpecificOutput` | `action` (accept/decline/cancel), `content` (override) |
 | WorktreeCreate | stdout path | Print absolute path to created worktree |
-| WorktreeRemove, Notification, SessionEnd, PreCompact, InstructionsLoaded | None | No decision control (side effects only) |
+| WorktreeRemove, Notification, SessionEnd, PreCompact, PostCompact, InstructionsLoaded | None | No decision control (side effects only) |
 
 ### PreToolUse Output
 
@@ -338,6 +347,32 @@ Set `"disableAllHooks": true` in settings or use the toggle in `/hooks` menu. Th
 
 Direct edits to hooks in settings files do not take effect immediately. Claude Code captures a snapshot at startup. If hooks are modified externally, Claude Code warns you and requires review in the `/hooks` menu before changes apply.
 
+## Elicitation Hook Output
+
+### Elicitation (respond programmatically to MCP input requests)
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "Elicitation",
+    "action": "accept|decline|cancel",
+    "content": { "field1": "value1" }
+  }
+}
+```
+
+### ElicitationResult (modify or block user response)
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "ElicitationResult",
+    "action": "accept|decline|cancel",
+    "content": { "field1": "override_value" }
+  }
+}
+```
+
 ## Environment Variables
 
 | Variable | Description |
@@ -346,6 +381,7 @@ Direct edits to hooks in settings files do not take effect immediately. Claude C
 | `${CLAUDE_PLUGIN_ROOT}` | Plugin root directory |
 | `CLAUDE_ENV_FILE` | File path for SessionStart hooks to persist env vars |
 | `$CLAUDE_CODE_REMOTE` | Set to "true" in web environments |
+| `CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS` | Override default 1.5s timeout for SessionEnd hooks |
 
 ## How Hooks Layer
 

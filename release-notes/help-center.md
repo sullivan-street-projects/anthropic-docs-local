@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -15,6 +15,12 @@ Updates to Claude consumer and business applications.
 ---
 
 ## March 2026
+
+### March 12, 2026
+- Claude now generates custom charts and diagrams directly within chat responses, enabling users to visualize data without leaving the conversation interface.
+
+### March 11, 2026
+- The Excel and PowerPoint add-ins were enhanced to share full conversation context between applications. Skill support and LLM gateway connectivity added for users on Amazon Bedrock, Google Cloud Vertex AI, and Microsoft Foundry platforms.
 
 ### March 2, 2026
 - Memory capabilities now available to all Claude users, including free plans. Users can build on previous context through chat history, with chat search functionality and the ability to import/export memory data.
