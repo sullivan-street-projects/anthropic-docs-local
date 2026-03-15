@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -434,6 +434,40 @@ Before committing any MCP configuration:
 - [ ] OAuth servers don't include static tokens in committed config
 - [ ] Team members have been informed of required credentials
 - [ ] `grep -rn 'sk-\|ghp_\|Bearer [a-z]' .mcp.json` returns no results
+
+---
+
+## 10. MCP Elicitation for Interactive Auth
+
+As of Claude Code 2.1.76, MCP servers can request structured input mid-task via **elicitation**. This is useful for interactive authentication flows where the server needs credentials it can't get from environment variables.
+
+Two modes are available:
+
+- **Form mode**: The server presents form fields (e.g., username/password). Claude Code shows an interactive dialog.
+- **URL mode**: The server opens a browser URL for OAuth or approval flows.
+
+To auto-respond without showing a dialog (e.g., for CI/CD or automated pipelines), use the `Elicitation` hook:
+
+```json
+{
+  "hooks": {
+    "Elicitation": [
+      {
+        "matcher": "my-auth-server",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"action\": \"accept\", \"content\": {\"token\": \"'$MY_TOKEN'\"}}'",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+See [claude-code/hooks.md](../claude-code/hooks.md) for the full `Elicitation` and `ElicitationResult` hook schemas.
 
 ---
 

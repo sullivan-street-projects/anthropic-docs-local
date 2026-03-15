@@ -124,6 +124,23 @@ Types:
 - Refactor: Structure changes without content changes
 ```
 
+## Session Startup
+
+At the start of every session working on this repo, read:
+1. `tasks/lessons.md` — accumulated patterns and corrections
+2. `tasks/update-failures.md` — source-specific failure history
+3. `tasks/discovery-log.md` — what's been found and added/deferred
+4. `tasks/meta-synthesis-log.md` — self-improvement history and pending items from Phase 4
+
+## Self-Correction Protocol
+
+After any correction from the user or any update failure:
+1. Log the failure in `tasks/update-failures.md` with: source_id, error, resolution
+2. If it reveals a pattern, add a rule to `tasks/lessons.md`
+3. If it's a recurring issue, add a check to `scripts/validate.js`
+
+This ensures mistakes are logged once, fixed permanently, and never repeated.
+
 ## Known Limitations
 
 1. **Web-extracted sources** may drift from originals if page structure changes
@@ -134,13 +151,19 @@ Types:
 ## Verification
 
 Before committing changes:
-1. Run `node scripts/validate.js` - all checks must pass
-2. Spot-check changed files for obvious issues
-3. Verify manifest.json is valid JSON
-4. Check that frontmatter timestamps are current
+1. Run `node scripts/validate.js` — all checks must pass (4-layer validation)
+2. Run `node scripts/generate-architecture.js` — keep architecture doc current
+3. Spot-check changed files for obvious issues
+4. Verify manifest.json is valid JSON
+5. Check that frontmatter timestamps are current
 
 ## Related Files
 
 - [manifest.json](manifest.json) - Source registry
+- [tasks/lessons.md](tasks/lessons.md) - Accumulated project lessons
+- [tasks/update-failures.md](tasks/update-failures.md) - Failure history with resolutions
+- [tasks/discovery-log.md](tasks/discovery-log.md) - Discovery run history
+- [tasks/meta-synthesis-log.md](tasks/meta-synthesis-log.md) - Self-improvement history from Phase 4
+- [docs/architecture.md](docs/architecture.md) - Generated architecture overview (auto-regenerated)
+- [docs/plans/meta-analysis-optimizations.md](docs/plans/meta-analysis-optimizations.md) - Optimization plan
 - [RALPH-PROMPT.md](RALPH-PROMPT.md) - Iterative improvement prompt
-- [docs/architecture.md](docs/architecture.md) - Generated architecture overview

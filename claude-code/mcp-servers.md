@@ -382,6 +382,17 @@ claude mcp add --transport stdio db -- npx -y @bytebase/dbhub \
   --dsn "postgresql://readonly:pass@prod.db.com:5432/analytics"
 ```
 
+## MCP Elicitation
+
+MCP servers can request structured input from you mid-task using elicitation. When a server needs information it can't get on its own, Claude Code displays an interactive dialog and passes your response back to the server.
+
+Servers can request input in two ways:
+
+- **Form mode**: Claude Code shows a dialog with form fields defined by the server (e.g., a username and password prompt). Fill in the fields and submit.
+- **URL mode**: Claude Code opens a browser URL for authentication or approval. Complete the flow in the browser, then confirm in the CLI.
+
+To auto-respond to elicitation requests without showing a dialog, use the `Elicitation` hook.
+
 ## Sources
 
 - [MCP Documentation](https://code.claude.com/docs/en/mcp)

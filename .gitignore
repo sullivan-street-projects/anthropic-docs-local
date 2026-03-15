@@ -9,8 +9,10 @@
 .claude/worktrees/
 .claude/agent-memory/
 
-# Plans (generated, not source of truth)
-docs/plans/
+# Plans - tracked for project optimization history
+
+# Update session state (ephemeral, used for --resume)
+.update-session.json
 
 # Archive
 .archive/

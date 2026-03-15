@@ -43,7 +43,9 @@
         "cookbooks",
         "release-notes",
         "github-repos",
-        "research"
+        "research",
+        "news",
+        "engineering"
       ],
       "description": "Content category (must match manifest)"
     },

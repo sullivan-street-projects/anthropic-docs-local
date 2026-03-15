@@ -62,6 +62,7 @@ generator: "scripts/generate-architecture.js"
 | Categories | ${Object.keys(byCategory).length} |
 | Schema Version | ${manifest.schema_version} |
 | Last Full Update | ${manifest.last_full_update} |
+| Last Discovery Run | ${manifest.last_discovery_run || 'N/A'} |
 
 ## Source Types Distribution
 

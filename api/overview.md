@@ -10,6 +10,8 @@ category: "api"
 
 The Claude API is a RESTful API at `https://api.anthropic.com` that provides programmatic access to Claude models. The primary API is the Messages API (`POST /v1/messages`) for conversational interactions.
 
+> **New to Claude?** Start with [Get started](https://platform.claude.com/docs/en/get-started) for prerequisites and your first API call, or see [Working with Messages](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) for request/response patterns and examples.
+
 ## Prerequisites
 
 To use the Claude API, you'll need:
@@ -21,17 +23,21 @@ For step-by-step setup instructions, see [Get started](https://platform.claude.c
 
 ## Available APIs
 
+The Claude API includes the following APIs:
+
 **General Availability:**
-- **Messages API** (`POST /v1/messages`): Send messages to Claude for conversational interactions
-- **Message Batches API** (`POST /v1/messages/batches`): Process large volumes of Messages requests asynchronously with 50% cost reduction
-- **Token Counting API** (`POST /v1/messages/count_tokens`): Count tokens in a message before sending to manage costs and rate limits
-- **Models API** (`GET /v1/models`): List available Claude models and their details
+- **[Messages API](https://platform.claude.com/docs/en/api/messages)**: Send messages to Claude for conversational interactions (`POST /v1/messages`)
+- **[Message Batches API](https://platform.claude.com/docs/en/api/creating-message-batches)**: Process large volumes of Messages requests asynchronously with 50% cost reduction (`POST /v1/messages/batches`)
+- **[Token Counting API](https://platform.claude.com/docs/en/api/messages-count-tokens)**: Count tokens in a message before sending to manage costs and rate limits (`POST /v1/messages/count_tokens`)
+- **[Models API](https://platform.claude.com/docs/en/api/models-list)**: List available Claude models and their details (`GET /v1/models`)
 
 **Beta:**
-- **Files API** (`POST /v1/files`, `GET /v1/files`): Upload and manage files for use across multiple API calls
-- **Skills API** (`POST /v1/skills`, `GET /v1/skills`): Create and manage custom agent skills
+- **[Files API](https://platform.claude.com/docs/en/api/files-create)**: Upload and manage files for use across multiple API calls (`POST /v1/files`, `GET /v1/files`)
+- **[Skills API](https://platform.claude.com/docs/en/api/skills/create-skill)**: Create and manage custom agent skills (`POST /v1/skills`, `GET /v1/skills`)
 
-The Messages API supports an optional `inference_geo` parameter for data residency controls, allowing you to specify where model inference runs.
+For the complete API reference with all endpoints, parameters, and response schemas, explore the API reference pages listed in the navigation. To access beta features, see [Beta headers](https://platform.claude.com/docs/en/api/beta-headers).
+
+The Messages API supports an optional `inference_geo` parameter for [data residency controls](https://platform.claude.com/docs/en/build-with-claude/data-residency), allowing you to specify where model inference runs.
 
 ## Authentication
 
@@ -43,25 +49,15 @@ All requests to the Claude API must include these headers:
 | `anthropic-version` | API version (e.g., `2023-06-01`) | Yes |
 | `content-type` | `application/json` | Yes |
 
-SDKs handle these headers automatically.
+If you are using the [Client SDKs](#client-sdks), the SDK will send these headers automatically. For API versioning details, see [API versions](https://platform.claude.com/docs/en/api/versioning).
 
 ### Getting API Keys
 
-The API is made available via the web [Console](https://platform.claude.com). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and control spend by use case.
+The API is made available via the web [Console](https://platform.claude.com/). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and [control spend](https://platform.claude.com/docs/en/api/rate-limits) by use case.
 
 ## Client SDKs
 
-Official SDKs are available in 7 languages:
-
-| SDK | Status | Install Command |
-|:----|:-------|:----------------|
-| Python | GA | `pip install anthropic` |
-| TypeScript | GA | `npm install @anthropic-ai/sdk` |
-| Java | GA | Maven/Gradle: `com.anthropic:anthropic-java` |
-| Go | GA | `go get github.com/anthropics/anthropic-sdk-go` |
-| Ruby | GA | `bundler add anthropic` |
-| C# | Beta | `dotnet add package Anthropic` |
-| PHP | Beta | `composer require anthropic-ai/sdk` |
+Anthropic provides official SDKs that simplify API integration by handling authentication, request formatting, error handling, and more.
 
 **Benefits:**
 - Automatic header management (x-api-key, anthropic-version, content-type)
@@ -82,7 +78,11 @@ message = client.messages.create(
 )
 ```
 
+For a list of client SDKs and their respective installation instructions, see [Client SDKs](https://platform.claude.com/docs/en/api/client-sdks).
+
 ## Claude API vs Third-Party Platforms
+
+Claude is available through Anthropic's direct API and through partner platforms. Choose based on your infrastructure, compliance requirements, and pricing preferences.
 
 ### Claude API
 
@@ -97,31 +97,57 @@ Access Claude through AWS, Google Cloud, or Microsoft Azure:
 - **May have feature delays** or differences from the direct API
 - **Best for**: Existing cloud commitments, specific compliance requirements, consolidated cloud billing
 
-| Platform | Provider | Best For |
-|----------|----------|----------|
-| Claude API | Anthropic | Direct access, latest features first |
-| Amazon Bedrock | AWS | Existing AWS commitments, consolidated billing |
-| Vertex AI | Google Cloud | GCP integrations |
-| Azure AI (Foundry) | Microsoft | Azure ecosystem |
+| Platform | Provider | Documentation |
+|----------|----------|---------------|
+| Amazon Bedrock | AWS | [Claude on Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock) |
+| Vertex AI | Google Cloud | [Claude on Vertex AI](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai) |
+| Azure AI | Microsoft Azure | [Claude on Azure AI](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
 
-## Request Size Limits
+For feature availability across platforms, see the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
+
+## Request and Response Format
+
+### Request Size Limits
+
+The API has different maximum request sizes depending on the endpoint:
 
 | Endpoint | Maximum Size |
 |----------|--------------|
 | Standard endpoints (Messages, Token Counting) | 32 MB |
-| Batch API | 256 MB |
-| Files API | 500 MB |
+| [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | 256 MB |
+| [Files API](https://platform.claude.com/docs/en/build-with-claude/files) | 500 MB |
 
-## Response Headers
+If you exceed these limits, you'll receive a 413 `request_too_large` error.
+
+> Third-party platforms have their own request size limits: Vertex AI limits requests to 30 MB, and Amazon Bedrock limits requests to 20 MB. Consult your platform's documentation for current values.
+
+### Response Headers
+
+The Claude API includes the following headers in every response:
 
 - `request-id`: A globally unique identifier for the request
-- `anthropic-organization-id`: The organization ID associated with the API key
+- `anthropic-organization-id`: The organization ID associated with the API key used in the request
 
 ## Rate Limits and Availability
 
-The API enforces rate limits organized into usage tiers that increase automatically. Each tier has spend limits (monthly cost cap), RPM (requests per minute), and TPM (tokens per minute). View current limits in Console. Priority Tier with committed spend is available via sales.
+### Rate Limits
+
+The API enforces rate limits and spend limits to prevent misuse and manage capacity. Limits are organized into usage tiers that increase automatically as you use the API. Each tier has:
+
+- **Spend limits**: Maximum monthly cost for API usage
+- **Rate limits**: Maximum number of requests per minute (RPM) and tokens per minute (TPM)
+
+You can view your organization's current limits in the [Console](https://platform.claude.com/settings/limits). For higher limits or Priority Tier (enhanced service levels with committed spend), contact sales through the Console.
+
+For detailed information about limits, tiers, and the token bucket algorithm used for rate limiting, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits).
+
+### Availability
+
+The Claude API is available in [many countries and regions](https://platform.claude.com/docs/en/api/supported-regions) worldwide. Check the supported regions page to confirm availability in your location.
 
 ## Basic Example
+
+Here's a minimal request using the Messages API:
 
 ```bash
 curl https://api.anthropic.com/v1/messages \
@@ -143,9 +169,19 @@ Response:
   "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
   "type": "message",
   "role": "assistant",
-  "content": [{"type": "text", "text": "Hello! How can I assist you today?"}],
+  "content": [
+    {
+      "type": "text",
+      "text": "Hello! How can I assist you today?"
+    }
+  ],
   "model": "claude-opus-4-6",
   "stop_reason": "end_turn",
-  "usage": {"input_tokens": 12, "output_tokens": 8}
+  "usage": {
+    "input_tokens": 12,
+    "output_tokens": 8
+  }
 }
 ```
+
+For complete examples and tutorials, see [Get started](https://platform.claude.com/docs/en/get-started) and [Working with Messages](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
