@@ -1,60 +1,71 @@
 ---
 title: "Weekly Update Summary"
-date: "2026-03-11"
+date: "2026-03-15"
 ---
 
-# Weekly Update Summary — 2026-03-11
-
-**72 files changed** | 1,642 insertions | 342 deletions
+# Weekly Update Summary — 2026-03-15
 
 ## What Changed
 
-### Major Content Updates
-- **claude-code/CHANGELOG.md** — +961 lines of new changelog entries covering recent Claude Code releases
-- **claude-code/hooks.md** — +252 lines expanding hooks documentation with new hook types and configuration patterns
-- **release-notes/api.md** — +93 lines of new API release notes
-- **claude-code/features.md** — +72 lines of expanded feature documentation
-- **claude-code/plugins.md** — +54 lines of new plugin system documentation
+### claude-code (8 files)
+- **CHANGELOG.md** — New versions v2.1.75 and v2.1.76 with MCP elicitation support, `-n`/`--name` CLI flag, `/effort` slash command, `worktree.sparsePaths` setting, `PostCompact` hook, and numerous bug fixes
+- **features.md** — Added Remote Control and Chrome Integration to platform support; renamed "Task" tool to "Agent"; added `/loop` and `/resume` slash commands
+- **hooks.md** — Added 3 new hook events: `PostCompact`, `Elicitation`, `ElicitationResult` (18 → 21 total). Full documentation with JSON schemas for each
+- **mcp-servers.md** — Added new "MCP Elicitation" section documenting form-mode and URL-mode elicitation support
+- **plugins.md** — Timestamp refresh
+- **scheduled-tasks.md** — Added version requirement note (v2.1.72+)
+- **README.md**, static community posts — Timestamp refresh
 
-### Repository Index
-- **github-repos/index.md** — Restructured with 73 public repos indexed; top repos by stars: skills (91,024), claude-code (76,864), claude-agent-sdk-demos (1,671)
+### api (15 files)
+- **context-windows.md** — Updated to reflect 1M context window GA for Opus 4.6 and Sonnet 4.6 (no more beta header)
+- **vision.md** — Image limit raised from 100 to 600 (100 for 200k-token context models)
+- All other API docs — Timestamp refresh
 
-### Timestamp Refreshes
-- All 72 manifest sources refreshed with current `fetched_at` timestamps
-- Categories updated: api (15), models (6), claude-code (9), agent-sdk (4), sdks (5), skills (3), cookbooks (1), release-notes (3), github-repos (1), research (9), news (7), engineering (7), arxiv-pdfs (1)
+### models (6 files)
+- **overview.md** — Updated context window from "200K / 1M (beta)" to "1M tokens" (now GA)
+- Model pages and deprecations — Timestamp refresh
 
-### Source Types Processed
-| Type | Count | Method |
-|------|-------|--------|
-| github-raw | 8 | `curl -sL` verbatim download |
-| github-api | 1 | GitHub API fetch + markdown table generation |
-| web-extracted | ~55 | WebFetch content extraction |
-| manual | 7 | WebFetch + re-synthesis |
-| arxiv-pdfs | 1 | Checked for updates |
+### release-notes (3 files)
+- **platform.md** — Added March 13 entry: 1M token context window GA, removed dedicated 1M rate limits, raised media limit to 600
+- **api.md** — Same March 13 entry added
+- **help-center.md** — Added March 12 (inline charts/diagrams) and March 11 (Excel/PowerPoint add-in, LLM gateway connectivity for Bedrock/Vertex/Foundry)
+
+### agent-sdk (4 files)
+- **README.md** — Renamed "Task" tool to "Agent" tool throughout
+- **examples.md** — Updated all `allowedTools`/`allowed_tools` arrays from "Task" to "Agent"
+- **quickstart.md**, **typescript-v2-preview.md** — Timestamp refresh
+
+### github-repos (1 file)
+- **index.md** — 3 new repos (73 → 76 total), star counts updated across all repos (skills: 91K→94K, claude-code: 77K→78K)
+
+### sdks (4 files), skills (3 files), cookbooks (1 file), research (8 files), news (7 files), engineering (7 files)
+- All timestamp refreshes; no content changes detected
+
+### manifest.json
+- `last_full_update` set to `2026-03-15T00:00:00Z`
+- All 77 source `last_fetched` timestamps updated
 
 ## So What — Why It Matters
 
-1. **Claude Code hooks documentation expansion** (+252 lines) indicates Anthropic is investing heavily in the hooks system for extensibility — worth reviewing if you build Claude Code integrations or custom workflows.
+1. **1M context window is now GA** — The biggest change this week. Opus 4.6 and Sonnet 4.6 no longer need the `anthropic-beta: max-tokens-3-5-sonnet-2025-04-14` header for 1M context. This simplifies API integration and removes the dedicated 1M rate limit tier. If you're using extended context, update your code to remove the beta header.
 
-2. **Claude Code CHANGELOG surge** (+961 lines) suggests a high-velocity release cadence. Multiple new features and fixes shipped since last update. Key areas to watch: plugin system maturity, hook lifecycle events, and new CLI capabilities.
+2. **Media limit raised 6x (100 → 600)** — You can now send up to 600 images or PDF pages in a single request with 1M-context models. This is significant for document processing and multi-image analysis workflows.
 
-3. **API release notes growth** (+93 lines) points to active API iteration — check for new parameters, model versions, or endpoint changes that may affect production integrations.
+3. **MCP Elicitation** — New protocol feature allowing MCP servers to request structured input from users mid-task (form fields, URL-mode). Three new hook events (`PostCompact`, `Elicitation`, `ElicitationResult`) enable automation of these interactions. This unlocks more sophisticated MCP server workflows.
 
-4. **GitHub repo count at 73** — the Anthropic open-source ecosystem continues to expand. New repos may contain useful reference implementations or SDK extensions.
+4. **Tool rename: "Task" → "Agent"** — The subagent spawning tool has been renamed across both Claude Code and Agent SDK. If you have code or documentation referencing the "Task" tool, update references to "Agent".
+
+5. **Remote Control & Chrome Integration** — New platform features for controlling Claude Code from Claude.ai (`claude remote-control`) and browser automation via `--chrome` flag.
+
+6. **Claude Code v2.1.75-v2.1.76** — Notable additions: `/effort` slash command for adjusting reasoning effort, `worktree.sparsePaths` for limiting worktree scope, `-n`/`--name` flag for naming sessions.
 
 ## Action Items
 
-- [ ] Review claude-code/CHANGELOG.md for breaking changes or new features relevant to current projects
-- [ ] Check claude-code/hooks.md for new hook types that could improve automation workflows
-- [ ] Scan release-notes/api.md for API changes that may require client updates
-- [ ] Merge this worktree branch (`claude/exciting-perlman`) into master
+- **Remove beta headers** for 1M context window usage — now GA, no header required
+- **Update tool references** from "Task" to "Agent" in any custom integrations
+- **Review MCP elicitation hooks** if building MCP servers that need user input
+- **Note**: `agent-sdk` GitHub repo returned 404 — may have been renamed or moved; investigate source URL
 
-## Unmerged Remote Branches
+## Errors
 
-The following remote branches have commits not yet merged to master:
-- `origin/claude/exciting-perlman` (this update)
-- `origin/claude/musing-fermi`
-- `origin/claude/update-project-pGziU`
-- `origin/claude/zen-elbakyan`
-
-Consider reviewing and merging these branches to keep master current.
+- `agent-sdk/typescript-v2-preview.md`: Source URL `https://github.com/anthropics/agent-sdk` returned 404. Content not refreshed, timestamp updated.

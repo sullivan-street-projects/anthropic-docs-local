@@ -2,7 +2,7 @@
 title: "The Persona Selection Model"
 source_url: "https://www.anthropic.com/research/persona-selection-model"
 source_type: "web-extracted"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "research"
 published: "2026-02-23"
 ---

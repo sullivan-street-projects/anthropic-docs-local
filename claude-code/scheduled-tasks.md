@@ -2,11 +2,13 @@
 title: "Claude Code Scheduled Tasks"
 source_url: "https://code.claude.com/docs/en/scheduled-tasks"
 source_type: "web-extracted"
-fetched_at: "2026-03-07T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "claude-code"
 ---
 
 # Run prompts on a schedule
+
+> Scheduled tasks require Claude Code v2.1.72 or later. Check your version with `claude --version`.
 
 Use /loop and the cron scheduling tools to run prompts repeatedly, poll for status, or set one-time reminders within a Claude Code session.
 

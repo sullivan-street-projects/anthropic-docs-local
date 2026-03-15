@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs.
 
-> **Last updated:** March 11, 2026
+> **Last updated:** March 15, 2026
 
 ## What You Can Do with MCP
 
@@ -244,6 +244,17 @@ If logged into Claude Code with a Claude.ai account, MCP servers added in Claude
 ```bash
 ENABLE_CLAUDEAI_MCP_SERVERS=false claude
 ```
+
+## MCP Elicitation
+
+MCP servers can request structured input from you mid-task using elicitation. When a server needs information it cannot get on its own, Claude Code displays an interactive dialog and passes your response back to the server. No configuration is required on your side -- elicitation dialogs appear automatically when a server requests them.
+
+Servers can request input in two ways:
+
+- **Form mode**: Claude Code shows a dialog with form fields defined by the server (e.g., username and password). Fill in the fields and submit.
+- **URL mode**: Claude Code opens a browser URL for authentication or approval. Complete the flow in the browser, then confirm in the CLI.
+
+To auto-respond to elicitation requests without showing a dialog, use the `Elicitation` hook.
 
 ## Claude Code as an MCP Server
 

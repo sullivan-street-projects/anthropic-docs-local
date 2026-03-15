@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment.
 
-> **Last updated:** March 11, 2026
+> **Last updated:** March 15, 2026
 
 ## Extension Architecture
 
@@ -38,7 +38,7 @@ Claude Code combines a model that reasons about your code with built-in tools fo
 | Bash | Shell command execution with timeout and background support |
 | WebFetch | Fetch and process web content |
 | WebSearch | Internet search with domain filtering |
-| Task | Spawn subagents for isolated, parallel execution |
+| Agent | Spawn subagents for isolated, parallel execution |
 | TodoWrite | Structured task tracking |
 | AskUserQuestion | Interactive user prompts with options |
 | NotebookEdit | Jupyter notebook cell editing |
@@ -221,6 +221,8 @@ Built-in output style system for formatting Claude's responses:
 | Claude Code on the Web | Cloud-hosted environment |
 | GitHub Actions | CI/CD automation via `claude-code-action` |
 | GitLab CI/CD | Pipeline integration |
+| Remote Control | Control Claude Code from Claude.ai or the Claude app |
+| Chrome Integration | Browser automation and web testing (`--chrome` flag) |
 
 ## Git Worktrees
 
@@ -270,6 +272,7 @@ claude -p 'parse logs' --output-format stream-json
 | `/clear` | Clear conversation history |
 | `/rewind` | Rewind to a previous checkpoint |
 | `/rename` | Name the current session |
+| `/resume` | Resume a previous session |
 | `/fast` | Toggle fast mode |
 | `/mcp` | Manage MCP servers |
 | `/plugin` | Manage plugins |
@@ -277,6 +280,7 @@ claude -p 'parse logs' --output-format stream-json
 | `/tasks` | View running background tasks |
 | `/agents` | View available agents |
 | `/reload-plugins` | Reload plugin configurations |
+| `/loop` | Run a prompt or command on a recurring interval |
 
 ## Sources
 
@@ -285,3 +289,6 @@ claude -p 'parse logs' --output-format stream-json
 - [Skills](https://code.claude.com/docs/en/skills)
 - [Subagents](https://code.claude.com/docs/en/sub-agents)
 - [Agent Teams](https://code.claude.com/docs/en/agent-teams)
+- [CLI Reference](https://code.claude.com/docs/en/cli-usage)
+- [Remote Control](https://code.claude.com/docs/en/remote-control)
+- [Chrome Integration](https://code.claude.com/docs/en/chrome)

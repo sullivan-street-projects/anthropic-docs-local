@@ -2,7 +2,7 @@
 title: "Boris Cherny - Personal Claude Code Setup (Jan 2, 2026)"
 source_url: "https://x.com/bcherny/status/2007179832300581177"
 source_type: "web-extracted"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "claude-code"
 ---
 

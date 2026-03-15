@@ -2,7 +2,7 @@
 title: "Vision API"
 source_url: "https://platform.claude.com/docs/en/build-with-claude/vision"
 source_type: "web-extracted"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "api"
 ---
 
@@ -29,7 +29,7 @@ Claude's vision capabilities allow it to understand and analyze images, enabling
 
 | Constraint | API | claude.ai |
 |:-----------|:----|:----------|
-| Images per request/turn | Up to 100 | Up to 20 |
+| Images per request/turn | Up to 600 (100 for 200k-token context models) | Up to 20 |
 | Max file size per image | 5 MB | 10 MB |
 | Max image dimensions (single) | 8000 x 8000 px | 8000 x 8000 px |
 | Max image dimensions (>20 images) | 2000 x 2000 px | N/A |

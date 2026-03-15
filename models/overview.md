@@ -2,7 +2,7 @@
 title: "Claude Models Overview"
 source_url: "https://platform.claude.com/docs/en/about-claude/models/overview"
 source_type: "web-extracted"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "models"
 ---
 
@@ -30,13 +30,13 @@ All current Claude models support text and image input, text output, multilingua
 | **Adaptive thinking** | Yes | Yes | No |
 | **Priority Tier** | Yes | Yes | Yes |
 | **Comparative latency** | Moderate | Fast | Fastest |
-| **Context window** | 200K tokens / 1M tokens (beta) | 200K tokens / 1M tokens (beta) | 200K tokens |
+| **Context window** | 1M tokens | 1M tokens | 200K tokens |
 | **Max output** | 128K tokens | 64K tokens | 64K tokens |
 | **Reliable knowledge cutoff** | May 2025 | Aug 2025 | Feb 2025 |
 | **Training data cutoff** | Aug 2025 | Jan 2026 | Jul 2025 |
 
 **Notes:**
-- Claude Opus 4.6 and Sonnet 4.6 support a 1M token context window when using the `context-1m-2025-08-07` beta header. Long context pricing applies to requests exceeding 200K tokens.
+- Claude Opus 4.6 and Sonnet 4.6 have a 1M token context window at standard pricing (no beta header required). The 1M context window remains in beta for Claude Sonnet 4.5 and Sonnet 4 (requires `context-1m-2025-08-07` beta header). Long context pricing applies to requests exceeding 200K tokens.
 - **Reliable knowledge cutoff** indicates the date through which a model's knowledge is most extensive and reliable. **Training data cutoff** is the broader date range of training data used.
 - Models with the same snapshot date (e.g., 20240620) are identical across all platforms and do not change.
 - Starting with Claude Sonnet 4.5 and all subsequent models, AWS Bedrock and Google Vertex AI offer two endpoint types: global endpoints (dynamic routing for maximum availability) and regional endpoints (guaranteed data routing through specific geographic regions).

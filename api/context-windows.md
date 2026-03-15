@@ -2,7 +2,7 @@
 title: "Context Windows"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows"
 source_type: "web-extracted"
-fetched_at: "2026-03-11T00:00:00Z"
+fetched_at: "2026-03-15T00:00:00Z"
 category: "api"
 ---
 
@@ -13,19 +13,16 @@ The "context window" refers to all the text a language model can reference when 
 ## Key Concepts
 
 - **Progressive token accumulation:** As conversations advance, each message accumulates within the context window. Previous turns are preserved completely.
-- **200K token capacity:** Standard context window is 200,000 tokens.
+- **Context window capacity:** Up to 1M tokens for Claude Opus 4.6 and Sonnet 4.6 (GA); 200K tokens for other models.
 - **Context rot:** As token count grows, accuracy and recall degrade. Curating what's in context is as important as capacity.
 
-## 1M Token Context Window (Beta)
+## 1M Token Context Window
 
-Claude Opus 4.6, Sonnet 4.6, Sonnet 4.5, and Sonnet 4 support a 1-million token context window.
+Claude Opus 4.6 and Sonnet 4.6 have a 1M token context window at standard pricing (GA as of March 13, 2026). No beta header is required. Up to 600 images or PDF pages per request.
 
-**Requirements:**
-- Beta header: `context-1m-2025-08-07`
-- Usage tier 4 or custom rate limits
-- Available on Claude API, Microsoft Foundry, Amazon Bedrock, and Vertex AI
+Claude Sonnet 4.5 and Sonnet 4 also support the 1M token context window, but require the `context-1m-2025-08-07` beta header. Usage tier 4 or custom rate limits required.
 
-**Pricing:** Requests exceeding 200K tokens are charged at premium rates (2x input, 1.5x output pricing).
+**Pricing:** Requests exceeding 200K tokens are charged at long context pricing rates.
 
 ```python
 from anthropic import Anthropic
