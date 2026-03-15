@@ -18,6 +18,12 @@ Accumulated corrections and patterns from working on this repository. Review at 
 - **`tasks/` directory is project-portable:** Task tracking files (`todo.md`, `lessons.md`) persist across sessions and users, unlike ephemeral tools. Any Claude session can pick up where the last left off.
 - **Star counts in github-repos/index.md drift fast:** Popular repos can gain thousands of stars per week. Refresh on every full update cycle.
 
+## Meta-Synthesis Patterns
+
+- **Most content changes are timestamp-only:** In a full 78-file update, only ~10 files had actual content changes. Phase 4 should quickly filter to just those.
+- **CHANGELOG is the richest signal:** New features listed in CHANGELOG often imply documentation updates needed elsewhere (e.g., new hooks → update best practices docs).
+- **Hook event changes cascade:** When hooks.md gains new events, check all docs that reference hooks for completeness.
+
 ## Workflow Patterns
 
 - **Parallel agent launches save time:** When updating manual sources, launch all claude-code-guide agents in parallel rather than sequentially. 7 agents in parallel completes faster than 7 sequential runs.
