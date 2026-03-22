@@ -19,6 +19,31 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-03-22 — Quick Discovery Scan (during weekly update)
+- **New sources found**: 16
+- **Added**: 0 (automated run — user not present to approve)
+- **Deferred (HIGH priority — recommend adding next)**:
+  - https://www.anthropic.com/81k-interviews — news — "What 81,000 people want from AI" (major publication)
+  - https://www.anthropic.com/engineering/claude-code-best-practices — engineering — "Claude Code: Best practices for agentic coding"
+  - https://github.com/anthropics/agent-sdk-workshop — agent-sdk — Official Agent SDK workshop materials
+  - https://github.com/anthropics/claude-constitution — models — Claude's foundational values document as a repo
+- **Deferred (MEDIUM priority)**:
+  - https://www.anthropic.com/research/introspection — research — "Signs of introspection in large language models"
+  - https://www.anthropic.com/research/constitutional-classifiers — research — "Constitutional Classifiers: Defending against universal jailbreaks"
+  - https://www.anthropic.com/research/alignment-faking — research — "Alignment faking in large language models"
+  - https://github.com/anthropics/financial-services-plugins — skills — Financial services plugins repo
+  - https://github.com/anthropics/knowledge-work-plugins — skills — Knowledge work plugins repo
+  - https://github.com/anthropics/anthropic-cli — github-repos — Anthropic CLI tool
+- **Deferred (LOW priority)**:
+  - https://www.anthropic.com/engineering/swe-bench-sonnet — engineering — Older (Claude 3.5 era)
+  - https://github.com/anthropics/claudes-c-compiler — github-repos — Demo project
+  - https://github.com/anthropics/terragrunt — github-repos — Internal fork
+  - https://github.com/anthropics/tokio — github-repos — Internal fork
+  - https://github.com/anthropics/buffa — github-repos — Internal infra
+  - https://github.com/anthropics/connect-rust — github-repos — Internal infra
+- **SDK versions**: npm @anthropic-ai/sdk 0.80.0, PyPI anthropic 0.86.0 (changelogs tracked)
+- **Staleness alert**: agent-sdk/typescript-v2-preview.md source (github.com/anthropics/agent-sdk) returning 404
+
 ### 2026-03-15 — Quick Discovery Scan (during full update)
 - **New sources found**: 25
 - **Added**: All 25 sources added to manifest and fetched (see below)
