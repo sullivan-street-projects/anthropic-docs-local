@@ -2,11 +2,58 @@
 title: "Python SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-03-15T00:00:00Z"
+fetched_at: "2026-03-22T00:00:00Z"
 category: "sdks"
 ---
 
 # Changelog
+
+## 0.86.0 (2026-03-18)
+
+Full Changelog: [v0.85.0...v0.86.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.85.0...v0.86.0)
+
+### Features
+
+* add support for filesystem memory tools ([#1247](https://github.com/anthropics/anthropic-sdk-python/issues/1247)) ([235d218](https://github.com/anthropics/anthropic-sdk-python/commit/235d218211ac4b8f1aa37e29bedc998bfb6ce77d))
+* **api:** manual updates ([86dbe4a](https://github.com/anthropics/anthropic-sdk-python/commit/86dbe4aa58386bfb8d1497debf342e929e9bb5e5))
+* **api:** manual updates ([45d9cc0](https://github.com/anthropics/anthropic-sdk-python/commit/45d9cc0914200a43743ab11aa311392e9d8c1b4f))
+
+
+### Bug Fixes
+
+* AsyncAnthropic._make_status_error missing 529 and 413 cases ([#1244](https://github.com/anthropics/anthropic-sdk-python/issues/1244)) ([05220bc](https://github.com/anthropics/anthropic-sdk-python/commit/05220bc1c1079fe01f5c4babc007ec7a990859d9))
+* **deps:** bump minimum typing-extensions version ([09ab112](https://github.com/anthropics/anthropic-sdk-python/commit/09ab112289815ba6f19d8fb3da1e715748182799))
+* **pydantic:** do not pass `by_alias` unless set ([b17480e](https://github.com/anthropics/anthropic-sdk-python/commit/b17480e9d06613aa597dd40d5a47f4f1250ac762))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([3c0308c](https://github.com/anthropics/anthropic-sdk-python/commit/3c0308c97804ababfd3f37330e129e68ccfe4bbc))
+
+## 0.85.0 (2026-03-16)
+
+Full Changelog: [v0.84.0...v0.85.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.84.0...v0.85.0)
+
+### Features
+
+* **api:** chore(config): clean up model enum list ([#31](https://github.com/anthropics/anthropic-sdk-python/issues/31)) ([cce1a5b](https://github.com/anthropics/anthropic-sdk-python/commit/cce1a5b9e6fce4f269cec42803f37ce5e2ac2f76))
+* **api:** GA thinking-display-setting ([207340c](https://github.com/anthropics/anthropic-sdk-python/commit/207340cc621855928f53e8ddd58f216ac0d8150d))
+* **tests:** update mock server ([7dc86a4](https://github.com/anthropics/anthropic-sdk-python/commit/7dc86a4ffc9e70533a58065496c78394c6a6e97a))
+
+
+### Bug Fixes
+
+* **client:** add missing 413 and 529 error handlers to async client ([#1554](https://github.com/anthropics/anthropic-sdk-python/issues/1554)) ([9c2986f](https://github.com/anthropics/anthropic-sdk-python/commit/9c2986fb9c046b4cffa1b03ca8762f9c9dea0bab))
+* **tool runner:** propagate container_id for programmatic tool calling ([#1462](https://github.com/anthropics/anthropic-sdk-python/issues/1462)) ([3ae7ff6](https://github.com/anthropics/anthropic-sdk-python/commit/3ae7ff6ff7af8a881706ae8068b1040a23c96fbd))
+* **tools:** use filtered messages list in async compaction ([#1124](https://github.com/anthropics/anthropic-sdk-python/issues/1124)) ([710d666](https://github.com/anthropics/anthropic-sdk-python/commit/710d666f80b7667e3551c1a68d7c0ffaad115de1))
+
+
+### Chores
+
+* **ci:** bump uv version ([09656ac](https://github.com/anthropics/anthropic-sdk-python/commit/09656acef77fa459d30d811bd51aa780a567182b))
+* **internal:** codegen related update ([c9e9fc2](https://github.com/anthropics/anthropic-sdk-python/commit/c9e9fc240334fc466426646d7acd64904f881a80))
+* **internal:** codegen related update ([77f77d1](https://github.com/anthropics/anthropic-sdk-python/commit/77f77d19b4657a7ad0d31de42504c25cf4ed76ef))
+* **tests:** unskip tests that are now supported in steady ([827330b](https://github.com/anthropics/anthropic-sdk-python/commit/827330b527b4af299af084752a7317b0596956af))
 
 ## 0.84.0 (2026-02-25)
 

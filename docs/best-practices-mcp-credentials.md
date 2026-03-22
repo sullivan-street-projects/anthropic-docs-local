@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-03-15T00:00:00Z"
+fetched_at: "2026-03-22T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -307,6 +307,30 @@ For manual OAuth configuration:
 claude mcp add --transport http \
   --header "Authorization: Bearer ${OAUTH_TOKEN}" \
   my-server https://server.example.com/mcp
+```
+
+For pre-configured OAuth credentials (servers that don't support dynamic client registration):
+
+```bash
+claude mcp add --transport http \
+  --client-id your-client-id --client-secret --callback-port 8080 \
+  my-server https://mcp.example.com/mcp
+```
+
+To override OAuth metadata discovery for servers with non-standard endpoints, set `authServerMetadataUrl` in the `oauth` object of your `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "type": "http",
+      "url": "https://mcp.example.com/mcp",
+      "oauth": {
+        "authServerMetadataUrl": "https://auth.example.com/.well-known/openid-configuration"
+      }
+    }
+  }
+}
 ```
 
 **Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) — OAuth and browser-based authentication section.

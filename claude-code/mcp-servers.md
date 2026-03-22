@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-03-15T00:00:00Z"
+fetched_at: "2026-03-22T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs.
 
-> **Last updated:** March 15, 2026
+> **Last updated:** March 22, 2026
 
 ## What You Can Do with MCP
 
@@ -170,6 +170,24 @@ For servers that don't support dynamic client registration:
 claude mcp add --transport http \
   --client-id your-client-id --client-secret --callback-port 8080 \
   my-server https://mcp.example.com/mcp
+```
+
+### Override OAuth Metadata Discovery
+
+Set `authServerMetadataUrl` in the `oauth` object for servers with non-standard OAuth endpoints:
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "type": "http",
+      "url": "https://mcp.example.com/mcp",
+      "oauth": {
+        "authServerMetadataUrl": "https://auth.example.com/.well-known/openid-configuration"
+      }
+    }
+  }
+}
 ```
 
 ### Override OAuth Metadata Discovery

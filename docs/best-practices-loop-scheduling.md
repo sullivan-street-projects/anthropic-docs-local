@@ -2,7 +2,7 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-03-15T00:00:00Z"
+fetched_at: "2026-03-22T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -166,6 +166,9 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--permission-mode` | Control what the agent can do without human approval |
 | `--dangerously-skip-permissions` | **Use with extreme caution** — bypasses all permission checks |
 | `--allowedTools "Tool(args)"` | Restrict which tools the agent may use |
+| `--max-budget-usd N` | Maximum dollar amount to spend on API calls before stopping |
+| `--fallback-model <model>` | Enable automatic fallback model when default is overloaded (print mode only) |
+| `--effort <level>` | Set effort level: `low`, `medium`, `high`, `max` (Opus 4.6 only) |
 
 ### Tier 3: GitHub Actions Example
 

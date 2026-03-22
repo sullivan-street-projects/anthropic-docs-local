@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-03-15T00:00:00Z"
+fetched_at: "2026-03-22T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment.
 
-> **Last updated:** March 15, 2026
+> **Last updated:** March 22, 2026
 
 ## Extension Architecture
 
@@ -133,10 +133,17 @@ Skills with `disable-model-invocation: true` have zero context cost until manual
 - **`.claude/rules/`**: Every session or when matching files are opened; can be scoped to file paths
 - **Skills**: On demand, task-specific
 
+### MCP vs Skill
+- **MCP** connects Claude to external services (databases, APIs, browsers)
+- **Skills** teach Claude knowledge about how to use those services effectively
+- They combine: MCP gives ability, skills give knowledge and workflow patterns
+- Example: MCP connects to your database, a skill documents your schema and query patterns
+
 ### Subagent vs Agent Team
 - **Subagents** run inside your session and report results back to main context
 - **Agent teams** are independent Claude Code sessions that communicate with each other
 - Use subagents for focused tasks; use agent teams when teammates need to share findings and coordinate
+- Transition point: if running parallel subagents but hitting context limits, or if subagents need to communicate, agent teams are the natural next step
 
 ## CLAUDE.md (Project Memory)
 

@@ -2,26 +2,26 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-03-15T00:00:00Z"
+fetched_at: "2026-03-22T00:00:00Z"
 category: "claude-code"
 ---
 
 # Claude Code Hooks
 
-Hooks are user-defined shell commands, HTTP endpoints, or LLM prompts that execute automatically at specific points in Claude Code's lifecycle. Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
+Hooks are user-defined shell commands, HTTP endpoints, LLM prompts, or agents that execute automatically at specific points in Claude Code's lifecycle. Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
 
-> **Last updated:** March 15, 2026
+> **Last updated:** March 22, 2026
 
 ## Hook Lifecycle
 
 Hooks fire at specific points during a Claude Code session. When an event fires and a matcher matches, Claude Code passes JSON context about the event to your hook handler. For command hooks, input arrives on stdin. For HTTP hooks, it arrives as the POST request body. Your handler can then inspect the input, take action, and optionally return a decision. Some events fire once per session, while others fire repeatedly inside the agentic loop.
 
-## Hook Events (21 Total)
+## Hook Events (22 Total)
 
 | Event | Description | Matcher | Fires |
 |-------|-------------|---------|-------|
 | `SessionStart` | Session begins or resumes | `startup`, `resume`, `clear`, `compact` | Once per session |
-| `InstructionsLoaded` | CLAUDE.md or `.claude/rules/*.md` file loaded into context | No matcher support | Session start + lazy loads |
+| `InstructionsLoaded` | CLAUDE.md or `.claude/rules/*.md` file loaded into context | Load reason: `session_start`, `nested_traversal`, `path_glob_match` | Session start + lazy loads |
 | `UserPromptSubmit` | Before Claude processes user input | No matcher support | Each user message |
 | `PreToolUse` | Before tool executes (can block) | Tool name | Each tool call |
 | `PermissionRequest` | Permission dialog appears | Tool name | Each permission prompt |
@@ -31,6 +31,7 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `SubagentStart` | Subagent spawned | Agent type | Each subagent spawn |
 | `SubagentStop` | Subagent finishes | Agent type | Each subagent finish |
 | `Stop` | Main Claude finishes responding | No matcher support | Each response |
+| `StopFailure` | Turn ends due to API error | Error type: `rate_limit`, `authentication_failed`, `billing_error` | API errors |
 | `TeammateIdle` | Agent team teammate about to go idle | No matcher support (exit code 2 only) | Agent teams |
 | `TaskCompleted` | Task marked as completed | No matcher support (exit code 2 only) | Task completion |
 | `ConfigChange` | Configuration file changes during session | `user_settings`, `project_settings`, `local_settings`, `policy_settings`, `skills` | Config changes |
@@ -203,7 +204,9 @@ hooks:
 | `PreCompact`, `PostCompact` | What triggered compaction | `manual`, `auto` |
 | `ConfigChange` | Configuration source | `user_settings`, `project_settings`, `local_settings`, `policy_settings`, `skills` |
 | `Elicitation`, `ElicitationResult` | MCP server name | Server-specific elicitation events |
-| `UserPromptSubmit`, `Stop`, `TeammateIdle`, `TaskCompleted`, `WorktreeCreate`, `WorktreeRemove`, `InstructionsLoaded` | No matcher support | Always fires on every occurrence |
+| `StopFailure` | Error type | `rate_limit`, `authentication_failed`, `billing_error` |
+| `InstructionsLoaded` | Load reason | `session_start`, `nested_traversal`, `path_glob_match` |
+| `UserPromptSubmit`, `Stop`, `TeammateIdle`, `TaskCompleted`, `WorktreeCreate`, `WorktreeRemove` | No matcher support | Always fires on every occurrence |
 
 ### Match MCP Tools
 
@@ -240,6 +243,7 @@ Use regex patterns to target specific MCP tools or groups:
 | `Elicitation` | Yes | Denies elicitation |
 | `ElicitationResult` | Yes | Blocks response (becomes decline) |
 | `WorktreeCreate` | Yes | Any non-zero exit code causes worktree creation to fail |
+| `StopFailure` | No | Shows stderr to user only |
 | `PostToolUse` | No | Shows stderr to Claude (tool already ran) |
 | `PostToolUseFailure` | No | Shows stderr to Claude (tool already failed) |
 | `Notification` | No | Shows stderr to user only |

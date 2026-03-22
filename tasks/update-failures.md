@@ -18,4 +18,7 @@ Track source-specific failures with resolutions. Review at session start to avoi
 
 ## Log
 
-(No failures logged yet. First entry will be added when a source update fails.)
+### 2026-03-22 — agent-sdk-typescript-v2-preview
+- **Error**: WebFetch of `https://github.com/anthropics/agent-sdk` returned 404. The repository may have been renamed, made private, or reorganized.
+- **Resolution**: Skipped update for this source. Existing local content preserved unchanged; only `fetched_at` timestamp updated.
+- **Prevention**: Check repository status before future update runs. If 404 persists across multiple cycles, consider removing from manifest or updating the source_url.

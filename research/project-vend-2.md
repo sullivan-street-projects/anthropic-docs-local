@@ -2,7 +2,7 @@
 title: "Project Vend: Phase Two"
 source_url: "https://www.anthropic.com/research/project-vend-2"
 source_type: "web-extracted"
-fetched_at: "2026-03-15T00:00:00Z"
+fetched_at: "2026-03-22T00:00:00Z"
 category: "research"
 ---
 

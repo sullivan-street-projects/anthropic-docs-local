@@ -2,7 +2,7 @@
 title: "Beyond Permission Prompts: Making Claude Code More Secure and Autonomous"
 source_url: "https://www.anthropic.com/engineering/claude-code-sandboxing"
 source_type: "web-extracted"
-fetched_at: "2026-03-15T00:00:00Z"
+fetched_at: "2026-03-22T00:00:00Z"
 category: "engineering"
 ---
 

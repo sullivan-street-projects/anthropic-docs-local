@@ -1,12 +1,12 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-03-15T03:36:28.665Z"
+generated_at: "2026-03-22T16:46:49.418Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-03-15
+> Auto-generated from manifest.json on 2026-03-22
 
 ## Overview
 

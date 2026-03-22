@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-03-15T00:00:00Z"
+fetched_at: "2026-03-22T00:00:00Z"
 category: "research"
 ---
 
@@ -103,4 +103,4 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
-Last checked for new papers: March 15, 2026. No new Anthropic-authored arXiv papers identified since the March 11 update. Web search confirmed existing entries are current.
+Last checked for new papers: March 22, 2026. No new Anthropic-authored arXiv papers identified since the March 15 update. Web searches for "arxiv anthropic 2026" and "arxiv.org anthropic 2026 February March" confirmed existing entries are current. Notable non-Anthropic papers referencing Anthropic's work: "SkillsBench" (2602.12670) benchmarking agent skills, and "Labor market impacts of AI" by Anthropic published March 2026 but not on arXiv.
