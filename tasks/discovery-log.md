@@ -19,6 +19,43 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-04-05 — Quick Discovery Scan (during weekly update)
+- **New sources found**: 61
+- **Added**: 0 (automated run — user not present to approve)
+- **Deferred (HIGH priority — recommend adding next)**:
+  - https://www.anthropic.com/engineering/claude-code-best-practices — engineering — "Claude Code: Best practices for agentic coding" (STILL UNTRACKED from 03-22)
+  - https://www.anthropic.com/engineering/claude-code-auto-mode — engineering — "Claude Code auto mode: a safer way to skip permissions"
+  - https://www.anthropic.com/engineering/harness-design-long-running-apps — engineering — "Harness design for long-running application development"
+  - https://www.anthropic.com/news/apple-xcode-claude-agent-sdk — news — "Apple's Xcode now supports the Claude Agent SDK"
+  - https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation — news — "$30B Series G at $380B"
+  - https://www.anthropic.com/news/australia-MOU — news — "Australian government AI safety MOU"
+  - https://www.anthropic.com/research/emotion-concepts-function — research — "Emotion concepts and their function in a large language model"
+  - https://www.anthropic.com/research/reasoning-models-dont-say-think — research — "Reasoning Models Don't Always Say What They Think"
+  - https://www.anthropic.com/research/introspection — research — "Signs of introspection in large language models" (STILL UNTRACKED from 03-22)
+  - https://www.anthropic.com/research/constitutional-classifiers — research — "Constitutional Classifiers" (STILL UNTRACKED from 03-22)
+  - https://www.anthropic.com/research/alignment-faking — research — "Alignment faking in large language models" (STILL UNTRACKED from 03-22)
+  - https://www.anthropic.com/research/long-running-Claude — research — "Long-running Claude for scientific computing"
+  - https://www.anthropic.com/research/introducing-anthropic-science — research — "Introducing our Science Blog"
+  - https://www.anthropic.com/research/economic-index-march-2026-report — research — "Economic Index: Learning curves (March 2026)"
+  - https://www.anthropic.com/research/how-australia-uses-claude — research — "How Australia Uses Claude"
+  - https://www.anthropic.com/81k-interviews — news — "What 81,000 people want from AI" (STILL UNTRACKED from 03-22)
+  - https://github.com/anthropics/agent-sdk-workshop — agent-sdk — Workshop materials (STILL UNTRACKED from 03-22)
+  - https://github.com/anthropics/claude-constitution — models — Constitution repo (STILL UNTRACKED from 03-22)
+- **Deferred (MEDIUM priority)**:
+  - 9 alignment blog posts at alignment.anthropic.com/2026/ (abstractive-red-teaming, coding-audit-realism, automated-alignment-agent, auditbench, challenges-hopes, psm, hot-mess-of-ai, auditing-overt-saboteur, petri-v2)
+  - 3 red team blog posts at red.anthropic.com/2026/ (exploit, cyber-toolkits-update, critical-infrastructure-defense)
+  - https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation — news — MCP donated to Agentic AI Foundation
+  - 10 additional news articles (partnerships, offices, board appointments)
+  - https://www.anthropic.com/engineering/swe-bench-sonnet — engineering — SWE-bench results
+  - 5 research articles (vibe-physics, diff-tool, estimating-productivity-gains, how-ai-is-transforming-work, exploring-model-welfare)
+  - https://github.com/anthropics/financial-services-plugins — skills (STILL UNTRACKED)
+  - https://github.com/anthropics/knowledge-work-plugins — skills (STILL UNTRACKED)
+  - https://github.com/anthropics/anthropic-cli — github-repos (STILL UNTRACKED)
+- **Deferred (LOW priority)**:
+  - 13 news articles (electricity prices, donations, appointments, case studies, compliance)
+- **PDF staleness**: resources.anthropic.com returning 404 for 2 tracked PDFs — may need URL updates
+- **Staleness alert**: agent-sdk/typescript-v2-preview.md source returning 404 (3rd consecutive cycle — recommend removal)
+
 ### 2026-03-22 — Quick Discovery Scan (during weekly update)
 - **New sources found**: 16
 - **Added**: 0 (automated run — user not present to approve)

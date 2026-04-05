@@ -24,6 +24,12 @@ Accumulated corrections and patterns from working on this repository. Review at 
 - **CHANGELOG is the richest signal:** New features listed in CHANGELOG often imply documentation updates needed elsewhere (e.g., new hooks → update best practices docs).
 - **Hook event changes cascade:** When hooks.md gains new events, check all docs that reference hooks for completeness.
 
+## URL Patterns
+
+- **Always use `www.anthropic.com`:** Some Anthropic URLs 404 without the `www.` prefix. Always use `www.anthropic.com/...` not `anthropic.com/...` for WebFetch calls.
+- **resources.anthropic.com PDFs drift:** HubSpot CDN URLs for PDFs can change without notice. As of 2026-04-05, two tracked PDFs (building-skills-guide, how-anthropic-teams-use) are returning 404. Check for new URLs during discovery runs.
+- **agent-sdk repo 404:** `github.com/anthropics/agent-sdk` has been 404 for 3 consecutive update cycles (since 2026-03-22). Likely renamed, made private, or consolidated. Consider removing from manifest.
+
 ## Workflow Patterns
 
 - **Parallel agent launches save time:** When updating manual sources, launch all claude-code-guide agents in parallel rather than sequentially. 7 agents in parallel completes faster than 7 sequential runs.

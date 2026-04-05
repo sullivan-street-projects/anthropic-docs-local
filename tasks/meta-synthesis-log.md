@@ -29,9 +29,51 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-_Will be generated automatically after 3+ logged cycles (2 of 3)._
+Total cycles logged: 3
+Total improvements applied: 1
+Total improvements deferred: 2
+Most-improved infrastructure: docs/best-practices-mcp-credentials.md (1 change)
+Most-informative category: claude-code (8 insights sourced from it)
+Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview)
+Last cycle: 2026-04-05 — 0 applied, 1 deferred
 
 ## Entries
+
+### 2026-04-05 — Update: all
+
+Content changes analyzed: 105 files (20+ with actual content changes)
+Improvements identified: 2
+Improvements applied: 0
+Improvements deferred: 1
+
+**Deferred:**
+- claude-code/hooks.md → `PermissionDenied` hook + `defer` permission decision + `if` field + `FileChanged`/`CwdChanged` events teach new patterns for reactive hook orchestration and auto-mode integration; the update skill could use `FileChanged` hooks to auto-trigger partial re-fetches when manifest.json changes → MEDIUM effort → added to meta-analysis-optimizations.md
+
+**Already aligned:**
+- claude-code/features.md → `auto` permission mode documented — our Agent SDK docs already updated to reflect this
+- claude-code/features.md → `--bare` flag for fast startup — already deferred from last cycle
+- claude-code/plugins.md → `bin/` plugin directory — informational, no infrastructure change needed
+- release-notes/platform.md → 300k max_tokens on Batches API, 1M beta retirement April 30 — informational, no infrastructure change needed
+- release-notes/platform.md → Models API capability fields — informational, no direct API calls in our infra
+- release-notes/help-center.md → Interactive apps on mobile, computer use in Cowork — informational
+- api/context-windows.md → 1M beta retirement date corrected — informational
+
+**Staleness report:**
+- Stable (unchanged but accessible): 80+ web-extracted sources
+- Possibly dead: 1 (3rd consecutive cycle)
+  - agent-sdk-typescript-v2-preview: https://github.com/anthropics/agent-sdk — 404 error (recommend removal or URL update)
+- Resources.anthropic.com PDFs returning 404: 2
+  - skills/building-skills-guide.pdf — may have been moved
+  - claude-code/how-anthropic-teams-use-claude-code.pdf — may have been moved
+- Relocated: 0
+
+**Discovery findings (Phase 2.5):**
+- 61 new sources identified (26 HIGH, 22 MEDIUM, 13 LOW)
+- Notable: 9 alignment blog posts, 3 red team blog posts, 4 engineering articles
+- See discovery-log.md for full list
+
+**No action needed:**
+- 83 content changes were timestamp-only updates
 
 ### 2026-03-22 — Update: all
 
