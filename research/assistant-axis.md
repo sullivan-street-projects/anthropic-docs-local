@@ -2,7 +2,7 @@
 title: "The Assistant Axis: Situating and Stabilizing the Character of Large Language Models"
 source_url: "https://www.anthropic.com/research/assistant-axis"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "research"
 ---
 

@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment.
 
-> **Last updated:** March 22, 2026
+> **Last updated:** April 5, 2026
 
 ## Extension Architecture
 
@@ -86,6 +86,7 @@ Research preview feature for Opus 4.6 that provides ~2.5x faster output at the s
 | `default` | Requires approval for potentially risky actions |
 | `plan` | Claude can only read/search, cannot modify files |
 | `acceptEdits` | Auto-approve file edits, ask for other actions |
+| `auto` | A model classifier approves or denies each tool call (Team/Enterprise/API only) |
 | `dontAsk` | Auto-approve most actions |
 | `bypassPermissions` | Full autonomy (requires `--dangerously-skip-permissions`) |
 
@@ -218,6 +219,14 @@ Built-in output style system for formatting Claude's responses:
 - Custom output styles with themes and formatting rules
 - Toggle between styles during a session
 
+## Channels (Research Preview)
+
+MCP servers can push notifications to Claude Code sessions via channels. Claude listens for notifications and can act on them automatically. Enable with `--channels` flag.
+
+## Bare Mode
+
+Minimal startup mode (`--bare` flag) that skips auto-discovery of hooks, skills, plugins, MCP servers, auto memory, and CLAUDE.md. Useful for scripted calls that need fast startup. Sets `CLAUDE_CODE_SIMPLE` environment variable.
+
 ## Platform Support
 
 | Platform | Description |
@@ -230,6 +239,7 @@ Built-in output style system for formatting Claude's responses:
 | GitLab CI/CD | Pipeline integration |
 | Remote Control | Control Claude Code from Claude.ai or the Claude app |
 | Chrome Integration | Browser automation and web testing (`--chrome` flag) |
+| Teleport | Resume web sessions in local terminal (`--teleport` flag) |
 
 ## Git Worktrees
 
@@ -288,6 +298,7 @@ claude -p 'parse logs' --output-format stream-json
 | `/agents` | View available agents |
 | `/reload-plugins` | Reload plugin configurations |
 | `/loop` | Run a prompt or command on a recurring interval |
+| `/plugin` | Manage plugins (install, enable, disable, update) |
 
 ## Sources
 

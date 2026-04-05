@@ -2,7 +2,7 @@
 title: "Context Windows"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "api"
 ---
 
@@ -20,7 +20,7 @@ The "context window" refers to all the text a language model can reference when 
 
 Claude Opus 4.6 and Sonnet 4.6 have a 1M token context window at standard pricing (GA as of March 13, 2026). No beta header is required. Up to 600 images or PDF pages per request.
 
-Claude Sonnet 4.5 and Sonnet 4 also support the 1M token context window, but require the `context-1m-2025-08-07` beta header. Usage tier 4 or custom rate limits required.
+Claude Sonnet 4.5 and Sonnet 4 also support the 1M token context window, but require the `context-1m-2025-08-07` beta header. Usage tier 4 or custom rate limits required. **Note:** The 1M beta for these models is being retired on April 30, 2026. After that date, the beta header will have no effect and requests exceeding 200K tokens will return an error. Migrate to Sonnet 4.6 or Opus 4.6 for continued 1M context support.
 
 **Pricing:** Requests exceeding 200K tokens are charged at long context pricing rates.
 
@@ -43,7 +43,7 @@ Claude Sonnet 4.6, Sonnet 4.5, and Haiku 4.5 feature context awareness — they 
 
 At conversation start, Claude receives its total budget:
 ```xml
-<budget:token_budget>200000</budget:token_budget>
+<budget:token_budget>1000000</budget:token_budget>
 ```
 
 After each tool call, Claude receives remaining capacity updates:

@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "release-notes"
 ---
 # Claude Developer Platform
@@ -12,6 +12,16 @@ Updates to the Claude Developer Platform, including the Claude API, client SDKs,
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 
+### March 30, 2026
+- Raised the `max_tokens` cap to 300k on the Message Batches API for Claude Opus 4.6 and Sonnet 4.6. Include the `output-300k-2026-03-24` beta header to generate longer single-turn outputs for long-form content, structured data, and large code generation tasks.
+- Retiring the 1M token context window beta for Claude Sonnet 4.5 and Claude Sonnet 4 on **April 30, 2026**. After that date, the `context-1m-2025-08-07` beta header will have no effect on these models, and requests that exceed the standard 200k-token context window will return an error. To continue using 1M context windows, migrate to Claude Sonnet 4.6 or Claude Opus 4.6.
+
+### March 18, 2026
+- Added model capability fields to the Models API. `GET /v1/models` and `GET /v1/models/{model_id}` now return `max_input_tokens`, `max_tokens`, and a `capabilities` object.
+
+### March 16, 2026
+- Launched the `display` field for extended thinking, letting you omit thinking content from responses for faster streaming. Set `thinking.display: "omitted"` to receive thinking blocks with an empty `thinking` field and the `signature` preserved for multi-turn continuity.
+
 ### March 13, 2026
 - The 1M token context window is now generally available for Claude Opus 4.6 and Sonnet 4.6 at standard pricing. Requests over 200k tokens work automatically for these models with no beta header required. The 1M token context window remains in beta for Claude Sonnet 4.5 and Sonnet 4.
 - Removed the dedicated 1M rate limits for all supported models. Standard account limits now apply across every context length.
@@ -20,7 +30,7 @@ Updates to the Claude Developer Platform, including the Claude API, client SDKs,
 ### February 19, 2026
 - Launched **automatic caching** for the Messages API. Add a single `cache_control` field to your request body and the system automatically caches the last cacheable block, moving the cache point forward as conversations grow. No manual breakpoint management required. Works alongside existing block-level cache control for fine-grained optimization. Available on the Claude API and Azure AI Foundry (preview).
 - Retired Claude Sonnet 3.7 (`claude-3-7-sonnet-20250219`) and Claude Haiku 3.5 (`claude-3-5-haiku-20241022`). Recommend upgrading to Claude Sonnet 4.6 and Claude Haiku 4.5 respectively. Researchers can request ongoing access through the External Researcher Access Program.
-- Announced deprecation of Claude Haiku 3 (`claude-3-haiku-20240307`), with retirement scheduled for April 19, 2026.
+- Announced deprecation of Claude Haiku 3 (`claude-3-haiku-20240307`), with retirement scheduled for April 20, 2026.
 
 ### February 17, 2026
 - Launched **Claude Sonnet 4.6**, latest balanced model combining speed and intelligence. Sonnet 4.6 delivers improved agentic search performance while consuming fewer tokens. Supports extended thinking and 1M token context window (beta).

@@ -2,7 +2,7 @@
 title: "Labor Market Impacts of AI: A New Measure and Early Evidence"
 source_url: "https://www.anthropic.com/research/labor-market-impacts"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "news"
 published: "2026-03-05"
 ---

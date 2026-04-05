@@ -2,7 +2,7 @@
 title: "Web Search Tool"
 source_url: "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/web-search-tool"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "api"
 ---
 

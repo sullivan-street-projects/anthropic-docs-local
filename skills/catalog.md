@@ -2,13 +2,13 @@
 title: "Skills Catalog"
 source_url: "https://github.com/anthropics/skills"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "skills"
 ---
 
 # Skills Catalog
 
-> **Source:** [anthropics/skills](https://github.com/anthropics/skills) — 70.5k stars, 7.2k forks
+> **Source:** [anthropics/skills](https://github.com/anthropics/skills) — 111k stars, 12.5k forks
 
 Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks.
 

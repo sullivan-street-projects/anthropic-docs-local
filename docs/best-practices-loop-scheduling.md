@@ -2,13 +2,13 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "claude-code"
 ---
 
 # Best Practices: `/loop` Command & Scheduling in Claude Code
 
-> **Documentation Status:** The `/loop` command was introduced in Claude Code v2.1.71 (see [CHANGELOG](../claude-code/CHANGELOG.md)). As of March 2026, it is not yet listed on the official [Interactive Mode](https://code.claude.com/docs/en/interactive-mode) reference page. The guidance below is synthesized from changelog entries, CLI reference documentation, and observed behavior.
+> **Documentation Status:** The `/loop` command was introduced in Claude Code v2.1.71 (see [CHANGELOG](../claude-code/CHANGELOG.md)). As of April 2026, it is listed in the official [CLI Reference](https://code.claude.com/docs/en/cli-usage) and [Interactive Mode](https://code.claude.com/docs/en/interactive-mode) pages. The guidance below is synthesized from changelog entries, CLI reference documentation, and observed behavior.
 
 ---
 
@@ -169,6 +169,9 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--max-budget-usd N` | Maximum dollar amount to spend on API calls before stopping |
 | `--fallback-model <model>` | Enable automatic fallback model when default is overloaded (print mode only) |
 | `--effort <level>` | Set effort level: `low`, `medium`, `high`, `max` (Opus 4.6 only) |
+| `--bare` | Minimal mode: skip hooks, skills, plugins, MCP, CLAUDE.md for faster startup |
+| `--no-session-persistence` | Disable session saving to disk (print mode only) |
+| `--json-schema` | Get validated JSON output matching a schema (print mode only) |
 
 ### Tier 3: GitHub Actions Example
 
@@ -203,6 +206,7 @@ When using `/loop` or any scheduled Claude Code task, choose the appropriate per
 |------|-------------|-------------|
 | `default` | Asks permission for sensitive operations | Interactive sessions |
 | `plan` | Can read files, must ask to write | Review/audit loops |
+| `auto` | Model classifier approves/denies tool calls | Autonomous agents with guardrails (Team/Enterprise/API) |
 | `bypassPermissions` | No permission prompts | **Only** in trusted CI with `--allowedTools` |
 
 **Source:** [CLI Reference](https://code.claude.com/docs/en/cli-usage) — `--permission-mode` flag documentation.
@@ -252,4 +256,4 @@ claude -p "prompt" --max-turns 10 --output-format json
 | `--output-format json` | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High |
 | Cron scheduling approach | General best practice, CLI flags verified | Medium |
 | GitHub Actions approach | General best practice, CLI flags verified | Medium |
-| `/loop` not yet in interactive-mode docs | [Interactive Mode page](https://code.claude.com/docs/en/interactive-mode) checked 2026-03-10 | High |
+| `/loop` now in CLI reference docs | [CLI Reference](https://code.claude.com/docs/en/cli-usage) confirmed 2026-04-05 | High |

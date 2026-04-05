@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, and LSP servers into a single installable unit.
 
-> **Last updated:** March 22, 2026
+> **Last updated:** April 5, 2026
 
 ## Plugins vs Standalone Configuration
 
@@ -99,6 +99,7 @@ LICENSE
 | `hooks/` | Plugin root | Event handlers in `hooks.json` |
 | `.mcp.json` | Plugin root | MCP server configurations |
 | `.lsp.json` | Plugin root | LSP server configurations for code intelligence |
+| `bin/` | Plugin root | Executables added to Bash tool's `PATH` while plugin is enabled |
 | `settings.json` | Plugin root | Default settings applied when the plugin is enabled |
 
 > **Important:** Do not put `commands/`, `agents/`, `skills/`, or `hooks/` inside `.claude-plugin/`. Only `plugin.json` goes inside `.claude-plugin/`. All other directories must be at the plugin root level.

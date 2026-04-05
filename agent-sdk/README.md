@@ -2,7 +2,7 @@
 title: "Claude Agent SDK"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -12,7 +12,7 @@ Build production AI agents with Claude Code as a library. The Agent SDK gives yo
 
 > **Note:** The Claude Code SDK has been renamed to the Claude Agent SDK. See the [Migration Guide](https://platform.claude.com/docs/en/agent-sdk/migration-guide) if migrating from the old SDK.
 
-> **Last updated:** March 22, 2026
+> **Last updated:** April 5, 2026
 
 ## Overview
 
@@ -161,7 +161,8 @@ Set `setting_sources=["project"]` (Python) or `settingSources: ['project']` (Typ
 | Mode | Behavior | Use case |
 |------|----------|----------|
 | `acceptEdits` | Auto-approves file edits, asks for other actions | Trusted development workflows |
-| `dontAsk` (TypeScript only) | Denies anything not in `allowedTools` | Locked-down headless agents |
+| `auto` | A model classifier approves or denies each tool call (TypeScript only) | Autonomous agents with safety guardrails |
+| `dontAsk` | Denies anything not in `allowedTools` | Locked-down headless agents |
 | `bypassPermissions` | Runs every tool without prompts | Sandboxed CI, fully trusted environments |
 | `default` | Requires a `canUseTool` callback to handle approval | Custom approval flows |
 | `plan` | Planning mode without execution | Read-only analysis |

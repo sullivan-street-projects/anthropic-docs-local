@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs.
 
-> **Last updated:** March 22, 2026
+> **Last updated:** April 5, 2026
 
 ## What You Can Do with MCP
 
@@ -170,24 +170,6 @@ For servers that don't support dynamic client registration:
 claude mcp add --transport http \
   --client-id your-client-id --client-secret --callback-port 8080 \
   my-server https://mcp.example.com/mcp
-```
-
-### Override OAuth Metadata Discovery
-
-Set `authServerMetadataUrl` in the `oauth` object for servers with non-standard OAuth endpoints:
-
-```json
-{
-  "mcpServers": {
-    "my-server": {
-      "type": "http",
-      "url": "https://mcp.example.com/mcp",
-      "oauth": {
-        "authServerMetadataUrl": "https://auth.example.com/.well-known/openid-configuration"
-      }
-    }
-  }
-}
 ```
 
 ### Override OAuth Metadata Discovery
@@ -399,17 +381,6 @@ claude mcp add --transport http github https://api.githubcopilot.com/mcp/
 claude mcp add --transport stdio db -- npx -y @bytebase/dbhub \
   --dsn "postgresql://readonly:pass@prod.db.com:5432/analytics"
 ```
-
-## MCP Elicitation
-
-MCP servers can request structured input from you mid-task using elicitation. When a server needs information it can't get on its own, Claude Code displays an interactive dialog and passes your response back to the server.
-
-Servers can request input in two ways:
-
-- **Form mode**: Claude Code shows a dialog with form fields defined by the server (e.g., a username and password prompt). Fill in the fields and submit.
-- **URL mode**: Claude Code opens a browser URL for authentication or approval. Complete the flow in the browser, then confirm in the CLI.
-
-To auto-respond to elicitation requests without showing a dialog, use the `Elicitation` hook.
 
 ## Sources
 

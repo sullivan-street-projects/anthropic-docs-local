@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Get started with the Python or TypeScript Agent SDK to build AI agents that work autonomously. This quickstart walks you through building an agent that reads your code, finds bugs, and fixes them without manual intervention.
 
-> **Last updated:** March 22, 2026
+> **Last updated:** April 5, 2026
 
 **What you'll do:**
 1. Set up a project with the Agent SDK
@@ -245,7 +245,8 @@ Permission modes control how much human oversight you want:
 | Mode | Behavior | Use case |
 |------|----------|----------|
 | `acceptEdits` | Auto-approves file edits, asks for other actions | Trusted development workflows |
-| `dontAsk` (TypeScript only) | Denies anything not in `allowedTools` | Locked-down headless agents |
+| `auto` (TypeScript only) | A model classifier approves or denies each tool call | Autonomous agents with safety guardrails |
+| `dontAsk` | Denies anything not in `allowedTools` | Locked-down headless agents |
 | `bypassPermissions` | Runs every tool without prompts | Sandboxed CI, fully trusted environments |
 | `default` | Requires a `canUseTool` callback to handle approval | Custom approval flows |
 
@@ -261,4 +262,5 @@ The quickstart uses streaming to show progress in real-time. If you don't need l
 - [MCP servers](https://platform.claude.com/docs/en/agent-sdk/mcp) -- connect to databases, browsers, APIs, and other external systems
 - [Hosting](https://platform.claude.com/docs/en/agent-sdk/hosting) -- deploy agents to Docker, cloud, and CI/CD
 - [Streaming vs. single-turn mode](https://platform.claude.com/docs/en/agent-sdk/streaming-vs-single-mode) -- choose between live output and batch collection
+- [Structured outputs](https://platform.claude.com/docs/en/agent-sdk/structured-outputs) -- get validated JSON responses matching a schema
 - [Example agents](https://github.com/anthropics/claude-agent-sdk-demos) -- see complete examples: email assistant, research agent, and more

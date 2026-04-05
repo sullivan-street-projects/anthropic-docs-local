@@ -2,7 +2,7 @@
 title: "Building Effective AI Coding Agents for the Terminal: Scaffolding, Harness, Context Engineering, and Lessons Learned"
 source_url: "https://arxiv.org/abs/2603.05344"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "research"
 arxiv_id: "2603.05344"
 authors: "Nghi D. Q. Bui"

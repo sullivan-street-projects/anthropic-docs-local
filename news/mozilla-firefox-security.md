@@ -2,7 +2,7 @@
 title: "Partnering with Mozilla to improve Firefox's security"
 source_url: "https://www.anthropic.com/news/mozilla-firefox-security"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "news"
 ---
 

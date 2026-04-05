@@ -2,7 +2,7 @@
 title: "Sydney will become Anthropic's fourth office in Asia-Pacific"
 source_url: "https://www.anthropic.com/news/sydney-fourth-office-asia-pacific"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "news"
 ---
 

@@ -2,7 +2,7 @@
 title: "Where Things Stand with the Department of War"
 source_url: "https://www.anthropic.com/news/where-stand-department-war"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "news"
 ---
 

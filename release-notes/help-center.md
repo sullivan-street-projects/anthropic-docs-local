@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-03-22T00:00:00Z"
+fetched_at: "2026-04-05T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -15,6 +15,15 @@ Updates to Claude consumer and business applications.
 ---
 
 ## March 2026
+
+### March 25, 2026
+- Interactive apps in Claude for iOS and Android: pull up live charts, sketch diagrams, and build shareable assets directly within conversations.
+
+### March 23, 2026
+- Computer use research preview in Cowork and Claude Code + Dispatch improvements. Pro and Max users can grant Claude access to computer functions; Claude can open files, run dev tools, point, click, and navigate.
+
+### March 17, 2026
+- Control Cowork from your phone with a persistent thread (research preview for Pro/Max). Users access persistent agent threads via Claude Desktop or mobile apps to manage Cowork tasks.
 
 ### March 12, 2026
 - Claude now creates custom charts, diagrams and other visualizations in-line in its responses.
