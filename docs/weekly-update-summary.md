@@ -84,7 +84,9 @@ New OAuth CLI commands, `headersHelper` for dynamic headers, WebSocket transport
 - [ ] Test `xhigh` effort level for coding agent workloads
 - [ ] Investigate Managed Agents API for potential use cases
 - [ ] ~60 sources not updated this cycle due to rate limits (news, engineering, most models, github-repos). Run a follow-up update to catch these.
-- [ ] 17 unmerged remote branches accumulated — consider cleanup
+- [x] 17 unmerged remote branches — merged to master, cleanup pending user approval for remote deletion
+- [x] 13 new sources recovered from unmerged branch (Fable 5, Opus 4.7/4.8, Claude Corps, Claude Tag, Series H, 5 research papers)
+- [x] Scheduled task updated: Phase 4 meta-synthesis now runs every cycle, auto-merge to master after each run
 
 ## Incomplete Sources (Rate Limited)
 
