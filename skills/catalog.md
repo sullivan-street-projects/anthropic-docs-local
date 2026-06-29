@@ -2,15 +2,24 @@
 title: "Skills Catalog"
 source_url: "https://github.com/anthropics/skills"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "skills"
 ---
 
 # Skills Catalog
 
-> **Source:** [anthropics/skills](https://github.com/anthropics/skills) — 111k stars, 12.5k forks
+> **Source:** [anthropics/skills](https://github.com/anthropics/skills) — 156k stars, 18.4k forks
 
 Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks.
+
+**Note:** For information about the Agent Skills standard, see [agentskills.io](http://agentskills.io).
+
+## What Are Skills?
+
+Skills teach Claude how to complete specific tasks in a repeatable way, whether that's:
+- Creating documents with your company's brand guidelines
+- Analyzing data using your organization's specific workflows
+- Automating personal tasks
 
 ## Repository Structure
 
@@ -46,16 +55,27 @@ Every skill requires a folder with `SKILL.md` containing YAML frontmatter:
 ```yaml
 ---
 name: my-skill-name
-description: What this skill does and when to use it
+description: A clear description of what this skill does and when to use it
 ---
 
 # My Skill Name
-[Instructions Claude follows when this skill is active]
+
+[Add your instructions here that Claude will follow when this skill is active]
+
+## Examples
+- Example usage 1
+- Example usage 2
+
+## Guidelines
+- Guideline 1
+- Guideline 2
 ```
 
 Required frontmatter fields:
 - **name**: Unique identifier (lowercase, hyphens)
 - **description**: What the skill does and when to use it
+
+The markdown content contains instructions, examples, and guidelines Claude will follow.
 
 ## How to Use Skills
 
@@ -66,28 +86,29 @@ Required frontmatter fields:
 /plugin install example-skills@anthropic-agent-skills
 ```
 
+After installing, use skills by mentioning them. Example:
+> "Use the PDF skill to extract the form fields from `path/to/some-file.pdf`"
+
 ### Claude.ai
-Example skills are available to paid plans. Upload custom skills following the [Using skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude) guide.
+Example skills are available to paid plans. To use any skill from this repository or upload custom skills, follow [Using skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude#h_a4222fa77b).
 
 ### Claude API
-Use pre-built or custom skills via the [Skills API Quickstart](https://docs.claude.com/en/api/skills-guide#creating-a-skill).
+Use pre-built skills or upload custom skills via the Claude API. See the [Skills API Quickstart](https://docs.claude.com/en/api/skills-guide#creating-a-skill).
 
 ## Partner Skills
 
-Anthropic has launched a partner-built skills directory, with organizations creating skills that integrate their products with Claude. Partner skills are available through the plugin marketplace and Claude.ai for Team and Enterprise plans.
+Skills are ideal for teaching Claude how to use specific software. Featured partner skills:
 
-Key partner skill categories:
-- **Productivity:** Notion, Google Workspace, Slack integrations
-- **Development:** GitHub, Jira, Linear integrations
-- **Data:** Database connectors, analytics tools
-- **Design:** Figma, design system integrations
-
-Skills are also available on the free tier for Claude.ai users (limited selection). The Claude API supports skills through the Skills API endpoint.
+- **Notion** — [Notion Skills for Claude](https://www.notion.so/notiondevs/Notion-Skills-for-Claude-28da4445d27180c7af1df7d8615723d0)
 
 ## Licensing
 
 - **Most skills**: Open source (Apache 2.0)
 - **Document skills** (docx, pdf, pptx, xlsx): Source-available (not open source) — provided as reference for complex, production-ready skills
+
+### Disclaimer
+
+These skills are provided for demonstration and educational purposes only. While some capabilities may be available in Claude, implementations and behaviors may differ from what is shown in these skills. Always test skills thoroughly before relying on them for critical tasks.
 
 ## Resources
 

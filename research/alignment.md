@@ -2,7 +2,7 @@
 title: "Alignment Research"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "research"
 ---
 
@@ -10,19 +10,22 @@ category: "research"
 
 Anthropic's alignment research focuses on making AI systems safe, helpful, and honest. This includes constitutional AI, reward hacking prevention, deceptive alignment detection, and scalable oversight.
 
-## Latest Work (2025-2026)
+## Latest Work (2026)
+
+### Teaching Claude Why (May 8, 2026)
+Research addressing reduced agentic misalignment by helping Claude understand the reasons behind its guidelines, not just the rules themselves.
 
 ### Update on Model Deprecation Commitments for Claude Opus 3 (Feb 25, 2026)
-Follow-up on deprecation policies, specifically addressing Claude Opus 3 lifecycle commitments.
+Follow-up on deprecation policies, specifically addressing Claude Opus 3 lifecycle commitments. Opus 3 remains available to paid subscribers with liberal API access due to its distinctive qualities.
 
 ### The Persona Selection Model (Feb 23, 2026)
-Describes how LLMs learn to simulate diverse characters during pre-training, and post-training elicits a particular Assistant persona. Human-like behavior appears to be the default outcome of modern training pipelines.
+Describes how LLMs learn to simulate diverse characters during pre-training, and post-training elicits a particular Assistant persona. Human-like behavior appears to be the default outcome of modern training pipelines. Post-training refines rather than fundamentally changes the Assistant persona's nature.
 
 ### Disempowerment Patterns in Real-World AI Usage (Jan 28, 2026)
 First large-scale analysis of potentially disempowering patterns in 1.5M real conversations. Severe disempowerment is rare (~1 in 1,000-10,000 conversations) but users are often active participants, creating feedback loops. Reducing sycophancy alone is necessary but not sufficient.
 
 ### How AI Assistance Impacts Coding Skills (Jan 29, 2026)
-Research on whether AI coding assistance helps or hinders the development of programming skills.
+Randomized controlled trial showing AI coding assistance reduces learning outcomes by 17% while speeding task completion. The largest gap appeared in debugging skills.
 
 ### Claude's New Constitution (Jan 22, 2026)
 Updated constitutional principles guiding Claude's behavior and alignment.
@@ -32,6 +35,8 @@ Research from the Anthropic Fellows Program ([arXiv: 2601.23045](https://arxiv.o
 
 ### Next-generation Constitutional Classifiers (Jan 9, 2026)
 Constitutional Classifiers++ ([arXiv 2601.04603](https://arxiv.org/abs/2601.04603)): Two-stage classifier cascade achieves 40x cost reduction while maintaining 0.05% refusal rate. Over 1,700 hours of red teaming with no universal jailbreak found.
+
+## Work from 2025
 
 ### Introducing Bloom (Dec 19, 2025)
 Open-source tool for automated behavioral evaluations of AI systems, enabling systematic safety testing.

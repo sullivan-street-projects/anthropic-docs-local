@@ -2,11 +2,13 @@
 title: "Skills README"
 source_url: "https://raw.githubusercontent.com/anthropics/skills/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "skills"
 ---
 
 > **Note:** This repository contains Anthropic's implementation of skills for Claude. For information about the Agent Skills standard, see [agentskills.io](http://agentskills.io).
+
+[![skills.sh](https://skills.sh/b/anthropics/skills)](https://skills.sh/anthropics/skills)
 
 # Skills
 Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. Skills teach Claude how to complete specific tasks in a repeatable way, whether that's creating documents with your company's brand guidelines, analyzing data using your organization's specific workflows, or automating personal tasks.

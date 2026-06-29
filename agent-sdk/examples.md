@@ -2,7 +2,7 @@
 title: "Agent SDK Examples"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Production-ready patterns for the Claude Agent SDK covering subagents, hooks, MCP integration, custom tools, sessions, permissions, and advanced configurations. All examples are derived from the official SDK documentation and demos.
 
-> **Last updated:** April 5, 2026
+> **Last updated:** June 28, 2026
 
 ## Subagent Delegation
 
@@ -276,7 +276,7 @@ Maintain context across multiple exchanges. Capture the session ID from the firs
 
 ```python
 import asyncio
-from claude_agent_sdk import query, ClaudeAgentOptions
+from claude_agent_sdk import query, ClaudeAgentOptions, SystemMessage, ResultMessage
 
 
 async def main():
@@ -287,15 +287,15 @@ async def main():
         prompt="Read the authentication module",
         options=ClaudeAgentOptions(allowed_tools=["Read", "Glob"]),
     ):
-        if hasattr(message, "subtype") and message.subtype == "init":
-            session_id = message.session_id
+        if isinstance(message, SystemMessage) and message.subtype == "init":
+            session_id = message.data["session_id"]
 
     # Resume with full context from the first query
     async for message in query(
         prompt="Now find all places that call it",  # "it" = auth module
         options=ClaudeAgentOptions(resume=session_id),
     ):
-        if hasattr(message, "result"):
+        if isinstance(message, ResultMessage):
             print(message.result)
 
 
@@ -583,10 +583,14 @@ options = ClaudeAgentOptions(
 ## Resources
 
 - [Agent SDK Demos](https://github.com/anthropics/claude-agent-sdk-demos) -- Full production examples
-- [Python SDK Reference](https://platform.claude.com/docs/en/agent-sdk/python)
-- [TypeScript SDK Reference](https://platform.claude.com/docs/en/agent-sdk/typescript)
-- [Hooks Documentation](https://platform.claude.com/docs/en/agent-sdk/hooks)
-- [Sessions Documentation](https://platform.claude.com/docs/en/agent-sdk/sessions)
-- [Permissions Documentation](https://platform.claude.com/docs/en/agent-sdk/permissions)
-- [MCP Documentation](https://platform.claude.com/docs/en/agent-sdk/mcp)
-- [Hosting Guide](https://platform.claude.com/docs/en/agent-sdk/hosting)
+- [Python SDK Reference](https://code.claude.com/docs/en/agent-sdk/python)
+- [TypeScript SDK Reference](https://code.claude.com/docs/en/agent-sdk/typescript)
+- [Hooks Documentation](https://code.claude.com/docs/en/agent-sdk/hooks)
+- [Sessions Documentation](https://code.claude.com/docs/en/agent-sdk/sessions)
+- [Permissions Documentation](https://code.claude.com/docs/en/agent-sdk/permissions)
+- [MCP Documentation](https://code.claude.com/docs/en/agent-sdk/mcp)
+- [Hosting Guide](https://code.claude.com/docs/en/agent-sdk/hosting)
+- [Structured Outputs](https://code.claude.com/docs/en/agent-sdk/structured-outputs)
+- [Subagents](https://code.claude.com/docs/en/agent-sdk/subagents)
+- [User Input & Approvals](https://code.claude.com/docs/en/agent-sdk/user-input)
+- [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)

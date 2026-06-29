@@ -2,22 +2,22 @@
 title: "API Overview"
 source_url: "https://platform.claude.com/docs/en/api/overview"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "api"
 ---
 
 # API Overview
 
-The Claude API is a RESTful API at `https://api.anthropic.com` that provides programmatic access to Claude models. The primary API is the Messages API (`POST /v1/messages`) for conversational interactions.
+The Claude API is a RESTful API at `https://api.anthropic.com` that provides programmatic access to Claude models and Claude Managed Agents.
 
-> **New to Claude?** Start with [Get started](https://platform.claude.com/docs/en/get-started) for prerequisites and your first API call, or see [Working with Messages](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) for request/response patterns and examples.
+> **New to Claude?** For direct model access, start with [Get started](https://platform.claude.com/docs/en/get-started) and [Working with Messages](https://platform.claude.com/docs/en/build-with-claude/working-with-messages). For managed agent infrastructure, see the [Claude Managed Agents quickstart](https://platform.claude.com/docs/en/managed-agents/quickstart).
 
 ## Prerequisites
 
 To use the Claude API, you'll need:
 
-- An [Anthropic Console account](https://platform.claude.com)
-- An [API key](https://platform.claude.com/settings/keys)
+- A [Claude Console account](https://platform.claude.com)
+- An [API key](https://platform.claude.com/settings/keys), or a configured [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) rule
 
 For step-by-step setup instructions, see [Get started](https://platform.claude.com/docs/en/get-started).
 
@@ -26,7 +26,7 @@ For step-by-step setup instructions, see [Get started](https://platform.claude.c
 The Claude API includes the following APIs:
 
 **General Availability:**
-- **[Messages API](https://platform.claude.com/docs/en/api/messages)**: Send messages to Claude for conversational interactions (`POST /v1/messages`)
+- **[Messages API](https://platform.claude.com/docs/en/api/messages/create)**: Send messages to Claude for conversational interactions (`POST /v1/messages`)
 - **[Message Batches API](https://platform.claude.com/docs/en/api/creating-message-batches)**: Process large volumes of Messages requests asynchronously with 50% cost reduction (`POST /v1/messages/batches`)
 - **[Token Counting API](https://platform.claude.com/docs/en/api/messages-count-tokens)**: Count tokens in a message before sending to manage costs and rate limits (`POST /v1/messages/count_tokens`)
 - **[Models API](https://platform.claude.com/docs/en/api/models-list)**: List available Claude models and their details (`GET /v1/models`)
@@ -34,26 +34,30 @@ The Claude API includes the following APIs:
 **Beta:**
 - **[Files API](https://platform.claude.com/docs/en/api/files-create)**: Upload and manage files for use across multiple API calls (`POST /v1/files`, `GET /v1/files`)
 - **[Skills API](https://platform.claude.com/docs/en/api/skills/create-skill)**: Create and manage custom agent skills (`POST /v1/skills`, `GET /v1/skills`)
+- **[Agents API](https://platform.claude.com/docs/en/managed-agents/agent-setup)**: Define reusable, versioned agent configurations for Claude Managed Agents (`POST /v1/agents`, `GET /v1/agents`)
+- **[Sessions API](https://platform.claude.com/docs/en/managed-agents/sessions)**: Run stateful agent sessions in managed cloud sandboxes (`POST /v1/sessions`, `GET /v1/sessions/{id}/stream`)
+- **[Environments API](https://platform.claude.com/docs/en/managed-agents/environments)**: Configure sandbox templates for agent sessions (`POST /v1/environments`, `GET /v1/environments`)
 
 For the complete API reference with all endpoints, parameters, and response schemas, explore the API reference pages listed in the navigation. To access beta features, see [Beta headers](https://platform.claude.com/docs/en/api/beta-headers).
 
-The Messages API supports an optional `inference_geo` parameter for [data residency controls](https://platform.claude.com/docs/en/build-with-claude/data-residency), allowing you to specify where model inference runs.
-
 ## Authentication
 
-All requests to the Claude API must include these headers:
+For details on both authentication methods and when to use each, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). All requests to the Claude API must include these headers:
 
 | Header | Value | Required |
 |--------|-------|----------|
-| `x-api-key` | Your API key from Console | Yes |
-| `anthropic-version` | API version (e.g., `2023-06-01`) | Yes |
+| `x-api-key` | Your API key from Console | One of `x-api-key` or `Authorization` |
+| `Authorization` | `Bearer <token>`, where `<token>` is a short-lived access token obtained from `POST /v1/oauth/token` via [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) | One of `x-api-key` or `Authorization` |
+| `anthropic-version` | API version (for example, `2023-06-01`) | Yes |
 | `content-type` | `application/json` | Yes |
 
 If you are using the [Client SDKs](#client-sdks), the SDK will send these headers automatically. For API versioning details, see [API versions](https://platform.claude.com/docs/en/api/versioning).
 
+When accessing Claude through a [cloud platform](#claude-api-vs-cloud-platforms), authentication is integrated with the cloud provider's IAM system. See the platform-specific documentation for supported credential types, required headers, and authentication options.
+
 ### Getting API Keys
 
-The API is made available via the web [Console](https://platform.claude.com/). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and [control spend](https://platform.claude.com/docs/en/api/rate-limits) by use case.
+The API is made available through the web [Console](https://platform.claude.com/). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and [control spend](https://platform.claude.com/docs/en/api/rate-limits) by use case.
 
 ## Client SDKs
 
@@ -66,60 +70,48 @@ Anthropic provides official SDKs that simplify API integration by handling authe
 - Streaming support
 - Request timeouts and connection management
 
-Example (Python):
-```python
-from anthropic import Anthropic
+For a list of client SDKs, see [Client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview).
 
-client = Anthropic()  # Reads ANTHROPIC_API_KEY from environment
-message = client.messages.create(
-    model="claude-opus-4-6",
-    max_tokens=1024,
-    messages=[{"role": "user", "content": "Hello, Claude"}],
-)
-```
+## Claude API vs Cloud Platforms
 
-For a list of client SDKs and their respective installation instructions, see [Client SDKs](https://platform.claude.com/docs/en/api/client-sdks).
-
-## Claude API vs Third-Party Platforms
-
-Claude is available through Anthropic's direct API and through partner platforms. Choose based on your infrastructure, compliance requirements, and pricing preferences.
+Claude is available through the direct Claude API and through cloud platforms. Choose based on your infrastructure, feature availability, compliance requirements, and pricing preferences.
 
 ### Claude API
 
-- **Direct access** to the latest models and features first
+- **Direct access** to the latest models and features
 - **Anthropic billing and support**
 - **Best for**: New integrations, full feature access, direct relationship with Anthropic
 
-### Third-Party Platform APIs
+### Cloud Platform APIs
 
 Access Claude through AWS, Google Cloud, or Microsoft Azure:
 - **Integrated** with cloud provider billing and IAM
-- **May have feature delays** or differences from the direct API
+- **Feature availability varies by platform:** Anthropic-operated platforms include [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry); partner-operated platforms include Amazon Bedrock and Google Cloud. See each platform's page for feature availability and timing.
 - **Best for**: Existing cloud commitments, specific compliance requirements, consolidated cloud billing
 
 | Platform | Provider | Documentation |
 |----------|----------|---------------|
-| Amazon Bedrock | AWS | [Claude on Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock) |
-| Vertex AI | Google Cloud | [Claude on Vertex AI](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai) |
-| Azure AI | Microsoft Azure | [Claude on Azure AI](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
+| Claude Platform on AWS | AWS (Anthropic-operated) | [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) |
+| Amazon Bedrock | AWS | [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock) |
+| Agent Platform | Google Cloud | [Claude on Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai) |
+| Microsoft Foundry | Microsoft Azure (Anthropic-operated) | [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
 
-For feature availability across platforms, see the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
+> Claude Managed Agents is available through the direct Claude API and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws). For feature availability across platforms, see the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
 ## Request and Response Format
 
 ### Request Size Limits
 
-The API has different maximum request sizes depending on the endpoint:
-
-| Endpoint | Maximum Size |
-|----------|--------------|
-| Standard endpoints (Messages, Token Counting) | 32 MB |
-| [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | 256 MB |
+| Endpoint | Maximum Request Size |
+|----------|---------------------|
+| Messages, Token Counting | 32 MB |
+| [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | 256 MB |
 | [Files API](https://platform.claude.com/docs/en/build-with-claude/files) | 500 MB |
+| Sessions, Agents, Environments | 32 MB |
 
 If you exceed these limits, you'll receive a 413 `request_too_large` error.
 
-> Third-party platforms have their own request size limits: Vertex AI limits requests to 30 MB, and Amazon Bedrock limits requests to 20 MB. Consult your platform's documentation for current values.
+> Partner-operated platforms have their own request size limits: Google Cloud limits requests to 30 MB, and Bedrock limits requests to 20 MB. Claude Platform on AWS uses the same limits as the direct Claude API. Consult your platform's documentation for current values.
 
 ### Response Headers
 
@@ -128,60 +120,21 @@ The Claude API includes the following headers in every response:
 - `request-id`: A globally unique identifier for the request
 - `anthropic-organization-id`: The organization ID associated with the API key used in the request
 
+> Claude Platform on AWS adds an AWS request ID (`x-amzn-requestid`) alongside the standard `request-id` header. See [Request IDs](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#request-ids) for the dual-ID handling pattern.
+
 ## Rate Limits and Availability
 
 ### Rate Limits
 
-The API enforces rate limits and spend limits to prevent misuse and manage capacity. Limits are organized into usage tiers that increase automatically as you use the API. Each tier has:
+The API enforces rate limits and spend limits to prevent misuse and manage capacity. Limits are organized into usage tiers; your organization is placed on a tier automatically and can move to a higher tier over time. Each tier has:
 
 - **Spend limits**: Maximum monthly cost for API usage
 - **Rate limits**: Maximum number of requests per minute (RPM) and tokens per minute (TPM)
 
-You can view your organization's current limits in the [Console](https://platform.claude.com/settings/limits). For higher limits or Priority Tier (enhanced service levels with committed spend), contact sales through the Console.
+You can view your organization's current limits in the [Console](https://platform.claude.com/settings/limits). For higher limits, use **Request rate limit increase** on the [Limits](https://platform.claude.com/settings/limits) page.
 
 For detailed information about limits, tiers, and the token bucket algorithm used for rate limiting, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits).
 
 ### Availability
 
 The Claude API is available in [many countries and regions](https://platform.claude.com/docs/en/api/supported-regions) worldwide. Check the supported regions page to confirm availability in your location.
-
-## Basic Example
-
-Here's a minimal request using the Messages API:
-
-```bash
-curl https://api.anthropic.com/v1/messages \
-  --header "x-api-key: $ANTHROPIC_API_KEY" \
-  --header "anthropic-version: 2023-06-01" \
-  --header "content-type: application/json" \
-  --data '{
-    "model": "claude-opus-4-6",
-    "max_tokens": 1024,
-    "messages": [
-      {"role": "user", "content": "Hello, Claude"}
-    ]
-  }'
-```
-
-Response:
-```json
-{
-  "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
-  "type": "message",
-  "role": "assistant",
-  "content": [
-    {
-      "type": "text",
-      "text": "Hello! How can I assist you today?"
-    }
-  ],
-  "model": "claude-opus-4-6",
-  "stop_reason": "end_turn",
-  "usage": {
-    "input_tokens": 12,
-    "output_tokens": 8
-  }
-}
-```
-
-For complete examples and tutorials, see [Get started](https://platform.claude.com/docs/en/get-started) and [Working with Messages](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).

@@ -2,13 +2,13 @@
 title: "Tool Use Guide"
 source_url: "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "api"
 ---
 
 # Tool Use with Claude
 
-Claude can interact with tools and functions, extending its capabilities to perform tasks such as searching the web, executing code, and interacting with external APIs. Each tool defines a contract: you specify what operations are available and what they return; Claude decides when and how to call them. Tool access is one of the highest-leverage primitives you can give an agent. On benchmarks like LAB-Bench FigQA (scientific figure interpretation) and SWE-bench (real-world software engineering), adding even simple tools produces outsized capability gains, often surpassing human expert baselines.
+Tool use lets Claude call functions that you define or that Anthropic provides. Claude determines when to call a tool based on the user's request and the tool's description. It then returns a structured call that your application executes (client tools) or that Anthropic executes (server tools).
 
 ## Tool Types
 
@@ -21,7 +21,7 @@ Tools that execute on your infrastructure. You define them, handle invocations, 
 **Sub-types:**
 
 - **User-defined tools**: Custom tools you create with names, descriptions, and JSON schemas.
-- **Anthropic-defined tools requiring client implementation**: Tools like computer use, text editor, and bash that have Anthropic-specified schemas but run on your side.
+- **Anthropic-schema client tools**: Tools like computer use, text editor, bash, and memory that have Anthropic-specified schemas but run on your side.
 
 **4-step workflow:**
 
@@ -32,18 +32,35 @@ Tools that execute on your infrastructure. You define them, handle invocations, 
 
 ### 2. Server Tools
 
-Tools that execute on Anthropic's servers. No client-side implementation is required.
+Tools that execute on Anthropic's infrastructure. No client-side implementation is required.
 
 - **Web Search** (`web_search_20260209`): Searches the web and returns results.
 - **Web Fetch** (`web_fetch_20260209`): Fetches content from URLs.
+- **Code Execution** (`code_execution_20260120`): Runs Python and bash code in a sandboxed container.
+- **Advisor**: Lets a faster executor model consult a higher-intelligence advisor model mid-generation.
+- **Tool Search**: Work with thousands of tools by discovering and loading them on demand.
 
 **Server tool workflow:**
 
 1. Provide server tools and the user prompt.
-2. Claude executes the server tool automatically within a sampling loop (default **10 iterations**).
+2. Claude executes the server tool automatically within a sampling loop.
 3. Results are incorporated directly into the response.
 
-If the server-side loop reaches 10 iterations without completion, the API returns `stop_reason: "pause_turn"`. To continue, send the response back as an assistant message followed by a user message to resume.
+If the server-side loop reaches its iteration limit without completion, the API returns `stop_reason: "pause_turn"`. To continue, send the response back as an assistant message followed by a user message to resume.
+
+## When Claude Uses Tools
+
+With the default `tool_choice` of `{"type": "auto"}`, Claude determines on each turn whether to call a tool or respond directly. It calls a tool when the request maps to that tool's described capability and the answer isn't already in context. It responds directly for stable knowledge, creative tasks, and conversational turns.
+
+This boundary is steerable through your system prompt. If Claude isn't calling tools when you expect, a light instruction such as `"Use the tools to investigate before responding."` increases tool use. A stronger form such as `"Always call a tool first before responding."` pushes further. Conversely, `"Use your judgment about whether to call a tool or respond directly."` keeps triggering behavior conservative.
+
+To require a tool call rather than rely on prompting, set `tool_choice`.
+
+### Missing Information Handling
+
+- **Claude Opus** models are more likely to ask clarifying questions when required parameters are missing.
+- **Claude Sonnet** models may attempt to infer values from context.
+- Use chain-of-thought prompting to improve parameter assessment accuracy.
 
 ## Tool Definition
 
@@ -124,7 +141,7 @@ tools = [
 
 # Step 1: Send the initial request
 response = client.messages.create(
-    model="claude-opus-4-6",
+    model="claude-opus-4-8",
     max_tokens=1024,
     tools=tools,
     messages=[{"role": "user", "content": "What's the weather in San Francisco?"}]
@@ -139,7 +156,7 @@ if response.stop_reason == "tool_use":
 
     # Step 4: Send tool result back to Claude
     final_response = client.messages.create(
-        model="claude-opus-4-6",
+        model="claude-opus-4-8",
         max_tokens=1024,
         tools=tools,
         messages=[
@@ -183,7 +200,7 @@ const tools: Anthropic.Tool[] = [
 
 // Step 1: Send the initial request
 const response = await client.messages.create({
-  model: "claude-opus-4-6",
+  model: "claude-opus-4-8",
   max_tokens: 1024,
   tools,
   messages: [{ role: "user", content: "What's the weather in San Francisco?" }]
@@ -198,7 +215,7 @@ if (response.stop_reason === "tool_use") {
 
   // Step 4: Send tool result back
   const finalResponse = await client.messages.create({
-    model: "claude-opus-4-6",
+    model: "claude-opus-4-8",
     max_tokens: 1024,
     tools,
     messages: [
@@ -284,71 +301,60 @@ When multiple operations are independent, Claude can call multiple tools in a si
 
 For dependent operations where the output of one tool feeds into another, Claude calls tools one at a time across multiple turns. Each turn uses the previous tool's result as context for the next call.
 
-## Missing Information Handling
+## Choose a Tool
 
-- **Claude Opus** models are more likely to ask clarifying questions when required parameters are missing.
-- **Claude Sonnet** models may attempt to infer values from context.
-- Use chain-of-thought prompting to improve parameter assessment accuracy.
+### Your Own Tools
 
-## Built-in Tools
+For tools you define, you write the schema and your application executes each call.
 
-### Anthropic-defined tools (versioned types)
+### Anthropic-Schema Client Tools
 
-| Tool | Type | Description |
-|:-----|:-----|:------------|
-| Web Search | `web_search_20260209` | Search the web. Options: `max_uses`, `allowed_domains`, `blocked_domains`, `user_location` |
-| Web Fetch | `web_fetch_20260209` | Fetch content from URLs (server-side) |
-| Code Execution | `code_execution_20260120` | Secure sandboxed code execution |
-| Bash | `bash_20250124` | Execute bash commands (client-side) |
-| Text Editor | `text_editor_20250728` | View and edit files. Option: `max_characters` |
+Anthropic publishes the schema and trains Claude on it. Your application still executes each call and returns the `tool_result`.
 
-```json
-{
-  "tools": [
-    {
-      "type": "web_search_20260209",
-      "name": "web_search",
-      "max_uses": 5,
-      "allowed_domains": ["docs.anthropic.com", "github.com"],
-      "user_location": {"type": "approximate", "city": "San Francisco", "region": "CA", "country": "US"}
-    },
-    {
-      "type": "text_editor_20250728",
-      "name": "text_editor",
-      "max_characters": 100000
-    },
-    {
-      "type": "bash_20250124",
-      "name": "bash"
-    },
-    {
-      "type": "code_execution_20260120",
-      "name": "code_execution"
-    }
-  ]
-}
-```
+- **Memory tool**: Store and retrieve information across conversations in files you control.
+- **Bash tool** (`bash_20250124`): Run shell commands in a persistent session that maintains state.
+- **Text Editor tool** (`text_editor_20250728`): View and modify text files to debug, fix, and improve code.
+- **Computer Use tool**: Take screenshots and control the mouse and keyboard in a desktop environment.
+
+### Server Tools
+
+Server tools run on Anthropic's infrastructure, with no handler code in your application.
+
+- **Web Search tool** (`web_search_20260209`): Search the web for information beyond the knowledge cutoff, with cited sources.
+- **Web Fetch tool** (`web_fetch_20260209`): Retrieve the full content of specified web pages and PDF documents.
+- **Code Execution tool** (`code_execution_20260120`): Run Python and bash code in a sandboxed container to analyze data and generate files.
+- **Advisor tool**: Let a faster executor model consult a higher-intelligence advisor model mid-generation.
+- **Tool Search tool**: Work with thousands of tools by discovering and loading them on demand.
+- **MCP connector**: Connect to remote MCP servers from the Messages API without a separate MCP client.
 
 ## Pricing
 
-Tool use is priced based on total input and output tokens. Additional token usage comes from:
+Tool use requests are priced based on:
 
-- The `tools` parameter (tool names, descriptions, and schemas are serialized and counted as input tokens).
-- `tool_use` content blocks in both requests and responses.
-- `tool_result` content blocks provided by the user.
-- A system prompt overhead added automatically for tool use enablement.
+1. The total number of input tokens sent to the model (including in the `tools` parameter)
+2. The number of output tokens generated
+3. For server-side tools, additional usage-based pricing (e.g., web search charges per search performed)
+
+The additional tokens from tool use come from:
+
+- The `tools` parameter in API requests (tool names, descriptions, and schemas)
+- `tool_use` content blocks in API requests and responses
+- `tool_result` content blocks in API requests
 
 ### Tool Use System Prompt Token Overhead
 
-The system prompt overhead varies by model and tool choice mode:
+When you use `tools`, the API automatically includes a special system prompt that enables tool use. The number of tool use tokens required for each model are listed below (assumes at least 1 tool is provided):
 
 | Model | auto / none | any / tool |
 |:------|:------------|:-----------|
-| Claude Opus 4.6 | 346 tokens | 313 tokens |
-| Claude Opus 4.5 | 346 tokens | 313 tokens |
-| Claude Sonnet 4.5 | 346 tokens | 313 tokens |
-| Claude Haiku 4.5 | 346 tokens | 313 tokens |
-| Claude Haiku 3.5 | 264 tokens | 340 tokens |
+| Claude Opus 4.8 | 290 tokens | 410 tokens |
+| Claude Opus 4.7 | 675 tokens | 804 tokens |
+| Claude Opus 4.6 | 497 tokens | 589 tokens |
+| Claude Opus 4.5 | 496 tokens | 588 tokens |
+| Claude Sonnet 4.6 | 497 tokens | 589 tokens |
+| Claude Sonnet 4.5 | 496 tokens | 588 tokens |
+| Claude Haiku 4.5 | 496 tokens | 588 tokens |
+| Claude Haiku 3.5 | 264 tokens | 355 tokens |
 
 ### Server Tool Pricing
 

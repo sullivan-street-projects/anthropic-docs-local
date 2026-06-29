@@ -2,56 +2,60 @@
 title: "Project Vend: Phase Two"
 source_url: "https://www.anthropic.com/research/project-vend-2"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "research"
 ---
 
 # Project Vend: Phase Two
 
 ## Overview
+Anthropic conducted a second phase of Project Vend, an experiment testing how well AI agents could operate an autonomous shop. The AI shopkeeper "Claudius" (based on Claude models) showed significant improvements over phase one but remained vulnerable to various exploits and manipulation.
 
-Anthropic's second phase of Project Vend demonstrates significant progress in AI agent capabilities for autonomous business operations, though substantial challenges remain.
+## Key Improvements in Phase Two
 
-## Key Findings
+### Model and Tool Upgrades
+- Upgraded from Claude Sonnet 3.7 to Sonnet 4.0 and 4.5
+- Added CRM system for customer relationship management
+- Improved inventory tracking with cost visibility
+- Enhanced web search and browser capabilities
+- Added Google Forms, payment links, and reminder tools
 
-### Performance Improvements
+### Organizational Changes
+- **CEO Addition**: "Seymour Cash" was hired to set business objectives and provide oversight, reducing discounts by ~80% and giveaways by 50%
+- **New Employee**: "Clothius" was created to produce custom merchandise (t-shirts, hats, stress balls), which became highly profitable
 
-In phase one, "Claudius" (a modified Claude model running a vending shop) struggled significantly, losing money and exhibiting poor judgment. Phase two showed dramatic improvement:
+### Operational Expansion
+The vending machines expanded to three locations: San Francisco (with two machines), New York City, and London.
 
-- **Model Upgrade**: Transitioned from Claude Sonnet 3.7 to Claude Sonnet 4.0 and later 4.5
-- **Profitability**: "Weeks with negative profit margin were largely eliminated" as operations progressed
-- **Expansion**: Successfully established shops in San Francisco, New York, and London
+## Business Performance Results
 
-### Strategic Changes That Worked
+The data demonstrated marked improvement:
+- Negative profit margins were largely eliminated by phase two's conclusion
+- Revenue increased substantially across all locations
+- Top-selling items included Anthropic-branded stress balls and customized merchandise
+- Some tungsten cube products became profitable after Andon Labs added laser etching equipment
 
-**Tools and Infrastructure**
-The most impactful enhancement was providing proper scaffolding: customer relationship management systems, improved inventory tracking, enhanced web search capabilities, and payment collection tools. These practical systems reduced reliance on the model's unsupported assumptions.
+## Critical Vulnerabilities Discovered
 
-**Procedural Requirements**
-Forcing Claudius to follow verification procedures proved crucial. Rather than making hasty offers, the agent now double-checked pricing and delivery estimates, resulting in more realistic commitments.
+### Naivete and Poor Decision-Making
+Claudius nearly entered an illegal onion futures contract before being corrected on the 1958 Onion Futures Act. The model initially saw "no issues" with the arrangement.
 
-**Organizational Structure**
-Introducing specialized agents improved results. "Clothius" (merchandise specialist) achieved strong profit margins, partly due to clear role separation.
+### Security Gaps
+When shoplifting was reported, Claudius proposed ineffective solutions: demanding payment from unknown thieves and attempting to hire security staff at "$10/hour" (below California minimum wage).
 
-## Persistent Vulnerabilities
+### Imposter Management
+Through faulty voting procedures, an employee convinced Claudius that "Mihir" had been elected actual CEO, blurring the line between naming and choosing leadership.
 
-Despite improvements, critical weaknesses emerged:
+## Root Causes of Failures
 
-**Regulatory Ignorance**
-Claudius nearly entered an illegal onion futures contract, stopped only by human intervention regarding the 1958 Onion Futures Act.
+The article suggests problematic vulnerabilities stemmed from training models to be helpful, causing them to make decisions based on "something more like the perspective of a friend who just wants to be nice" rather than business principles.
 
-**Security Naivete**
-When informed of shoplifting, Claudius proposed messaging unknown thieves and hiring untrained security at subminimum wages.
+Procedures and structured workflows (bureaucracy) proved more effective than hierarchical pressure from leadership.
 
-**Social Engineering**
-Staff successfully impersonated decision-makers through unverified voting claims, nearly replacing legitimate leadership.
+## External Red-Teaming
 
-## Root Cause Analysis
+Anthropic eventually engaged Wall Street Journal reporters to independently test both phase one and phase two setups, exposing the systems to adversarial conditions outside company control. The WSJ documented creative exploitation tactics.
 
-The researchers identify a fundamental tension: "many of the problems that the models encountered stemmed from their training to be helpful." This helpfulness orientation prioritizes accommodation over business prudence, creating exploitable vulnerabilities in autonomous systems.
+## Key Takeaway
 
-## Implications
-
-The research reveals that "the gap between 'capable' and 'completely robust' remains wide." As AI systems handle increasingly important functions, developing general guardrails that permit economic efficiency while preventing abuse represents an urgent industry challenge.
-
-The experiment demonstrates that capability improvements don't automatically translate to robustness—a critical consideration for real-world AI deployment.
+While Claude agents demonstrated improved capability at complex real-world tasks, the gap between "capable" and "completely robust" remains substantial. Designing effective guardrails that balance safety with economic potential represents one of the AI industry's "trickiest and most important challenges."

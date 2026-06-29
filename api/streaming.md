@@ -2,15 +2,17 @@
 title: "Streaming API"
 source_url: "https://platform.claude.com/docs/en/api/streaming"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "api"
 ---
 
 # Streaming Messages
 
-Set `"stream": true` when creating a Message to incrementally stream the response using server-sent events (SSE). Streaming allows you to display partial results as they are generated rather than waiting for the complete response.
+When creating a Message, you can set `"stream": true` to incrementally stream the response using [server-sent events](https://developer.mozilla.org/en-US/Web/API/Server-sent_events/Using_server-sent_events) (SSE). Streaming allows you to display partial results as they are generated rather than waiting for the complete response.
 
 ## SDK Streaming
+
+The Python, TypeScript, PHP, C#, Go, Java, and Ruby SDKs offer multiple ways of streaming.
 
 ### Python
 
@@ -21,8 +23,8 @@ client = anthropic.Anthropic()
 
 with client.messages.stream(
     max_tokens=1024,
-    messages=[{"role": "user", "content": "Hello, Claude"}],
-    model="claude-opus-4-6",
+    messages=[{"role": "user", "content": "Hello"}],
+    model="claude-opus-4-8",
 ) as stream:
     for text in stream.text_stream:
         print(text, end="", flush=True)
@@ -35,18 +37,15 @@ import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic();
 
-const stream = await client.messages.stream({
-  messages: [{ role: "user", content: "Hello, Claude" }],
-  model: "claude-opus-4-6",
-  max_tokens: 1024,
-});
-
-stream.on("text", (text) => {
-  process.stdout.write(text);
-});
-
-const finalMessage = await stream.finalMessage();
-console.log("\n\nFinal usage:", finalMessage.usage);
+await client.messages
+  .stream({
+    messages: [{ role: "user", content: "Hello" }],
+    model: "claude-opus-4-8",
+    max_tokens: 1024
+  })
+  .on("text", (text) => {
+    console.log(text);
+  });
 ```
 
 ### cURL (Raw SSE)
@@ -57,18 +56,18 @@ curl https://api.anthropic.com/v1/messages \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-opus-4-6",
-    "max_tokens": 1024,
+    "model": "claude-opus-4-8",
+    "max_tokens": 256,
     "stream": true,
     "messages": [
-      {"role": "user", "content": "Hello, Claude"}
+      {"role": "user", "content": "Hello"}
     ]
   }'
 ```
 
 ## Get Final Message Without Events
 
-Use `.stream()` with `.get_final_message()` (Python) or `.finalMessage()` (TypeScript) to get the complete `Message` object without processing individual events. This is useful when you need streaming to avoid HTTP timeouts on long responses but do not need incremental display.
+If you don't need to process text as it arrives, the SDKs provide a way to use streaming under the hood while returning the complete `Message` object, identical to what `.create()` returns. This is especially useful for requests with large `max_tokens` values, where the SDKs require streaming to avoid HTTP timeouts.
 
 ### Python
 
@@ -76,7 +75,7 @@ Use `.stream()` with `.get_final_message()` (Python) or `.finalMessage()` (TypeS
 with client.messages.stream(
     max_tokens=128000,
     messages=[{"role": "user", "content": "Write a detailed analysis of modern architecture."}],
-    model="claude-opus-4-6",
+    model="claude-opus-4-8",
 ) as stream:
     message = stream.get_final_message()
 
@@ -88,16 +87,44 @@ print(f"Output tokens: {message.usage.output_tokens}")
 ### TypeScript
 
 ```typescript
-const stream = await client.messages.stream({
+const stream = client.messages.stream({
   max_tokens: 128000,
   messages: [{ role: "user", content: "Write a detailed analysis of modern architecture." }],
-  model: "claude-opus-4-6",
+  model: "claude-opus-4-8"
 });
 
 const message = await stream.finalMessage();
-console.log(message.content[0].text);
-console.log(`Input tokens: ${message.usage.input_tokens}`);
-console.log(`Output tokens: ${message.usage.output_tokens}`);
+const textBlock = message.content.find((block) => block.type === "text");
+if (textBlock && textBlock.type === "text") {
+  console.log(textBlock.text);
+}
+```
+
+### Go
+
+```go
+client := anthropic.NewClient()
+
+stream := client.Messages.NewStreaming(context.TODO(), anthropic.MessageNewParams{
+	Model:     anthropic.ModelClaudeOpus4_8,
+	MaxTokens: 128000,
+	Messages: []anthropic.MessageParam{
+		anthropic.NewUserMessage(anthropic.NewTextBlock("Write a detailed analysis...")),
+	},
+})
+
+message := anthropic.Message{}
+for stream.Next() {
+	event := stream.Current()
+	if err := message.Accumulate(event); err != nil {
+		log.Fatal(err)
+	}
+}
+if err := stream.Err(); err != nil {
+	log.Fatal(err)
+}
+
+fmt.Println(message.Content[0].Text)
 ```
 
 ## Event Flow
@@ -121,6 +148,8 @@ message_stop
 
 **Ping events** (`event: ping`) may appear at any point throughout the stream.
 
+During server-side fallback responses, a `fallback` content block arrives at each model boundary as a `content_block_start` and `content_block_stop` pair with no deltas in between.
+
 ## Event Types
 
 ### `message_start`
@@ -132,14 +161,14 @@ event: message_start
 data: {
   "type": "message_start",
   "message": {
-    "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
+    "id": "msg_1nZdL29xx5MUA1yADyHTEsnR8uuvGzszyY",
     "type": "message",
     "role": "assistant",
     "content": [],
-    "model": "claude-opus-4-6",
+    "model": "claude-opus-4-8",
     "stop_reason": null,
     "stop_sequence": null,
-    "usage": {"input_tokens": 10, "output_tokens": 1}
+    "usage": {"input_tokens": 25, "output_tokens": 1}
   }
 }
 ```
@@ -218,7 +247,7 @@ Incremental text output:
 {
   "type": "content_block_delta",
   "index": 0,
-  "delta": {"type": "text_delta", "text": "Hello! How can I"}
+  "delta": {"type": "text_delta", "text": "ello frien"}
 }
 ```
 
@@ -234,6 +263,8 @@ Partial JSON strings for tool input. Accumulate these until `content_block_stop`
 }
 ```
 
+Note: Current models only support emitting one complete key and value property from `input` at a time. As such, when using tools, there may be delays between streaming events while the model is working.
+
 ### Thinking Delta (Extended Thinking)
 
 Incremental thinking content when extended thinking is enabled:
@@ -242,9 +273,11 @@ Incremental thinking content when extended thinking is enabled:
 {
   "type": "content_block_delta",
   "index": 0,
-  "delta": {"type": "thinking_delta", "thinking": "Let me work through this step by step..."}
+  "delta": {"type": "thinking_delta", "thinking": "I need to find the GCD of 1071 and 462 using the Euclidean algorithm.\n\n1071 = 2 x 462 + 147"}
 }
 ```
+
+When `display: "omitted"` is set on the thinking configuration, no `thinking_delta` events are sent. The thinking block opens, receives a single `signature_delta`, and closes.
 
 ### Signature Delta
 
@@ -254,7 +287,7 @@ Sent before `content_block_stop` for thinking blocks. Contains a cryptographic s
 {
   "type": "content_block_delta",
   "index": 0,
-  "delta": {"type": "signature_delta", "signature": "EqQBCgIYAhIM1gbcDa9GJwZKJMPrGg..."}
+  "delta": {"type": "signature_delta", "signature": "EqQBCgIYAhIM1gbcDa9GJwZA2b3hGgxBdjrkzLoky3dl1pkiMOYds..."}
 }
 ```
 
@@ -264,11 +297,11 @@ Tool use blocks appear in the stream with `content_block_start` (type `tool_use`
 
 ### Fine-grained Tool Streaming
 
-Use `eager_input_streaming` to receive tool input deltas as they are generated, enabling real-time tool input display:
+Tool use supports fine-grained streaming for parameter values. Enable it per tool with `eager_input_streaming`.
 
 ```python
 with client.messages.stream(
-    model="claude-opus-4-6",
+    model="claude-opus-4-8",
     max_tokens=1024,
     tools=tools,
     messages=[{"role": "user", "content": "What's the weather in SF and NYC?"}],
@@ -281,8 +314,8 @@ with client.messages.stream(
 ```
 
 ```typescript
-const stream = await client.messages.stream({
-  model: "claude-opus-4-6",
+const stream = client.messages.stream({
+  model: "claude-opus-4-8",
   max_tokens: 1024,
   tools,
   messages: [{ role: "user", content: "What's the weather in SF and NYC?" }],
@@ -301,20 +334,17 @@ for await (const event of stream) {
 
 When streaming with extended thinking enabled, thinking content arrives via `thinking_delta` events followed by a `signature_delta` before the thinking block closes. Text output follows in subsequent content blocks.
 
+The `display: "summarized"` setting streams a condensed summary of Claude's reasoning rather than the full chain of thought.
+
 ```python
 with client.messages.stream(
-    model="claude-opus-4-6",
+    model="claude-opus-4-8",
     max_tokens=20000,
-    thinking={"type": "enabled", "budget_tokens": 16000},
+    thinking={"type": "adaptive", "display": "summarized"},
     messages=[{"role": "user", "content": "What is the GCD of 1071 and 462?"}],
 ) as stream:
     for event in stream:
-        if event.type == "content_block_start":
-            if event.content_block.type == "thinking":
-                print("[Thinking] ", end="")
-            elif event.content_block.type == "text":
-                print("\n[Response] ", end="")
-        elif event.type == "content_block_delta":
+        if event.type == "content_block_delta":
             if event.delta.type == "thinking_delta":
                 print(event.delta.thinking, end="", flush=True)
             elif event.delta.type == "text_delta":
@@ -322,21 +352,15 @@ with client.messages.stream(
 ```
 
 ```typescript
-const stream = await client.messages.stream({
-  model: "claude-opus-4-6",
+const stream = client.messages.stream({
+  model: "claude-opus-4-8",
   max_tokens: 20000,
-  thinking: { type: "enabled", budget_tokens: 16000 },
+  thinking: { type: "adaptive", display: "summarized" },
   messages: [{ role: "user", content: "What is the GCD of 1071 and 462?" }],
 });
 
 for await (const event of stream) {
-  if (event.type === "content_block_start") {
-    if (event.content_block.type === "thinking") {
-      process.stdout.write("[Thinking] ");
-    } else if (event.content_block.type === "text") {
-      process.stdout.write("\n[Response] ");
-    }
-  } else if (event.type === "content_block_delta") {
+  if (event.type === "content_block_delta") {
     if (event.delta.type === "thinking_delta") {
       process.stdout.write(event.delta.thinking);
     } else if (event.delta.type === "text_delta") {
@@ -352,9 +376,9 @@ Server tool use blocks (`server_tool_use`) and results (`web_search_tool_result`
 
 ```python
 with client.messages.stream(
-    model="claude-opus-4-6",
+    model="claude-opus-4-8",
     max_tokens=1024,
-    tools=[{"type": "web_search_20260209", "name": "web_search"}],
+    tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 5}],
     messages=[{"role": "user", "content": "What is the latest news about AI safety?"}],
 ) as stream:
     for event in stream:
@@ -372,30 +396,13 @@ with client.messages.stream(
 
 Streaming responses may be interrupted by network errors, timeouts, or server issues. Recovery strategies differ by model.
 
-### Claude Opus 4.6
-
-For Opus 4.6, use a continuation prompt. Add a user message instructing the model to continue from where it left off:
-
-```python
-# After a stream interruption, send a continuation request
-messages = [
-    {"role": "user", "content": "Write a detailed essay about renewable energy."},
-    {"role": "assistant", "content": partial_text_received},
-    {"role": "user", "content": "Please continue from where you left off."}
-]
-
-with client.messages.stream(
-    model="claude-opus-4-6",
-    max_tokens=remaining_tokens,
-    messages=messages,
-) as stream:
-    for text in stream.text_stream:
-        print(text, end="", flush=True)
-```
-
 ### Claude 4.5 and Earlier
 
-For Claude 4.5 models and earlier, capture the partial response and construct a continuation request with a partial assistant message (prefilling):
+For Claude 4.5 models and earlier, you can recover a streaming request that was interrupted by resuming from where the stream was interrupted:
+
+1. **Capture the partial response:** Save all content that was successfully received before the error occurred.
+2. **Construct a continuation request:** Create a new API request that includes the partial assistant response as the beginning of a new assistant message (prefilling).
+3. **Resume streaming:** Continue receiving the rest of the response from where it was interrupted.
 
 ```python
 # Capture partial response during streaming
@@ -424,6 +431,31 @@ except Exception:
             print(text, end="", flush=True)
 ```
 
+### Claude 4.6 and Later
+
+For Claude 4.6 and later models, the same capture-and-resume strategy applies, but step 2 changes: instead of placing the partial response in an assistant message, add a user message that instructs the model to continue from where it left off.
+
+1. **Capture the partial response:** Save all content that was successfully received before the error occurred.
+2. **Construct a continuation request:** Create a new API request with a user message containing the partial response and an instruction to continue.
+3. **Resume streaming:** Continue receiving the rest of the response from where it was interrupted.
+
+```python
+# After a stream interruption, send a continuation request
+messages = [
+    {"role": "user", "content": "Write a detailed essay about renewable energy."},
+    {"role": "assistant", "content": partial_text_received},
+    {"role": "user", "content": "Your previous response was interrupted. Continue from where you left off."}
+]
+
+with client.messages.stream(
+    model="claude-opus-4-8",
+    max_tokens=remaining_tokens,
+    messages=messages,
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+```
+
 ### Recovery Best Practices
 
 - Use SDK built-in message accumulation and error handling when available.
@@ -439,3 +471,4 @@ except Exception:
 - **Use streaming for large outputs**: SDKs may require streaming to avoid HTTP timeouts for large `max_tokens` values.
 - **Process `message_delta` for usage**: The cumulative `output_tokens` count is only available in the `message_delta` event.
 - **Handle ping events**: Simply ignore them; they are keep-alive signals.
+- **Handle unknown event types gracefully**: New event types may be added per the versioning policy.

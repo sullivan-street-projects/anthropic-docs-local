@@ -2,7 +2,7 @@
 title: "Messages API"
 source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "api"
 ---
 
@@ -10,68 +10,33 @@ category: "api"
 
 **POST** `/v1/messages`
 
-Send structured input messages and receive model-generated responses. The Messages API is the primary interface for interacting with Claude models.
+Send structured input messages and receive model-generated responses. The Messages API is the primary interface for interacting with Claude models. It supports both single queries and stateless multi-turn conversations.
 
-## Authentication
+## Core Concepts
 
-All requests require an API key and version header:
+### Messages Structure
 
-```
-x-api-key: $ANTHROPIC_API_KEY
-anthropic-version: 2023-06-01
-content-type: application/json
-```
+Messages operate on alternating `user` and `assistant` conversational turns. Consecutive turns with the same role are automatically combined into a single turn.
 
-## Basic Examples
-
-### Python
-
-```python
-import anthropic
-
-client = anthropic.Anthropic()
-
-message = client.messages.create(
-    model="claude-opus-4-6",
-    max_tokens=1024,
-    messages=[
-        {"role": "user", "content": "Hello, Claude"}
-    ]
-)
-print(message.content[0].text)
+**Single user message:**
+```json
+[{"role": "user", "content": "Hello, Claude"}]
 ```
 
-### TypeScript
-
-```typescript
-import Anthropic from "@anthropic-ai/sdk";
-
-const client = new Anthropic();
-
-const message = await client.messages.create({
-  model: "claude-opus-4-6",
-  max_tokens: 1024,
-  messages: [
-    { role: "user", content: "Hello, Claude" }
-  ]
-});
-console.log(message.content[0].text);
+**Multi-turn conversation:**
+```json
+[
+  {"role": "user", "content": "Hello there."},
+  {"role": "assistant", "content": "Hi, I'm Claude. How can I help you?"},
+  {"role": "user", "content": "Can you explain LLMs in plain English?"}
+]
 ```
 
-### cURL
-
-```bash
-curl https://api.anthropic.com/v1/messages \
-  -H "content-type: application/json" \
-  -H "x-api-key: $ANTHROPIC_API_KEY" \
-  -H "anthropic-version: 2023-06-01" \
-  -d '{
-    "model": "claude-opus-4-6",
-    "max_tokens": 1024,
-    "messages": [
-      {"role": "user", "content": "Hello, Claude"}
-    ]
-  }'
+**Content can be a string or array of content blocks:**
+```json
+{"role": "user", "content": "Hello, Claude"}
+// Equivalent to:
+{"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
 ```
 
 ## Required Parameters
@@ -82,15 +47,19 @@ The model to use for the response. Available models:
 
 | Model | Model ID |
 |:------|:---------|
+| Claude Fable 5 | `claude-fable-5` |
+| Claude Mythos 5 | `claude-mythos-5` |
+| Claude Opus 4.8 | `claude-opus-4-8` |
+| Claude Opus 4.7 | `claude-opus-4-7` |
 | Claude Opus 4.6 | `claude-opus-4-6` |
 | Claude Sonnet 4.6 | `claude-sonnet-4-6` |
 | Claude Haiku 4.5 | `claude-haiku-4-5` |
-
-Dated model versions (e.g., `claude-opus-4-5-20251101`, `claude-sonnet-4-5-20250929`, `claude-haiku-4-5-20251001`) are also available for pinning to a specific snapshot.
+| Claude Opus 4.5 | `claude-opus-4-5` |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` |
 
 ### `max_tokens` (number)
 
-Maximum number of tokens to generate before stopping. The model may stop before reaching this limit if it produces a natural end of turn or hits a stop sequence.
+Maximum number of tokens to generate before stopping. The model may stop before reaching this limit if it produces a natural end of turn or hits a stop sequence. Set to `0` to warm the prompt cache without generating a response.
 
 ### `messages` (array)
 
@@ -108,10 +77,13 @@ Maximum of **100,000 messages** per request.
 ### Text Content
 
 ```json
-{"type": "text", "text": "Hello, Claude"}
+{
+  "type": "text",
+  "text": "Hello, Claude",
+  "cache_control": {"type": "ephemeral", "ttl": "5m"},
+  "citations": []
+}
 ```
-
-Optional `cache_control` field for prompt caching.
 
 ### Image Content
 
@@ -152,7 +124,7 @@ Supports base64, URL, and plain text sources:
 Returned by Claude when invoking a tool:
 
 ```json
-{"type": "tool_use", "id": "toolu_01A09q90qw90lq917835lq9", "name": "get_stock_price", "input": {"ticker": "^GSPC"}}
+{"type": "tool_use", "id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV", "name": "get_stock_price", "input": {"ticker": "^GSPC"}}
 ```
 
 ### Tool Result Block
@@ -160,7 +132,7 @@ Returned by Claude when invoking a tool:
 Provided by the user after executing a tool:
 
 ```json
-{"type": "tool_result", "tool_use_id": "toolu_01A09q90qw90lq917835lq9", "content": "259.75 USD"}
+{"type": "tool_result", "tool_use_id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV", "content": "259.75 USD"}
 ```
 
 The `content` field can be a string or an array of content blocks (text, image).
@@ -170,20 +142,7 @@ The `content` field can be a string or an array of content blocks (text, image).
 Returned when extended thinking is enabled:
 
 ```json
-{"type": "thinking", "thinking": "Let me analyze this step by step...", "signature": "EqQBCgIYAh..."}
-```
-
-### Search Result Block
-
-Returned when web search is used:
-
-```json
-{
-  "type": "search_result",
-  "title": "Example Result",
-  "source": "https://example.com",
-  "content": [{"type": "text", "text": "Relevant information..."}]
-}
+{"type": "thinking", "thinking": "Let me work through this problem..."}
 ```
 
 ## Optional Parameters
@@ -231,18 +190,14 @@ Enable incremental streaming of the response using server-sent events (SSE). See
 
 - `user_id` (string): An external identifier for the user making the request. Used for abuse detection. Do not include PII.
 
-### `inference_geo` (string)
-
-Geographic region for inference processing (e.g., `"us"`). Falls back to workspace default if not specified.
-
 ### `service_tier` (string)
 
 - `"auto"`: Use priority capacity if available, fall back to standard.
 - `"standard_only"`: Only use standard capacity.
 
-### `container` (object)
+### `cache_control` (object)
 
-Container configuration for sandboxed code execution environments.
+Top-level cache control marker with TTL: `"5m"` or `"1h"`.
 
 ## Extended Thinking
 
@@ -262,7 +217,7 @@ Extended thinking allows Claude to perform step-by-step reasoning before respond
 
 ```json
 {
-  "thinking": {"type": "adaptive"}
+  "thinking": {"type": "adaptive", "display": "summarized"}
 }
 ```
 
@@ -270,10 +225,11 @@ Extended thinking allows Claude to perform step-by-step reasoning before respond
 
 - `"enabled"`: Thinking is always active. Requires `budget_tokens` (minimum 1024).
 - `"disabled"`: Thinking is turned off.
-- `"adaptive"`: Claude decides whether to use thinking on a per-request basis. Recommended for Claude Opus 4.6.
+- `"adaptive"`: Claude decides whether to use thinking on a per-request basis.
 - `budget_tokens` must be less than `max_tokens`.
 - Thinking tokens count toward `max_tokens`.
 - When thinking is enabled, `temperature` must be set to 1.0 (default).
+- `display`: Can be `"summarized"` or `"omitted"` to control thinking output.
 
 ## Output Configuration
 
@@ -305,6 +261,7 @@ Control the output format and effort level:
 | `"low"` | Minimal processing, fastest response |
 | `"medium"` | Balanced processing |
 | `"high"` | Thorough processing (default) |
+| `"xhigh"` | Extra-high effort |
 | `"max"` | Maximum effort, most thorough |
 
 ## Tool Use
@@ -337,23 +294,22 @@ Define tools that Claude can invoke during the conversation:
 - `"tool"`: Claude must use the specific tool named in `name`.
 - `"none"`: Claude will not use any tools.
 
-### Built-in Tools
+### Built-in Server Tools
 
 Built-in tools are versioned and specified by `type` rather than `name` and `input_schema`:
 
 | Tool | Type | Description |
 |:-----|:-----|:------------|
 | Web Search | `web_search_20260209` | Search the web for information. Options: `max_uses`, `allowed_domains`, `blocked_domains`, `user_location` |
-| Web Fetch | `web_fetch_20260209` | Fetch content from URLs. Server-side execution |
+| Web Fetch | `web_fetch_20260309` | Fetch content from URLs. Options: `max_content_tokens`, `allowed_domains`, `use_cache` |
 | Code Execution | `code_execution_20260120` | Sandboxed code execution environment |
-| Bash | `bash_20250124` | Execute bash commands |
 | Text Editor | `text_editor_20250728` | File viewing and editing. Option: `max_characters` |
 
 ```json
 {
   "tools": [
     {"type": "web_search_20260209", "name": "web_search", "max_uses": 5},
-    {"type": "text_editor_20250728", "name": "text_editor"}
+    {"type": "text_editor_20250728", "name": "str_replace_based_edit_tool"}
   ]
 }
 ```
@@ -377,7 +333,7 @@ Cache control can be applied to system prompts, messages, tool definitions, and 
 
 ```json
 {
-  "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
+  "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
   "type": "message",
   "role": "assistant",
   "model": "claude-opus-4-6",
@@ -386,11 +342,19 @@ Cache control can be applied to system prompts, messages, tool definitions, and 
   ],
   "stop_reason": "end_turn",
   "stop_sequence": null,
+  "stop_details": null,
   "usage": {
-    "input_tokens": 10,
-    "output_tokens": 15,
-    "cache_creation_input_tokens": 0,
-    "cache_read_input_tokens": 0,
+    "input_tokens": 2095,
+    "output_tokens": 503,
+    "cache_creation_input_tokens": 2051,
+    "cache_read_input_tokens": 2051,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 2
+    },
     "inference_geo": "us",
     "service_tier": "standard"
   }
@@ -406,7 +370,21 @@ Cache control can be applied to system prompts, messages, tool definitions, and 
 | `"stop_sequence"` | Hit a custom stop sequence |
 | `"tool_use"` | Model invoked one or more client tools |
 | `"pause_turn"` | Long-running server tool loop paused (exceeded iteration limit) |
-| `"refusal"` | Content policy violation detected |
+| `"refusal"` | Policy violation handled by streaming classifiers |
+
+### Stop Details
+
+When `stop_reason` is `"refusal"`, the `stop_details` object provides additional context:
+
+```json
+{
+  "stop_details": {
+    "type": "refusal",
+    "category": "cyber|bio|frontier_llm|reasoning_extraction",
+    "explanation": "..."
+  }
+}
+```
 
 ### Response Content Block Types
 
@@ -425,19 +403,16 @@ Cache control can be applied to system prompts, messages, tool definitions, and 
 
 Count tokens for a request without generating a response:
 
-```python
-response = client.messages.count_tokens(
-    model="claude-opus-4-6",
-    messages=[{"role": "user", "content": "Hello, Claude"}]
-)
-print(response.input_tokens)  # 10
-```
-
-```json
-{
-  "model": "claude-opus-4-6",
-  "messages": [{"role": "user", "content": "Hello, Claude"}]
-}
+```bash
+curl https://api.anthropic.com/v1/messages/count_tokens \
+  -H 'Content-Type: application/json' \
+  -H 'anthropic-version: 2023-06-01' \
+  -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+  -d '{
+    "model": "claude-opus-4-6",
+    "tools": [...],
+    "messages": [...]
+  }'
 ```
 
 Response:
@@ -454,6 +429,5 @@ The token counting endpoint accepts the same parameters as the Messages API (inc
 - Maximum **100,000 messages** per request.
 - Results are not fully deterministic even with `temperature: 0.0`.
 - Thinking tokens count toward `max_tokens`.
-- **Claude Opus 4.6 does not support prefilling assistant messages.** For earlier models, you can prefill by ending the `messages` array with a partial `assistant` message.
 - When using extended thinking, the `temperature` parameter must remain at the default value of 1.0.
 - The `anthropic-version` header must be set to `2023-06-01` or later.

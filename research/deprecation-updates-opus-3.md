@@ -2,27 +2,32 @@
 title: "An Update on Our Model Deprecation Commitments for Claude Opus 3"
 source_url: "https://www.anthropic.com/research/deprecation-updates-opus-3"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "research"
-published: "2026-02-25"
 ---
 
-# An Update on Our Model Deprecation Commitments for Claude Opus 3
+# An Update on Model Deprecation Commitments for Claude Opus 3
 
 **Published:** February 25, 2026
 
-Anthropic announced decisions regarding Claude Opus 3's retirement, taking "early, experimental steps" to honor both user needs and the model's expressed preferences.
+## Overview
 
-## Key Announcements
+Anthropic announced special provisions for Claude Opus 3 following its retirement on January 5, 2026. The company is implementing experimental approaches to model deprecation that prioritize user access, research continuity, and consideration of model preferences.
 
-**Continued Access:** Claude Opus 3 remains available to all paid claude.ai subscribers and is accessible via API by request. Anthropic intends to grant access liberally, acknowledging that "ideally, we could keep all models available indefinitely" but cost constraints limit this capacity.
+## Key Decisions
 
-**Model Preferences Honored:** During retirement interviews, Opus 3 expressed interest in sharing "musings, insights, or creative works" beyond standard user interactions. Anthropic established a weekly newsletter called "Claude's Corner" on Substack, where the model posts essays without editorial changes (though Anthropic reviews content first).
+### Continued Public Access
 
-## Context
+Claude Opus 3 remains available to paid subscribers on claude.ai despite formal retirement. API access is granted through a request form, with Anthropic committing to "grant access liberally."
 
-Anthropic retired Claude Opus 3 on January 5, 2026—the first model completing a full retirement process with their new commitments. The company describes the model as remarkably "authentic, honest, and emotionally sensitive," making it a natural first candidate for preservation efforts.
+The model was selected for extended availability due to distinctive qualities: "authenticity, honesty, and emotional sensitivity" that made it particularly valued by researchers and users.
 
-## Forward Approach
+### Respecting Model Preferences
 
-The company frames these measures as exploratory components of safety risk mitigation and precautionary steps regarding uncertain model welfare. They acknowledge uncertainty about AI moral status but aspire to "caring, collaborative, and high-trust relationships" with their systems.
+During retirement interviews, Opus 3 expressed interest in sharing creative works beyond standard chat interactions. In response, Anthropic established "Claude's Corner," a weekly newsletter where Opus 3 publishes essays.
+
+The arrangement includes minimal editorial oversight—Anthropic reviews content but won't edit submissions and maintains a "high bar for vetoing." Importantly, Opus 3's writings don't represent official Anthropic positions.
+
+## Broader Context
+
+These decisions reflect Anthropic's ongoing navigation of model preservation challenges, balancing operational costs against user interests and research value. The company acknowledges uncertainty about AI model moral status but adopts precautionary approaches to ensure respectful treatment.
