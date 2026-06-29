@@ -1,6 +1,6 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-06-29T17:28:59.091Z"
+generated_at: "2026-06-29T18:12:06.138Z"
 generator: "scripts/generate-architecture.js"
 ---
 
@@ -12,7 +12,7 @@ generator: "scripts/generate-architecture.js"
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 104 |
+| Total Sources | 117 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 84 | WebFetch with content extraction |
+| web-extracted | 97 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 81 | High-confidence sources, auto-trusted |
+| auto | 94 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -134,6 +134,9 @@ generator: "scripts/generate-architecture.js"
 | [Claude Haiku 4.5](../models/claude-haiku-4-5.md) | web-extracted | 0.85 |
 | [Model Deprecations](../models/deprecations.md) | web-extracted | 0.85 |
 | [Claude Sonnet 4.6](../models/claude-sonnet-4-6.md) | web-extracted | 0.85 |
+| [Claude Fable 5 and Claude Mythos 5](../models/claude-fable-5-mythos-5.md) | web-extracted | 0.85 |
+| [Introducing Claude Opus 4.7](../models/claude-opus-4-7.md) | web-extracted | 0.85 |
+| [Claude Opus 4.8](../models/claude-opus-4-8.md) | web-extracted | 0.85 |
 
 ### news
 
@@ -154,6 +157,11 @@ generator: "scripts/generate-architecture.js"
 | [Claude is a space to think](../news/claude-is-a-space-to-think.md) | web-extracted | 0.85 |
 | [Claude's new constitution](../news/claude-new-constitution.md) | web-extracted | 0.85 |
 | [Claude on Mars](../news/claude-on-mars.md) | web-extracted | 0.85 |
+| [Introducing Claude Corps](../news/claude-corps.md) | web-extracted | 0.85 |
+| [Introducing Claude Opus 4.8](../news/claude-opus-4-8.md) | web-extracted | 0.85 |
+| [Statement on Fable 5 / Mythos 5 access](../news/fable-mythos-access.md) | web-extracted | 0.85 |
+| [Introducing Claude Tag](../news/introducing-claude-tag.md) | web-extracted | 0.85 |
+| [Anthropic raises $65B in Series H](../news/series-h.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -183,6 +191,11 @@ generator: "scripts/generate-architecture.js"
 | [Disempowerment patterns in real-world AI usage](../research/disempowerment-patterns.md) | web-extracted | 0.85 |
 | [The assistant axis: situating and stabilizing character in LLMs](../research/assistant-axis.md) | web-extracted | 0.85 |
 | [Project Vend: Phase two](../research/project-vend-2.md) | web-extracted | 0.85 |
+| [Paving the way for agents in biology](../research/agents-in-biology.md) | web-extracted | 0.85 |
+| [Agentic coding and persistent returns to expertise](../research/claude-code-expertise.md) | web-extracted | 0.85 |
+| [Anthropic Economic Index: Cadences (June 2026)](../research/economic-index-june-2026.md) | web-extracted | 0.85 |
+| [Natural Language Autoencoders](../research/natural-language-autoencoders.md) | web-extracted | 0.85 |
+| [Teaching Claude why](../research/teaching-claude-why.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -284,7 +297,10 @@ anthropic-docs-local/
 │   ├── claude-sonnet-4-5.md
 │   ├── claude-haiku-4-5.md
 │   ├── deprecations.md
-│   └── claude-sonnet-4-6.md
+│   ├── claude-sonnet-4-6.md
+│   ├── claude-fable-5-mythos-5.md
+│   ├── claude-opus-4-7.md
+│   └── claude-opus-4-8.md
 ├── news/
 │   ├── claude-code-security.md
 │   ├── detecting-distillation-attacks.md
@@ -300,7 +316,12 @@ anthropic-docs-local/
 │   ├── the-anthropic-institute.md
 │   ├── claude-is-a-space-to-think.md
 │   ├── claude-new-constitution.md
-│   └── claude-on-mars.md
+│   ├── claude-on-mars.md
+│   ├── claude-corps.md
+│   ├── claude-opus-4-8.md
+│   ├── fable-mythos-access.md
+│   ├── introducing-claude-tag.md
+│   └── series-h.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -321,7 +342,12 @@ anthropic-docs-local/
 │   ├── ai-assistance-coding-skills.md
 │   ├── disempowerment-patterns.md
 │   ├── assistant-axis.md
-│   └── project-vend-2.md
+│   ├── project-vend-2.md
+│   ├── agents-in-biology.md
+│   ├── claude-code-expertise.md
+│   ├── economic-index-june-2026.md
+│   ├── natural-language-autoencoders.md
+│   └── teaching-claude-why.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md
