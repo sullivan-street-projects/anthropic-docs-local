@@ -1,93 +1,99 @@
 ---
 title: "Weekly Update Summary"
-date: "2026-04-05"
+date: "2026-06-28"
 ---
 
-# Weekly Update Summary — 2026-04-05
+# Weekly Update Summary — 2026-06-28
 
 ## What Changed
 
-### Claude Code (claude-code/)
-- **CHANGELOG.md**: +305 lines covering versions 2.1.88–2.1.92
-- **features.md**: Added `auto` permission mode, Channels (research preview), Bare Mode (`--bare`), Teleport (`--teleport`), `/plugin` command
-- **hooks.md**: 5 new hook events (`PermissionDenied`, `TaskCreated`, `CwdChanged`, `FileChanged`, `resume` matcher for SessionEnd), new `if` field for conditional filtering, `shell` field, `defer` permission decision, `${CLAUDE_PLUGIN_DATA}` env var. Event count 22→27.
-- **plugins.md**: New `bin/` directory — plugins can bundle executables added to Bash PATH
-- **mcp-servers.md**: Cleaned up duplicate sections (OAuth Metadata Discovery, MCP Elicitation)
+44 files updated across 7 categories, +6,172 lines / -1,258 lines.
 
-### SDKs (sdks/)
-- **Python CHANGELOG.md**: +63 lines (versions 0.86.0–0.89.0)
-- **TypeScript CHANGELOG.md**: +62 lines (versions 0.79.0–0.83.0)
+### API Documentation (15 files — all had substantial content changes)
+- `api/overview.md` — Added Claude Managed Agents, Bearer token auth, Sessions/Agents/Environments APIs, renamed "Cloud Platform APIs"
+- `api/messages-api.md` — New models (Fable 5, Mythos 5, Opus 4.8, 4.7), `stop_details` with refusal categories, `xhigh` effort, `display` for thinking, `web_fetch_20260309`
+- `api/tool-use.md` — Restructured as conceptual overview, added Advisor/Tool Search/Memory tools, updated token overhead table with Opus 4.8/4.7
+- `api/vision.md` — Files API as image source, high-res tier (2576px, Fable 5/Mythos/Opus 4.8/4.7), 28x28 pixel patch token calc, 10MB limit
+- `api/streaming.md` — C#/Go/Java/PHP/Ruby SDK examples, `ant` CLI examples, split error recovery by model generation
+- `api/errors.md` — New 402 `billing_error` and 504 `timeout_error`, Claude Platform on AWS auth notes, SDK error type links
+- `api/migration-guide.md` — Expanded from 1 to 7 migration paths (Mythos Preview→5, Opus 4.8→Fable 5, 4.6→4.7, 4.5→4.7, 4.1→4.7, Sonnet 4.5→4.6)
+- `api/extended-thinking.md` — Fable 5/Mythos 5/Opus 4.8/4.7 support, `display: "summarized"/"omitted"`, streaming thinking examples
+- `api/effort-parameter.md` — `xhigh` effort level, per-model guidance sections, ultracode mode note
+- `api/memory-tool.md` — Complete tool command specs (view/create/str_replace/insert/delete/rename), SDK helpers for 6 languages
+- `api/web-search-tool.md` — `web_search_20260318` with `response_inclusion`, dynamic filtering, `pause_turn` stop reason, batch API
+- `api/adaptive-thinking.md` — 5 new model entries, `xhigh` effort, streaming section, thinking encryption, per-message steering
+- `api/compaction.md` — Complete rewrite with `context_management.edits`, `pause_after_compaction`, streaming, prompt caching integration
+- `api/context-windows.md` — Fable 5/Mythos 5/Opus 4.8/4.7 windows, 1M GA, overflow behavior, tool context management
+- `api/models-overview.md` — Fable 5 and Mythos 5 ($10/$50, 1M context, 128K output), Opus 4.8 recommended, Opus 4.1 deprecated (Aug 5, 2026)
 
-### Agent SDK (agent-sdk/)
-- **README.md** & **quickstart.md**: Added `auto` permission mode documentation
+### Claude Code (4 files)
+- `claude-code/CHANGELOG.md` — **+1,865 lines** of new releases since April (versions through 2.1.195+)
+- `claude-code/README.md` — Timestamp refresh
+- `claude-code/features.md` — Updated feature descriptions
+- `claude-code/hooks.md` — Updated hook event documentation
 
-### Release Notes (release-notes/)
-- **Platform**: 3 new entries — 300k max_tokens on Batches API (Opus 4.6/Sonnet 4.6), Models API capability fields, `display` field for extended thinking
-- **Help Center**: 3 new entries — interactive apps on iOS/Android, computer use in Cowork, phone control for Cowork
-- **API**: Same 3 platform entries + corrected Haiku 3 retirement date (April 19→20)
+### SDK Documentation (6 files)
+- `sdks/python/CHANGELOG.md` — **+398 lines** through v0.113.0
+- `sdks/typescript/CHANGELOG.md` — **+430 lines** through v0.107.0
+- `sdks/typescript/README.md` — Requirements updated: TS >= 4.9, Node.js 20 LTS, Deno, Bun, Cloudflare Workers
+- `sdks/python/README.md` — Timestamp refresh
 
-### API (api/)
-- **context-windows.md**: Added April 30, 2026 retirement date for 1M beta on Sonnet 4.5/4
+### Agent SDK (3 files)
+- `agent-sdk/README.md` — Managed Agents comparison, Monitor tool, Claude Platform on AWS, `plan` permission mode
+- `agent-sdk/quickstart.md` — Windows PowerShell instructions, `.env` note, `uv run` recommended, TypeScript setup split
+- `agent-sdk/examples.md` — Session resumption API updated, Managed Agents reference
 
-### GitHub Repos (github-repos/)
-- **index.md**: 77→78 repos (new: `claude-plugins-community`). Major star surges: claude-code 81K→109K (+34%), skills 99K→111K, cookbooks 35K→37K
+### Best Practices (2 files)
+- `docs/best-practices-mcp-credentials.md` — OAuth CLI (`claude mcp login`), `headersHelper`, WebSocket transport, 5-level scope hierarchy, claude.ai connectors, idle timeout
+- `docs/best-practices-loop-scheduling.md` — Background Agents section, ~20 new CLI flags, `xhigh` effort
 
-### Skills (skills/)
-- **catalog.md**: Stars 70.5K→111K (+57%), forks 7.2K→12.5K
+### Research (8 files)
+- Updated content across: alignment, AI fluency index, measuring agent autonomy, India economic index, AI assistance coding skills, disempowerment patterns, assistant axis, project vend 2, deprecation updates opus 3, persona selection model
 
-### Best Practices (docs/)
-- **best-practices-loop-scheduling.md**: Added `auto` permission mode, 3 new CLI flags (`--bare`, `--no-session-persistence`, `--json-schema`)
+### Skills (2 files)
+- `skills/README.md` — Added skills.sh badge
+- `skills/catalog.md` — Updated catalog listings
 
 ## So What — Why It Matters
 
-### Auto Permission Mode (HIGH IMPACT)
-A new `auto` permission mode uses a model-based classifier to approve/deny tool calls autonomously. Requires Team, Enterprise, or API plan + Sonnet 4.6 or Opus 4.6. This is the biggest workflow change — it enables fully autonomous agent runs without `--dangerously-skip-permissions`. Documented across features, Agent SDK, and CLI docs.
+### New Model Family: Fable 5 and Mythos 5
+Anthropic launched two new top-tier model families since our last update. Fable 5 and Mythos 5 are priced at $10/$50 per MTok with 1M context and 128K output. The migration guide now covers 7 upgrade paths. **Opus 4.1 is deprecated and retiring August 5, 2026.**
 
-### 5 New Hook Events (HIGH IMPACT)
-- `PermissionDenied`: Fires on auto-mode classifier denials — return `{retry: true}` to let the model retry
-- `TaskCreated`: Fires when tasks are created, supports blocking
-- `CwdChanged`/`FileChanged`: Enable reactive environment management (e.g., auto-load `.envrc` on directory change)
-- `resume` matcher for `SessionEnd`: Detect session resume vs. clear
-- New `if` field for conditional hook filtering using permission rule syntax
-- New `defer` permission decision for headless sessions
+### API Capabilities Expanded Significantly
+- **`xhigh` effort level** is new between `high` and `max` — relevant for coding agents
+- **Memory tool** went from overview to full command reference with 6-language SDK support
+- **Compaction API** was completely rewritten with new `context_management.edits` format
+- **Bearer token auth** via Workload Identity Federation — alternative to `x-api-key`
+- **Managed Agents** — new hosted REST API where Anthropic runs the agent loop and sandbox
 
-### 1M Context Window Beta Retiring (ACTION NEEDED)
-The 1M token beta for Sonnet 4.5 and Sonnet 4 retires **April 30, 2026**. After that, `context-1m-2025-08-07` beta header has no effect. Migrate to Sonnet 4.6 or Opus 4.6 for 1M context (available at standard pricing, no header needed).
+### Claude Code Massive Update
++1,865 lines of CHANGELOG entries represent ~3 months of rapid development. Key additions include Background Agents (`--bg`), the `plan` permission mode, ~20 new CLI flags, and the `xhigh` effort level for ultracode mode.
 
-### 300k max_tokens on Batches API
-Opus 4.6 and Sonnet 4.6 can now generate up to 300k tokens in batch mode. Include `output-300k-2026-03-24` beta header.
+### SDK Breaking Changes Watch
+- TypeScript SDK now requires TS >= 4.9 and Node.js 20 LTS (was Node 18+)
+- Opus 4.7+ tokenizer produces ~30% more tokens — affects cost estimates
 
-### Models API Capability Discovery
-`GET /v1/models` and `GET /v1/models/{model_id}` now return `max_input_tokens`, `max_tokens`, and a `capabilities` object. Useful for dynamic model selection in agents.
-
-### Extended Thinking Display Control
-New `thinking.display: "omitted"` option lets you skip thinking content in responses for faster streaming while preserving the signature for multi-turn continuity.
-
-### Plugin Executables (`bin/` directory)
-Plugins can now ship executables that get added to Bash PATH. Enables richer plugin ecosystems.
-
-### Computer Use in Cowork
-Research preview — Pro/Max users can grant Claude computer access (open files, run dev tools, point-and-click navigation).
-
-### claude-code Starcount Surge
-81K→109K stars in 2 weeks (+34%). Skills repo also surged 99K→111K. Indicates rapidly growing adoption.
+### MCP Credential Management Overhaul
+New OAuth CLI commands, `headersHelper` for dynamic headers, WebSocket transport support, and a 5-level scope hierarchy. The `claude mcp login` command enables headless/SSH authentication.
 
 ## Action Items
 
-- **April 30 deadline**: Review any code using `context-1m-2025-08-07` beta header with Sonnet 4.5/4 and migrate to Sonnet 4.6 or Opus 4.6
-- **Auto mode evaluation**: Test `auto` permission mode for agent workflows — could replace `--dangerously-skip-permissions` in production
-- **New hook events**: `CwdChanged` and `FileChanged` could improve reactive development workflows
-- **61 new sources discovered**: Run `/update-anthropic-docs --discover` to review and add — includes official Claude Code best practices guide, alignment faking research, emotion concepts paper, and 9 alignment blog posts
-- **Staleness**: `agent-sdk-typescript-v2-preview` has been 404 for 3 consecutive cycles — recommend removing from manifest
-- **PDF staleness**: 2 resources.anthropic.com PDFs returning 404 — check if moved to new URLs
+- [ ] **URGENT:** Claude Opus 4.1 retiring August 5, 2026 — verify no projects depend on it
+- [ ] Review the 7 new migration paths in `api/migration-guide.md` for any active integrations
+- [ ] Update any hardcoded model IDs — Opus 4.8 is now recommended over 4.6
+- [ ] Test `xhigh` effort level for coding agent workloads
+- [ ] Investigate Managed Agents API for potential use cases
+- [ ] ~60 sources not updated this cycle due to rate limits (news, engineering, most models, github-repos). Run a follow-up update to catch these.
+- [ ] 17 unmerged remote branches accumulated — consider cleanup
 
-## Discovery Highlights (61 new sources found)
+## Incomplete Sources (Rate Limited)
 
-Top recommendations for next add:
-1. `engineering/claude-code-best-practices` — Official agentic coding best practices (HIGH, deferred 2 cycles)
-2. `engineering/claude-code-auto-mode` — Auto mode documentation (HIGH)
-3. `engineering/harness-design-long-running-apps` — Multi-agent harness design (HIGH)
-4. `research/reasoning-models-dont-say-think` — CoT faithfulness research (HIGH)
-5. `research/emotion-concepts-function` — 171 emotion concepts in LLMs (HIGH)
-6. 9 alignment blog posts at alignment.anthropic.com (MEDIUM-HIGH)
-7. 3 red team blog posts at red.anthropic.com (MEDIUM-HIGH)
+The following source types were NOT updated due to hitting the weekly API rate limit mid-run:
+- **News** (13 sources) — all news articles
+- **Engineering** (17 sources) — all engineering blog posts  
+- **Models** (7 sources) — individual model announcement pages
+- **GitHub Repos** (1 source) — repo index
+- **Release Notes** (3 sources) — platform, API, help center
+- **Discovery scan** — not completed
+
+These will be caught in the next weekly update cycle.
