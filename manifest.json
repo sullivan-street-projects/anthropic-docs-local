@@ -57,10 +57,10 @@
       "local_path": "claude-code/mcp-servers.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-04-05T00:00:00Z",
+      "last_fetched": "2026-06-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "097c380eebf26562a5b33fb00c4990e0e9b58a2abc0aed12fc16aab903f75fd5"
+      "sha256": "a2e3c515c930750aecdf61cc1d75d71aa75e63aabfcbaf9bb48303270f548838"
     },
     {
       "id": "claude-code-plugins",
@@ -69,10 +69,10 @@
       "local_path": "claude-code/plugins.md",
       "source_url": "https://code.claude.com/docs/en/plugins",
       "source_type": "manual",
-      "last_fetched": "2026-04-05T00:00:00Z",
+      "last_fetched": "2026-06-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "10bd27e70de38ab3f44631779eb55ba250cbd20678ff74ea1fe690f9a8e1f1f0"
+      "sha256": "530edb7d619ff115d8bf08005e4599555789b33e63d8d156302ff88de9e6bebd"
     },
     {
       "id": "claude-code-best-practices",
@@ -503,10 +503,10 @@
       "local_path": "research/interpretability.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-04-05T00:00:00Z",
+      "last_fetched": "2026-06-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "75a645236f81526709c44bc92a1d647e806e7048e59e16bd1ee287f4f8c9b947"
+      "sha256": "06f96c0e9147a4cfe16a4827ea7d413d5ea980c40a72a8902c35398204ff00df"
     },
     {
       "id": "research-societal-impacts",
@@ -515,10 +515,10 @@
       "local_path": "research/societal-impacts.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-04-05T00:00:00Z",
+      "last_fetched": "2026-06-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "45c59a08616aa10d0dc2cf66e99a7b64257d297d2b3c362bcc9e9042c652357b"
+      "sha256": "ee77c6ecb188b93784b95029978f1475342cdbd6ad1ef901b4b919577403dcc6"
     },
     {
       "id": "research-policy",
@@ -527,10 +527,10 @@
       "local_path": "research/policy.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-04-05T00:00:00Z",
+      "last_fetched": "2026-06-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "4aaf3c747af9a78e459ce87455cf4cae635008a3655b62b2beefffea5f703672"
+      "sha256": "dcbc5474ca147e8921deada20cafbd50de96bbbb0decbaebc5028ac6456325e0"
     },
     {
       "id": "research-papers-index",
@@ -877,10 +877,10 @@
       "local_path": "api/models-overview.md",
       "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models",
       "source_type": "web-extracted",
-      "last_fetched": "2026-04-05T00:00:00Z",
+      "last_fetched": "2026-06-28T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "5ede9c9af12519ef683e1d15487752737bcd766da06ce3a9652c3fb24b29a6d3"
+      "sha256": "f76b987678ae983e1812a6845d094015d64f07efc7325bb5e4527fed2bd3c337"
     },
     {
       "id": "api-migration-guide",

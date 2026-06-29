@@ -2,7 +2,7 @@
 title: "Interpretability Research"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-06-28T00:00:00Z"
 category: "research"
 ---
 
@@ -10,13 +10,18 @@ category: "research"
 
 Anthropic's interpretability research aims to understand what happens inside neural networks—reverse-engineering the algorithms learned during training to build mechanistic understanding of AI systems.
 
-## Latest Work (2025-2026)
+## Latest Work (2026)
+
+### Natural Language Autoencoders: Turning Claude's Thoughts into Text (May 7, 2026)
+AI models like Claude talk in words but think in numbers. In this study, researchers train Claude to translate its internal numerical representations (thoughts) into human-readable text, bridging the gap between model internals and interpretable explanations.
 
 ### The Assistant Axis: Situating and Stabilizing LLM Character (Jan 19, 2026)
-Research from MATS and the Anthropic Fellows Program ([arXiv 2601.10387](https://arxiv.org/abs/2601.10387)). Extracted activation directions for diverse character archetypes and found the leading persona-space component is an "Assistant Axis." Steering toward it reinforces helpful/harmless behavior; steering away increases tendency to adopt other identities. Developed activation capping technique to reduce persona-based jailbreaks.
+Research from MATS and the Anthropic Fellows Program ([arXiv 2601.10387](https://arxiv.org/abs/2601.10387)). Extracted activation directions for diverse character archetypes across three open-source models (Gemma 2 27B, Qwen 3 32B, Llama 3.3 70B) and found the leading persona-space component is an "Assistant Axis." Steering toward it reinforces helpful/harmless behavior; steering away increases tendency to adopt other identities and invent backstories. Developed activation capping technique to reduce persona-based jailbreaks by ~50% while preserving capabilities.
 
 ### Emergent Introspective Awareness in LLMs (Jan 5, 2026)
 Full arXiv paper ([2601.01828](https://arxiv.org/abs/2601.01828)) based on Oct 2025 research. Injected known concepts into model activations and measured self-reporting accuracy. Claude Opus 4/4.1 showed greatest introspective awareness, though capacity is highly unreliable and context-dependent. By Jack Lindsey et al.
+
+## Work from 2025
 
 ### Signs of Introspection in LLMs (Oct 29, 2025)
 Evidence that language models can accurately report their own internal states, suggesting a form of machine self-awareness that could be leveraged for safety.
@@ -104,6 +109,9 @@ Technique to extract interpretable features:
 2. Hidden units learn to represent interpretable features
 3. Each feature has a direction in activation space
 4. Features can be analyzed, searched, and manipulated
+
+### Natural Language Autoencoders
+Extending interpretability by training models to express their internal numerical representations as human-readable text, making model "thoughts" directly inspectable without requiring specialized analysis tools.
 
 ## Practical Applications
 
