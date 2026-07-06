@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-06T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -11,6 +11,58 @@ category: "release-notes"
 Updates to Claude consumer and business applications.
 
 > For developer platform release notes, see [Platform Release Notes](platform.md).
+
+---
+
+## July 2026
+
+### July 1, 2026
+- Restored access to Claude Fable 5 and Claude Mythos 5
+- Model entitlements for Enterprise plans (beta) -- admins can control model access and effort level settings
+
+## June 2026
+
+### June 30, 2026
+- Claude Sonnet 5 launched with improvements in reasoning, tool use, coding, and knowledge work
+
+### June 25, 2026
+- Trusted Devices for Remote Control -- Team and Enterprise admins can require device verification for remote Claude Code sessions
+
+### June 23, 2026
+- Claude Tag for Slack -- Team and Enterprise users can tag Claude directly in Slack for task delegation
+
+### June 12, 2026
+- Access to Claude Fable 5 and Claude Mythos 5 temporarily suspended
+- Edit Claude's drafts in place: highlight the part you want changed, type the change, and Claude makes the edit
+
+### June 9, 2026
+- Launched Claude Fable 5, a safe-for-general-use Mythos-class model
+
+### June 2, 2026
+- Enterprise custom roles framework expanded to include admin permissions for specific administrative areas
+
+## May 2026
+
+### May 28, 2026
+- Launched Claude Opus 4.8 with improvements in coding, agentic skills, reasoning, and knowledge work
+- Connector permissions added to custom roles framework for Enterprise plans
+
+### May 21, 2026
+- Claude Compliance API integrations for security and compliance tools
+
+## April 2026
+
+### April 17, 2026
+- Launched Claude Design through Anthropic Labs for creating visual outputs like designs and prototypes
+
+### April 16, 2026
+- Launched Claude Opus 4.7 with improvements in software engineering and higher-resolution vision capabilities
+
+### April 9, 2026
+- Claude Cowork became generally available on macOS and Windows via Claude Desktop
+- Added Cowork support to Analytics API
+- Usage analytics and OpenTelemetry support for Cowork
+- Role-based access controls enabled for Enterprise plans
 
 ---
 

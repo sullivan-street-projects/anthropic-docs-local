@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-06T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Get started with the Python or TypeScript Agent SDK to build AI agents that work autonomously. This quickstart walks you through building an agent that reads your code, finds bugs, and fixes them without manual intervention.
 
-> **Last updated:** June 28, 2026
+> **Last updated:** July 6, 2026
 
 **What you'll do:**
 1. Set up a project with the Agent SDK
@@ -107,10 +107,10 @@ The SDK also supports authentication via third-party API providers:
 
 - **Amazon Bedrock**: set `CLAUDE_CODE_USE_BEDROCK=1` and configure AWS credentials
 - **Claude Platform on AWS**: set `CLAUDE_CODE_USE_ANTHROPIC_AWS=1` and `ANTHROPIC_AWS_WORKSPACE_ID`, then configure AWS credentials
-- **Google Vertex AI**: set `CLAUDE_CODE_USE_VERTEX=1` and configure Google Cloud credentials
+- **Google Cloud's Agent Platform**: set `CLAUDE_CODE_USE_VERTEX=1` and configure Google Cloud credentials
 - **Microsoft Azure**: set `CLAUDE_CODE_USE_FOUNDRY=1` and configure Azure credentials
 
-See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Claude Platform on AWS](https://code.claude.com/docs/en/claude-platform-on-aws), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Azure AI Foundry](https://code.claude.com/docs/en/microsoft-foundry) for details.
+See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Claude Platform on AWS](https://code.claude.com/docs/en/claude-platform-on-aws), [Google Cloud's Agent Platform](https://code.claude.com/docs/en/google-vertex-ai), or [Microsoft Foundry](https://code.claude.com/docs/en/microsoft-foundry) for details.
 
 > **Note:** Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Use the API key authentication methods instead.
 

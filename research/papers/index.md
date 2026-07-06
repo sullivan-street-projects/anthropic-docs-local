@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-06T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 This directory contains the full PDF versions of Anthropic's key research papers from arXiv. These papers form the theoretical and empirical foundation for Claude's development.
 
-> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 9 new (2025-2026, not yet downloaded)
+> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 10 new (2025-2026, not yet downloaded)
 
 ## New Papers (2025-2026)
 
@@ -27,6 +27,7 @@ The following papers have been identified since the last full update. PDFs have 
 | The Assistant Axis: Situating and Stabilizing the Default Persona of LLMs | [2601.10387](https://arxiv.org/abs/2601.10387) | Jan 2026 | Identifies leading persona-space component ("Assistant Axis") and activation capping technique to reduce persona-based jailbreaks. Anthropic Fellows Program. |
 | The Hot Mess of AI: Misalignment Scaling with Intelligence and Task Complexity | [2601.23045](https://arxiv.org/abs/2601.23045) | Jan 2026 | ICLR 2026. As tasks get harder, model failures become increasingly incoherent rather than systematically misaligned. Anthropic Fellows Program. By Hägele et al. |
 | Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption | [2511.15080](https://arxiv.org/abs/2511.15080) | Nov 2025 | Documents Claude usage patterns in 150+ countries, finding directive task delegation rose from 27% to 39% in eight months. |
+| How AI Impacts Skill Formation | [2601.20245](https://arxiv.org/abs/2601.20245) | Feb 2026 | Developers using AI coding assistants scored 17% lower on comprehension and debugging tests. Supported through the Anthropic Safety Fellows Program. By Shen, Tamkin. |
 
 ### Non-arXiv Notable Research (2025)
 
@@ -103,4 +104,4 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
-Last checked for new papers: April 5, 2026. Web searches for "arxiv anthropic 2026 March April" and "arxiv anthropic AI safety alignment 2026" confirmed no new Anthropic-authored arXiv papers since the January 2026 batch. Notable non-arXiv research: "The Persistent Vulnerability of Aligned AI Systems" (2604.00324) references Anthropic's alignment work but is not Anthropic-authored. "Labor market impacts of AI" by Anthropic published March 2026 but not on arXiv.
+Last checked for new papers: July 6, 2026. Web searches for "arxiv anthropic 2026" and "arxiv anthropic AI safety alignment 2026" identified one new Anthropic-affiliated paper: "How AI Impacts Skill Formation" (2601.20245, Feb 2026) by Shen and Tamkin, supported through the Anthropic Safety Fellows Program. No new Anthropic-authored arXiv papers found from April-July 2026. Notable non-arXiv mentions: Anthropic published "Alignment risk update: Claude Mythos preview" (April 2026) and Claude Opus 4.6 System Card (February 2026) as non-arXiv documents. "MCP Server Architecture Patterns" (2606.30317, June 2026) references Anthropic's MCP protocol but is not Anthropic-authored.

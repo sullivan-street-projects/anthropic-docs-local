@@ -1,12 +1,12 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-06-29T18:12:06.138Z"
+generated_at: "2026-07-06T13:15:37.416Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-06-29
+> Auto-generated from manifest.json on 2026-07-06
 
 ## Overview
 
@@ -16,7 +16,7 @@ generator: "scripts/generate-architecture.js"
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-04-05T00:00:00Z |
+| Last Full Update | 2026-07-06T00:00:00Z |
 | Last Discovery Run | N/A |
 
 ## Source Types Distribution
@@ -205,7 +205,7 @@ generator: "scripts/generate-architecture.js"
 | [Python SDK CHANGELOG](../sdks/python/CHANGELOG.md) | github-raw | 0.95 |
 | [TypeScript SDK README](../sdks/typescript/README.md) | github-raw | 0.95 |
 | [TypeScript SDK CHANGELOG](../sdks/typescript/CHANGELOG.md) | github-raw | 0.95 |
-| [Other SDKs Overview](../sdks/other/overview.md) | web-extracted | 0.85 |
+| [CLI, SDKs, and Libraries](../sdks/other/overview.md) | web-extracted | 0.85 |
 
 ### skills
 

@@ -1,120 +1,54 @@
 ---
-title: "Other SDKs Overview"
+title: "CLI, SDKs, and Libraries"
 source_url: "https://platform.claude.com/docs/en/api/client-sdks"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-06T00:00:00Z"
 category: "sdks"
 ---
 
-# Client SDKs
+# CLI, SDKs, and Libraries
 
-Official SDKs for building with the Claude API in Python, TypeScript, Java, Go, Ruby, C#, and PHP.
+Official tools for building with the Claude API: the ant CLI, client SDKs in seven languages, and framework-specific libraries.
 
-## SDK Overview
+Anthropic provides three kinds of official tooling for building with the Claude API:
 
-| SDK | Status | Install | Min Version |
-|:----|:-------|:--------|:------------|
-| Python | GA | `pip install anthropic` | Python 3.9+ |
-| TypeScript | GA | `npm install @anthropic-ai/sdk` | TypeScript 4.9+, Node.js 20+ |
-| Java | GA | `com.anthropic:anthropic-java:2.15.0` | Java 8+ |
-| Go | GA | `go get github.com/anthropics/anthropic-sdk-go` | Go 1.22+ |
-| Ruby | GA | `bundler add anthropic` | Ruby 3.2.0+ |
-| C# | Beta | `dotnet add package Anthropic` | .NET Standard 2.0 |
-| PHP | Beta | `composer require anthropic-ai/sdk` | PHP 8.1.0+ |
+- **CLI:** The `ant` command-line tool for shell scripting and interactive use.
+- **Client SDKs:** General-purpose Messages API clients for Python, TypeScript, C#, Go, Java, PHP, and Ruby. Each SDK provides idiomatic interfaces, type safety, and built-in support for streaming, retries, and error handling.
+- **Libraries and integrations:** Packages and compatibility layers that expose Claude inside another framework's API surface rather than the Messages API directly.
 
-## Quick Start
+## CLI
 
-### Python
-```python
-import anthropic
+- **ant CLI** -- Shell scripting, typed flags, response transforms ([Quickstart](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart))
 
-client = anthropic.Anthropic()
-message = client.messages.create(
-    model="claude-opus-4-6",
-    max_tokens=1024,
-    messages=[{"role": "user", "content": "Hello, Claude"}],
-)
-print(message.content)
-```
+## Client SDKs
 
-### TypeScript
-```typescript
-import Anthropic from "@anthropic-ai/sdk";
+| SDK | Description | Documentation |
+|:----|:-----------|:--------------|
+| Python | Sync and async clients, Pydantic models | [Python SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python) |
+| TypeScript | Node.js, Deno, Bun, and browser support | [TypeScript SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript) |
+| C# | .NET Standard 2.0+, IChatClient integration | [C# SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/csharp) |
+| Go | Context-based cancellation, functional options | [Go SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go) |
+| Java | Builder pattern, CompletableFuture async | [Java SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java) |
+| PHP | Value objects, builder pattern | [PHP SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/php) |
+| Ruby | Sorbet types, streaming helpers | [Ruby SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/ruby) |
 
-const client = new Anthropic();
-const message = await client.messages.create({
-  model: "claude-opus-4-6",
-  max_tokens: 1024,
-  messages: [{ role: "user", content: "Hello, Claude" }]
-});
-console.log(message.content);
-```
+## Libraries and Integrations
 
-### Java
-```java
-AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-MessageCreateParams params = MessageCreateParams.builder()
-    .model(Model.CLAUDE_OPUS_4_6)
-    .maxTokens(1024L)
-    .addUserMessage("Hello, Claude")
-    .build();
-Message message = client.messages().create(params);
-```
+Libraries and integrations expose Claude through another framework's API surface. They are not general-purpose Messages API clients.
 
-### Go
-```go
-client := anthropic.NewClient()
-message, _ := client.Messages.New(context.Background(), anthropic.MessageNewParams{
-    Model:     anthropic.ModelClaudeOpus4_6,
-    MaxTokens: 1024,
-    Messages: []anthropic.MessageParam{
-        anthropic.NewUserMessage(anthropic.NewTextBlock("Hello, Claude")),
-    },
-})
-```
-
-### Ruby
-```ruby
-client = Anthropic::Client.new
-message = client.messages.create(
-  model: "claude-opus-4-6",
-  max_tokens: 1024,
-  messages: [{ role: "user", content: "Hello, Claude" }]
-)
-```
-
-### C#
-```csharp
-var client = new AnthropicClient();
-var message = await client.Messages.Create(new MessageCreateParams {
-    Model = "claude-opus-4-6",
-    MaxTokens = 1024,
-    Messages = [new() { Role = Role.User, Content = "Hello, Claude" }]
-});
-```
-
-### PHP
-```php
-$client = new Client(apiKey: getenv('ANTHROPIC_API_KEY'));
-$message = $client->messages->create(
-    model: 'claude-opus-4-6',
-    maxTokens: 1024,
-    messages: [['role' => 'user', 'content' => 'Hello, Claude']],
-);
-echo $message->content[0]->text;
-```
+| Library | Description | Documentation |
+|:--------|:-----------|:--------------|
+| Apple Foundation Models | Swift package for Apple's LanguageModelSession API (beta) | [Apple Foundation Models](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/apple-foundation-models) |
+| OpenAI SDK compatibility | Use Claude through the OpenAI SDK surface | [OpenAI SDK compatibility](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk) |
 
 ## Platform Support
 
 All SDKs support multiple deployment options:
 - **Claude API** -- Direct access to Claude API endpoints
+- **Claude Platform on AWS** -- Uses Claude API model IDs with AWS billing and IAM authentication
 - **Amazon Bedrock** -- Use Claude through AWS
-- **Google Vertex AI** -- Use Claude through Google Cloud
+- **Google Cloud** -- Use Claude through Google Cloud
 - **Microsoft Foundry** -- Use Claude through Microsoft Azure
-
-## Beta Features
-
-Access beta features using the `beta` namespace in any SDK. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers) for available beta features.
 
 ## SDK Features
 

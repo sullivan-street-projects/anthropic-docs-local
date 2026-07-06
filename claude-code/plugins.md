@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-06T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, LSP servers, background monitors, and default settings into a single installable unit.
 
-> **Last updated:** June 28, 2026
+> **Last updated:** July 6, 2026
 
 ## Plugins vs Standalone Configuration
 

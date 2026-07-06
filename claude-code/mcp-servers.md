@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-06T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs. Connect a server when you find yourself copying data into chat from another tool.
 
-> **Last updated:** June 28, 2026
+> **Last updated:** July 6, 2026
 
 ## What You Can Do with MCP
 
@@ -429,6 +429,16 @@ Claude Desktop configuration:
   }
 }
 ```
+
+## Tool Input Schemas with Root-Level Combinators
+
+Some MCP servers declare a tool's input schema as a JSON Schema union, with `anyOf`, `oneOf`, or `allOf` at the top level. The Claude API does not accept those keywords at the schema root (it does accept them nested inside `properties`). As of Claude Code v2.1.195, tools with a root-level combinator stay available: Claude Code flattens the schema into a single object and prepends a summary of the original branches to the tool description, so Claude can still distinguish the variants.
+
+## Require Approval for a Specific Tool
+
+MCP server authors can mark a tool as requiring explicit approval on every call by setting `_meta["anthropic/requiresUserInteraction"]` to `true` in the tool's `tools/list` response entry. The value must be the JSON boolean `true`; any other value is ignored.
+
+Claude Code shows that tool's permission prompt on every call, even in `acceptEdits`, `auto`, and `bypassPermissions` permission modes, and does not allow the user to create an `allow` rule for that tool.
 
 ## Output Limits
 

@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-06T00:00:00Z"
 category: "release-notes"
 ---
 # Claude Developer Platform
@@ -11,6 +11,107 @@ Updates to the Claude Developer Platform, including the Claude API, client SDKs,
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### July 1, 2026
+- Restored access to Claude Fable 5 and Claude Mythos 5.
+
+### June 30, 2026
+- Launched **Claude Sonnet 5** (`claude-sonnet-5`) at introductory pricing of $2 / $10 per MTok through August 31, 2026 (standard $3 / $15 thereafter). Supports 1M token context window, 128k max output. Adaptive thinking on by default; manual extended thinking removed. New tokenizer (~30% more tokens). Sampling parameters return 400 error on non-default values.
+- Claude Managed Agents: event deltas, backward pagination, session config overrides, vault injection_location, webhooks for lifecycle events.
+
+### June 29, 2026
+- Removed fast mode for Claude Opus 4.6.
+
+### June 26, 2026
+- Raised rate limits across Claude API. Tiers consolidated to Start, Build, and Scale.
+
+### June 25, 2026
+- Deprecated fast mode for Claude Opus 4.7 (removal July 24, 2026).
+
+### June 22, 2026
+- MCP tunnels management API moved to `/v1/tunnels`.
+
+### June 18, 2026
+- All SDKs now support `code_execution_20260120` with REPL state persistence.
+
+### June 15, 2026
+- Retired Claude Sonnet 4 and Claude Opus 4. Recommend Claude Sonnet 4.6 and Claude Opus 4.8.
+
+### June 11, 2026
+- Code execution tool `code_execution_20260521`. Web search/fetch `web_search_20260318` and `web_fetch_20260318` with `response_inclusion` parameter.
+
+### June 10, 2026
+- Self-hosted sandbox endpoint available on Claude Platform on AWS.
+
+### June 9, 2026
+- Launched **Claude Fable 5** and **Claude Mythos 5**. 1M context, 128k output, always-on adaptive thinking. Safety classifiers, `"reasoning_extraction"` stop category. Managed Agents scheduled deployments. Swift package for Apple Foundation Models.
+
+### June 5, 2026
+- Deprecated Claude Opus 4.1 (retirement August 5, 2026).
+
+### June 2, 2026
+- Advisor tool `max_tokens` parameter. No billing for refusal responses.
+
+### May 29, 2026
+- Managed Agents webhooks, multi-agent orchestration, self-hosted sandboxes on Claude Platform on AWS.
+
+### May 28, 2026
+- Launched **Claude Opus 4.8**. 1M context, 128k output. Mid-conversation system messages. `stop_details` documented. Effort defaults to `high`. Minimum cacheable prompt 1,024 tokens. Task budgets, advisor tool, computer use, fast mode. Temperature/top_p/top_k return 400 on non-default values. Claude Code Workflows research preview.
+- Deprecated fast mode for Claude Opus 4.6.
+
+### May 27, 2026
+- `usage.output_tokens_details.thinking_tokens` in Messages API response.
+
+### May 19, 2026
+- MCP tunnels research preview. Self-hosted sandboxes. Session MCP/tool config updates. Large output auto-spill.
+
+### May 18, 2026
+- Web search tool returns richer SEC filing data.
+
+### May 13, 2026
+- Cache diagnostics public beta.
+
+### May 12, 2026
+- Fast mode supports Claude Opus 4.7.
+
+### May 11, 2026
+- Launched **Claude Platform on AWS**.
+
+### May 6, 2026
+- Multi-agent sessions, Outcomes, Webhooks, Dreams in beta. Vault credential refresh.
+
+### May 4, 2026
+- Workload Identity Federation GA.
+
+### April 30, 2026
+- Retired 1M context window beta for Sonnet 4.5 and Sonnet 4.
+
+### April 29, 2026
+- Released Claude API skill.
+
+### April 24, 2026
+- Released Rate Limits API.
+
+### April 23, 2026
+- Memory for Managed Agents public beta.
+
+### April 20, 2026
+- Retired Claude Haiku 3.
+
+### April 16, 2026
+- Launched **Claude Opus 4.7** at $5/$25 per MTok. Claude in Amazon Bedrock open to all. Task budgets, high-res image input, `xhigh` effort level.
+
+### April 14, 2026
+- Deprecated Claude Sonnet 4 and Opus 4 (retirement June 15, 2026).
+
+### April 9, 2026
+- Advisor tool public beta.
+
+### April 8, 2026
+- **Claude Managed Agents** public beta. **`ant` CLI** launched.
+
+### April 7, 2026
+- Claude Mythos Preview for Project Glasswing. Messages API on Amazon Bedrock research preview.
 
 ### March 30, 2026
 - Raised the `max_tokens` cap to 300k on the Message Batches API for Claude Opus 4.6 and Sonnet 4.6. Include the `output-300k-2026-03-24` beta header to generate longer single-turn outputs for long-form content, structured data, and large code generation tasks.

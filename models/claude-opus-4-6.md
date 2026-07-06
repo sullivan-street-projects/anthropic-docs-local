@@ -2,7 +2,7 @@
 title: "Claude Opus 4.6"
 source_url: "https://www.anthropic.com/news/claude-opus-4-6"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-06T00:00:00Z"
 category: "models"
 ---
 
@@ -29,7 +29,7 @@ Claude Opus 4.6 is Anthropic's most advanced model, demonstrating significant im
 
 | Feature | Detail |
 |:--------|:-------|
-| Context window | 200K tokens (1M tokens in beta) |
+| Context window | 1M tokens (GA) |
 | Max output | 128K tokens |
 | Reliable knowledge cutoff | May 2025 |
 | Training data cutoff | August 2025 |
