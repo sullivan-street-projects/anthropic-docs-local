@@ -19,6 +19,41 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-07-06 — Quick Discovery Scan (during weekly update)
+- **New sources found**: 29
+- **Added**: 0 (automated run — user not present to approve)
+- **Deferred (HIGH priority — recommend adding next)**:
+  - https://www.anthropic.com/news/claude-sonnet-5 — models — "Introducing Claude Sonnet 5" (Jun 30, 2026) **NEW MODEL**
+  - https://www.anthropic.com/news/redeploying-fable-5 — models — "Redeploying Fable 5" (Jun 30, 2026)
+  - https://www.anthropic.com/engineering/claude-code-best-practices — engineering — "Claude Code: Best practices for agentic coding" (STILL UNTRACKED from 03-22)
+  - https://www.anthropic.com/engineering/how-we-contain-claude — engineering — "How we contain Claude across products"
+  - https://www.anthropic.com/engineering/managed-agents — engineering — "Scaling Managed Agents: Decoupling the brain from the hands"
+  - https://www.anthropic.com/engineering/claude-code-auto-mode — engineering — "How we built Claude Code auto mode"
+  - https://www.anthropic.com/engineering/harness-design-long-running-apps — engineering — "Harness design for long-running application development"
+  - https://www.anthropic.com/engineering/april-23-postmortem — engineering — "An update on recent Claude Code quality reports"
+  - https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills — engineering — "Equipping agents for the real world with Agent Skills"
+  - https://www.anthropic.com/research/glasswing-initial-update — research — "Project Glasswing: An initial update"
+- **Deferred (MEDIUM priority)**:
+  - https://www.anthropic.com/news/claude-science-ai-workbench — news — "Claude Science, an AI workbench for scientists"
+  - https://www.anthropic.com/news/fable-safeguards-jailbreak-framework — news — "More details on Fable 5's cyber safeguards"
+  - https://www.anthropic.com/policy-on-the-ai-exponential — news — "Policy on the AI Exponential"
+  - https://www.anthropic.com/news/anthropic-public-record — news — "Results from the first Anthropic Public Record"
+  - https://www.anthropic.com/news/expanding-project-glasswing — news — "Expanding Project Glasswing"
+  - https://www.anthropic.com/news/confidential-draft-s1-sec — news — "Anthropic confidentially submits draft S-1 to the SEC"
+  - https://www.anthropic.com/research/n-days — research — "Measuring LLMs' impact on N-day exploits"
+  - https://www.anthropic.com/research/making-claude-a-chemist — research — "Making Claude a chemist"
+  - https://www.anthropic.com/research/attack-navigator — research — "Mapping AI-enabled cyber threats"
+  - https://www.anthropic.com/research/coding-agents-social-sciences — research — "Coding agents in the social sciences"
+  - https://www.anthropic.com/research/project-fetch-phase-two — research — "Project Fetch: Phase two"
+  - https://www.anthropic.com/81k-interviews — research — "What 81,000 people want from AI" (STILL UNTRACKED from 03-22)
+  - https://www.anthropic.com/engineering/swe-bench-sonnet — engineering — "SWE-bench Sonnet"
+- **Deferred (LOW priority)**:
+  - 4 news articles (Amazon compute, Seoul office, TCS partnership, DXC alliance)
+  - https://www.anthropic.com/features/project-deal — "Project Deal" (unusual URL path)
+  - https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack — "AI-enabled cyber threats"
+- **SDK versions**: npm @anthropic-ai/sdk 0.110.0, PyPI anthropic 0.116.0
+- **Staleness alert**: agent-sdk-typescript-v2 source (github.com/anthropics/agent-sdk) still 404 — 4th consecutive cycle, recommend removal
+
 ### 2026-04-05 — Quick Discovery Scan (during weekly update)
 - **New sources found**: 61
 - **Added**: 0 (automated run — user not present to approve)
