@@ -1,8 +1,8 @@
 ---
-title: "The \"Think\" Tool: Enabling Claude to Stop and Think in Complex Tool Use Situations"
+title: 'The "Think" Tool: Enabling Claude to Stop and Think in Complex Tool Use Situations'
 source_url: "https://www.anthropic.com/engineering/claude-think-tool"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"
 ---
 
@@ -17,6 +17,43 @@ Anthropic has introduced a "think" tool that enhances Claude's ability to handle
 The think tool allows Claude to "include an additional thinking step—complete with its own designated space—as part of getting to its final answer." Unlike extended thinking (which occurs before response generation), this tool enables mid-response pauses for reflection on whether sufficient information exists before proceeding.
 
 This approach proves most suitable for scenarios where Claude lacks complete information from the user query alone and must process external data, such as tool call results.
+
+## Key Differences from Extended Thinking
+
+**Think tool is better for:**
+
+- Complex tool chains requiring careful output analysis
+- Policy-heavy environments with detailed guidelines
+- Sequential decisions where mistakes carry consequences
+
+**Extended thinking is better for:**
+
+- Non-sequential tool calls
+- Straightforward instruction following
+- Coding, math, and physics problems without tool use
+
+## Implementation
+
+### Basic Tool Definition
+
+The tool accepts a single string parameter for thoughts:
+
+```json
+{
+  "name": "think",
+  "description": "Use the tool to think about something. It will not obtain new information or change the database, but just append the thought to the log.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "thought": {
+        "type": "string",
+        "description": "A thought to think about."
+      }
+    },
+    "required": ["thought"]
+  }
+}
+```
 
 ## Performance Results
 
@@ -33,25 +70,18 @@ The combination of the tool with domain-specific prompt examples delivered the s
 
 Adding the think tool to Claude 3.7 Sonnet's SWE-bench evaluation contributed to state-of-the-art scoring (0.623), with the isolated tool effect showing a 1.6% average performance improvement.
 
-## When to Use This Tool
+## Best Practices
 
-The think tool works best for:
+**Strategic prompting:** Provide domain-specific examples showing reasoning approaches, how to break down complex instructions, and decision trees for common scenarios.
 
-1. **Tool output analysis** - Processing previous tool call results before acting
-2. **Policy-heavy environments** - Following detailed guidelines with compliance verification
-3. **Sequential decision-making** - Multi-step problems where each action builds on previous ones
+**System prompt placement:** Place complex think tool guidance in the system prompt rather than tool descriptions for better integration.
 
-The tool shows minimal improvement for non-sequential tool calls or simple instruction-following tasks.
+**When to avoid:** Don't implement think for non-sequential tool calls or simple instruction-following scenarios where minimal constraints exist.
 
-## Implementation Best Practices
+## Getting Started
 
-Developers should:
+1. Test with challenging agentic scenarios
+2. Customize the tool definition for your domain
+3. Monitor usage patterns and refine prompts accordingly
 
-- Provide clear instructions with domain-specific examples tailored to their use case
-- Place complex guidance in system prompts rather than tool descriptions
-- Start testing with challenging scenarios where policy compliance currently struggles
-- Monitor actual usage patterns and refine prompts accordingly
-
-## Key Distinction from Extended Thinking
-
-While extended thinking helps with simpler tool scenarios and domains like coding or physics, the think tool excels when Claude requires "complex tools, analyze tool outputs carefully in long chains of tool calls" or navigate policy-heavy environments with multiple constraints.
+The tool requires minimal code implementation while offering substantial benefits for appropriate use cases.

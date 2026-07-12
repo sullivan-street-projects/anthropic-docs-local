@@ -2,7 +2,7 @@
 title: "Anthropic raises $65B in Series H"
 source_url: "https://www.anthropic.com/news/series-h"
 source_type: "web-extracted"
-fetched_at: "2026-06-29T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "news"
 ---
 
@@ -29,6 +29,7 @@ Anthropic secured $65 billion in Series H funding, reaching a $965 billion post-
 ## Compute Expansion
 
 Anthropic signed major agreements for capacity expansion:
+
 - Amazon: up to five gigawatts
 - Google and Broadcom: five gigawatts of next-generation TPU capacity
 - SpaceX: GPU access in Colossus 1 and Colossus 2

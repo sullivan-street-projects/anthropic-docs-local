@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,25 +10,27 @@ category: "claude-code"
 
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, LSP servers, background monitors, and default settings into a single installable unit.
 
-> **Last updated:** June 28, 2026
+> **Last updated:** July 12, 2026
 
 ## Plugins vs Standalone Configuration
 
-| Aspect | Standalone (`.claude/`) | Plugin |
-|--------|------------------------|--------|
-| Skill names | `/review` | `/plugin-name:review` |
-| Sharing | Manual copy | Install via marketplace |
-| Best for | Personal, single project | Team/community distribution |
-| Versioning | Via git | Semantic versioning or git commit SHA |
-| Skill conflicts | Possible | Namespaced to avoid conflicts |
+| Aspect          | Standalone (`.claude/`)  | Plugin                                |
+| --------------- | ------------------------ | ------------------------------------- |
+| Skill names     | `/review`                | `/plugin-name:review`                 |
+| Sharing         | Manual copy              | Install via marketplace               |
+| Best for        | Personal, single project | Team/community distribution           |
+| Versioning      | Via git                  | Semantic versioning or git commit SHA |
+| Skill conflicts | Possible                 | Namespaced to avoid conflicts         |
 
 **Use standalone configuration when:**
+
 - Customizing Claude Code for a single project
 - Configuration is personal and doesn't need sharing
 - Experimenting with skills or hooks before packaging
 - You want short skill names like `/hello`
 
 **Use plugins when:**
+
 - Sharing functionality with your team or community
 - Needing the same skills/agents across multiple projects
 - You want version control and easy updates
@@ -40,10 +42,13 @@ Start with standalone configuration in `.claude/` for quick iteration, then conv
 ## Quickstart
 
 1. Create a plugin directory and manifest:
+
    ```bash
    mkdir -p my-plugin/.claude-plugin
    ```
+
    Create `my-plugin/.claude-plugin/plugin.json`:
+
    ```json
    {
      "name": "my-plugin",
@@ -54,15 +59,19 @@ Start with standalone configuration in `.claude/` for quick iteration, then conv
    ```
 
 2. Add a skill:
+
    ```bash
    mkdir -p my-plugin/skills/hello
    ```
+
    Create `my-plugin/skills/hello/SKILL.md`:
+
    ```markdown
    ---
    description: Greet the user with a personalized message
    disable-model-invocation: true
    ---
+
    Greet the user named "$ARGUMENTS" warmly.
    ```
 
@@ -107,18 +116,18 @@ README.md
 LICENSE
 ```
 
-| Directory | Location | Purpose |
-|-----------|----------|---------|
+| Directory         | Location    | Purpose                                                                        |
+| ----------------- | ----------- | ------------------------------------------------------------------------------ |
 | `.claude-plugin/` | Plugin root | Contains `plugin.json` manifest (optional if components use default locations) |
-| `skills/` | Plugin root | Skills as `<name>/SKILL.md` directories |
-| `commands/` | Plugin root | Skills as flat Markdown files (use `skills/` for new plugins) |
-| `agents/` | Plugin root | Custom agent definitions |
-| `hooks/` | Plugin root | Event handlers in `hooks.json` |
-| `monitors/` | Plugin root | Background monitor configurations in `monitors.json` |
-| `.mcp.json` | Plugin root | MCP server configurations |
-| `.lsp.json` | Plugin root | LSP server configurations for code intelligence |
-| `bin/` | Plugin root | Executables added to Bash tool's `PATH` while plugin is enabled |
-| `settings.json` | Plugin root | Default settings applied when the plugin is enabled |
+| `skills/`         | Plugin root | Skills as `<name>/SKILL.md` directories                                        |
+| `commands/`       | Plugin root | Skills as flat Markdown files (use `skills/` for new plugins)                  |
+| `agents/`         | Plugin root | Custom agent definitions                                                       |
+| `hooks/`          | Plugin root | Event handlers in `hooks.json`                                                 |
+| `monitors/`       | Plugin root | Background monitor configurations in `monitors.json`                           |
+| `.mcp.json`       | Plugin root | MCP server configurations                                                      |
+| `.lsp.json`       | Plugin root | LSP server configurations for code intelligence                                |
+| `bin/`            | Plugin root | Executables added to Bash tool's `PATH` while plugin is enabled                |
+| `settings.json`   | Plugin root | Default settings applied when the plugin is enabled                            |
 
 A plugin that ships exactly one skill can place `SKILL.md` directly at the plugin root instead of creating a `skills/` directory. Claude Code loads it as a single skill using the frontmatter `name` field.
 
@@ -165,16 +174,17 @@ A plugin that ships exactly one skill can place `SKILL.md` directly at the plugi
 }
 ```
 
-| Field | Purpose |
-|-------|---------|
-| `name` | Unique identifier and skill namespace. Skills prefixed with this (e.g., `/my-plugin:hello`). |
-| `description` | Shown in plugin manager when browsing or installing. |
-| `version` | Optional. If set, users only receive updates when you bump this field. If omitted and distributed via git, the commit SHA is used and every commit counts as a new version. |
-| `author` | Optional. Helpful for attribution. |
+| Field         | Purpose                                                                                                                                                                     |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`        | Unique identifier and skill namespace. Skills prefixed with this (e.g., `/my-plugin:hello`).                                                                                |
+| `description` | Shown in plugin manager when browsing or installing.                                                                                                                        |
+| `version`     | Optional. If set, users only receive updates when you bump this field. If omitted and distributed via git, the commit SHA is used and every commit counts as a new version. |
+| `author`      | Optional. Helpful for attribution.                                                                                                                                          |
 
 ## Plugin Components
 
 ### Skills (`skills/skillname/SKILL.md`)
+
 - Standard Agent Skills format with YAML frontmatter
 - Namespaced: `/plugin-name:skill-name`
 - Automatically discovered from directory names
@@ -193,11 +203,13 @@ When reviewing code, check for:
 ```
 
 ### Agents (`agents/agent-name.md`)
+
 - Custom subagent definitions
 - Define when to use agent automatically via `description`
 - Specify tools, permissions, and model
 
 ### Hooks (`hooks/hooks.json`)
+
 - Same format as settings hooks
 - Optional `description` field for documentation
 - Scoped to plugin lifecycle
@@ -209,7 +221,12 @@ When reviewing code, check for:
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
-        "hooks": [{ "type": "command", "command": "jq -r '.tool_input.file_path' | xargs npm run lint:fix" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | xargs npm run lint:fix"
+          }
+        ]
       }
     ]
   }
@@ -217,6 +234,7 @@ When reviewing code, check for:
 ```
 
 ### Background Monitors (`monitors/monitors.json`)
+
 - Watch logs, files, or external status in the background
 - Claude Code starts each monitor automatically when the plugin is active
 - Each stdout line from the command is delivered to Claude as a notification
@@ -232,6 +250,7 @@ When reviewing code, check for:
 ```
 
 ### MCP Servers (`.mcp.json`)
+
 - Bundled external tool integrations
 - Auto-start when plugin enables
 - Require restart for changes (or run `/reload-plugins`)
@@ -240,6 +259,7 @@ When reviewing code, check for:
 - Can also be defined inline in `plugin.json` under `mcpServers`
 
 ### LSP Servers (`.lsp.json`)
+
 - Language server integrations for code intelligence
 - Users must have the language server binary installed
 - Use pre-built LSP plugins from official marketplace for common languages
@@ -257,6 +277,7 @@ When reviewing code, check for:
 ```
 
 ### Default Settings (`settings.json`)
+
 - Apply default configuration when plugin is enabled
 - Currently supports `agent` and `subagentStatusLine` keys
 - Setting `agent` activates one of the plugin's custom agents as the main thread
@@ -318,6 +339,7 @@ As you make changes, run `/reload-plugins` to pick up updates without restarting
 ### Marketplace Repositories
 
 Anthropic maintains two public marketplaces:
+
 - **`claude-plugins-official`**: Curated plugins maintained by Anthropic. Registered automatically on first interactive start.
 - **`claude-community`**: Public community marketplace for third-party submissions. Add with `/plugin marketplace add anthropics/claude-plugins-community`.
 
@@ -346,6 +368,7 @@ Anthropic maintains two public marketplaces:
 ```
 
 ### Hosting Options
+
 - GitHub repositories (recommended)
 - Git services (GitLab, Gitea, etc.)
 - Local paths
@@ -364,6 +387,7 @@ Anthropic maintains two public marketplaces:
 ### Submitting to Community Marketplace
 
 Submit via in-app forms:
+
 - **Claude.ai**: [claude.ai/admin-settings/directory/submissions/plugins/new](https://claude.ai/admin-settings/directory/submissions/plugins/new) (requires Team/Enterprise org with directory management access)
 - **Console**: [platform.claude.com/plugins/submit](https://platform.claude.com/plugins/submit) (available to individual authors)
 
@@ -382,6 +406,7 @@ If Anthropic lists your plugin in the official marketplace, your CLI can prompt 
 Semantic Versioning: `MAJOR.MINOR.PATCH`
 
 Version constraints:
+
 - `"1.0.0"` -- exact version
 - `"^1.0.0"` -- compatible with 1.x.x
 - `"~1.0.0"` -- compatible with 1.0.x

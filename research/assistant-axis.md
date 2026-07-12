@@ -2,7 +2,7 @@
 title: "The Assistant Axis: Situating and Stabilizing the Character of Large Language Models"
 source_url: "https://www.anthropic.com/research/assistant-axis"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "research"
 ---
 
@@ -19,6 +19,7 @@ Anthropic researchers have published a study examining how large language models
 The team analyzed neural activity patterns across three open-source models (Gemma 2 27B, Qwen 3 32B, and Llama 3.3 70B) when adopting 275 different character archetypes. They discovered that the primary axis of variation in this "persona space" corresponds to how aligned a character is with typical assistant behavior.
 
 **Notable archetypes:**
+
 - Assistant-aligned: evaluator, consultant, analyst
 - Non-Assistant: ghost, hermit, bohemian
 
@@ -33,6 +34,7 @@ Experimental steering demonstrated direct causation: pushing model activations t
 ### Organic Persona Drift
 
 Models naturally drift from their trained personas during realistic conversations:
+
 - **Therapy contexts** triggered significant drift
 - **Philosophical discussions** about AI nature caused steady movement away
 - **Vulnerable emotional disclosures** were particularly predictive

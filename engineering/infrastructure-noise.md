@@ -2,53 +2,57 @@
 title: "Quantifying Infrastructure Noise in Agentic Coding Evals"
 source_url: "https://www.anthropic.com/engineering/infrastructure-noise"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"
 ---
 
 # Quantifying Infrastructure Noise in Agentic Coding Evals
 
-## Overview
+## Executive Summary
 
-Infrastructure configuration significantly impacts agentic coding benchmark results. Research shows that resource allocation differences can swing scores by several percentage points -- sometimes exceeding the gaps between top-ranked models on leaderboards.
+Anthropic researchers demonstrate that infrastructure configuration significantly impacts agentic coding benchmarks. Their findings show that "infrastructure configuration alone can produce differences that exceed [typical leaderboard margins]" on Terminal-Bench 2.0, with a documented 6 percentage point spread between resource-constrained and unconstrained setups.
 
 ## Key Findings
 
-### The Infrastructure Impact
+### Resource Configuration Impact
 
-"Infrastructure configuration alone can produce differences that exceed those margins" on Terminal-Bench 2.0, with gaps reaching 6 percentage points between most- and least-resourced setups. This challenges the assumption that small benchmark score differences reflect pure model capability differences.
+The research identified a critical distinction between two phases of resource allocation effects:
 
-### Why This Matters
+**Phase 1 (1x to 3x headroom):** Infrastructure reliability improvements with minimal score changes. Infra error rates decreased from 5.8% to 2.1%, yet success rates remained within statistical noise (p=0.40).
 
-Agentic coding evaluations differ fundamentally from static benchmarks. Models operate in full runtime environments where they write code, run tests, install dependencies, and iterate. This makes infrastructure a problem-solving component rather than a passive container.
+**Phase 2 (3x to uncapped):** Meaningful capability enhancement. Success rates jumped approximately 4 percentage points as agents could employ resource-intensive strategies unavailable under tight constraints.
 
-### Resource Configuration Effects
+### Measurement Methodology Matters
 
-Researchers tested six resource configurations on Terminal-Bench 2.0, ranging from strict enforcement to uncapped resources. Key observations:
+The research revealed that enforcement approaches produce different results. Container runtime parameters include both a guaranteed allocation floor and a hard kill ceiling. When these parameters are identical, "a momentary memory fluctuation can OOM-kill a container that would otherwise have succeeded."
 
-- **Infrastructure reliability**: Error rates dropped from 5.8% under strict enforcement to 0.5% when uncapped
-- **Score changes**: Between 3x-uncapped configurations, success jumped nearly 4 percentage points while infrastructure errors declined only 1.6 percentage points
-- **Total improvement**: Uncapped versus strict enforcement showed +6 percentage point gains overall
+### Cross-Benchmark Validation
 
-### What Resources Actually Enable
+Testing on SWE-bench confirmed the pattern applies beyond Terminal-Bench, though with smaller magnitude. RAM variation up to 5x produced only 1.54 percentage point differences, reflecting SWE-bench's lower resource demands.
 
-Additional headroom allows agents to attempt resource-intensive approaches -- installing large dependency packages, spawning expensive processes, running memory-intensive test suites -- that would fail under tight constraints.
+## Practical Implications
 
-## Measurement Implications
+### For Leaderboard Interpretation
 
-Up to 3x resource multipliers primarily fix reliability issues. Beyond that threshold, additional resources actively help solve previously unsolvable problems, meaning resource constraints reshape what gets measured rather than just stabilizing measurements.
+Small score differences carry substantial uncertainty. The researchers recommend skepticism toward "leaderboard differences below 3 percentage points" without documented configuration matching, as infrastructure confounders can mask or exaggerate capability gaps.
 
-## Recommendations
+### For Benchmark Maintainers
 
-For benchmark maintainers and evaluators:
+Key recommendations include:
 
-- Specify both guaranteed allocation and hard kill thresholds separately, not single pinned values
-- Calibrate resource bands so floor and ceiling scores fall within acceptable noise margins
+- Specify both guaranteed allocation and hard ceiling per task
+- Calibrate the gap between floor and ceiling through empirical testing
 - Report enforcement methodology alongside results
-- Run evaluations across multiple times and days to average out temporal noise
+- Run evaluations across multiple times and days to average temporal noise
 
-## Why Organizations Should Care
+### Hidden Variables
 
-"Without published (or standardized) setup configurations, it's hard to tell from the outside unless interested parties go the extra mile to reproduce objective results under identical conditions."
+Beyond resource allocation, other factors influence scores, including time-of-day variations (likely from API latency fluctuations) and cluster health. These infrastructure quirks blur "the boundary between model capability and infrastructure behavior."
 
-Small leaderboard advantages may reflect hardware differences rather than genuine capability gaps. Until standardization occurs, differences below 3 percentage points warrant skepticism without documented matching configurations.
+## Technical Insight: Resource Parameter Separation
+
+The research demonstrates why separating floor and ceiling parameters matters. A 3x ceiling over per-task specifications reduced infrastructure errors significantly while maintaining score stability, providing "a reasonable tradeoff" between infrastructure stability and meaningful resource constraints.
+
+## Broader Context
+
+This work addresses a critical gap in AI evaluation practice: as benchmark scores increasingly drive deployment decisions, corresponding rigor in methodology hasn't always followed. The findings suggest "a few-point lead might signal a real capability gap—or it might just be a bigger VM."

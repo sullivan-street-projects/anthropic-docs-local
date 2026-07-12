@@ -2,7 +2,7 @@
 title: "Building Effective AI Coding Agents for the Terminal: Scaffolding, Harness, Context Engineering, and Lessons Learned"
 source_url: "https://arxiv.org/abs/2603.05344"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "research"
 arxiv_id: "2603.05344"
 authors: "Nghi D. Q. Bui"
@@ -68,13 +68,13 @@ Six phases per iteration:
 
 Five independent security layers:
 
-| Layer | Mechanism |
-|:------|:----------|
-| 1 | Prompt-level guardrails (security policy, error recovery) |
-| 2 | Schema-level tool restrictions (plan-mode whitelisting, per-subagent filtering) |
-| 3 | Runtime approval system (manual/semi-auto/auto levels with persistent permissions) |
-| 4 | Tool-level validation (dangerous-pattern blocklists, timeout enforcement) |
-| 5 | User-defined lifecycle hooks (pre-tool blocking, argument mutation) |
+| Layer | Mechanism                                                                          |
+| :---- | :--------------------------------------------------------------------------------- |
+| 1     | Prompt-level guardrails (security policy, error recovery)                          |
+| 2     | Schema-level tool restrictions (plan-mode whitelisting, per-subagent filtering)    |
+| 3     | Runtime approval system (manual/semi-auto/auto levels with persistent permissions) |
+| 4     | Tool-level validation (dangerous-pattern blocklists, timeout enforcement)          |
+| 5     | User-defined lifecycle hooks (pre-tool blocking, argument mutation)                |
 
 ### Adaptive Context Compaction
 
@@ -123,12 +123,12 @@ Event detectors trigger template-resolved guidance based on detected patterns (r
 
 Specialized subagents with filtered tool access:
 
-| Subagent | Purpose |
-|:---------|:--------|
-| Planner | Read-only codebase analysis and structured plan generation |
-| CodeExplorer | Deep semantic navigation via LSP |
-| SecurityReviewer | Vulnerability assessment |
-| WebGenerator | HTML/CSS/JavaScript creation |
+| Subagent         | Purpose                                                    |
+| :--------------- | :--------------------------------------------------------- |
+| Planner          | Read-only codebase analysis and structured plan generation |
+| CodeExplorer     | Deep semantic navigation via LSP                           |
+| SecurityReviewer | Vulnerability assessment                                   |
+| WebGenerator     | HTML/CSS/JavaScript creation                               |
 
 Tool filtering prevents access to disallowed operations; fresh message histories per invocation enforce isolation.
 

@@ -2,7 +2,7 @@
 title: "Tool Use Guide"
 source_url: "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "api"
 ---
 
@@ -104,8 +104,8 @@ Add `strict: true` to a tool definition to guarantee that Claude's tool call inp
   "input_schema": {
     "type": "object",
     "properties": {
-      "location": {"type": "string"},
-      "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}
+      "location": { "type": "string" },
+      "unit": { "type": "string", "enum": ["celsius", "fahrenheit"] }
     },
     "required": ["location", "unit"],
     "additionalProperties": false
@@ -191,11 +191,14 @@ const tools: Anthropic.Tool[] = [
     input_schema: {
       type: "object" as const,
       properties: {
-        location: { type: "string", description: "City and state, e.g. San Francisco, CA" }
+        location: {
+          type: "string",
+          description: "City and state, e.g. San Francisco, CA",
+        },
       },
-      required: ["location"]
-    }
-  }
+      required: ["location"],
+    },
+  },
 ];
 
 // Step 1: Send the initial request
@@ -203,7 +206,7 @@ const response = await client.messages.create({
   model: "claude-opus-4-8",
   max_tokens: 1024,
   tools,
-  messages: [{ role: "user", content: "What's the weather in San Francisco?" }]
+  messages: [{ role: "user", content: "What's the weather in San Francisco?" }],
 });
 
 // Step 2: Check if Claude wants to use a tool
@@ -227,11 +230,11 @@ if (response.stop_reason === "tool_use") {
           {
             type: "tool_result",
             tool_use_id: toolUse.id,
-            content: JSON.stringify(weatherData)
-          }
-        ]
-      }
-    ]
+            content: JSON.stringify(weatherData),
+          },
+        ],
+      },
+    ],
   });
   console.log(finalResponse.content[0].text);
 }
@@ -259,27 +262,27 @@ You can also use the MCP connector to connect directly to remote MCP servers wit
 Control how Claude selects tools:
 
 ```json
-{"tool_choice": {"type": "auto"}}
+{ "tool_choice": { "type": "auto" } }
 ```
 
 ```json
-{"tool_choice": {"type": "any"}}
+{ "tool_choice": { "type": "any" } }
 ```
 
 ```json
-{"tool_choice": {"type": "tool", "name": "get_weather"}}
+{ "tool_choice": { "type": "tool", "name": "get_weather" } }
 ```
 
 ```json
-{"tool_choice": {"type": "none"}}
+{ "tool_choice": { "type": "none" } }
 ```
 
-| Type | Behavior |
-|:-----|:---------|
+| Type   | Behavior                                       |
+| :----- | :--------------------------------------------- |
 | `auto` | Claude decides whether to use a tool (default) |
-| `any` | Claude must use one of the provided tools |
-| `tool` | Claude must use the specific named tool |
-| `none` | Claude will not use any tools |
+| `any`  | Claude must use one of the provided tools      |
+| `tool` | Claude must use the specific named tool        |
+| `none` | Claude will not use any tools                  |
 
 Set `disable_parallel_tool_use: true` within `tool_choice` to force Claude to use at most one tool per response.
 
@@ -291,8 +294,16 @@ When multiple operations are independent, Claude can call multiple tools in a si
 {
   "role": "user",
   "content": [
-    {"type": "tool_result", "tool_use_id": "toolu_01AAA", "content": "72°F, sunny"},
-    {"type": "tool_result", "tool_use_id": "toolu_01BBB", "content": "45°F, cloudy"}
+    {
+      "type": "tool_result",
+      "tool_use_id": "toolu_01AAA",
+      "content": "72°F, sunny"
+    },
+    {
+      "type": "tool_result",
+      "tool_use_id": "toolu_01BBB",
+      "content": "45°F, cloudy"
+    }
   ]
 }
 ```
@@ -345,16 +356,17 @@ The additional tokens from tool use come from:
 
 When you use `tools`, the API automatically includes a special system prompt that enables tool use. The number of tool use tokens required for each model are listed below (assumes at least 1 tool is provided):
 
-| Model | auto / none | any / tool |
-|:------|:------------|:-----------|
-| Claude Opus 4.8 | 290 tokens | 410 tokens |
-| Claude Opus 4.7 | 675 tokens | 804 tokens |
-| Claude Opus 4.6 | 497 tokens | 589 tokens |
-| Claude Opus 4.5 | 496 tokens | 588 tokens |
-| Claude Sonnet 4.6 | 497 tokens | 589 tokens |
-| Claude Sonnet 4.5 | 496 tokens | 588 tokens |
-| Claude Haiku 4.5 | 496 tokens | 588 tokens |
-| Claude Haiku 3.5 | 264 tokens | 355 tokens |
+| Model             | auto / none | any / tool |
+| :---------------- | :---------- | :--------- |
+| Claude Opus 4.8   | 290 tokens  | 410 tokens |
+| Claude Opus 4.7   | 675 tokens  | 804 tokens |
+| Claude Opus 4.6   | 497 tokens  | 589 tokens |
+| Claude Opus 4.5   | 496 tokens  | 588 tokens |
+| Claude Sonnet 5   | 354 tokens  | 474 tokens |
+| Claude Sonnet 4.6 | 497 tokens  | 589 tokens |
+| Claude Sonnet 4.5 | 496 tokens  | 588 tokens |
+| Claude Haiku 4.5  | 496 tokens  | 588 tokens |
+| Claude Haiku 3.5  | 264 tokens  | 355 tokens |
 
 ### Server Tool Pricing
 

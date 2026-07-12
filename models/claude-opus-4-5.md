@@ -2,7 +2,7 @@
 title: "Claude Opus 4.5"
 source_url: "https://www.anthropic.com/news/claude-opus-4-5"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "models"
 ---
 
@@ -12,11 +12,11 @@ Claude Opus 4.5 is a premium model combining maximum intelligence with practical
 
 ## Model ID
 
-| Platform | Model ID |
-|:---------|:---------|
-| Claude API | `claude-opus-4-5-20251101` |
-| AWS Bedrock | `anthropic.claude-opus-4-5-20251101-v1:0` |
-| GCP Vertex AI | `claude-opus-4-5@20251101` |
+| Platform      | Model ID                                  |
+| :------------ | :---------------------------------------- |
+| Claude API    | `claude-opus-4-5-20251101`                |
+| AWS Bedrock   | `anthropic.claude-opus-4-5-20251101-v1:0` |
+| GCP Vertex AI | `claude-opus-4-5@20251101`                |
 
 ## Pricing
 
@@ -24,14 +24,14 @@ $5 / MTok input, $25 / MTok output
 
 ## Specifications
 
-| Feature | Detail |
-|:--------|:-------|
-| Context window | 200K tokens |
-| Max output | 64K tokens |
-| Extended thinking | Yes |
-| Effort parameter | Yes (low, medium, high, max) |
-| Reliable knowledge cutoff | May 2025 |
-| Training data cutoff | August 2025 |
+| Feature                   | Detail                       |
+| :------------------------ | :--------------------------- |
+| Context window            | 200K tokens                  |
+| Max output                | 64K tokens                   |
+| Extended thinking         | Yes                          |
+| Effort parameter          | Yes (low, medium, high, max) |
+| Reliable knowledge cutoff | May 2025                     |
+| Training data cutoff      | August 2025                  |
 
 ## Key Capabilities
 

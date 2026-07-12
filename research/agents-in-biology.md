@@ -2,7 +2,7 @@
 title: "Paving the way for agents in biology"
 source_url: "https://www.anthropic.com/research/agents-in-biology"
 source_type: "web-extracted"
-fetched_at: "2026-06-29T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "research"
 ---
 
@@ -18,6 +18,7 @@ The article contends that biological data infrastructure requires redesign to su
 ## Main Problem
 
 Biological databases present fragmented infrastructure with:
+
 - Idiosyncratic file formats
 - Scattered, disconnected databases
 - Manual retrieval workflows requiring browser navigation
@@ -31,6 +32,7 @@ As the author notes: "The bottleneck for biological agents is not only reasoning
 Researchers tested state-of-the-art AI systems (Claude, Biomni OSS, Edison Analysis, GPT models) on viral sequence retrieval from NCBI Virus using existing tools.
 
 **Results without optimization:**
+
 - Accuracy ranged from 16.9% to 91.3%
 - Same models produced vastly different results across repeated queries
 - Claude Sonnet 4 returned 106, 15, and 5 sequences respectively for identical requests
@@ -40,6 +42,7 @@ Researchers tested state-of-the-art AI systems (Claude, Biomni OSS, Edison Analy
 ## The Solution: gget virus
 
 Anthropic and NCBI researchers developed a deterministic retrieval layer that:
+
 - Coordinates multiple underlying APIs
 - Handles large result sets comprehensively
 - Applies filters requiring supplementary databases

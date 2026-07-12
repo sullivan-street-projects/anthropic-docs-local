@@ -2,7 +2,7 @@
 title: "Introducing Advanced Tool Use on the Claude Developer Platform"
 source_url: "https://www.anthropic.com/engineering/advanced-tool-use"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"
 ---
 
@@ -10,64 +10,157 @@ category: "engineering"
 
 ## Overview
 
-Anthropic has released three beta features enabling Claude to discover, learn, and execute tools dynamically:
+Anthropic introduced three beta features enabling Claude to dynamically discover, learn, and execute tools more efficiently. These capabilities address fundamental limitations in traditional tool use patterns for AI agents.
 
-1. **Tool Search Tool** - "allows Claude to use search tools to access thousands of tools without consuming its context window"
-2. **Programmatic Tool Calling** - enables tool invocation within code execution environments
-3. **Tool Use Examples** - provides concrete usage patterns for tool definitions
+## Three Core Features
 
-## Tool Search Tool
+### 1. Tool Search Tool
 
-### The Problem
-MCP tool definitions consume substantial tokens. A five-server setup (GitHub, Slack, Sentry, Grafana, Splunk) uses approximately 55K tokens before conversation begins. Tool selection errors increase when similar tools exist.
+**Problem Addressed:**
+Large MCP tool libraries consume excessive tokens upfront. A five-server setup (GitHub, Slack, Sentry, Grafana, Splunk) consuming approximately 55,000 tokens before conversation starts demonstrates the inefficiency. "Tool definitions consume 134K tokens before optimization" at Anthropic's scale.
 
-### The Solution
-Rather than loading all definitions upfront, "Claude only sees the tools it actually needs for the current task." The approach preserves 95% of context window while reducing token usage by 85%.
+**Solution:**
+Rather than loading all tool definitions initially, the Tool Search Tool enables on-demand discovery. Claude searches for relevant tools, and only matching definitions enter context.
 
-The system works by marking tools with `defer_loading: true`, making them discoverable on-demand. "Tool Search Tool preserves 191,300 tokens of context compared to 122,800 with Claude's traditional approach."
+**Performance Gains:**
 
-### When to Use
+- 85% reduction in token usage while maintaining full library access
+- Opus 4 improved from 49% to 74% accuracy on MCP evaluations
+- Opus 4.5 improved from 79.5% to 88.1%
+
+**Implementation Pattern:**
+
+```json
+{
+  "tools": [
+    {
+      "type": "tool_search_tool_regex_20251119",
+      "name": "tool_search_tool_regex"
+    },
+    {
+      "name": "github.createPullRequest",
+      "description": "Create a pull request",
+      "input_schema": {},
+      "defer_loading": true
+    }
+  ]
+}
+```
+
+**Best For:**
+
 - Tool definitions exceeding 10K tokens
 - Tool selection accuracy issues
 - MCP systems with multiple servers
-- 10+ available tools
+- Libraries with 10+ tools
 
-## Programmatic Tool Calling
+### 2. Programmatic Tool Calling
 
-### The Challenge
-Traditional tool calling creates "context pollution from intermediate results" and "inference overhead." Processing large datasets forces all intermediate outputs into context, consuming tokens inefficiently.
+**Problem Addressed:**
+Traditional tool calling creates two issues: context pollution from intermediate results and inference overhead. Processing large datasets forces raw data into Claude's context window despite needing only summaries.
 
-### The Solution
-Claude writes Python code orchestrating tools rather than invoking them individually. "By keeping intermediate results out of Claude's context, PTC dramatically reduces token consumption. Average usage dropped from 43,588 to 27,297 tokens, a 37% reduction."
+**Solution:**
+Claude writes Python code orchestrating tool calls within a sandboxed execution environment. Tool results process in code rather than entering Claude's context, with only final output visible to the model.
 
-Benefits include 37% token reduction, eliminated inference passes, and improved accuracy metrics.
+**Example Use Case - Budget Compliance:**
+Instead of fetching 2,000+ expense line items into context, Claude's code:
 
-### When to Use
-- Large dataset processing requiring only summaries
+- Fetches team members and budgets
+- Runs parallel expense queries
+- Filters locally
+- Returns only exceeding employees
+
+**Performance Metrics:**
+
+- 37% token reduction (43,588 to 27,297 tokens on complex tasks)
+- Reduced latency by eliminating 19+ inference passes
+- Internal knowledge retrieval improved from 25.6% to 28.5%
+- GIA benchmarks improved from 46.5% to 51.2%
+
+**Configuration:**
+
+```json
+{
+  "type": "code_execution_20250825",
+  "name": "code_execution"
+},
+{
+  "name": "get_team_members",
+  "allowed_callers": ["code_execution_20250825"]
+}
+```
+
+**Best For:**
+
+- Processing large datasets needing aggregation
 - Multi-step workflows with 3+ dependent calls
-- Data filtering/transformation before Claude processes
 - Parallel operations across many items
+- Tasks requiring data filtering before Claude reasoning
 
-## Tool Use Examples
+### 3. Tool Use Examples
 
-### The Problem
-JSON schemas define structure but not usage patterns. Ambiguities arise regarding formats, parameter correlation, and nested structure usage.
+**Problem Addressed:**
+JSON Schema defines structural validity but cannot express usage patterns: optional parameter inclusion, valid combinations, or API conventions.
 
-### The Solution
-Examples demonstrate concrete patterns. "Tool use examples improved accuracy from 72% to 90% on complex parameter handling."
+**Solution:**
+Provide concrete example invocations demonstrating correct parameter usage, nesting patterns, and domain conventions.
 
-### When to Use
+**Example - Support Ticket API:**
+Rather than relying solely on schema, three examples show:
+
+- Date format conventions (YYYY-MM-DD)
+- ID format patterns (USR-XXXXX)
+- Label conventions (kebab-case)
+- When to populate nested structures
+
+**Results:**
+Tool use example accuracy improved from 72% to 90% on complex parameter handling in internal testing.
+
+**Implementation:**
+
+```json
+{
+  "name": "create_ticket",
+  "input_schema": {},
+  "input_examples": [
+    {
+      "title": "Login page returns 500 error",
+      "priority": "critical",
+      "labels": ["bug", "authentication", "production"],
+      "reporter": {}
+    }
+  ]
+}
+```
+
+**Best For:**
+
 - Complex nested structures
 - Tools with many optional parameters
-- Domain-specific API conventions
-- Similar tools requiring clarification
+- APIs with domain-specific conventions
+- Similar tools requiring distinction
 
-## Best Practices
+## Integration Strategy
 
-Layer features strategically, addressing primary bottlenecks first. Tool Search Tool manages context bloat; Programmatic Tool Calling handles intermediate data; Tool Use Examples improve invocation accuracy.
+The documentation recommends layering features strategically:
 
-Clear tool naming, comprehensive system prompts, and realistic example data maximize effectiveness.
+1. **Start with your biggest bottleneck** - identify whether context bloat, intermediate results, or parameter errors are primary constraints
+2. **Layer additional features as needed** - features complement each other (Tool Search finds tools, Programmatic Calling executes efficiently, Tool Use Examples ensures correctness)
+3. **Keep 3-5 most-used tools always loaded** while deferring the rest
 
 ## Getting Started
 
-Enable features via beta header with `advanced-tool-use-2025-11-20` in API calls, using Claude Sonnet 4.5 or compatible models.
+Features require beta header and model specification:
+
+```python
+client.beta.messages.create(
+    betas=["advanced-tool-use-2025-11-20"],
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=4096,
+    tools=[...]
+)
+```
+
+## Key Takeaway
+
+These features transform tool use "from simple function calling toward intelligent orchestration," enabling agents to work across hundreds or thousands of tools while maintaining efficiency and accuracy.

@@ -2,7 +2,7 @@
 title: "Server-Side Context Compaction"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/compaction"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "api"
 ---
 
@@ -31,6 +31,7 @@ Compaction is supported on the following models:
 - Claude Opus 4.8 (`claude-opus-4-8`)
 - Claude Opus 4.7 (`claude-opus-4-7`)
 - Claude Opus 4.6 (`claude-opus-4-6`)
+- Claude Sonnet 5 (`claude-sonnet-5`)
 - Claude Sonnet 4.6 (`claude-sonnet-4-6`)
 
 ## How Compaction Works
@@ -69,7 +70,7 @@ messages.append({"role": "assistant", "content": response.content})
 const client = new Anthropic();
 
 const messages: Anthropic.Beta.Messages.BetaMessageParam[] = [
-  { role: "user", content: "Help me build a website" }
+  { role: "user", content: "Help me build a website" },
 ];
 
 const response = await client.beta.messages.create({
@@ -80,27 +81,27 @@ const response = await client.beta.messages.create({
   context_management: {
     edits: [
       {
-        type: "compact_20260112"
-      }
-    ]
-  }
+        type: "compact_20260112",
+      },
+    ],
+  },
 });
 
 // Append the response (including any compaction block) to continue the conversation
 messages.push({
   role: "assistant",
-  content: response.content
+  content: response.content,
 });
 ```
 
 ## Parameters
 
-| Parameter | Type | Default | Description |
-|:----------|:-----|:--------|:------------|
-| `type` | string | Required | Must be `"compact_20260112"` |
-| `trigger` | object | 150,000 tokens | When to trigger compaction. Must be at least 50,000 tokens. |
-| `pause_after_compaction` | boolean | `false` | Whether to pause after generating the compaction summary |
-| `instructions` | string | `null` | Custom summarization prompt. Completely replaces the default prompt when provided. |
+| Parameter                | Type    | Default        | Description                                                                        |
+| :----------------------- | :------ | :------------- | :--------------------------------------------------------------------------------- |
+| `type`                   | string  | Required       | Must be `"compact_20260112"`                                                       |
+| `trigger`                | object  | 150,000 tokens | When to trigger compaction. Must be at least 50,000 tokens.                        |
+| `pause_after_compaction` | boolean | `false`        | Whether to pause after generating the compaction summary                           |
+| `instructions`           | string  | `null`         | Custom summarization prompt. Completely replaces the default prompt when provided. |
 
 ### Trigger Configuration
 
@@ -354,5 +355,5 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
 ## Related Features
 
 - **Context editing:** For more specialized needs, context editing offers tool result clearing and thinking block clearing
-- **1M token context window:** Available for Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Opus 4.7, Opus 4.6, and Sonnet 4.6
+- **1M token context window:** Available for Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6
 - **Context awareness:** Sonnet 4.6, Sonnet 4.5, and Haiku 4.5 track their remaining context window throughout a conversation

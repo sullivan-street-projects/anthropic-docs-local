@@ -2,7 +2,7 @@
 title: "Boris Cherny - Personal Claude Code Setup (Jan 2, 2026)"
 source_url: "https://x.com/bcherny/status/2007179832300581177"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -66,6 +66,7 @@ See: [Bash command execution in slash commands](https://code.claude.com/docs/en/
 ## 8. Subagents for Common Workflows
 
 Regular use of specialized subagents:
+
 - **code-simplifier** — simplifies code after Claude is done working
 - **verify-app** — detailed instructions for testing Claude Code end to end
 
@@ -84,6 +85,7 @@ Instead of using `--dangerously-skip-permissions`, uses `/permissions` to pre-al
 ## 11. Tool Integration via MCP and CLI
 
 Claude Code uses all tools for him:
+
 - Searches and posts to **Slack** (via MCP server)
 - Runs **BigQuery** queries to answer analytics questions (using `bq` CLI)
 - Grabs error logs from **Sentry**
@@ -110,6 +112,7 @@ See: [Ralph Wiggum plugin](https://github.com/anthropics/claude-plugins-official
 Claude tests every single change landed to claude.ai/code using the **Claude Chrome extension**. It opens a browser, tests the UI, and iterates until the code works and the UX feels good.
 
 Verification looks different for each domain:
+
 - Running a bash command
 - Running a test suite
 - Testing the app in a browser or phone simulator

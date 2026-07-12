@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,9 +10,10 @@ category: "agent-sdk"
 
 Get started with the Python or TypeScript Agent SDK to build AI agents that work autonomously. This quickstart walks you through building an agent that reads your code, finds bugs, and fixes them without manual intervention.
 
-> **Last updated:** June 28, 2026
+> **Last updated:** July 12, 2026
 
 **What you'll do:**
+
 1. Set up a project with the Agent SDK
 2. Create a file with some buggy code
 3. Run an agent that finds and fixes the bugs automatically
@@ -131,6 +132,7 @@ def get_user_name(user):
 ```
 
 This code has two bugs:
+
 1. `calculate_average([])` crashes with division by zero
 2. `get_user_name(None)` crashes with a TypeError
 
@@ -173,11 +175,12 @@ import { query } from "@anthropic-ai/claude-agent-sdk";
 
 // Agentic loop: streams messages as Claude works
 for await (const message of query({
-  prompt: "Review utils.py for bugs that would cause crashes. Fix any issues you find.",
+  prompt:
+    "Review utils.py for bugs that would cause crashes. Fix any issues you find.",
   options: {
     allowedTools: ["Read", "Edit", "Glob"], // Auto-approve these tools
-    permissionMode: "acceptEdits" // Auto-approve file edits
-  }
+    permissionMode: "acceptEdits", // Auto-approve file edits
+  },
 })) {
   // Print human-readable output
   if (message.type === "assistant" && message.message?.content) {
@@ -282,24 +285,24 @@ With `Bash` enabled, try: `"Write unit tests for utils.py, run them, and fix any
 
 Tools control what your agent can do:
 
-| Tools | What the agent can do |
-|-------|----------------------|
-| `Read`, `Glob`, `Grep` | Read-only analysis |
-| `Read`, `Edit`, `Glob` | Analyze and modify code |
-| `Read`, `Edit`, `Bash`, `Glob`, `Grep` | Full automation |
+| Tools                                  | What the agent can do   |
+| -------------------------------------- | ----------------------- |
+| `Read`, `Glob`, `Grep`                 | Read-only analysis      |
+| `Read`, `Edit`, `Glob`                 | Analyze and modify code |
+| `Read`, `Edit`, `Bash`, `Glob`, `Grep` | Full automation         |
 
 ### Permission Modes
 
 Permission modes control how much human oversight you want:
 
-| Mode | Behavior | Use case |
-|------|----------|----------|
-| `acceptEdits` | Auto-approves file edits and common filesystem commands, asks for other actions | Trusted development workflows |
-| `plan` | Runs read-only tools; file edits are never auto-approved and reach your `canUseTool` callback | Scoping a task before approving execution |
-| `auto` | A model classifier approves or denies each tool call | Autonomous agents with safety guardrails |
-| `dontAsk` | Denies anything not in `allowedTools` | Locked-down headless agents |
-| `bypassPermissions` | Runs every tool without prompting, unless an explicit `ask` rule matches | Sandboxed CI, fully trusted environments |
-| `default` | Requires a `canUseTool` callback to handle approval | Custom approval flows |
+| Mode                | Behavior                                                                                      | Use case                                  |
+| ------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| `acceptEdits`       | Auto-approves file edits and common filesystem commands, asks for other actions               | Trusted development workflows             |
+| `plan`              | Runs read-only tools; file edits are never auto-approved and reach your `canUseTool` callback | Scoping a task before approving execution |
+| `auto`              | A model classifier approves or denies each tool call                                          | Autonomous agents with safety guardrails  |
+| `dontAsk`           | Denies anything not in `allowedTools`                                                         | Locked-down headless agents               |
+| `bypassPermissions` | Runs every tool without prompting, unless an explicit `ask` rule matches                      | Sandboxed CI, fully trusted environments  |
+| `default`           | Requires a `canUseTool` callback to handle approval                                           | Custom approval flows                     |
 
 The quickstart uses `acceptEdits` mode, which auto-approves file operations so the agent can run without interactive prompts. If you want to prompt users for approval, use `default` mode and provide a [`canUseTool` callback](https://code.claude.com/docs/en/agent-sdk/user-input) that collects user input. For more control, see [Permissions](https://code.claude.com/docs/en/agent-sdk/permissions).
 

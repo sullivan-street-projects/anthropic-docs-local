@@ -2,7 +2,7 @@
 title: "Code Execution with MCP: Building More Efficient Agents"
 source_url: "https://www.anthropic.com/engineering/code-execution-with-mcp"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"
 ---
 
@@ -17,9 +17,11 @@ The article explores how code execution environments can optimize AI agent inter
 ## Key Problems Identified
 
 ### 1. Tool Definition Overload
+
 When MCP clients expose all tool definitions directly to models via tool-calling syntax, extensive context is consumed. For agents with thousands of connected tools, "hundreds of thousands of tokens" may be processed before addressing user requests.
 
 ### 2. Intermediate Result Duplication
+
 Tool results pass through the model multiple times. The example describes downloading a meeting transcript and attaching it to a Salesforce record—requiring the full transcript to flow through context twice, potentially consuming 50,000+ additional tokens for longer documents.
 
 ## Solution: Presenting MCP as Code APIs
@@ -27,6 +29,7 @@ Tool results pass through the model multiple times. The example describes downlo
 Instead of direct tool calls, the approach generates a file structure representing tools as TypeScript functions. Agents discover tools by exploring a `./servers/` filesystem directory, loading only necessary definitions on-demand.
 
 **Example structure:**
+
 ```
 servers/
 ├── google-drive/

@@ -2,7 +2,7 @@
 title: "The Complete Guide to Building Skills for Claude"
 source_url: "https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "skills"
 format: "pdf-summary"
 pages: 30
@@ -30,12 +30,12 @@ Skills are folders of instructions, scripts, and resources that Claude loads dyn
 
 Every skill is a folder containing:
 
-| Component | Required | Purpose |
-|-----------|----------|---------|
-| `SKILL.md` | Yes | Main instruction file with YAML frontmatter |
-| `scripts/` | No | Executable scripts for validation, generation |
-| `references/` | No | Detailed docs loaded on demand |
-| `assets/` | No | Templates, images, config files |
+| Component     | Required | Purpose                                       |
+| ------------- | -------- | --------------------------------------------- |
+| `SKILL.md`    | Yes      | Main instruction file with YAML frontmatter   |
+| `scripts/`    | No       | Executable scripts for validation, generation |
+| `references/` | No       | Detailed docs loaded on demand                |
+| `assets/`     | No       | Templates, images, config files               |
 
 ### Critical Rules
 
@@ -50,7 +50,7 @@ Required fields:
 
 ```yaml
 ---
-name: my-skill-name          # kebab-case, no spaces, no capitals
+name: my-skill-name # kebab-case, no spaces, no capitals
 description: What it does and WHEN to use it
 ---
 ```
@@ -77,21 +77,23 @@ Skills are designed as an open standard (see [agentskills.io](http://agentskills
 
 ### Use Case Categories
 
-| Category | Description | Example |
-|----------|-------------|---------|
-| **Document & Asset Creation** | Generate files from templates/specs | Reports, presentations, code scaffolds |
-| **Workflow Automation** | Multi-step processes with decision logic | Onboarding, deployment, review cycles |
-| **MCP Enhancement** | Augment MCP tools with best practices | Smart file routing, compliance checks |
+| Category                      | Description                              | Example                                |
+| ----------------------------- | ---------------------------------------- | -------------------------------------- |
+| **Document & Asset Creation** | Generate files from templates/specs      | Reports, presentations, code scaffolds |
+| **Workflow Automation**       | Multi-step processes with decision logic | Onboarding, deployment, review cycles  |
+| **MCP Enhancement**           | Augment MCP tools with best practices    | Smart file routing, compliance checks  |
 
 ### Define Success Criteria
 
 **Quantitative metrics:**
+
 - Task completion rate
 - Number of back-and-forth messages needed
 - API call success rate
 - Token consumption
 
 **Qualitative metrics:**
+
 - Output quality and accuracy
 - User satisfaction
 - Consistency of results
@@ -101,6 +103,7 @@ Skills are designed as an open standard (see [agentskills.io](http://agentskills
 The `description` field is the **single most important field** — it determines when Claude loads your skill.
 
 **Good:** Includes WHAT + WHEN + scope boundaries
+
 ```yaml
 description: Processes PDF legal documents for contract review.
   Use specifically for online payment workflows, not for general
@@ -108,11 +111,13 @@ description: Processes PDF legal documents for contract review.
 ```
 
 **Bad:** Too generic
+
 ```yaml
 description: Helps with projects
 ```
 
 **Tips:**
+
 - Include trigger phrases users would actually say
 - Mention relevant file types if applicable
 - Add negative triggers to prevent over-triggering ("Do NOT use for...")
@@ -132,11 +137,11 @@ description: Helps with projects
 
 ### Testing Methods
 
-| Method | Surface | Best For |
-|--------|---------|----------|
-| **Manual testing** | Claude.ai | Quick iteration, UX testing |
-| **Scripted testing** | Claude Code | Repeatable functional tests |
-| **Programmatic testing** | Skills API | Automated CI/CD validation |
+| Method                   | Surface     | Best For                    |
+| ------------------------ | ----------- | --------------------------- |
+| **Manual testing**       | Claude.ai   | Quick iteration, UX testing |
+| **Scripted testing**     | Claude Code | Repeatable functional tests |
+| **Programmatic testing** | Skills API  | Automated CI/CD validation  |
 
 ### Manual Testing in Claude.ai
 
@@ -174,6 +179,7 @@ Then:
 ### Using the skill-creator Skill
 
 The `skill-creator` skill (built into Claude.ai and available for Claude Code) helps build and iterate on skills:
+
 - Generate skills from natural language descriptions
 - Produce properly formatted SKILL.md with frontmatter
 - Suggest trigger phrases and structure
@@ -182,21 +188,24 @@ The `skill-creator` skill (built into Claude.ai and available for Claude Code) h
 
 **To use:** "Use the skill-creator skill to help me build a skill for [your use case]"
 
-*Note: skill-creator helps design and refine skills but does not execute automated test suites or produce quantitative evaluation results.*
+_Note: skill-creator helps design and refine skills but does not execute automated test suites or produce quantitative evaluation results._
 
 ### Iteration Based on Feedback
 
 **Undertriggering signals:**
+
 - Skill doesn't load when it should
 - Users manually enabling it
 - Solution: Add more detail/nuance to description, include keywords
 
 **Overtriggering signals:**
+
 - Skill loads for irrelevant queries
 - Users disabling it
 - Solution: Add negative triggers, be more specific
 
 **Execution issues:**
+
 - Inconsistent results, API call failures
 - Solution: Improve instructions, add error handling
 
@@ -207,12 +216,14 @@ The `skill-creator` skill (built into Claude.ai and available for Claude Code) h
 ### Current Distribution Model (January 2026)
 
 **Individual users:**
+
 1. Download the skill folder
 2. Zip the folder (if needed)
 3. Upload to Claude.ai via Settings > Capabilities > Skills
 4. Or place in Claude Code skills directory
 
 **Organization-level skills:**
+
 - Admins can deploy skills workspace-wide (shipped December 18, 2025)
 - Automatic updates
 - Centralized management
@@ -226,23 +237,24 @@ Skills are published as an open standard (like MCP). The same skill should be po
 For programmatic use cases — building applications, agents, or automated workflows.
 
 **Key capabilities:**
+
 - `/v1/skills` endpoint for listing and managing skills
 - Add skills to Messages API requests via `container.skills` parameter
 - Version control and management through the Claude Console
 - Works with the Claude Agent SDK
 
-*Note: Skills in the API require the Code Execution Tool beta for the secure environment.*
+_Note: Skills in the API require the Code Execution Tool beta for the secure environment._
 
 **When to use API vs. Claude.ai:**
 
-| Use Case | Best Surface |
-|----------|-------------|
+| Use Case                                   | Best Surface            |
+| ------------------------------------------ | ----------------------- |
 | End users interacting with skills directly | Claude.ai / Claude Code |
-| Manual testing and iteration | Claude.ai / Claude Code |
-| Individual, ad-hoc workflows | Claude.ai / Claude Code |
-| Applications using skills programmatically | API |
-| Production deployments at scale | API |
-| Automated pipelines and agent systems | API |
+| Manual testing and iteration               | Claude.ai / Claude Code |
+| Individual, ad-hoc workflows               | Claude.ai / Claude Code |
+| Applications using skills programmatically | API                     |
+| Production deployments at scale            | API                     |
+| Automated pipelines and agent systems      | API                     |
 
 ### Recommended Distribution Approach
 
@@ -253,10 +265,12 @@ For programmatic use cases — building applications, agents, or automated workf
 ### Positioning Your Skill
 
 **Focus on outcomes, not features:**
+
 - Good: "The ProjectHub skill enables teams to set up complete project workspaces in seconds — including pages, databases, and templates — instead of spending 30 minutes on manual setup."
 - Bad: "The ProjectHub skill is a folder containing YAML frontmatter and Markdown instructions that calls our MCP server tools."
 
 **Highlight the MCP + skills story:**
+
 - "Our MCP server gives Claude access to your Linear projects. Our skills teach Claude your team's sprint planning workflow. Together, they enable AI-powered project management."
 
 ---
@@ -310,11 +324,11 @@ Key techniques: Domain expertise embedded in logic, compliance before action, co
 
 #### Skill won't upload
 
-| Error | Cause | Fix |
-|-------|-------|-----|
+| Error                     | Cause                           | Fix                                           |
+| ------------------------- | ------------------------------- | --------------------------------------------- |
 | "Could not find SKILL.md" | File not named exactly SKILL.md | Rename (case-sensitive), verify with `ls -la` |
-| "Invalid frontmatter" | YAML formatting issue | Use `---` delimiters, close quotes |
-| "Invalid skill name" | Name has spaces or capitals | Use kebab-case: `my-cool-skill` |
+| "Invalid frontmatter"     | YAML formatting issue           | Use `---` delimiters, close quotes            |
+| "Invalid skill name"      | Name has spaces or capitals     | Use kebab-case: `my-cool-skill`               |
 
 #### Skill doesn't trigger
 
@@ -334,9 +348,9 @@ Key techniques: Domain expertise embedded in logic, compliance before action, co
 3. **Ambiguous language** — Be specific and deterministic
 4. **Model "laziness"** — Add explicit encouragement: "Take your time, quality is more important than speed"
 
-*Advanced technique:* For critical validations, bundle a script that performs checks programmatically rather than relying on language instructions.
+_Advanced technique:_ For critical validations, bundle a script that performs checks programmatically rather than relying on language instructions.
 
-*Note:* Adding performance notes to user prompts is more effective than in SKILL.md.
+_Note:_ Adding performance notes to user prompts is more effective than in SKILL.md.
 
 #### MCP connection issues
 
@@ -350,6 +364,7 @@ Key techniques: Domain expertise embedded in logic, compliance before action, co
 **Symptom:** Skill seems slow or responses degraded.
 
 **Solutions:**
+
 1. Optimize SKILL.md size — move detailed docs to `references/`, link instead of inline, keep under 5,000 words
 2. Reduce enabled skills — evaluate if >20-50 enabled simultaneously, consider skill "packs" for related capabilities
 
@@ -388,12 +403,14 @@ Key techniques: Domain expertise embedded in logic, compliance before action, co
 ## Reference A: Quick Checklist
 
 ### Before You Start
+
 - [ ] Identified 2-3 concrete use cases
 - [ ] Tools identified (built-in or MCP)
 - [ ] Reviewed this guide and example skills
 - [ ] Planned folder structure
 
 ### During Development
+
 - [ ] Folder named in kebab-case
 - [ ] SKILL.md file exists (exact spelling)
 - [ ] YAML frontmatter has `---` delimiters
@@ -406,6 +423,7 @@ Key techniques: Domain expertise embedded in logic, compliance before action, co
 - [ ] References clearly linked
 
 ### Before Upload
+
 - [ ] Tested triggering on obvious tasks
 - [ ] Tested triggering on paraphrased requests
 - [ ] Verified doesn't trigger on unrelated topics
@@ -414,6 +432,7 @@ Key techniques: Domain expertise embedded in logic, compliance before action, co
 - [ ] Compressed as .zip file
 
 ### After Upload
+
 - [ ] Test in real conversations
 - [ ] Monitor for under/over-triggering
 - [ ] Collect user feedback

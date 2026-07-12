@@ -2,7 +2,7 @@
 title: "Anthropic Acquires Vercept to Advance Claude's Computer Use Capabilities"
 source_url: "https://www.anthropic.com/news/acquires-vercept"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "news"
 published: "2026-02-25"
 ---

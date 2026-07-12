@@ -2,11 +2,69 @@
 title: "TypeScript SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "sdks"
 ---
 
 # Changelog
+
+## 0.111.0 (2026-07-10)
+
+Full Changelog: [sdk-v0.110.0...sdk-v0.111.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.110.0...sdk-v0.111.0)
+
+### Features
+
+* **api:** add support for dreaming ([77b28a6](https://github.com/anthropics/anthropic-sdk-typescript/commit/77b28a647239fd66d3a31b04fca4a58ebc86e493))
+* **tools:** gate session tool calls on evaluated_permission; bound idle by server stop_reason ([68a6d7b](https://github.com/anthropics/anthropic-sdk-typescript/commit/68a6d7b92aaea4d3eaf3a7567db18e3bf6d695ef))
+
+
+### Chores
+
+* **docs:** small updates to field descriptions ([e25b885](https://github.com/anthropics/anthropic-sdk-typescript/commit/e25b885eacbf26332e6133abff2ea7d72fef2b30))
+* **docs:** update model example ([a33f3f0](https://github.com/anthropics/anthropic-sdk-typescript/commit/a33f3f0b7cee244f2dc894900e9fa07cf686228b))
+* **docs:** updates to descriptions and examples ([eac4bac](https://github.com/anthropics/anthropic-sdk-typescript/commit/eac4bace325ae901465edf7a503183f669c3c2d8))
+
+## 0.110.0 (2026-07-02)
+
+Full Changelog: [sdk-v0.109.1...sdk-v0.110.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.109.1...sdk-v0.110.0)
+
+### Features
+
+* **api:** add agent-memory-2026-07-22 beta header ([a470e10](https://github.com/anthropics/anthropic-sdk-typescript/commit/a470e10aaad12078e3e5f2bb9adf6c2652ea9ca0))
+
+## 0.109.1 (2026-07-01)
+
+Full Changelog: [sdk-v0.109.0...sdk-v0.109.1](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.109.0...sdk-v0.109.1)
+
+### Chores
+
+* **api:** remove some nonfunctional types from the SDKs ([cc4dd4e](https://github.com/anthropics/anthropic-sdk-typescript/commit/cc4dd4e257cc3354f14e263b0d2441ddae71759e))
+
+## 0.109.0 (2026-06-30)
+
+Full Changelog: [sdk-v0.108.0...sdk-v0.109.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.108.0...sdk-v0.109.0)
+
+### Features
+
+* **api:** add support for Managed Agents event delta streaming, agent overrides, reverse pagination, vault credential injection scoping, and agent and deployment webhook events ([7f3211b](https://github.com/anthropics/anthropic-sdk-typescript/commit/7f3211b4886053d25e98b91edc90fedc199ef186))
+
+## 0.108.0 (2026-06-30)
+
+Full Changelog: [sdk-v0.107.0...sdk-v0.108.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.107.0...sdk-v0.108.0)
+
+### Features
+
+* **api:** add support for claude-sonnet-5 ([4588db0](https://github.com/anthropics/anthropic-sdk-typescript/commit/4588db01eccd7529a5d2e99b8e5da3af1acdbbc8))
+
+
+### Bug Fixes
+
+* **agent-toolset:** allow absolute paths that resolve inside workdir ([#112](https://github.com/anthropics/anthropic-sdk-typescript/issues/112)) ([e951fb2](https://github.com/anthropics/anthropic-sdk-typescript/commit/e951fb2ed70f8d6cd0113ae1642a795404e1cc9a))
+
+
+### Chores
+
+* format README.md ([#176](https://github.com/anthropics/anthropic-sdk-typescript/issues/176)) ([98dcff7](https://github.com/anthropics/anthropic-sdk-typescript/commit/98dcff71b632a92e0e1dff19ca4a95439a5fe447))
 
 ## 0.107.0 (2026-06-29)
 

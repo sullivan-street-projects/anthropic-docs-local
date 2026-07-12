@@ -2,13 +2,13 @@
 title: "Skills Catalog"
 source_url: "https://github.com/anthropics/skills"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "skills"
 ---
 
 # Skills Catalog
 
-> **Source:** [anthropics/skills](https://github.com/anthropics/skills) — 156k stars, 18.4k forks
+> **Source:** [anthropics/skills](https://github.com/anthropics/skills) -- 161k stars, 18.9k forks
 
 Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks.
 
@@ -17,6 +17,7 @@ Skills are folders of instructions, scripts, and resources that Claude loads dyn
 ## What Are Skills?
 
 Skills teach Claude how to complete specific tasks in a repeatable way, whether that's:
+
 - Creating documents with your company's brand guidelines
 - Analyzing data using your organization's specific workflows
 - Automating personal tasks
@@ -41,11 +42,11 @@ anthropics/skills/
 
 ## Skill Categories
 
-| Category | Description |
-|:---------|:------------|
-| Creative & Design | Art, music, design skills |
-| Development & Technical | Testing, MCP generation, coding |
-| Enterprise & Communication | Branding, internal comms |
+| Category                             | Description                        |
+| :----------------------------------- | :--------------------------------- |
+| Creative & Design                    | Art, music, design skills          |
+| Development & Technical              | Testing, MCP generation, coding    |
+| Enterprise & Communication           | Branding, internal comms           |
 | Document Skills (docx/pdf/pptx/xlsx) | Document creation and manipulation |
 
 ## Basic Skill Structure
@@ -72,6 +73,7 @@ description: A clear description of what this skill does and when to use it
 ```
 
 Required frontmatter fields:
+
 - **name**: Unique identifier (lowercase, hyphens)
 - **description**: What the skill does and when to use it
 
@@ -80,6 +82,7 @@ The markdown content contains instructions, examples, and guidelines Claude will
 ## How to Use Skills
 
 ### Claude Code
+
 ```bash
 /plugin marketplace add anthropics/skills
 /plugin install document-skills@anthropic-agent-skills
@@ -87,24 +90,27 @@ The markdown content contains instructions, examples, and guidelines Claude will
 ```
 
 After installing, use skills by mentioning them. Example:
+
 > "Use the PDF skill to extract the form fields from `path/to/some-file.pdf`"
 
 ### Claude.ai
+
 Example skills are available to paid plans. To use any skill from this repository or upload custom skills, follow [Using skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude#h_a4222fa77b).
 
 ### Claude API
+
 Use pre-built skills or upload custom skills via the Claude API. See the [Skills API Quickstart](https://docs.claude.com/en/api/skills-guide#creating-a-skill).
 
 ## Partner Skills
 
 Skills are ideal for teaching Claude how to use specific software. Featured partner skills:
 
-- **Notion** — [Notion Skills for Claude](https://www.notion.so/notiondevs/Notion-Skills-for-Claude-28da4445d27180c7af1df7d8615723d0)
+- **Notion** -- [Notion Skills for Claude](https://www.notion.so/notiondevs/Notion-Skills-for-Claude-28da4445d27180c7af1df7d8615723d0)
 
 ## Licensing
 
 - **Most skills**: Open source (Apache 2.0)
-- **Document skills** (docx, pdf, pptx, xlsx): Source-available (not open source) — provided as reference for complex, production-ready skills
+- **Document skills** (docx, pdf, pptx, xlsx): Source-available (not open source) -- provided as reference for complex, production-ready skills
 
 ### Disclaimer
 

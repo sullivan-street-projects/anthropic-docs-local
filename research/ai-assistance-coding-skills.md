@@ -2,7 +2,7 @@
 title: "How AI Assistance Impacts the Formation of Coding Skills"
 source_url: "https://www.anthropic.com/research/AI-assistance-coding-skills"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "research"
 ---
 
@@ -25,6 +25,7 @@ Anthropic researchers conducted a randomized controlled trial examining whether 
 Researchers recruited 52 junior software engineers to complete coding tasks using a Python library (Trio) related to asynchronous programming. Participants were randomly assigned to groups with and without AI assistance access.
 
 The assessment evaluated four skill categories:
+
 - Debugging and error identification
 - Code comprehension
 - Code writing approaches
@@ -33,11 +34,13 @@ The assessment evaluated four skill categories:
 ## How AI Usage Patterns Affected Learning
 
 **Low-Scoring Patterns** (average scores below 40%):
+
 - Complete delegation to AI for code generation
 - Progressive reliance, starting independent but shifting to AI dependency
 - Relying on AI for debugging rather than independent problem-solving
 
 **High-Scoring Patterns** (65%+ average):
+
 - Generating code first, then asking clarifying questions
 - Requesting explanations alongside generated code
 - Asking only conceptual questions while solving problems independently

@@ -2,7 +2,7 @@
 title: "Boris Cherny - Claude Code Team Tips (Jan 31, 2026)"
 source_url: "https://x.com/bcherny/status/2017742741636321619"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -91,7 +91,7 @@ This works for any database that has a CLI, MCP, or API.
 
 ## 10. Learning with Claude
 
-a. Enable the **"Explanatory" or "Learning" output style** in `/config` to have Claude explain the *why* behind its changes
+a. Enable the **"Explanatory" or "Learning" output style** in `/config` to have Claude explain the _why_ behind its changes
 
 b. Have Claude generate a **visual HTML presentation** explaining unfamiliar code. It makes surprisingly good slides!
 

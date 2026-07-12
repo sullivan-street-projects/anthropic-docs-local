@@ -2,7 +2,7 @@
 title: "Python SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "sdks"
 ---
 
@@ -40,10 +40,13 @@ message = client.messages.create(
             "content": "Hello, Claude",
         }
     ],
+
     model="claude-opus-4-6",
 )
+
 print(message.content)
 ```
+
 
 ## Requirements
 

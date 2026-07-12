@@ -2,7 +2,7 @@
 title: "Claude Sonnet 4.5"
 source_url: "https://www.anthropic.com/news/claude-sonnet-4-5"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "models"
 ---
 
@@ -12,12 +12,12 @@ Claude Sonnet 4.5 is the best combination of speed and intelligence for real-wor
 
 ## Model ID
 
-| Platform | Model ID |
-|:---------|:---------|
-| Claude API | `claude-sonnet-4-5-20250929` |
-| Claude API alias | `claude-sonnet-4-5` |
-| AWS Bedrock | `anthropic.claude-sonnet-4-5-20250929-v1:0` |
-| GCP Vertex AI | `claude-sonnet-4-5@20250929` |
+| Platform         | Model ID                                    |
+| :--------------- | :------------------------------------------ |
+| Claude API       | `claude-sonnet-4-5-20250929`                |
+| Claude API alias | `claude-sonnet-4-5`                         |
+| AWS Bedrock      | `anthropic.claude-sonnet-4-5-20250929-v1:0` |
+| GCP Vertex AI    | `claude-sonnet-4-5@20250929`                |
 
 ## Pricing
 
@@ -25,14 +25,14 @@ $3 / MTok input, $15 / MTok output
 
 ## Specifications
 
-| Feature | Detail |
-|:--------|:-------|
-| Context window | 200K tokens (1M in beta) |
-| Max output | 64K tokens |
-| Extended thinking | Yes |
-| Reliable knowledge cutoff | January 2025 |
-| Training data cutoff | July 2025 |
-| Comparative latency | Fast |
+| Feature                   | Detail                   |
+| :------------------------ | :----------------------- |
+| Context window            | 200K tokens (1M in beta) |
+| Max output                | 64K tokens               |
+| Extended thinking         | Yes                      |
+| Reliable knowledge cutoff | January 2025             |
+| Training data cutoff      | July 2025                |
+| Comparative latency       | Fast                     |
 
 ## Key Capabilities
 

@@ -2,7 +2,7 @@
 title: "Memory Tool"
 source_url: "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/memory-tool"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "api"
 ---
 
@@ -10,7 +10,7 @@ category: "api"
 
 The memory tool lets Claude store and retrieve information across conversations in a directory of memory files. Claude can create, read, update, and delete files that persist between sessions, building up knowledge over time without keeping everything in the context window.
 
-Memory supports just-in-time context retrieval. Rather than loading all relevant information up front, an agent records what it learns in memory files and reads them back on demand. This keeps the active context focused on the current task, which matters for long-running sessions that would otherwise overwhelm the context window.
+Memory supports just-in-time context retrieval. Rather than loading all relevant information up front, an agent records what it learns in memory files and reads them back on demand. This keeps the active context focused on the current task, which matters for long-running sessions that would otherwise overwhelm the context window. See [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) for the broader pattern.
 
 The memory tool operates client-side: Claude requests file operations, and your application executes them. You control where and how the data is stored through your own infrastructure.
 
@@ -26,20 +26,26 @@ This feature is eligible for Zero Data Retention (ZDR). When your organization h
 
 When the memory tool is enabled, Claude automatically checks its memory directory before starting a task. As it works, Claude stores what it learns in files under `/memories` and reads them back in later conversations to continue earlier work.
 
-Because the memory tool is client-side, Claude only requests memory operations. Your application executes each request against storage you control and returns the result in a `tool_result` block. The `/memories` path is a prefix that your handler maps onto real storage, such as a per-user directory or keys in a database. Memory lives entirely in your application. A later conversation continues from the same memory when it sends the same `tools` entry and your handler serves the same store. For security, restrict all memory operations to the `/memories` directory.
+Because the memory tool is client-side, Claude only requests memory operations. Your application executes each request against storage you control and returns the result in a `tool_result` block. The `/memories` path is a prefix that your handler maps onto real storage, such as a per-user directory or keys in a database. Memory lives entirely in your application. A later conversation continues from the same memory when it sends the same `tools` entry and your handler serves the same store. For security, restrict all memory operations to the `/memories` directory (see Path traversal protection below).
 
 ### Example: How Memory Tool Calls Work
 
 A typical interaction looks like this:
 
 **1. User request:**
+
 ```
 "Help me respond to this customer service ticket."
 ```
 
 **2. Claude checks the memory directory:**
 
+```
+"I'll help you respond to the customer service ticket. Let me check my memory for any previous context."
+```
+
 Claude calls the memory tool:
+
 ```json
 {
   "type": "tool_use",
@@ -53,6 +59,7 @@ Claude calls the memory tool:
 ```
 
 **3. Your application returns the directory contents:**
+
 ```json
 {
   "type": "tool_result",
@@ -62,6 +69,7 @@ Claude calls the memory tool:
 ```
 
 **4. Claude reads relevant files:**
+
 ```json
 {
   "type": "tool_use",
@@ -75,6 +83,7 @@ Claude calls the memory tool:
 ```
 
 **5. Your application returns the file contents:**
+
 ```json
 {
   "type": "tool_result",
@@ -84,20 +93,46 @@ Claude calls the memory tool:
 ```
 
 **6. Claude uses the memory to help:**
+
 ```
 "Based on your customer service guidelines, I can help you craft a response. Please share the ticket details..."
 ```
 
-The memory tool is available on all Claude 4 and later models.
+The memory tool is available on all Claude 4 and later models. For the full list of Anthropic-provided tools, see the Tool reference.
 
 ## Getting Started
 
 The memory tool is generally available on the Messages API: no beta header is required. Using it takes two steps:
 
-1. Add the memory tool to your request. The `tools` entry `{"type": "memory_20250818", "name": "memory"}` is the entire configuration.
-2. Implement a client-side handler for each memory command. Your handler must reject paths outside `/memories`.
+1. Add the memory tool to your request. The `tools` entry `{"type": "memory_20250818", "name": "memory"}` is the entire configuration: the `name` must be `memory`, and you don't define an input schema for an Anthropic-provided tool.
+2. Implement a client-side handler for each memory command. Your handler must reject paths outside `/memories`, so read the Path traversal protection section before you write it.
 
 ## Basic Usage
+
+**cURL:**
+
+```bash
+curl https://api.anthropic.com/v1/messages \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "content-type: application/json" \
+  -d '{
+    "model": "claude-opus-4-8",
+    "max_tokens": 2048,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Help me respond to this customer service ticket."
+      }
+    ],
+    "tools": [{
+      "type": "memory_20250818",
+      "name": "memory"
+    }]
+  }'
+```
+
+**Python:**
 
 ```python
 client = anthropic.Anthropic()
@@ -117,6 +152,8 @@ message = client.messages.create(
 print(message)
 ```
 
+**TypeScript:**
+
 ```typescript
 const anthropic = new Anthropic();
 
@@ -126,10 +163,10 @@ const message = await anthropic.messages.create({
   messages: [
     {
       role: "user",
-      content: "Help me respond to this customer service ticket."
-    }
+      content: "Help me respond to this customer service ticket.",
+    },
   ],
-  tools: [{ type: "memory_20250818", name: "memory" }]
+  tools: [{ type: "memory_20250818", name: "memory" }],
 });
 
 console.log(message);
@@ -137,9 +174,11 @@ console.log(message);
 
 ## Implement the Memory Handler
 
-Claude's reply ends with a `tool_use` block that requests a memory operation, such as `view /memories`. Your application executes the operation and returns the result in a `tool_result` block, then sends the conversation back so Claude can continue: the standard tool-use loop.
+Claude's reply to a request ends with a `tool_use` block that requests a memory operation, such as `view /memories`. Your application executes the operation and returns the result in a `tool_result` block, then sends the conversation back so Claude can continue: the standard tool-use loop.
 
-Four SDKs provide memory tool helpers that handle the tool interface and the loop. Subclass `BetaAbstractMemoryTool` (Python and C#), use `betaMemoryTool` (TypeScript), or implement `BetaMemoryToolHandler` (Java) to back memory with your own storage. Python and TypeScript also ship a ready-made local-filesystem implementation, `BetaLocalFilesystemMemoryTool`. The Go and Ruby SDKs have no memory helper, so those examples run the tool-use loop themselves.
+Four SDKs provide memory tool helpers that handle the tool interface and the loop. Subclass `BetaAbstractMemoryTool` (Python and C#), use `betaMemoryTool` (TypeScript), or implement `BetaMemoryToolHandler` (Java) to back memory with your own storage, such as files on disk, a database, cloud storage, or encrypted files. Python and TypeScript also ship a ready-made local-filesystem implementation, `BetaLocalFilesystemMemoryTool`. The helper and tool-runner surfaces live in each SDK's beta namespace even though the memory tool itself is generally available. The Go and Ruby SDKs have no memory helper, so those examples run the tool-use loop themselves, and PHP wraps your handler closure in its generic `BetaRunnableTool`.
+
+**Python:**
 
 ```python
 import anthropic
@@ -164,6 +203,8 @@ final_message = runner.until_done()
 print(final_message.content)
 ```
 
+**TypeScript:**
+
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
 import { betaMemoryTool } from "@anthropic-ai/sdk/helpers/beta/memory";
@@ -180,20 +221,27 @@ const runner = client.beta.messages.toolRunner({
   messages: [
     {
       role: "user",
-      content: "Remember that customer Acme Corp prefers email follow-ups."
-    }
+      content: "Remember that customer Acme Corp prefers email follow-ups.",
+    },
   ],
   tools: [memory],
-  max_iterations: 10
+  max_iterations: 10,
 });
 
 const finalMessage = await runner;
 console.log(finalMessage.content);
 ```
 
+For the SDKs' complete examples, see:
+
+- Python: [examples/memory/basic.py](https://github.com/anthropics/anthropic-sdk-python/blob/main/examples/memory/basic.py)
+- TypeScript: [examples/tools-helpers-memory.ts](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/examples/tools-helpers-memory.ts)
+- C#: [MemoryToolExample](https://github.com/anthropics/anthropic-sdk-csharp/tree/main/examples/MemoryToolExample)
+- Java: [BetaMemoryToolExample.java](https://github.com/anthropics/anthropic-sdk-java/blob/main/anthropic-java-example/src/main/java/com/anthropic/example/BetaMemoryToolExample.java)
+
 ## Tool Commands
 
-Your client-side implementation must handle the following commands:
+Your client-side implementation must handle the following commands. These specifications describe the recommended behaviors and return strings.
 
 ### view
 
@@ -207,11 +255,19 @@ Shows directory contents or file contents with optional line ranges:
 }
 ```
 
-`view_range` is optional: `[start_line, end_line]` returns those lines, and `[start_line, -1]` returns everything from `start_line` to the end.
+`view_range` is optional and applies to text-file views: `[start_line, end_line]` returns those lines, and `[start_line, -1]` returns everything from `start_line` to the end of the file.
 
-**For directories:** Return a listing with files and sizes up to 2 levels deep, excluding hidden items and `node_modules`.
+**For directories:** Return a listing that shows files and directories with their sizes up to 2 levels deep, excluding hidden items and `node_modules`. Use a tab character between the size and the path.
 
-**For files:** Return file contents with 6-character right-aligned line numbers, tab-separated, 1-indexed. Files with more than 999,999 lines should return an error.
+**For files:** Return file contents with a header and line numbers. Line numbers should be 6 characters wide, right-aligned with space padding, tab-separated from content, 1-indexed. Files with more than 999,999 lines should return an error.
+
+The first `view` of `/memories` on an empty store is not an error. The SDKs' local-filesystem memory tools create the memory root before Claude's first call and return the listing header followed by a single size-and-path line for the empty directory itself.
+
+Claude's tool description also says that `view` displays image files (`.jpg`, `.jpeg`, and `.png`) and truncates the text view of files longer than 16,000 characters.
+
+**Error handling:**
+
+- File or directory does not exist: `"The path {path} does not exist. Please provide a valid path."`
 
 ### create
 
@@ -225,7 +281,7 @@ Creates a new file:
 }
 ```
 
-Returns success message or error if file already exists.
+Returns success message or error if file already exists. Claude's tool description says `create` "creates or overwrites" a file, so expect `create` calls on paths that already exist. Returning the error is the reference behavior, and overwriting instead is a valid implementation choice.
 
 ### str_replace
 
@@ -240,7 +296,13 @@ Replaces text in a file:
 }
 ```
 
-`new_str` is optional: when omitted, `old_str` is deleted without replacement. Returns error if text not found or if multiple occurrences exist.
+`new_str` is optional for `str_replace`: when it's omitted, `old_str` is deleted without a replacement.
+
+**Error handling:**
+
+- File does not exist: `"Error: The path {path} does not exist. Please provide a valid path."`
+- Text not found: `"No replacement was performed, old_str '{old_str}' did not appear verbatim in {path}."`
+- Duplicate text: When `old_str` appears multiple times, return: `"No replacement was performed. Multiple occurrences of old_str '{old_str}' in lines: {line_numbers}. Please ensure it is unique"`
 
 ### insert
 
@@ -255,7 +317,12 @@ Inserts text at a specific line:
 }
 ```
 
-`insert_text` is inserted after line `insert_line`; `0` inserts at the beginning.
+`insert_text` is inserted after line `insert_line`, and `0` inserts at the beginning of the file.
+
+**Error handling:**
+
+- File does not exist: `"Error: The path {path} does not exist"`
+- Invalid line number: `"Error: Invalid 'insert_line' parameter: {insert_line}. It should be within the range of lines of the file: [0, {n_lines}]"`
 
 ### delete
 
@@ -268,7 +335,11 @@ Deletes a file or directory:
 }
 ```
 
-Deletes directories recursively. Cannot delete the `/memories` root directory.
+Deletes directories recursively. The tool description tells Claude it cannot delete the `/memories` directory itself, so reject a `delete` whose path is the memory root.
+
+**Error handling:**
+
+- File or directory does not exist: `"Error: The path {path} does not exist"`
 
 ### rename
 
@@ -284,31 +355,26 @@ Renames or moves a file or directory:
 
 Does not overwrite existing destination. Cannot rename the `/memories` root directory.
 
+**Error handling:**
+
+- Source does not exist: `"Error: The path {old_path} does not exist"`
+- Destination already exists: `"Error: The destination {new_path} already exists"`
+
 ## Prompting Guidance
 
-When the memory tool is present, the API automatically adds an instruction to the system prompt telling Claude to always view the memory directory first. You don't need to send this yourself.
+When the memory tool is present in your request's `tools`, the API automatically adds an instruction to the system prompt telling Claude to always view its memory directory before doing anything else. You don't need to send it yourself.
 
-If Claude creates cluttered memory files, you can reinforce organization in your prompt:
+Claude's tool description already tells it to keep the memory directory organized, so you don't need to repeat that instruction. If Claude still creates cluttered memory files, you can reinforce it in your prompt:
 
 ```
 Note: when editing your memory folder, always try to keep its content up-to-date, coherent and organized. You can rename or delete files that are no longer relevant. Do not create new files unless necessary.
 ```
 
-You can also guide what Claude writes to memory, e.g.: "Only write down information relevant to <topic> in your memory system."
+You can also guide what Claude writes to memory. For example: "Only write down information relevant to <topic> in your memory system."
 
 ## Security Considerations
 
 Your application executes every file operation Claude requests, so these safeguards are your responsibility:
-
-### Path Traversal Protection
-
-A malicious path such as `/memories/../../secrets.env` can reach files outside the `/memories` directory. Your implementation must validate every path in every command:
-
-- Validate that all paths start with `/memories`
-- Resolve paths to their canonical form and verify they remain within the memory directory
-- Reject paths containing sequences such as `../`, `..\\`, or other traversal patterns
-- Watch for URL-encoded traversal sequences (`%2e%2e%2f`)
-- Use your language's built-in path security utilities (e.g., Python's `pathlib.Path.resolve()` and `relative_to()`)
 
 ### Sensitive Information
 
@@ -316,15 +382,27 @@ Claude usually refuses to write sensitive information to memory files. For stron
 
 ### File Storage Size
 
-Track memory file sizes and cap how large a file can grow. Consider capping how many characters the `view` command returns and let Claude page through the rest with `view_range`.
+Track memory file sizes and cap how large a file can grow. Consider capping how many characters the `view` command returns, and let Claude page through the rest with `view_range`.
 
 ### Memory Expiration
 
 Periodically delete memory files that haven't been accessed in a long time.
 
+### Path Traversal Protection
+
+A malicious path such as `/memories/../../secrets.env` can reach files outside the `/memories` directory. Your implementation must validate every path in every command to prevent directory traversal attacks.
+
+Consider these safeguards:
+
+- Validate that all paths start with `/memories`
+- Resolve paths to their canonical form and verify they remain within the memory directory
+- Reject paths containing sequences such as `../`, `..\\`, or other traversal patterns
+- Watch for URL-encoded traversal sequences (`%2e%2e%2f`)
+- Use your language's built-in path security utilities (for example, Python's `pathlib.Path.resolve()` and `relative_to()`)
+
 ## Error Handling
 
-To return an error to Claude, set `is_error` to `true` on the tool result:
+The memory tool uses similar error-handling patterns to the text editor tool. Each command's error messages are listed under Tool commands. To return an error to Claude, set `is_error` to `true` on the tool result and put the message in `content`:
 
 ```json
 {
@@ -337,18 +415,26 @@ To return an error to Claude, set `is_error` to `true` on the tool result:
 
 ## Context Editing Integration
 
-The memory tool pairs with context editing (`context-management-2025-06-27` beta) to automatically clear old tool results while preserving critical info in memory files. This enables long-running workflows that would otherwise exceed context limits.
+The memory tool pairs with context editing to manage long-running conversations. For details, see the context editing documentation.
 
 ## Using with Compaction
 
-The memory tool can also be paired with server-side compaction for long-running agentic workflows. Compaction keeps active context manageable while memory persists important information across compaction boundaries. For long-running agents, consider using both: compaction keeps the active context small without client-side bookkeeping, and memory preserves the information that must survive summarization.
+The memory tool can also be paired with compaction, which summarizes older conversation context server-side. Context editing clears specific tool results on the client. Compaction automatically summarizes the whole conversation on the server when the conversation approaches the context window limit.
+
+For long-running agents, consider using both: compaction keeps the active context small without client-side bookkeeping, and memory preserves the information that must survive summarization.
 
 ## Multi-Session Software Development Pattern
 
-For software projects that span multiple agent sessions, set up memory files deliberately instead of writing them ad hoc:
+For software projects that span multiple agent sessions, set up memory files deliberately instead of writing them ad hoc as work progresses. The following pattern turns memory into a recovery mechanism: each new session resumes from the state the last one recorded.
 
-1. **Initializer session:** Sets up memory artifacts -- progress log, feature checklist, startup scripts
-2. **Subsequent sessions:** Read memory artifacts to recover full project state in seconds
-3. **End-of-session update:** Update progress log with completed work and remaining tasks
+### How the Pattern Works
 
-Key principle: Work on one feature at a time. Mark a feature complete only after end-to-end verification confirms it works, not when the code is written.
+1. **Initializer session:** The first session sets up the memory files before any substantive work begins. This includes a progress log (tracking what has been done and what comes next), a feature checklist (defining the scope of work), and a reference to any startup or initialization script the project needs.
+2. **Subsequent sessions:** Each new session opens by reading those memory files. This restores the project state without re-exploring the code base or retracing earlier decisions.
+3. **End-of-session update:** Before a session ends, it updates the progress log with what was completed and what remains. This ensures the next session has an accurate starting point.
+
+### Key Principle
+
+Work on one feature at a time. Mark a feature complete only after end-to-end verification confirms it works, not when the code is written. This keeps the progress log accurate from session to session.
+
+For a detailed case study of this pattern in practice, including the initializer script, progress file structure, and git-based recovery, see [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).

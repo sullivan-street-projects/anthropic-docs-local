@@ -2,7 +2,7 @@
 title: "Building Effective Agents"
 source_url: "https://www.anthropic.com/engineering/building-effective-agents"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"
 ---
 
@@ -30,6 +30,7 @@ Building LLM applications requires pursuing simplicity initially, escalating com
 ## Frameworks for Agent Development
 
 Several frameworks streamline agentic system implementation:
+
 - Claude Agent SDK
 - Strands Agents SDK by AWS
 - Rivet (visual LLM workflow builder)
@@ -52,6 +53,7 @@ This pattern decomposes tasks into sequential steps, with each LLM call processi
 **Best for:** Tasks decomposable into fixed subtasks where latency reduction yields accuracy gains
 
 **Examples:**
+
 - Marketing content generation followed by translation
 - Document outline creation, validation, then full composition
 
@@ -62,6 +64,7 @@ Routing classifies inputs and directs them to specialized downstream processing,
 **Best for:** Complex tasks with distinct categories requiring separate handling
 
 **Examples:**
+
 - Customer service inquiry routing (questions, refunds, technical support)
 - Question difficulty-based model routing (Haiku for simple, Sonnet for complex)
 
@@ -75,6 +78,7 @@ LLMs simultaneously address tasks with aggregated outputs. Two primary variation
 **Best for:** Speed gains from task division or increased confidence through multiple perspectives
 
 **Examples:**
+
 - Guardrails implementation (separate LLM instances for user queries and content screening)
 - Code vulnerability reviews using multiple evaluation prompts
 - Multi-perspective content appropriateness assessment
@@ -88,6 +92,7 @@ A central LLM dynamically decomposes tasks, delegates to worker LLMs, and synthe
 **Differs from parallelization** through flexibility—tasks aren't predetermined but orchestrator-determined.
 
 **Examples:**
+
 - Multi-file coding changes
 - Multi-source information gathering and analysis
 
@@ -100,6 +105,7 @@ One LLM generates responses while another provides evaluation and feedback itera
 Two success indicators: LLM responses improve with human feedback articulation, and LLMs can provide equivalent feedback.
 
 **Examples:**
+
 - Literary translation requiring nuance capture
 - Complex search tasks needing multiple rounds
 
@@ -114,6 +120,7 @@ While sophisticated, implementation typically remains straightforward: "They are
 **Trade-offs:** Higher costs and compounding error potential require extensive sandboxed testing and appropriate guardrails.
 
 **Real-world implementations:**
+
 - Coding agents resolving SWE-bench tasks
 - Computer use reference implementation
 

@@ -2,7 +2,7 @@
 title: "API Overview"
 source_url: "https://platform.claude.com/docs/en/api/overview"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "api"
 ---
 
@@ -26,12 +26,14 @@ For step-by-step setup instructions, see [Get started](https://platform.claude.c
 The Claude API includes the following APIs:
 
 **General Availability:**
+
 - **[Messages API](https://platform.claude.com/docs/en/api/messages/create)**: Send messages to Claude for conversational interactions (`POST /v1/messages`)
 - **[Message Batches API](https://platform.claude.com/docs/en/api/creating-message-batches)**: Process large volumes of Messages requests asynchronously with 50% cost reduction (`POST /v1/messages/batches`)
 - **[Token Counting API](https://platform.claude.com/docs/en/api/messages-count-tokens)**: Count tokens in a message before sending to manage costs and rate limits (`POST /v1/messages/count_tokens`)
 - **[Models API](https://platform.claude.com/docs/en/api/models-list)**: List available Claude models and their details (`GET /v1/models`)
 
 **Beta:**
+
 - **[Files API](https://platform.claude.com/docs/en/api/files-create)**: Upload and manage files for use across multiple API calls (`POST /v1/files`, `GET /v1/files`)
 - **[Skills API](https://platform.claude.com/docs/en/api/skills/create-skill)**: Create and manage custom agent skills (`POST /v1/skills`, `GET /v1/skills`)
 - **[Agents API](https://platform.claude.com/docs/en/managed-agents/agent-setup)**: Define reusable, versioned agent configurations for Claude Managed Agents (`POST /v1/agents`, `GET /v1/agents`)
@@ -44,12 +46,12 @@ For the complete API reference with all endpoints, parameters, and response sche
 
 For details on both authentication methods and when to use each, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). All requests to the Claude API must include these headers:
 
-| Header | Value | Required |
-|--------|-------|----------|
-| `x-api-key` | Your API key from Console | One of `x-api-key` or `Authorization` |
-| `Authorization` | `Bearer <token>`, where `<token>` is a short-lived access token obtained from `POST /v1/oauth/token` via [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) | One of `x-api-key` or `Authorization` |
-| `anthropic-version` | API version (for example, `2023-06-01`) | Yes |
-| `content-type` | `application/json` | Yes |
+| Header              | Value                                                                                                                                                                                                                   | Required                              |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| `x-api-key`         | Your API key from Console                                                                                                                                                                                               | One of `x-api-key` or `Authorization` |
+| `Authorization`     | `Bearer <token>`, where `<token>` is a short-lived access token obtained from `POST /v1/oauth/token` via [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) | One of `x-api-key` or `Authorization` |
+| `anthropic-version` | API version (for example, `2023-06-01`)                                                                                                                                                                                 | Yes                                   |
+| `content-type`      | `application/json`                                                                                                                                                                                                      | Yes                                   |
 
 If you are using the [Client SDKs](#client-sdks), the SDK will send these headers automatically. For API versioning details, see [API versions](https://platform.claude.com/docs/en/api/versioning).
 
@@ -57,13 +59,14 @@ When accessing Claude through a [cloud platform](#claude-api-vs-cloud-platforms)
 
 ### Getting API Keys
 
-The API is made available through the web [Console](https://platform.claude.com/). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and [control spend](https://platform.claude.com/docs/en/api/rate-limits) by use case.
+The API is made available through the web [Console](https://platform.claude.com/). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). You choose each key's [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration) when you create it. Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and [control spend](https://platform.claude.com/docs/en/api/rate-limits) by use case.
 
 ## Client SDKs
 
 Anthropic provides official SDKs that simplify API integration by handling authentication, request formatting, error handling, and more.
 
 **Benefits:**
+
 - Automatic header management (x-api-key, anthropic-version, content-type)
 - Type-safe request and response handling
 - Built-in retry logic and error handling
@@ -85,16 +88,17 @@ Claude is available through the direct Claude API and through cloud platforms. C
 ### Cloud Platform APIs
 
 Access Claude through AWS, Google Cloud, or Microsoft Azure:
+
 - **Integrated** with cloud provider billing and IAM
 - **Feature availability varies by platform:** Anthropic-operated platforms include [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry); partner-operated platforms include Amazon Bedrock and Google Cloud. See each platform's page for feature availability and timing.
 - **Best for**: Existing cloud commitments, specific compliance requirements, consolidated cloud billing
 
-| Platform | Provider | Documentation |
-|----------|----------|---------------|
-| Claude Platform on AWS | AWS (Anthropic-operated) | [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) |
-| Amazon Bedrock | AWS | [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock) |
-| Agent Platform | Google Cloud | [Claude on Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai) |
-| Microsoft Foundry | Microsoft Azure (Anthropic-operated) | [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
+| Platform               | Provider                             | Documentation                                                                                                    |
+| ---------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Claude Platform on AWS | AWS (Anthropic-operated)             | [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)           |
+| Amazon Bedrock         | AWS                                  | [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)       |
+| Agent Platform         | Google Cloud                         | [Claude on Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai)              |
+| Microsoft Foundry      | Microsoft Azure (Anthropic-operated) | [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
 
 > Claude Managed Agents is available through the direct Claude API and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws). For feature availability across platforms, see the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
@@ -102,12 +106,12 @@ Access Claude through AWS, Google Cloud, or Microsoft Azure:
 
 ### Request Size Limits
 
-| Endpoint | Maximum Request Size |
-|----------|---------------------|
-| Messages, Token Counting | 32 MB |
-| [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | 256 MB |
-| [Files API](https://platform.claude.com/docs/en/build-with-claude/files) | 500 MB |
-| Sessions, Agents, Environments | 32 MB |
+| Endpoint                                                                                      | Maximum Request Size |
+| --------------------------------------------------------------------------------------------- | -------------------- |
+| Messages, Token Counting                                                                      | 32 MB                |
+| [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | 256 MB               |
+| [Files API](https://platform.claude.com/docs/en/build-with-claude/files)                      | 500 MB               |
+| Sessions, Agents, Environments                                                                | 32 MB                |
 
 If you exceed these limits, you'll receive a 413 `request_too_large` error.
 
@@ -138,3 +142,21 @@ For detailed information about limits, tiers, and the token bucket algorithm use
 ### Availability
 
 The Claude API is available in [many countries and regions](https://platform.claude.com/docs/en/api/supported-regions) worldwide. Check the supported regions page to confirm availability in your location.
+
+## Pagination
+
+List endpoints return results in pages. Most newer list endpoints use the `page` and `next_page` cursor scheme described in this section. Some use a different scheme; see the note at the end of this section. Use the `limit` query parameter to control the page size and the `page` query parameter to fetch an adjacent page. Each response includes a `data` array alongside cursor fields for navigating between pages.
+
+| Name        | Location        | Description                                                                                                                                                                             |
+| :---------- | :-------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limit`     | Query parameter | Maximum number of items to return per page.                                                                                                                                             |
+| `page`      | Query parameter | Opaque cursor from a previous response. Pass a `next_page` or `prev_page` value here to fetch the adjacent page.                                                                        |
+| `order`     | Query parameter | Sort direction for the results (`asc` or `desc`), on list endpoints that support sorting. A `page` cursor is only valid with the `order` it was created with.                           |
+| `next_page` | Response field  | Cursor for the next page, or `null` if there are no more results.                                                                                                                       |
+| `prev_page` | Response field  | Cursor for the previous page on endpoints that support backward pagination (currently `GET /v1/sessions`), or `null` if you are on the first page. Other list endpoints omit the field. |
+
+To go back a page, pass `prev_page` as the `page` parameter. `prev_page` is `null` when you're on the first page. Not all list endpoints support `prev_page`. Only `GET /v1/sessions` returns `prev_page`; on list endpoints that do not support backward pagination, the field is absent from the response rather than `null`. For a request walkthrough, see [Listing sessions](https://platform.claude.com/docs/en/managed-agents/session-operations#listing-sessions).
+
+Every SDK provides an auto-paginating iterator that follows `next_page` for you. In Python and TypeScript, you get it by iterating the list result directly. The other SDKs provide the iterator through a separate method. SDK auto-pagination is forward-only; to go back a page, read `prev_page` from the response and pass it back as the `page` parameter yourself. See [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) for language-specific details.
+
+> Some list endpoints use a different cursor scheme. The [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing), the [Files API](https://platform.claude.com/docs/en/build-with-claude/files), the [Models API](https://platform.claude.com/docs/en/api/models/list), and several [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) endpoints take `after_id` and `before_id` query parameters instead of `page`. Their responses return `has_more`, `first_id`, and `last_id` instead of `next_page`. Some endpoints that use the `page` scheme, such as `GET /v1/skills`, also return a `has_more` Boolean alongside `next_page`. See the reference page for each endpoint for its exact pagination fields.

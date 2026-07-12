@@ -2,7 +2,7 @@
 title: "Effective context engineering for AI agents"
 source_url: "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"
 published: "2025-09-29"
 ---
@@ -11,42 +11,82 @@ published: "2025-09-29"
 
 **Publication Date:** September 29, 2025
 
-Context engineering represents a shift in how teams build with large language models. Rather than focusing solely on prompt wording, engineers must now consider "what configuration of context is most likely to generate our model's desired behavior?"
-
-Context refers to all tokens provided to an LLM during inference. The engineering challenge involves optimizing token utility within LLM constraints to achieve consistent outcomes. This requires "thinking in context"—understanding the complete information state available to the model and its potential behavioral implications.
+Context engineering represents a strategic shift in building with language models, moving beyond traditional prompt engineering to manage the entire token landscape during inference.
 
 ## Context Engineering vs. Prompt Engineering
 
-Anthropic views context engineering as prompt engineering's natural evolution. While prompt engineering addresses instruction writing and organization, context engineering encompasses broader strategies for maintaining optimal token sets during inference, including system instructions, tools, external data, and message history.
+"Context engineering" differs from prompt engineering in scope. While prompt engineering focuses on "writing and organizing LLM instructions for optimal outcomes," context engineering encompasses "strategies for curating and maintaining the optimal set of tokens (information) during LLM inference."
 
-As agents operate over multiple turns, they accumulate data potentially relevant for subsequent inferences. Context engineering represents the "art and science" of determining what information enters the limited context window from constantly evolving possibilities.
+The distinction matters because agents operating in loops generate continuously evolving data that must be cyclically refined. As agents become more sophisticated, managing system instructions, tools, external data, and message history becomes essential.
 
-## Why Context Engineering Matters
+## Why Context Matters
 
-Research on "context rot" demonstrates that model accuracy decreases as context window size increases. Like humans with limited working memory, LLMs have finite "attention budgets." Each added token depletes this budget, necessitating careful curation.
-
-This scarcity stems from transformer architecture constraints. Since every token attends to every other token, n tokens create n² pairwise relationships. As context lengthens, models struggle capturing these relationships. Additionally, models trained on shorter sequences have less experience with long-range dependencies.
+LLMs exhibit "context rot"—performance degradation as context windows expand. This occurs because transformer architectures create n² pairwise relationships between tokens, stretching the model's attention as sequences lengthen. Additionally, models trained on shorter sequences have fewer specialized parameters for handling extensive context dependencies.
 
 ## Anatomy of Effective Context
 
-Good context engineering means "find the smallest set of high-signal tokens that maximize the likelihood of your desired outcome."
+### System Prompts
 
-**System Prompts:** Should be clear, direct, and pitched at the "right altitude"—specific enough to guide behavior but flexible enough to provide strong heuristics.
+Effective prompts strike a balance between specificity and flexibility. They should be "specific enough to guide behavior effectively, yet flexible enough to provide the model with strong heuristics."
 
-**Tools:** Should be self-contained, clearly purposeful, and non-overlapping in functionality. Well-designed tools return token-efficient information and encourage efficient agent behaviors.
+Recommended practices include:
 
-**Examples:** Few-shot prompting remains valuable. Rather than listing exhaustive edge cases, curate diverse canonical examples.
+- Organizing into distinct sections using XML tags or Markdown headers
+- Using simple, direct language at the appropriate abstraction level
+- Avoiding hardcoded brittle logic while preventing vague guidance
+- Testing minimal prompts first, then adding instructions based on failure modes
 
-## Long-Horizon Context Engineering
+### Tools
 
-Extended tasks require specialized techniques:
+Tools define the contract between agents and their environment. Optimal tools should be:
 
-**Compaction:** Summarizing conversations nearing context limits, then reinitializing with compressed summaries.
+- Self-contained and robust to errors
+- Clear about intended use
+- Free from functional overlap
+- Minimal in scope to prevent ambiguous decision-making
 
-**Structured Note-Taking:** Agents maintain persistent external notes providing memory with minimal overhead.
+"Bloated tool sets that cover too much functionality" represent common failure modes that reduce agent reliability.
 
-**Sub-agent Architectures:** Specialized sub-agents handle focused tasks with clean context windows, returning condensed summaries.
+### Examples (Few-Shot Prompting)
 
-## Conclusion
+Rather than documenting exhaustive edge cases, teams should "curate a set of diverse, canonical examples that effectively portray the expected behavior of the agent."
 
-Whether implementing compaction, designing token-efficient tools, or enabling just-in-time exploration, the principle remains consistent: maximize desired outcomes using minimal high-signal tokens.
+## Runtime Context Retrieval
+
+Modern AI applications increasingly employ "just in time" context strategies rather than pre-processing all relevant data upfront. Agents maintain lightweight identifiers (file paths, URLs, queries) and dynamically load data through tools during execution.
+
+This approach mirrors human cognition—external indexing systems retrieve information on demand rather than memorizing entire corpuses.
+
+### Progressive Disclosure
+
+Agents can discover context incrementally through exploration. File hierarchies, naming conventions, and timestamps provide signals guiding autonomous navigation. This self-managed approach keeps agents focused on relevant subsets.
+
+### Hybrid Strategies
+
+Many effective agents employ hybrid models: retrieving some data preemptively for speed while enabling autonomous exploration when needed. The optimal balance depends on task characteristics and content dynamism.
+
+## Long-Horizon Task Strategies
+
+### Compaction
+
+Compaction involves summarizing conversation history near context limits, then reinitializing with the compressed summary. Implementation requires careful prompt tuning to "maximize recall to ensure your compaction prompt captures every relevant piece of information," then iterating to improve precision.
+
+One technique involves clearing redundant tool results—once a tool has been called, agents typically don't require seeing raw results again.
+
+### Structured Note-Taking
+
+Agents maintain persistent memories outside the context window, pulling them back when relevant. This enables tracking progress across complex tasks without exhausting context limits.
+
+The Claude Developer Platform provides memory tools using file-based systems for storing knowledge bases and project state.
+
+### Sub-Agent Architectures
+
+Specialized sub-agents handle focused tasks with clean context windows, returning condensed summaries (typically 1,000-2,000 tokens) to coordinating agents. This "clear separation of concerns" isolates detailed search context while allowing lead agents to synthesize results.
+
+## Implementation Guidance
+
+The overarching principle remains: identify "the smallest set of high-signal tokens that maximize the likelihood of your desired outcome."
+
+As models improve, they require less prescriptive engineering, enabling greater agent autonomy. However, treating context as a finite resource remains fundamental to building reliable agents.
+
+Developers can begin implementing context engineering through the Claude Developer Platform, with resources available in the memory and context management cookbook and tool-use documentation.

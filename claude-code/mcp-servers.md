@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,11 +10,12 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs. Connect a server when you find yourself copying data into chat from another tool.
 
-> **Last updated:** June 28, 2026
+> **Last updated:** July 12, 2026
 
 ## What You Can Do with MCP
 
 With MCP servers connected, you can ask Claude Code to:
+
 - **Implement features from issue trackers**: "Add the feature described in JIRA issue ENG-4521 and create a PR on GitHub."
 - **Analyze monitoring data**: "Check Sentry and Statsig to check the usage of the feature described in ENG-4521."
 - **Query databases**: "Find emails of 10 random users who used feature ENG-4521, based on our PostgreSQL database."
@@ -27,6 +28,7 @@ With MCP servers connected, you can ask Claude Code to:
 Browse reviewed connectors in the [Anthropic Directory](https://claude.ai/directory). Directory connectors use the same MCP infrastructure as Claude Code, so you can add any remote server listed there with `claude mcp add`.
 
 To build your own server, see the [MCP server guide](https://modelcontextprotocol.io/docs/develop/build-server) for protocol fundamentals. You can also have Claude scaffold a server for you with the official `mcp-server-dev` plugin:
+
 ```
 /plugin install mcp-server-dev@claude-plugins-official
 /mcp-server-dev:build-mcp-server
@@ -34,15 +36,15 @@ To build your own server, see the [MCP server guide](https://modelcontextprotoco
 
 ## Available MCP Server Categories
 
-| Category | Examples |
-|----------|----------|
-| Code & Development | GitHub, GitLab, Sentry |
-| Data & Databases | PostgreSQL, MongoDB, Airtable, Notion |
-| Communication | Slack, Gmail, Twilio |
-| Project Management | Jira, Asana, Linear |
-| Monitoring | Datadog, New Relic, Prometheus |
-| Cloud | AWS, GCP, Azure |
-| APIs | Stripe, PayPal, Shopify |
+| Category           | Examples                              |
+| ------------------ | ------------------------------------- |
+| Code & Development | GitHub, GitLab, Sentry                |
+| Data & Databases   | PostgreSQL, MongoDB, Airtable, Notion |
+| Communication      | Slack, Gmail, Twilio                  |
+| Project Management | Jira, Asana, Linear                   |
+| Monitoring         | Datadog, New Relic, Prometheus        |
+| Cloud              | AWS, GCP, Azure                       |
+| APIs               | Stripe, PayPal, Shopify               |
 
 ## Installation Methods
 
@@ -104,12 +106,12 @@ The `type: "ws"` entry accepts the same `url`, `headers`, `headersHelper`, `time
 
 ## MCP Installation Scopes
 
-| Scope | Loads In | Shared with Team | Stored In |
-|-------|----------|-----------------|-----------|
-| Local (default) | Current project only | No | `~/.claude.json` |
-| Project | Current project only | Yes, via version control | `.mcp.json` in project root |
-| User | All your projects | No | `~/.claude.json` |
-| Managed | Organization-wide | Yes, admin-controlled | System-level files |
+| Scope           | Loads In             | Shared with Team         | Stored In                   |
+| --------------- | -------------------- | ------------------------ | --------------------------- |
+| Local (default) | Current project only | No                       | `~/.claude.json`            |
+| Project         | Current project only | Yes, via version control | `.mcp.json` in project root |
+| User            | All your projects    | No                       | `~/.claude.json`            |
+| Managed         | Organization-wide    | Yes, admin-controlled    | System-level files          |
 
 ### Scope Hierarchy and Precedence
 
@@ -193,6 +195,7 @@ claude mcp add --transport http \
 ```
 
 Within Claude Code interactive mode:
+
 ```
 /mcp
 # Follow browser login flow
@@ -295,13 +298,13 @@ Only tool names and server instructions load at session start. Claude uses a sea
 
 ### Configure Tool Search
 
-| Value | Behavior |
-|-------|----------|
-| (unset) | All MCP tools deferred. Falls back to loading upfront on Vertex AI or non-first-party `ANTHROPIC_BASE_URL` |
-| `true` | All MCP tools deferred. Sends beta header even on Vertex AI/proxies |
-| `auto` | Threshold mode: tools load upfront if they fit within 10% of context |
-| `auto:N` | Threshold mode with custom percentage (e.g., `auto:5` for 5%) |
-| `false` | All MCP tools loaded upfront, no deferral |
+| Value    | Behavior                                                                                                   |
+| -------- | ---------------------------------------------------------------------------------------------------------- |
+| (unset)  | All MCP tools deferred. Falls back to loading upfront on Vertex AI or non-first-party `ANTHROPIC_BASE_URL` |
+| `true`   | All MCP tools deferred. Sends beta header even on Vertex AI/proxies                                        |
+| `auto`   | Threshold mode: tools load upfront if they fit within 10% of context                                       |
+| `auto:N` | Threshold mode with custom percentage (e.g., `auto:5` for 5%)                                              |
+| `false`  | All MCP tools loaded upfront, no deferral                                                                  |
 
 ```bash
 ENABLE_TOOL_SEARCH=auto       # auto threshold
@@ -359,6 +362,7 @@ As of v2.1.187, a tool call to a remote HTTP, SSE, WebSocket, or claude.ai conne
 ## MCP Resources
 
 Reference MCP resources with `@` mentions:
+
 ```
 @server:protocol://resource/path
 @github:issue://123
@@ -370,6 +374,7 @@ Resources are automatically fetched and included as attachments when referenced.
 ## MCP Prompts as Commands
 
 Execute MCP server prompts as slash commands:
+
 ```
 /mcp__servername__promptname [args]
 /mcp__github__list_prs
@@ -417,6 +422,7 @@ claude mcp serve
 ```
 
 Claude Desktop configuration:
+
 ```json
 {
   "mcpServers": {
@@ -439,13 +445,13 @@ Claude Desktop configuration:
 
 ## Environment Variables
 
-| Variable | Description |
-|----------|-------------|
-| `MCP_TIMEOUT` | Server startup timeout in ms (default: 10000) |
-| `MCP_TOOL_TIMEOUT` | Per-tool execution timeout |
-| `MAX_MCP_OUTPUT_TOKENS` | Output token limit (default: 25000) |
-| `ENABLE_TOOL_SEARCH` | Tool search behavior (`auto`, `true`, `false`) |
-| `ENABLE_CLAUDEAI_MCP_SERVERS` | Enable/disable Claude.ai MCP servers |
+| Variable                            | Description                                                   |
+| ----------------------------------- | ------------------------------------------------------------- |
+| `MCP_TIMEOUT`                       | Server startup timeout in ms (default: 10000)                 |
+| `MCP_TOOL_TIMEOUT`                  | Per-tool execution timeout                                    |
+| `MAX_MCP_OUTPUT_TOKENS`             | Output token limit (default: 25000)                           |
+| `ENABLE_TOOL_SEARCH`                | Tool search behavior (`auto`, `true`, `false`)                |
+| `ENABLE_CLAUDEAI_MCP_SERVERS`       | Enable/disable Claude.ai MCP servers                          |
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | Idle timeout in ms for remote tool calls (default: 5 minutes) |
 
 Per-server `timeout` field in `.mcp.json` overrides `MCP_TOOL_TIMEOUT` for that server only. Values below 1000 are ignored.
@@ -456,11 +462,11 @@ Per-server `timeout` field in `.mcp.json` overrides `MCP_TOOL_TIMEOUT` for that 
 
 System-wide file that takes exclusive control. Users cannot add, modify, or use any MCP servers other than those defined in this file.
 
-| Platform | Location |
-|----------|----------|
-| macOS | `/Library/Application Support/ClaudeCode/managed-mcp.json` |
-| Linux/WSL | `/etc/claude-code/managed-mcp.json` |
-| Windows | `C:\Program Files\ClaudeCode\managed-mcp.json` |
+| Platform  | Location                                                   |
+| --------- | ---------------------------------------------------------- |
+| macOS     | `/Library/Application Support/ClaudeCode/managed-mcp.json` |
+| Linux/WSL | `/etc/claude-code/managed-mcp.json`                        |
+| Windows   | `C:\Program Files\ClaudeCode\managed-mcp.json`             |
 
 ```json
 {
@@ -489,13 +495,12 @@ Allow users to add their own servers, but restrict which ones are permitted. Eac
     { "serverCommand": ["npx", "-y", "package"] },
     { "serverUrl": "https://mcp.company.com/*" }
   ],
-  "deniedMcpServers": [
-    { "serverName": "dangerous-server" }
-  ]
+  "deniedMcpServers": [{ "serverName": "dangerous-server" }]
 }
 ```
 
 Key behaviors:
+
 - Denylist takes absolute precedence over allowlist
 - `allowedMcpServers: undefined` (default) = no restrictions
 - `allowedMcpServers: []` = complete lockdown
@@ -521,6 +526,7 @@ Plugins can bundle MCP servers in `.mcp.json` or inline in `plugin.json`:
 Plugin MCP servers start automatically when the plugin is enabled. Plugin tool names follow the format `mcp__plugin_<plugin-name>_<server-name>__<tool-name>`.
 
 Features:
+
 - **Automatic lifecycle**: servers connect at startup; run `/reload-plugins` to connect/disconnect on plugin state changes
 - **Environment variables**: `${CLAUDE_PLUGIN_ROOT}` for bundled files, `${CLAUDE_PLUGIN_DATA}` for persistent state, `${CLAUDE_PROJECT_DIR}` for project root
 - **Multiple transport types**: stdio, SSE, HTTP, and WebSocket
@@ -528,18 +534,21 @@ Features:
 ## Practical Examples
 
 ### Monitor Errors with Sentry
+
 ```bash
 claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
 # Use /mcp to authenticate, then ask about errors
 ```
 
 ### Connect to GitHub
+
 ```bash
 claude mcp add --transport http github https://api.githubcopilot.com/mcp/ \
   --header "Authorization: Bearer YOUR_GITHUB_PAT"
 ```
 
 ### Query PostgreSQL
+
 ```bash
 claude mcp add --transport stdio db -- npx -y @bytebase/dbhub \
   --dsn "postgresql://readonly:pass@prod.db.com:5432/analytics"

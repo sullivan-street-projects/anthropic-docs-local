@@ -2,7 +2,7 @@
 title: "Labor Market Impacts of AI: A New Measure and Early Evidence"
 source_url: "https://www.anthropic.com/research/labor-market-impacts"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "news"
 published: "2026-03-05"
 ---
@@ -28,3 +28,7 @@ The framework established by this research can theoretically detect differential
 ## Methodology
 
 The researchers combined three data sources: the O*NET occupational database, Anthropic's usage analytics, and Eloundou et al.'s theoretical capability assessments. Tasks rated as theoretically feasible by LLMs comprised 97% of observed Claude usage, validating the correlation between theoretical possibility and practical implementation.
+
+## Corrections
+
+_Updated Mar 8, 2026: Corrected Figure 7, which incorrectly reversed the labels between top quartile and zero exposure group inflow rates._

@@ -1,129 +1,57 @@
 ---
-title: "Other SDKs Overview"
+title: "CLI, SDKs, and Libraries"
 source_url: "https://platform.claude.com/docs/en/api/client-sdks"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "sdks"
 ---
 
-# Client SDKs
+# CLI, SDKs, and Libraries
 
-Official SDKs for building with the Claude API in Python, TypeScript, Java, Go, Ruby, C#, and PHP.
+Official tools for building with the Claude API: the ant CLI, client SDKs in seven languages, and framework-specific libraries.
 
-## SDK Overview
+Anthropic provides three kinds of official tooling for building with the Claude API:
 
-| SDK | Status | Install | Min Version |
-|:----|:-------|:--------|:------------|
-| Python | GA | `pip install anthropic` | Python 3.9+ |
-| TypeScript | GA | `npm install @anthropic-ai/sdk` | TypeScript 4.9+, Node.js 20+ |
-| Java | GA | `com.anthropic:anthropic-java:2.15.0` | Java 8+ |
-| Go | GA | `go get github.com/anthropics/anthropic-sdk-go` | Go 1.22+ |
-| Ruby | GA | `bundler add anthropic` | Ruby 3.2.0+ |
-| C# | Beta | `dotnet add package Anthropic` | .NET Standard 2.0 |
-| PHP | Beta | `composer require anthropic-ai/sdk` | PHP 8.1.0+ |
+- **CLI:** The `ant` command-line tool for shell scripting and interactive use.
+- **Client SDKs:** General-purpose Messages API clients for Python, TypeScript, C#, Go, Java, PHP, and Ruby. Each SDK provides idiomatic interfaces, type safety, and built-in support for streaming, retries, and error handling.
+- **Libraries and integrations:** Packages and compatibility layers that expose Claude inside another framework's API surface rather than the Messages API directly.
 
-## Quick Start
+## CLI
 
-### Python
-```python
-import anthropic
+| Tool                                                                             | Description                                       |
+| :------------------------------------------------------------------------------- | :------------------------------------------------ |
+| [ant CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) | Shell scripting, typed flags, response transforms |
 
-client = anthropic.Anthropic()
-message = client.messages.create(
-    model="claude-opus-4-6",
-    max_tokens=1024,
-    messages=[{"role": "user", "content": "Hello, Claude"}],
-)
-print(message.content)
-```
+## Client SDKs
 
-### TypeScript
-```typescript
-import Anthropic from "@anthropic-ai/sdk";
+| SDK                                                                                  | Description                                    |
+| :----------------------------------------------------------------------------------- | :--------------------------------------------- |
+| [Python](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python)         | Sync and async clients, Pydantic models        |
+| [TypeScript](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript) | Node.js, Deno, Bun, and browser support        |
+| [C#](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/csharp)             | .NET Standard 2.0+, IChatClient integration    |
+| [Go](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go)                 | Context-based cancellation, functional options |
+| [Java](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java)             | Builder pattern, CompletableFuture async       |
+| [PHP](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/php)               | Value objects, builder pattern                 |
+| [Ruby](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/ruby)             | Sorbet types, streaming helpers                |
 
-const client = new Anthropic();
-const message = await client.messages.create({
-  model: "claude-opus-4-6",
-  max_tokens: 1024,
-  messages: [{ role: "user", content: "Hello, Claude" }]
-});
-console.log(message.content);
-```
+## Libraries and Integrations
 
-### Java
-```java
-AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-MessageCreateParams params = MessageCreateParams.builder()
-    .model(Model.CLAUDE_OPUS_4_6)
-    .maxTokens(1024L)
-    .addUserMessage("Hello, Claude")
-    .build();
-Message message = client.messages().create(params);
-```
+Libraries and integrations expose Claude through another framework's API surface. They are not general-purpose Messages API clients.
 
-### Go
-```go
-client := anthropic.NewClient()
-message, _ := client.Messages.New(context.Background(), anthropic.MessageNewParams{
-    Model:     anthropic.ModelClaudeOpus4_6,
-    MaxTokens: 1024,
-    Messages: []anthropic.MessageParam{
-        anthropic.NewUserMessage(anthropic.NewTextBlock("Hello, Claude")),
-    },
-})
-```
+| Library                                                                                                             | Description                                          |
+| :------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------- |
+| [Apple Foundation Models](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/apple-foundation-models) | Swift package for Apple's `LanguageModelSession` API |
+| [OpenAI SDK compatibility](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk)             | Use Claude through the OpenAI SDK surface            |
 
-### Ruby
-```ruby
-client = Anthropic::Client.new
-message = client.messages.create(
-  model: "claude-opus-4-6",
-  max_tokens: 1024,
-  messages: [{ role: "user", content: "Hello, Claude" }]
-)
-```
+## Building Agents or Using Claude Code?
 
-### C#
-```csharp
-var client = new AnthropicClient();
-var message = await client.Messages.Create(new MessageCreateParams {
-    Model = "claude-opus-4-6",
-    MaxTokens = 1024,
-    Messages = [new() { Role = Role.User, Content = "Hello, Claude" }]
-});
-```
+The CLI, client SDKs, and libraries are for calling the Claude API yourself: you send each request and handle each response. Claude Code, the Claude Agent SDK, and Claude Managed Agents work at a higher level, providing the agent loop, tool execution, and runtime.
 
-### PHP
-```php
-$client = new Client(apiKey: getenv('ANTHROPIC_API_KEY'));
-$message = $client->messages->create(
-    model: 'claude-opus-4-6',
-    maxTokens: 1024,
-    messages: [['role' => 'user', 'content' => 'Hello, Claude']],
-);
-echo $message->content[0]->text;
-```
-
-## Platform Support
-
-All SDKs support multiple deployment options:
-- **Claude API** -- Direct access to Claude API endpoints
-- **Amazon Bedrock** -- Use Claude through AWS
-- **Google Vertex AI** -- Use Claude through Google Cloud
-- **Microsoft Foundry** -- Use Claude through Microsoft Azure
-
-## Beta Features
-
-Access beta features using the `beta` namespace in any SDK. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers) for available beta features.
-
-## SDK Features
-
-All SDKs provide:
-- Automatic header management (x-api-key, anthropic-version, content-type)
-- Type-safe request and response handling
-- Built-in retry logic and error handling
-- Streaming support
-- Request timeouts and connection management
+| Tool                                                                                 | Description                                               |
+| :----------------------------------------------------------------------------------- | :-------------------------------------------------------- |
+| [Claude Code](https://code.claude.com/docs/en/overview)                              | Agentic coding tool for delegating coding tasks to Claude |
+| [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview)               | Build agents that run in a process you operate            |
+| [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) | Run agents in Anthropic's managed infrastructure          |
 
 ## GitHub Repositories
 

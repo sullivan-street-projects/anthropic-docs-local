@@ -2,7 +2,7 @@
 title: "Introducing Claude Corps"
 source_url: "https://www.anthropic.com/news/claude-corps"
 source_type: "web-extracted"
-fetched_at: "2026-06-29T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "news"
 ---
 
@@ -17,6 +17,7 @@ Anthropic launched Claude Corps, a national fellowship program placing early-car
 ## Program Structure
 
 The partnership involves three organizations:
+
 - **Anthropic** funds the program and provides Claude expertise
 - **CodePath** serves as employer of record and leads fellow training
 - **Social Finance** manages measurement and builds scalability infrastructure
@@ -24,6 +25,7 @@ The partnership involves three organizations:
 ## Fellow Experience
 
 Fellows receive:
+
 - 12-month placement
 - $85,000 annual salary plus benefits
 - Five hours weekly training beyond host organization work

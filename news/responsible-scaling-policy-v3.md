@@ -2,7 +2,7 @@
 title: "Anthropic's Responsible Scaling Policy: Version 3.0"
 source_url: "https://www.anthropic.com/news/responsible-scaling-policy-v3"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "news"
 published: "2026-02-24"
 ---
@@ -28,6 +28,7 @@ Anthropic unveiled the third iteration of its Responsible Scaling Policy (RSP), 
 ## What Worked
 
 The original RSP successfully:
+
 - Incentivized development of stronger internal safeguards
 - Proved ASL-3 deployment standards were achievable
 - Encouraged competitors like OpenAI and Google DeepMind to adopt similar frameworks
@@ -36,6 +37,7 @@ The original RSP successfully:
 ## Key Challenges
 
 The policy encountered obstacles including:
+
 - Ambiguous capability thresholds that hindered consensus-building
 - Slower-than-expected government action on AI safety
 - Higher ASL levels requiring capabilities possibly "impossible" for unilateral company implementation

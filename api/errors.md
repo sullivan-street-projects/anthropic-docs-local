@@ -2,7 +2,7 @@
 title: "API Errors"
 source_url: "https://platform.claude.com/docs/en/api/errors"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "api"
 ---
 
@@ -12,31 +12,34 @@ category: "api"
 
 The API follows a predictable HTTP error code format:
 
-* 400 - `invalid_request_error`: There was an issue with the format or content of your request. This error type may also be used for other 4XX status codes not listed in this section.
-* 401 - `authentication_error`: There's an issue with your API key. On Claude Platform on AWS, this can also indicate a problem with your AWS credentials or SigV4 signature.
-* 402 - `billing_error`: There's an issue with your billing or payment information. Check your payment details in the Claude Console, or in AWS Marketplace if you're using Claude Platform on AWS.
-* 403 - `permission_error`: Your API key does not have permission to use the specified resource.
-* 404 - `not_found_error`: The requested resource was not found.
-* 413 - `request_too_large`: Request exceeds the maximum allowed number of bytes. See Request size limits for per-endpoint maximums.
-* 429 - `rate_limit_error`: Your account has hit a rate limit.
-* 500 - `api_error`: An unexpected error has occurred internal to Anthropic's systems.
-* 504 - `timeout_error`: The request timed out while processing. Consider using streaming for long-running requests.
-* 529 - `overloaded_error`: The API is temporarily overloaded.
+- 400 - `invalid_request_error`: There was an issue with the format or content of your request. This error type may also be used for other 4XX status codes not listed in this section.
+- 401 - `authentication_error`: There's an issue with your API key. On Claude Platform on AWS, this can also indicate a problem with your AWS credentials or SigV4 signature.
+- 402 - `billing_error`: There's an issue with your billing or payment information. Check your payment details in the Claude Console, or in AWS Marketplace if you're using Claude Platform on AWS.
+- 403 - `permission_error`: Your API key does not have permission to use the specified resource.
+- 404 - `not_found_error`: The requested resource was not found.
+- 409 - `conflict_error`: The request conflicts with the current state of a resource. For example, the resource was modified concurrently, or a value that must be unique is already in use. Resolve the conflict, then retry the request.
+- 413 - `request_too_large`: Request exceeds the maximum allowed number of bytes. See Request size limits for per-endpoint maximums.
+- 429 - `rate_limit_error`: Your account has hit a rate limit.
+- 500 - `api_error`: An unexpected error has occurred internal to Anthropic's systems.
+- 504 - `timeout_error`: The request timed out while processing. Consider using streaming for long-running requests.
+- 529 - `overloaded_error`: The API is temporarily overloaded.
 
 > **Warning:** 529 errors can occur when APIs experience high traffic across all users. In rare cases, if your organization has a sharp increase in usage, you might see 429 errors because of acceleration limits on the API. To avoid hitting acceleration limits, ramp up your traffic gradually and maintain consistent usage patterns.
 
-When receiving a [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) response over SSE, it's possible that an error can occur after returning a 200 response, in which case error handling wouldn't follow these standard mechanisms.
+The official SDKs automatically retry transient failures (such as connection errors, rate limits, and 5xx server errors) with exponential backoff, twice by default, honoring the `retry-after` header when present. Each SDK client accepts a maximum-retries option to configure or disable this behavior.
+
+When receiving a [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) response over SSE, an error can occur after the API returns a 200 response. In that case, error handling doesn't follow these standard mechanisms. See [Error events](https://platform.claude.com/docs/en/build-with-claude/streaming#error-events) for the shape of mid-stream errors.
 
 ## Request size limits
 
 The API enforces request size limits to ensure optimal performance:
 
-| Endpoint type | Maximum request size |
-|:---|:---|
-| Messages API | 32 MB |
-| Token Counting API | 32 MB |
-| [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | 256 MB |
-| [Files API](https://platform.claude.com/docs/en/build-with-claude/files) | 500 MB |
+| Endpoint type                                                                       | Maximum request size |
+| :---------------------------------------------------------------------------------- | :------------------- |
+| Messages API                                                                        | 32 MB                |
+| Token Counting API                                                                  | 32 MB                |
+| [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | 256 MB               |
+| [Files API](https://platform.claude.com/docs/en/build-with-claude/files)            | 500 MB               |
 
 If you exceed these limits, you'll receive a 413 `request_too_large` error. On the direct Claude API, this error is returned from Cloudflare before the request reaches the API servers.
 
@@ -61,7 +64,7 @@ In accordance with the [versioning](https://platform.claude.com/docs/en/api/vers
 
 The official SDKs raise typed exceptions for these errors instead of returning raw JSON, and the class names and namespaces differ by language. For example, a 404 surfaces as `anthropic.NotFoundError` in Python, `Anthropic::Errors::NotFoundError` in Ruby, `com.anthropic.errors.NotFoundException` in Java, and as a single `*anthropic.Error` value (branch on `StatusCode`) in Go. Catch the SDK's typed classes rather than string-matching error messages, handling the most specific classes first. Each SDK page documents its full exception hierarchy:
 
-* [Python](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#handling-errors) | [TypeScript](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#handling-errors) | [C#](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/csharp#error-handling) | [Go](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go#error-handling) | [Java](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#error-handling) | [PHP](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/php#error-handling) | [Ruby](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/ruby#handling-errors)
+- [Python](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#handling-errors) | [TypeScript](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#handling-errors) | [C#](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/csharp#error-handling) | [Go](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go#error-handling) | [Java](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#error-handling) | [PHP](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/php#error-handling) | [Ruby](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/ruby#handling-errors)
 
 ## Request ID
 
@@ -88,7 +91,7 @@ const client = new Anthropic();
 const message = await client.messages.create({
   model: "claude-opus-4-8",
   max_tokens: 1024,
-  messages: [{ role: "user", content: "Hello, Claude" }]
+  messages: [{ role: "user", content: "Hello, Claude" }],
 });
 console.log("Request ID:", message._request_id);
 ```
@@ -140,7 +143,7 @@ print(message.content)
 const stream = client.messages.stream({
   max_tokens: 128000,
   messages: [{ role: "user", content: "Write a detailed analysis..." }],
-  model: "claude-opus-4-8"
+  model: "claude-opus-4-8",
 });
 const message = await stream.finalMessage();
 console.log(message.content);

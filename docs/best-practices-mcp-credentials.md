@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -20,7 +20,7 @@ When you configure MCP servers for a project, credentials (API keys, tokens, dat
 - **Secrets** must never be committed to version control
 - **Each developer** may have different credentials for the same service
 
-The solution is a **two-file architecture** that cleanly separates *what servers to use* from *how to authenticate*.
+The solution is a **two-file architecture** that cleanly separates _what servers to use_ from _how to authenticate_.
 
 ---
 
@@ -36,7 +36,7 @@ your-project/
 
 ### File 1: `.mcp.json` (Committed -- The Server Declaration)
 
-This file declares *which* MCP servers the project uses. It references credentials via environment variable placeholders -- never hardcoded values. The `type` field accepts `streamable-http` as an alias for `http`, so configurations copied from MCP server documentation work without modification.
+This file declares _which_ MCP servers the project uses. It references credentials via environment variable placeholders -- never hardcoded values. The `type` field accepts `streamable-http` as an alias for `http`, so configurations copied from MCP server documentation work without modification.
 
 ```json
 {
@@ -63,7 +63,7 @@ This file declares *which* MCP servers the project uses. It references credentia
 }
 ```
 
-**Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- *"Environment variable expansion is supported in server configurations using the syntax `${VARIABLE_NAME}` with an optional default value `${VARIABLE_NAME:-default_value}`."*
+**Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- _"Environment variable expansion is supported in server configurations using the syntax `${VARIABLE_NAME}` with an optional default value `${VARIABLE_NAME:-default_value}`."_
 
 ### File 2: `.env` (Never Committed -- The Secrets)
 
@@ -91,14 +91,14 @@ API_KEY=                # API key for the custom service
 
 Claude Code supports three user-facing scopes for MCP server configuration, plus plugin-provided and claude.ai connector sources. Each is stored in a different location with different visibility:
 
-| Scope | Storage Location | Shared? | Added Via | Use Case |
-|-------|-----------------|---------|-----------|----------|
-| **Local** | `~/.claude.json` (under project path) | No -- per-user | `claude mcp add <name>` (default) | Personal servers, per-project secrets |
-| **Project** | `.mcp.json` (project root) | Yes -- committed to git | `claude mcp add --scope project <name>` | Team-shared servers |
-| **User** | `~/.claude.json` (global section) | No -- per-user | `claude mcp add --scope user <name>` | Cross-project personal servers |
-| **Plugin** | Plugin `.mcp.json` or `plugin.json` | Via plugin install | Plugin bundled | Plugin-distributed tools |
-| **claude.ai** | claude.ai account | Via claude.ai settings | claude.ai Connectors UI | Cloud-synced connectors |
-| **Managed** | System-wide `managed-mcp.json` | Org-wide | Enterprise admin | Organizational standards |
+| Scope         | Storage Location                      | Shared?                 | Added Via                               | Use Case                              |
+| ------------- | ------------------------------------- | ----------------------- | --------------------------------------- | ------------------------------------- |
+| **Local**     | `~/.claude.json` (under project path) | No -- per-user          | `claude mcp add <name>` (default)       | Personal servers, per-project secrets |
+| **Project**   | `.mcp.json` (project root)            | Yes -- committed to git | `claude mcp add --scope project <name>` | Team-shared servers                   |
+| **User**      | `~/.claude.json` (global section)     | No -- per-user          | `claude mcp add --scope user <name>`    | Cross-project personal servers        |
+| **Plugin**    | Plugin `.mcp.json` or `plugin.json`   | Via plugin install      | Plugin bundled                          | Plugin-distributed tools              |
+| **claude.ai** | claude.ai account                     | Via claude.ai settings  | claude.ai Connectors UI                 | Cloud-synced connectors               |
+| **Managed**   | System-wide `managed-mcp.json`        | Org-wide                | Enterprise admin                        | Organizational standards              |
 
 ### Scope Precedence
 
@@ -120,10 +120,10 @@ A Local definition always overrides a Project definition of the same name. Manag
 
 ### Syntax
 
-| Pattern | Behavior | Example |
-|---------|----------|---------|
-| `${VAR}` | Expands to value; config parse fails if unset and no default | `${API_KEY}` |
-| `${VAR:-default}` | Expands to value; uses default if unset | `${API_BASE_URL:-https://api.example.com}` |
+| Pattern           | Behavior                                                     | Example                                    |
+| ----------------- | ------------------------------------------------------------ | ------------------------------------------ |
+| `${VAR}`          | Expands to value; config parse fails if unset and no default | `${API_KEY}`                               |
+| `${VAR:-default}` | Expands to value; uses default if unset                      | `${API_BASE_URL:-https://api.example.com}` |
 
 ### Where Expansion Works
 
@@ -135,7 +135,7 @@ Environment variables are expanded in these fields:
 - `url` -- HTTP/SSE/WebSocket endpoint URLs
 - `headers` -- HTTP request headers
 
-**Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- *"The expansion works in the `command`, `args`, `env`, `url`, and `headers` fields."*
+**Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- _"The expansion works in the `command`, `args`, `env`, `url`, and `headers` fields."_
 
 ### `CLAUDE_PROJECT_DIR` for Stdio Servers
 
@@ -146,6 +146,7 @@ Referencing it via `${VAR}` expansion in `.mcp.json` requires a default such as 
 ### Three Ways to Provide Variable Values
 
 1. **Shell environment** -- Export before launching Claude Code:
+
    ```bash
    export GITHUB_TOKEN=ghp_xxx
    claude
@@ -165,6 +166,7 @@ Referencing it via `${VAR}` expansion in `.mcp.json` requires a default such as 
 ### 5.1 Always Use Environment Variables for Secrets
 
 **Do:**
+
 ```json
 {
   "mcpServers": {
@@ -178,6 +180,7 @@ Referencing it via `${VAR}` expansion in `.mcp.json` requires a default such as 
 ```
 
 **Don't:**
+
 ```json
 {
   "mcpServers": {
@@ -308,6 +311,7 @@ claude mcp add --transport http my-oauth-server https://server.example.com/mcp
 ```
 
 When the server supports OAuth, Claude Code will:
+
 1. Open a browser window for the OAuth consent flow
 2. Store the resulting token locally (per-user, never committed)
 3. Automatically refresh tokens as needed
@@ -449,10 +453,10 @@ Or inline:
 
 Claude Code sets these environment variables when executing the helper:
 
-| Variable | Value |
-|----------|-------|
+| Variable                      | Value                      |
+| ----------------------------- | -------------------------- |
 | `CLAUDE_CODE_MCP_SERVER_NAME` | the name of the MCP server |
-| `CLAUDE_CODE_MCP_SERVER_URL` | the URL of the MCP server |
+| `CLAUDE_CODE_MCP_SERVER_URL`  | the URL of the MCP server  |
 
 Use these to write a single helper script that serves multiple MCP servers.
 
@@ -594,19 +598,19 @@ claude mcp reset-project-choices
 
 ## 11. Common Pitfalls
 
-| Pitfall | Problem | Fix |
-|---------|---------|-----|
-| Hardcoded secrets in `.mcp.json` | Secrets committed to git | Use `${VAR}` expansion |
-| Missing `.env` from `.gitignore` | Secrets accidentally committed | Add `.env` to `.gitignore` immediately |
-| No `.env.example` | New developers don't know what vars are needed | Create `.env.example` with all required vars |
-| Using Local scope for team servers | Only works on your machine | Use `--scope project` for `.mcp.json` |
-| Using Project scope for personal servers | Leaks your server setup to the team | Use Local scope (default) or `--scope user` |
-| Same server name in multiple scopes | Confusion about which config is active | Remember: Local > Project > User > Plugin > claude.ai |
-| Forgetting `--scope project` | Server added to Local instead of `.mcp.json` | Re-add with `--scope project` |
-| Not testing with a fresh `.env` | Config works for you but breaks for others | Test by removing `.env` and using `.env.example` |
-| Using reserved name `workspace` | Server silently skipped at load time | Choose a different server name |
-| Static `Authorization` header with OAuth server | Connection fails instead of falling back to OAuth | Remove the header to use the OAuth flow |
-| Missing `--` separator for stdio | Claude Code parses server flags as its own | Always use `--` before server command |
+| Pitfall                                         | Problem                                           | Fix                                                   |
+| ----------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
+| Hardcoded secrets in `.mcp.json`                | Secrets committed to git                          | Use `${VAR}` expansion                                |
+| Missing `.env` from `.gitignore`                | Secrets accidentally committed                    | Add `.env` to `.gitignore` immediately                |
+| No `.env.example`                               | New developers don't know what vars are needed    | Create `.env.example` with all required vars          |
+| Using Local scope for team servers              | Only works on your machine                        | Use `--scope project` for `.mcp.json`                 |
+| Using Project scope for personal servers        | Leaks your server setup to the team               | Use Local scope (default) or `--scope user`           |
+| Same server name in multiple scopes             | Confusion about which config is active            | Remember: Local > Project > User > Plugin > claude.ai |
+| Forgetting `--scope project`                    | Server added to Local instead of `.mcp.json`      | Re-add with `--scope project`                         |
+| Not testing with a fresh `.env`                 | Config works for you but breaks for others        | Test by removing `.env` and using `.env.example`      |
+| Using reserved name `workspace`                 | Server silently skipped at load time              | Choose a different server name                        |
+| Static `Authorization` header with OAuth server | Connection fails instead of falling back to OAuth | Remove the header to use the OAuth flow               |
+| Missing `--` separator for stdio                | Claude Code parses server flags as its own        | Always use `--` before server command                 |
 
 ---
 
@@ -682,29 +686,29 @@ As of v2.1.187, a tool call to a remote server (HTTP, SSE, WebSocket, or claude.
 
 ## Sources & Verification
 
-| Claim | Source | Confidence |
-|-------|--------|------------|
-| Three user-facing MCP scopes (Local, Project, User) | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| Scope precedence: Local > Project > User > Plugin > claude.ai | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `${VAR}` and `${VAR:-default}` expansion syntax | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| Expansion works in command, args, env, url, headers | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `.mcp.json` is the Project scope file | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `~/.claude.json` stores Local and User scopes | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| OAuth browser-based authentication | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `claude mcp login/logout` CLI commands | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `headersHelper` for dynamic authentication | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `oauth.scopes` for restricting OAuth scopes | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `MCP_CLIENT_SECRET` env var for CI | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| Managed MCP with allowlist/denylist | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| claude.ai connectors integration | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `disableClaudeAiConnectors` setting | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| CLI commands (add, add-json, list, remove, login, logout, etc.) | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `.env` auto-reading by Claude Code | Observed behavior, consistent with docs | High |
-| `.env.example` onboarding pattern | Industry best practice, referenced in [best-practices.md](../claude-code/best-practices.md) | Medium |
-| `add-from-claude-desktop` import command | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `CLAUDE_PROJECT_DIR` for stdio servers | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| WebSocket transport (`type: "ws"`) | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| `streamable-http` as alias for `http` | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| Automatic reconnection with exponential backoff | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| Idle timeout (`CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`) | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
-| Reserved server name `workspace` | [MCP Documentation](https://code.claude.com/docs/en/mcp) | High |
+| Claim                                                           | Source                                                                                      | Confidence |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ---------- |
+| Three user-facing MCP scopes (Local, Project, User)             | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Scope precedence: Local > Project > User > Plugin > claude.ai   | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `${VAR}` and `${VAR:-default}` expansion syntax                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Expansion works in command, args, env, url, headers             | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `.mcp.json` is the Project scope file                           | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `~/.claude.json` stores Local and User scopes                   | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| OAuth browser-based authentication                              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `claude mcp login/logout` CLI commands                          | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `headersHelper` for dynamic authentication                      | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `oauth.scopes` for restricting OAuth scopes                     | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `MCP_CLIENT_SECRET` env var for CI                              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Managed MCP with allowlist/denylist                             | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| claude.ai connectors integration                                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `disableClaudeAiConnectors` setting                             | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| CLI commands (add, add-json, list, remove, login, logout, etc.) | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `.env` auto-reading by Claude Code                              | Observed behavior, consistent with docs                                                     | High       |
+| `.env.example` onboarding pattern                               | Industry best practice, referenced in [best-practices.md](../claude-code/best-practices.md) | Medium     |
+| `add-from-claude-desktop` import command                        | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `CLAUDE_PROJECT_DIR` for stdio servers                          | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| WebSocket transport (`type: "ws"`)                              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `streamable-http` as alias for `http`                           | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Automatic reconnection with exponential backoff                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Idle timeout (`CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`)              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Reserved server name `workspace`                                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |

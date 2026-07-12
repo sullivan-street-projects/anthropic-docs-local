@@ -2,7 +2,7 @@
 title: "Claude is a Space to Think"
 source_url: "https://www.anthropic.com/news/claude-is-a-space-to-think"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "news"
 ---
 
@@ -33,6 +33,7 @@ Anthropic generates revenue through enterprise contracts and paid subscriptions,
 ## Accessibility Initiatives
 
 To expand access without compromising user interests, Anthropic has:
+
 - Brought AI tools to educators in 60+ countries
 - Launched national AI education pilots with multiple governments
 - Made Claude available to nonprofits at significant discounts

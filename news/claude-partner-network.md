@@ -2,7 +2,7 @@
 title: "Anthropic Invests $100 Million into the Claude Partner Network"
 source_url: "https://www.anthropic.com/news/claude-partner-network"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "news"
 ---
 
@@ -19,6 +19,7 @@ Anthropic has launched the Claude Partner Network, committing $100 million to su
 ### Claude Partner Network Benefits
 
 Partners receive:
+
 - Access to Anthropic Academy training materials
 - Sales playbooks from Anthropic's go-to-market team
 - Co-marketing documentation

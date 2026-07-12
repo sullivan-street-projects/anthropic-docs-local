@@ -2,7 +2,7 @@
 title: "Partnering with Mozilla to improve Firefox's security"
 source_url: "https://www.anthropic.com/news/mozilla-firefox-security"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "news"
 ---
 
@@ -17,13 +17,16 @@ Anthropic collaborated with Mozilla researchers to demonstrate AI's capability i
 ## Key Findings
 
 ### Vulnerability Discovery
+
 - Claude identified more than 500 zero-day vulnerabilities in open-source software
 - The Firefox collaboration involved scanning nearly 6,000 C++ files
 - 112 unique vulnerability reports were submitted to Mozilla
 - Most fixes shipped in Firefox 148.0 to hundreds of millions of users
 
 ### Exploit Development
+
 Testing showed Claude could develop primitive browser exploits in limited cases:
+
 - Successfully created exploits in only 2 out of several hundred attempts
 - Exploits worked only in testing environments lacking modern security features like sandboxing
 - Vulnerability discovery proved significantly cheaper than exploit creation
@@ -37,12 +40,16 @@ After just twenty minutes, Claude identified a Use After Free vulnerability. Thi
 ## Best Practices for AI-Assisted Security
 
 ### Task Verifiers
+
 Claude performs best when given tools to self-check work. These verifiers should confirm:
+
 - Vulnerabilities are actually removed
 - Program functionality remains intact
 
 ### Submission Standards
+
 Effective vulnerability reports include:
+
 1. Minimal test cases
 2. Detailed proofs-of-concept
 3. Candidate patches

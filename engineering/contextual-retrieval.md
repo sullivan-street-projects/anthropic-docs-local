@@ -2,7 +2,7 @@
 title: "Introducing Contextual Retrieval"
 source_url: "https://www.anthropic.com/engineering/contextual-retrieval"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"
 ---
 
@@ -15,6 +15,7 @@ category: "engineering"
 AI models require background knowledge to operate effectively in specific contexts. Developers enhance model capabilities using Retrieval-Augmented Generation (RAG), which retrieves relevant information from knowledge bases and appends it to user prompts. However, traditional RAG systems remove crucial context during information encoding, causing retrieval failures.
 
 Anthropic introduces **Contextual Retrieval**, a method combining two sub-techniques:
+
 - Contextual Embeddings
 - Contextual BM25
 
@@ -45,6 +46,7 @@ BM25 builds on TF-IDF (Term Frequency-Inverse Document Frequency) concepts, cons
 **Example:** For "Error code TS-999" queries, BM25 identifies exact text matches that embeddings might miss.
 
 Effective RAG combines both approaches:
+
 - Use BM25 for top exact matches
 - Use embeddings for semantic similarity
 - Merge results through rank fusion
@@ -61,6 +63,7 @@ Traditional RAG's limitation: individual chunks often lack sufficient context.
 This solution prepends chunk-specific explanatory context before embedding and indexing.
 
 **Transformation example:**
+
 - Original: "The company's revenue grew by 3% over the previous quarter."
 - Contextualized: "This chunk is from an SEC filing on ACME corp's performance in Q2 2023; the previous quarter's revenue was $314 million. The company's revenue grew by 3% over the previous quarter."
 

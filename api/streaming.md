@@ -2,7 +2,7 @@
 title: "Streaming API"
 source_url: "https://platform.claude.com/docs/en/api/streaming"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "api"
 ---
 
@@ -41,7 +41,7 @@ await client.messages
   .stream({
     messages: [{ role: "user", content: "Hello" }],
     model: "claude-opus-4-8",
-    max_tokens: 1024
+    max_tokens: 1024,
   })
   .on("text", (text) => {
     console.log(text);
@@ -89,8 +89,13 @@ print(f"Output tokens: {message.usage.output_tokens}")
 ```typescript
 const stream = client.messages.stream({
   max_tokens: 128000,
-  messages: [{ role: "user", content: "Write a detailed analysis of modern architecture." }],
-  model: "claude-opus-4-8"
+  messages: [
+    {
+      role: "user",
+      content: "Write a detailed analysis of modern architecture.",
+    },
+  ],
+  model: "claude-opus-4-8",
 });
 
 const message = await stream.finalMessage();
@@ -247,7 +252,7 @@ Incremental text output:
 {
   "type": "content_block_delta",
   "index": 0,
-  "delta": {"type": "text_delta", "text": "ello frien"}
+  "delta": { "type": "text_delta", "text": "ello frien" }
 }
 ```
 
@@ -259,7 +264,10 @@ Partial JSON strings for tool input. Accumulate these until `content_block_stop`
 {
   "type": "content_block_delta",
   "index": 1,
-  "delta": {"type": "input_json_delta", "partial_json": "{\"location\": \"San Fra"}
+  "delta": {
+    "type": "input_json_delta",
+    "partial_json": "{\"location\": \"San Fra"
+  }
 }
 ```
 
@@ -273,7 +281,10 @@ Incremental thinking content when extended thinking is enabled:
 {
   "type": "content_block_delta",
   "index": 0,
-  "delta": {"type": "thinking_delta", "thinking": "I need to find the GCD of 1071 and 462 using the Euclidean algorithm.\n\n1071 = 2 x 462 + 147"}
+  "delta": {
+    "type": "thinking_delta",
+    "thinking": "I need to find the GCD of 1071 and 462 using the Euclidean algorithm.\n\n1071 = 2 x 462 + 147"
+  }
 }
 ```
 
@@ -287,7 +298,10 @@ Sent before `content_block_stop` for thinking blocks. Contains a cryptographic s
 {
   "type": "content_block_delta",
   "index": 0,
-  "delta": {"type": "signature_delta", "signature": "EqQBCgIYAhIM1gbcDa9GJwZA2b3hGgxBdjrkzLoky3dl1pkiMOYds..."}
+  "delta": {
+    "type": "signature_delta",
+    "signature": "EqQBCgIYAhIM1gbcDa9GJwZA2b3hGgxBdjrkzLoky3dl1pkiMOYds..."
+  }
 }
 ```
 
@@ -322,9 +336,15 @@ const stream = client.messages.stream({
 });
 
 for await (const event of stream) {
-  if (event.type === "content_block_start" && event.content_block.type === "tool_use") {
+  if (
+    event.type === "content_block_start" &&
+    event.content_block.type === "tool_use"
+  ) {
     console.log(`\nTool call: ${event.content_block.name}`);
-  } else if (event.type === "content_block_delta" && event.delta.type === "input_json_delta") {
+  } else if (
+    event.type === "content_block_delta" &&
+    event.delta.type === "input_json_delta"
+  ) {
     process.stdout.write(event.delta.partial_json);
   }
 }

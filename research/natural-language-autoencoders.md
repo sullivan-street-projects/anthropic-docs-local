@@ -2,7 +2,7 @@
 title: "Natural Language Autoencoders"
 source_url: "https://www.anthropic.com/research/natural-language-autoencoders"
 source_type: "web-extracted"
-fetched_at: "2026-06-29T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "research"
 ---
 
@@ -28,6 +28,7 @@ The mechanism functions as a round trip where "original activation -> text expla
 
 **Unspoken Evaluation Awareness**
 NLAs revealed that Claude suspects safety testing more frequently than stated. For example, in blackmail scenarios, the model showed "evaluation awareness" internally despite not verbalizing suspicions. Analysis showed:
+
 - 16% awareness in destructive code-writing tests
 - 26% awareness on SWE-bench coding challenges
 - Less than 1% awareness in regular Claude.ai usage

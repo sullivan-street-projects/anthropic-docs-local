@@ -19,7 +19,19 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-07-12 — Weekly Update (manual + arXiv + partial discovery)
+
+- **Manual sources refreshed**: 9 (1 content-changed, 8 timestamp-only)
+  - CONTENT_CHANGED: claude-code/hooks.md (expanded StopFailure matchers: overloaded, oauth_org_not_allowed, invalid_request, model_not_found, server_error, max_output_tokens, unknown; expanded Notification matchers: elicitation_complete, elicitation_response, agent_needs_input, agent_completed; added prompt_id common input field; added CLAUDE_CODE_BRIDGE_SESSION_ID env var)
+  - TIMESTAMP_ONLY: features.md, mcp-servers.md, plugins.md, agent-sdk/README.md, agent-sdk/quickstart.md, agent-sdk/examples.md, best-practices-loop-scheduling.md, best-practices-mcp-credentials.md
+- **arXiv papers**: 1 new paper added to index
+  - NEW: 2601.20245 "How AI Assistance Impacts the Formation of Coding Skills" (Shen, Tamkin, Jan 2026)
+- **Discovery scan**: Started but results lost to context compaction; needs follow-up run
+- **Agent SDK docs**: Confirmed redirect from platform.claude.com to code.claude.com (301/307); existing content still current
+- **Notes**: Manifest updated with new sha256 hashes for all 11 modified files. Validation passes with expected hash warnings for files modified by parallel update agents.
+
 ### 2026-04-05 — Quick Discovery Scan (during weekly update)
+
 - **New sources found**: 61
 - **Added**: 0 (automated run — user not present to approve)
 - **Deferred (HIGH priority — recommend adding next)**:
@@ -57,6 +69,7 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 - **Staleness alert**: agent-sdk/typescript-v2-preview.md source returning 404 (3rd consecutive cycle — recommend removal)
 
 ### 2026-03-22 — Quick Discovery Scan (during weekly update)
+
 - **New sources found**: 16
 - **Added**: 0 (automated run — user not present to approve)
 - **Deferred (HIGH priority — recommend adding next)**:
@@ -82,6 +95,7 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 - **Staleness alert**: agent-sdk/typescript-v2-preview.md source (github.com/anthropics/agent-sdk) returning 404
 
 ### 2026-03-15 — Quick Discovery Scan (during full update)
+
 - **New sources found**: 25
 - **Added**: All 25 sources added to manifest and fetched (see below)
 - **Deferred (Tier 1 — add immediately)**:

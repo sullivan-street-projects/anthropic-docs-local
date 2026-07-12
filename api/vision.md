@@ -2,7 +2,7 @@
 title: "Vision API"
 source_url: "https://platform.claude.com/docs/en/build-with-claude/vision"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "api"
 ---
 
@@ -30,12 +30,12 @@ On the API, provide images to Claude as `image` content blocks using one of thre
 
 ## Supported Formats
 
-| Format | MIME Type |
-|:-------|:---------|
-| JPEG | `image/jpeg` |
-| PNG | `image/png` |
-| GIF | `image/gif` |
-| WebP | `image/webp` |
+| Format | MIME Type    |
+| :----- | :----------- |
+| JPEG   | `image/jpeg` |
+| PNG    | `image/png`  |
+| GIF    | `image/gif`  |
+| WebP   | `image/webp` |
 
 Animations are unsupported, and only the first frame is used.
 
@@ -210,23 +210,23 @@ Claude views images in patches instead of pixels. Each patch is a 28x28-pixel bl
 
 Each model has a maximum native image resolution, expressed as a long-edge limit and a visual-token limit. Images larger than either limit are downscaled before processing.
 
-| Resolution Tier | Models | Max Long Edge | Max Visual Tokens |
-|:----------------|:-------|:--------------|:------------------|
-| High-resolution | Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Opus 4.7 | 2576 px | 4784 |
-| Standard | All other models | 1568 px | 1568 |
+| Resolution Tier | Models                                                                             | Max Long Edge | Max Visual Tokens |
+| :-------------- | :--------------------------------------------------------------------------------- | :------------ | :---------------- |
+| High-resolution | Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5 | 2576 px       | 4784              |
+| Standard        | All other models                                                                   | 1568 px       | 1568              |
 
 High-resolution support is automatic on the listed models and requires no beta header or client-side opt-in.
 
 The following table shows the visual-token cost for several image sizes on each tier:
 
-| Image Size | Standard-tier Tokens | High-resolution-tier Tokens |
-|:-----------|:---------------------|:---------------------------|
-| 200x200 px (0.04 MP) | 64 | 64 |
-| 1000x1000 px (1 MP) | 1296 | 1296 |
-| 1092x1092 px (1.19 MP) | 1521 | 1521 |
-| 1920x1080 px (2.07 MP) | 1560 (downscaled) | 2691 |
-| 2000x1500 px (3 MP) | 1564 (downscaled) | 3888 |
-| 3840x2160 px (8.29 MP) | 1560 (downscaled) | 4784 (downscaled) |
+| Image Size             | Standard-tier Tokens | High-resolution-tier Tokens |
+| :--------------------- | :------------------- | :-------------------------- |
+| 200x200 px (0.04 MP)   | 64                   | 64                          |
+| 1000x1000 px (1 MP)    | 1296                 | 1296                        |
+| 1092x1092 px (1.19 MP) | 1521                 | 1521                        |
+| 1920x1080 px (2.07 MP) | 1560 (downscaled)    | 2691                        |
+| 2000x1500 px (3 MP)    | 1564 (downscaled)    | 3888                        |
+| 3840x2160 px (8.29 MP) | 1560 (downscaled)    | 4784 (downscaled)           |
 
 High-resolution images can use up to roughly three times more visual tokens than the same image on a standard-tier model. If you don't need the additional fidelity, downsample images before sending to control token costs.
 
@@ -291,12 +291,12 @@ For bounding boxes, points, and pixel coordinates, see [Coordinates and bounding
 
 ## FAQ
 
-| Question | Answer |
-|:---------|:-------|
-| What file types are supported? | JPEG, PNG, GIF, WebP |
-| Can Claude read images from URLs? | Yes, via `"source": {"type": "url", "url": "..."}` |
-| What are the size limits? | API: 10 MB per image (5 MB on Bedrock/Google Cloud). claude.ai: 10 MB per image |
-| How many images can I send? | API: up to 600 per request (100 for 200k-token context models). claude.ai: up to 20 per turn |
-| Does Claude receive image metadata? | No. EXIF data and other metadata are stripped and not processed |
-| Can Claude generate images? | No. Claude can only analyze and describe existing images |
+| Question                              | Answer                                                                                                                        |
+| :------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------- |
+| What file types are supported?        | JPEG, PNG, GIF, WebP                                                                                                          |
+| Can Claude read images from URLs?     | Yes, via `"source": {"type": "url", "url": "..."}`                                                                            |
+| What are the size limits?             | API: 10 MB per image (5 MB on Bedrock/Google Cloud). claude.ai: 10 MB per image                                               |
+| How many images can I send?           | API: up to 600 per request (100 for 200k-token context models). claude.ai: up to 20 per turn                                  |
+| Does Claude receive image metadata?   | No. EXIF data and other metadata are stripped and not processed                                                               |
+| Can Claude generate images?           | No. Claude can only analyze and describe existing images                                                                      |
 | Can Claude read text in images (OCR)? | Yes. Claude can extract and interpret text from images, including handwritten text, though accuracy varies with image quality |

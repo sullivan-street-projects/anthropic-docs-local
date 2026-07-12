@@ -2,7 +2,7 @@
 title: "Claude's New Constitution"
 source_url: "https://www.anthropic.com/news/claude-new-constitution"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "news"
 ---
 
@@ -16,7 +16,7 @@ Anthropic has published a comprehensive constitution for Claude, their AI model.
 
 The constitution operates on two levels: it communicates Anthropic's vision for Claude's development while simultaneously serving as a practical training artifact. As the organization explains, "the constitution is written primarily for Claude" to provide the knowledge needed for effective operation.
 
-This represents an evolution from Constitutional AI methods used since 2023. Rather than listing standalone principles, the new approach emphasizes explaining the *why* behind desired behaviors, enabling Claude to generalize across novel situations rather than mechanically follow rigid rules.
+This represents an evolution from Constitutional AI methods used since 2023. Rather than listing standalone principles, the new approach emphasizes explaining the _why_ behind desired behaviors, enabling Claude to generalize across novel situations rather than mechanically follow rigid rules.
 
 ## Core Priorities
 

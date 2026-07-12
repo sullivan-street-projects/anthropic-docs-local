@@ -2,7 +2,7 @@
 title: "Anthropic Economic Index: Cadences (June 2026)"
 source_url: "https://www.anthropic.com/research/economic-index-june-2026-report"
 source_type: "web-extracted"
-fetched_at: "2026-06-29T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "research"
 ---
 
@@ -20,6 +20,7 @@ This report analyzes Claude usage patterns and AI's economic impact through impr
 Personal conversations spike from approximately 35% on weekdays to under 50% on weekends. Weekend Claude Code usage shifts toward AI agent design, quant trading, and gaming, while backend and debugging tasks decline.
 
 **Daily Rhythms:**
+
 - News requests peak at 7 a.m. local time
 - Recipe requests are 2.3x more frequent at 6 p.m.
 - Sleep advice peaks around dawn hours
@@ -34,6 +35,7 @@ Tax-related conversations spiked dramatically around the April 15 U.S. filing de
 ### Chapter 2: Artifacts (Outputs)
 
 **Output Categories:**
+
 - Explanations: 17% of conversations
 - Documents and reports: 15%
 - Guidance: 11%
@@ -57,6 +59,7 @@ Claude's responses average approximately one year higher education requirement t
 Approximately 9,700 Claude users linked usage data to survey responses using privacy-preserving methods. Respondents skew heavily toward computer and mathematical occupations (30% versus 4% of U.S. employment).
 
 **Capability Expectations:**
+
 - Close to 60% expect AI to handle larger task shares within 12 months
 - Over one-third anticipate AI managing most of their work tasks
 - Expectations for progress are "strikingly uniform" across occupations
@@ -75,6 +78,7 @@ Women comprise 12% of the linked sample and show distinctly different patterns: 
 
 **Economic Hopes:**
 When asked about an AI-transformed economy in 10 years, the most common themes were:
+
 - Human-AI collaboration on meaningful work (50%+ of respondents)
 - Automation of tedious tasks for increased free time (50%+)
 - Broad distribution of economic gains (~33%)
@@ -82,6 +86,7 @@ When asked about an AI-transformed economy in 10 years, the most common themes w
 ## Methodological Improvements
 
 The report implements three key changes:
+
 1. Higher sampling rates enabling hourly-level usage analysis
 2. New classifier labeling conversation outputs
 3. Granular monthly breakdowns for chat, Cowork, and API separately

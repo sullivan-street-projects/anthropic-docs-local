@@ -2,7 +2,7 @@
 title: "Claude Haiku 4.5"
 source_url: "https://www.anthropic.com/news/claude-haiku-4-5"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "models"
 ---
 
@@ -12,12 +12,12 @@ Claude Haiku 4.5 is the fastest model with near-frontier intelligence. Launched 
 
 ## Model ID
 
-| Platform | Model ID |
-|:---------|:---------|
-| Claude API | `claude-haiku-4-5-20251001` |
-| Claude API alias | `claude-haiku-4-5` |
-| AWS Bedrock | `anthropic.claude-haiku-4-5-20251001-v1:0` |
-| GCP Vertex AI | `claude-haiku-4-5@20251001` |
+| Platform         | Model ID                                   |
+| :--------------- | :----------------------------------------- |
+| Claude API       | `claude-haiku-4-5-20251001`                |
+| Claude API alias | `claude-haiku-4-5`                         |
+| AWS Bedrock      | `anthropic.claude-haiku-4-5-20251001-v1:0` |
+| GCP Vertex AI    | `claude-haiku-4-5@20251001`                |
 
 ## Pricing
 
@@ -25,14 +25,14 @@ $1 / MTok input, $5 / MTok output
 
 ## Specifications
 
-| Feature | Detail |
-|:--------|:-------|
-| Context window | 200K tokens |
-| Max output | 64K tokens |
-| Extended thinking | Yes |
+| Feature                   | Detail        |
+| :------------------------ | :------------ |
+| Context window            | 200K tokens   |
+| Max output                | 64K tokens    |
+| Extended thinking         | Yes           |
 | Reliable knowledge cutoff | February 2025 |
-| Training data cutoff | July 2025 |
-| Comparative latency | Fastest |
+| Training data cutoff      | July 2025     |
+| Comparative latency       | Fastest       |
 
 ## Key Capabilities
 

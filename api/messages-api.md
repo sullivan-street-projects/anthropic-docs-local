@@ -2,7 +2,7 @@
 title: "Messages API"
 source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "api"
 ---
 
@@ -19,20 +19,23 @@ Send structured input messages and receive model-generated responses. The Messag
 Messages operate on alternating `user` and `assistant` conversational turns. Consecutive turns with the same role are automatically combined into a single turn.
 
 **Single user message:**
+
 ```json
-[{"role": "user", "content": "Hello, Claude"}]
+[{ "role": "user", "content": "Hello, Claude" }]
 ```
 
 **Multi-turn conversation:**
+
 ```json
 [
-  {"role": "user", "content": "Hello there."},
-  {"role": "assistant", "content": "Hi, I'm Claude. How can I help you?"},
-  {"role": "user", "content": "Can you explain LLMs in plain English?"}
+  { "role": "user", "content": "Hello there." },
+  { "role": "assistant", "content": "Hi, I'm Claude. How can I help you?" },
+  { "role": "user", "content": "Can you explain LLMs in plain English?" }
 ]
 ```
 
 **Content can be a string or array of content blocks:**
+
 ```json
 {"role": "user", "content": "Hello, Claude"}
 // Equivalent to:
@@ -45,16 +48,16 @@ Messages operate on alternating `user` and `assistant` conversational turns. Con
 
 The model to use for the response. Available models:
 
-| Model | Model ID |
-|:------|:---------|
-| Claude Fable 5 | `claude-fable-5` |
-| Claude Mythos 5 | `claude-mythos-5` |
-| Claude Opus 4.8 | `claude-opus-4-8` |
-| Claude Opus 4.7 | `claude-opus-4-7` |
-| Claude Opus 4.6 | `claude-opus-4-6` |
+| Model             | Model ID            |
+| :---------------- | :------------------ |
+| Claude Fable 5    | `claude-fable-5`    |
+| Claude Mythos 5   | `claude-mythos-5`   |
+| Claude Opus 4.8   | `claude-opus-4-8`   |
+| Claude Opus 4.7   | `claude-opus-4-7`   |
+| Claude Opus 4.6   | `claude-opus-4-6`   |
 | Claude Sonnet 4.6 | `claude-sonnet-4-6` |
-| Claude Haiku 4.5 | `claude-haiku-4-5` |
-| Claude Opus 4.5 | `claude-opus-4-5` |
+| Claude Haiku 4.5  | `claude-haiku-4-5`  |
+| Claude Opus 4.5   | `claude-opus-4-5`   |
 | Claude Sonnet 4.5 | `claude-sonnet-4-5` |
 
 ### `max_tokens` (number)
@@ -80,7 +83,7 @@ Maximum of **100,000 messages** per request.
 {
   "type": "text",
   "text": "Hello, Claude",
-  "cache_control": {"type": "ephemeral", "ttl": "5m"},
+  "cache_control": { "type": "ephemeral", "ttl": "5m" },
   "citations": []
 }
 ```
@@ -90,15 +93,21 @@ Maximum of **100,000 messages** per request.
 Supports base64, URL, and Files API sources:
 
 ```json
-{"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": "<base64>"}}
+{
+  "type": "image",
+  "source": { "type": "base64", "media_type": "image/jpeg", "data": "<base64>" }
+}
 ```
 
 ```json
-{"type": "image", "source": {"type": "url", "url": "https://example.com/image.jpg"}}
+{
+  "type": "image",
+  "source": { "type": "url", "url": "https://example.com/image.jpg" }
+}
 ```
 
 ```json
-{"type": "image", "source": {"type": "file", "file_id": "file_abc123"}}
+{ "type": "image", "source": { "type": "file", "file_id": "file_abc123" } }
 ```
 
 Supported formats: JPEG, PNG, GIF, WebP.
@@ -108,15 +117,28 @@ Supported formats: JPEG, PNG, GIF, WebP.
 Supports base64, URL, and plain text sources:
 
 ```json
-{"type": "document", "source": {"type": "base64", "media_type": "application/pdf", "data": "<base64>"}}
+{
+  "type": "document",
+  "source": {
+    "type": "base64",
+    "media_type": "application/pdf",
+    "data": "<base64>"
+  }
+}
 ```
 
 ```json
-{"type": "document", "source": {"type": "url", "url": "https://example.com/document.pdf"}}
+{
+  "type": "document",
+  "source": { "type": "url", "url": "https://example.com/document.pdf" }
+}
 ```
 
 ```json
-{"type": "document", "source": {"type": "text", "data": "Plain text content..."}}
+{
+  "type": "document",
+  "source": { "type": "text", "data": "Plain text content..." }
+}
 ```
 
 ### Tool Use Block
@@ -124,7 +146,12 @@ Supports base64, URL, and plain text sources:
 Returned by Claude when invoking a tool:
 
 ```json
-{"type": "tool_use", "id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV", "name": "get_stock_price", "input": {"ticker": "^GSPC"}}
+{
+  "type": "tool_use",
+  "id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
+  "name": "get_stock_price",
+  "input": { "ticker": "^GSPC" }
+}
 ```
 
 ### Tool Result Block
@@ -132,7 +159,11 @@ Returned by Claude when invoking a tool:
 Provided by the user after executing a tool:
 
 ```json
-{"type": "tool_result", "tool_use_id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV", "content": "259.75 USD"}
+{
+  "type": "tool_result",
+  "tool_use_id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
+  "content": "259.75 USD"
+}
 ```
 
 The `content` field can be a string or an array of content blocks (text, image).
@@ -142,7 +173,7 @@ The `content` field can be a string or an array of content blocks (text, image).
 Returned when extended thinking is enabled:
 
 ```json
-{"type": "thinking", "thinking": "Let me work through this problem..."}
+{ "type": "thinking", "thinking": "Let me work through this problem..." }
 ```
 
 ## Optional Parameters
@@ -157,7 +188,7 @@ System prompt providing context and instructions for the conversation. Can be a 
     {
       "type": "text",
       "text": "You are a helpful coding assistant.",
-      "cache_control": {"type": "ephemeral"}
+      "cache_control": { "type": "ephemeral" }
     }
   ]
 }
@@ -205,19 +236,19 @@ Extended thinking allows Claude to perform step-by-step reasoning before respond
 
 ```json
 {
-  "thinking": {"type": "enabled", "budget_tokens": 10000}
+  "thinking": { "type": "enabled", "budget_tokens": 10000 }
 }
 ```
 
 ```json
 {
-  "thinking": {"type": "disabled"}
+  "thinking": { "type": "disabled" }
 }
 ```
 
 ```json
 {
-  "thinking": {"type": "adaptive", "display": "summarized"}
+  "thinking": { "type": "adaptive", "display": "summarized" }
 }
 ```
 
@@ -243,8 +274,8 @@ Control the output format and effort level:
       "schema": {
         "type": "object",
         "properties": {
-          "answer": {"type": "string"},
-          "confidence": {"type": "number"}
+          "answer": { "type": "string" },
+          "confidence": { "type": "number" }
         },
         "required": ["answer", "confidence"]
       }
@@ -256,13 +287,13 @@ Control the output format and effort level:
 
 **Effort levels:**
 
-| Level | Description |
-|:------|:------------|
-| `"low"` | Minimal processing, fastest response |
-| `"medium"` | Balanced processing |
-| `"high"` | Thorough processing (default) |
-| `"xhigh"` | Extra-high effort |
-| `"max"` | Maximum effort, most thorough |
+| Level      | Description                          |
+| :--------- | :----------------------------------- |
+| `"low"`    | Minimal processing, fastest response |
+| `"medium"` | Balanced processing                  |
+| `"high"`   | Thorough processing (default)        |
+| `"xhigh"`  | Extra-high effort                    |
+| `"max"`    | Maximum effort, most thorough        |
 
 ## Tool Use
 
@@ -277,13 +308,16 @@ Define tools that Claude can invoke during the conversation:
       "input_schema": {
         "type": "object",
         "properties": {
-          "location": {"type": "string", "description": "City and state, e.g. San Francisco, CA"}
+          "location": {
+            "type": "string",
+            "description": "City and state, e.g. San Francisco, CA"
+          }
         },
         "required": ["location"]
       }
     }
   ],
-  "tool_choice": {"type": "auto", "disable_parallel_tool_use": false}
+  "tool_choice": { "type": "auto", "disable_parallel_tool_use": false }
 }
 ```
 
@@ -298,18 +332,18 @@ Define tools that Claude can invoke during the conversation:
 
 Built-in tools are versioned and specified by `type` rather than `name` and `input_schema`:
 
-| Tool | Type | Description |
-|:-----|:-----|:------------|
-| Web Search | `web_search_20260209` | Search the web for information. Options: `max_uses`, `allowed_domains`, `blocked_domains`, `user_location` |
-| Web Fetch | `web_fetch_20260309` | Fetch content from URLs. Options: `max_content_tokens`, `allowed_domains`, `use_cache` |
-| Code Execution | `code_execution_20260120` | Sandboxed code execution environment |
-| Text Editor | `text_editor_20250728` | File viewing and editing. Option: `max_characters` |
+| Tool           | Type                      | Description                                                                                                |
+| :------------- | :------------------------ | :--------------------------------------------------------------------------------------------------------- |
+| Web Search     | `web_search_20260209`     | Search the web for information. Options: `max_uses`, `allowed_domains`, `blocked_domains`, `user_location` |
+| Web Fetch      | `web_fetch_20260309`      | Fetch content from URLs. Options: `max_content_tokens`, `allowed_domains`, `use_cache`                     |
+| Code Execution | `code_execution_20260120` | Sandboxed code execution environment                                                                       |
+| Text Editor    | `text_editor_20250728`    | File viewing and editing. Option: `max_characters`                                                         |
 
 ```json
 {
   "tools": [
-    {"type": "web_search_20260209", "name": "web_search", "max_uses": 5},
-    {"type": "text_editor_20250728", "name": "str_replace_based_edit_tool"}
+    { "type": "web_search_20260209", "name": "web_search", "max_uses": 5 },
+    { "type": "text_editor_20250728", "name": "str_replace_based_edit_tool" }
   ]
 }
 ```
@@ -319,7 +353,7 @@ Built-in tools are versioned and specified by `type` rather than `name` and `inp
 Enable prompt caching to reduce costs for repeated context:
 
 ```json
-{"cache_control": {"type": "ephemeral", "ttl": "5m"}}
+{ "cache_control": { "type": "ephemeral", "ttl": "5m" } }
 ```
 
 **TTL options:**
@@ -337,9 +371,7 @@ Cache control can be applied to system prompts, messages, tool definitions, and 
   "type": "message",
   "role": "assistant",
   "model": "claude-opus-4-6",
-  "content": [
-    {"type": "text", "text": "Hello! How can I help you today?"}
-  ],
+  "content": [{ "type": "text", "text": "Hello! How can I help you today?" }],
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "stop_details": null,
@@ -363,14 +395,14 @@ Cache control can be applied to system prompts, messages, tool definitions, and 
 
 ### Stop Reasons
 
-| Reason | Description |
-|:-------|:------------|
-| `"end_turn"` | Natural stopping point reached |
-| `"max_tokens"` | Reached the `max_tokens` limit |
-| `"stop_sequence"` | Hit a custom stop sequence |
-| `"tool_use"` | Model invoked one or more client tools |
-| `"pause_turn"` | Long-running server tool loop paused (exceeded iteration limit) |
-| `"refusal"` | Policy violation handled by streaming classifiers |
+| Reason            | Description                                                     |
+| :---------------- | :-------------------------------------------------------------- |
+| `"end_turn"`      | Natural stopping point reached                                  |
+| `"max_tokens"`    | Reached the `max_tokens` limit                                  |
+| `"stop_sequence"` | Hit a custom stop sequence                                      |
+| `"tool_use"`      | Model invoked one or more client tools                          |
+| `"pause_turn"`    | Long-running server tool loop paused (exceeded iteration limit) |
+| `"refusal"`       | Policy violation handled by streaming classifiers               |
 
 ### Stop Details
 
@@ -388,14 +420,14 @@ When `stop_reason` is `"refusal"`, the `stop_details` object provides additional
 
 ### Response Content Block Types
 
-| Block Type | Description |
-|:-----------|:------------|
-| `TextBlock` | Text output, optionally with citations |
-| `ThinkingBlock` | Extended thinking content with cryptographic signature |
-| `RedactedThinkingBlock` | Thinking block redacted for policy reasons |
-| `ToolUseBlock` | Client tool invocation with `id`, `name`, `input` |
-| `ServerToolUseBlock` | Server-side tool invocation (web search, web fetch) |
-| `WebSearchToolResultBlock` | Results from web search tool |
+| Block Type                 | Description                                            |
+| :------------------------- | :----------------------------------------------------- |
+| `TextBlock`                | Text output, optionally with citations                 |
+| `ThinkingBlock`            | Extended thinking content with cryptographic signature |
+| `RedactedThinkingBlock`    | Thinking block redacted for policy reasons             |
+| `ToolUseBlock`             | Client tool invocation with `id`, `name`, `input`      |
+| `ServerToolUseBlock`       | Server-side tool invocation (web search, web fetch)    |
+| `WebSearchToolResultBlock` | Results from web search tool                           |
 
 ## Token Counting
 
@@ -418,7 +450,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 Response:
 
 ```json
-{"input_tokens": 10}
+{ "input_tokens": 10 }
 ```
 
 The token counting endpoint accepts the same parameters as the Messages API (including `system`, `tools`, etc.) and returns the total input token count.

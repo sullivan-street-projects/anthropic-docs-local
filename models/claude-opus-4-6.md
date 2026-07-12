@@ -2,7 +2,7 @@
 title: "Claude Opus 4.6"
 source_url: "https://www.anthropic.com/news/claude-opus-4-6"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "models"
 ---
 
@@ -12,31 +12,31 @@ Claude Opus 4.6 is Anthropic's most advanced model, demonstrating significant im
 
 ## Model IDs
 
-| Platform | Model ID |
-|:---------|:---------|
-| Claude API | `claude-opus-4-6` |
-| AWS Bedrock | `anthropic.claude-opus-4-6-v1` |
-| GCP Vertex AI | `claude-opus-4-6` |
+| Platform      | Model ID                       |
+| :------------ | :----------------------------- |
+| Claude API    | `claude-opus-4-6`              |
+| AWS Bedrock   | `anthropic.claude-opus-4-6-v1` |
+| GCP Vertex AI | `claude-opus-4-6`              |
 
 ## Pricing
 
-| Tier | Input | Output |
-|:-----|:------|:-------|
-| Standard (≤200K tokens) | $5 / MTok | $25 / MTok |
+| Tier                        | Input      | Output        |
+| :-------------------------- | :--------- | :------------ |
+| Standard (≤200K tokens)     | $5 / MTok  | $25 / MTok    |
 | Long context (>200K tokens) | $10 / MTok | $37.50 / MTok |
 
 ## Specifications
 
-| Feature | Detail |
-|:--------|:-------|
-| Context window | 200K tokens (1M tokens in beta) |
-| Max output | 128K tokens |
-| Reliable knowledge cutoff | May 2025 |
-| Training data cutoff | August 2025 |
-| Extended thinking | Yes |
-| Adaptive thinking | Yes (recommended) |
-| Vision | Yes |
-| Prefilling assistant messages | Not supported |
+| Feature                       | Detail                          |
+| :---------------------------- | :------------------------------ |
+| Context window                | 200K tokens (1M tokens in beta) |
+| Max output                    | 128K tokens                     |
+| Reliable knowledge cutoff     | May 2025                        |
+| Training data cutoff          | August 2025                     |
+| Extended thinking             | Yes                             |
+| Adaptive thinking             | Yes (recommended)               |
+| Vision                        | Yes                             |
+| Prefilling assistant messages | Not supported                   |
 
 ## Performance
 
@@ -90,6 +90,7 @@ Opus 4.6 demonstrates alignment comparable to Opus 4.5 with low rates of misalig
 For detailed migration instructions, see the [Migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide).
 
 The recommended replacement for all deprecated models is now `claude-opus-4-6`:
+
 - Claude Sonnet 3.7 → `claude-opus-4-6`
 - Claude Sonnet 3.5 → `claude-opus-4-6`
 - Claude Opus 3 → `claude-opus-4-6`

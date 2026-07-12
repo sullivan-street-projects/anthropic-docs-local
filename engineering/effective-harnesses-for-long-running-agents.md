@@ -2,7 +2,7 @@
 title: "Effective harnesses for long-running agents"
 source_url: "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"
 published: "2025-11-26"
 ---
@@ -11,26 +11,64 @@ published: "2025-11-26"
 
 **Publication Date:** November 26, 2025
 
-As AI agents become increasingly capable, developers seek to assign them complex, multi-hour or multi-day tasks. However, maintaining consistent progress across multiple context windows presents a significant challenge.
+"The core challenge of long-running agents is that they must work in discrete sessions, and each new session begins with no memory of what came before." This creates a situation where agents lose continuity, similar to software teams where each shift lacks knowledge of prior work.
 
-The fundamental issue stems from agents operating in discrete sessions. Each new session starts without memory of prior work. Since context windows have limits and complex projects typically exceed single-window capacity, agents require mechanisms to bridge session gaps.
+## Two-Part Solution
 
-Anthropic developed a dual-part solution for the Claude Agent SDK: an **initializer agent** handling first-run environment setup, and a **coding agent** making incremental progress while leaving clear artifacts for subsequent sessions.
+The research proposes two specialized agent types:
 
-## Core Challenges
+1. **Initializer Agent**: Runs once to establish the foundational environment
+2. **Coding Agent**: Handles all subsequent sessions with incremental progress
 
-Claude exhibited two failure patterns. First, agents attempted excessive work simultaneously, often exhausting context mid-implementation. Second, agents later declared projects finished upon observing progress, despite incomplete requirements.
+## Key Environmental Components
 
-## Solutions
+### Feature List
 
-**Environment Setup:** The initializer agent creates foundational structures — feature requirements file (JSON format with 200+ detailed features), progress tracking file, and initial git repository with setup script.
+The initializer creates a comprehensive JSON file documenting over 200 individual features. Each feature includes descriptive steps and a `passes` boolean field. The guidance emphasizes: "It is unacceptable to remove or edit tests because this could lead to missing or buggy functionality."
 
-**Incremental Development:** Subsequent agents work on single features per session, committing changes with descriptive messages and maintaining progress documentation.
+**Example feature structure:**
 
-**Testing Verification:** Claude improved significantly when explicitly prompted to use browser automation tools and conduct end-to-end testing mimicking human user workflows.
+```json
+{
+  "category": "functional",
+  "description": "New chat button creates a fresh conversation",
+  "steps": ["Navigate to main interface", "Click the 'New Chat' button"],
+  "passes": false
+}
+```
 
-**Session Startup:** Each agent follows standard procedures: checking working directory, reviewing git logs, reading progress files, and verifying basic functionality before implementing new features.
+### Supporting Artifacts
 
-## Remaining Challenges
+- `init.sh` script for launching development environments
+- `claude-progress.txt` tracking session history
+- Git commit history for state recovery
 
-Questions persist regarding single versus multi-agent architectures. Specialized agents handling testing, quality assurance, or code cleanup might outperform generalist approaches.
+## Agent Failure Modes and Solutions
+
+| Problem                      | Initializer Solution           | Coding Agent Solution                              |
+| ---------------------------- | ------------------------------ | -------------------------------------------------- |
+| Premature project completion | Create structured feature list | Work on single features sequentially               |
+| Buggy/undocumented progress  | Initialize git repository      | Begin sessions with verification testing           |
+| Incomplete feature marking   | Include feature checklist      | Require end-to-end testing before marking complete |
+| Setup confusion              | Write `init.sh` script         | Read initialization script at session start        |
+
+## Critical Practices
+
+**Incremental Approach:** Working on one feature at a time proved essential, preventing the agent from attempting to "one-shot" entire applications.
+
+**Testing Requirements:** "Claude's tendency to mark a feature as complete without proper testing" was addressed by requiring browser automation tools and end-to-end verification matching human user workflows.
+
+**Session Startup Routine:** Each coding session follows this sequence:
+
+1. Verify working directory location
+2. Review git logs and progress files
+3. Select highest-priority incomplete feature
+4. Run basic end-to-end verification
+
+## Results
+
+The approach successfully enabled Claude Opus 4.5 to make sustained progress on complex projects like building a Claude.ai clone, with proper documentation and testable code states at each session boundary.
+
+## Future Research Directions
+
+Open questions remain regarding whether multi-agent architectures (specialized testing, QA, and cleanup agents) might outperform single general-purpose agents. The authors also suggest these principles may generalize beyond web development to scientific research and financial modeling.

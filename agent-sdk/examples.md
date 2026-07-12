@@ -2,7 +2,7 @@
 title: "Agent SDK Examples"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-06-28T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Production-ready patterns for the Claude Agent SDK covering subagents, hooks, MCP integration, custom tools, sessions, permissions, and advanced configurations. All examples are derived from the official SDK documentation and demos.
 
-> **Last updated:** June 28, 2026
+> **Last updated:** July 12, 2026
 
 ## Subagent Delegation
 
@@ -62,10 +62,10 @@ for await (const message of query({
       "code-reviewer": {
         description: "Expert code reviewer for quality and security reviews.",
         prompt: "Analyze code quality and suggest improvements.",
-        tools: ["Read", "Glob", "Grep"]
-      }
-    }
-  }
+        tools: ["Read", "Glob", "Grep"],
+      },
+    },
+  },
 })) {
   if ("result" in message) console.log(message.result);
 }
@@ -132,7 +132,10 @@ import { appendFile } from "fs/promises";
 
 const logFileChange: HookCallback = async (input) => {
   const filePath = (input as any).tool_input?.file_path ?? "unknown";
-  await appendFile("./audit.log", `${new Date().toISOString()}: modified ${filePath}\n`);
+  await appendFile(
+    "./audit.log",
+    `${new Date().toISOString()}: modified ${filePath}\n`,
+  );
   return {};
 };
 
@@ -141,9 +144,9 @@ for await (const message of query({
   options: {
     permissionMode: "acceptEdits",
     hooks: {
-      PostToolUse: [{ matcher: "Edit|Write", hooks: [logFileChange] }]
-    }
-  }
+      PostToolUse: [{ matcher: "Edit|Write", hooks: [logFileChange] }],
+    },
+  },
 })) {
   if ("result" in message) console.log(message.result);
 }
@@ -312,7 +315,7 @@ let sessionId: string | undefined;
 // First query: capture the session ID
 for await (const message of query({
   prompt: "Read the authentication module",
-  options: { allowedTools: ["Read", "Glob"] }
+  options: { allowedTools: ["Read", "Glob"] },
 })) {
   if (message.type === "system" && message.subtype === "init") {
     sessionId = message.session_id;
@@ -322,7 +325,7 @@ for await (const message of query({
 // Resume with full context from the first query
 for await (const message of query({
   prompt: "Now find all places that call it", // "it" = auth module
-  options: { resume: sessionId }
+  options: { resume: sessionId },
 })) {
   if ("result" in message) console.log(message.result);
 }
@@ -382,10 +385,10 @@ for await (const message of query({
       enabled: true,
       autoAllowBashIfSandboxed: true,
       network: {
-        allowLocalBinding: true
-      }
-    }
-  }
+        allowLocalBinding: true,
+      },
+    },
+  },
 })) {
   if ("result" in message) console.log(message.result);
 }
@@ -399,7 +402,7 @@ for await (const message of query({
   options: {
     sandbox: {
       enabled: true,
-      allowUnsandboxedCommands: true
+      allowUnsandboxedCommands: true,
     },
     permissionMode: "default",
     canUseTool: async (tool, input) => {
@@ -408,8 +411,8 @@ for await (const message of query({
         return isCommandAuthorized(input.command);
       }
       return true;
-    }
-  }
+    },
+  },
 })) {
   if ("result" in message) console.log(message.result);
 }
@@ -493,22 +496,22 @@ const schema = {
           file: { type: "string" },
           line: { type: "number" },
           severity: { enum: ["low", "medium", "high", "critical"] },
-          description: { type: "string" }
+          description: { type: "string" },
         },
-        required: ["file", "line", "severity", "description"]
-      }
+        required: ["file", "line", "severity", "description"],
+      },
     },
-    summary: { type: "string" }
+    summary: { type: "string" },
   },
-  required: ["bugs", "summary"]
+  required: ["bugs", "summary"],
 };
 
 for await (const message of query({
   prompt: "Analyze the codebase for bugs",
   options: {
     allowedTools: ["Read", "Glob", "Grep"],
-    outputFormat: { type: "json_schema", schema }
-  }
+    outputFormat: { type: "json_schema", schema },
+  },
 })) {
   if ("result" in message) {
     const report = JSON.parse(message.result);

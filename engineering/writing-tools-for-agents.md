@@ -2,7 +2,7 @@
 title: "Writing Effective Tools for Agents — With Agents"
 source_url: "https://www.anthropic.com/engineering/writing-tools-for-agents"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"
 published: "2025-09-11"
 ---
@@ -11,26 +11,73 @@ published: "2025-09-11"
 
 **Publication Date:** September 11, 2025
 
-This article explores best practices for developing high-quality tools that AI agents can effectively use, sharing techniques refined through internal optimization of tools for Claude.
+This article explores how to design high-quality tools for LLM agents using the Model Context Protocol (MCP). The core premise is that "agents are only as effective as the tools we give them."
 
-## What is a Tool
+## What is a Tool?
 
-Tools represent a new category of software operating between deterministic systems and non-deterministic agents. Unlike traditional APIs, they must account for agent unpredictability—agents may misuse tools, hallucinate, or pursue unexpected strategies.
+Tools represent a new contract between deterministic systems and non-deterministic agents. Unlike traditional function calls that always produce identical outputs, tools must account for agent variability. Agents "can generate varied responses even with the same starting conditions," requiring fundamentally different software design approaches than conventional APIs.
 
-## Building Prototypes
+## How to Write Tools
 
-Developers should create quick tool prototypes and test them locally. Using Claude Code with LLM-friendly documentation (found in `llms.txt` files) helps generate initial implementations. Tools can be wrapped in local MCP servers or Desktop extensions for testing.
+The post outlines a three-phase iterative process:
 
-## Running Evaluations
+### Building a Prototype
 
-Effective evaluation requires realistic, multi-step tasks reflecting actual workflows. "Tasks should require multiple tool calls—potentially dozens." Evaluations should collect metrics beyond accuracy, including runtime, token consumption, and error rates.
+- Start with quick prototypes to identify what agents find ergonomic
+- Leverage LLM-friendly documentation (such as `llms.txt` files)
+- Connect tools via local MCP servers or Desktop extensions
+- Test directly through the Anthropic API for programmatic evaluation
 
-## Key Design Principles
+### Running an Evaluation
 
-- **Tool Selection:** Fewer, more focused tools outperform numerous generic wrappers around APIs
-- **Namespacing:** Grouping related tools under consistent prefixes reduces agent confusion
-- **Response Quality:** Return meaningful context rather than technical identifiers; "resolving arbitrary alphanumeric UUIDs to semantically meaningful language significantly improves Claude's precision"
-- **Token Efficiency:** Implement pagination, filtering, and truncation with helpful instructions
-- **Descriptions:** Prompt-engineering tool specifications dramatically impacts performance
+- Generate dozens of real-world evaluation tasks
+- Create verifiable prompt-response pairs with ground truth outcomes
+- Run evaluations programmatically using simple agentic loops
+- Collect metrics including accuracy, runtime, tool calls, token consumption, and errors
 
-The article demonstrates that Claude-optimized internal tools consistently outperformed manually-written versions in evaluations.
+### Collaborating with Agents
+
+- Use agents like Claude Code to analyze evaluation transcripts
+- Let agents identify and refactor problematic tool implementations
+- Maintain held-out test sets to prevent overfitting
+
+## Principles for Effective Tools
+
+### Choosing the Right Tools
+
+More tools don't necessarily improve outcomes. The post emphasizes selecting "a few thoughtful tools targeting specific high-impact workflows" rather than wrapping every API endpoint. Tools should consolidate related operations — for example, implementing `schedule_event` instead of separate `list_users`, `list_events`, and `create_event` tools.
+
+### Namespacing
+
+Grouping related tools under common prefixes reduces agent confusion. Examples include organizing by service (`asana_search`, `jira_search`) or resource (`asana_projects_search`, `asana_users_search`). This has "non-trivial effects on tool-use evaluations."
+
+### Returning Meaningful Context
+
+Tools should prioritize "contextual relevance over flexibility" and avoid low-level technical identifiers. Replace cryptic UUIDs with semantic language or simple ID schemes. An optional `response_format` enum parameter can provide both detailed and concise responses for different workflow needs.
+
+```
+enum ResponseFormat {
+   DETAILED = "detailed",
+   CONCISE = "concise"
+}
+```
+
+### Token Efficiency
+
+Implement pagination, range selection, filtering, and truncation with sensible defaults. Claude Code restricts responses to 25,000 tokens by default. Steer agents toward efficient strategies through clear error messages and helpful instructions rather than opaque error codes.
+
+### Prompt-Engineering Tool Descriptions
+
+Tool descriptions significantly impact agent behavior. Describe tools as you would to a new team member, making implicit context explicit. Precise refinements can yield dramatic improvements — Claude Sonnet 3.5 achieved state-of-the-art performance on SWE-bench Verified after refinements to tool descriptions.
+
+## Results and Impact
+
+Internal testing showed measurable improvements:
+
+- Slack MCP servers improved through Claude optimization
+- Asana MCP servers demonstrated performance gains over human-written versions
+- Detailed token savings achieved through response format optimization (206 tokens to 72 tokens in examples provided)
+
+## Conclusion
+
+Effective agentic tools require re-orienting "software development practices from predictable, deterministic patterns to non-deterministic ones." Success depends on systematic evaluation, clear definition, judicious context usage, and practical task enablement.
