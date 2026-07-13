@@ -2,7 +2,7 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -193,12 +193,27 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--agents <json>`                          | Define custom subagents dynamically via JSON                                                                                             |
 | `--advisor <model>`                        | Enable server-side advisor tool with a model alias                                                                                       |
 | `--verbose`                                | Enable verbose logging; shows full turn-by-turn output                                                                                   |
-| `--debug`                                  | Enable debug mode with optional category filtering                                                                                       |
+| `--debug`                                  | Enable debug mode with optional category filtering (e.g., `--debug "api,hooks"`)                                                         |
+| `--debug-file /path/to/log`               | Write debug logs to a file                                                                                                               |
 | `--init`                                   | Run Setup hooks with the `init` matcher before the session (print mode only)                                                             |
 | `--init-only`                              | Run Setup and SessionStart hooks, then exit without starting a conversation                                                              |
+| `--maintenance`                            | Run Setup hooks with `maintenance` matcher                                                                                               |
 | `--exclude-dynamic-system-prompt-sections` | Move per-machine sections from system prompt into first user message for better cache reuse                                              |
 | `--input-format`                           | Specify input format for print mode (`text`, `stream-json`)                                                                              |
 | `--include-hook-events`                    | Include hook lifecycle events in output stream (requires `--output-format stream-json`)                                                  |
+| `--include-partial-messages`               | Include partial streaming events in output                                                                                               |
+| `--replay-user-messages`                   | Re-emit user messages on stdout                                                                                                          |
+| `--prompt-suggestions`                     | Emit predicted next prompt after each turn                                                                                               |
+| `--exec 'command'`                         | Run shell command as PTY-backed background job (use with `--bg`)                                                                         |
+| `--cloud "task"`                           | Create web session on claude.ai                                                                                                          |
+| `--teleport`                               | Resume web session in local terminal                                                                                                     |
+| `--worktree, -w <name>`                    | Start in isolated git worktree                                                                                                           |
+| `--chrome`                                 | Enable Chrome browser integration                                                                                                        |
+| `--advisor <model>`                        | Enable server-side advisor tool with a model alias                                                                                       |
+| `--agent <name>`                           | Specify an agent for the current session                                                                                                 |
+| `--agents <json>`                          | Define custom subagents dynamically via JSON                                                                                             |
+| `--permission-prompt-tool <tool>`          | MCP tool to handle permission prompts                                                                                                    |
+| `--ax-screen-reader`                       | Render screen-reader friendly output                                                                                                     |
 
 ### Tier 3: GitHub Actions Example
 
@@ -247,7 +262,29 @@ claude stop 7c5dcf5d
 claude --bg --exec 'pytest -x'
 ```
 
-Background agents run as separate processes managed by a supervisor daemon. Unlike `/loop`, they persist independently of your interactive session. Use `claude daemon status` for diagnostics and `claude daemon stop --any` to recover from an unresponsive supervisor.
+Background agents run as separate processes managed by a supervisor daemon. Unlike `/loop`, they persist independently of your interactive session.
+
+```bash
+# Restart a background session with conversation intact
+claude respawn 7c5dcf5d
+
+# Restart all running sessions
+claude respawn --all
+
+# Remove a background session from the list
+claude rm 7c5dcf5d
+
+# View active sessions as JSON (for scripting)
+claude agents --json
+
+# Include completed sessions
+claude agents --json --all
+
+# Show only sessions from a specific directory
+claude agents --cwd /path/to/project
+```
+
+Use `claude daemon status` for diagnostics and `claude daemon stop --any` to recover from an unresponsive supervisor. Use `claude daemon stop --any --keep-workers` to stop the supervisor while leaving sessions running.
 
 ---
 
@@ -265,6 +302,7 @@ When using `/loop` or any scheduled Claude Code task, choose the appropriate per
 | `auto`              | Model classifier approves/denies tool calls                  | Autonomous agents with guardrails            |
 | `dontAsk`           | Denies anything not in `allowedTools`                        | Locked-down headless agents                  |
 | `bypassPermissions` | No permission prompts (unless explicit `ask` rule matches)   | **Only** in trusted CI with `--allowedTools` |
+| `manual`            | Alias for `default` (UI label, v2.1.200+)                    | Interactive sessions                         |
 
 **Source:** [CLI Reference](https://code.claude.com/docs/en/cli-usage) -- `--permission-mode` flag documentation.
 

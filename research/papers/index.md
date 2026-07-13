@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "research"
 ---
 
@@ -29,12 +29,13 @@ The following papers have been identified since the last full update. PDFs have 
 | Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption         | [2511.15080](https://arxiv.org/abs/2511.15080) | Nov 2025 | Documents Claude usage patterns in 150+ countries, finding directive task delegation rose from 27% to 39% in eight months.                                         |
 | How AI Assistance Impacts the Formation of Coding Skills                       | [2601.20245](https://arxiv.org/abs/2601.20245) | Jan 2026 | Investigates how AI coding assistants affect skill development in programmers. By Shen, Tamkin et al. (Anthropic).                                                 |
 
-### Non-arXiv Notable Research (2025)
+### Non-arXiv Notable Research (2025-2026)
 
-| Paper                                                              | Source                                                                                            | Date     | Summary                                                                                                                             |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Circuit Tracing: Revealing Computational Graphs in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html) | Mar 2025 | Attribution graphs trace model computation through interpretable features; companion to "On the Biology of a Large Language Model". |
-| On the Biology of a Large Language Model                           | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html) | Mar 2025 | Applied circuit tracing to Claude 3.5 Haiku; discovered planning in poetry, hallucination mechanisms, and jailbreak circuits.       |
+| Paper                                                              | Source                                                                                            | Date     | Summary                                                                                                                                                                                                                |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Circuit Tracing: Revealing Computational Graphs in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html) | Mar 2025 | Attribution graphs trace model computation through interpretable features; companion to "On the Biology of a Large Language Model".                                                                                    |
+| On the Biology of a Large Language Model                           | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html) | Mar 2025 | Applied circuit tracing to Claude 3.5 Haiku; discovered planning in poetry, hallucination mechanisms, and jailbreak circuits.                                                                                          |
+| Verbalizable Representations Form a Global Workspace in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2026/workspace/index.html)       | Jul 2026 | Discovers "J-space" (Jacobian-space), a privileged internal workspace in Claude where only verbalizable concepts are held. Satisfies five functional properties of Global Workspace Theory. By Lindsey, Templeton et al. |
 
 ## Alignment & Safety
 
@@ -83,22 +84,23 @@ For those new to Anthropic's research, suggested reading order:
 7. **Towards Monosemanticity** - Dictionary learning breakthrough
 8. **Scaling Monosemanticity** - Production-scale interpretability
 9. **Circuit Tracing / Biology of an LLM** (2025) - Attribution graphs at scale
+10. **Global Workspace in Language Models** (2026) - J-space discovery linking interpretability to consciousness theory
 
 ### Safety Track
 
-10. **Model-Written Evals** - Automated safety evaluation
-11. **Sleeper Agents** - Deceptive AI risks
-12. **Alignment Faking** - Strategic compliance concerns
-13. **Sycophancy to Subterfuge** - Reward hacking progression
-14. **Constitutional Classifiers** (2025) - Practical jailbreak defense
-15. **Reasoning Models CoT Faithfulness** (2025) - Limits of monitoring
-16. **Emergent Misalignment** (2025) - Reward hacking to sabotage
-17. **The Hot Mess of AI** (2026, ICLR) - Incoherence vs. systematic misalignment at scale
+11. **Model-Written Evals** - Automated safety evaluation
+12. **Sleeper Agents** - Deceptive AI risks
+13. **Alignment Faking** - Strategic compliance concerns
+14. **Sycophancy to Subterfuge** - Reward hacking progression
+15. **Constitutional Classifiers** (2025) - Practical jailbreak defense
+16. **Reasoning Models CoT Faithfulness** (2025) - Limits of monitoring
+17. **Emergent Misalignment** (2025) - Reward hacking to sabotage
+18. **The Hot Mess of AI** (2026, ICLR) - Incoherence vs. systematic misalignment at scale
 
 ### Governance Track
 
-18. **Collective Constitutional AI** - Democratic input on AI values
-19. **Influence Functions** - Tracing outputs to training data
+19. **Collective Constitutional AI** - Democratic input on AI values
+20. **Influence Functions** - Tracing outputs to training data
 
 ## Citation Information
 
@@ -108,4 +110,4 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
-Last checked for new papers: July 12, 2026. Added 2601.20245 "How AI Assistance Impacts the Formation of Coding Skills" (Shen, Tamkin). No other new Anthropic-authored arXiv papers identified since the January 2026 batch beyond those already tracked.
+Last checked for new papers: July 13, 2026. Added "Verbalizable Representations Form a Global Workspace in Language Models" (Jul 2026, transformer-circuits.pub) to Non-arXiv Notable Research. No new Anthropic-authored arXiv papers identified since the January 2026 batch beyond those already tracked.

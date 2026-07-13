@@ -29,15 +29,49 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 4
+Total cycles logged: 5
 Total improvements applied: 2
 Total improvements deferred: 2
-Most-improved infrastructure: manifest.json (2 changes: hashes + URL corrections)
-Most-informative category: claude-code (12 insights sourced from it)
-Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 5th consecutive 404)
-Last cycle: 2026-07-12 — 1 applied, 0 deferred
+Most-improved infrastructure: manifest.json (3 changes: hashes + URL corrections + timestamp sync)
+Most-informative category: claude-code (14 insights sourced from it)
+Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 6th consecutive 404)
+Last cycle: 2026-07-13 — 0 applied, 0 deferred
 
 ## Entries
+
+### 2026-07-13 — Update: all
+
+Content changes analyzed: 43 files (10 with actual content changes)
+Improvements identified: 0
+Improvements applied: 0
+Improvements deferred: 0
+
+**Already aligned:**
+
+- api/adaptive-thinking.md → `thinking.display` parameter and ZDR eligibility — informational for our usage, no infrastructure impact
+- api/messages-api.md → Claude Sonnet 5 added to model table — informational
+- api/compaction.md → Server-side context compaction examples — informational
+- api/migration-guide.md → `/claude-api migrate` command — informational, no direct API calls in our infra
+- docs/best-practices-loop-scheduling.md → 14 new CLI flags — already captured in the doc itself
+- agent-sdk/ → Platform naming changes (Vertex AI → Google Cloud's Agent Platform) — informational
+- research/papers/index.md → J-space / Global Workspace paper — informational
+
+**Staleness report:**
+
+- Stable (unchanged but accessible): 80+ web-extracted sources (timestamp-only updates)
+- Possibly dead: 1 (6th consecutive cycle)
+  - agent-sdk-typescript-v2-preview: https://github.com/anthropics/agent-sdk — 404 (STRONGLY recommend removal)
+- Resources.anthropic.com PDFs: 2 still returning 404 (skills guide, teams use doc)
+
+**Discovery findings (Phase 2.5):**
+
+- 34 new sources identified (18 HIGH, 13 MEDIUM, 3 LOW)
+- Notable: Claude Sonnet 5 announcement, Anthropic S-1 filing, Managed Agents engineering post
+- See discovery-log.md for full list
+
+**No action needed:**
+
+- 33 content changes were timestamp-only updates
 
 ### 2026-07-12 — Update: all
 

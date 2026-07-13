@@ -2,7 +2,7 @@
 title: "Agent SDK Examples"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Production-ready patterns for the Claude Agent SDK covering subagents, hooks, MCP integration, custom tools, sessions, permissions, and advanced configurations. All examples are derived from the official SDK documentation and demos.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** July 13, 2026
 
 ## Subagent Delegation
 

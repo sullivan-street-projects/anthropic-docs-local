@@ -2,7 +2,7 @@
 title: "Anthropic GitHub Repositories Index"
 source_url: "https://api.github.com/orgs/anthropics/repos?per_page=100"
 source_type: "github-api"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "github-repos"
 ---
 
@@ -14,50 +14,50 @@ Total public repositories: **92**
 
 | Repository | Description | Stars | Language | Updated |
 |------------|-------------|-------|----------|---------|
-| [skills](https://github.com/anthropics/skills) | Public repository for Agent Skills | 160,507 | Python | 2026-07-12 |
-| [claude-code](https://github.com/anthropics/claude-code) | Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster ... | 137,545 | Python | 2026-07-12 |
-| [claude-cookbooks](https://github.com/anthropics/claude-cookbooks) | A collection of notebooks/recipes showcasing some fun and effective ways of using Claude. | 48,213 | Jupyter Notebook | 2026-07-12 |
-| [prompt-eng-interactive-tutorial](https://github.com/anthropics/prompt-eng-interactive-tutorial) | Anthropic's Interactive Prompt Engineering Tutorial | 37,008 | Jupyter Notebook | 2026-07-12 |
-| [financial-services](https://github.com/anthropics/financial-services) | No description | 33,414 | Python | 2026-07-12 |
-| [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | Official, Anthropic-managed directory of high quality Claude Code Plugins. | 32,015 | Python | 2026-07-12 |
-| [knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork | 22,550 | Python | 2026-07-12 |
-| [courses](https://github.com/anthropics/courses) | Anthropic's educational courses | 22,161 | Jupyter Notebook | 2026-07-12 |
-| [claude-quickstarts](https://github.com/anthropics/claude-quickstarts) | A collection of projects designed to help developers quickly get started with building deployable applications using the... | 17,220 | Python | 2026-07-12 |
-| [claude-for-legal](https://github.com/anthropics/claude-for-legal) | A suite of plugins for legal workflows | 8,722 | Python | 2026-07-12 |
-| [claude-code-action](https://github.com/anthropics/claude-code-action) | No description | 8,329 | TypeScript | 2026-07-12 |
-| [claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | No description | 7,595 | Python | 2026-07-12 |
-| [defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness) | Skills for threat modeling, scanning, triage, patching, plus an autonomous scanning harness you can /customize | 6,441 | Python | 2026-07-12 |
-| [claude-code-security-review](https://github.com/anthropics/claude-code-security-review) | An AI-powered security review GitHub Action using Claude to analyze code changes for security vulnerabilities. | 5,523 | Python | 2026-07-12 |
-| [original_performance_takehome](https://github.com/anthropics/original_performance_takehome) | Anthropic's original performance take-home, now open for you to try! | 3,974 | Python | 2026-07-12 |
-| [anthropic-sdk-python](https://github.com/anthropics/anthropic-sdk-python) | No description | 3,733 | Python | 2026-07-12 |
-| [claudes-c-compiler](https://github.com/anthropics/claudes-c-compiler) | Claude Opus 4.6 wrote a dependency-free C compiler in Rust, with backends targeting x86 (64- and 32-bit), ARM, and RISC-... | 2,731 | Rust | 2026-07-12 |
-| [claude-agent-sdk-demos](https://github.com/anthropics/claude-agent-sdk-demos) | Claude Code SDK Demos | 2,633 | TypeScript | 2026-07-12 |
-| [claude-desktop-buddy](https://github.com/anthropics/claude-desktop-buddy) | Reference and an example for the Bluetooth API for makers in Claude Cowork & Claude Code Desktop | 2,400 | C++ | 2026-07-12 |
-| [anthropic-sdk-typescript](https://github.com/anthropics/anthropic-sdk-typescript) | Access to Anthropic's safety-first language model APIs in TypeScript | 2,038 | TypeScript | 2026-07-10 |
-| [hh-rlhf](https://github.com/anthropics/hh-rlhf) | Human preference data for "Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback" | 1,848 | N/A | 2026-07-11 |
-| [claude-agent-sdk-typescript](https://github.com/anthropics/claude-agent-sdk-typescript) | No description | 1,620 | Shell | 2026-07-12 |
-| [cwc-workshops](https://github.com/anthropics/cwc-workshops) | No description | 1,410 | TypeScript | 2026-07-12 |
-| [jacobian-lens](https://github.com/anthropics/jacobian-lens) |  Companion code for the global workspace interpretability paper | 1,191 | Python | 2026-07-12 |
-| [anthropic-sdk-go](https://github.com/anthropics/anthropic-sdk-go) | Access to Anthropic's safety-first language model APIs via Go | 1,138 | Go | 2026-07-12 |
-| [claude-code-base-action](https://github.com/anthropics/claude-code-base-action) | This repo is a mirror of the contents of base-action in https://github.com/anthropics/claude-code-action. | 901 | TypeScript | 2026-07-11 |
+| [skills](https://github.com/anthropics/skills) | Public repository for Agent Skills | 160,767 | Python | 2026-07-13 |
+| [claude-code](https://github.com/anthropics/claude-code) | Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster ... | 137,669 | Python | 2026-07-13 |
+| [claude-cookbooks](https://github.com/anthropics/claude-cookbooks) | A collection of notebooks/recipes showcasing some fun and effective ways of using Claude. | 48,712 | Jupyter Notebook | 2026-07-13 |
+| [prompt-eng-interactive-tutorial](https://github.com/anthropics/prompt-eng-interactive-tutorial) | Anthropic's Interactive Prompt Engineering Tutorial | 37,026 | Jupyter Notebook | 2026-07-13 |
+| [financial-services](https://github.com/anthropics/financial-services) | No description | 33,446 | Python | 2026-07-13 |
+| [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | Official, Anthropic-managed directory of high quality Claude Code Plugins. | 32,064 | Python | 2026-07-13 |
+| [knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork | 22,576 | Python | 2026-07-13 |
+| [courses](https://github.com/anthropics/courses) | Anthropic's educational courses | 22,170 | Jupyter Notebook | 2026-07-13 |
+| [claude-quickstarts](https://github.com/anthropics/claude-quickstarts) | A collection of projects designed to help developers quickly get started with building deployable applications using the... | 17,228 | Python | 2026-07-13 |
+| [claude-for-legal](https://github.com/anthropics/claude-for-legal) | A suite of plugins for legal workflows | 8,739 | Python | 2026-07-13 |
+| [claude-code-action](https://github.com/anthropics/claude-code-action) | No description | 8,335 | TypeScript | 2026-07-13 |
+| [claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | No description | 7,612 | Python | 2026-07-13 |
+| [defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness) | Skills for threat modeling, scanning, triage, patching, plus an autonomous scanning harness you can /customize | 6,460 | Python | 2026-07-13 |
+| [claude-code-security-review](https://github.com/anthropics/claude-code-security-review) | An AI-powered security review GitHub Action using Claude to analyze code changes for security vulnerabilities. | 5,529 | Python | 2026-07-13 |
+| [original_performance_takehome](https://github.com/anthropics/original_performance_takehome) | Anthropic's original performance take-home, now open for you to try! | 3,986 | Python | 2026-07-13 |
+| [anthropic-sdk-python](https://github.com/anthropics/anthropic-sdk-python) | No description | 3,736 | Python | 2026-07-13 |
+| [claudes-c-compiler](https://github.com/anthropics/claudes-c-compiler) | Claude Opus 4.6 wrote a dependency-free C compiler in Rust, with backends targeting x86 (64- and 32-bit), ARM, and RISC-... | 2,732 | Rust | 2026-07-13 |
+| [claude-agent-sdk-demos](https://github.com/anthropics/claude-agent-sdk-demos) | Claude Code SDK Demos | 2,635 | TypeScript | 2026-07-13 |
+| [claude-desktop-buddy](https://github.com/anthropics/claude-desktop-buddy) | Reference and an example for the Bluetooth API for makers in Claude Cowork & Claude Code Desktop | 2,405 | C++ | 2026-07-13 |
+| [anthropic-sdk-typescript](https://github.com/anthropics/anthropic-sdk-typescript) | Access to Anthropic's safety-first language model APIs in TypeScript | 2,040 | TypeScript | 2026-07-13 |
+| [hh-rlhf](https://github.com/anthropics/hh-rlhf) | Human preference data for "Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback" | 1,849 | N/A | 2026-07-13 |
+| [claude-agent-sdk-typescript](https://github.com/anthropics/claude-agent-sdk-typescript) | No description | 1,623 | Shell | 2026-07-13 |
+| [cwc-workshops](https://github.com/anthropics/cwc-workshops) | No description | 1,419 | TypeScript | 2026-07-13 |
+| [jacobian-lens](https://github.com/anthropics/jacobian-lens) | Companion code for the global workspace interpretability paper | 1,244 | Python | 2026-07-13 |
+| [anthropic-sdk-go](https://github.com/anthropics/anthropic-sdk-go) | Access to Anthropic's safety-first language model APIs via Go | 1,140 | Go | 2026-07-13 |
+| [claude-code-base-action](https://github.com/anthropics/claude-code-base-action) | This repo is a mirror of the contents of base-action in https://github.com/anthropics/claude-code-action. | 904 | TypeScript | 2026-07-13 |
 | [buffa](https://github.com/anthropics/buffa) | Rust implementation of protobuf with editions support, JSON serialization, and zero-copy views | 837 | Rust | 2026-07-12 |
-| [launch-your-agent](https://github.com/anthropics/launch-your-agent) | Claude Code skills that take a founder from idea to a live Claude Managed Agent: interview, scope a v0, launch in their ... | 786 | HTML | 2026-07-12 |
-| [anthropic-cli](https://github.com/anthropics/anthropic-cli) | The CLI for the Claude API | 573 | Go | 2026-07-12 |
+| [launch-your-agent](https://github.com/anthropics/launch-your-agent) | Claude Code skills that take a founder from idea to a live Claude Managed Agent: interview, scope a v0, launch in their ... | 790 | HTML | 2026-07-13 |
+| [anthropic-cli](https://github.com/anthropics/anthropic-cli) | The CLI for the Claude API | 575 | Go | 2026-07-13 |
 | [life-sciences](https://github.com/anthropics/life-sciences) | Repo for the Claude Code Marketplace to use with the Claude for Life Sciences Launch. This will continue to host the mar... | 523 | Python | 2026-07-11 |
 | [cwc-long-running-agents](https://github.com/anthropics/cwc-long-running-agents) | No description | 484 | Shell | 2026-07-10 |
 | [evals](https://github.com/anthropics/evals) | No description | 413 | N/A | 2026-07-12 |
 | [anthropic-tools](https://github.com/anthropics/anthropic-tools) | No description | 402 | Python | 2026-07-11 |
-| [claude-ai-mcp](https://github.com/anthropics/claude-ai-mcp) | Report issues related to MCP integration with Claude here. | 383 | N/A | 2026-07-11 |
+| [claude-ai-mcp](https://github.com/anthropics/claude-ai-mcp) | Report issues related to MCP integration with Claude here. | 384 | N/A | 2026-07-13 |
 | [anthropic-sdk-ruby](https://github.com/anthropics/anthropic-sdk-ruby) | No description | 356 | Ruby | 2026-07-10 |
-| [claude-code-monitoring-guide](https://github.com/anthropics/claude-code-monitoring-guide) | No description | 350 | N/A | 2026-07-10 |
-| [healthcare](https://github.com/anthropics/healthcare) | No description | 348 | JavaScript | 2026-07-12 |
+| [claude-code-monitoring-guide](https://github.com/anthropics/claude-code-monitoring-guide) | No description | 352 | N/A | 2026-07-13 |
+| [healthcare](https://github.com/anthropics/healthcare) | No description | 350 | JavaScript | 2026-07-13 |
 | [anthropic-sdk-java](https://github.com/anthropics/anthropic-sdk-java) | No description | 347 | Kotlin | 2026-07-10 |
 | [anthropic-sdk-csharp](https://github.com/anthropics/anthropic-sdk-csharp) | Access to Anthropic's safety-first language model APIs in C# | 307 | C# | 2026-07-12 |
 | [devcontainer-features](https://github.com/anthropics/devcontainer-features) | Anthropic Dev Container Features, including Claude Code CLI | 281 | Shell | 2026-07-10 |
-| [claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | Community plugin marketplace for Claude Cowork and Claude Code. Read-only mirror — submit plugins at clau.de/plugin-dire... | 275 | Python | 2026-07-12 |
+| [claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | Community plugin marketplace for Claude Cowork and Claude Code. Read-only mirror — submit plugins at clau.de/plugin-dire... | 277 | Python | 2026-07-13 |
 | [ConstitutionalHarmlessnessPaper](https://github.com/anthropics/ConstitutionalHarmlessnessPaper) | No description | 263 | N/A | 2026-07-05 |
-| [html-effectiveness](https://github.com/anthropics/html-effectiveness) | HTML effectiveness examples | 260 | HTML | 2026-07-12 |
-| [ClaudeForFoundationModels](https://github.com/anthropics/ClaudeForFoundationModels) | Claude support for Apple Foundation Models | 248 | Swift | 2026-07-12 |
+| [html-effectiveness](https://github.com/anthropics/html-effectiveness) | HTML effectiveness examples | 262 | HTML | 2026-07-13 |
+| [ClaudeForFoundationModels](https://github.com/anthropics/ClaudeForFoundationModels) | Claude support for Apple Foundation Models | 250 | Swift | 2026-07-13 |
 | [PySvelte](https://github.com/anthropics/PySvelte) | A library for bridging Python and HTML/Javascript (via Svelte) for creating interactive visualizations | 227 | Python | 2026-07-10 |
 | [anthropic-retrieval-demo](https://github.com/anthropics/anthropic-retrieval-demo) | Lightweight demo using the Anthropic Python SDK to experiment with Claude's Search and Retrieval capabilities over a var... | 197 | Python | 2026-07-07 |
 | [anthropic-sdk-php](https://github.com/anthropics/anthropic-sdk-php) | Access to Anthropic's safety-first language model APIs in PHP | 166 | PHP | 2026-07-10 |
@@ -65,7 +65,7 @@ Total public repositories: **92**
 | [sleeper-agents-paper](https://github.com/anthropics/sleeper-agents-paper) | Contains random samples referenced in the paper "Sleeper Agents: Training Robustly Deceptive LLMs that Persist Through S... | 149 | N/A | 2026-07-06 |
 | [political-neutrality-eval](https://github.com/anthropics/political-neutrality-eval) | This repo contains detailed implementation information about Anthropic's paired prompts approach for evaluating politica... | 136 | Python | 2026-07-10 |
 | [github-mcp-server](https://github.com/anthropics/github-mcp-server) | GitHub's official MCP Server | 117 | Go | 2026-07-10 |
-| [claude-constitution](https://github.com/anthropics/claude-constitution) | The foundational document describing Claude's values and behavior | 109 | N/A | 2026-07-10 |
+| [claude-constitution](https://github.com/anthropics/claude-constitution) | The foundational document describing Claude's values and behavior | 110 | N/A | 2026-07-12 |
 | [anthropic-tokenizer-typescript](https://github.com/anthropics/anthropic-tokenizer-typescript) | No description | 108 | TypeScript | 2026-07-10 |
 | [attribution-graphs-frontend](https://github.com/anthropics/attribution-graphs-frontend) | https://transformer-circuits.pub/2025/attribution-graphs/methods.html | 103 | JavaScript | 2026-07-10 |
 | [riv2025-long-horizon-coding-agent-demo](https://github.com/anthropics/riv2025-long-horizon-coding-agent-demo) | No description | 67 | Python | 2026-06-30 |
@@ -81,21 +81,21 @@ Total public repositories: **92**
 | [DecompositionFaithfulnessPaper](https://github.com/anthropics/DecompositionFaithfulnessPaper) | No description | 33 | Python | 2026-06-30 |
 | [anthropic-bedrock-typescript](https://github.com/anthropics/anthropic-bedrock-typescript) | No description | 29 | N/A | 2026-06-30 |
 | [sycophancy-to-subterfuge-paper](https://github.com/anthropics/sycophancy-to-subterfuge-paper) | No description | 28 | N/A | 2026-07-06 |
+| [claude-tag-plugins](https://github.com/anthropics/claude-tag-plugins) | No description | 28 | Shell | 2026-07-13 |
 | [triton](https://github.com/anthropics/triton) | Development repository for the Triton language and compiler | 27 | C++ | 2026-07-05 |
-| [claude-tag-plugins](https://github.com/anthropics/claude-tag-plugins) | No description | 27 | Shell | 2026-07-10 |
 | [model-cards](https://github.com/anthropics/model-cards) | Supplementary materials for Claude Model Cards | 25 | N/A | 2026-07-10 |
 | [apitools](https://github.com/anthropics/apitools) | No description | 23 | Python | 2026-07-10 |
 | [homebrew-tap](https://github.com/anthropics/homebrew-tap) | Homebrew formulae for Anthropic tools. | 23 | Ruby | 2026-07-10 |
 | [tokio](https://github.com/anthropics/tokio) | A runtime for writing reliable asynchronous applications with Rust. Provides I/O, networking, scheduling, timers, ... | 23 | Rust | 2026-07-07 |
-| [httpcore](https://github.com/anthropics/httpcore) | A minimal HTTP client. ⚙️ | 21 | Python | 2026-07-10 |
-| [tailscale-hint-extension](https://github.com/anthropics/tailscale-hint-extension) | Chrome extension showing helpful troubleshooting when Tailscale .local domains fail to resolve | 21 | HTML | 2026-07-12 |
-| [maestro](https://github.com/anthropics/maestro) | Maestro: Netflix’s Workflow Orchestrator | 21 | N/A | 2026-07-10 |
+| [tailscale-hint-extension](https://github.com/anthropics/tailscale-hint-extension) | Chrome extension showing helpful troubleshooting when Tailscale .local domains fail to resolve | 22 | HTML | 2026-07-12 |
+| [httpcore](https://github.com/anthropics/httpcore) | A minimal HTTP client. | 21 | Python | 2026-07-10 |
+| [maestro](https://github.com/anthropics/maestro) | Maestro: Netflix's Workflow Orchestrator | 21 | N/A | 2026-07-10 |
 | [hypercorn](https://github.com/anthropics/hypercorn) | Hypercorn is an ASGI and WSGI Server based on Hyper libraries and inspired by Gunicorn. | 20 | Python | 2026-07-10 |
 | [redis-py](https://github.com/anthropics/redis-py) | No description | 18 | Python | 2026-07-10 |
 | [rogue-deploy-eval](https://github.com/anthropics/rogue-deploy-eval) | No description | 16 | Python | 2026-07-02 |
 | [beam](https://github.com/anthropics/beam) | Apache Beam is a unified programming model for Batch and Streaming data processing. | 16 | Java | 2026-07-10 |
-| [argo-cd](https://github.com/anthropics/argo-cd) | Declarative Continuous Deployment for Kubernetes | 14 | N/A | 2026-06-30 |
 | [terragrunt](https://github.com/anthropics/terragrunt) | Terragrunt is a flexible orchestration tool that allows Infrastructure as Code written in OpenTofu/Terraform to scale. | 14 | N/A | 2026-07-09 |
+| [argo-cd](https://github.com/anthropics/argo-cd) | Declarative Continuous Deployment for Kubernetes | 14 | N/A | 2026-06-30 |
 | [python-tblib](https://github.com/anthropics/python-tblib) | Serialization library for Exceptions and Tracebacks. | 13 | Python | 2026-07-10 |
 | [swift-markdown](https://github.com/anthropics/swift-markdown) | A Swift package for parsing, building, editing, and analyzing Markdown documents. | 13 | N/A | 2026-07-10 |
 | [blobfile](https://github.com/anthropics/blobfile) | No description | 12 | Python | 2026-07-10 |

@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Hooks are user-defined shell commands, HTTP endpoints, MCP tool calls, LLM prompts, or agents that execute automatically at specific points in Claude Code's lifecycle. Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** July 13, 2026
 
 ## Hook Lifecycle
 
@@ -413,7 +413,7 @@ All hook events receive these fields as JSON:
 | Field             | Description                                                                                       |
 | ----------------- | ------------------------------------------------------------------------------------------------- |
 | `session_id`      | Current session identifier                                                                        |
-| `prompt_id`       | Unique identifier for the current prompt turn                                                     |
+| `prompt_id`       | UUID identifying the current prompt turn (v2.1.196+)                                              |
 | `transcript_path` | Path to conversation JSON                                                                         |
 | `cwd`             | Current working directory when hook is invoked                                                    |
 | `permission_mode` | Current permission mode: `default`, `plan`, `acceptEdits`, `auto`, `dontAsk`, `bypassPermissions` |

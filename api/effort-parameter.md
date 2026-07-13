@@ -2,7 +2,7 @@
 title: "Effort Parameter"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/effort"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "api"
 ---
 
@@ -52,7 +52,7 @@ Effort is a behavioral signal, not a strict token budget. At lower effort levels
 Claude Sonnet 5 defaults to `high` effort.
 
 - **High effort (default):** Suitable for complex reasoning, coding, and agentic tasks where quality matters more than speed or cost.
-- **Xhigh effort:** For the hardest coding and agentic tasks.
+- **Xhigh effort:** For the hardest coding and agentic tasks. See Prompting Claude Sonnet 5.
 - **Medium effort:** Cost-saving step-down from the default. Comparable to Claude Sonnet 4.6 at high effort.
 - **Low effort:** For high-volume or latency-sensitive workloads. Suitable for chat and non-coding use cases where faster turnaround is prioritized.
 - **Max effort:** For tasks requiring the absolute highest capability with no constraints on token spending.
@@ -94,9 +94,9 @@ When running Claude Opus 4.8 at `xhigh` or `max` effort, set a large `max_tokens
 
 ### Recommended Effort Levels for Claude Fable 5
 
-Effort is the primary control for trading off intelligence, latency, and cost on Claude Fable 5. **Start with `high`, the default, for most tasks**, use `xhigh` for the most capability-sensitive workloads, and step down to `medium` or `low` for routine work. Lower effort settings on Claude Fable 5 still perform well and often exceed `xhigh` performance on prior models. At `high` and `xhigh`, set a large `max_tokens`: it is a hard limit on total output, thinking plus response text.
+Effort is the primary control for trading off intelligence, latency, and cost on Claude Fable 5. **Start with `high`, the default, for most tasks**, use `xhigh` for the most capability-sensitive workloads, and step down to `medium` or `low` for routine work. Lower effort settings on Claude Fable 5 still perform well and often exceed `xhigh` performance on prior models. At `high` and `xhigh`, set a large `max_tokens`: it is a hard limit on total output, thinking plus response text. See Cost control.
 
-Reduce effort if a task completes but takes longer than necessary, or if you want a faster, more interactive working style. The same recommendations apply to Claude Mythos 5. For fuller guidance, see the prompting guide for Claude Fable 5.
+Reduce effort if a task completes but takes longer than necessary, or if you want a faster, more interactive working style. The same recommendations apply to Claude Mythos 5. For fuller guidance, see Prompting Claude Fable 5.
 
 ## Basic Usage
 
@@ -118,6 +118,22 @@ curl https://api.anthropic.com/v1/messages \
             "effort": "medium"
         }
     }'
+```
+
+**CLI:**
+
+```bash
+ant messages create \
+  --transform 'content.0.text' \
+  --raw-output <<'YAML'
+model: claude-opus-4-8
+max_tokens: 4096
+messages:
+  - role: user
+    content: Analyze the trade-offs between microservices and monolithic architectures
+output_config:
+  effort: medium
+YAML
 ```
 
 **Python:**
@@ -166,6 +182,37 @@ const textBlock = response.content.find(
 console.log(textBlock?.text);
 ```
 
+**C#:**
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using Anthropic;
+using Anthropic.Models.Messages;
+
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        AnthropicClient client = new();
+
+        var parameters = new MessageCreateParams
+        {
+            Model = Model.ClaudeOpus4_8,
+            MaxTokens = 4096,
+            Messages = [new() { Role = Role.User, Content = "Analyze the trade-offs between microservices and monolithic architectures" }],
+            OutputConfig = new OutputConfig
+            {
+                Effort = Effort.Medium
+            }
+        };
+
+        var message = await client.Messages.Create(parameters);
+        Console.WriteLine(message);
+    }
+}
+```
+
 **Go:**
 
 ```go
@@ -187,6 +234,64 @@ if err != nil {
 fmt.Println(response.Content[0].Text)
 ```
 
+**Java:**
+
+```java
+import com.anthropic.models.messages.OutputConfig;
+// ...
+        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+        MessageCreateParams params = MessageCreateParams.builder()
+            .model(Model.CLAUDE_OPUS_4_8)
+            .maxTokens(4096L)
+            .addUserMessage("Analyze the trade-offs between microservices and monolithic architectures")
+            .outputConfig(OutputConfig.builder()
+                .effort(OutputConfig.Effort.MEDIUM)
+                .build())
+            .build();
+
+        Message response = client.messages().create(params);
+        response.content().stream()
+            .flatMap(block -> block.text().stream())
+            .forEach(textBlock -> System.out.println(textBlock.text()));
+```
+
+**PHP:**
+
+```php
+$client = new Client();
+
+$message = $client->messages->create(
+    maxTokens: 4096,
+    messages: [
+        ['role' => 'user', 'content' => 'Analyze the trade-offs between microservices and monolithic architectures']
+    ],
+    model: 'claude-opus-4-8',
+    outputConfig: ['effort' => 'medium'],
+);
+
+echo $message->content[0]->text;
+```
+
+**Ruby:**
+
+```ruby
+client = Anthropic::Client.new
+
+message = client.messages.create(
+  model: "claude-opus-4-8",
+  max_tokens: 4096,
+  messages: [
+    { role: "user", content: "Analyze the trade-offs between microservices and monolithic architectures" }
+  ],
+  output_config: {
+    effort: "medium"
+  }
+)
+
+puts message.content.first.text
+```
+
 ## When to Adjust the Effort Parameter
 
 - Use **max effort** when you need the absolute highest capability with no constraints: the most thorough reasoning and deepest analysis. Available on Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Mythos Preview, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6.
@@ -195,7 +300,7 @@ fmt.Println(response.Content[0].Text)
 - Use **medium effort** as a balanced option when you want solid performance without the full token expenditure of high effort.
 - Use **low effort** when you're optimizing for speed (because Claude answers with fewer tokens) or cost. For example, simple classification tasks, quick lookups, or high-volume use cases where marginal quality improvements don't justify additional latency or spend.
 
-**Claude Code's ultracode mode:** ultracode appears in Claude Code's effort menu, but it is not an additional API effort level. The values documented on this page are the complete set the API accepts. Ultracode pairs the `xhigh` effort level with standing permission for Claude Code to launch multi-agent workflows, granted through mid-conversation system messages. To build similar behavior with the API, see the documentation on building an orchestration mode.
+**Claude Code's ultracode mode:** ultracode appears in Claude Code's effort menu, but it is not an additional API effort level. The values documented on this page are the complete set the API accepts. Ultracode pairs the `xhigh` effort level with standing permission for Claude Code to launch multi-agent workflows, granted through mid-conversation system messages. To build similar behavior with the API, see Build an orchestration mode.
 
 ## Effort with Tool Use
 

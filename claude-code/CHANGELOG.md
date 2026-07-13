@@ -2,7 +2,7 @@
 title: "Claude Code CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "claude-code"
 ---
 

@@ -19,6 +19,50 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-07-13 — Weekly Update (full discovery scan)
+
+- **New sources found**: 34
+- **Added**: 0 (automated run — user not present to approve)
+- **Deferred (HIGH priority — recommend adding next)**:
+  - https://www.anthropic.com/news/claude-sonnet-5 — models — "Introducing Claude Sonnet 5" (NEW MODEL, most agentic Sonnet, $2/$10 per M tokens promo through Aug 31)
+  - https://www.anthropic.com/news/claude-science-ai-workbench — news — "Claude Science, an AI workbench for scientists"
+  - https://www.anthropic.com/news/redeploying-fable-5 — news — "Redeploying Fable 5" (restored globally after export controls)
+  - https://www.anthropic.com/news/fable-safeguards-jailbreak-framework — news — "Fable 5 cyber safeguards and jailbreak framework"
+  - https://www.anthropic.com/news/hard-questions — news — "Inviting hard questions" (public engagement initiative)
+  - https://www.anthropic.com/news/confidential-draft-s1-sec — news — "Anthropic confidentially submits draft S-1 to the SEC" (IPO FILING)
+  - https://www.anthropic.com/engineering/managed-agents — engineering — "Scaling Managed Agents: Decoupling the brain from the hands" (NEW platform feature)
+  - https://www.anthropic.com/engineering/how-we-contain-claude — engineering — "How we contain Claude across products" (safety architecture)
+  - https://www.anthropic.com/engineering/april-23-postmortem — engineering — "An update on recent Claude Code quality reports"
+  - https://www.anthropic.com/engineering/claude-code-auto-mode — engineering — "Claude Code auto mode" (STILL UNTRACKED from 04-05)
+  - https://www.anthropic.com/engineering/harness-design-long-running-apps — engineering — "Harness design for long-running apps" (STILL UNTRACKED from 04-05)
+  - https://www.anthropic.com/engineering/claude-code-best-practices — engineering — "Claude Code: Best practices for agentic coding" (STILL UNTRACKED from 03-22, 5th scan)
+  - https://www.anthropic.com/research/global-workspace — research — "A global workspace in language models" (interpretability)
+  - https://www.anthropic.com/research/off-switch-dual-use — research — "An off switch for dual-use knowledge"
+  - https://www.anthropic.com/research/project-fetch-phase-two — research — "Project Fetch: Phase two" (robotics, 20x faster than humans)
+  - https://www.anthropic.com/research/n-days — research — "Measuring LLMs' impact on N-day exploits"
+  - https://www.anthropic.com/81k-interviews — research — "What 81,000 people want from AI" (STILL UNTRACKED from 03-22, 5th scan)
+  - https://www.anthropic.com/features/making-of-claude-code — claude-code — "The Making of Claude Code"
+- **Deferred (MEDIUM priority)**:
+  - https://www.anthropic.com/news/reflect-with-claude — news — "A way to reflect on how you use Claude"
+  - https://www.anthropic.com/news/anthropic-public-record — news — "Results from first Anthropic Public Record" (52K Americans)
+  - https://www.anthropic.com/news/services-track-partner-hub — news — "Services Track and Partner Hub"
+  - https://www.anthropic.com/news/seoul-office-partnerships-korean-ai-ecosystem — news — Seoul office
+  - https://www.anthropic.com/news/alberta-government-claude-cybersecurity — news — Alberta government case study
+  - https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills — engineering — Agent Skills launch
+  - https://www.anthropic.com/research/making-claude-a-chemist — research — Science applications
+  - https://www.anthropic.com/research/attack-navigator — research — AI-enabled cyber threats mapping
+  - https://www.anthropic.com/research/project-fetch-robot-dog — research — Project Fetch phase one
+  - https://www.anthropic.com/research/anthropic-interviewer — research — Research methodology
+  - https://www.anthropic.com/research/introducing-anthropic-science — research — Science Blog (STILL UNTRACKED)
+  - https://www.anthropic.com/features/project-deal — research — Project Deal
+  - https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack — news — MITRE ATT&CK mapping
+- **Deferred (LOW priority)**:
+  - https://www.anthropic.com/news/ust-claude — news — UST partnership
+  - https://www.anthropic.com/news/ben-bernanke — news — Board appointment
+  - https://www.anthropic.com/engineering/swe-bench-sonnet — engineering — SWE-bench (older, Claude 3.5 era)
+- **SDK versions**: npm @anthropic-ai/sdk 0.111.0, PyPI anthropic 0.116.0
+- **Notes**: Claude Sonnet 5 now live in API. Adaptive thinking display parameter is a breaking behavior change. Agent SDK platform naming changed (Vertex AI → Google Cloud's Agent Platform, Azure AI Foundry → Microsoft Foundry).
+
 ### 2026-07-12 — Weekly Update (manual + arXiv + partial discovery)
 
 - **Manual sources refreshed**: 9 (1 content-changed, 8 timestamp-only)

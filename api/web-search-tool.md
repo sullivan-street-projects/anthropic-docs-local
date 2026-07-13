@@ -2,7 +2,7 @@
 title: "Web Search Tool"
 source_url: "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/web-search-tool"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "api"
 ---
 
@@ -18,13 +18,13 @@ Three versions of the web search tool are available:
 - `web_search_20260209`: adds dynamic filtering
 - `web_search_20260318`: adds response inclusion control for agentic workflows
 
+The examples on this page use `web_search_20250305` for basic search and `web_search_20260318` for dynamic filtering.
+
 For Claude Mythos Preview, web search is supported on the Claude API, Google Cloud, and Microsoft Foundry. Web search is not available for Mythos Preview on Amazon Bedrock or Claude Platform on AWS.
 
 For web search's Zero Data Retention eligibility and the related `allowed_callers` configuration, see the server tools documentation.
 
-## Supported Models
-
-All current Claude models: Opus 4.8, Opus 4.7, Opus 4.6, Opus 4.5, Opus 4.1, Opus 4, Sonnet 5, Sonnet 4.6, Sonnet 4.5, Sonnet 4, Haiku 4.5, Fable 5, Mythos 5, Mythos Preview.
+For model support, see the Tool reference.
 
 ## How Web Search Works
 
@@ -62,9 +62,192 @@ To call web search directly, without dynamic filtering, set `allowed_callers: ["
 
 The web search tool (with and without dynamic filtering) is available on the Claude API, Claude Platform on AWS, and Microsoft Foundry. On Microsoft Foundry, web search requires a Hosted on Anthropic deployment. On Google Cloud, only the basic web search tool (without dynamic filtering) is available. Web search is not available on Amazon Bedrock.
 
-## Usage
+The following examples use `web_search_20260318`:
 
-### Basic Web Search
+**cURL:**
+
+```bash
+curl https://api.anthropic.com/v1/messages \
+    --header "x-api-key: $ANTHROPIC_API_KEY" \
+    --header "anthropic-version: 2023-06-01" \
+    --header "content-type: application/json" \
+    --data '{
+        "model": "claude-opus-4-8",
+        "max_tokens": 4096,
+        "messages": [
+            {
+                "role": "user",
+                "content": "Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio."
+            }
+        ],
+        "tools": [{
+            "type": "web_search_20260318",
+            "name": "web_search"
+        }]
+    }'
+```
+
+**CLI:**
+
+```bash
+ant messages create <<'YAML'
+model: claude-opus-4-8
+max_tokens: 4096
+messages:
+  - role: user
+    content: >-
+      Search for the current prices of AAPL and GOOGL, then calculate
+      which has a better P/E ratio.
+tools:
+  - type: web_search_20260318
+    name: web_search
+YAML
+```
+
+**Python:**
+
+```python
+client = anthropic.Anthropic()
+
+response = client.messages.create(
+    model="claude-opus-4-8",
+    max_tokens=4096,
+    messages=[
+        {
+            "role": "user",
+            "content": "Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio.",
+        }
+    ],
+    tools=[{"type": "web_search_20260318", "name": "web_search"}],
+)
+print(response)
+```
+
+**TypeScript:**
+
+```typescript
+const client = new Anthropic();
+
+const response = await client.messages.create({
+  model: "claude-opus-4-8",
+  max_tokens: 4096,
+  messages: [
+    {
+      role: "user",
+      content:
+        "Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio.",
+    },
+  ],
+  tools: [{ type: "web_search_20260318", name: "web_search" }],
+});
+
+console.log(response);
+```
+
+**C#:**
+
+```csharp
+AnthropicClient client = new();
+
+var parameters = new MessageCreateParams
+{
+    Model = Model.ClaudeOpus4_8,
+    MaxTokens = 4096,
+    Messages = [new() { Role = Role.User, Content = "Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio." }],
+    Tools = [new ToolUnion(new WebSearchTool20260318())]
+};
+
+var message = await client.Messages.Create(parameters);
+Console.WriteLine(message);
+```
+
+**Go:**
+
+```go
+client := anthropic.NewClient()
+
+response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+	Model:     anthropic.ModelClaudeOpus4_8,
+	MaxTokens: 4096,
+	Messages: []anthropic.MessageParam{
+		anthropic.NewUserMessage(anthropic.NewTextBlock("Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio.")),
+	},
+	Tools: []anthropic.ToolUnionParam{
+		{OfWebSearchTool20260318: &anthropic.WebSearchTool20260318Param{}},
+	},
+})
+if err != nil {
+	log.Fatal(err)
+}
+fmt.Println(response)
+```
+
+**Java:**
+
+```java
+import com.anthropic.models.messages.WebSearchTool20260318;
+
+void main() {
+    AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+    MessageCreateParams params = MessageCreateParams.builder()
+        .model(Model.CLAUDE_OPUS_4_8)
+        .maxTokens(4096L)
+        .addUserMessage("Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio.")
+        .addTool(WebSearchTool20260318.builder().build())
+        .build();
+
+    Message response = client.messages().create(params);
+    IO.println(response);
+}
+```
+
+**PHP:**
+
+```php
+$client = new Client();
+
+$message = $client->messages->create(
+    maxTokens: 4096,
+    messages: [
+        ['role' => 'user', 'content' => 'Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio.'],
+    ],
+    model: 'claude-opus-4-8',
+    tools: [
+        [
+            'type' => 'web_search_20260318',
+            'name' => 'web_search',
+        ],
+    ],
+);
+
+echo $message;
+```
+
+**Ruby:**
+
+```ruby
+client = Anthropic::Client.new
+
+message = client.messages.create(
+  model: "claude-opus-4-8",
+  max_tokens: 4096,
+  messages: [
+    { role: "user", content: "Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio." }
+  ],
+  tools: [{
+    type: "web_search_20260318",
+    name: "web_search"
+  }]
+)
+puts message
+```
+
+## How to Use Web Search
+
+Web search is enabled for your organization unless an administrator has disabled it in the Claude Console, where they can also restrict which domains it searches. If it's disabled, a request that includes the tool fails with a 400 `invalid_request_error` that says web search is not enabled, rather than an error code inside a search result.
+
+Provide the web search tool in your API request:
 
 **cURL:**
 
@@ -88,6 +271,16 @@ curl https://api.anthropic.com/v1/messages \
             "max_uses": 5
         }]
     }'
+```
+
+**CLI:**
+
+```bash
+ant messages create \
+  --model claude-opus-4-8 \
+  --max-tokens 1024 \
+  --message '{role: user, content: What is the weather in NYC?}' \
+  --tool '{type: web_search_20250305, name: web_search, max_uses: 5}'
 ```
 
 **Python:**
@@ -130,23 +323,109 @@ const response = await client.messages.create({
 console.log(response);
 ```
 
-### Dynamic Filtering Example
+**C#:**
 
-```python
-client = anthropic.Anthropic()
+```csharp
+AnthropicClient client = new();
 
-response = client.messages.create(
-    model="claude-opus-4-8",
-    max_tokens=4096,
-    messages=[
-        {
-            "role": "user",
-            "content": "Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio.",
-        }
+var parameters = new MessageCreateParams
+{
+    Model = Model.ClaudeOpus4_8,
+    MaxTokens = 1024,
+    Messages = [new() { Role = Role.User, Content = "What's the weather in NYC?" }],
+    Tools = [new ToolUnion(new WebSearchTool20250305() { MaxUses = 5 })]
+};
+
+var message = await client.Messages.Create(parameters);
+Console.WriteLine(message);
+```
+
+**Go:**
+
+```go
+client := anthropic.NewClient()
+
+response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+	Model:     anthropic.ModelClaudeOpus4_8,
+	MaxTokens: 1024,
+	Messages: []anthropic.MessageParam{
+		anthropic.NewUserMessage(anthropic.NewTextBlock("What's the weather in NYC?")),
+	},
+	Tools: []anthropic.ToolUnionParam{
+		{OfWebSearchTool20250305: &anthropic.WebSearchTool20250305Param{
+			MaxUses: anthropic.Int(5),
+		}},
+	},
+})
+if err != nil {
+	log.Fatal(err)
+}
+fmt.Println(response)
+```
+
+**Java:**
+
+```java
+import com.anthropic.models.messages.WebSearchTool20250305;
+
+void main() {
+    AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+    MessageCreateParams params = MessageCreateParams.builder()
+        .model(Model.CLAUDE_OPUS_4_8)
+        .maxTokens(1024L)
+        .addUserMessage("What's the weather in NYC?")
+        .addTool(WebSearchTool20250305.builder()
+            .maxUses(5L)
+            .build())
+        .build();
+
+    Message response = client.messages().create(params);
+    IO.println(response);
+}
+```
+
+**PHP:**
+
+```php
+$client = new Client();
+
+$message = $client->messages->create(
+    maxTokens: 1024,
+    messages: [
+        ['role' => 'user', 'content' => "What's the weather in NYC?"],
     ],
-    tools=[{"type": "web_search_20260318", "name": "web_search"}],
+    model: 'claude-opus-4-8',
+    tools: [
+        [
+            'type' => 'web_search_20250305',
+            'name' => 'web_search',
+            'max_uses' => 5,
+        ],
+    ],
+);
+
+echo $message;
+```
+
+**Ruby:**
+
+```ruby
+client = Anthropic::Client.new
+
+message = client.messages.create(
+  model: "claude-opus-4-8",
+  max_tokens: 1024,
+  messages: [
+    { role: "user", content: "What's the weather in NYC?" }
+  ],
+  tools: [{
+    type: "web_search_20250305",
+    name: "web_search",
+    max_uses: 5
+  }]
 )
-print(response)
+puts message
 ```
 
 ## Tool Definition
@@ -181,6 +460,8 @@ Simple factual queries typically use 1-3 searches; comparative or multi-entity r
 ### Domain Filtering
 
 Provide `allowed_domains` or `blocked_domains`, not both. If a request includes both, the API returns a 400 error. Entries are bare domains with an optional path, for example `example.com` or `example.com/blog`, without a scheme.
+
+For the full domain filtering rules, see the server tools documentation.
 
 ### Localization
 
@@ -271,7 +552,7 @@ Example response structure:
 }
 ```
 
-When a search runs through dynamic filtering, the response also contains the code execution tool's result blocks, and each nested `server_tool_use` and `web_search_tool_result` pair carries a `caller` field identifying the code execution call that made it.
+This example shows a direct search. When a search runs through dynamic filtering, the response also contains the code execution tool's result blocks, and each nested `server_tool_use` and `web_search_tool_result` pair carries a `caller` field identifying the code execution call that made it.
 
 ### Search Results
 
@@ -295,7 +576,7 @@ Citations are always enabled for web search, and each `web_search_result_locatio
 
 The web search citation fields `cited_text`, `title`, and `url` do not count toward input or output token usage.
 
-When displaying API outputs directly to end users, citations must be included to the original source.
+When displaying API outputs directly to end users, citations must be included to the original source. If you are making modifications to API outputs, including by reprocessing and/or combining them with your own material before displaying them to end users, display citations as appropriate based on consultation with your legal team.
 
 ### Errors
 
@@ -335,7 +616,32 @@ For caching tool definitions across turns, see the tool use with prompt caching 
 
 ## Streaming
 
-With streaming enabled, you'll receive search events as part of the stream. There will be a pause while the search executes.
+With streaming enabled, you'll receive search events as part of the stream. There will be a pause while the search executes:
+
+```
+event: message_start
+data: {"type": "message_start", "message": {"id": "msg_abc123", "type": "message"}}
+
+event: content_block_start
+data: {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}}
+
+// Claude's decision to search
+
+event: content_block_start
+data: {"type": "content_block_start", "index": 1, "content_block": {"type": "server_tool_use", "id": "srvtoolu_xyz789", "name": "web_search"}}
+
+// Search query streamed
+event: content_block_delta
+data: {"type": "content_block_delta", "index": 1, "delta": {"type": "input_json_delta", "partial_json": "{\"query\":\"latest quantum computing breakthroughs 2025\"}"}}
+
+// Pause while search executes
+
+// Search results streamed
+event: content_block_start
+data: {"type": "content_block_start", "index": 2, "content_block": {"type": "web_search_tool_result", "tool_use_id": "srvtoolu_xyz789", "content": [{"type": "web_search_result", "title": "Quantum Computing Breakthroughs in 2025", "url": "https://example.com"}]}}
+
+// Claude's response with citations
+```
 
 ## Batch Requests
 
@@ -343,7 +649,23 @@ You can include the web search tool in the Messages Batches API. Web search tool
 
 To protect shared capacity, the Batches API throttles web search requests per organization, so large batches with many searches might take longer to complete. You can see your organization's web search rate limit on the Limits page in the Claude Console. To request a higher limit, contact sales from that page.
 
-## Pricing
+## Usage and Pricing
+
+Web search usage is charged in addition to token usage:
+
+```json
+{
+  "usage": {
+    "input_tokens": 105,
+    "output_tokens": 6039,
+    "cache_read_input_tokens": 7123,
+    "cache_creation_input_tokens": 7345,
+    "server_tool_use": {
+      "web_search_requests": 1
+    }
+  }
+}
+```
 
 Web search is available on the Claude API for **$10 per 1,000 searches**, plus standard token costs for search-generated content. Web search results retrieved throughout a conversation are counted as input tokens, in search iterations executed during a single turn and in subsequent conversation turns.
 

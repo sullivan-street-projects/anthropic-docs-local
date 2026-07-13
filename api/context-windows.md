@@ -2,7 +2,7 @@
 title: "Context Windows"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "api"
 ---
 
@@ -42,7 +42,7 @@ With extended thinking, all input and output tokens, including thinking tokens, 
 
 The thinking budget tokens are a subset of your `max_tokens` parameter, are billed as output tokens, and count toward rate limits. With adaptive thinking, Claude determines its thinking allocation dynamically, so thinking token usage varies from request to request.
 
-Whether thinking blocks from previous assistant turns stay in the context window depends on the model. On Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview, the API keeps previous thinking blocks by default, and they count toward the context window like any other input tokens. On earlier Opus and Sonnet models and all Haiku models, the API automatically strips previous thinking blocks from the conversation history when you pass them back, which preserves token capacity for conversation content. To override the default in either direction, use thinking block clearing.
+Whether thinking blocks from previous assistant turns stay in the context window depends on the model. On Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview, the API keeps previous thinking blocks by default, and they count toward the context window like any other input tokens. On earlier Opus and Sonnet models and all Haiku models, the API automatically strips previous thinking blocks from the conversation history when you pass them back, which preserves token capacity for conversation content. For the per-model defaults, see thinking block preservation by model. To override the default in either direction, use thinking block clearing.
 
 - **Stripping extended thinking:** On models that strip previous thinking blocks, extended thinking blocks are generated during each turn's output phase but are not carried forward as input tokens for subsequent turns. You do not need to strip the thinking blocks yourself: if you pass them back, the Claude API strips them automatically.
 - **Billing:** Extended thinking tokens are billed as output tokens once, when they are generated. On models that keep previous thinking blocks, the kept blocks are then part of later requests' input and are billed as input tokens, like the rest of the conversation history.
@@ -92,6 +92,8 @@ Newer models don't receive these injected tags. On Claude Opus 4.7 and later, Cl
 
 For agents that span multiple sessions, design your state artifacts so that context recovery is fast when a new session starts. The memory tool's multi-session pattern walks through a concrete approach. See also [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
 
+For prompting guidance on using context awareness, see Prompting best practices.
+
 ## Managing Context with Compaction
 
 If your conversations regularly approach context window limits, use server-side compaction. Compaction automatically summarizes earlier parts of the conversation on the server, so the conversation can continue past the context window limit. It is available in beta for Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Mythos Preview, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6.
@@ -107,6 +109,6 @@ Cached prompt prefixes still occupy the context window: prompt caching changes w
 
 If the input alone already exceeds the model's context window, the API returns a 400 `invalid_request_error` ("prompt is too long") on every model.
 
-On Claude 4.5 models and newer, if input tokens plus `max_tokens` exceeds the context window size, the API accepts the request. If generation then reaches the context window limit, it stops with `stop_reason: "model_context_window_exceeded"`. On earlier models, the API returns a validation error instead. To opt in to the `model_context_window_exceeded` behavior on those models, use the `model-context-window-exceeded-2025-08-26` beta header.
+On Claude 4.5 models and newer, if input tokens plus `max_tokens` exceeds the context window size, the API accepts the request. If generation then reaches the context window limit, it stops with `stop_reason: "model_context_window_exceeded"`. On earlier models, the API returns a validation error instead. To opt in to the `model_context_window_exceeded` behavior on those models, use the `model-context-window-exceeded-2025-08-26` beta header. See Stop reasons and fallback for details.
 
 To stay within context window limits, use the token counting API to estimate token usage before sending messages to Claude.

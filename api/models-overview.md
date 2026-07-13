@@ -2,21 +2,25 @@
 title: "Models Overview"
 source_url: "https://platform.claude.com/docs/en/docs/about-claude/models"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "api"
 ---
 
 # Models Overview
 
-Claude is a family of state-of-the-art large language models developed by Anthropic. If you're unsure which model to use, start with **Claude Opus 4.8** for complex agentic coding and enterprise work. For workloads that need the highest available capability, use Claude Fable 5.
+Claude is a family of state-of-the-art large language models developed by Anthropic.
+
+## Choosing a Model
+
+If you're unsure which model to use, start with **Claude Opus 4.8** for complex agentic coding and enterprise work. For workloads that need the highest available capability, use Claude Fable 5.
 
 All current Claude models support text and image input, text output, multilingual capabilities, and vision. Models are available through the Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, and Microsoft Foundry.
 
-## Claude Fable 5 and Claude Mythos 5
+### Claude Fable 5 and Claude Mythos 5
 
-Claude Fable 5 (`claude-fable-5`) is Anthropic's most capable widely released model. Claude Mythos 5 (`claude-mythos-5`) shares Claude Fable 5's specs and pricing and joins the invitation-only Claude Mythos Preview (`claude-mythos-preview`) within Project Glasswing. See the introducing blog post for launch details and API changes.
+Claude Fable 5 (`claude-fable-5`) is Anthropic's most capable widely released model. Claude Mythos 5 (`claude-mythos-5`) shares Claude Fable 5's specs and pricing and joins the invitation-only Claude Mythos Preview (`claude-mythos-preview`) within Project Glasswing. See [Introducing Claude Fable 5 and Claude Mythos 5](https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5) for launch details and API changes.
 
-Claude Fable 5 is generally available on the Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, and Microsoft Foundry beginning June 9, 2026. Claude Mythos 5 is not generally available: it is offered in limited availability to approved customers in Project Glasswing, beginning the same day.
+Claude Fable 5 is generally available on the Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, and Microsoft Foundry beginning June 9, 2026. Claude Mythos 5 is not generally available: it is offered in limited availability to approved customers in Project Glasswing, beginning the same day. For access, contact your Anthropic, AWS, or Google Cloud account team.
 
 ## Latest Models (Recommended)
 
@@ -36,17 +40,25 @@ Claude Fable 5 is generally available on the Claude API, Claude Platform on AWS,
 | **Reliable knowledge cutoff** | Jan 2026                                             | Jan 2026                                       | Jan 2026                                                     | Feb 2025                                          |
 | **Training data cutoff**      | Jan 2026                                             | Jan 2026                                       | Jan 2026                                                     | Jul 2025                                          |
 
+> **Note:** **Reliable knowledge cutoff** indicates the date through which a model's knowledge is most extensive and reliable. **Training data cutoff** is the broader date range of training data used.
+
 > **Note:** Claude Fable 5 and Claude Mythos 5 use the tokenizer introduced with Claude Opus 4.7. Compared to models before Claude Opus 4.7, the same text produces roughly 30% more tokens. The exact increase depends on the content.
 
 > **Note:** Claude Fable 5, Claude Opus 4.8, and Claude Sonnet 5 are available on Bedrock through Claude in Amazon Bedrock (the Messages-API Bedrock endpoint).
+
+> **Note:** Introductory pricing of $2 / $10 per MTok applies to Claude Sonnet 5 through August 31, 2026.
 
 > **Note:** On Claude Opus 4.8, the `effort` parameter defaults to `high` on all surfaces, including the Claude API, Claude Code, and claude.ai. On Claude Sonnet 5, it defaults to `high` on the Claude API and Claude Code. Set `effort` explicitly to use a different level.
 
 > **Note:** The Max output values above apply to the synchronous Messages API. On the Message Batches API, Claude Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6 support up to 300k output tokens by using the `output-300k-2026-03-24` beta header.
 
-> **Note:** On Microsoft Foundry, Claude Opus 4.8 has a 200k-token context window.
-
 Claude Mythos 5 and Claude Mythos Preview are offered separately for defensive cybersecurity workflows as part of Project Glasswing. Access is invitation-only and there is no self-serve sign-up.
+
+## Model IDs and Versioning
+
+Every Claude model ID is a pinned snapshot. Models with a date in the ID (for example, `20250929`) are fixed to that specific release. Starting with the Claude 4.6 generation, model IDs use a dateless format that is also a pinned snapshot, not an evergreen pointer. For models before the 4.6 generation, entries in the Claude API alias column are convenience pointers that resolve to a dated model ID. For details on the naming convention and how versioning works, see [Model IDs and versioning](https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions).
+
+You can query model capabilities and token limits programmatically with the Models API. The response includes `max_input_tokens`, `max_tokens`, and a `capabilities` object for every available model.
 
 ## Legacy Models (Still Available)
 
@@ -65,13 +77,9 @@ Claude Mythos 5 and Claude Mythos Preview are offered separately for defensive c
 | **Reliable knowledge cutoff** | Jan 2026                  | May 2025                     | Aug 2025                    | Jan 2025                                  | May 2025                                | Jan 2025                                |
 | **Training data cutoff**      | Jan 2026                  | Aug 2025                     | Jan 2026                    | Jul 2025                                  | Aug 2025                                | Mar 2025                                |
 
-> **Warning:** Claude Opus 4.1 (`claude-opus-4-1-20250805`) is deprecated and will be retired on August 5, 2026. Migrate to Claude Opus 4.8 before the retirement date.
+> **Warning:** Claude Opus 4.1 (`claude-opus-4-1-20250805`) is deprecated and will be retired on August 5, 2026. Migrate to Claude Opus 4.8 before the retirement date. See [model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations) for details.
 
-## Model IDs and Versioning
-
-Every Claude model ID is a pinned snapshot. Models with a date in the ID (for example, `20250929`) are fixed to that specific release. Starting with the Claude 4.6 generation, model IDs use a dateless format that is also a pinned snapshot, not an evergreen pointer. For models before the 4.6 generation, entries in the Claude API alias column are convenience pointers that resolve to a dated model ID.
-
-You can query model capabilities and token limits programmatically with the Models API. The response includes `max_input_tokens`, `max_tokens`, and a `capabilities` object for every available model.
+> **Note:** Claude Opus 4.7 is available on Bedrock through Claude in Amazon Bedrock (the Messages-API Bedrock endpoint).
 
 ## Platform Availability
 
@@ -87,7 +95,9 @@ Starting with Claude Sonnet 4.5 and all subsequent models (including Claude Sonn
 
 Claude Platform on AWS uses the same model IDs as the Claude API (for example, `claude-opus-4-6`), not Bedrock-style IDs. Model lifecycle on Claude Platform on AWS follows Anthropic's first-party model deprecations, not Bedrock's.
 
-## Key Capabilities
+## Prompt and Output Performance
+
+Claude 4 models excel in:
 
 - **Performance:** Top-tier results in reasoning, coding, multilingual tasks, long-context handling, honesty, and image processing
 - **Adaptive thinking:** Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6 support dynamic thinking allocation; Fable 5 and Mythos 5 have always-on adaptive thinking

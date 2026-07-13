@@ -2,7 +2,7 @@
 title: "Memory Tool"
 source_url: "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/memory-tool"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-13T00:00:00Z"
 category: "api"
 ---
 
@@ -13,6 +13,8 @@ The memory tool lets Claude store and retrieve information across conversations 
 Memory supports just-in-time context retrieval. Rather than loading all relevant information up front, an agent records what it learns in memory files and reads them back on demand. This keeps the active context focused on the current task, which matters for long-running sessions that would otherwise overwhelm the context window. See [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) for the broader pattern.
 
 The memory tool operates client-side: Claude requests file operations, and your application executes them. You control where and how the data is stored through your own infrastructure.
+
+Reach out through the [feedback form](https://forms.gle/YXC2EKGMhjN1c4L88) to share your feedback on this feature.
 
 This feature is eligible for Zero Data Retention (ZDR). When your organization has a ZDR arrangement, data sent through this feature is not stored after the API response is returned.
 
@@ -132,6 +134,21 @@ curl https://api.anthropic.com/v1/messages \
   }'
 ```
 
+**CLI:**
+
+```bash
+ant messages create <<'YAML'
+model: claude-opus-4-8
+max_tokens: 2048
+tools:
+  - type: memory_20250818
+    name: memory
+messages:
+  - role: user
+    content: Help me respond to this customer service ticket.
+YAML
+```
+
 **Python:**
 
 ```python
@@ -172,11 +189,119 @@ const message = await anthropic.messages.create({
 console.log(message);
 ```
 
+**C#:**
+
+```csharp
+var client = new AnthropicClient();
+
+var message = await client.Messages.Create(
+    new()
+    {
+        Model = Model.ClaudeOpus4_8,
+        MaxTokens = 2048,
+        Messages =
+        [
+            new()
+            {
+                Role = Role.User,
+                Content = "Help me respond to this customer service ticket.",
+            },
+        ],
+        Tools = [new MemoryTool20250818()],
+    }
+);
+
+Console.WriteLine(message);
+```
+
+**Go:**
+
+```go
+client := anthropic.NewClient()
+
+message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+	Model:     anthropic.ModelClaudeOpus4_8,
+	MaxTokens: 2048,
+	Messages: []anthropic.MessageParam{
+		anthropic.NewUserMessage(anthropic.NewTextBlock("Help me respond to this customer service ticket.")),
+	},
+	Tools: []anthropic.ToolUnionParam{
+		{OfMemoryTool20250818: &anthropic.MemoryTool20250818Param{}},
+	},
+})
+if err != nil {
+	log.Fatal(err)
+}
+fmt.Println(message)
+```
+
+**Java:**
+
+```java
+import com.anthropic.models.messages.MemoryTool20250818;
+// ...
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  MessageCreateParams params = MessageCreateParams.builder()
+    .model(Model.CLAUDE_OPUS_4_8)
+    .maxTokens(2048L)
+    .addTool(MemoryTool20250818.builder().build())
+    .addUserMessage("Help me respond to this customer service ticket.")
+    .build();
+
+  Message message = client.messages().create(params);
+  IO.println(message);
+```
+
+**PHP:**
+
+```php
+$client = new Client();
+
+$message = $client->messages->create(
+    model: Model::CLAUDE_OPUS_4_8,
+    maxTokens: 2048,
+    messages: [
+        [
+            'role' => 'user',
+            'content' => 'Help me respond to this customer service ticket.',
+        ],
+    ],
+    tools: [new MemoryTool20250818],
+);
+
+echo $message;
+```
+
+**Ruby:**
+
+```ruby
+client = Anthropic::Client.new
+
+message = client.messages.create(
+  model: Anthropic::Model::CLAUDE_OPUS_4_8,
+  max_tokens: 2048,
+  messages: [
+    {
+      role: "user",
+      content: "Help me respond to this customer service ticket."
+    }
+  ],
+  tools: [
+    {
+      type: "memory_20250818",
+      name: "memory"
+    }
+  ]
+)
+puts message
+```
+
 ## Implement the Memory Handler
 
 Claude's reply to a request ends with a `tool_use` block that requests a memory operation, such as `view /memories`. Your application executes the operation and returns the result in a `tool_result` block, then sends the conversation back so Claude can continue: the standard tool-use loop.
 
-Four SDKs provide memory tool helpers that handle the tool interface and the loop. Subclass `BetaAbstractMemoryTool` (Python and C#), use `betaMemoryTool` (TypeScript), or implement `BetaMemoryToolHandler` (Java) to back memory with your own storage, such as files on disk, a database, cloud storage, or encrypted files. Python and TypeScript also ship a ready-made local-filesystem implementation, `BetaLocalFilesystemMemoryTool`. The helper and tool-runner surfaces live in each SDK's beta namespace even though the memory tool itself is generally available. The Go and Ruby SDKs have no memory helper, so those examples run the tool-use loop themselves, and PHP wraps your handler closure in its generic `BetaRunnableTool`.
+Four SDKs provide memory tool helpers that handle the tool interface and the loop. Subclass `BetaAbstractMemoryTool` (Python and C#), use `betaMemoryTool` (TypeScript), or implement `BetaMemoryToolHandler` (Java) to back memory with your own storage, such as files on disk, a database, cloud storage, or encrypted files. Python and TypeScript also ship a ready-made local-filesystem implementation, `BetaLocalFilesystemMemoryTool`. The helper and tool-runner surfaces live in each SDK's beta namespace even though the memory tool itself is generally available. The Go and Ruby SDKs have no memory helper, so those examples run the tool-use loop themselves, and PHP wraps your handler closure in its generic `BetaRunnableTool`. All three use an in-memory store that you replace with your own storage.
 
 **Python:**
 
@@ -232,6 +357,389 @@ const finalMessage = await runner;
 console.log(finalMessage.content);
 ```
 
+**C#:**
+
+```csharp
+using Anthropic;
+using Anthropic.Helpers.Beta;
+using Anthropic.Models.Beta.Messages;
+
+var client = new AnthropicClient();
+
+// Your subclass of BetaAbstractMemoryTool
+var memory = new FilesystemMemoryTool("./memories");
+
+var runner = client.Beta.Messages.ToolRunner(
+    new MessageCreateParams
+    {
+        Model = Anthropic.Models.Messages.Model.ClaudeOpus4_8,
+        MaxTokens = 1024,
+        Messages =
+        [
+            new()
+            {
+                Role = Role.User,
+                Content = "Remember that customer Acme Corp prefers email follow-ups.",
+            },
+        ],
+    },
+    [memory],
+    maxIterations: 10
+);
+
+var finalMessage = await runner.RunUntilDoneAsync();
+Console.WriteLine(finalMessage);
+```
+
+**Go:**
+
+```go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"slices"
+	"sort"
+	"strings"
+
+	"github.com/anthropics/anthropic-sdk-go"
+)
+
+// An in-memory store that maps memory file paths to their contents.
+// Use your own storage in production.
+var store = map[string]string{}
+
+type memoryCommand struct {
+	Command    string `json:"command"`
+	Path       string `json:"path"`
+	FileText   string `json:"file_text"`
+	OldStr     string `json:"old_str"`
+	NewStr     string `json:"new_str"`
+	InsertLine int    `json:"insert_line"`
+	InsertText string `json:"insert_text"`
+	OldPath    string `json:"old_path"`
+	NewPath    string `json:"new_path"`
+}
+
+func executeMemory(raw json.RawMessage) string {
+	var cmd memoryCommand
+	if err := json.Unmarshal(raw, &cmd); err != nil {
+		return "Error: invalid memory command"
+	}
+	switch cmd.Command {
+	case "view":
+		if content, ok := store[cmd.Path]; ok {
+			lines := strings.Split(strings.TrimSuffix(content, "\n"), "\n")
+			for i, line := range lines {
+				lines[i] = fmt.Sprintf("%6d\t%s", i+1, line)
+			}
+			return fmt.Sprintf("Here's the content of %s with line numbers:\n%s", cmd.Path, strings.Join(lines, "\n"))
+		}
+		if cmd.Path == "/memories" {
+			listing := []string{"1.0K\t/memories"}
+			for path := range store {
+				listing = append(listing, "1.0K\t"+path)
+			}
+			sort.Strings(listing[1:])
+			return fmt.Sprintf("Here're the files and directories up to 2 levels deep in %s, excluding hidden items and node_modules:\n%s", cmd.Path, strings.Join(listing, "\n"))
+		}
+		return fmt.Sprintf("The path %s does not exist. Please provide a valid path.", cmd.Path)
+	case "create":
+		store[cmd.Path] = cmd.FileText
+		return "File created successfully at: " + cmd.Path
+	case "str_replace":
+		content, ok := store[cmd.Path]
+		if !ok || !strings.Contains(content, cmd.OldStr) {
+			return fmt.Sprintf("No replacement was performed, old_str `%s` did not appear verbatim in %s.", cmd.OldStr, cmd.Path)
+		}
+		store[cmd.Path] = strings.Replace(content, cmd.OldStr, cmd.NewStr, 1)
+		return "The memory file has been edited."
+	case "insert":
+		content, ok := store[cmd.Path]
+		if !ok {
+			return fmt.Sprintf("Error: The path %s does not exist", cmd.Path)
+		}
+		lines := strings.Split(content, "\n")
+		if cmd.InsertLine < 0 || cmd.InsertLine > len(lines) {
+			return fmt.Sprintf("Error: Invalid `insert_line` parameter: %d. It should be within the range of lines of the file: [0, %d]", cmd.InsertLine, len(lines))
+		}
+		lines = slices.Insert(lines, cmd.InsertLine, strings.TrimSuffix(cmd.InsertText, "\n"))
+		store[cmd.Path] = strings.Join(lines, "\n")
+		return fmt.Sprintf("The file %s has been edited.", cmd.Path)
+	case "delete":
+		if _, ok := store[cmd.Path]; !ok {
+			return fmt.Sprintf("Error: The path %s does not exist", cmd.Path)
+		}
+		delete(store, cmd.Path)
+		return "Successfully deleted " + cmd.Path
+	case "rename":
+		if _, ok := store[cmd.OldPath]; !ok {
+			return fmt.Sprintf("Error: The path %s does not exist", cmd.OldPath)
+		}
+		if _, ok := store[cmd.NewPath]; ok {
+			return fmt.Sprintf("Error: The destination %s already exists", cmd.NewPath)
+		}
+		store[cmd.NewPath] = store[cmd.OldPath]
+		delete(store, cmd.OldPath)
+		return fmt.Sprintf("Successfully renamed %s to %s", cmd.OldPath, cmd.NewPath)
+	default:
+		return "Error: unknown command " + cmd.Command
+	}
+}
+
+func main() {
+	client := anthropic.NewClient()
+	tools := []anthropic.ToolUnionParam{{OfMemoryTool20250818: &anthropic.MemoryTool20250818Param{}}}
+	messages := []anthropic.MessageParam{
+		anthropic.NewUserMessage(anthropic.NewTextBlock("Remember that customer Acme Corp prefers email follow-ups.")),
+	}
+
+	for {
+		message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+			Model:     anthropic.ModelClaudeOpus4_8,
+			MaxTokens: 1024,
+			Messages:  messages,
+			Tools:     tools,
+		})
+		if err != nil {
+			log.Fatal(err)
+		}
+		if message.StopReason != anthropic.StopReasonToolUse {
+			for _, block := range message.Content {
+				if block.Type == "text" {
+					fmt.Println(block.Text)
+				}
+			}
+			break
+		}
+		results := []anthropic.ContentBlockParamUnion{}
+		for _, block := range message.Content {
+			if block.Type == "tool_use" {
+				results = append(results, anthropic.NewToolResultBlock(block.ID, executeMemory(block.Input), false))
+			}
+		}
+		messages = append(messages, message.ToParam(), anthropic.NewUserMessage(results...))
+	}
+}
+```
+
+**Java:**
+
+```java
+import com.anthropic.client.AnthropicClient;
+import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.helpers.BetaMemoryToolHandler;
+import com.anthropic.helpers.BetaToolRunner;
+import com.anthropic.models.beta.messages.BetaMemoryTool20250818;
+import com.anthropic.models.beta.messages.BetaMessage;
+import com.anthropic.models.beta.messages.MessageCreateParams;
+import com.anthropic.models.beta.messages.ToolRunnerCreateParams;
+import com.anthropic.models.messages.Model;
+import java.nio.file.Path;
+
+void main() {
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  // Your BetaMemoryToolHandler implementation of the six memory commands
+  BetaMemoryToolHandler handler = new FileSystemMemoryToolHandler(Path.of("memories"));
+
+  MessageCreateParams createParams = MessageCreateParams.builder()
+    .model(Model.CLAUDE_OPUS_4_8)
+    .maxTokens(1024L)
+    .addTool(BetaMemoryTool20250818.builder().build())
+    .addUserMessage("Remember that customer Acme Corp prefers email follow-ups.")
+    .build();
+
+  ToolRunnerCreateParams runnerParams = ToolRunnerCreateParams.builder()
+    .betaMemoryToolHandler(handler)
+    .initialMessageParams(createParams)
+    .maxIterations(10)
+    .build();
+
+  BetaToolRunner runner = client.beta().messages().toolRunner(runnerParams);
+  for (BetaMessage message : runner) {
+    IO.println(message);
+  }
+}
+```
+
+**PHP:**
+
+```php
+<?php
+
+use Anthropic\Beta\Messages\BetaMemoryTool20250818;
+use Anthropic\Client;
+use Anthropic\Lib\Tools\BetaRunnableTool;
+use Anthropic\Messages\Model;
+
+$client = new Client();
+
+// An in-memory store that maps memory file paths to their contents.
+// Use your own storage in production.
+$store = [];
+
+$memory = new BetaRunnableTool(
+    definition: new BetaMemoryTool20250818,
+    run: function (array $input) use (&$store): string {
+        $path = $input['path'] ?? '';
+        switch ($input['command']) {
+            case 'view':
+                if (isset($store[$path])) {
+                    $numbered = [];
+                    foreach (explode("\n", preg_replace('/\n\z/', '', $store[$path])) as $i => $line) {
+                        $numbered[] = sprintf("%6d\t%s", $i + 1, $line);
+                    }
+                    return "Here's the content of {$path} with line numbers:\n" . implode("\n", $numbered);
+                }
+                if ($path === '/memories') {
+                    $listing = ["1.0K\t/memories"];
+                    foreach (array_keys($store) as $stored) {
+                        $listing[] = "1.0K\t{$stored}";
+                    }
+                    return "Here're the files and directories up to 2 levels deep in {$path}, excluding hidden items and node_modules:\n" . implode("\n", $listing);
+                }
+                return "The path {$path} does not exist. Please provide a valid path.";
+            case 'create':
+                $store[$path] = $input['file_text'];
+                return "File created successfully at: {$path}";
+            case 'str_replace':
+                $position = strpos($store[$path] ?? '', $input['old_str']);
+                if ($position === false) {
+                    return "No replacement was performed, old_str `{$input['old_str']}` did not appear verbatim in {$path}.";
+                }
+                $store[$path] = substr_replace($store[$path], $input['new_str'] ?? '', $position, strlen($input['old_str']));
+                return 'The memory file has been edited.';
+            case 'insert':
+                if (!isset($store[$path])) {
+                    return "Error: The path {$path} does not exist";
+                }
+                $lines = explode("\n", $store[$path]);
+                if ($input['insert_line'] < 0 || $input['insert_line'] > count($lines)) {
+                    return "Error: Invalid `insert_line` parameter: {$input['insert_line']}. It should be within the range of lines of the file: [0, " . count($lines) . "]";
+                }
+                array_splice($lines, $input['insert_line'], 0, [preg_replace('/\n\z/', '', $input['insert_text'])]);
+                $store[$path] = implode("\n", $lines);
+                return "The file {$path} has been edited.";
+            case 'delete':
+                if (!isset($store[$path])) {
+                    return "Error: The path {$path} does not exist";
+                }
+                unset($store[$path]);
+                return "Successfully deleted {$path}";
+            case 'rename':
+                if (!isset($store[$input['old_path']])) {
+                    return "Error: The path {$input['old_path']} does not exist";
+                }
+                if (isset($store[$input['new_path']])) {
+                    return "Error: The destination {$input['new_path']} already exists";
+                }
+                $store[$input['new_path']] = $store[$input['old_path']];
+                unset($store[$input['old_path']]);
+                return "Successfully renamed {$input['old_path']} to {$input['new_path']}";
+            default:
+                return "Error: unknown command {$input['command']}";
+        }
+    },
+);
+
+$runner = $client->beta->messages->toolRunner(
+    maxTokens: 1024,
+    messages: [['role' => 'user', 'content' => 'Remember that customer Acme Corp prefers email follow-ups.']],
+    model: Model::CLAUDE_OPUS_4_8,
+    tools: [$memory],
+    maxIterations: 10,
+);
+
+$finalMessage = $runner->runUntilDone();
+print_r($finalMessage->content);
+```
+
+**Ruby:**
+
+```ruby
+require "anthropic"
+
+client = Anthropic::Client.new
+TOOLS = [{type: "memory_20250818", name: "memory"}].freeze
+
+# An in-memory store that maps memory file paths to their contents.
+# Use your own storage in production.
+STORE = {}
+
+def execute_memory(input)
+  path = input[:path]
+  case input[:command]
+  when "view"
+    if STORE.key?(path)
+      lines = STORE[path].chomp.split("\n", -1)
+      lines = [""] if lines.empty?
+      numbered = lines.each_with_index.map { |line, i| format("%6d\t%s", i + 1, line) }
+      "Here's the content of #{path} with line numbers:\n#{numbered.join("\n")}"
+    elsif path == "/memories"
+      listing = ["1.0K\t/memories"] + STORE.keys.map { |stored| "1.0K\t#{stored}" }
+      "Here're the files and directories up to 2 levels deep in #{path}, excluding hidden items and node_modules:\n#{listing.join("\n")}"
+    else
+      "The path #{path} does not exist. Please provide a valid path."
+    end
+  when "create"
+    STORE[path] = input[:file_text]
+    "File created successfully at: #{path}"
+  when "str_replace"
+    unless STORE.key?(path) && STORE[path].include?(input[:old_str])
+      return "No replacement was performed, old_str `#{input[:old_str]}` did not appear verbatim in #{path}."
+    end
+    STORE[path] = STORE[path].sub(input[:old_str]) { input[:new_str].to_s }
+    "The memory file has been edited."
+  when "insert"
+    return "Error: The path #{path} does not exist" unless STORE.key?(path)
+    lines = STORE[path].split("\n", -1)
+    lines = [""] if lines.empty?
+    if input[:insert_line] < 0 || input[:insert_line] > lines.length
+      return "Error: Invalid `insert_line` parameter: #{input[:insert_line]}. It should be within the range of lines of the file: [0, #{lines.length}]"
+    end
+    lines.insert(input[:insert_line], input[:insert_text].chomp)
+    STORE[path] = lines.join("\n")
+    "The file #{path} has been edited."
+  when "delete"
+    return "Error: The path #{path} does not exist" unless STORE.key?(path)
+    STORE.delete(path)
+    "Successfully deleted #{path}"
+  when "rename"
+    return "Error: The path #{input[:old_path]} does not exist" unless STORE.key?(input[:old_path])
+    return "Error: The destination #{input[:new_path]} already exists" if STORE.key?(input[:new_path])
+    STORE[input[:new_path]] = STORE.delete(input[:old_path])
+    "Successfully renamed #{input[:old_path]} to #{input[:new_path]}"
+  else
+    "Error: unknown command #{input[:command]}"
+  end
+end
+
+messages = [{role: "user", content: "Remember that customer Acme Corp prefers email follow-ups."}]
+loop do
+  message = client.messages.create(
+    model: Anthropic::Model::CLAUDE_OPUS_4_8,
+    max_tokens: 1024,
+    messages: messages,
+    tools: TOOLS
+  )
+  unless message.stop_reason == :tool_use
+    puts message.content
+    break
+  end
+  tool_results = message.content.filter_map do |block|
+    next unless block.type == :tool_use
+    {type: "tool_result", tool_use_id: block.id, content: execute_memory(block.input)}
+  end
+  messages << {role: "assistant", content: message.content} << {role: "user", content: tool_results}
+end
+```
+
+The in-memory stores in the Go, PHP, and Ruby examples keep them self-contained: each one dispatches on the `command` field in the `tool_use` block's `input` and returns the strings described under Tool commands. A production handler also needs the path validation these demonstration stores skip.
+
 For the SDKs' complete examples, see:
 
 - Python: [examples/memory/basic.py](https://github.com/anthropics/anthropic-sdk-python/blob/main/examples/memory/basic.py)
@@ -241,7 +749,7 @@ For the SDKs' complete examples, see:
 
 ## Tool Commands
 
-Your client-side implementation must handle the following commands. These specifications describe the recommended behaviors and return strings.
+Your client-side implementation must handle the following commands. These specifications describe the recommended behaviors and return strings: Claude reads whatever text your tool result contains, so you can return different strings if your application needs to.
 
 ### view
 
@@ -257,15 +765,51 @@ Shows directory contents or file contents with optional line ranges:
 
 `view_range` is optional and applies to text-file views: `[start_line, end_line]` returns those lines, and `[start_line, -1]` returns everything from `start_line` to the end of the file.
 
-**For directories:** Return a listing that shows files and directories with their sizes up to 2 levels deep, excluding hidden items and `node_modules`. Use a tab character between the size and the path.
+#### Return values
 
-**For files:** Return file contents with a header and line numbers. Line numbers should be 6 characters wide, right-aligned with space padding, tab-separated from content, 1-indexed. Files with more than 999,999 lines should return an error.
+**For directories:** Return a listing that shows files and directories with their sizes:
 
-The first `view` of `/memories` on an empty store is not an error. The SDKs' local-filesystem memory tools create the memory root before Claude's first call and return the listing header followed by a single size-and-path line for the empty directory itself.
+```
+Here're the files and directories up to 2 levels deep in {path}, excluding hidden items and node_modules:
+{size}\t{path}
+{size}\t{path}/{filename1}
+{size}\t{path}/{filename2}
+```
 
-Claude's tool description also says that `view` displays image files (`.jpg`, `.jpeg`, and `.png`) and truncates the text view of files longer than 16,000 characters.
+- Lists files up to 2 levels deep
+- Shows human-readable sizes (for example, `5.5K`, `1.2M`)
+- Excludes hidden items (files starting with `.`) and `node_modules`
+- Uses a tab character between the size and the path
 
-**Error handling:**
+The first `view` of `/memories` on an empty store is not an error. The SDKs' local-filesystem memory tools (`BetaLocalFilesystemMemoryTool`) create the memory root before Claude's first call and return the listing header followed by a single size-and-path line for the empty directory itself.
+
+**For files:** Return file contents with a header and line numbers:
+
+```
+Here's the content of {path} with line numbers:
+{line_numbers}{tab}{content}
+```
+
+Line number formatting:
+
+- **Width:** 6 characters, right-aligned with space padding
+- **Separator:** Tab character between line number and content
+- **Indexing:** 1-indexed (first line is line 1)
+- **Line limit:** Files with more than 999,999 lines should return an error: `"File {path} exceeds maximum line limit of 999,999 lines."`
+
+**Example output:**
+
+```
+Here's the content of /memories/notes.txt with line numbers:
+     1	Hello World
+     2	This is line two
+    10	Line ten
+   100	Line one hundred
+```
+
+Claude's tool description also says that `view` displays image files (`.jpg`, `.jpeg`, and `.png`) and truncates the text view of files longer than 16,000 characters. Expect `view` calls on image paths and follow-up ranged views of long files.
+
+#### Error handling
 
 - File or directory does not exist: `"The path {path} does not exist. Please provide a valid path."`
 
@@ -281,7 +825,15 @@ Creates a new file:
 }
 ```
 
-Returns success message or error if file already exists. Claude's tool description says `create` "creates or overwrites" a file, so expect `create` calls on paths that already exist. Returning the error is the reference behavior, and overwriting instead is a valid implementation choice.
+#### Return values
+
+- **Success:** `"File created successfully at: {path}"`
+
+#### Error handling
+
+- **File already exists:** `"Error: File {path} already exists"`
+
+Claude's tool description says `create` "creates or overwrites" a file, so expect `create` calls on paths that already exist. Returning the error is the reference behavior, and overwriting instead is a valid implementation choice.
 
 ### str_replace
 
@@ -298,11 +850,19 @@ Replaces text in a file:
 
 `new_str` is optional for `str_replace`: when it's omitted, `old_str` is deleted without a replacement.
 
-**Error handling:**
+#### Return values
+
+- **Success:** `"The memory file has been edited."` followed by a snippet of the edited file with line numbers
+
+#### Error handling
 
 - File does not exist: `"Error: The path {path} does not exist. Please provide a valid path."`
 - Text not found: `"No replacement was performed, old_str '{old_str}' did not appear verbatim in {path}."`
 - Duplicate text: When `old_str` appears multiple times, return: `"No replacement was performed. Multiple occurrences of old_str '{old_str}' in lines: {line_numbers}. Please ensure it is unique"`
+
+#### Directory handling
+
+If the path is a directory, return a "file does not exist" error.
 
 ### insert
 
@@ -319,10 +879,18 @@ Inserts text at a specific line:
 
 `insert_text` is inserted after line `insert_line`, and `0` inserts at the beginning of the file.
 
-**Error handling:**
+#### Return values
+
+- **Success:** `"The file {path} has been edited."`
+
+#### Error handling
 
 - File does not exist: `"Error: The path {path} does not exist"`
 - Invalid line number: `"Error: Invalid 'insert_line' parameter: {insert_line}. It should be within the range of lines of the file: [0, {n_lines}]"`
+
+#### Directory handling
+
+If the path is a directory, return a "file does not exist" error.
 
 ### delete
 
@@ -335,11 +903,17 @@ Deletes a file or directory:
 }
 ```
 
-Deletes directories recursively. The tool description tells Claude it cannot delete the `/memories` directory itself, so reject a `delete` whose path is the memory root.
+#### Return values
 
-**Error handling:**
+- **Success:** `"Successfully deleted {path}"`
+
+#### Error handling
 
 - File or directory does not exist: `"Error: The path {path} does not exist"`
+
+#### Directory handling
+
+Deletes the directory and all its contents recursively. The tool description tells Claude it cannot delete the `/memories` directory itself, so reject a `delete` whose path is the memory root.
 
 ### rename
 
@@ -353,16 +927,31 @@ Renames or moves a file or directory:
 }
 ```
 
-Does not overwrite existing destination. Cannot rename the `/memories` root directory.
+#### Return values
 
-**Error handling:**
+- **Success:** `"Successfully renamed {old_path} to {new_path}"`
+
+#### Error handling
 
 - Source does not exist: `"Error: The path {old_path} does not exist"`
-- Destination already exists: `"Error: The destination {new_path} already exists"`
+- Destination already exists: Return an error (do not overwrite): `"Error: The destination {new_path} already exists"`
+
+#### Directory handling
+
+Renames the directory. The tool description tells Claude it cannot rename the `/memories` directory itself, so reject a `rename` whose `old_path` is the memory root.
 
 ## Prompting Guidance
 
-When the memory tool is present in your request's `tools`, the API automatically adds an instruction to the system prompt telling Claude to always view its memory directory before doing anything else. You don't need to send it yourself.
+When the memory tool is present in your request's `tools`, the API automatically adds this instruction to the system prompt. You don't need to send it yourself:
+
+```
+IMPORTANT: ALWAYS VIEW YOUR MEMORY DIRECTORY BEFORE DOING ANYTHING ELSE.
+MEMORY PROTOCOL:
+1. Use the `view` command of your `memory` tool to check for earlier progress.
+2. ... (work on the task) ...
+   - As you make progress, record status / progress / thoughts etc in your memory.
+ASSUME INTERRUPTION: Your context window might be reset at any moment, so you risk losing any progress that is not recorded in your memory directory.
+```
 
 Claude's tool description already tells it to keep the memory directory organized, so you don't need to repeat that instruction. If Claude still creates cluttered memory files, you can reinforce it in your prompt:
 
