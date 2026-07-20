@@ -2,7 +2,7 @@
 title: "Introducing Advanced Tool Use on the Claude Developer Platform"
 source_url: "https://www.anthropic.com/engineering/advanced-tool-use"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "engineering"
 ---
 

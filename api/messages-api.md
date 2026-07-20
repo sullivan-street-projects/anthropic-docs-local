@@ -2,7 +2,7 @@
 title: "Messages API"
 source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "api"
 ---
 
@@ -48,17 +48,19 @@ Messages operate on alternating `user` and `assistant` conversational turns. Con
 
 The model to use for the response. Available models:
 
-| Model             | Model ID            |
-| :---------------- | :------------------ |
-| Claude Fable 5    | `claude-fable-5`    |
-| Claude Mythos 5   | `claude-mythos-5`   |
-| Claude Opus 4.8   | `claude-opus-4-8`   |
-| Claude Opus 4.7   | `claude-opus-4-7`   |
-| Claude Opus 4.6   | `claude-opus-4-6`   |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` |
-| Claude Haiku 4.5  | `claude-haiku-4-5`  |
-| Claude Opus 4.5   | `claude-opus-4-5`   |
-| Claude Sonnet 4.5 | `claude-sonnet-4-5` |
+| Model               | Model ID              |
+| :------------------ | :-------------------- |
+| Claude Sonnet 5     | `claude-sonnet-5`     |
+| Claude Fable 5      | `claude-fable-5`      |
+| Claude Mythos 5     | `claude-mythos-5`     |
+| Claude Opus 4.8     | `claude-opus-4-8`     |
+| Claude Opus 4.7     | `claude-opus-4-7`     |
+| Claude Mythos Preview | `claude-mythos-preview` |
+| Claude Opus 4.6     | `claude-opus-4-6`     |
+| Claude Sonnet 4.6   | `claude-sonnet-4-6`   |
+| Claude Haiku 4.5    | `claude-haiku-4-5`    |
+| Claude Opus 4.5     | `claude-opus-4-5`     |
+| Claude Sonnet 4.5   | `claude-sonnet-4-5`   |
 
 ### `max_tokens` (number)
 
@@ -216,6 +218,14 @@ Custom sequences that cause the model to stop generating. The stop sequence itse
 ### `stream` (boolean)
 
 Enable incremental streaming of the response using server-sent events (SSE). See the Streaming documentation for details.
+
+### `container` (string)
+
+Container identifier for reuse across requests.
+
+### `inference_geo` (string)
+
+Specifies the geographic region for inference processing. If not specified, uses the workspace's `default_inference_geo`.
 
 ### `metadata` (object)
 
@@ -386,10 +396,10 @@ Cache control can be applied to system prompts, messages, tool definitions, and 
     "server_tool_use": {
       "web_search_requests": 0,
       "web_fetch_requests": 2
-    },
-    "inference_geo": "us",
-    "service_tier": "standard"
-  }
+    }
+  },
+  "inference_geo": "us",
+  "service_tier": "standard"
 }
 ```
 

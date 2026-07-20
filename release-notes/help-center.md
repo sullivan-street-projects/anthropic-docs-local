@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -15,6 +15,14 @@ Updates to Claude consumer and business applications.
 ---
 
 ## July 2026
+
+### July 14, 2026
+
+- HIPAA configuration for Claude organizations is now self-serve: organizations can independently manage HIPAA readiness including BAA review, implementation guides, and enabling HIPAA configuration (applies to Claude Enterprise and Claude Platform/API)
+
+### July 10, 2026
+
+- Memory functionality updated from daily summaries to individual, categorized entries that Claude reads and updates during conversations
 
 ### July 9, 2026
 

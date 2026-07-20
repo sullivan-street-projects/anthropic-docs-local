@@ -2,7 +2,7 @@
 title: "Skills Catalog"
 source_url: "https://github.com/anthropics/skills"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "skills"
 ---
 

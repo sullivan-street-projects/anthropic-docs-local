@@ -2,7 +2,7 @@
 title: "How Anthropic Teams Use Claude Code"
 source_url: "https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "claude-code"
 ---
 

@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "research"
 ---
 
@@ -29,12 +29,15 @@ The following papers have been identified since the last full update. PDFs have 
 | Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption         | [2511.15080](https://arxiv.org/abs/2511.15080) | Nov 2025 | Documents Claude usage patterns in 150+ countries, finding directive task delegation rose from 27% to 39% in eight months.                                         |
 | How AI Assistance Impacts the Formation of Coding Skills                       | [2601.20245](https://arxiv.org/abs/2601.20245) | Jan 2026 | Investigates how AI coding assistants affect skill development in programmers. By Shen, Tamkin et al. (Anthropic).                                                 |
 
-### Non-arXiv Notable Research (2025)
+### Non-arXiv Notable Research (2025-2026)
 
 | Paper                                                              | Source                                                                                            | Date     | Summary                                                                                                                             |
 | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | Circuit Tracing: Revealing Computational Graphs in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html) | Mar 2025 | Attribution graphs trace model computation through interpretable features; companion to "On the Biology of a Large Language Model". |
 | On the Biology of a Large Language Model                           | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html) | Mar 2025 | Applied circuit tracing to Claude 3.5 Haiku; discovered planning in poetry, hallucination mechanisms, and jailbreak circuits.       |
+| Teaching Claude Why                                                | [alignment.anthropic.com](https://alignment.anthropic.com/2026/teaching-claude-why/)              | May 2026 | High-quality constitutional documents + fictional stories portraying aligned AI reduce agentic misalignment by >3x (blackmail rate 65% to 19%). |
+| Verbalizable Representations Form a Global Workspace in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2026/workspace/)                 | Jul 2026 | Introduces J-lens tool; discovers "J-space" -- a small, privileged set of verbalizable internal representations functioning as a global workspace analogous to human conscious access. 16-author study by Gurnee, Sofroniew, Lindsey et al. |
+| An Off Switch for Dual-Use Knowledge in AI Models (GRAM)          | [anthropic.com](https://www.anthropic.com/research/off-switch-dual-use)                           | Jul 2026 | Introduces GRAM (Gradient-Routed Auxiliary Modules) -- removable compartments for dual-use knowledge categories. Preliminary results on 5B-param model show capability removal without degrading overall performance. By AE Studio and Anthropic. |
 
 ## Alignment & Safety
 
@@ -94,6 +97,9 @@ For those new to Anthropic's research, suggested reading order:
 15. **Reasoning Models CoT Faithfulness** (2025) - Limits of monitoring
 16. **Emergent Misalignment** (2025) - Reward hacking to sabotage
 17. **The Hot Mess of AI** (2026, ICLR) - Incoherence vs. systematic misalignment at scale
+18. **Teaching Claude Why** (2026) - Constitutional training to reduce agentic misalignment
+19. **Global Workspace** (2026) - J-space and verbalizable representations
+20. **GRAM / Off Switch** (2026) - Removable dual-use knowledge compartments
 
 ### Governance Track
 
@@ -108,4 +114,4 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
-Last checked for new papers: July 12, 2026. Added 2601.20245 "How AI Assistance Impacts the Formation of Coding Skills" (Shen, Tamkin). No other new Anthropic-authored arXiv papers identified since the January 2026 batch beyond those already tracked.
+Last checked for new papers: July 20, 2026. No new Anthropic-authored arXiv papers identified since the January 2026 batch. Notable non-arXiv publications added: "Teaching Claude Why" (May 2026, alignment blog), "Verbalizable Representations Form a Global Workspace in Language Models" (Jul 2026, transformer-circuits.pub), and "An Off Switch for Dual-Use Knowledge in AI Models" (Jul 2026, anthropic.com).

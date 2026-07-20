@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "models"
 ---
 
@@ -48,16 +48,18 @@ To identify usage of deprecated models:
 
 ## Model Status
 
-**Note:** Claude Mythos Preview (`claude-mythos-preview`) will be retired on June 30, 2026. To migrate to Claude Mythos 5 (`claude-mythos-5`), see the migration guide.
+**Note:** Claude Mythos Preview (`claude-mythos-preview`) will be retired on July 21, 2026. To migrate to Claude Mythos 5 (`claude-mythos-5`), see the [migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide#migrating-from-claude-mythos-preview).
 
 | API Model Name               | Current State | Deprecated        | Tentative Retirement Date          |
 | :--------------------------- | :------------ | :---------------- | :--------------------------------- |
+| `claude-fable-5`             | Active        | N/A               | Not sooner than June 9, 2027       |
 | `claude-opus-4-8`            | Active        | N/A               | Not sooner than May 28, 2027       |
 | `claude-opus-4-7`            | Active        | N/A               | Not sooner than April 16, 2027     |
 | `claude-opus-4-6`            | Active        | N/A               | Not sooner than February 5, 2027   |
 | `claude-opus-4-5-20251101`   | Active        | N/A               | Not sooner than November 24, 2026  |
 | `claude-opus-4-1-20250805`   | Deprecated    | June 5, 2026      | August 5, 2026                     |
 | `claude-opus-4-20250514`     | Retired       | April 14, 2026    | June 15, 2026                      |
+| `claude-sonnet-5`            | Active        | N/A               | Not sooner than June 30, 2027      |
 | `claude-sonnet-4-6`          | Active        | N/A               | Not sooner than February 17, 2027  |
 | `claude-sonnet-4-5-20250929` | Active        | N/A               | Not sooner than September 29, 2026 |
 | `claude-sonnet-4-20250514`   | Retired       | April 14, 2026    | June 15, 2026                      |

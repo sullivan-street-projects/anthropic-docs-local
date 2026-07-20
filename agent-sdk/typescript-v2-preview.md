@@ -2,7 +2,7 @@
 title: "Agent SDK - TypeScript v2 Preview"
 source_url: "https://github.com/anthropics/agent-sdk"
 source_type: "web-extracted"
-fetched_at: "2026-04-05T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "agent-sdk"
 ---
 

@@ -1,85 +1,99 @@
 ---
 title: "Weekly Update Summary"
-date: "2026-07-12"
+date: "2026-07-20"
 ---
 
-# Weekly Update Summary — 2026-07-12
+# Weekly Update Summary — 2026-07-20
 
 ## What Changed
 
-117 files updated across all 12 categories, +5,346 lines / -2,566 lines.
+### Release Notes (CONTENT CHANGED)
+- `release-notes/platform.md` — New entries: July 15 mid-conversation system messages GA (Fable 5, Mythos 5, Opus 4.8); July 14 Admin API user management beta; July 10 Dreams now supports Fable 5 and Sonnet 5
+- `release-notes/api.md` — Same 3 new entries as platform release notes
+- `release-notes/help-center.md` — July 14 HIPAA self-serve configuration; July 10 Memory updated from daily summaries to individual categorized entries
 
-### SDK & Tool Updates
+### Claude Code (CONTENT CHANGED)
+- `claude-code/CHANGELOG.md` — New versions 2.1.215, 2.1.214, 2.1.212: EndConversation tool, `/fork` creates background sessions, `/verify` and `/code-review` no longer auto-invoke, security/permission fixes
 
-- **Claude Code CHANGELOG**: 3 new versions (2.1.205-207) — auto mode on Bedrock/Vertex/Foundry without opt-in, `/cd` directory suggestions, `/doctor` CLAUDE.md trimming check, auto mode anti-tampering rule, plugin security fixes
-- **Python SDK**: 4 new versions (0.114.0-0.116.0) — claude-sonnet-5 support, managed agents streaming, agent memory beta header
-- **TypeScript SDK**: 5 new versions (0.108.0-0.111.0) — dreaming API support, claude-sonnet-5 support, managed agents streaming
-- **GitHub repos index**: 78 → 92 repos (14 new including claude-for-legal, financial-services, claudes-c-compiler, defending-code-reference-harness)
+### SDK Changelogs (CONTENT CHANGED)
+- `sdks/python/CHANGELOG.md` — New version 0.117.0 (Jul 16): dreaming support, MCP Tunnels, SecretStr credential protection
+- `sdks/typescript/CHANGELOG.md` — New versions 0.112.0–0.112.3 (Jul 14–17): MCP Tunnels support
 
-### API Documentation — Claude Sonnet 5 Rollout
+### API Docs (CONTENT CHANGED)
+- `api/messages-api.md` — 2 new models: Claude Sonnet 5 and Claude Mythos Preview; 2 new parameters: `container` and `inference_geo`
+- `api/adaptive-thinking.md` — Fable 5, Mythos 5, Opus 4.8, Sonnet 5 reject non-default temperature/top_p/top_k with 400 error; model-switching guidance added
 
-- All 15 API docs updated for Claude Sonnet 5 support
-- **api/overview.md**: New pagination section (page/next_page cursor scheme)
-- **api/errors.md**: Added 409 conflict_error, SDK auto-retry behavior
-- **api/migration-guide.md**: New Sonnet 5 migration section (breaking: extended thinking error, new tokenizer ~30% more tokens, adaptive thinking on by default) and Mythos 5 migration section
-- **api/extended-thinking.md**: Sonnet 5 support, thinking block encryption section
-- **api/effort-parameter.md**: xhigh now available on Sonnet 5, new recommended effort levels section
-- **api/memory-tool.md**: Expanded tool command documentation, cURL examples, security details
-- **api/web-search-tool.md**: Dynamic filtering for Sonnet 5, batch requests section, encrypted_content pass-back
+### Models (CONTENT CHANGED)
+- `models/deprecations.md` — Added claude-fable-5 and claude-sonnet-5 to model status; Mythos Preview retirement date updated from June 30 to July 21
+- `models/claude-fable-5-mythos-5.md` — Major expansion: Jul 1 redeployment notice, drug design/genomics/scientific sections, safety classifier details, trusted access programs
+- `models/claude-opus-4-7.md` — Major expansion: 15+ customer testimonials, safety assessment, cybersecurity section, migration guide from Opus 4.6
+- `models/claude-opus-4-8.md` — Expanded benchmarks, customer feedback, Dynamic Workflows/Effort Control details
 
-### Models & Deprecations
+### Agent SDK (CONTENT CHANGED)
+- `agent-sdk/README.md` — Provider renames: "Google Vertex AI" to "Google Cloud's Agent Platform", "Microsoft Azure" to "Microsoft Foundry"; permission mode description updates
+- `agent-sdk/quickstart.md` — Same provider naming updates and permission mode changes
 
-- **models/overview.md**: Latest models now Fable 5, Opus 4.8, Sonnet 5, Haiku 4.5; added Fable 5/Mythos 5 section; Sonnet 5 introductory pricing ($2/$10 through Aug 31)
-- **models/deprecations.md**: Opus 4.1 deprecated (June 5, retiring Aug 5); Opus 4/Sonnet 4 retired (June 15); temperature/top_p/top_k deprecated for Opus 4.7+; Haiku 3 retired
+### Best Practices (CONTENT CHANGED)
+- `docs/best-practices-loop-scheduling.md` — New effort level `ultracode`; new `manual` permission mode (v2.1.200+); 7 new CLI flags: `--cloud`, `--exec`, `--advisor`, `--debug-file`, `--forward-subagent-text`, `--prompt-suggestions`
 
-### Engineering (11 content changes)
+### Research Papers (CONTENT CHANGED)
+- `research/papers/index.md` — 3 new non-arXiv papers added: "Teaching Claude Why" (constitutional training reduces misalignment >3x), "Verbalizable Representations Form a Global Workspace" (J-lens tool), "An Off Switch for Dual-Use Knowledge" (GRAM)
 
-- **desktop-extensions.md**: Major expansion — complete manifest.json examples, building steps, cross-platform support, Claude Code integration
-- **demystifying-evals.md**: Major expansion — YAML task examples, pass@k/pass^k metrics, 9-step roadmap, comparison table
-- **effective-context-engineering.md**: Runtime context retrieval, progressive disclosure, hybrid strategies
-- **advanced-tool-use.md**: JSON code examples, Opus 4/4.5 accuracy improvements (49%→74%, 79.5%→88.1%)
-- **writing-tools-for-agents.md**: Three-phase iterative process, ResponseFormat enum example
-- **ai-resistant-technical-evaluations.md**: Version 2/3 modifications, Zachtronics puzzles
-- **building-c-compiler.md**: Bash loop example, resource metrics table with token counts
+### GitHub Repos (CONTENT CHANGED)
+- `github-repos/index.md` — Repo count 92 to 94; 2 new repos: `k12-teacher-skills` (113 stars), `code-migration-kit-with-claude-code` (38 stars)
 
-### Research
-
-- **2 new July 2026 papers**: "An off switch for dual-use knowledge in AI models" (Jul 8), "A global workspace in language models" (Jul 6)
-- research/alignment.md and research/interpretability.md indexes updated
-
-### Release Notes
-
-- **release-notes/platform.md**: 30+ new entries April-July 2026 — Claude Opus 4.7/4.8, Fable 5, Mythos 5, Sonnet 5, Managed Agents, MCP tunnels, ant CLI, advisor tool, Claude Platform on AWS
-- **release-notes/help-center.md**: Cowork GA, Claude Design, Trusted Devices, Claude Tag, Compliance API
-- **sdks/other/overview.md**: Restructured to "CLI, SDKs, and Libraries" — now includes ant CLI, Apple Foundation Models Swift package, OpenAI SDK compatibility layer
-
-### Other Updates
-
-- **claude-code/hooks.md**: New StopFailure event matchers (overloaded, oauth_org_not_allowed, etc.), notification matchers (elicitation_complete, agent_needs_input), prompt_id field, CLAUDE_CODE_BRIDGE_SESSION_ID env var
-- **claude-code/scheduled-tasks.md**: Major rewrite — scheduling comparison table, seven-day expiry (was 3-day), self-paced mode with Monitor tool
-- **news/labor-market-impacts.md**: Added missing Figure 7 correction note from upstream
-- **skills/catalog.md**: Stars 156k → 161k
+### Timestamp-Only Updates
+- 17 engineering blog posts, 20 news articles, 19 research articles, 3 skills files, 8 claude-code web-extracted files, ~12 API/model/SDK docs, 4 github-raw READMEs
 
 ## So What — Why It Matters
 
-- **Claude Sonnet 5 is live** with introductory pricing through Aug 31. Breaking changes: extended thinking now errors (use adaptive), new tokenizer produces ~30% more tokens, adaptive thinking on by default. Migration guide updated.
-- **Opus 4.1 is deprecated** (retiring Aug 5, 2026). Opus 4/Sonnet 4 already retired. Use Opus 4.8 as replacement.
-- **temperature/top_p/top_k deprecated** for Opus 4.7+ models. Sampling parameters may be rejected.
-- **SDK dreaming API** support added in TypeScript SDK — new capability for agent development.
-- **Managed Agents streaming** added in both Python and TypeScript SDKs — relevant for agent orchestration.
-- **ant CLI** now available as a first-class tool alongside the SDKs.
-- **14 new GitHub repos** from Anthropic — notably claude-for-legal and financial-services (industry-specific tooling).
+### Mid-conversation system messages are GA
+July 15 release makes mid-conversation system messages generally available on Fable 5, Mythos 5, and Opus 4.8 without a beta header. Enables richer agent control flows with injected system instructions.
+
+### Admin API user management in beta
+Enterprise customers can manage users, invites, groups, and custom roles via API. Useful for automated onboarding/offboarding.
+
+### Claude Code 2.1.215 — EndConversation and /fork
+EndConversation lets Claude decide when a task is done (important for automated pipelines). `/fork` now creates background sessions for parallel work branching. Note: `/verify` and `/code-review` skills no longer auto-invoke.
+
+### SDK MCP Tunnels support
+Both Python (0.117.0) and TypeScript (0.112.0) SDKs now support MCP Tunnels. Python SDK also adds SecretStr credential protection and dreaming support.
+
+### New models in Messages API
+Claude Sonnet 5 and Claude Mythos Preview are now available. New `container` and `inference_geo` parameters give control over where inference runs.
+
+### Temperature restrictions on newer models
+Fable 5, Mythos 5, Opus 4.8, and Sonnet 5 reject non-default temperature/top_p/top_k with a 400 error. Code using custom sampling parameters on these models will break.
+
+### Fable 5 / Mythos 5 redeployed after suspension
+Models are back online as of July 1. Major documentation expansion covers drug design, genomics, and safety classifiers.
+
+### Provider renames in Agent SDK
+Google Vertex AI is now "Google Cloud's Agent Platform" and Microsoft Azure is now "Microsoft Foundry". Update any documentation or code referencing old names.
+
+### New CLI flags for Claude Code
+The `ultracode` effort level is new. `--cloud`, `--exec`, `--advisor`, and `--manual` permission mode are all additions since last update.
+
+## New Content Discovered (Not Yet Tracked)
+
+Discovery scan found **29 new items** on anthropic.com:
+
+**High priority:**
+- Claude Sonnet 5 announcement
+- Managed agents scaling engineering post
+- Claude Code auto mode engineering post
+- Containment across products engineering post
+- Claude Science AI workbench
+- Claude for Teachers
+
+**12 news, 8 engineering, 9 research articles total.** Run `/update-anthropic-docs --discover` for full details and to add these sources.
 
 ## Action Items
 
-- [ ] Review Sonnet 5 migration guide before upgrading any API integrations
-- [ ] Update any code using temperature/top_p/top_k with Opus 4.7+ models
-- [ ] Plan migration off Opus 4.1 before Aug 5, 2026 retirement
-- [ ] Run full discovery scan (`/update-anthropic-docs --discover`) — ~36 new sources detected but not fully enumerated
-- [ ] Consider removing agent-sdk-typescript-v2-preview from manifest (5th consecutive 404)
-
-## Meta-Synthesis
-
-- Applied: Updated 3 agent-sdk source URLs (platform.claude.com → code.claude.com migration)
-- agent-sdk-typescript-v2-preview: 5th consecutive 404 — strongly recommend removal
-- 2 resource.anthropic.com PDFs still 404ing — CDN URLs may have changed
+- **BREAKING:** Mythos Preview retires July 21 — verify no production code uses `claude-mythos-preview`
+- **BREAKING:** Temperature/top_p/top_k rejected on newer models — audit custom sampling parameter usage
+- **UPDATE:** Consider upgrading to Python SDK 0.117.0 and TypeScript SDK 0.112.3
+- **NOTE:** Provider names changed in Agent SDK — "Google Cloud's Agent Platform" and "Microsoft Foundry"
+- **NOTE:** Claude Code `/verify` and `/code-review` no longer auto-invoke — must use slash commands explicitly
+- **DISCOVERY:** 29 new sources found — run full discovery to add them
+- **CLEANUP:** `agent-sdk/typescript-v2-preview.md` source 404 for 6+ cycles — recommend removal

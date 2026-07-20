@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Get started with the Python or TypeScript Agent SDK to build AI agents that work autonomously. This quickstart walks you through building an agent that reads your code, finds bugs, and fixes them without manual intervention.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** July 20, 2026
 
 **What you'll do:**
 
@@ -108,10 +108,10 @@ The SDK also supports authentication via third-party API providers:
 
 - **Amazon Bedrock**: set `CLAUDE_CODE_USE_BEDROCK=1` and configure AWS credentials
 - **Claude Platform on AWS**: set `CLAUDE_CODE_USE_ANTHROPIC_AWS=1` and `ANTHROPIC_AWS_WORKSPACE_ID`, then configure AWS credentials
-- **Google Vertex AI**: set `CLAUDE_CODE_USE_VERTEX=1` and configure Google Cloud credentials
-- **Microsoft Azure**: set `CLAUDE_CODE_USE_FOUNDRY=1` and configure Azure credentials
+- **Google Cloud's Agent Platform**: set `CLAUDE_CODE_USE_VERTEX=1` and configure Google Cloud credentials
+- **Microsoft Foundry**: set `CLAUDE_CODE_USE_FOUNDRY=1` and configure Azure credentials
 
-See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Claude Platform on AWS](https://code.claude.com/docs/en/claude-platform-on-aws), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Azure AI Foundry](https://code.claude.com/docs/en/microsoft-foundry) for details.
+See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Claude Platform on AWS](https://code.claude.com/docs/en/claude-platform-on-aws), [Google Cloud's Agent Platform](https://code.claude.com/docs/en/google-vertex-ai), or [Microsoft Foundry](https://code.claude.com/docs/en/microsoft-foundry) for details.
 
 > **Note:** Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Use the API key authentication methods instead.
 
@@ -300,8 +300,8 @@ Permission modes control how much human oversight you want:
 | `acceptEdits`       | Auto-approves file edits and common filesystem commands, asks for other actions               | Trusted development workflows             |
 | `plan`              | Runs read-only tools; file edits are never auto-approved and reach your `canUseTool` callback | Scoping a task before approving execution |
 | `auto`              | A model classifier approves or denies each tool call                                          | Autonomous agents with safety guardrails  |
-| `dontAsk`           | Denies anything not in `allowedTools`                                                         | Locked-down headless agents               |
-| `bypassPermissions` | Runs every tool without prompting, unless an explicit `ask` rule matches                      | Sandboxed CI, fully trusted environments  |
+| `dontAsk`           | Denies anything not in `allowedTools`; connector tools your organization set to `ask` and tools requiring user interaction are denied even if listed | Locked-down headless agents               |
+| `bypassPermissions` | Runs every tool without prompting, except tools matched by an explicit `ask` rule, connector tools your organization set to `ask`, and tools requiring user interaction. In TypeScript, also requires `allowDangerouslySkipPermissions: true` | Sandboxed CI, fully trusted environments  |
 | `default`           | Requires a `canUseTool` callback to handle approval                                           | Custom approval flows                     |
 
 The quickstart uses `acceptEdits` mode, which auto-approves file operations so the agent can run without interactive prompts. If you want to prompt users for approval, use `default` mode and provide a [`canUseTool` callback](https://code.claude.com/docs/en/agent-sdk/user-input) that collects user input. For more control, see [Permissions](https://code.claude.com/docs/en/agent-sdk/permissions).

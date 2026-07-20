@@ -19,6 +19,57 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-07-20 — Weekly Update (full update + discovery scan)
+
+- **Sources updated**: 100 (8 github-raw, 81 web-extracted, 9 manual, 1 arxiv-pdfs, 1 github-api)
+- **Content changes**: ~20 files with real content changes, ~80 timestamp-only
+- **Notable content changes**:
+  - CONTENT_CHANGED: release-notes/platform.md, release-notes/api.md, release-notes/help-center.md (new July 10-15 entries)
+  - CONTENT_CHANGED: claude-code/CHANGELOG.md (versions 2.1.212-2.1.215)
+  - CONTENT_CHANGED: sdks/python/CHANGELOG.md (0.117.0), sdks/typescript/CHANGELOG.md (0.112.0-0.112.3)
+  - CONTENT_CHANGED: api/messages-api.md (Sonnet 5, Mythos Preview, container, inference_geo)
+  - CONTENT_CHANGED: api/adaptive-thinking.md (temperature rejection on newer models)
+  - CONTENT_CHANGED: models/deprecations.md, models/claude-fable-5-mythos-5.md, models/claude-opus-4-7.md, models/claude-opus-4-8.md
+  - CONTENT_CHANGED: agent-sdk/README.md, agent-sdk/quickstart.md (provider renames)
+  - CONTENT_CHANGED: docs/best-practices-loop-scheduling.md (ultracode, --cloud, --exec, --advisor, manual mode)
+  - CONTENT_CHANGED: research/papers/index.md (3 new non-arXiv papers)
+  - CONTENT_CHANGED: github-repos/index.md (2 new repos)
+- **arXiv papers**: 0 new arXiv-ID papers; 3 new non-arXiv papers added to index
+- **Discovery scan**: 29 new sources found (12 news, 8 engineering, 9 research)
+- **Deferred (HIGH priority)**:
+  - https://www.anthropic.com/news/claude-sonnet-5 — models/news — Claude Sonnet 5 launch
+  - https://www.anthropic.com/engineering/managed-agents — engineering — Scaling Managed Agents
+  - https://www.anthropic.com/engineering/claude-code-auto-mode — engineering — How we built Claude Code auto mode
+  - https://www.anthropic.com/engineering/how-we-contain-claude — engineering — How we contain Claude across products
+  - https://www.anthropic.com/news/claude-science-ai-workbench — news — Claude Science AI workbench
+  - https://www.anthropic.com/news/claude-for-teachers — news — Claude for Teachers
+  - https://www.anthropic.com/features/making-of-claude-code — news/claude-code — The Making of Claude Code
+  - https://www.anthropic.com/engineering/harness-design-long-running-apps — engineering — Harness design for long-running apps (STILL UNTRACKED from 04-05)
+  - https://www.anthropic.com/engineering/claude-code-best-practices — engineering — Best practices for agentic coding (STILL UNTRACKED from 03-22)
+  - https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills — engineering — Agent Skills
+- **Deferred (MEDIUM priority)**:
+  - https://www.anthropic.com/news/redeploying-fable-5 — news — Redeploying Fable 5
+  - https://www.anthropic.com/news/canadian-ai-research — news — $10M Canadian AI research
+  - https://www.anthropic.com/news/reflect-with-claude — news — Reflect on Claude usage
+  - https://www.anthropic.com/research/global-workspace — research — Global workspace in language models
+  - https://www.anthropic.com/research/claude-values-models-languages — research — Values across models and languages
+  - https://www.anthropic.com/research/claude-plays-robotics — research — Claude plays robotics
+  - https://www.anthropic.com/research/off-switch-dual-use — research — Off switch for dual-use knowledge
+  - https://www.anthropic.com/research/project-fetch-phase-two — research — Project Fetch phase two
+  - https://www.anthropic.com/research/n-days — research — N-day exploit measurement
+  - https://www.anthropic.com/81k-interviews — research — What 81,000 people want from AI (STILL UNTRACKED from 03-22)
+  - https://www.anthropic.com/research/how-canada-uses-claude — research — How Canada uses Claude
+  - https://www.anthropic.com/features/project-deal — research — Project Deal
+- **Deferred (LOW priority)**:
+  - https://www.anthropic.com/news/fable-safeguards-jailbreak-framework — news — Fable 5 safeguards
+  - https://www.anthropic.com/news/ust-claude — news — UST physical AI
+  - https://www.anthropic.com/news/ben-bernanke — news — Board appointment
+  - https://www.anthropic.com/news/alberta-government-claude-cybersecurity — news — Alberta cybersecurity
+  - https://www.anthropic.com/news/hard-questions — news — Inviting hard questions
+  - https://www.anthropic.com/engineering/swe-bench-sonnet — engineering — SWE-bench (older)
+- **Agent SDK**: agent-sdk/typescript-v2-preview.md source 404 for 6+ consecutive cycles — strongly recommend removal
+- **Notes**: Manifest updated with new sha256 hashes for all modified files. Validation passes (0 errors).
+
 ### 2026-07-12 — Weekly Update (manual + arXiv + partial discovery)
 
 - **Manual sources refreshed**: 9 (1 content-changed, 8 timestamp-only)

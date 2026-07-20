@@ -2,7 +2,7 @@
 title: "Boris Cherny - Claude Code Team Tips (Jan 31, 2026)"
 source_url: "https://x.com/bcherny/status/2017742741636321619"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "claude-code"
 ---
 

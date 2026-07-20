@@ -2,7 +2,7 @@
 title: "Adaptive Thinking"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "api"
 ---
 
@@ -10,7 +10,7 @@ category: "api"
 
 Adaptive thinking is the recommended way to use extended thinking with Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6, and the only thinking mode on Claude Fable 5 and Claude Mythos 5. Instead of manually setting a thinking token budget, adaptive thinking lets Claude dynamically determine when and how much to use extended thinking based on the complexity of each request. Per-model defaults and restrictions are listed under [Supported models](#supported-models).
 
-> **Tip:** Adaptive thinking can drive better performance than extended thinking with a fixed `budget_tokens` for many workloads, especially bimodal tasks and long-horizon agentic workflows. No beta header is required.
+> **Tip:** Adaptive thinking can drive better performance than extended thinking with a fixed `budget_tokens` for many workloads, especially workloads that mix trivial and complex requests, and long-horizon agentic workflows. No beta header is required.
 >
 > If your workload requires predictable latency or precise control over thinking costs, extended thinking with `budget_tokens` is still functional on Claude Opus 4.6 and Claude Sonnet 4.6 but is deprecated and no longer recommended.
 
@@ -209,7 +209,9 @@ On Claude Fable 5 and Claude Mythos 5, the raw chain of thought is never returne
 - `"summarized"` returns a readable summary of the reasoning.
 - `"omitted"` (the default on these models) still includes `thinking` blocks in responses, but their `thinking` field is an empty string.
 
-When continuing a conversation on the same model, pass each thinking block back to the API exactly as received, including blocks whose `thinking` field is empty.
+When continuing a conversation on the same model, pass each thinking block back to the API exactly as received, including blocks whose `thinking` field is empty. Don't edit or reconstruct them. Reading the summary text for display is fine: the API rejects blocks whose content has been modified, not blocks you have read.
+
+When you switch models, for example after a classifier refusal fallback, strip `thinking` and `redacted_thinking` blocks from prior assistant turns. Thinking blocks are tied to the model that produced them. Other models silently ignore them rather than rejecting the request, but ignored blocks still add input tokens.
 
 On Claude Fable 5, a request that attempts to elicit the model's internal reasoning as part of the response text can be refused with `stop_details.category: "reasoning_extraction"`.
 
@@ -218,6 +220,8 @@ On Claude Fable 5, a request that attempts to elicit the model's internal reason
 ### Validation Changes
 
 When using adaptive thinking, previous assistant turns don't need to start with thinking blocks. This is more flexible than manual mode, where the API enforces that thinking-enabled turns begin with a thinking block.
+
+Separately, Claude Fable 5, Claude Mythos 5, Claude Mythos Preview, Claude Opus 4.8, Claude Opus 4.7, and Claude Sonnet 5 reject non-default `temperature`, `top_p`, and `top_k` values with a 400 error. This applies to every request on these models, regardless of whether thinking is active.
 
 ### Prompt Caching
 

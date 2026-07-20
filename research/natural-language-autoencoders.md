@@ -2,7 +2,7 @@
 title: "Natural Language Autoencoders"
 source_url: "https://www.anthropic.com/research/natural-language-autoencoders"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-20T00:00:00Z"
 category: "research"
 ---
 
