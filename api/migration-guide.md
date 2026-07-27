@@ -20,68 +20,68 @@ Claude Code includes a `/claude-api migrate` command that automates migration by
 - Calibrating effort levels
 - Detecting platform-specific clients (Amazon Bedrock, Google Cloud, Claude Platform on AWS, Microsoft Foundry)
 
-## Migrating to Claude Mythos 5
+## Migrating to Claude Mythos 5 and Claude Fable 5
 
-Claude Mythos 5 is an access-gated model in Project Glasswing with a 1M token context window (default), up to 128k output tokens per request, and the same specs and pricing as Claude Fable 5.
+Claude Fable 5 is Anthropic's most capable widely released model, generally available on the Claude API, Amazon Bedrock, Claude Platform on AWS, Google Cloud, and Microsoft Foundry. Claude Mythos 5 shares the same capabilities and is offered in limited availability to approved customers in Project Glasswing.
 
-**Baseline Settings:**
+The baseline settings shared by `claude-fable-5` and `claude-mythos-5`:
 
-- **Thinking:** Adaptive thinking always on (no configuration needed)
-- **Prefill:** Returns 400 error; use system prompts instead
-- **Data Retention:** Requires 30-day retention (not available under ZDR)
+- **Thinking:** Adaptive thinking is always on. The model determines when and how much to think on each request, and no `thinking` configuration is required. Both `thinking: {type: "disabled"}` and manual extended thinking (`thinking: {type: "enabled", budget_tokens: N}`) return a 400 error.
+- **Prefill:** Prefilling the assistant message returns a 400 error. Use system prompt instructions instead.
+- **Context window and output:** A 1M token context window by default, and up to 128k output tokens per request.
+- **Pricing:** $10 USD per million input tokens and $50 USD per million output tokens.
+- **Data retention:** Both models require 30-day data retention and are not available under zero data retention (ZDR) arrangements; both are designated Covered Models.
+
+Where the two models diverge:
+
+- **Availability:** Claude Fable 5 is generally available. Claude Mythos 5 is available only to approved customers in Project Glasswing.
+- **Safety classifiers:** Claude Fable 5 runs safety classifiers that can decline requests with `stop_reason: "refusal"`. Claude Mythos 5 does not include these classifiers.
+- **Priority Tier:** Priority Tier is supported on Claude Fable 5 but not on Claude Mythos 5.
 
 ### From Claude Mythos Preview
 
-Migration is mostly drop-in with these key changes:
+Migration is mostly drop-in. The key changes to check are the features that are no longer available and thinking output.
 
 ```python
 model = "claude-mythos-preview"  # Before
 model = "claude-mythos-5"  # After
+# Or: model = "claude-fable-5"  # For the generally available model
 ```
 
 **Features Not Available:**
 
 1. **Extended Thinking Removed:** `budget_tokens` not supported (adaptive thinking always on). Remove manual extended thinking configuration.
-
-```python
-# Before (Claude Mythos Preview)
-client.messages.create(
-    model="claude-mythos-preview",
-    max_tokens=16000,
-    thinking={"type": "enabled", "budget_tokens": 10000},
-    messages=[{"role": "user", "content": "..."}],
-)
-
-# After (Claude Mythos 5)
-client.messages.create(
-    model="claude-mythos-5",
-    max_tokens=16000,
-    messages=[{"role": "user", "content": "..."}],
-)
-```
-
 2. **Assistant Prefill:** Not supported; use system prompts
 3. **Thinking Output:** Raw chain of thought never returned; summarized text available when `thinking.display` is set to `"summarized"`
 4. **`thinking: {type: "disabled"}`** returns 400 error
 
 **Migration Checklist:**
 
-- [ ] Update model name to `claude-mythos-5`
+- [ ] Update model name to `claude-mythos-5` or `claude-fable-5`
 - [ ] Remove manual extended thinking configuration
 - [ ] Remove `thinking: {type: "disabled"}` (returns error)
 - [ ] Remove `budget_tokens`
 - [ ] Verify thinking field handling treats it as display text
 - [ ] Strip thinking blocks when replaying on other models
+- [ ] If migrating to Claude Fable 5, handle `stop_reason: "refusal"` and read `stop_details.category`
 - [ ] Re-baseline token counts and costs
 
-## Migrating to Claude Fable 5
+### From Claude Opus 5
 
-Claude Fable 5 is Anthropic's most capable widely-released model, generally available on Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, and Microsoft Foundry.
+```python
+model = "claude-opus-5"  # Before
+model = "claude-fable-5"  # After
+```
 
-**Pricing:** $10/M input tokens, $50/M output tokens (vs. $5/$25 for Opus 4.8)
-**Data Retention:** Requires 30-day retention; returns 400 error for ZDR organizations
+**Key Changes:**
+
+1. **Thinking can no longer be disabled:** On Claude Opus 5, thinking can be turned off with `thinking: {type: "disabled"}` at effort `high` or below. On Fable 5 and Mythos 5, adaptive thinking is always on, and `thinking: {type: "disabled"}` returns a 400 error at any effort level.
+2. **Pricing:** $10/$50 per MTok (vs. $5/$25 for Opus 5).
+3. **Data Retention:** Requires 30-day retention (not available under ZDR).
 
 ### From Claude Opus 4.8
+
+Migration is mostly drop-in. Token counts are roughly unchanged because the models use the same tokenizer.
 
 ```python
 model = "claude-opus-4-8"  # Before
@@ -90,33 +90,13 @@ model = "claude-fable-5"  # After
 
 **Key Changes:**
 
-1. **Adaptive thinking always on:** Requests without `thinking` field now run with adaptive thinking instead of without thinking.
-
-```python
-# Before (Claude Opus 4.8)
-client.messages.create(
-    model="claude-opus-4-8",
-    max_tokens=16000,
-    thinking={"type": "adaptive"},
-    output_config={"effort": "high"},
-    messages=[{"role": "user", "content": "..."}],
-)
-
-# After (Claude Fable 5)
-client.messages.create(
-    model="claude-fable-5",
-    max_tokens=16000,
-    output_config={"effort": "high"},
-    messages=[{"role": "user", "content": "..."}],
-)
-```
-
-2. **Extended thinking & budgets:** Not supported; same as Opus 4.8
-3. **Assistant prefill:** Not supported; same as Opus 4.8
-4. **Thinking output:** Raw chain of thought never returned; use `thinking.display: "summarized"` for summaries
-5. **Safety classifiers & refusal stop reason:** Returns `stop_reason: "refusal"` (HTTP 200, not error) with `stop_details.category` field (`cyber`, `bio`, `reasoning_extraction`, etc.). No billing for input tokens on pre-generation refusals. Use opt-in `fallbacks` parameter for automatic retry on other models.
-6. **Start at high effort:** Default effort remains `high`. On Fable 5, use `high` for most tasks (vs. `xhigh` on Opus 4.8). Lower effort settings perform well and often exceed prior model performance.
-7. **Lower prompt caching minimum:** Reduced from 1,024 to 512 tokens. Amazon Bedrock minimum remains 1,024 tokens.
+1. **Adaptive thinking always on:** Requests without `thinking` field now run with adaptive thinking instead of without thinking. `max_tokens` remains a hard limit on total output.
+2. **Extended thinking & budgets (unchanged):** Not supported, same as Opus 4.8.
+3. **Assistant prefill (unchanged):** Not supported, same as Opus 4.8.
+4. **Thinking output:** Raw chain of thought never returned; use `thinking.display: "summarized"` for summaries.
+5. **Safety classifiers & refusal stop reason (Claude Fable 5 only):** Returns `stop_reason: "refusal"` (HTTP 200, not error) with `stop_details.category` field.
+6. **Start at high effort:** Default effort remains `high`. On Fable 5, use `high` for most tasks. Lower effort settings still perform well and often exceed `xhigh` performance on prior models.
+7. **Lower prompt caching minimum:** Reduced from 1,024 to 512 tokens.
 
 **Migration Checklist:**
 
@@ -124,10 +104,165 @@ client.messages.create(
 - [ ] Update model name from `claude-opus-4-8` to `claude-fable-5`
 - [ ] Remove `thinking: {type: "disabled"}` config
 - [ ] Verify thinking field parsing treats as display text
-- [ ] Handle `stop_reason: "refusal"` and read `stop_details.category`
+- [ ] If migrating to Claude Fable 5, handle `stop_reason: "refusal"` and read `stop_details.category`
 - [ ] Consider `fallbacks` parameter for auto-retry
 - [ ] Re-evaluate effort settings (start at `high`)
 - [ ] Re-baseline costs and latency
+
+## Migrating to Claude Opus 5
+
+Claude Opus 5 is a step-change improvement over Claude Opus 4.8, strong on deep reasoning, agentic and long-horizon tasks, and test-time compute scaling. It is a drop-in upgrade at the same pricing of $5 per million input tokens and $25 per million output tokens.
+
+Claude Opus 5 supports the same set of features as Claude Opus 4.8, including 1M token context window, 128k max output tokens, adaptive thinking, prompt caching, batch processing, the Files API, PDF support, vision, and server-side and client-side tools, with two exceptions: web fetch is not available on Claude Opus 5, and Priority Tier is not supported.
+
+### From Claude Opus 4.8
+
+**Two breaking changes** for code already running on Claude Opus 4.8:
+
+```python
+model = "claude-opus-4-8"  # Before
+model = "claude-opus-5"  # After
+```
+
+**Breaking Changes:**
+
+1. **Thinking on by default:** Requests without a `thinking` field now run with adaptive thinking. Revisit `max_tokens`. To preserve the old behavior, pass `thinking: {type: "disabled"}`, subject to the effort cap in the next item.
+2. **Disabling thinking is capped at `high` effort:** `thinking: {type: "disabled"}` with effort `xhigh` or `max` returns a 400 error. Claude Opus 4.8 accepts this combination.
+
+**Recommended Changes:**
+
+1. Test `max` effort for capability-critical work
+2. Consider automatic fallbacks (`fallbacks: "default"` for cyber-category refusals)
+3. Cache shorter prompts (minimum cacheable length reduced from 1,024 to 512 tokens)
+4. Change tools mid-conversation (beta, `mid-conversation-tool-changes-2026-07-01` header)
+5. Re-tune length and verbosity prompts (default responses run longer on Opus 5)
+6. Remove carried-over verification instructions (Claude Opus 5 verifies its own work)
+
+**Migration Checklist:**
+
+- [ ] Update model name to `claude-opus-5`
+- [ ] Review workloads that ran without `thinking` field
+- [ ] Audit requests that disable thinking at `xhigh`/`max` effort
+- [ ] Re-evaluate effort settings with a fresh sweep
+- [ ] Handle `stop_reason: "refusal"`
+- [ ] Re-baseline cost and latency
+
+### From Claude Opus 4.7
+
+**Two breaking changes:**
+
+```python
+model = "claude-opus-4-7"  # Before
+model = "claude-opus-5"  # After
+```
+
+**Breaking Changes:**
+
+1. **Thinking on by default:** Same as from Opus 4.8 section.
+2. **Disabling thinking capped at `high` effort:** Same as from Opus 4.8 section.
+
+**What Changed (Non-Breaking):**
+
+1. Sampling parameters: Still return 400 error (unchanged from 4.7)
+2. Effort default: `high` on Claude API and Claude Code
+3. Effort levels recalibrated for Opus 5
+4. 1M context window: Default with no beta header
+5. Mid-conversation system messages: Now accepted
+6. Refusal stop details: Publicly documented
+7. Lower prompt caching minimum: 512 tokens on Claude Opus 5
+8. Fast mode: Supported on Opus 5 (not available on 4.7)
+
+**Migration Checklist:**
+
+- [ ] Update model name
+- [ ] Review workloads that ran without `thinking` field
+- [ ] Audit requests that disable thinking at `xhigh`/`max` effort
+- [ ] Re-evaluate effort settings with fresh sweep
+- [ ] Remove context-window beta headers
+- [ ] Consider mid-conversation system messages for prompt caching preservation
+- [ ] Verify stop-reason handling reads `stop_details`
+- [ ] Re-baseline cost and latency
+
+### From Claude Opus 4.6 and Earlier
+
+**Breaking changes included.** Code requires updates.
+
+```python
+model = "claude-opus-4-6"  # Before
+model = "claude-opus-5"  # After
+```
+
+**Breaking Changes:**
+
+1. **Extended thinking removed:** `thinking: {type: "enabled", budget_tokens: N}` returns 400 error on Opus 4.7+. Switch to adaptive thinking. On Opus 5, adaptive thinking is on by default.
+2. **Thinking on by default:** Requests without `thinking` field run with adaptive thinking on Opus 5.
+3. **Disabling thinking capped at `high` effort:** `thinking: {type: "disabled"}` with `xhigh`/`max` returns 400 error.
+4. **Sampling parameters removed:** Non-default values of `temperature`, `top_p`, `top_k` return 400 error.
+5. **Thinking content omitted by default:** Set `thinking.display: "summarized"` to restore text.
+6. **Updated token counting:** New tokenizer uses ~1x to 1.35x more tokens (up to ~35% increase).
+7. **Prefill removal:** Prefilling assistant messages returns 400 error.
+
+**Behavioral Changes:**
+
+1. Response length varies by complexity
+2. More literal instruction following
+3. More direct tone
+4. Built-in progress updates in agentic traces
+5. Subagent spawning changed (Opus 5 delegates more readily than earlier models)
+6. Stricter effort calibration
+7. Fewer tool calls by default
+8. Real-time cybersecurity safeguards
+9. High-resolution image support (maximum 2576px on long edge, ~3x more image tokens)
+
+**Migration Checklist (from 4.6):**
+
+- [ ] Update model name
+- [ ] Remove `temperature`, `top_p`, `top_k`
+- [ ] Replace manual extended thinking with adaptive + effort, or remove `thinking` field (on by default on Opus 5)
+- [ ] Review workloads that ran without `thinking` field
+- [ ] Audit requests that disable thinking at `xhigh`/`max` effort
+- [ ] Remove assistant-message prefills
+- [ ] Opt in to thinking summarization for UI display
+- [ ] Re-benchmark cost and latency
+- [ ] Re-tune `max_tokens` for new tokenization
+- [ ] Re-test client-side token estimation
+- [ ] Re-budget for high-res images; downsample if unnecessary
+- [ ] Remove scale-factor conversion for coordinates
+- [ ] Review prompts for behavioral changes
+- [ ] Remove carried-over verification instructions
+- [ ] Raise `max_tokens` to 64k+ for `xhigh`/`max` effort
+- [ ] Consider task budgets for agentic workflows
+- [ ] Apply to Cyber Verification Program if needed
+
+### From Claude Opus 4.5 or Earlier
+
+Apply all changes from Opus 4.6 section plus these cumulative changes:
+
+```python
+model = "claude-opus-4-5"  # Before
+model = "claude-opus-5"  # After
+```
+
+**Additional Breaking Changes:**
+
+1. Tool parameter JSON escaping may differ (use standard JSON parsers)
+
+**Additional Recommended Changes:**
+
+1. Migrate to adaptive thinking (required on 4.7+)
+2. Remove beta headers: `effort-2025-11-24`, `fine-grained-tool-streaming-2025-05-14`, `interleaved-thinking-2025-05-14`
+3. Migrate `output_format` to `output_config.format` (if applicable)
+
+### From Claude Opus 4.1 or Earlier
+
+Additional steps:
+
+1. **Remove sampling parameters (breaking):** `temperature`, `top_p`, `top_k` return 400 error
+2. **Update tool versions:** `text_editor_20250728` / `str_replace_based_edit_tool`, `code_execution_20260521`
+3. **Handle `refusal` stop reason**
+4. **Handle `model_context_window_exceeded` stop reason**
+5. **Verify tool string parameter handling** (trailing newlines now preserved)
+6. Remove legacy beta headers: `token-efficient-tools-2025-02-19`, `output-128k-2025-02-19`
 
 ## Migrating to Claude Sonnet 5
 
@@ -153,198 +288,8 @@ model = "claude-sonnet-5"  # After
 2. **128k max output tokens:** Unchanged from Sonnet 4.6.
 3. **Assistant message prefilling:** Returns 400 error (unchanged from 4.6). Use structured outputs or `output_config.format`.
 4. **Adaptive thinking on by default:** Requests without `thinking` field now run with adaptive thinking (vs. without on 4.6). To disable: `thinking: {type: "disabled"}`.
-
-```python
-# Before (Sonnet 4.6)
-response = client.messages.create(
-    model="claude-sonnet-4-6",
-    max_tokens=16000,
-    thinking={"type": "enabled", "budget_tokens": 10000},
-    messages=[{"role": "user", "content": "..."}],
-)
-
-# After (Sonnet 5)
-response = client.messages.create(
-    model="claude-sonnet-5",
-    max_tokens=16000,
-    thinking={"type": "adaptive", "display": "summarized"},
-    output_config={"effort": "high"},
-    messages=[{"role": "user", "content": "..."}],
-)
-```
-
 5. **Sampling parameters:** Non-default values return 400 error. Omit and use prompting.
 6. **Thinking display:** Defaults to omitted. Set `display: "summarized"` for visible summaries.
-
-## Migrating to Claude Opus 4.8
-
-Claude Opus 4.8 is built for complex agentic coding and enterprise work.
-
-**Baseline Settings:**
-
-- **Thinking:** Adaptive thinking (`type: "adaptive"`) is off by default
-- **Effort:** Defaults to `high`; set `xhigh` explicitly for coding/high-autonomy work
-- **Sampling:** `temperature`, `top_p`, `top_k` set to non-default return 400 error
-- **Prefill:** Returns 400 error
-- **Context Window:** Full 1M token by default with no beta header
-- **Max Output:** 128k tokens supported
-
-### From Claude Opus 4.7
-
-**No breaking changes.** Code continues to work unchanged.
-
-```python
-model = "claude-opus-4-7"  # Before
-model = "claude-opus-4-8"  # After
-```
-
-**What Changed (Non-Breaking):**
-
-1. Sampling parameters: Still return 400 error (unchanged from 4.7)
-2. Effort default: Now `high` across all surfaces
-3. 1M context window: Default with no beta header or premium
-4. Mid-conversation system messages: Now accepted (improvement from 4.7)
-5. Refusal stop details: Publicly documented (was in beta)
-6. Lower prompt caching minimum: 1,024 tokens on Claude API
-7. Recalibrated effort levels: `medium` somewhat more thinking, `high` somewhat less, `xhigh` substantially more
-
-**Migration Checklist:**
-
-- [ ] Update model name
-- [ ] Remove sampling parameter retry paths if any
-- [ ] Re-evaluate effort settings
-- [ ] Remove context-window beta headers
-- [ ] Consider mid-conversation system messages for prompt caching preservation
-- [ ] Verify stop-reason handling reads `stop_details`
-- [ ] Re-baseline cost and latency
-
-### From Claude Opus 4.6
-
-**Breaking changes included.** Code requires updates.
-
-```python
-model = "claude-opus-4-6"  # Before
-model = "claude-opus-4-8"  # After
-```
-
-**Breaking Changes:**
-
-1. **Extended thinking removed:**
-
-```python
-# Before (Opus 4.6)
-client.messages.create(
-    model="claude-opus-4-6",
-    max_tokens=16000,
-    thinking={"type": "enabled", "budget_tokens": 10000},
-    messages=[{"role": "user", "content": "..."}],
-)
-
-# After (Opus 4.8)
-client.messages.create(
-    model="claude-opus-4-8",
-    max_tokens=16000,
-    thinking={"type": "adaptive"},
-    output_config={"effort": "high"},
-    messages=[{"role": "user", "content": "..."}],
-)
-```
-
-Note: Adaptive thinking is **off by default** on Opus 4.7+. Set `thinking: {type: "adaptive"}` explicitly to enable.
-
-2. **Sampling parameters removed:** Non-default values of `temperature`, `top_p`, `top_k` return 400 error. Omit entirely and use prompting for behavior guidance.
-3. **Thinking content omitted by default:** Set `thinking.display: "summarized"` to restore text.
-4. **Updated token counting:** New tokenizer uses ~1x to 1.35x more tokens (up to ~35% increase). Update `max_tokens` and re-baseline costs.
-5. **Prefill removal:** Prefilling assistant messages returns 400 error. Use structured outputs or `output_config.format`.
-
-**Behavioral Changes:**
-
-1. Response length varies by complexity
-2. More literal instruction following
-3. More direct tone
-4. Built-in progress updates in agentic traces
-5. Fewer subagents by default
-6. Stricter effort calibration
-7. Fewer tool calls by default
-8. Real-time cybersecurity safeguards (apply to Cyber Verification Program for reduced restrictions)
-9. High-resolution image support (maximum 2576px on long edge, ~3x more image tokens)
-
-**Recommended Changes:**
-
-1. Re-evaluate `max_tokens` for new tokenizer
-2. Audit token-count expectations
-3. Adopt task budgets (beta) with `task-budgets-2026-03-13` header
-4. Set large `max_tokens` at `xhigh` effort (start at 64k tokens)
-5. Downsample images if high resolution unnecessary
-
-**Migration Checklist (from 4.6):**
-
-- [ ] Update model name
-- [ ] Remove `temperature`, `top_p`, `top_k`
-- [ ] Replace manual extended thinking with adaptive + effort
-- [ ] Remove assistant-message prefills
-- [ ] Opt in to thinking summarization for UI display
-- [ ] Re-benchmark cost and latency
-- [ ] Re-tune `max_tokens` for new tokenization
-- [ ] Re-test client-side token estimation
-- [ ] Re-budget for high-res images; downsample if unnecessary
-- [ ] Remove scale-factor conversion for coordinates
-- [ ] Review prompts for behavioral changes
-- [ ] Re-baseline response length
-- [ ] Raise `max_tokens` to 64k+ for `xhigh`/`max` effort
-- [ ] Consider task budgets for agentic workflows
-- [ ] Apply to Cyber Verification Program if needed
-
-### From Claude Opus 4.5 or Earlier
-
-Apply all changes from Opus 4.6 section plus these cumulative changes:
-
-```python
-model = "claude-opus-4-5"  # Before
-model = "claude-opus-4-8"  # After
-```
-
-**Additional Breaking Changes:**
-
-1. Tool parameter JSON escaping may differ (use standard JSON parsers)
-
-**Additional Recommended Changes:**
-
-1. Migrate to adaptive thinking (required on 4.7)
-
-```python
-# Before (Opus 4.5)
-response = client.beta.messages.create(
-    model="claude-opus-4-5",
-    max_tokens=16000,
-    thinking={"type": "enabled", "budget_tokens": 32000},
-    betas=["interleaved-thinking-2025-05-14"],
-    messages=[{"role": "user", "content": "..."}],
-)
-
-# After (Opus 4.8)
-response = client.messages.create(
-    model="claude-opus-4-8",
-    max_tokens=16000,
-    thinking={"type": "adaptive"},
-    output_config={"effort": "high"},
-    messages=[{"role": "user", "content": "..."}],
-)
-```
-
-2. Remove beta headers: `effort-2025-11-24`, `fine-grained-tool-streaming-2025-05-14`, `interleaved-thinking-2025-05-14`
-3. Migrate `output_format` to `output_config.format` (if applicable)
-
-### From Claude Opus 4.1 or Earlier
-
-Additional steps:
-
-1. **Remove sampling parameters (breaking):** `temperature`, `top_p`, `top_k` return 400 error
-2. **Update tool versions:** `text_editor_20250728` / `str_replace_based_edit_tool`, `code_execution_20260521`
-3. **Handle `refusal` stop reason**
-4. **Handle `model_context_window_exceeded` stop reason**
-5. **Verify tool string parameter handling** (trailing newlines now preserved)
-6. Remove legacy beta headers: `token-efficient-tools-2025-02-19`, `output-128k-2025-02-19`
 
 ## Choosing Effort Levels
 
@@ -375,14 +320,15 @@ output_config = {
 
 ## Summary Table: Breaking Changes by Migration Path
 
-| Feature           | Opus 4.8           | Opus 4.7           | Sonnet 5           | Fable 5            | Mythos 5             |
-| ----------------- | ------------------ | ------------------ | ------------------ | ------------------ | -------------------- |
-| Extended Thinking | Error              | Error              | Error              | Error              | Error                |
-| Sampling Params   | Error              | Error              | Error              | Error              | Error                |
-| Assistant Prefill | Error              | Error              | Error              | Error              | Error                |
-| Adaptive Thinking | Optional           | Optional           | Default On         | Default On         | Always On            |
-| Effort Parameter  | Yes                | Yes                | Yes                | Yes                | No (always adaptive) |
-| Thinking Display  | Omitted by default | Omitted by default | Omitted by default | Omitted by default | Omitted by default   |
+| Feature           | Opus 5             | Opus 4.8           | Opus 4.7           | Sonnet 5           | Fable 5            | Mythos 5             |
+| ----------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | -------------------- |
+| Extended Thinking | Error              | Error              | Error              | Error              | Error              | Error                |
+| Sampling Params   | Error              | Error              | Error              | Error              | Error              | Error                |
+| Assistant Prefill | Error              | Error              | Error              | Error              | Error              | Error                |
+| Adaptive Thinking | Default On         | Optional           | Optional           | Default On         | Always On          | Always On            |
+| Effort Parameter  | Yes                | Yes                | Yes                | Yes                | Yes                | No (always adaptive) |
+| Thinking Display  | Omitted by default | Omitted by default | Omitted by default | Omitted by default | Omitted by default | Omitted by default   |
+| Disable Thinking  | Capped at high     | Any effort         | Any effort         | Any effort         | Error              | Error                |
 
 ## Important Notes
 
