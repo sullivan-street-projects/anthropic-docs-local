@@ -844,7 +844,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "e1a0847b5654d68f079b674847c05c4311f32d61bd410989583398c4d1d939a6"
+      "sha256": "a81c687b49269a7b20728a2ee98b49113357a5c6743509b5357e80803732aba7"
     },
     {
       "id": "api-compaction",
@@ -856,7 +856,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "52f31bd906a23e33b97f7a2bba8f83066e0257225d083f306660b71b91c2b443"
+      "sha256": "edaa2e394909142b5d18f1767fbe0ce1ff1f242eaea4f1e92617d6118331833d"
     },
     {
       "id": "api-context-windows",
@@ -868,7 +868,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "1c2598c8f15b5eaf051a568049fa6c7bfe5e35e1b1e0f0ac9514606b5a18d19b"
+      "sha256": "1204ff064e118642653362c685510d3f51f24444d486bf84bc945e0d08cf9aa8"
     },
     {
       "id": "api-models-overview",
@@ -904,7 +904,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "0971b4fcfb8c8ff7abeab064e21bbde7a4554f101bbe2d52c2e1ef206975b623"
+      "sha256": "c7f3ad9fca80d78e23708e7da873008ad2fc0383d52910709f75c3fc6f44d1ae"
     },
     {
       "id": "api-effort-parameter",
@@ -916,7 +916,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "debf13a27d1c1d234d2df3e4255d13b6f77bfb178944afdbf6a0483ab7c6a944"
+      "sha256": "20126251eac3f51835e7842e76c5d0624a14e275d8174b9b159d2fc9f08d8915"
     },
     {
       "id": "api-memory-tool",

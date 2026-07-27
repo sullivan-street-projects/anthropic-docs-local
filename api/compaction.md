@@ -8,9 +8,11 @@ category: "api"
 
 # Server-Side Context Compaction
 
-Server-side compaction is the recommended strategy for managing context in long-running conversations and agentic workflows. It handles context management automatically with minimal integration work.
+Server-side compaction is the recommended strategy for managing context in long-running conversations and agentic workflows. It handles context management automatically, without client-side summarization code.
 
-Compaction extends the effective context length for long-running conversations and tasks by automatically summarizing older context when approaching the context window limit. This isn't just about staying under a token cap. As conversations get longer, models struggle to maintain focus across the full history. Compaction keeps the active context focused and performant by replacing stale content with concise summaries.
+Compaction extends the effective context length for long-running conversations and tasks by automatically summarizing older context when approaching the context window limit. It also keeps the active context small: as a conversation grows, response quality degrades, so compaction replaces older content with a concise summary.
+
+For a deeper look at why long contexts degrade and how compaction helps, see [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents).
 
 This is ideal for:
 
@@ -28,6 +30,7 @@ Compaction is supported on the following models:
 - Claude Fable 5 (`claude-fable-5`)
 - Claude Mythos 5 (`claude-mythos-5`)
 - Claude Mythos Preview (`claude-mythos-preview`)
+- Claude Opus 5 (`claude-opus-5`)
 - Claude Opus 4.8 (`claude-opus-4-8`)
 - Claude Opus 4.7 (`claude-opus-4-7`)
 - Claude Opus 4.6 (`claude-opus-4-6`)
@@ -36,14 +39,14 @@ Compaction is supported on the following models:
 
 ## How Compaction Works
 
-When compaction is enabled, Claude automatically summarizes your conversation when it approaches the configured token threshold. The API:
+When compaction is enabled, Claude automatically summarizes your conversation when it reaches the configured token threshold. The API:
 
-1. Detects when input tokens exceed your specified trigger threshold.
+1. Detects when input tokens reach your specified trigger threshold.
 2. Generates a summary of the current conversation.
 3. Creates a `compaction` block containing the summary.
 4. Continues the response with the compacted context.
 
-On subsequent requests, append the response to your messages. The API automatically drops all message blocks prior to the `compaction` block, continuing the conversation from the summary.
+On subsequent requests, append the response to your messages. The API automatically drops all content blocks prior to the `compaction` block, continuing the conversation from the summary.
 
 ## Basic Usage
 
@@ -56,7 +59,7 @@ messages = [{"role": "user", "content": "Help me build a website"}]
 
 response = client.beta.messages.create(
     betas=["compact-2026-01-12"],
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=4096,
     messages=messages,
     context_management={"edits": [{"type": "compact_20260112"}]},
@@ -75,7 +78,7 @@ const messages: Anthropic.Beta.Messages.BetaMessageParam[] = [
 
 const response = await client.beta.messages.create({
   betas: ["compact-2026-01-12"],
-  model: "claude-opus-4-8",
+  model: "claude-opus-5",
   max_tokens: 4096,
   messages,
   context_management: {
@@ -99,7 +102,7 @@ messages.push({
 | Parameter                | Type    | Default        | Description                                                                        |
 | :----------------------- | :------ | :------------- | :--------------------------------------------------------------------------------- |
 | `type`                   | string  | Required       | Must be `"compact_20260112"`                                                       |
-| `trigger`                | object  | 150,000 tokens | When to trigger compaction. Must be at least 50,000 tokens.                        |
+| `trigger`                | object  | 150,000 tokens | When to trigger compaction. `input_tokens` is the only supported trigger type. `value` must be at least 50,000 tokens. |
 | `pause_after_compaction` | boolean | `false`        | Whether to pause after generating the compaction summary                           |
 | `instructions`           | string  | `null`         | Custom summarization prompt. Completely replaces the default prompt when provided. |
 
@@ -112,7 +115,7 @@ client = anthropic.Anthropic()
 messages = [{"role": "user", "content": "Hello, Claude"}]
 response = client.beta.messages.create(
     betas=["compact-2026-01-12"],
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=4096,
     messages=messages,
     context_management={
@@ -128,20 +131,14 @@ response = client.beta.messages.create(
 
 ### Custom Summarization Instructions
 
-By default, compaction uses the following summarization prompt:
-
-```
-You have written a partial transcript for the initial task above. Please write a summary of the transcript. The purpose of this summary is to provide continuity so you can continue to make progress towards solving the task in a future context, where the raw history above may not be accessible and will be replaced with this summary. Write down anything that would be helpful, including the state, next steps, learnings etc. You must wrap your summary in a <summary></summary> block.
-```
-
-You can provide custom instructions via the `instructions` parameter to replace this prompt entirely:
+The default summarization prompt varies by model. You can provide custom instructions via the `instructions` parameter to replace this prompt entirely:
 
 ```python
 client = anthropic.Anthropic()
 messages = [{"role": "user", "content": "Hello, Claude"}]
 response = client.beta.messages.create(
     betas=["compact-2026-01-12"],
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=4096,
     messages=messages,
     context_management={
@@ -166,7 +163,7 @@ client = anthropic.Anthropic()
 messages = [{"role": "user", "content": "Hello, Claude"}]
 response = client.beta.messages.create(
     betas=["compact-2026-01-12"],
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=4096,
     messages=messages,
     context_management={
@@ -182,7 +179,7 @@ if response.stop_reason == "compaction":
     # Continue the request
     response = client.beta.messages.create(
         betas=["compact-2026-01-12"],
-        model="claude-opus-4-8",
+        model="claude-opus-5",
         max_tokens=4096,
         messages=messages,
         context_management={"edits": [{"type": "compact_20260112"}]},
@@ -202,7 +199,7 @@ n_compactions = 0
 
 response = client.beta.messages.create(
     betas=["compact-2026-01-12"],
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=4096,
     messages=messages,
     context_management={
@@ -232,7 +229,7 @@ if response.stop_reason == "compaction":
 
 ## Working with Compaction Blocks
 
-When compaction is triggered, the API returns a `compaction` block at the start of the assistant response.
+When compaction is triggered, the API returns a `compaction` block at the start of the assistant response. A long-running conversation might result in multiple compactions. The last compaction block reflects the final state of the prompt, replacing content prior to it with the generated summary.
 
 ```json
 {
@@ -258,7 +255,7 @@ You must pass the `compaction` block back to the API on subsequent requests to c
 
 ### Streaming
 
-When streaming responses with compaction enabled, you'll receive a `content_block_start` event when compaction begins. The compaction block streams differently from text blocks: you'll receive a `content_block_start` event, followed by a single `content_block_delta` with the complete summary content (no intermediate streaming), and then a `content_block_stop` event.
+When streaming responses with compaction enabled, the compaction block streams differently from text blocks: you'll receive a `content_block_start` event, followed by a single `content_block_delta` with the complete summary content (no intermediate streaming), and then a `content_block_stop` event.
 
 ```python
 client = anthropic.Anthropic()
@@ -266,7 +263,7 @@ messages = [{"role": "user", "content": "Hello, Claude"}]
 
 with client.beta.messages.stream(
     betas=["compact-2026-01-12"],
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=4096,
     messages=messages,
     context_management={"edits": [{"type": "compact_20260112"}]},
@@ -341,11 +338,25 @@ The `iterations` array shows usage for each sampling iteration. The top-level `i
 
 ### Server Tools
 
-When using server tools (like web search), the compaction trigger is checked at the start of each sampling iteration. Compaction may occur multiple times within a single request depending on your trigger threshold and the amount of output generated.
+When using server tools (such as web search), the compaction trigger is checked at the start of each sampling iteration. Compaction may occur multiple times within a single request depending on your trigger threshold and the amount of output generated.
 
 ### Token Counting
 
 The token counting endpoint (`/v1/messages/count_tokens`) applies existing `compaction` blocks in your prompt but does not trigger new compactions. Use it to check your effective token count after previous compactions.
+
+```python
+client = anthropic.Anthropic()
+messages = [{"role": "user", "content": "Hello, Claude"}]
+count_response = client.beta.messages.count_tokens(
+    betas=["compact-2026-01-12"],
+    model="claude-opus-5",
+    messages=messages,
+    context_management={"edits": [{"type": "compact_20260112"}]},
+)
+
+print(f"Current tokens: {count_response.input_tokens}")
+print(f"Original tokens: {count_response.context_management.original_input_tokens}")
+```
 
 ## Current Limitations
 
@@ -355,5 +366,5 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
 ## Related Features
 
 - **Context editing:** For more specialized needs, context editing offers tool result clearing and thinking block clearing
-- **1M token context window:** Available for Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6
-- **Context awareness:** Sonnet 4.6, Sonnet 4.5, and Haiku 4.5 track their remaining context window throughout a conversation
+- **1M token context window:** Available for Claude Fable 5, Claude Mythos 5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6
+- **Context awareness:** Sonnet 5, Sonnet 4.6, Sonnet 4.5, and Haiku 4.5 track their remaining context window throughout a conversation
