@@ -10,7 +10,7 @@ category: "research"
 
 This directory contains the full PDF versions of Anthropic's key research papers from arXiv. These papers form the theoretical and empirical foundation for Claude's development.
 
-> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 10 new (2025-2026, not yet downloaded)
+> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 12 new (2025-2026, not yet downloaded)
 
 ## New Papers (2025-2026)
 
@@ -28,6 +28,8 @@ The following papers have been identified since the last full update. PDFs have 
 | The Hot Mess of AI: Misalignment Scaling with Intelligence and Task Complexity | [2601.23045](https://arxiv.org/abs/2601.23045) | Jan 2026 | ICLR 2026. As tasks get harder, model failures become increasingly incoherent rather than systematically misaligned. Anthropic Fellows Program. By Hägele et al.   |
 | Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption         | [2511.15080](https://arxiv.org/abs/2511.15080) | Nov 2025 | Documents Claude usage patterns in 150+ countries, finding directive task delegation rose from 27% to 39% in eight months.                                         |
 | How AI Assistance Impacts the Formation of Coding Skills                       | [2601.20245](https://arxiv.org/abs/2601.20245) | Jan 2026 | Investigates how AI coding assistants affect skill development in programmers. By Shen, Tamkin et al. (Anthropic).                                                 |
+| Verbalizable Representations Form a Global Workspace in Language Models        | [2607.15495](https://arxiv.org/abs/2607.15495) | Jul 2026 | Introduces "Jacobian lens" interpretability technique revealing verbalizable representations that form a global workspace in LLMs, connecting to consciousness research. By Gurnee, Sofroniew, Pearce, Lindsey et al. (Anthropic). |
+| Mark, Don't Erase: Token Inoculation for Dual-Use Knowledge in LLMs           | [2607.18639](https://arxiv.org/abs/2607.18639) | Jul 2026 | Presents token inoculation pipeline for managing dual-use knowledge in LLMs, reducing WMDP-Bio capabilities (79.2% to 48.2%) with minimal utility cost. Associated with Anthropic Alignment Science. |
 
 ### Non-arXiv Notable Research (2025)
 
@@ -35,6 +37,15 @@ The following papers have been identified since the last full update. PDFs have 
 | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | Circuit Tracing: Revealing Computational Graphs in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html) | Mar 2025 | Attribution graphs trace model computation through interpretable features; companion to "On the Biology of a Large Language Model". |
 | On the Biology of a Large Language Model                           | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html) | Mar 2025 | Applied circuit tracing to Claude 3.5 Haiku; discovered planning in poetry, hallucination mechanisms, and jailbreak circuits.       |
+
+### Non-arXiv Notable Research (July 2026)
+
+| Paper                                                      | Source                                                                                 | Date     | Summary                                                                                                                                       |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Project Pilot: Can AI control a drone?                     | [anthropic.com](https://www.anthropic.com/research/project-pilot-can-ai-control-drone) | Jul 2026 | Frontier Red Team evaluation testing AI models' ability to autonomously fly a quadrotor drone. Introduces Drone-Bench with five sub-tasks.    |
+| Claude plays robotics                                      | [anthropic.com](https://www.anthropic.com/research/claude-plays-robotics)              | Jul 2026 | Empirical robotics evaluations across multiple embodiments and control interfaces. Claude Opus 4.6/4.5 outperform earlier versions.           |
+| Claude's values across models and languages                | [anthropic.com](https://www.anthropic.com/research/claude-values-models-languages)     | Jul 2026 | Maps 309,815 conversations across models and 20 languages onto four value axes: Deference/Caution, Warmth/Rigor, Depth/Brevity, Candor/Execution. |
+| Claude Opus 5 System Card                                  | [anthropic.com](https://www.anthropic.com/news/claude-opus-5)                          | Jul 2026 | System card for Claude Opus 5 (Jul 24). State-of-the-art on Frontier-Bench and GDPval-AA. SWE-bench Pro 79.2%, ARC-AGI-3 30.16%.             |
 
 ## Alignment & Safety
 
@@ -94,11 +105,13 @@ For those new to Anthropic's research, suggested reading order:
 15. **Reasoning Models CoT Faithfulness** (2025) - Limits of monitoring
 16. **Emergent Misalignment** (2025) - Reward hacking to sabotage
 17. **The Hot Mess of AI** (2026, ICLR) - Incoherence vs. systematic misalignment at scale
+18. **Token Inoculation for Dual-Use Knowledge** (2026) - Managing dangerous knowledge in LLMs
 
 ### Governance Track
 
-18. **Collective Constitutional AI** - Democratic input on AI values
-19. **Influence Functions** - Tracing outputs to training data
+19. **Collective Constitutional AI** - Democratic input on AI values
+20. **Influence Functions** - Tracing outputs to training data
+21. **Claude's Values Across Models and Languages** (2026) - Measuring AI values empirically
 
 ## Citation Information
 
@@ -108,4 +121,4 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
-Last checked for new papers: July 12, 2026. Added 2601.20245 "How AI Assistance Impacts the Formation of Coding Skills" (Shen, Tamkin). No other new Anthropic-authored arXiv papers identified since the January 2026 batch beyond those already tracked.
+Last checked for new papers: July 27, 2026. Added 2 new arXiv papers: 2607.15495 "Verbalizable Representations Form a Global Workspace in Language Models" (Gurnee, Lindsey et al., Jul 2026) and 2607.18639 "Mark, Don't Erase: Token Inoculation for Dual-Use Knowledge in LLMs" (Jul 2026). Also added 4 non-arXiv July 2026 publications: Project Pilot (drone control), Claude plays robotics, Claude's values across models/languages, and Claude Opus 5 system card.

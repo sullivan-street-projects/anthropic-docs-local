@@ -52,6 +52,8 @@ The model to use for the response. Available models:
 | :---------------- | :------------------ |
 | Claude Fable 5    | `claude-fable-5`    |
 | Claude Mythos 5   | `claude-mythos-5`   |
+| Claude Opus 5     | `claude-opus-5`     |
+| Claude Sonnet 5   | `claude-sonnet-5`   |
 | Claude Opus 4.8   | `claude-opus-4-8`   |
 | Claude Opus 4.7   | `claude-opus-4-7`   |
 | Claude Opus 4.6   | `claude-opus-4-6`   |
@@ -114,7 +116,7 @@ Supported formats: JPEG, PNG, GIF, WebP.
 
 ### Document Content
 
-Supports base64, URL, and plain text sources:
+Supports base64, URL, plain text, and content block sources:
 
 ```json
 {
@@ -138,6 +140,17 @@ Supports base64, URL, and plain text sources:
 {
   "type": "document",
   "source": { "type": "text", "data": "Plain text content..." }
+}
+```
+
+### Search Result Block
+
+```json
+{
+  "type": "search_result",
+  "source": "source_identifier",
+  "title": "Search result title",
+  "content": [{"type": "text", "text": "Search result text..."}]
 }
 ```
 
@@ -174,6 +187,25 @@ Returned when extended thinking is enabled:
 
 ```json
 { "type": "thinking", "thinking": "Let me work through this problem..." }
+```
+
+### Container Upload Block
+
+A content block that represents a file to be uploaded to the container:
+
+```json
+{ "type": "container_upload", "file_id": "file_abc123" }
+```
+
+### Mid-Conversation System Block
+
+System instructions that appear mid-conversation:
+
+```json
+{
+  "type": "mid_conv_system",
+  "content": [{"type": "text", "text": "Updated system instructions..."}]
+}
 ```
 
 ## Optional Parameters
@@ -229,6 +261,14 @@ Enable incremental streaming of the response using server-sent events (SSE). See
 ### `cache_control` (object)
 
 Top-level cache control marker with TTL: `"5m"` or `"1h"`.
+
+### `container` (string, optional)
+
+Container identifier for reuse across requests.
+
+### `inference_geo` (string, optional)
+
+Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
 ## Extended Thinking
 

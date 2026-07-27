@@ -290,7 +290,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "442f2e58e2f2a6260237abbf6b7c8440115e3cc945bd5b87a937d463ba94c754"
+      "sha256": "afa6ea5f362a77bdb0285f74269413c6204d3f952ceb615da926fdd699f38ced"
     },
     {
       "id": "api-messages",
@@ -302,7 +302,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "32e9d71fe40b31b5511d8c90e7cbc4a15927b98af9775c42044543b1400f71da"
+      "sha256": "b398fd04ee4963f54b061a158123a8f5d3eb4a836ceb0ea99a42a1dba8d0bc59"
     },
     {
       "id": "api-tool-use",
@@ -362,7 +362,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "935f75f1cbd1051883301d852d6529141d67e2da788d8af5b1ae59f8d62a4cd1"
+      "sha256": "e9df9f655225be1a8985b328cd426d371d0fffce5eb74335c45af4d83d7d6eea"
     },
     {
       "id": "model-opus-4-6",
@@ -422,7 +422,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "9edde6aca5bb80e3eedeeadcc1a2ecbfb8bc83a5d8fce85aeef7aab8e7e98e75"
+      "sha256": "a3fcc13e6708161327df380081d5cbbcecd3bcd58b8f1ce4fd67606ef7fafb85"
     },
     {
       "id": "agent-sdk-readme",
@@ -458,7 +458,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "43960ea02411ae46a4fa35351aa2393e663775460d3ac8fd919ca01c7cae537d"
+      "sha256": "fdc4f412d6be258ab641ca1a0de45b54752f3431775a47a118f1f33b02a21efc"
     },
     {
       "id": "cookbooks-index",
@@ -628,7 +628,7 @@
       ],
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "18fc95895e03728eb169ca87f3906d3ae5345caab72363194ab46ec3521c32b1"
+      "sha256": "f590dfb4e09f8b4708766f9ca77c2049e02679b6c0b91fafb733346de5b8d68f"
     },
     {
       "id": "news-claude-code-security",
@@ -928,7 +928,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "ceb3d3afea50939a5dc01ba061ded1f2592f780dd3bb47bdbf6b2677031ce819"
+      "sha256": "9a692dd35a6d5770501d4a86c7f00c68bccd92afbd6a5b0094fd55b1b9d55981"
     },
     {
       "id": "api-web-search-tool",
@@ -940,7 +940,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "e37eeaad64e4d0cdc2613840e577cf27b93c721b545fba849f42c3ec22084edf"
+      "sha256": "7c3dafe978e81ea85a840676c9e7b026f25d16fbe0858a7db1d02c2df6340081"
     },
     {
       "id": "agent-sdk-typescript-v2",
@@ -964,7 +964,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "59583c898fb0c36daff92c8b2c09568655ede1e008911be5290ad1e01fd6c11f"
+      "sha256": "7c4e033d33daa3d2eb35dfa7ef6a8bcea9c6fa35a65675515735617100411d82"
     },
     {
       "id": "best-practices-mcp-credentials",

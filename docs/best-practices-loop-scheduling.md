@@ -199,6 +199,12 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--exclude-dynamic-system-prompt-sections` | Move per-machine sections from system prompt into first user message for better cache reuse                                              |
 | `--input-format`                           | Specify input format for print mode (`text`, `stream-json`)                                                                              |
 | `--include-hook-events`                    | Include hook lifecycle events in output stream (requires `--output-format stream-json`)                                                  |
+| `--exec`                                   | Run a shell command as a PTY-backed background job (use with `--bg`)                                                                     |
+| `--cloud`                                  | Create a new web session on claude.ai                                                                                                    |
+| `--teleport`                               | Resume a web session in your local terminal                                                                                              |
+| `--remote` / `--rc`                        | Start with Remote Control enabled                                                                                                        |
+| `--fork-session`                           | Create a new session ID when resuming (branch from an existing session)                                                                  |
+| `--channels`                               | MCP servers whose channel notifications to listen for                                                                                    |
 
 ### Tier 3: GitHub Actions Example
 
@@ -243,6 +249,12 @@ claude logs 7c5dcf5d
 # Stop a background session
 claude stop 7c5dcf5d
 
+# Restart a background session with conversation intact
+claude respawn 7c5dcf5d
+
+# Remove a session from the list
+claude rm 7c5dcf5d
+
 # Run a shell command as a background job
 claude --bg --exec 'pytest -x'
 ```
@@ -260,6 +272,7 @@ When using `/loop` or any scheduled Claude Code task, choose the appropriate per
 | Mode                | Description                                                  | When to Use                                  |
 | ------------------- | ------------------------------------------------------------ | -------------------------------------------- |
 | `default`           | Asks permission for sensitive operations                     | Interactive sessions                         |
+| `manual`            | Same as default                                              | Interactive sessions                         |
 | `plan`              | Runs read-only tools; file edits reach `canUseTool` callback | Review/audit loops                           |
 | `acceptEdits`       | Auto-approves file edits and common filesystem commands      | Trusted development workflows                |
 | `auto`              | Model classifier approves/denies tool calls                  | Autonomous agents with guardrails            |
@@ -314,12 +327,12 @@ claude --bg --exec 'npm test'
 | Session-scoped lifecycle                          | CHANGELOG v2.1.71 + observed behavior                      | High       |
 | `-p` flag for non-interactive mode                | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--allowedTools` permission syntax                | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--permission-mode` options (6 modes)             | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--permission-mode` options (7 modes incl. manual) | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--max-turns` flag                                | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--output-format json`                            | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--bg` background agents                          | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `claude agents` / `claude attach` / `claude logs` | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--effort` levels (low/medium/high/xhigh/max)     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `claude agents/attach/logs/stop/respawn/rm`       | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--effort` levels (low/medium/high/xhigh/max/ultracode) | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--bare` / `--safe-mode` flags                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--tools` flag for restricting built-in tools     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--disallowedTools` deny rules                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
