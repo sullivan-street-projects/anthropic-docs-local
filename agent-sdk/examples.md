@@ -2,7 +2,7 @@
 title: "Agent SDK Examples"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Production-ready patterns for the Claude Agent SDK covering subagents, hooks, MCP integration, custom tools, sessions, permissions, and advanced configurations. All examples are derived from the official SDK documentation and demos.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** July 27, 2026
 
 ## Subagent Delegation
 
@@ -286,12 +286,17 @@ async def main():
     session_id = None
 
     # First query: capture the session ID
-    async for message in query(
-        prompt="Read the authentication module",
-        options=ClaudeAgentOptions(allowed_tools=["Read", "Glob"]),
-    ):
-        if isinstance(message, SystemMessage) and message.subtype == "init":
-            session_id = message.data["session_id"]
+    try:
+        async for message in query(
+            prompt="Read the authentication module",
+            options=ClaudeAgentOptions(allowed_tools=["Read", "Glob"]),
+        ):
+            if isinstance(message, SystemMessage) and message.subtype == "init":
+                session_id = message.data["session_id"]
+    except Exception as error:
+        # A single-shot query() raises after yielding an error result.
+        # session_id was already captured by the loop above if it got that far.
+        print(f"Session ended with an error: {error}")
 
     # Resume with full context from the first query
     async for message in query(
@@ -313,13 +318,19 @@ import { query } from "@anthropic-ai/claude-agent-sdk";
 let sessionId: string | undefined;
 
 // First query: capture the session ID
-for await (const message of query({
-  prompt: "Read the authentication module",
-  options: { allowedTools: ["Read", "Glob"] },
-})) {
-  if (message.type === "system" && message.subtype === "init") {
-    sessionId = message.session_id;
+try {
+  for await (const message of query({
+    prompt: "Read the authentication module",
+    options: { allowedTools: ["Read", "Glob"] },
+  })) {
+    if (message.type === "system" && message.subtype === "init") {
+      sessionId = message.session_id;
+    }
   }
+} catch (error) {
+  // A single-shot query() throws after yielding an error result.
+  // sessionId was already captured by the loop above if it got that far.
+  console.error(`Session ended with an error: ${error}`);
 }
 
 // Resume with full context from the first query

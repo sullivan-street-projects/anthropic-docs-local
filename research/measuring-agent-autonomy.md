@@ -2,7 +2,7 @@
 title: "Measuring AI Agent Autonomy in Practice"
 source_url: "https://www.anthropic.com/research/measuring-agent-autonomy"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "research"
 ---
 

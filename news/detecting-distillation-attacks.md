@@ -2,7 +2,7 @@
 title: "Detecting and Preventing Distillation Attacks"
 source_url: "https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "news"
 published: "2026-02-23"
 ---

@@ -2,7 +2,7 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -166,14 +166,14 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `-p "prompt"`                              | Non-interactive / print mode -- runs prompt and exits                                                                                    |
 | `--output-format json`                     | Machine-readable output for logging/parsing (options: `text`, `json`, `stream-json`)                                                     |
 | `--max-turns N`                            | Limit agent turns to prevent runaway execution                                                                                           |
-| `--permission-mode`                        | Control what the agent can do without human approval (options: `default`, `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions`) |
+| `--permission-mode`                        | Control what the agent can do without human approval (options: `default`, `manual`, `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions`) |
 | `--dangerously-skip-permissions`           | Equivalent to `--permission-mode bypassPermissions` -- **use with extreme caution**                                                      |
 | `--allowedTools "Tool(args)"`              | Restrict which tools the agent may use; supports pattern matching                                                                        |
 | `--disallowedTools "Tool(args)"`           | Deny rules; a bare tool name removes tools from context, a scoped rule denies only matching calls                                        |
 | `--tools "Bash,Edit,Read"`                 | Restrict which built-in tools Claude can use (use `""` to disable all, `"default"` for all)                                              |
 | `--max-budget-usd N`                       | Maximum dollar amount to spend on API calls before stopping                                                                              |
 | `--fallback-model <model>`                 | Enable automatic fallback model(s) when default is overloaded; accepts comma-separated list                                              |
-| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max` (available levels depend on model)                                             |
+| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max`, `ultracode` (available levels depend on model)                                |
 | `--bare`                                   | Minimal mode: skip hooks, skills, plugins, MCP, auto memory, CLAUDE.md for faster startup                                                |
 | `--safe-mode`                              | Start with all customizations disabled (hooks, skills, plugins, MCP, CLAUDE.md, themes, etc.) for troubleshooting                        |
 | `--no-session-persistence`                 | Disable session saving to disk (print mode only)                                                                                         |

@@ -2,7 +2,7 @@
 title: "India Country Brief: The Anthropic Economic Index"
 source_url: "https://www.anthropic.com/research/india-brief-economic-index"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "research"
 ---
 

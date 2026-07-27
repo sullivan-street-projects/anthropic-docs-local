@@ -2,7 +2,7 @@
 title: "Building a C Compiler with a Team of Parallel Claudes"
 source_url: "https://www.anthropic.com/engineering/building-c-compiler"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "engineering"
 ---
 

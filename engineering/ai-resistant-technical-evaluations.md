@@ -2,7 +2,7 @@
 title: "Designing AI-resistant technical evaluations"
 source_url: "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "engineering"
 published: "2026-01-21"
 ---

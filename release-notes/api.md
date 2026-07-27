@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -13,8 +13,34 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 
+### July 24, 2026
+
+- Launched **Claude Opus 5** (`claude-opus-5`), step-change over Opus 4.8. 1M context, 128k output, thinking on by default, $5 / $25 per MTok. Available on Claude API, Bedrock, Google Cloud, and Microsoft Foundry.
+- Disabling thinking on Opus 5 only allowed at effort `high` or below; `xhigh`/`max` with disabled thinking returns 400.
+- Effort is the primary control for Opus 5: full ladder (`low`, `medium`, `high`, `xhigh`, `max`).
+- Mid-conversation tool changes in beta on Fable 5, Mythos 5, Opus 4.8, and Opus 5 (`mid-conversation-tool-changes-2026-07-01` header).
+- `fallbacks` parameter supports `"default"` mode for recommended fallback models by refusal category (`server-side-fallback-2026-07-01` header).
+- Removed fast mode for Opus 4.7. Requests with `speed: "fast"` return an error. Migrate to Opus 5 or Opus 4.8.
+
+### July 22, 2026
+
+- Managed Agents: `effort` level in agent model config. Environment and memory store webhook events. Session seeding with `initial_events`. Optional `version` on agent updates. Thread-level event deltas.
+
+### July 17, 2026
+
+- Legacy Workbench sunset August 17, 2026. Experimental prompt tools APIs (`generate_prompt`, `improve_prompt`, `templatize_prompt`) retiring same date.
+
+### July 15, 2026
+
+- Mid-conversation system messages available on Fable 5, Mythos 5, and Opus 4.8. No beta header required.
+
+### July 14, 2026
+
+- Admin API in beta for Claude Enterprise user management: members, invites, groups, custom roles. Requires `ce-user-management-2026-07-13` header for group/role endpoints.
+
 ### July 10, 2026
 
+- Dreams (research preview) now supports Fable 5 and Sonnet 5.
 - Expanded Access Transparency documentation of `cmek_preserve` events with a filter example, an example event payload, and two preservation reason codes (`policy_violation_investigation`, `csae_report`).
 
 ### July 8, 2026

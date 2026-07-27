@@ -29,15 +29,52 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 4
+Total cycles logged: 5
 Total improvements applied: 2
 Total improvements deferred: 2
 Most-improved infrastructure: manifest.json (2 changes: hashes + URL corrections)
-Most-informative category: claude-code (12 insights sourced from it)
-Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 5th consecutive 404)
-Last cycle: 2026-07-12 — 1 applied, 0 deferred
+Most-informative category: claude-code (14 insights sourced from it)
+Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 6th consecutive 404)
+Last cycle: 2026-07-27 — 0 applied, 0 deferred
 
 ## Entries
+
+### 2026-07-27 — Update: all
+
+Content changes analyzed: 116 files (10 with actual content changes)
+Improvements identified: 0
+Improvements applied: 0
+Improvements deferred: 0
+
+**Already aligned:**
+
+- claude-code/CHANGELOG.md → Claude Opus 5 as default model — informational, no infrastructure change needed
+- claude-code/CHANGELOG.md → Subagent nesting depth increased to 3 — our update skill already uses shallow agent hierarchies
+- claude-code/CHANGELOG.md → Dynamic workflow size guideline (medium, <15 agents) — informational
+- claude-code/CHANGELOG.md → `/code-review` as background subagent — informational, no impact on our infra
+- release-notes/platform.md → Opus 5 thinking constraint (can't disable at xhigh/max) — informational, we don't make API calls
+- release-notes/platform.md → Mid-conversation tool changes beta — informational, new API capability
+- release-notes/platform.md → Legacy Workbench sunset Aug 17 — informational, no impact on our repo
+- release-notes/platform.md → Managed Agents enhancements (effort, webhooks, seeding) — informational
+- sdks/python/CHANGELOG.md, sdks/typescript/CHANGELOG.md → Opus 5 model IDs, Dreams API — informational
+
+**Staleness report:**
+
+- Stable (unchanged but accessible): 96 sources (timestamp-only updates)
+- Possibly dead: 1 (6th consecutive cycle)
+  - agent-sdk-typescript-v2-preview: https://github.com/anthropics/agent-sdk — 404 error (STRONGLY recommend removal)
+- Resources.anthropic.com PDFs: 2 still returning 404 (skills guide, teams use doc) — CDN URLs may have changed
+- Relocated: 0
+
+**Discovery findings (Phase 2.5):**
+
+- 36 new sources identified: 19 news, 8 engineering, 9 research
+- Most notable: Claude Opus 5, Claude Sonnet 5, "How we contain Claude", "Scaling Managed Agents"
+- See discovery-log.md for full list
+
+**No action needed:**
+
+- 96 content changes were timestamp-only updates
 
 ### 2026-07-12 — Update: all
 

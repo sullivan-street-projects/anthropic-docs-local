@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "claude-code"
 ---
 

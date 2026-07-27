@@ -19,6 +19,33 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-07-27 — Weekly Update (automated scheduled run)
+
+- **Sources refreshed**: 116 files updated (+1,049 / -456 lines)
+- **Content changes**: 10 files with meaningful content changes (CHANGELOGs, release notes, github-repos)
+- **Timestamp-only**: 96 files
+- **Discovery scan**: 36 new sources found across news (19), engineering (8), research (9)
+- **HIGH priority new sources**:
+  - https://www.anthropic.com/news/claude-opus-5 — models — Claude Opus 5 launch (Jul 24)
+  - https://www.anthropic.com/news/claude-sonnet-5 — models — Claude Sonnet 5 launch
+  - https://www.anthropic.com/engineering/how-we-contain-claude — engineering — Security architecture
+  - https://www.anthropic.com/engineering/managed-agents — engineering — Scaling Managed Agents
+  - https://www.anthropic.com/engineering/claude-code-auto-mode — engineering — Auto mode deep-dive
+  - https://www.anthropic.com/engineering/harness-design-long-running-apps — engineering — Harness design
+  - https://www.anthropic.com/research/global-workspace — research — Global workspace in LMs
+  - https://www.anthropic.com/research/project-pilot — research — AI drone control
+  - https://www.anthropic.com/research/off-switch-dual-use — research — Dual-use knowledge off-switch
+  - https://www.anthropic.com/research/claude-values-models-languages — research — Values across models
+  - https://www.anthropic.com/news/claude-for-teachers — news — New product vertical
+  - https://www.anthropic.com/news/claude-science-ai-workbench — news — Science product
+  - https://www.anthropic.com/news/economic-futures-research-fund-agenda — news — $200M research fund
+  - https://www.anthropic.com/news/redeploying-fable-5 — news — Fable 5 availability
+  - https://www.anthropic.com/news/higher-limits-spacex — news — Usage limits + SpaceX deal
+  - https://www.anthropic.com/news/fable-safeguards-jailbreak-framework — news — Safety/security
+- **MEDIUM priority**: 13 (Canadian AI research, UST partnership, public engagement, various research)
+- **LOW priority**: 2 (governance appointments)
+- **Notes**: Automated run; no new sources added (requires user approval). Recommend dedicated discovery run to add high-priority sources.
+
 ### 2026-07-12 — Weekly Update (manual + arXiv + partial discovery)
 
 - **Manual sources refreshed**: 9 (1 content-changed, 8 timestamp-only)

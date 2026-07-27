@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -13,8 +13,39 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 
+### July 24, 2026
+
+- Launched **Claude Opus 5** (`claude-opus-5`), a step-change improvement over Claude Opus 4.8. Supports 1M token context window, 128k max output tokens, and thinking on by default, at $5 / $25 per MTok. Available on the Claude API, Amazon Bedrock, Google Cloud, and Microsoft Foundry.
+- On Claude Opus 5, disabling thinking is allowed only at effort `high` or below: `thinking: {"type": "disabled"}` with effort `xhigh` or `max` returns a 400 error, a breaking change from Claude Opus 4.8.
+- Effort is the primary control for steering Claude Opus 5: the model supports the full ladder (`low`, `medium`, `high`, `xhigh`, `max`), with `max` for capability-critical work.
+- Mid-conversation tool changes now in beta on Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, and Claude Opus 5. Include the `mid-conversation-tool-changes-2026-07-01` beta header.
+- The `fallbacks` parameter now supports a `"default"` mode, which applies Anthropic's recommended fallback models by refusal category. Requires `server-side-fallback-2026-07-01` beta header.
+- Removed fast mode for Claude Opus 4.7. Requests with `speed: "fast"` now return an error; unlike Opus 4.6, they do not fall back to standard speed. Migrate to Claude Opus 5 or Claude Opus 4.8.
+
+### July 22, 2026
+
+- Managed Agents agents now support `effort` level in model configuration when creating an agent.
+- Webhooks for Managed Agents now cover environment and memory store lifecycle events (`environment.*` and `memory_store.*` event types).
+- Managed Agents session creation can now seed with initial events via `initial_events` on `POST /v1/sessions` (up to 50 events). A non-empty list starts the agent loop in the same call.
+- The `version` field is now optional when updating a Managed Agents agent. Supply it for optimistic concurrency or omit for unconditional update.
+- Managed Agents session thread event streams now support event deltas via `event_deltas[]` query parameter on `GET /v1/sessions/{session_id}/threads/{thread_id}/stream`.
+
+### July 17, 2026
+
+- The legacy **Workbench** in the Claude Console is being sunset with access ending on August 17, 2026. Saved prompts, variables, and evals are not supported in the updated Workbench (Playground).
+- The experimental prompt tools APIs (`/v1/experimental/generate_prompt`, `/v1/experimental/improve_prompt`, `/v1/experimental/templatize_prompt`) are being retired on August 17, 2026.
+
+### July 15, 2026
+
+- Mid-conversation system messages are available on Claude Fable 5, Claude Mythos 5, and Claude Opus 4.8 on the Claude API, Amazon Bedrock, and Google Cloud. No beta header required. This corrects earlier availability notes.
+
+### July 14, 2026
+
+- Admin API now available in beta for all Claude Enterprise organizations for user management: list members, change roles, remove members, send and withdraw invites, manage groups and custom roles. Group and custom-role requests require `anthropic-beta: ce-user-management-2026-07-13` beta header.
+
 ### July 10, 2026
 
+- Dreams (research preview) now supports Claude Fable 5 and Claude Sonnet 5.
 - Expanded Access Transparency documentation of `cmek_preserve` events with a filter example, an example event payload, and two preservation reason codes (`policy_violation_investigation`, `csae_report`). Documentation now clarifies that a preservation event is written whether initiated by a human reviewer or an automated safety pipeline.
 
 ### July 8, 2026

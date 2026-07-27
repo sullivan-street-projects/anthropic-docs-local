@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Hooks are user-defined shell commands, HTTP endpoints, MCP tool calls, LLM prompts, or agents that execute automatically at specific points in Claude Code's lifecycle. Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** July 27, 2026
 
 ## Hook Lifecycle
 
@@ -20,7 +20,7 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 
 | Event                 | Description                                                        | Matcher                                                                                                                                                                                         | Fires                      |
 | --------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| `SessionStart`        | Session begins or resumes                                          | `startup`, `resume`, `clear`, `compact`                                                                                                                                                         | Once per session           |
+| `SessionStart`        | Session begins or resumes                                          | `startup`, `resume`, `clear`, `compact`, `fork`                                                                                                                                                 | Once per session           |
 | `Setup`               | `claude --init-only` or `claude -p --init`/`--maintenance`         | `init`, `maintenance`                                                                                                                                                                           | Once                       |
 | `InstructionsLoaded`  | CLAUDE.md or `.claude/rules/*.md` loaded into context              | `session_start`, `nested_traversal`, `path_glob_match`, `include`, `compact`                                                                                                                    | Session start + lazy loads |
 | `UserPromptSubmit`    | Before Claude processes user input                                 | No matcher support                                                                                                                                                                              | Each user message          |
@@ -243,12 +243,12 @@ Matcher evaluation types:
 | Event                                                                                                                                                           | What Matcher Filters         | Example Matcher Values                                                                                                                                                              |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `PermissionRequest`, `PermissionDenied`                                                                      | Tool name                    | `Bash`, `Edit\|Write`, `mcp__.*`                                                                                                                                                    |
-| `SessionStart`                                                                                                                                                  | How session started          | `startup`, `resume`, `clear`, `compact`                                                                                                                                             |
+| `SessionStart`                                                                                                                                                  | How session started          | `startup`, `resume`, `clear`, `compact`, `fork`                                                                                                                                     |
 | `Setup`                                                                                                                                                         | CLI flag                     | `init`, `maintenance`                                                                                                                                                               |
 | `SessionEnd`                                                                                                                                                    | Why session ended            | `clear`, `resume`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other`                                                                                            |
 | `FileChanged`                                                                                                                                                   | Literal filenames (basename) | `.envrc`, `.env`                                                                                                                                                                    |
 | `Notification`                                                                                                                                                  | Notification type            | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`, `elicitation_complete`, `elicitation_response`, `agent_needs_input`, `agent_completed`                    |
-| `SubagentStart`, `SubagentStop`                                                                                                                                 | Agent type                   | `Bash`, `Explore`, `Plan`, or custom agent names                                                                                                                                    |
+| `SubagentStart`, `SubagentStop`                                                                                                                                 | Agent type                   | `general-purpose`, `Explore`, `Plan`, or custom agent names                                                                                                                         |
 | `PreCompact`, `PostCompact`                                                                                                                                     | What triggered compaction    | `manual`, `auto`                                                                                                                                                                    |
 | `ConfigChange`                                                                                                                                                  | Configuration source         | `user_settings`, `project_settings`, `local_settings`, `policy_settings`, `skills`                                                                                                  |
 | `Elicitation`, `ElicitationResult`                                                                                                                              | MCP server name              | Server-specific elicitation events                                                                                                                                                  |
@@ -343,7 +343,7 @@ Leading `VAR=value` assignments are stripped. Filter fails open on parse errors.
 | UserPromptSubmit, UserPromptExpansion, PostToolUse, PostToolUseFailure, Stop, SubagentStop, ConfigChange, PostToolBatch | Top-level `decision`           | `decision: "block"`, `reason`                                                                                |
 | TeammateIdle, TaskCompleted                                                                                             | Exit code or `continue: false` | Exit code 2 blocks; JSON `continue: false` also stops                                                        |
 | PreToolUse                                                                                                              | `hookSpecificOutput`           | `permissionDecision` (allow/deny/ask/defer), `permissionDecisionReason`, `updatedInput`, `additionalContext` |
-| PermissionRequest                                                                                                       | `hookSpecificOutput`           | `decision.behavior` (allow/deny), `decision.updatedInput`, `decision.appliedRule`                            |
+| PermissionRequest                                                                                                       | `hookSpecificOutput`           | `decision.behavior` (allow/deny), `decision.updatedInput`, `decision.appliedRule`, `addPermissionRule`       |
 | PermissionDenied                                                                                                        | `hookSpecificOutput`           | `retry: true` to tell model it may retry                                                                     |
 | PostToolUse                                                                                                             | `hookSpecificOutput`           | `updatedToolOutput` (modify result), `additionalContext`                                                     |
 | MessageDisplay                                                                                                          | `hookSpecificOutput`           | `displayContent` (replace displayed text, screen only)                                                       |
@@ -394,6 +394,17 @@ PreToolUse hooks can:
 | `additionalContext` | none    | String added to Claude's context window as system reminder (capped at 10,000 characters)     |
 | `terminalSequence`  | none    | Terminal escape sequence (OSC 0/1/2/9/99/777, BEL only)                                      |
 
+### SessionStart-Specific Output Fields
+
+SessionStart hooks can return additional fields to configure the session:
+
+| Field                | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| `initialUserMessage` | First user message (non-interactive/print mode only)         |
+| `sessionTitle`       | Set the session title                                        |
+| `watchPaths`         | File paths to watch for changes (triggers `FileChanged`)     |
+| `reloadSkills`       | If `true`, force reload all skills                           |
+
 ### Terminal Notifications
 
 Return escape sequences through `terminalSequence` instead of writing to `/dev/tty` (unavailable to hooks):
@@ -416,8 +427,8 @@ All hook events receive these fields as JSON:
 | `prompt_id`       | Unique identifier for the current prompt turn                                                     |
 | `transcript_path` | Path to conversation JSON                                                                         |
 | `cwd`             | Current working directory when hook is invoked                                                    |
-| `permission_mode` | Current permission mode: `default`, `plan`, `acceptEdits`, `auto`, `dontAsk`, `bypassPermissions` |
-| `effort`          | Object with effort level: `low`, `medium`, `high`, `xhigh`, `max`                                 |
+| `permission_mode` | Current permission mode: `default`, `manual`, `plan`, `acceptEdits`, `auto`, `dontAsk`, `bypassPermissions` |
+| `effort`          | Object with effort level: `low`, `medium`, `high`, `xhigh`, `max`, `ultracode`                              |
 | `hook_event_name` | Name of the event that fired                                                                      |
 
 When running with `--agent` or inside a subagent, two additional fields:

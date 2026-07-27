@@ -2,7 +2,7 @@
 title: "Disempowerment Patterns in Real-World AI Usage"
 source_url: "https://www.anthropic.com/research/disempowerment-patterns"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-07-27T00:00:00Z"
 category: "research"
 ---
 
