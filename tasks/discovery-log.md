@@ -44,6 +44,17 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
   - https://www.anthropic.com/news/fable-safeguards-jailbreak-framework — news — Safety/security
 - **MEDIUM priority**: 13 (Canadian AI research, UST partnership, public engagement, various research)
 - **LOW priority**: 2 (governance appointments)
+- **Manual sources refreshed**: 9 (5 content-changed, 4 timestamp-only)
+  - CONTENT_CHANGED: claude-code/hooks.md (added `fork` SessionStart matcher; `general-purpose` SubagentStart/Stop matcher; `addPermissionRule` PermissionRequest field; SessionStart-specific output fields: initialUserMessage, sessionTitle, watchPaths, reloadSkills; `manual` permission mode; `ultracode` effort level)
+  - CONTENT_CHANGED: agent-sdk/README.md (provider naming: "Google Cloud's Agent Platform", "Microsoft Foundry"; updated dontAsk/bypassPermissions mode descriptions with connector tool and user interaction exclusions)
+  - CONTENT_CHANGED: agent-sdk/quickstart.md (same provider naming and permission mode updates as README)
+  - CONTENT_CHANGED: agent-sdk/examples.md (session resumption now includes try/except error handling pattern)
+  - CONTENT_CHANGED: docs/best-practices-loop-scheduling.md (added `ultracode` effort level; `manual` permission mode; `claude respawn`/`claude rm` commands; new CLI flags: --exec, --cloud, --teleport, --remote, --fork-session, --channels)
+  - TIMESTAMP_ONLY: features.md, mcp-servers.md, plugins.md, best-practices-mcp-credentials.md
+- **arXiv papers**: 2 new papers added to index
+  - NEW: 2607.15495 "Verbalizable Representations Form a Global Workspace in Language Models" (Gurnee, Lindsey et al., Jul 2026)
+  - NEW: 2607.18639 "Mark, Don't Erase: Token Inoculation for Dual-Use Knowledge in LLMs" (Jul 2026)
+  - Also added 4 non-arXiv July 2026 publications to index (Project Pilot, Claude plays robotics, Claude's values, Opus 5 system card)
 - **Notes**: Automated run; no new sources added (requires user approval). Recommend dedicated discovery run to add high-priority sources.
 
 ### 2026-07-12 — Weekly Update (manual + arXiv + partial discovery)

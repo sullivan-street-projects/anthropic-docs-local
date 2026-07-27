@@ -314,7 +314,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "9dde37a2e46de3e2b7256bb3cdac21d344a61813cb3ec35a44a8ffe051f0725c"
+      "sha256": "091b3c7567a831129c16a2d54c3621e9476a591c6c57e3971e87b799ac525c11"
     },
     {
       "id": "api-vision",
@@ -326,7 +326,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "3172a1855cf4b97703e3eba7ca50864c19ea14d801fee9262b277a5d3a6d3779"
+      "sha256": "ecaa963679ddc20ef5ce4dbc903b68f747adf3abfda1ce62087b737c0f1227f9"
     },
     {
       "id": "api-streaming",

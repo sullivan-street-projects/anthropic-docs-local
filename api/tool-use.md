@@ -10,35 +10,16 @@ category: "api"
 
 Tool use lets Claude call functions that you define or that Anthropic provides. Claude determines when to call a tool based on the user's request and the tool's description. It then returns a structured call that your application executes (client tools) or that Anthropic executes (server tools).
 
-## Tool Types
+## How Tool Use Works
 
-Claude supports two categories of tools:
+Tools differ primarily by where the code executes. **Client tools** (including user-defined tools and tools with Anthropic-defined schemas, such as `bash` and `text_editor`) run in your application. Claude responds with `stop_reason: "tool_use"` and one or more `tool_use` blocks. Your code executes the operation and sends back a `tool_result`. **Server tools** (such as `web_search`, `web_fetch`, `code_execution`, and `tool_search`) run on Anthropic's infrastructure: you see the results directly without handling execution.
 
-### 1. Client Tools
-
-Tools that execute on your infrastructure. You define them, handle invocations, and return results to Claude.
-
-**Sub-types:**
-
-- **User-defined tools**: Custom tools you create with names, descriptions, and JSON schemas.
-- **Anthropic-schema client tools**: Tools like computer use, text editor, bash, and memory that have Anthropic-specified schemas but run on your side.
-
-**4-step workflow:**
+**4-step client tool workflow:**
 
 1. **Provide tools and prompt**: Define tools with names, descriptions, and input schemas alongside the user message.
 2. **Claude decides to use a tool**: The response contains a `tool_use` content block and `stop_reason: "tool_use"`.
 3. **Execute the tool**: Run the tool on your side and return results in a `tool_result` content block.
 4. **Claude responds**: Claude incorporates the tool result into its final response.
-
-### 2. Server Tools
-
-Tools that execute on Anthropic's infrastructure. No client-side implementation is required.
-
-- **Web Search** (`web_search_20260209`): Searches the web and returns results.
-- **Web Fetch** (`web_fetch_20260209`): Fetches content from URLs.
-- **Code Execution** (`code_execution_20260120`): Runs Python and bash code in a sandboxed container.
-- **Advisor**: Lets a faster executor model consult a higher-intelligence advisor model mid-generation.
-- **Tool Search**: Work with thousands of tools by discovering and loading them on demand.
 
 **Server tool workflow:**
 
@@ -48,6 +29,8 @@ Tools that execute on Anthropic's infrastructure. No client-side implementation 
 
 If the server-side loop reaches its iteration limit without completion, the API returns `stop_reason: "pause_turn"`. To continue, send the response back as an assistant message followed by a user message to resume.
 
+To skip writing the round trip yourself, use Tool Runner: the SDKs execute your tools and send the results back automatically.
+
 ## When Claude Uses Tools
 
 With the default `tool_choice` of `{"type": "auto"}`, Claude determines on each turn whether to call a tool or respond directly. It calls a tool when the request maps to that tool's described capability and the answer isn't already in context. It responds directly for stable knowledge, creative tasks, and conversational turns.
@@ -55,6 +38,8 @@ With the default `tool_choice` of `{"type": "auto"}`, Claude determines on each 
 This boundary is steerable through your system prompt. If Claude isn't calling tools when you expect, a light instruction such as `"Use the tools to investigate before responding."` increases tool use. A stronger form such as `"Always call a tool first before responding."` pushes further. Conversely, `"Use your judgment about whether to call a tool or respond directly."` keeps triggering behavior conservative.
 
 To require a tool call rather than rely on prompting, set `tool_choice`.
+
+Add `strict: true` to your custom tool definitions to ensure Claude's tool calls always match your schema exactly.
 
 ### Missing Information Handling
 
@@ -141,9 +126,10 @@ tools = [
 
 # Step 1: Send the initial request
 response = client.messages.create(
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=1024,
     tools=tools,
+    tool_choice={"type": "auto", "disable_parallel_tool_use": True},
     messages=[{"role": "user", "content": "What's the weather in San Francisco?"}]
 )
 
@@ -156,9 +142,10 @@ if response.stop_reason == "tool_use":
 
     # Step 4: Send tool result back to Claude
     final_response = client.messages.create(
-        model="claude-opus-4-8",
+        model="claude-opus-5",
         max_tokens=1024,
         tools=tools,
+        tool_choice={"type": "auto", "disable_parallel_tool_use": True},
         messages=[
             {"role": "user", "content": "What's the weather in San Francisco?"},
             {"role": "assistant", "content": response.content},
@@ -203,9 +190,10 @@ const tools: Anthropic.Tool[] = [
 
 // Step 1: Send the initial request
 const response = await client.messages.create({
-  model: "claude-opus-4-8",
+  model: "claude-opus-5",
   max_tokens: 1024,
   tools,
+  tool_choice: { type: "auto", disable_parallel_tool_use: true },
   messages: [{ role: "user", content: "What's the weather in San Francisco?" }],
 });
 
@@ -218,9 +206,10 @@ if (response.stop_reason === "tool_use") {
 
   // Step 4: Send tool result back
   const finalResponse = await client.messages.create({
-    model: "claude-opus-4-8",
+    model: "claude-opus-5",
     max_tokens: 1024,
     tools,
+    tool_choice: { type: "auto", disable_parallel_tool_use: true },
     messages: [
       { role: "user", content: "What's the weather in San Francisco?" },
       { role: "assistant", content: response.content },
@@ -261,22 +250,6 @@ You can also use the MCP connector to connect directly to remote MCP servers wit
 
 Control how Claude selects tools:
 
-```json
-{ "tool_choice": { "type": "auto" } }
-```
-
-```json
-{ "tool_choice": { "type": "any" } }
-```
-
-```json
-{ "tool_choice": { "type": "tool", "name": "get_weather" } }
-```
-
-```json
-{ "tool_choice": { "type": "none" } }
-```
-
 | Type   | Behavior                                       |
 | :----- | :--------------------------------------------- |
 | `auto` | Claude decides whether to use a tool (default) |
@@ -288,25 +261,7 @@ Set `disable_parallel_tool_use: true` within `tool_choice` to force Claude to us
 
 ## Parallel Tool Use
 
-When multiple operations are independent, Claude can call multiple tools in a single response. All `tool_use` blocks appear in one assistant message. You must return all corresponding `tool_result` blocks in a single user message:
-
-```json
-{
-  "role": "user",
-  "content": [
-    {
-      "type": "tool_result",
-      "tool_use_id": "toolu_01AAA",
-      "content": "72°F, sunny"
-    },
-    {
-      "type": "tool_result",
-      "tool_use_id": "toolu_01BBB",
-      "content": "45°F, cloudy"
-    }
-  ]
-}
-```
+When multiple operations are independent, Claude can call multiple tools in a single response. All `tool_use` blocks appear in one assistant message. You must return all corresponding `tool_result` blocks in a single user message.
 
 ## Sequential Tool Use (Chaining)
 
@@ -338,6 +293,8 @@ Server tools run on Anthropic's infrastructure, with no handler code in your app
 - **Tool Search tool**: Work with thousands of tools by discovering and loading them on demand.
 - **MCP connector**: Connect to remote MCP servers from the Messages API without a separate MCP client.
 
+Claude Managed Agents provides a built-in toolset that Claude uses autonomously within a session.
+
 ## Pricing
 
 Tool use requests are priced based on:
@@ -358,6 +315,7 @@ When you use `tools`, the API automatically includes a special system prompt tha
 
 | Model             | auto / none | any / tool |
 | :---------------- | :---------- | :--------- |
+| Claude Opus 5     | 286 tokens  | 406 tokens |
 | Claude Opus 4.8   | 290 tokens  | 410 tokens |
 | Claude Opus 4.7   | 675 tokens  | 804 tokens |
 | Claude Opus 4.6   | 497 tokens  | 589 tokens |
