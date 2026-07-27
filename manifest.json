@@ -338,7 +338,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "313db2d0283154bf0c3635e0001ef50007b7f5912d0295b52d0d636e8d56b877"
+      "sha256": "081c94bd01e6815aec57fee7b5f88cf3b54fde1e89ca5196d5707af857bc0299"
     },
     {
       "id": "api-errors",
@@ -350,7 +350,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "5c2a59875789b06bbef7f27011eadd751a2dbcd001ee6b81cc693aec504caf4f"
+      "sha256": "e8209735e27976acea1ffc2407b9a500a72a133965c599fa451e43fd4d3fb8a1"
     },
     {
       "id": "models-overview",
@@ -880,7 +880,7 @@
       "last_fetched": "2026-07-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "84b6fdbdaab3a9ad7863748f2217d0ecf84ddf0fc7d76b5789b1a07ac5d63d9f"
+      "sha256": "4ca67c1f040e6801c8c175905ddc7057de1e2ee1f84b76620e0dfec2e125b94c"
     },
     {
       "id": "api-migration-guide",
