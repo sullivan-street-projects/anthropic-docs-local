@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, LSP servers, background monitors, and default settings into a single installable unit.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** August 2, 2026
 
 ## Plugins vs Standalone Configuration
 
@@ -326,9 +326,15 @@ claude --plugin-dir ./plugin-one --plugin-dir ./plugin-two
 # Load from a .zip archive (v2.1.128+)
 claude --plugin-dir ./my-plugin.zip
 
-# Load from a URL
+# Load from a URL (fetched at startup, loaded for that session only)
 claude --plugin-url https://example.com/my-plugin.zip
+
+# Load multiple plugins from URLs (repeat the flag or pass space-separated URLs)
+claude --plugin-url https://example.com/my-plugin.zip --plugin-url https://example.com/other.zip
+claude --plugin-url "https://example.com/my-plugin.zip https://example.com/other.zip"
 ```
+
+If Claude Code can't fetch a `--plugin-url` archive, or the archive is invalid, it starts without the plugin and records a load error in the `/plugin` manager's **Errors** tab.
 
 When a `--plugin-dir` plugin has the same name as an installed marketplace plugin, the local copy takes precedence for that session. Exception: plugins that managed settings force-enable or force-disable cannot be overridden by `--plugin-dir`.
 
@@ -391,7 +397,7 @@ Submit via in-app forms:
 - **Claude.ai**: [claude.ai/admin-settings/directory/submissions/plugins/new](https://claude.ai/admin-settings/directory/submissions/plugins/new) (requires Team/Enterprise org with directory management access)
 - **Console**: [platform.claude.com/plugins/submit](https://platform.claude.com/plugins/submit) (available to individual authors)
 
-Run `claude plugin validate` locally before submitting. The review pipeline runs the same check plus automated safety screening.
+Run `claude plugin validate ./your-plugin` locally before submitting. On success it prints `✔ Validation passed` (or `✔ Validation passed with warnings`). Warnings don't fail validation by default; add `--strict` to treat them as errors. The review pipeline runs the same check plus automated safety screening.
 
 Approved plugins are pinned to a specific commit SHA in the `anthropics/claude-plugins-community` catalog. CI bumps the pin automatically as you push new commits. The public catalog syncs nightly from the review pipeline.
 

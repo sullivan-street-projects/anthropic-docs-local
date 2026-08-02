@@ -2,7 +2,7 @@
 title: "Messages API"
 source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "api"
 ---
 
@@ -50,6 +50,7 @@ The model to use for the response. Available models:
 
 | Model             | Model ID            |
 | :---------------- | :------------------ |
+| Claude Opus 5     | `claude-opus-5`     |
 | Claude Fable 5    | `claude-fable-5`    |
 | Claude Mythos 5   | `claude-mythos-5`   |
 | Claude Opus 4.8   | `claude-opus-4-8`   |

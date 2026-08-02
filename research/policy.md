@@ -2,7 +2,7 @@
 title: "Policy Research"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "research"
 ---
 
@@ -80,6 +80,18 @@ Security research for browser-use and agentic applications.
 - User confirmation for sensitive actions
 
 ## Frontier Red Team Research (2026)
+
+### Discovering Cryptographic Weaknesses with Claude (Jul 28, 2026)
+
+Frontier Red Team research on using Claude to discover cryptographic weaknesses.
+
+### Project Pilot: Can AI Control a Drone? (Jul 24, 2026)
+
+Frontier Red Team experiment testing whether an AI model can control a drone.
+
+### Claude Plays Robotics (Jul 9, 2026)
+
+Frontier Red Team research on applying Claude to robotics control tasks.
 
 ### Measuring LLMs' Impact on N-day Exploits (Jun 8, 2026)
 

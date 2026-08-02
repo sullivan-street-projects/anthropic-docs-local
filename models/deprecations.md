@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "models"
 ---
 
@@ -48,16 +48,19 @@ To identify usage of deprecated models:
 
 ## Model Status
 
-**Note:** Claude Mythos Preview (`claude-mythos-preview`) will be retired on June 30, 2026. To migrate to Claude Mythos 5 (`claude-mythos-5`), see the migration guide.
+**Note:** Claude Mythos Preview (`claude-mythos-preview`) is deprecated. To migrate to Claude Mythos 5 (`claude-mythos-5`), see the migration guide.
 
 | API Model Name               | Current State | Deprecated        | Tentative Retirement Date          |
 | :--------------------------- | :------------ | :---------------- | :--------------------------------- |
+| `claude-fable-5`             | Active        | N/A               | Not sooner than June 9, 2027       |
+| `claude-opus-5`              | Active        | N/A               | Not sooner than July 24, 2027      |
 | `claude-opus-4-8`            | Active        | N/A               | Not sooner than May 28, 2027       |
 | `claude-opus-4-7`            | Active        | N/A               | Not sooner than April 16, 2027     |
 | `claude-opus-4-6`            | Active        | N/A               | Not sooner than February 5, 2027   |
 | `claude-opus-4-5-20251101`   | Active        | N/A               | Not sooner than November 24, 2026  |
 | `claude-opus-4-1-20250805`   | Deprecated    | June 5, 2026      | August 5, 2026                     |
 | `claude-opus-4-20250514`     | Retired       | April 14, 2026    | June 15, 2026                      |
+| `claude-sonnet-5`            | Active        | N/A               | Not sooner than June 30, 2027      |
 | `claude-sonnet-4-6`          | Active        | N/A               | Not sooner than February 17, 2027  |
 | `claude-sonnet-4-5-20250929` | Active        | N/A               | Not sooner than September 29, 2026 |
 | `claude-sonnet-4-20250514`   | Retired       | April 14, 2026    | June 15, 2026                      |
@@ -135,9 +138,9 @@ On April 14, 2026, Anthropic notified developers using Claude Sonnet 4 and Claud
 
 Anthropic occasionally deprecates request parameters that no longer apply to current models. Deprecated parameters remain in the SDK request types so existing code continues to type-check, but their behavior changes per model.
 
-| Parameter                       | Status                                 | Behavior                                                                                                                             | Recommended Replacement                         |
-| :------------------------------ | :------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------- |
-| `temperature`, `top_p`, `top_k` | Deprecated (Claude Opus 4.7 and later) | Returns a 400 error when set to a non-default value on Claude Opus 4.7 and later, including Claude Opus 4.8, and on Claude Sonnet 5. | Omit and use prompting to guide model behavior. |
+| Parameter                       | Status                                 | Behavior                                                                                                                                                    | Recommended Replacement                         |
+| :------------------------------ | :------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------- |
+| `temperature`, `top_p`, `top_k` | Deprecated (Claude Opus 4.7 and later) | Returns a 400 error when set to a non-default value on Claude 4.7 and later models (including Claude Opus 5, Opus 4.8, Sonnet 5) and Claude Mythos Preview. | Omit and use prompting to guide model behavior. |
 
 For migration steps, see the [Migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide).
 

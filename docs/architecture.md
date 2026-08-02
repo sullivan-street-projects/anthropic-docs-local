@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-07-12T15:50:08.463Z"
+generated_at: "2026-08-02T16:58:04.171Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-07-12
+> Auto-generated from manifest.json on 2026-08-02
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 117 |
+| Total Sources | 120 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-07-12T00:00:00Z |
-| Last Discovery Run | N/A |
+| Last Full Update | 2026-08-02T00:00:00Z |
+| Last Discovery Run | 2026-08-02T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 97 | WebFetch with content extraction |
+| web-extracted | 100 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 94 | High-confidence sources, auto-trusted |
+| auto | 97 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -116,6 +116,7 @@ generator: "scripts/generate-architecture.js"
 | [The think tool](../engineering/claude-think-tool.md) | web-extracted | 0.85 |
 | [Building effective agents](../engineering/building-effective-agents.md) | web-extracted | 0.85 |
 | [Contextual Retrieval](../engineering/contextual-retrieval.md) | web-extracted | 0.85 |
+| [Claude Code: Best practices for agentic coding](../engineering/claude-code-best-practices.md) | web-extracted | 0.85 |
 
 ### github-repos
 
@@ -137,6 +138,8 @@ generator: "scripts/generate-architecture.js"
 | [Claude Fable 5 and Claude Mythos 5](../models/claude-fable-5-mythos-5.md) | web-extracted | 0.85 |
 | [Introducing Claude Opus 4.7](../models/claude-opus-4-7.md) | web-extracted | 0.85 |
 | [Claude Opus 4.8](../models/claude-opus-4-8.md) | web-extracted | 0.85 |
+| [Claude Opus 5](../models/claude-opus-5.md) | web-extracted | 0.85 |
+| [Claude Sonnet 5](../models/claude-sonnet-5.md) | web-extracted | 0.85 |
 
 ### news
 
@@ -287,7 +290,8 @@ anthropic-docs-local/
 │   ├── desktop-extensions.md
 │   ├── claude-think-tool.md
 │   ├── building-effective-agents.md
-│   └── contextual-retrieval.md
+│   ├── contextual-retrieval.md
+│   └── claude-code-best-practices.md
 ├── github-repos/
 │   └── index.md
 ├── models/
@@ -300,7 +304,9 @@ anthropic-docs-local/
 │   ├── claude-sonnet-4-6.md
 │   ├── claude-fable-5-mythos-5.md
 │   ├── claude-opus-4-7.md
-│   └── claude-opus-4-8.md
+│   ├── claude-opus-4-8.md
+│   ├── claude-opus-5.md
+│   └── claude-sonnet-5.md
 ├── news/
 │   ├── claude-code-security.md
 │   ├── detecting-distillation-attacks.md

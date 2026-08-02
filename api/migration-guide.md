@@ -2,7 +2,7 @@
 title: "Migration Guide"
 source_url: "https://platform.claude.com/docs/en/docs/about-claude/models/migration-guide"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "api"
 ---
 
@@ -19,6 +19,45 @@ Claude Code includes a `/claude-api migrate` command that automates migration by
 - Managing prefill replacements
 - Calibrating effort levels
 - Detecting platform-specific clients (Amazon Bedrock, Google Cloud, Claude Platform on AWS, Microsoft Foundry)
+
+## Migrating to Claude Opus 5
+
+Claude Opus 5 (`claude-opus-5`) is a step-change improvement over Claude Opus 4.8 for complex agentic coding and enterprise work. It is a **drop-in upgrade at the same pricing** ($5/M input, $25/M output) with a 1M token context window (default and maximum), 128k max output tokens, adaptive thinking, prompt caching, batch processing, Files API, PDF support, vision, and server-side and client-side tools.
+
+**Exceptions:** Web fetch is not available, and Priority Tier is not supported on Opus 5.
+
+### From Claude Opus 4.8
+
+```python
+model = "claude-opus-4-8"  # Before
+model = "claude-opus-5"  # After
+```
+
+**Breaking Changes:**
+
+1. **Thinking on by default:** On Opus 4.8, requests without a `thinking` field run _without_ thinking. On Opus 5, the same requests run with **adaptive thinking enabled**. `max_tokens` remains a hard limit on total output (thinking + response); revisit it for workloads that ran without thinking. To preserve old behavior, pass `thinking: {"type": "disabled"}` (at effort `high` or below).
+
+2. **Disabling thinking is capped at `high` effort:** A request combining `thinking: {"type": "disabled"}` with effort `xhigh` or `max` returns a **400 error** (accepted on Opus 4.8). Either re-enable thinking, or keep thinking disabled and lower effort to `high`/`medium`/`low`.
+
+**Recommended Changes (not required):**
+
+1. **Test `max` effort for capability-critical work.** Opus 5 supports the full ladder (`low`, `medium`, `high`, `xhigh`, `max`). At `xhigh`/`max`, set a large `max_tokens` (start at 64k).
+2. **Consider automatic fallbacks.** Opus 5 ships cybersecurity safety classifiers; use `fallbacks="default"` (beta header `server-side-fallback-2026-07-01`) to auto-retry refused requests.
+3. **Cache shorter prompts.** Minimum cacheable prompt length is 512 tokens (down from 1,024 on Opus 4.8).
+4. **Change tools mid-conversation (beta).** Add/remove tools between turns without invalidating prompt cache (beta header `mid-conversation-tool-changes-2026-07-01`).
+5. **Re-tune length/verbosity prompts.** Default responses run longer on Opus 5; prompt explicitly for conciseness.
+
+**Migration Checklist (Opus 4.8 → Opus 5):**
+
+- [ ] Update model name from `claude-opus-4-8` to `claude-opus-5`
+- [ ] Review workloads without a `thinking` field—they now run with thinking; revisit `max_tokens` or pass `thinking: {"type": "disabled"}` at effort `high` or below
+- [ ] Audit requests disabling thinking: `disabled` with `xhigh`/`max` effort returns 400; re-enable thinking or lower effort
+- [ ] Re-run a fresh `effort` sweep rather than carrying over Opus 4.8 settings; test `low`/`medium` as cost controls and `max` for capability-critical work
+- [ ] Handle `stop_reason: "refusal"`; consider `fallbacks: "default"` (beta)
+- [ ] Review prompts near the caching minimum (512+ tokens can now cache)
+- [ ] If using `xhigh`/`max`, raise `max_tokens` to at least 64k
+- [ ] Re-baseline cost and latency
+- [ ] Note: Priority Tier not supported and web fetch not available on Opus 5
 
 ## Migrating to Claude Mythos 5
 
@@ -375,14 +414,14 @@ output_config = {
 
 ## Summary Table: Breaking Changes by Migration Path
 
-| Feature           | Opus 4.8           | Opus 4.7           | Sonnet 5           | Fable 5            | Mythos 5             |
-| ----------------- | ------------------ | ------------------ | ------------------ | ------------------ | -------------------- |
-| Extended Thinking | Error              | Error              | Error              | Error              | Error                |
-| Sampling Params   | Error              | Error              | Error              | Error              | Error                |
-| Assistant Prefill | Error              | Error              | Error              | Error              | Error                |
-| Adaptive Thinking | Optional           | Optional           | Default On         | Default On         | Always On            |
-| Effort Parameter  | Yes                | Yes                | Yes                | Yes                | No (always adaptive) |
-| Thinking Display  | Omitted by default | Omitted by default | Omitted by default | Omitted by default | Omitted by default   |
+| Feature           | Opus 5             | Opus 4.8           | Opus 4.7           | Sonnet 5           | Fable 5            | Mythos 5             |
+| ----------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | -------------------- |
+| Extended Thinking | Error              | Error              | Error              | Error              | Error              | Error                |
+| Sampling Params   | Error              | Error              | Error              | Error              | Error              | Error                |
+| Assistant Prefill | Error              | Error              | Error              | Error              | Error              | Error                |
+| Adaptive Thinking | Default On         | Optional           | Optional           | Default On         | Default On         | Always On            |
+| Effort Parameter  | Yes                | Yes                | Yes                | Yes                | Yes                | No (always adaptive) |
+| Thinking Display  | Omitted by default | Omitted by default | Omitted by default | Omitted by default | Omitted by default | Omitted by default   |
 
 ## Important Notes
 

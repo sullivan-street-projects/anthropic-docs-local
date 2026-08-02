@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -15,6 +15,18 @@ Updates to Claude consumer and business applications.
 ---
 
 ## July 2026
+
+### July 24, 2026
+
+- Claude Opus 5 launched, described as a thoughtful and proactive model that comes close to the frontier intelligence of Claude Fable 5 at half the price
+
+### July 14, 2026
+
+- HIPAA self-serve configuration: organizations can independently manage HIPAA readiness for Claude Enterprise and API products through a streamlined administrative flow
+
+### July 10, 2026
+
+- Updated memory system: memory shifted from daily summaries to a set of individual, categorized entries that Claude reads and updates during conversations
 
 ### July 9, 2026
 

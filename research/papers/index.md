@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "research"
 ---
 
@@ -31,10 +31,11 @@ The following papers have been identified since the last full update. PDFs have 
 
 ### Non-arXiv Notable Research (2025)
 
-| Paper                                                              | Source                                                                                            | Date     | Summary                                                                                                                             |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Circuit Tracing: Revealing Computational Graphs in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html) | Mar 2025 | Attribution graphs trace model computation through interpretable features; companion to "On the Biology of a Large Language Model". |
-| On the Biology of a Large Language Model                           | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html) | Mar 2025 | Applied circuit tracing to Claude 3.5 Haiku; discovered planning in poetry, hallucination mechanisms, and jailbreak circuits.       |
+| Paper                                                                   | Source                                                                                            | Date     | Summary                                                                                                                                                                                                                                                   |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Circuit Tracing: Revealing Computational Graphs in Language Models      | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html) | Mar 2025 | Attribution graphs trace model computation through interpretable features; companion to "On the Biology of a Large Language Model".                                                                                                                       |
+| On the Biology of a Large Language Model                                | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html) | Mar 2025 | Applied circuit tracing to Claude 3.5 Haiku; discovered planning in poetry, hallucination mechanisms, and jailbreak circuits.                                                                                                                             |
+| Verbalizable Representations Form a Global Workspace in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2026/workspace/index.html)            | Jul 2026 | Anthropic interpretability team. Introduces the Jacobian lens (J-lens) and finds a small, privileged set of mid-layer "J-space" representations (~10% of activation variance) that behave like a functional global workspace available for verbal report. |
 
 ## Alignment & Safety
 
@@ -107,5 +108,7 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 ## Updates
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
+
+Last checked for new papers: August 2, 2026. Added "Verbalizable Representations Form a Global Workspace in Language Models" (transformer-circuits.pub, Jul 6, 2026) to the non-arXiv notable list. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the July 12 check; recent Anthropic research from mid-July onward (e.g. "Claude's values across models and languages," "How Canada uses Claude," "An off switch for dual-use knowledge in AI models") has appeared as anthropic.com posts without confirmed arXiv identifiers, so no arXiv entries were added.
 
 Last checked for new papers: July 12, 2026. Added 2601.20245 "How AI Assistance Impacts the Formation of Coding Skills" (Shen, Tamkin). No other new Anthropic-authored arXiv papers identified since the January 2026 batch beyond those already tracked.

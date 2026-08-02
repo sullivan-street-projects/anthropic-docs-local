@@ -2,7 +2,7 @@
 title: "Societal Impacts Research"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "research"
 ---
 
@@ -11,6 +11,14 @@ category: "research"
 Anthropic's societal impacts research examines how AI systems affect work, economics, and society. This includes productivity studies, bias analysis, and understanding real-world AI usage patterns.
 
 ## Latest Work (2026)
+
+### How Canada Uses Claude: Findings from the Anthropic Economic Index (Jul 14, 2026)
+
+Country-level Economic Index findings on how Claude is used across Canada, part of the ongoing Economic Index research series.
+
+### Claude's Values Across Models and Languages (Jul 13, 2026)
+
+Examines the values Claude expresses and how they vary across different Claude models and languages.
 
 ### Anthropic Economic Index Report: Cadences (Jun 26, 2026)
 

@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,31 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### July 24, 2026
+
+- Launched **Claude Opus 5** (`claude-opus-5`), a step-change improvement over Opus 4.8. 1M token context window (default and maximum), 128k max output, thinking on by default, at $5 / $25 per MTok (same as Opus 4.8). Available on Claude API, Amazon Bedrock, Google Cloud, and Microsoft Foundry.
+- On Opus 5, disabling thinking is allowed only at effort `high` or below: `thinking: {"type": "disabled"}` with effort `xhigh`/`max` returns 400 (breaking change from Opus 4.8).
+- Effort is the primary control for Opus 5; full ladder (`low`, `medium`, `high`, `xhigh`, `max`), with `max` for capability-critical work.
+- Mid-conversation tool changes now in beta on Fable 5, Mythos 5, Opus 4.8, and Opus 5 (`mid-conversation-tool-changes-2026-07-01` header).
+- `fallbacks` parameter now supports `"default"` mode (beta; `server-side-fallback-2026-07-01` header).
+- Removed fast mode for Opus 4.7; `speed: "fast"` now returns an error (no fallback to standard). Migrate to Opus 5 or Opus 4.8.
+
+### July 22, 2026
+
+- Can set `effort` on a Managed Agents agent's model config. Managed Agents webhooks now cover environment (`environment.*`) and memory store (`memory_store.*`) lifecycle events. Session creation can seed `initial_events`. `version` optional on agent update. Session thread streams support event deltas.
+
+### July 17, 2026
+
+- Legacy **Workbench** (`platform.claude.com/workbench`) being sunset; access ends August 17, 2026. Updated Workbench at `platform.claude.com/playground`. Experimental prompt tools APIs (`generate_prompt`, `improve_prompt`, `templatize_prompt`) retired the same day.
+
+### July 15, 2026
+
+- Mid-conversation system messages available on Fable 5, Mythos 5, and Opus 4.8 (Claude API, Amazon Bedrock, Google Cloud). No beta header required.
+
+### July 14, 2026
+
+- Claude Enterprise (claude.ai) user management via the Admin API (beta): list/look up members, change roles, remove members, send/withdraw invites, manage groups, read custom roles. Group/custom-role requests require `ce-user-management-2026-07-13`.
 
 ### July 10, 2026
 

@@ -2,7 +2,7 @@
 title: "Claude Agent SDK"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -81,7 +81,7 @@ Many teams use both: CLI for daily development, SDK for production. Workflows tr
 npm install @anthropic-ai/claude-agent-sdk
 ```
 
-> **Note:** The TypeScript SDK bundles a native Claude Code binary for your platform as an optional dependency, so you don't need to install Claude Code separately.
+> **Note:** Both the TypeScript and Python SDKs now bundle a native Claude Code binary for your platform, so you don't need to install Claude Code separately.
 
 ### Python (uv -- recommended)
 

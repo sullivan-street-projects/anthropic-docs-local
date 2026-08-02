@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -84,7 +84,7 @@ pip install claude-agent-sdk
 
 If PowerShell blocks `Activate.ps1` with an execution policy error, run `Set-ExecutionPolicy -Scope Process RemoteSigned` first.
 
-> **Note:** The TypeScript SDK bundles a native Claude Code binary for your platform as an optional dependency, so you don't need to install Claude Code separately.
+> **Note:** Both the TypeScript and Python SDKs now bundle a native Claude Code binary for your platform, so you don't need to install Claude Code separately.
 
 ### 3. Set Your API Key
 

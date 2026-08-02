@@ -2,7 +2,7 @@
 title: "Tool Use Guide"
 source_url: "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "api"
 ---
 
@@ -358,6 +358,7 @@ When you use `tools`, the API automatically includes a special system prompt tha
 
 | Model             | auto / none | any / tool |
 | :---------------- | :---------- | :--------- |
+| Claude Opus 5     | 286 tokens  | 406 tokens |
 | Claude Opus 4.8   | 290 tokens  | 410 tokens |
 | Claude Opus 4.7   | 675 tokens  | 804 tokens |
 | Claude Opus 4.6   | 497 tokens  | 589 tokens |

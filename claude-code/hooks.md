@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,17 +10,17 @@ category: "claude-code"
 
 Hooks are user-defined shell commands, HTTP endpoints, MCP tool calls, LLM prompts, or agents that execute automatically at specific points in Claude Code's lifecycle. Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** August 2, 2026
 
 ## Hook Lifecycle
 
 Hooks fire at specific points during a Claude Code session. When an event fires and a matcher matches, Claude Code passes JSON context about the event to your hook handler. For command hooks, input arrives on stdin. For HTTP hooks, it arrives as the POST request body. Your handler can then inspect the input, take action, and optionally return a decision. Some events fire once per session, while others fire repeatedly inside the agentic loop.
 
-## Hook Events (30+ Total)
+## Hook Events (35 Total)
 
 | Event                 | Description                                                        | Matcher                                                                                                                                                                                         | Fires                      |
 | --------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| `SessionStart`        | Session begins or resumes                                          | `startup`, `resume`, `clear`, `compact`                                                                                                                                                         | Once per session           |
+| `SessionStart`        | Session begins or resumes                                          | `startup`, `resume`, `clear`, `compact`, `fork`                                                                                                                                                 | Once per session           |
 | `Setup`               | `claude --init-only` or `claude -p --init`/`--maintenance`         | `init`, `maintenance`                                                                                                                                                                           | Once                       |
 | `InstructionsLoaded`  | CLAUDE.md or `.claude/rules/*.md` loaded into context              | `session_start`, `nested_traversal`, `path_glob_match`, `include`, `compact`                                                                                                                    | Session start + lazy loads |
 | `UserPromptSubmit`    | Before Claude processes user input                                 | No matcher support                                                                                                                                                                              | Each user message          |
@@ -243,7 +243,7 @@ Matcher evaluation types:
 | Event                                                                                                                                                           | What Matcher Filters         | Example Matcher Values                                                                                                                                                              |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `PermissionRequest`, `PermissionDenied`                                                                      | Tool name                    | `Bash`, `Edit\|Write`, `mcp__.*`                                                                                                                                                    |
-| `SessionStart`                                                                                                                                                  | How session started          | `startup`, `resume`, `clear`, `compact`                                                                                                                                             |
+| `SessionStart`                                                                                                                                                  | How session started          | `startup`, `resume`, `clear`, `compact`, `fork`                                                                                                                                     |
 | `Setup`                                                                                                                                                         | CLI flag                     | `init`, `maintenance`                                                                                                                                                               |
 | `SessionEnd`                                                                                                                                                    | Why session ended            | `clear`, `resume`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other`                                                                                            |
 | `FileChanged`                                                                                                                                                   | Literal filenames (basename) | `.envrc`, `.env`                                                                                                                                                                    |
@@ -474,6 +474,7 @@ Direct edits to hooks in settings files do not take effect immediately. Claude C
 | `$CLAUDE_CODE_REMOTE`           | Set to "true" in web environments                                                 |
 | `CLAUDE_CODE_BRIDGE_SESSION_ID` | Remote Control session ID (v2.1.199+)                                             |
 | `CLAUDE_EFFORT`                 | Effort level (for some events)                                                    |
+| `CLAUDE_PLUGIN_OPTION_<KEY>`    | Plugin hooks: user-configured plugin option values                                |
 
 ## How Hooks Layer
 
@@ -707,6 +708,41 @@ Fires after the user responds to an MCP elicitation. Matches MCP server name. Ca
 ```
 
 Exit code 2 blocks the response (becomes a decline).
+
+## SessionStart / Setup / SubagentStart Output
+
+These lifecycle events cannot block, but their `hookSpecificOutput` can inject context and (for `SessionStart`) steer the session:
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "SessionStart",
+    "additionalContext": "string",
+    "initialUserMessage": "string (SessionStart only -- seeds the first user turn)",
+    "watchPaths": ["glob patterns (SessionStart only)"],
+    "sessionTitle": "string (SessionStart only)",
+    "reloadSkills": true
+  }
+}
+```
+
+`Setup` and `SubagentStart` support `additionalContext` only.
+
+## Recent Additions & Version Notes
+
+Hook behavior evolves frequently. Notable recent changes:
+
+| Version   | Change                                                                                                                                                                                        |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v2.1.214+ | Single-segment glob matching in `if` rules: `Edit(src/**)` matches only `src/` in cwd, not at any depth. Exit 2 with invalid JSON now blocks the action (previously treated as non-blocking). |
+| v2.1.199+ | `CLAUDE_CODE_BRIDGE_SESSION_ID` env var (Remote Control). `SessionStart`, `Setup`, `SubagentStart` exit-2 stderr now shown in transcript.                                                     |
+| v2.1.196+ | `prompt_id` input field (UUID; absent until first user input; used for OpenTelemetry correlation).                                                                                            |
+| v2.1.195+ | Hyphens allowed in exact-match matchers (`code-reviewer`, `mcp__brave-search__.*`).                                                                                                           |
+| v2.1.191+ | Comma separator and whitespace tolerance in matchers (`Edit, Write` == `Edit\|Write`).                                                                                                        |
+| v2.1.141+ | `terminalSequence` output field for OSC escape sequences (OSC 0/1/2/9/9;4/99/777, BEL).                                                                                                       |
+| v2.1.139+ | Command hooks run in their own session without a controlling terminal.                                                                                                                        |
+
+Per-event timeout defaults are also narrowed for some events: `UserPromptSubmit` lowers to 30s, `MessageDisplay` to 10s, and `SessionEnd` runs on a ~1.5s total budget.
 
 ## Sources
 

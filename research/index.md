@@ -2,7 +2,7 @@
 title: "Research Index"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 Comprehensive index of Anthropic's research papers, studies, and publications spanning AI safety, interpretability, alignment, and societal impacts.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** August 2, 2026
 
 ## Research Categories
 
@@ -25,6 +25,11 @@ Comprehensive index of Anthropic's research papers, studies, and publications sp
 
 | Date         | Title                                                                                                                                      | Category          |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
+| Jul 28, 2026 | Discovering cryptographic weaknesses with Claude                                                                                           | Frontier Red Team |
+| Jul 24, 2026 | Project Pilot: Can AI control a drone?                                                                                                     | Frontier Red Team |
+| Jul 14, 2026 | How Canada uses Claude: Findings from the Anthropic Economic Index                                                                         | Economic Research |
+| Jul 13, 2026 | Claude's values across models and languages                                                                                                | Societal Impacts  |
+| Jul 9, 2026  | Claude plays robotics                                                                                                                      | Frontier Red Team |
 | Jul 8, 2026  | [An off switch for dual-use knowledge in AI models](https://www.anthropic.com/research/off-switch-dual-use)                                | Alignment         |
 | Jul 6, 2026  | [A global workspace in language models](https://www.anthropic.com/research/global-workspace)                                               | Interpretability  |
 | Jun 26, 2026 | [Anthropic Economic Index report: Cadences](https://www.anthropic.com/research/economic-index-june-2026-report)                            | Economic Research |

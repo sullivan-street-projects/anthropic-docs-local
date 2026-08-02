@@ -2,11 +2,98 @@
 title: "Python SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "sdks"
 ---
 
 # Changelog
+
+## 0.120.2 (2026-07-28)
+
+Full Changelog: [v0.120.1...v0.120.2](https://github.com/anthropics/anthropic-sdk-python/compare/v0.120.1...v0.120.2)
+
+### Bug Fixes
+
+* **mcp:** support mcp sdk v2 alongside v1 ([#300](https://github.com/anthropics/anthropic-sdk-python/issues/300)) ([177f88c](https://github.com/anthropics/anthropic-sdk-python/commit/177f88ccd7f966e47b654cb19ad0e9cfa4c58ac2))
+
+## 0.120.1 (2026-07-28)
+
+Full Changelog: [v0.120.0...v0.120.1](https://github.com/anthropics/anthropic-sdk-python/compare/v0.120.0...v0.120.1)
+
+### Bug Fixes
+
+* **mcp:** pin mcp extra to &lt;2 ([#1783](https://github.com/anthropics/anthropic-sdk-python/issues/1783)) ([fb66371](https://github.com/anthropics/anthropic-sdk-python/commit/fb66371322621be23a0956f1998da39c4686f4cb))
+
+## 0.120.0 (2026-07-24)
+
+Full Changelog: [v0.119.0...v0.120.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.119.0...v0.120.0)
+
+### Features
+
+* **api:** add claude-opus-5 model ([bf4e31c](https://github.com/anthropics/anthropic-sdk-python/commit/bf4e31c17c43ba2b409bec57e1856b025d159f1a))
+* **api:** add tool addition/removal blocks and tool_change events ([bf4e31c](https://github.com/anthropics/anthropic-sdk-python/commit/bf4e31c17c43ba2b409bec57e1856b025d159f1a))
+* **api:** expand client-side fallback credit token types and add server-side fallbacks default option ([bf4e31c](https://github.com/anthropics/anthropic-sdk-python/commit/bf4e31c17c43ba2b409bec57e1856b025d159f1a))
+
+## 0.119.0 (2026-07-23)
+
+Full Changelog: [v0.118.0...v0.119.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.118.0...v0.119.0)
+
+### Features
+
+* **api:** add new stop reason 'model_context_window_exceeded' ([d983cde](https://github.com/anthropics/anthropic-sdk-python/commit/d983cdecdea27fb8ae36fd293930b978c9bebf4f))
+
+
+### Bug Fixes
+
+* **tools:** handle binary files in agent toolset read/edit ([#283](https://github.com/anthropics/anthropic-sdk-python/issues/283)) ([417b76b](https://github.com/anthropics/anthropic-sdk-python/commit/417b76b9adcb69ee9effa2e9af1536dd08e6764e))
+
+## 0.118.0 (2026-07-22)
+
+Full Changelog: [v0.117.1...v0.118.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.117.1...v0.118.0)
+
+### Features
+
+* **api:** add support for Managed Agents model effort, initial session events, and threads delta streaming ([712bc6f](https://github.com/anthropics/anthropic-sdk-python/commit/712bc6f5e07ca7607e13f24fba4eea57c2e73478))
+
+## 0.117.1 (2026-07-21)
+
+Full Changelog: [v0.117.0...v0.117.1](https://github.com/anthropics/anthropic-sdk-python/compare/v0.117.0...v0.117.1)
+
+### Bug Fixes
+
+* **aws:** handle credentials correctly when using AnthropicAWS.copy() ([85d3881](https://github.com/anthropics/anthropic-sdk-python/commit/85d3881b2e178dd30b30f9ac4c462f20ea88693d))
+
+
+### Chores
+
+* **api:** add support for new refusal category ([d1dea0b](https://github.com/anthropics/anthropic-sdk-python/commit/d1dea0b51164c859de1e05a78468f5be2b6a67de))
+* **client:** docs updates ([b14f94c](https://github.com/anthropics/anthropic-sdk-python/commit/b14f94c231f9adc6bb2ad96eddfc27cc1a4cfea7))
+* **deps:** bump http-snapshot to 0.1.9 ([#275](https://github.com/anthropics/anthropic-sdk-python/issues/275)) ([434b657](https://github.com/anthropics/anthropic-sdk-python/commit/434b65772633f1c0d1899de64d40a67b7cb943fe))
+* **deps:** pin httpx_aiohttp major version ([#271](https://github.com/anthropics/anthropic-sdk-python/issues/271)) ([924487f](https://github.com/anthropics/anthropic-sdk-python/commit/924487f7c8b3afd69ec382af78326ba224779141))
+* **docs:** small updates ([c48db8b](https://github.com/anthropics/anthropic-sdk-python/commit/c48db8b6cdd800a98bf57088f530de8fe4dc82e8))
+* **docs:** small updates ([755c06c](https://github.com/anthropics/anthropic-sdk-python/commit/755c06cc06161ccdf9b28b77d5e6de58adb462ce))
+* **internal:** codegen related update ([a4fbecf](https://github.com/anthropics/anthropic-sdk-python/commit/a4fbecf6a2b002c8807da2336a75ddef7864f47c))
+
+## 0.117.0 (2026-07-16)
+
+Full Changelog: [v0.116.0...v0.117.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.116.0...v0.117.0)
+
+### Features
+
+* **api:** add support for dreaming ([642eee7](https://github.com/anthropics/anthropic-sdk-python/commit/642eee707b0fe3c35c21917f60b06846b2a3b291))
+* **api:** add support for MCP Tunnels ([d716df6](https://github.com/anthropics/anthropic-sdk-python/commit/d716df6edb1df7de25f1b5e14dcab33b9aafc2ff))
+
+
+### Bug Fixes
+
+* **credentials:** keep credential material out of traceback frame locals via SecretStr ([aa93a4d](https://github.com/anthropics/anthropic-sdk-python/commit/aa93a4dbf383f7fdab1404c136e86d4679d644c1))
+
+
+### Chores
+
+* **docs:** small updates to field descriptions ([75d8dcc](https://github.com/anthropics/anthropic-sdk-python/commit/75d8dcc0ac8cb381fa327a61a9ac84022b3a1677))
+* **docs:** update model example ([a57e30a](https://github.com/anthropics/anthropic-sdk-python/commit/a57e30ac1bafb54387bf631be2081bfdb3782911))
+* **docs:** updates to descriptions and examples ([e1535b6](https://github.com/anthropics/anthropic-sdk-python/commit/e1535b6919441448dddf00e2636cb8c60a721a43))
 
 ## 0.116.0 (2026-07-02)
 

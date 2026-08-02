@@ -2,7 +2,7 @@
 title: "TypeScript SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-02T00:00:00Z"
 category: "sdks"
 ---
 
@@ -57,7 +57,7 @@ The following runtimes are supported:
 
 Note that React Native is not supported at this time.
 
-If you are interested in other runtime environments, open or upvote an issue.
+If you are interested in other runtime environments, please open or upvote an issue.
 
 ## Contributing
 
