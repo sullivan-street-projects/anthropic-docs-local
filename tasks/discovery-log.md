@@ -19,6 +19,28 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-08-02 — Weekly Update (full discovery scan)
+
+- **Manifest sources checked**: 106 unique source_urls (117 entries at scan time)
+- **Added (HIGH priority, trusted anthropic.com domain — auto-added per automated-run policy)**: 3
+  - `model-opus-5` → models/claude-opus-5.md ← anthropic.com/news/claude-opus-5 (flagship, new default Opus, launched Jul 24)
+  - `model-sonnet-5` → models/claude-sonnet-5.md ← anthropic.com/news/claude-sonnet-5 (new Free/Pro default, launched Jun 30)
+  - `engineering-claude-code-best-practices` → engineering/claude-code-best-practices.md ← anthropic.com/engineering/claude-code-best-practices (backlog ~5 cycles; 308-redirects to code.claude.com/docs/en/best-practices)
+- **Deferred (HIGH — recommend adding next)**:
+  - Claude Opus 5 System Card — https://www.anthropic.com/claude-opus-5-system-card — models
+  - Prompting Claude Opus 5 (dev doc) — https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5 — api
+- **Deferred (MEDIUM — engineering)**:
+  - how-we-contain-claude, april-23-postmortem, managed-agents (Scaling Managed Agents), claude-code-auto-mode, harness-design-long-running-apps, equipping-agents-for-the-real-world-with-agent-skills, swe-bench-sonnet
+- **Deferred (MEDIUM — research)**:
+  - global-workspace, discovering-cryptographic-weaknesses, project-pilot, how-canada-uses-claude, claude-values-models-languages, claude-plays-robotics, off-switch-dual-use, project-fetch-phase-two, features/project-deal
+- **Deferred (MEDIUM — news)**:
+  - investigating-incidents-cybersecurity-evals, position-open-weights-models, features/making-of-claude-code, claude-for-teachers
+- **Deferred (LOW)**: hard-questions, redeploying-fable-5, cognizant-anthropic, economic-futures-research-fund-agenda, anthropic-economic-index-connector, donation-public-first-action, rare-disease-research-grants, canadian-ai-research
+- **GitHub repos**: index confirmed FRESH — no new untracked repos (current through cryptography-research-demo, 2026-07-26). Backlog repos `agent-sdk-workshop` + `claude-constitution` now tracked in github-repos/index.md.
+- **Still-untracked backlog (older)**: 81k-interviews (non-standard path), research/introspection, research/constitutional-classifiers, research/alignment-faking — not on current research index; carried forward, need a dedicated live check.
+- **SDK versions**: npm @anthropic-ai/sdk 0.115.0, PyPI anthropic 0.120.2 (both in sync with tracked CHANGELOGs).
+- **Staleness**: `agent-sdk-typescript-v2-preview` (github.com/anthropics/agent-sdk) — 404 6th consecutive cycle. Removal flagged as a background task.
+
 ### 2026-07-12 — Weekly Update (manual + arXiv + partial discovery)
 
 - **Manual sources refreshed**: 9 (1 content-changed, 8 timestamp-only)

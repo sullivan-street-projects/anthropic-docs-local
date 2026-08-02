@@ -29,15 +29,50 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 4
+Total cycles logged: 5
 Total improvements applied: 2
 Total improvements deferred: 2
 Most-improved infrastructure: manifest.json (2 changes: hashes + URL corrections)
-Most-informative category: claude-code (12 insights sourced from it)
-Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 5th consecutive 404)
-Last cycle: 2026-07-12 — 1 applied, 0 deferred
+Most-informative category: claude-code (13 insights sourced from it)
+Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 6th consecutive 404)
+Last cycle: 2026-08-02 — 0 applied (1 workflow lesson recorded), 0 deferred
 
 ## Entries
+
+### 2026-08-02 — Update: all
+
+Content changes analyzed: 26 files (23 modified + 3 added, all with real content changes)
+Improvements identified: 1 (workflow lesson, not a code change)
+Improvements applied: 0 code changes; 1 workflow lesson recorded in lessons.md
+Improvements deferred: 0
+
+**Workflow lesson recorded (not infra code):**
+
+- Multiple update agents observed a PostToolUse markdown formatter reflowing `.md` files AFTER the agent wrote them — so agent-computed sha256 hashes drift from the on-disk bytes. → Added a lessons.md rule: the orchestrator must recompute sha256 from disk (not trust agent-reported hashes) before updating manifest. This cycle's `scripts/update-manifest.js`-style recompute-from-disk approach is the correct pattern. Candidate for a future helper script (MEDIUM effort) — see optimizations plan if it recurs.
+
+**Already aligned (content teaches, infra already does it):**
+
+- engineering/claude-code-best-practices.md (newly added) → emphasizes verification, explore-plan-code-commit, headless/automation, multi-Claude parallelism. Our pipeline already: runs 5-layer validation, uses parallel subagents, and IS a headless scheduled automation. No change needed.
+- claude-code/CHANGELOG.md → dynamic workflows now default to a <15-agent size guideline; our update run used 5 agents — aligned.
+- claude-code/hooks.md → exit-2 + invalid-JSON now BLOCKS (v2.1.214). Informational for any future hook scripts; this repo's automation does not rely on exit-2 hook signaling. No change.
+- api/migration-guide.md → Opus 5 thinking/effort breaking change — informational, no direct API calls in our infra.
+- agent-sdk/README.md → both SDKs bundle native binary — informational.
+
+**Staleness report:**
+
+- Stable (unchanged but accessible): ~65 web-extracted snapshot articles (not re-fetched this cycle; timestamps preserved at last successful fetch — honest, not falsely bumped).
+- Possibly dead: 1 (6th consecutive cycle) — `agent-sdk-typescript-v2-preview`: https://github.com/anthropics/agent-sdk — 404. Produces a recurring Layer 3 timestamp-mismatch warning. STRONGLY recommend removal (manifest entry + local file). Flagged as a background task chip rather than deleted during this unattended run.
+- Relocated: 0.
+
+**Discovery findings (Phase 2.5):**
+
+- Claude Opus 5 + Claude Sonnet 5 launched (Jul 24 / Jun 30) and were untracked — top 3 HIGH sources auto-added (opus-5, sonnet-5 model pages + long-backlogged claude-code-best-practices).
+- ~16 additional untracked engineering/research posts + backlog items deferred to discovery-log.md.
+- github-repos index confirmed fresh (no new untracked repos; agent-sdk-workshop + claude-constitution backlog now resolved/tracked).
+
+**No action needed:**
+
+- All 26 changed files carried genuine content; 0 were timestamp-only this cycle (unusually high-signal week due to dual model launch).
 
 ### 2026-07-12 — Update: all
 
