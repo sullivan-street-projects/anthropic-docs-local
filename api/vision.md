@@ -2,7 +2,7 @@
 title: "Vision API"
 source_url: "https://platform.claude.com/docs/en/build-with-claude/vision"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "api"
 ---
 
@@ -57,7 +57,7 @@ with open("image.jpg", "rb") as f:
     image_data = base64.standard_b64encode(f.read()).decode("utf-8")
 
 message = client.messages.create(
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=1024,
     messages=[
         {
@@ -91,7 +91,7 @@ const client = new Anthropic();
 const imageData = fs.readFileSync("image.jpg").toString("base64");
 
 const message = await client.messages.create({
-  model: "claude-opus-4-8",
+  model: "claude-opus-5",
   max_tokens: 1024,
   messages: [
     {
@@ -143,7 +143,7 @@ Provide a publicly accessible URL. Anthropic fetches the image server-side:
 
 ```python
 message = client.messages.create(
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=1024,
     messages=[
         {
@@ -212,7 +212,7 @@ Each model has a maximum native image resolution, expressed as a long-edge limit
 
 | Resolution Tier | Models                                                                             | Max Long Edge | Max Visual Tokens |
 | :-------------- | :--------------------------------------------------------------------------------- | :------------ | :---------------- |
-| High-resolution | Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5 | 2576 px       | 4784              |
+| High-resolution | Claude 4.7 and later models | 2576 px       | 4784              |
 | Standard        | All other models                                                                   | 1568 px       | 1568              |
 
 High-resolution support is automatic on the listed models and requires no beta header or client-side opt-in.
@@ -236,7 +236,7 @@ Send multiple images in a single request by including multiple image content blo
 
 ```python
 message = client.messages.create(
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=1024,
     messages=[
         {

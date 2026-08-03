@@ -2,7 +2,7 @@
 title: "Server-Side Context Compaction"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/compaction"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "api"
 ---
 
@@ -28,6 +28,7 @@ Compaction is supported on the following models:
 - Claude Fable 5 (`claude-fable-5`)
 - Claude Mythos 5 (`claude-mythos-5`)
 - Claude Mythos Preview (`claude-mythos-preview`)
+- Claude Opus 5 (`claude-opus-5`)
 - Claude Opus 4.8 (`claude-opus-4-8`)
 - Claude Opus 4.7 (`claude-opus-4-7`)
 - Claude Opus 4.6 (`claude-opus-4-6`)

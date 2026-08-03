@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 This directory contains the full PDF versions of Anthropic's key research papers from arXiv. These papers form the theoretical and empirical foundation for Claude's development.
 
-> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 10 new (2025-2026, not yet downloaded)
+> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 11 new (2025-2026, not yet downloaded)
 
 ## New Papers (2025-2026)
 
@@ -28,14 +28,14 @@ The following papers have been identified since the last full update. PDFs have 
 | The Hot Mess of AI: Misalignment Scaling with Intelligence and Task Complexity | [2601.23045](https://arxiv.org/abs/2601.23045) | Jan 2026 | ICLR 2026. As tasks get harder, model failures become increasingly incoherent rather than systematically misaligned. Anthropic Fellows Program. By Hägele et al.   |
 | Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption         | [2511.15080](https://arxiv.org/abs/2511.15080) | Nov 2025 | Documents Claude usage patterns in 150+ countries, finding directive task delegation rose from 27% to 39% in eight months.                                         |
 | How AI Assistance Impacts the Formation of Coding Skills                       | [2601.20245](https://arxiv.org/abs/2601.20245) | Jan 2026 | Investigates how AI coding assistants affect skill development in programmers. By Shen, Tamkin et al. (Anthropic).                                                 |
+| Verbalizable Representations Form a Global Workspace in Language Models        | [2607.15495](https://arxiv.org/abs/2607.15495) | Jul 2026 | Introduces J-lens (Jacobian lens) revealing a small privileged "J-space" subspace behaving like a global workspace for verbal report. By Gurnee, Sofroniew, Pearce et al. (Anthropic). Also at [transformer-circuits.pub](https://transformer-circuits.pub/2026/workspace/index.html). |
 
 ### Non-arXiv Notable Research (2025)
 
-| Paper                                                                   | Source                                                                                            | Date     | Summary                                                                                                                                                                                                                                                   |
-| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Circuit Tracing: Revealing Computational Graphs in Language Models      | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html) | Mar 2025 | Attribution graphs trace model computation through interpretable features; companion to "On the Biology of a Large Language Model".                                                                                                                       |
-| On the Biology of a Large Language Model                                | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html) | Mar 2025 | Applied circuit tracing to Claude 3.5 Haiku; discovered planning in poetry, hallucination mechanisms, and jailbreak circuits.                                                                                                                             |
-| Verbalizable Representations Form a Global Workspace in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2026/workspace/index.html)            | Jul 2026 | Anthropic interpretability team. Introduces the Jacobian lens (J-lens) and finds a small, privileged set of mid-layer "J-space" representations (~10% of activation variance) that behave like a functional global workspace available for verbal report. |
+| Paper                                                              | Source                                                                                            | Date     | Summary                                                                                                                                                           |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Circuit Tracing: Revealing Computational Graphs in Language Models | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/methods.html) | Mar 2025 | Attribution graphs trace model computation through interpretable features; companion to "On the Biology of a Large Language Model".                               |
+| On the Biology of a Large Language Model                           | [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html) | Mar 2025 | Applied circuit tracing to Claude 3.5 Haiku; discovered planning in poetry, hallucination mechanisms, and jailbreak circuits.                                     |
 
 ## Alignment & Safety
 
@@ -84,22 +84,23 @@ For those new to Anthropic's research, suggested reading order:
 7. **Towards Monosemanticity** - Dictionary learning breakthrough
 8. **Scaling Monosemanticity** - Production-scale interpretability
 9. **Circuit Tracing / Biology of an LLM** (2025) - Attribution graphs at scale
+10. **Verbalizable Representations / Global Workspace** (2026) - J-lens and J-space discovery
 
 ### Safety Track
 
-10. **Model-Written Evals** - Automated safety evaluation
-11. **Sleeper Agents** - Deceptive AI risks
-12. **Alignment Faking** - Strategic compliance concerns
-13. **Sycophancy to Subterfuge** - Reward hacking progression
-14. **Constitutional Classifiers** (2025) - Practical jailbreak defense
-15. **Reasoning Models CoT Faithfulness** (2025) - Limits of monitoring
-16. **Emergent Misalignment** (2025) - Reward hacking to sabotage
-17. **The Hot Mess of AI** (2026, ICLR) - Incoherence vs. systematic misalignment at scale
+11. **Model-Written Evals** - Automated safety evaluation
+12. **Sleeper Agents** - Deceptive AI risks
+13. **Alignment Faking** - Strategic compliance concerns
+14. **Sycophancy to Subterfuge** - Reward hacking progression
+15. **Constitutional Classifiers** (2025) - Practical jailbreak defense
+16. **Reasoning Models CoT Faithfulness** (2025) - Limits of monitoring
+17. **Emergent Misalignment** (2025) - Reward hacking to sabotage
+18. **The Hot Mess of AI** (2026, ICLR) - Incoherence vs. systematic misalignment at scale
 
 ### Governance Track
 
-18. **Collective Constitutional AI** - Democratic input on AI values
-19. **Influence Functions** - Tracing outputs to training data
+19. **Collective Constitutional AI** - Democratic input on AI values
+20. **Influence Functions** - Tracing outputs to training data
 
 ## Citation Information
 
@@ -108,6 +109,8 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 ## Updates
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
+
+Last checked for new papers: August 3, 2026. Discovered arXiv ID 2607.15495 for "Verbalizable Representations Form a Global Workspace in Language Models" (Gurnee, Sofroniew, Pearce et al., Jul 16, 2026); moved from non-arXiv section to the arXiv New Papers table. No other new Anthropic-authored arXiv papers identified. Recent Anthropic research ("Discovering cryptographic weaknesses with Claude," "Natural Language Autoencoders," "An off switch for dual-use knowledge," "Project Pilot") continues to be published on anthropic.com / transformer-circuits.pub without confirmed arXiv IDs.
 
 Last checked for new papers: August 2, 2026. Added "Verbalizable Representations Form a Global Workspace in Language Models" (transformer-circuits.pub, Jul 6, 2026) to the non-arXiv notable list. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the July 12 check; recent Anthropic research from mid-July onward (e.g. "Claude's values across models and languages," "How Canada uses Claude," "An off switch for dual-use knowledge in AI models") has appeared as anthropic.com posts without confirmed arXiv identifiers, so no arXiv entries were added.
 

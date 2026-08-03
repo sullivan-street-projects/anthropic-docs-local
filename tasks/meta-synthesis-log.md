@@ -29,15 +29,49 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 5
+Total cycles logged: 6
 Total improvements applied: 2
 Total improvements deferred: 2
 Most-improved infrastructure: manifest.json (2 changes: hashes + URL corrections)
-Most-informative category: claude-code (13 insights sourced from it)
-Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 6th consecutive 404)
-Last cycle: 2026-08-02 — 0 applied (1 workflow lesson recorded), 0 deferred
+Most-informative category: claude-code (14 insights sourced from it)
+Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 7th consecutive 404)
+Last cycle: 2026-08-03 — 0 applied, 0 deferred
 
 ## Entries
+
+### 2026-08-03 — Update: all
+
+Content changes analyzed: 24 files (all with real content changes, 0 timestamp-only)
+Improvements identified: 0
+Improvements applied: 0
+Improvements deferred: 0
+
+**Already aligned (content teaches, infra already does it):**
+
+- claude-code/mcp-servers.md → auto-backgrounding of long MCP tool calls, org controls on connector tools, require_approval annotation. Informational for our pipeline; we don't use MCP connector tools in automation.
+- api/effort-parameter.md → Opus 5 effort guidance, xhigh availability. Informational; no direct API calls in our infra.
+- api/errors.md → new validation errors for thinking configuration. Informational.
+- api/context-windows.md → Context Window Overflow Behavior section. Informational; our infra doesn't hit context limits.
+- agent-sdk/README.md → Google Vertex AI renamed to Agent Platform, Azure renamed to Foundry. Informational; cloud platform naming.
+- models/deprecations.md → "Deprecation Downsides and Mitigations" section. Good reference but no infra change needed.
+- docs/best-practices-loop-scheduling.md → ultracode effort level, `claude respawn` and `claude rm` commands. Informational for future automation.
+
+**Staleness report:**
+
+- Stable (unchanged but accessible): ~73 web-extracted snapshot articles (not re-fetched; timestamps preserved at last successful fetch).
+- Possibly dead: 1 (7th consecutive cycle) — `agent-sdk-typescript-v2-preview`: https://github.com/anthropics/agent-sdk — 404. STRONGLY recommend removal.
+- Relocated: 0.
+
+**Discovery findings (Phase 2.5):**
+
+- 9 HIGH priority untracked sources (3 engineering, 4 research, 1 news, 1 engineering-auto-mode)
+- 11 MEDIUM priority, 9 LOW priority deferred to discovery-log.md
+- 1 arXiv paper ID confirmed (2607.15495 — "Verbalizable Representations"), moved from non-arXiv to arXiv section
+- No new GitHub repos (96 total, star counts updated)
+
+**No action needed:**
+
+- All 24 changed files carried genuine content changes; infrastructure already aligned.
 
 ### 2026-08-02 — Update: all
 

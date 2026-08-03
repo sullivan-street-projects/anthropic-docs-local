@@ -2,7 +2,7 @@
 title: "Streaming API"
 source_url: "https://platform.claude.com/docs/en/api/streaming"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "api"
 ---
 
@@ -24,7 +24,7 @@ client = anthropic.Anthropic()
 with client.messages.stream(
     max_tokens=1024,
     messages=[{"role": "user", "content": "Hello"}],
-    model="claude-opus-4-8",
+    model="claude-opus-5",
 ) as stream:
     for text in stream.text_stream:
         print(text, end="", flush=True)
@@ -40,7 +40,7 @@ const client = new Anthropic();
 await client.messages
   .stream({
     messages: [{ role: "user", content: "Hello" }],
-    model: "claude-opus-4-8",
+    model: "claude-opus-5",
     max_tokens: 1024,
   })
   .on("text", (text) => {
@@ -56,7 +56,7 @@ curl https://api.anthropic.com/v1/messages \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-opus-4-8",
+    "model": "claude-opus-5",
     "max_tokens": 256,
     "stream": true,
     "messages": [
@@ -75,7 +75,7 @@ If you don't need to process text as it arrives, the SDKs provide a way to use s
 with client.messages.stream(
     max_tokens=128000,
     messages=[{"role": "user", "content": "Write a detailed analysis of modern architecture."}],
-    model="claude-opus-4-8",
+    model="claude-opus-5",
 ) as stream:
     message = stream.get_final_message()
 
@@ -95,7 +95,7 @@ const stream = client.messages.stream({
       content: "Write a detailed analysis of modern architecture.",
     },
   ],
-  model: "claude-opus-4-8",
+  model: "claude-opus-5",
 });
 
 const message = await stream.finalMessage();
@@ -170,7 +170,7 @@ data: {
     "type": "message",
     "role": "assistant",
     "content": [],
-    "model": "claude-opus-4-8",
+    "model": "claude-opus-5",
     "stop_reason": null,
     "stop_sequence": null,
     "usage": {"input_tokens": 25, "output_tokens": 1}
@@ -315,7 +315,7 @@ Tool use supports fine-grained streaming for parameter values. Enable it per too
 
 ```python
 with client.messages.stream(
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=1024,
     tools=tools,
     messages=[{"role": "user", "content": "What's the weather in SF and NYC?"}],
@@ -329,7 +329,7 @@ with client.messages.stream(
 
 ```typescript
 const stream = client.messages.stream({
-  model: "claude-opus-4-8",
+  model: "claude-opus-5",
   max_tokens: 1024,
   tools,
   messages: [{ role: "user", content: "What's the weather in SF and NYC?" }],
@@ -358,7 +358,7 @@ The `display: "summarized"` setting streams a condensed summary of Claude's reas
 
 ```python
 with client.messages.stream(
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=20000,
     thinking={"type": "adaptive", "display": "summarized"},
     messages=[{"role": "user", "content": "What is the GCD of 1071 and 462?"}],
@@ -373,7 +373,7 @@ with client.messages.stream(
 
 ```typescript
 const stream = client.messages.stream({
-  model: "claude-opus-4-8",
+  model: "claude-opus-5",
   max_tokens: 20000,
   thinking: { type: "adaptive", display: "summarized" },
   messages: [{ role: "user", content: "What is the GCD of 1071 and 462?" }],
@@ -396,7 +396,7 @@ Server tool use blocks (`server_tool_use`) and results (`web_search_tool_result`
 
 ```python
 with client.messages.stream(
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=1024,
     tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 5}],
     messages=[{"role": "user", "content": "What is the latest news about AI safety?"}],
@@ -468,7 +468,7 @@ messages = [
 ]
 
 with client.messages.stream(
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=remaining_tokens,
     messages=messages,
 ) as stream:

@@ -2,7 +2,7 @@
 title: "Claude Agent SDK"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -12,7 +12,7 @@ Build production AI agents with Claude Code as a library. The Agent SDK gives yo
 
 > **Note:** The Claude Code SDK has been renamed to the Claude Agent SDK. See the [Migration Guide](https://code.claude.com/docs/en/agent-sdk/migration-guide) if migrating from the old SDK.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** August 3, 2026
 
 ## Overview
 
@@ -69,7 +69,7 @@ for await (const message of query({
 | Custom applications                                                | Agent SDK      |
 | Interactive development                                            | CLI            |
 | Quick one-off tasks                                                | CLI            |
-| Production agents without operating sandbox/session infrastructure | Managed Agents |
+| Long-running or async agents without managing sandbox/session infra | Managed Agents |
 
 Many teams use both: CLI for daily development, SDK for production. Workflows translate directly between them.
 
@@ -105,10 +105,10 @@ The Python package requires Python 3.10 or later. If pip reports "No matching di
 3. Optional third-party providers:
    - **Amazon Bedrock**: set `CLAUDE_CODE_USE_BEDROCK=1` and configure AWS credentials
    - **Claude Platform on AWS**: set `CLAUDE_CODE_USE_ANTHROPIC_AWS=1` and `ANTHROPIC_AWS_WORKSPACE_ID`, then configure AWS credentials
-   - **Google Vertex AI**: set `CLAUDE_CODE_USE_VERTEX=1` and configure Google Cloud credentials
-   - **Microsoft Azure**: set `CLAUDE_CODE_USE_FOUNDRY=1` and configure Azure credentials
+   - **Google Cloud's Agent Platform**: set `CLAUDE_CODE_USE_VERTEX=1` and configure Google Cloud credentials
+   - **Microsoft Foundry**: set `CLAUDE_CODE_USE_FOUNDRY=1` and configure Azure credentials
 
-See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Claude Platform on AWS](https://code.claude.com/docs/en/claude-platform-on-aws), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Azure AI Foundry](https://code.claude.com/docs/en/microsoft-foundry) for details.
+See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Claude Platform on AWS](https://code.claude.com/docs/en/claude-platform-on-aws), [Google Cloud's Agent Platform](https://code.claude.com/docs/en/google-vertex-ai), or [Microsoft Foundry](https://code.claude.com/docs/en/microsoft-foundry) for details.
 
 > **Note:** Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Use the API key authentication methods instead.
 
@@ -162,7 +162,7 @@ Set `setting_sources=["project"]` (Python) or `settingSources: ['project']` (Typ
 | [Skills](https://code.claude.com/docs/en/agent-sdk/skills)                   | Specialized capabilities Claude uses automatically or you invoke with `/name` | `.claude/skills/*/SKILL.md`        |
 | [Commands](https://code.claude.com/docs/en/agent-sdk/slash-commands)         | Custom commands in the legacy format. Use skills for new custom commands      | `.claude/commands/*.md`            |
 | [Memory](https://code.claude.com/docs/en/agent-sdk/modifying-system-prompts) | Project context and instructions                                              | `CLAUDE.md` or `.claude/CLAUDE.md` |
-| [Plugins](https://code.claude.com/docs/en/agent-sdk/plugins)                 | Extend with skills, agents, hooks, and MCP servers                            | Programmatic via `plugins` option  |
+| [Plugins](https://code.claude.com/docs/en/agent-sdk/plugins)                 | Package skills, agents, hooks, and MCP servers, and load them by local path  | Programmatic via `plugins` option  |
 
 ## Permission Modes
 
@@ -263,6 +263,15 @@ Use of the Claude Agent SDK is governed by [Anthropic's Commercial Terms of Serv
 - Python: [claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python)
 - TypeScript: [claude-agent-sdk-typescript](https://github.com/anthropics/claude-agent-sdk-typescript)
 - Demos: [claude-agent-sdk-demos](https://github.com/anthropics/claude-agent-sdk-demos)
+
+## Next Steps
+
+- [Quickstart](https://code.claude.com/docs/en/agent-sdk/quickstart) -- build your first agent that finds and fixes bugs
+- [Agent loop](https://code.claude.com/docs/en/agent-sdk/agent-loop) -- how Claude plans, calls tools, and decides when a task is done
+- [Example agents](https://github.com/anthropics/claude-agent-sdk-demos) -- demo apps for local development
+- [TypeScript SDK](https://code.claude.com/docs/en/agent-sdk/typescript) -- full TypeScript API reference and examples
+- [Python SDK](https://code.claude.com/docs/en/agent-sdk/python) -- full Python API reference and examples
+- [Agent harness design](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code) -- how the Claude Code team uses dynamic workflows to orchestrate subagents at scale
 
 ## Sources
 

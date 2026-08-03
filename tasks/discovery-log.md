@@ -19,6 +19,31 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-08-03 — Weekly Update (full discovery scan)
+
+- **Manifest sources checked**: 106 unique source_urls (120 entries at scan time)
+- **Added**: 0 (automated run — user not present to approve)
+- **Deferred (HIGH — recommend adding next)**:
+  - how-we-contain-claude — https://www.anthropic.com/engineering/how-we-contain-claude — engineering
+  - managed-agents — https://www.anthropic.com/engineering/managed-agents — engineering
+  - claude-code-auto-mode — https://www.anthropic.com/engineering/claude-code-auto-mode — engineering
+  - discovering-cryptographic-weaknesses — https://www.anthropic.com/research/discovering-cryptographic-weaknesses — research
+  - global-workspace — https://www.anthropic.com/research/global-workspace — research
+  - off-switch-dual-use — https://www.anthropic.com/research/off-switch-dual-use — research
+  - claude-values-models-languages — https://www.anthropic.com/research/claude-values-models-languages — research
+  - project-pilot — https://www.anthropic.com/research/project-pilot — research
+  - investigating-incidents-cybersecurity-evals — https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals — news
+- **Deferred (MEDIUM)**:
+  - harness-design-long-running-apps, april-23-postmortem, equipping-agents-for-the-real-world-with-agent-skills (engineering)
+  - how-canada-uses-claude, claude-plays-robotics, project-fetch-phase-two (research)
+  - position-open-weights-models, redeploying-fable-5, hard-questions, 81k-interviews, project-deal (news)
+- **Deferred (LOW)**:
+  - making-of-claude-code, cognizant-anthropic, economic-futures-research-fund-agenda, anthropic-economic-index-connector, donation-public-first-action, rare-disease-research-grants, claude-for-teachers, canadian-ai-research, swe-bench-sonnet
+- **GitHub repos**: 96 repos confirmed, no new repos since last scan. Star count drift only.
+- **arXiv papers**: 1 paper moved from non-arXiv to arXiv section — "Verbalizable Representations Form a Global Workspace in Language Models" (2607.15495)
+- **SDK versions**: npm @anthropic-ai/sdk 0.115.0, PyPI anthropic 0.120.2 (unchanged from last week)
+- **Staleness**: `agent-sdk-typescript-v2-preview` (github.com/anthropics/agent-sdk) — 404 7th consecutive cycle. Removal overdue.
+
 ### 2026-08-02 — Weekly Update (full discovery scan)
 
 - **Manifest sources checked**: 106 unique source_urls (117 entries at scan time)

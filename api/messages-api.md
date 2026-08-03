@@ -2,7 +2,7 @@
 title: "Messages API"
 source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "api"
 ---
 
@@ -53,6 +53,7 @@ The model to use for the response. Available models:
 | Claude Opus 5     | `claude-opus-5`     |
 | Claude Fable 5    | `claude-fable-5`    |
 | Claude Mythos 5   | `claude-mythos-5`   |
+| Claude Sonnet 5   | `claude-sonnet-5`   |
 | Claude Opus 4.8   | `claude-opus-4-8`   |
 | Claude Opus 4.7   | `claude-opus-4-7`   |
 | Claude Opus 4.6   | `claude-opus-4-6`   |
@@ -404,6 +405,7 @@ Cache control can be applied to system prompts, messages, tool definitions, and 
 | `"tool_use"`      | Model invoked one or more client tools                          |
 | `"pause_turn"`    | Long-running server tool loop paused (exceeded iteration limit) |
 | `"refusal"`       | Policy violation handled by streaming classifiers               |
+| `"model_context_window_exceeded"` | Generation reached the model's context window limit  |
 
 ### Stop Details
 
@@ -413,7 +415,7 @@ When `stop_reason` is `"refusal"`, the `stop_details` object provides additional
 {
   "stop_details": {
     "type": "refusal",
-    "category": "cyber|bio|frontier_llm|reasoning_extraction",
+    "category": "cyber|bio|frontier_llm|reasoning_extraction|general_harms",
     "explanation": "..."
   }
 }

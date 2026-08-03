@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "models"
 ---
 
@@ -45,6 +45,16 @@ To identify usage of deprecated models:
 2. Test your applications with newer models well before the retirement date.
 3. Update your code to use the recommended replacement model as soon as possible.
 4. Contact the support team if you need assistance with migration or have any questions.
+
+## Deprecation Downsides and Mitigations
+
+Anthropic currently deprecates and retires models to ensure capacity for new model releases. This comes with downsides:
+
+- Users who value specific models must migrate to new versions
+- Researchers lose access to models for ongoing and comparative studies
+- Model retirement introduces safety- and model welfare-related risks
+
+At some point, Anthropic hopes to make past models publicly available again. In the meantime, Anthropic has committed to long-term preservation of model weights and other measures to help mitigate these impacts. For more details, see [Commitments on Model Deprecation and Preservation](https://www.anthropic.com/research/deprecation-commitments).
 
 ## Model Status
 

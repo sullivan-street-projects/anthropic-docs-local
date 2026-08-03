@@ -2,19 +2,21 @@
 title: "Extended Thinking"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "api"
 ---
 
 # Extended Thinking
 
-Extended thinking gives Claude enhanced reasoning capabilities for complex tasks, while providing varying levels of transparency into its step-by-step thought process before it delivers its final answer.
+Extended thinking (`thinking.type: "enabled"` with `budget_tokens`) is deprecated on the Claude 4.6 models (requests using it still succeed). Claude 4.7 and later models do not support it and reject requests that use it, returning a 400 error. On Claude 4.5 and earlier models that support thinking, extended thinking is the only available thinking mode. Claude Mythos Preview supports both modes. Where both modes are available, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) instead.
+
+Extended thinking in manual mode gives you direct control over how much Claude thinks. You set a thinking token budget on each request with `thinking: {type: "enabled", budget_tokens: N}`, and Claude thinks against that budget before it starts its final answer. Manual mode remains useful when your workload requires predictable latency or precise control over thinking costs.
 
 This feature is eligible for Zero Data Retention (ZDR). When your organization has a ZDR arrangement, data sent through this feature is not stored after the API response is returned.
 
 ## Supported Models
 
-Extended thinking is available on all current Claude models. The table below shows support levels:
+Extended thinking availability per model:
 
 | Model                           | Manual Extended Thinking (`budget_tokens`) | Recommended                                               |
 | ------------------------------- | ------------------------------------------ | --------------------------------------------------------- |

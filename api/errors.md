@@ -2,7 +2,7 @@
 title: "API Errors"
 source_url: "https://platform.claude.com/docs/en/api/errors"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "api"
 ---
 
@@ -178,6 +178,30 @@ If the most recent assistant message contains `thinking` or `redacted_thinking` 
 ```
 
 With tool use, every `thinking` and `redacted_thinking` block from the assistant turn must be passed back exactly as received, including blocks whose `thinking` field is empty. Pass thinking blocks back unchanged, and if your application filters content blocks by type before resending, include both `thinking` and `redacted_thinking`. See [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#preserving-thinking-blocks).
+
+### Extended thinking not supported
+
+Claude 4.7 and later models have removed extended thinking. Sending `thinking: {"type": "enabled"}` to any of these models returns a 400 `invalid_request_error`:
+
+```
+"thinking.type.enabled" is not supported for this model. Use "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
+```
+
+Use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) instead.
+
+### Adaptive thinking not supported
+
+Models that support only extended thinking (Claude 4.5 and earlier models) reject `thinking: {"type": "adaptive"}` with a 400 `invalid_request_error`:
+
+```
+adaptive thinking is not supported on this model
+```
+
+Use `thinking: {"type": "enabled", "budget_tokens": N}` on these models; see [Extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking).
+
+### Thinking cannot be disabled
+
+On Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview, thinking is always on. Sending `thinking: {"type": "disabled"}` to any of these models returns a 400 `invalid_request_error`. Omit the `thinking` parameter and the request runs with adaptive thinking. To keep thinking content out of responses without turning thinking off, set `display: "omitted"` on the thinking configuration.
 
 ### Outbound web identity federation disabled (Claude Platform on AWS)
 

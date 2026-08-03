@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -40,6 +40,7 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 ### July 10, 2026
 
+- Dreams (research preview) now supports Claude Fable 5 and Claude Sonnet 5.
 - Expanded Access Transparency documentation of `cmek_preserve` events with a filter example, an example event payload, and two preservation reason codes (`policy_violation_investigation`, `csae_report`).
 
 ### July 8, 2026

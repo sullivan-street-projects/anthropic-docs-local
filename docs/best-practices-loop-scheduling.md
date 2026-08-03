@@ -2,7 +2,7 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -173,7 +173,7 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--tools "Bash,Edit,Read"`                 | Restrict which built-in tools Claude can use (use `""` to disable all, `"default"` for all)                                              |
 | `--max-budget-usd N`                       | Maximum dollar amount to spend on API calls before stopping                                                                              |
 | `--fallback-model <model>`                 | Enable automatic fallback model(s) when default is overloaded; accepts comma-separated list                                              |
-| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max` (available levels depend on model)                                             |
+| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max`, or `ultracode` (v2.1.203+). Available levels depend on model                  |
 | `--bare`                                   | Minimal mode: skip hooks, skills, plugins, MCP, auto memory, CLAUDE.md for faster startup                                                |
 | `--safe-mode`                              | Start with all customizations disabled (hooks, skills, plugins, MCP, CLAUDE.md, themes, etc.) for troubleshooting                        |
 | `--no-session-persistence`                 | Disable session saving to disk (print mode only)                                                                                         |
@@ -242,6 +242,12 @@ claude logs 7c5dcf5d
 
 # Stop a background session
 claude stop 7c5dcf5d
+
+# Restart a background session with conversation intact
+claude respawn 7c5dcf5d
+
+# Remove a background session from the list (transcript stays locally)
+claude rm 7c5dcf5d
 
 # Run a shell command as a background job
 claude --bg --exec 'pytest -x'
@@ -319,7 +325,8 @@ claude --bg --exec 'npm test'
 | `--output-format json`                            | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--bg` background agents                          | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `claude agents` / `claude attach` / `claude logs` | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--effort` levels (low/medium/high/xhigh/max)     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `claude respawn` / `claude rm`                     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--effort` levels (incl. `ultracode` v2.1.203+)   | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--bare` / `--safe-mode` flags                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--tools` flag for restricting built-in tools     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--disallowedTools` deny rules                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-08-02T00:00:00Z",
+  "last_full_update": "2026-08-03T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -57,10 +57,10 @@
       "local_path": "claude-code/mcp-servers.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "64f764f3814723a42d704265d1f50bc90d58de235d9b47b68446680299f111bb"
+      "sha256": "300fee9119d339653315b165a8684af34c9bf6f8479cccf055c2fba1d843c9af"
     },
     {
       "id": "claude-code-plugins",
@@ -201,10 +201,10 @@
       "local_path": "skills/catalog.md",
       "source_url": "https://github.com/anthropics/skills",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "0ebcb44db5dc13092ec427073405bf22ad8730c283dc9b459a10718b03a7972a"
+      "sha256": "1f45733085c471402ab9367e162741274162e8d113f17ff62d0c74fe0c55f06a"
     },
     {
       "id": "skills-building-guide",
@@ -239,10 +239,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "23a7e9cdbd93d035d7f1fc10b349e92e7b80da22de9ae6ebd7dc974351d1dde4"
+      "sha256": "129173a90d84721431847c487be2ba28dd7c18467c585db4ae1141615f37e595"
     },
     {
       "id": "release-notes-platform",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "7bfc8b15dc2ef9d6dbd400df7611efec31151215e4908ecd028873e8ac3b149f"
+      "sha256": "faafbdee6a30bafe3401078b65cb1d6660f4d85b3b4eb00a610b43cd5b246724"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "a899e473eae08edb92d3afac249f3fa7cad9b8c764233ad39c214cd967c24e0a"
+      "sha256": "ffb40f35d6f4368b3ec43899b0f360c8c67fa2daeff9d99f808173bf5ef63886"
     },
     {
       "id": "release-notes-help-center",
@@ -287,10 +287,10 @@
       "local_path": "api/overview.md",
       "source_url": "https://platform.claude.com/docs/en/api/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "5a5f2c56cb9bfe2abdee066111b45ffc31da8c68c5624839f680b4aa880ea188"
+      "sha256": "70edbce1008b6164a49ff9bf6a35c366c605f86becfc70ce8688d32c45714ac1"
     },
     {
       "id": "api-messages",
@@ -299,10 +299,10 @@
       "local_path": "api/messages-api.md",
       "source_url": "https://platform.claude.com/docs/en/api/messages",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "ee5044c8bf7f0c5572269b8f7764dabdf2aded384ec43754f1ba5dcf1f78bb5e"
+      "sha256": "deeb236d23bdc9d1269fec7b5762de5dd36b1bf01b88fd46eb10fa04a3185d02"
     },
     {
       "id": "api-tool-use",
@@ -311,10 +311,10 @@
       "local_path": "api/tool-use.md",
       "source_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "9d710fa65616cb9a708cb233633b16bfc861261d86c1c060a47a89a7b27112f5"
+      "sha256": "c8406ae4f5c98289f6fe7794035edf8942992be29d31aa0e48f2fcde4074c88a"
     },
     {
       "id": "api-vision",
@@ -323,10 +323,10 @@
       "local_path": "api/vision.md",
       "source_url": "https://platform.claude.com/docs/en/build-with-claude/vision",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "c01f2e681479a85072a8723cf1a308e3d2bd6a7a619555ce29cb0f22c815fea9"
+      "sha256": "8443a03e028a2e9b24eeba3a96b91e420f7eed27fe6d25e8c2cafccde19d1033"
     },
     {
       "id": "api-streaming",
@@ -335,10 +335,10 @@
       "local_path": "api/streaming.md",
       "source_url": "https://platform.claude.com/docs/en/api/streaming",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "5b7fde3bfc3efb4801cc13e3d482099355c3b91b44749152bd556268b45e085b"
+      "sha256": "18e07650f7b4a2cf2c7b7b0d2b995c3490e8382ee5477c5c3f5df4c1bea0735c"
     },
     {
       "id": "api-errors",
@@ -347,10 +347,10 @@
       "local_path": "api/errors.md",
       "source_url": "https://platform.claude.com/docs/en/api/errors",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "e627fe452bc6abea900236c4c010c26f28dd7cda4de6f83f64a885112e883970"
+      "sha256": "0e38a3b9a8f3d689da9f10700530928dca07f893d72ef4e2536d0f59da59123a"
     },
     {
       "id": "models-overview",
@@ -419,10 +419,10 @@
       "local_path": "models/deprecations.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "491757ae5144cb2dbd7cdffbeeb5cf2a4c38c07af66dc96e76f3507f496ed02c"
+      "sha256": "02f24743b880a5261028d63955c13e18d3dbed7c88d08201fe2cf718a006f676"
     },
     {
       "id": "agent-sdk-readme",
@@ -431,10 +431,10 @@
       "local_path": "agent-sdk/README.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/overview",
       "source_type": "manual",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "50985cde6e79247b5a21f2c9ee4aa4e0403ab8f345e92cf90865e050a53af892"
+      "sha256": "4b04ed8cd4454b190e865658290d99e8b2ab62bc91c7dee348e5382be6d92602"
     },
     {
       "id": "agent-sdk-quickstart",
@@ -443,10 +443,10 @@
       "local_path": "agent-sdk/quickstart.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/quickstart",
       "source_type": "manual",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "58c3796205f8e93fef538ef2a3991ec6bce0a5398ca461988bb76c857e66f493"
+      "sha256": "ff0bf4e718f7f5ba8204ee67036721a1272348c946257596d96437a8218d7f3d"
     },
     {
       "id": "agent-sdk-examples",
@@ -539,7 +539,7 @@
       "local_path": "research/papers/index.md",
       "source_url": "https://arxiv.org/search/?query=anthropic&searchtype=all",
       "source_type": "arxiv-pdfs",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "papers": [
         {
           "file": "constitutional-ai.pdf",
@@ -628,7 +628,7 @@
       ],
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "5336f529f4f29fa058f36e6e66aec136c281e9b7111d5bc99774ed386a40660a"
+      "sha256": "26b199d2026a9c3d0c634bb0d9fea9e2063ecac56a4def4e1517514bad0643a9"
     },
     {
       "id": "news-claude-code-security",
@@ -841,10 +841,10 @@
       "local_path": "api/adaptive-thinking.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "cb7403f080e366eccd971dfc92ed505fec633cb54ee7b03201a101f440195458"
+      "sha256": "4cef08c292329064ec53f4ab50a69cb7d30a9bae0cfe0f39576393ab0827ec01"
     },
     {
       "id": "api-compaction",
@@ -853,10 +853,10 @@
       "local_path": "api/compaction.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/compaction",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "d3014c367af5a8faefd55771896f2f181150f32c6266c16017b3522303bca9e3"
+      "sha256": "03afc112bb5a130fdd90ef6cd15a9da5c30c828d8c75bfe0e51483298eef8f5c"
     },
     {
       "id": "api-context-windows",
@@ -865,10 +865,10 @@
       "local_path": "api/context-windows.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "3d6a101523ed257e75913e4f0a69a5e0afc0ed907882def822959f0d2d21132a"
+      "sha256": "bb8dfa1c8752897b1ef8d8864c660d82d3af18daa2bedb5ed28d9cbf5a77e750"
     },
     {
       "id": "api-models-overview",
@@ -901,10 +901,10 @@
       "local_path": "api/extended-thinking.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "bd78bf08007bdd0246ac6029b3c045e0b41bfb8e4f4de7a0299564e70a41bbd5"
+      "sha256": "05a022ec7192aa01a9d2d00f5677f7e1fce5603d491b7aea547ad07b459514a1"
     },
     {
       "id": "api-effort-parameter",
@@ -913,10 +913,10 @@
       "local_path": "api/effort-parameter.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/effort",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "32424d659bf018775e4fa77a949509ce69a379e609f1dbf03214424c28ef2cb6"
+      "sha256": "ac2a1236fa0390551e198c58d027bb7b76dbaf9d1de07471c2ad06e538ccdbb8"
     },
     {
       "id": "api-memory-tool",
@@ -925,10 +925,10 @@
       "local_path": "api/memory-tool.md",
       "source_url": "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/memory-tool",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "fd875656821d3ab87b6608b08a92d23460612b56cd4be3568ccb4868519e7272"
+      "sha256": "1d994eea30d317f910e31afadbe86c7b74feb402c027ba5ce7458da3caef4eac"
     },
     {
       "id": "api-web-search-tool",
@@ -937,10 +937,10 @@
       "local_path": "api/web-search-tool.md",
       "source_url": "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/web-search-tool",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "d24a9c0306e16b8db2df4778c1792f6da2adb53053a94495c3873cd954ddba02"
+      "sha256": "3111583d108250bdab75fa6a3dc2870069326d6233d37a3f6f06b7d6a194c7bf"
     },
     {
       "id": "agent-sdk-typescript-v2",
@@ -961,10 +961,10 @@
       "local_path": "docs/best-practices-loop-scheduling.md",
       "source_url": "https://code.claude.com/docs/en/cli-usage",
       "source_type": "manual",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "cfe95d0f5c01723396167628befc09f71cce3cd34c8f48dc2754fe23a6008b6a"
+      "sha256": "ea59eca6a5955ab1d76f84e1a5f61d03e017563caea92187fa0029bdbdac9743"
     },
     {
       "id": "best-practices-mcp-credentials",
@@ -973,10 +973,10 @@
       "local_path": "docs/best-practices-mcp-credentials.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-03T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "afe24971737ec81556ec88bbffb2c7ad29fac8b3f73653a770d67db9ab3b1b76"
+      "sha256": "224010d0c2b78dee6d0686294aedf1e1fafb36d66a417e7c6b94d9b626c0ca62"
     },
     {
       "id": "research-opendev-coding-agents",
@@ -1535,5 +1535,5 @@
       "sha256": "237cf9747865bce3a8668095ad421ece95f9b54322d5a78a3f888c97385cb350"
     }
   ],
-  "last_discovery_run": "2026-08-02T00:00:00Z"
+  "last_discovery_run": "2026-08-03T00:00:00Z"
 }

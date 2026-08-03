@@ -2,7 +2,7 @@
 title: "Tool Use Guide"
 source_url: "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "api"
 ---
 
@@ -34,11 +34,12 @@ Tools that execute on your infrastructure. You define them, handle invocations, 
 
 Tools that execute on Anthropic's infrastructure. No client-side implementation is required.
 
-- **Web Search** (`web_search_20260209`): Searches the web and returns results.
-- **Web Fetch** (`web_fetch_20260209`): Fetches content from URLs.
-- **Code Execution** (`code_execution_20260120`): Runs Python and bash code in a sandboxed container.
+- **Web Search** (`web_search_20260209`/`web_search_20260318`): Searches the web and returns results.
+- **Web Fetch** (`web_fetch_20260209`/`web_fetch_20260318`): Fetches content from URLs.
+- **Code Execution** (`code_execution_20260120`/`code_execution_20260521`): Runs Python and bash code in a sandboxed container.
 - **Advisor**: Lets a faster executor model consult a higher-intelligence advisor model mid-generation.
 - **Tool Search**: Work with thousands of tools by discovering and loading them on demand.
+- **MCP Connector**: Connect to remote MCP servers from the Messages API without a separate MCP client.
 
 **Server tool workflow:**
 

@@ -2,7 +2,7 @@
 title: "Context Windows"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "api"
 ---
 
@@ -26,9 +26,9 @@ Everything in the request counts toward the context window: the system prompt, e
 
 ## Context Window Sizes by Model
 
-Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6 have a 1M-token context window on the Claude API, Amazon Bedrock, Google Cloud, and Microsoft Foundry. Claude Mythos Preview also has a 1M-token context window.
+Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6 have a 1M-token context window on the Claude API, Amazon Bedrock, Google Cloud, and Microsoft Foundry. Claude Mythos Preview also has a 1M-token context window.
 
-Claude Fable 5 and Claude Mythos 5 (`claude-fable-5` and `claude-mythos-5`) have a 1M-token context window, and a single request to these models can generate up to 128k output tokens (`max_tokens`). Other Claude models, including Claude Sonnet 4.5, have a 200k-token context window.
+Claude Fable 5 and Claude Mythos 5 (`claude-fable-5` and `claude-mythos-5`) also have a 1M-token context window. A single request to any model with a 1M-token context window can generate up to 128k output tokens (`max_tokens`). Other Claude models, including Claude Sonnet 4.5, have a 200k-token context window.
 
 For every model with a 1M-token context window, 1M is the default: you don't need a beta header, and long-context requests are billed at standard pricing.
 
@@ -95,6 +95,16 @@ For agents that span multiple sessions, design your state artifacts so that cont
 ## Managing Context with Compaction
 
 If your conversations regularly approach context window limits, use server-side compaction. Compaction automatically summarizes earlier parts of the conversation on the server, so the conversation can continue past the context window limit. It is available in beta for Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Mythos Preview, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6.
+
+## Context Window Overflow Behavior
+
+If the input alone already exceeds the model's context window, the API returns a 400 `invalid_request_error` ("prompt is too long") on every model.
+
+On Claude 4.5 models and newer, if input tokens plus `max_tokens` exceeds the context window size, the API accepts the request. If generation then reaches the context window limit, it stops with `stop_reason: "model_context_window_exceeded"`. On earlier models, the API returns a validation error instead. To opt in to the `model_context_window_exceeded` behavior on those models, use the `model-context-window-exceeded-2025-08-26` beta header.
+
+To stay within context window limits, use the token counting API to estimate token usage before sending messages to Claude.
+
+## Context Editing
 
 For more specialized needs, context editing offers additional strategies:
 

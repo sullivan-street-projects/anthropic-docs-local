@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-03T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -122,7 +122,7 @@ A Local definition always overrides a Project definition of the same name. Manag
 
 | Pattern           | Behavior                                                     | Example                                    |
 | ----------------- | ------------------------------------------------------------ | ------------------------------------------ |
-| `${VAR}`          | Expands to value; config parse fails if unset and no default | `${API_KEY}`                               |
+| `${VAR}`          | Expands to value; warns and uses literal `${VAR}` if unset   | `${API_KEY}`                               |
 | `${VAR:-default}` | Expands to value; uses default if unset                      | `${API_BASE_URL:-https://api.example.com}` |
 
 ### Where Expansion Works
@@ -292,7 +292,7 @@ Before committing `.mcp.json` changes, verify that:
 2. **All variables are documented** in `.env.example`
 3. **Defaults make sense** -- will a new developer get working defaults?
 4. **Server names are descriptive** -- `postgres-analytics` not `db1`
-5. **Reserved names are avoided** -- the name `workspace` is reserved for internal use
+5. **Reserved names are avoided** -- `workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, and `Claude Browser` are reserved
 
 ```bash
 # Quick audit: find any hardcoded-looking secrets
@@ -608,7 +608,7 @@ claude mcp reset-project-choices
 | Same server name in multiple scopes             | Confusion about which config is active            | Remember: Local > Project > User > Plugin > claude.ai |
 | Forgetting `--scope project`                    | Server added to Local instead of `.mcp.json`      | Re-add with `--scope project`                         |
 | Not testing with a fresh `.env`                 | Config works for you but breaks for others        | Test by removing `.env` and using `.env.example`      |
-| Using reserved name `workspace`                 | Server silently skipped at load time              | Choose a different server name                        |
+| Using a reserved name                           | Server skipped at load time with a warning        | Choose a different server name                        |
 | Static `Authorization` header with OAuth server | Connection fails instead of falling back to OAuth | Remove the header to use the OAuth flow               |
 | Missing `--` separator for stdio                | Claude Code parses server flags as its own        | Always use `--` before server command                 |
 
@@ -622,7 +622,7 @@ Before committing any MCP configuration:
 - [ ] `.env` is listed in `.gitignore`
 - [ ] `.env.example` exists and documents all required variables
 - [ ] Default values (`${VAR:-default}`) are non-secret and sensible
-- [ ] Server names are descriptive and consistent (not `workspace`, which is reserved)
+- [ ] Server names are descriptive and consistent (avoid reserved names: `workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, `Claude Browser`)
 - [ ] OAuth servers don't include static tokens in committed config
 - [ ] OAuth scopes are restricted to the minimum necessary (`oauth.scopes`)
 - [ ] `headersHelper` scripts are reviewed for security (they execute arbitrary commands)
