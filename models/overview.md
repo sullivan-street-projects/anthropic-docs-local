@@ -2,7 +2,7 @@
 title: "Claude Models Overview"
 source_url: "https://platform.claude.com/docs/en/about-claude/models/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "models"
 ---
 
@@ -55,22 +55,20 @@ Claude Fable 5 (`claude-fable-5`) is Anthropic's most capable widely released mo
 
 ## Legacy Models
 
-| Feature                       | Claude Opus 4.8             | Claude Opus 4.7             | Claude Opus 4.6                | Claude Sonnet 4.6             | Claude Sonnet 4.5                           | Claude Opus 4.5                           | Claude Opus 4.1 (deprecated)              |
-| :---------------------------- | :-------------------------- | :-------------------------- | :----------------------------- | :---------------------------- | :------------------------------------------ | :---------------------------------------- | :---------------------------------------- |
-| **Claude API ID**             | `claude-opus-4-8`           | `claude-opus-4-7`           | `claude-opus-4-6`              | `claude-sonnet-4-6`           | `claude-sonnet-4-5-20250929`                | `claude-opus-4-5-20251101`                | `claude-opus-4-1-20250805`                |
-| **Claude API alias**          | `claude-opus-4-8`           | `claude-opus-4-7`           | `claude-opus-4-6`              | `claude-sonnet-4-6`           | `claude-sonnet-4-5`                         | `claude-opus-4-5`                         | `claude-opus-4-1`                         |
-| **AWS Bedrock ID**            | `anthropic.claude-opus-4-8` | `anthropic.claude-opus-4-7` | `anthropic.claude-opus-4-6-v1` | `anthropic.claude-sonnet-4-6` | `anthropic.claude-sonnet-4-5-20250929-v1:0` | `anthropic.claude-opus-4-5-20251101-v1:0` | `anthropic.claude-opus-4-1-20250805-v1:0` |
-| **Google Cloud ID**           | `claude-opus-4-8`           | `claude-opus-4-7`           | `claude-opus-4-6`              | `claude-sonnet-4-6`           | `claude-sonnet-4-5@20250929`                | `claude-opus-4-5@20251101`                | `claude-opus-4-1@20250805`                |
-| **Pricing**                   | $5/$25 MTok                 | $5/$25 MTok                 | $5/$25 MTok                    | $3/$15 MTok                   | $3/$15 MTok                                 | $5/$25 MTok                               | $15/$75 MTok                              |
-| **Extended thinking**         | No                          | No                          | Yes (deprecated)               | Yes (deprecated)              | Yes                                         | Yes                                       | Yes                                       |
-| **Adaptive thinking**         | Yes                         | Yes                         | Yes                            | Yes                           | No                                          | No                                        | No                                        |
-| **Comparative latency**       | Moderate                    | Moderate                    | Moderate                       | Fast                          | Fast                                        | Moderate                                  | Moderate                                  |
-| **Context window**            | 1M tokens                   | 1M tokens                   | 1M tokens                      | 1M tokens                     | 200K tokens                                 | 200K tokens                               | 200K tokens                               |
-| **Max output**                | 128K tokens                 | 128K tokens                 | 128K tokens                    | 128K tokens                   | 64K tokens                                  | 64K tokens                                | 32K tokens                                |
-| **Reliable knowledge cutoff** | Jan 2026                    | Jan 2026                    | May 2025                       | Aug 2025                      | Jan 2025                                    | May 2025                                  | Jan 2025                                  |
-| **Training data cutoff**      | Jan 2026                    | Jan 2026                    | Aug 2025                       | Jan 2026                      | Jul 2025                                    | Aug 2025                                  | Mar 2025                                  |
-
-**Warning:** Claude Opus 4.1 (`claude-opus-4-1-20250805`) is deprecated and will be retired on August 5, 2026. Migrate to Claude Opus 5 before the retirement date. See model deprecations for details.
+| Feature                       | Claude Opus 4.8             | Claude Opus 4.7             | Claude Opus 4.6                | Claude Sonnet 4.6             | Claude Sonnet 4.5                           | Claude Opus 4.5                           |
+| :---------------------------- | :-------------------------- | :-------------------------- | :----------------------------- | :---------------------------- | :------------------------------------------ | :---------------------------------------- |
+| **Claude API ID**             | `claude-opus-4-8`           | `claude-opus-4-7`           | `claude-opus-4-6`              | `claude-sonnet-4-6`           | `claude-sonnet-4-5-20250929`                | `claude-opus-4-5-20251101`                |
+| **Claude API alias**          | `claude-opus-4-8`           | `claude-opus-4-7`           | `claude-opus-4-6`              | `claude-sonnet-4-6`           | `claude-sonnet-4-5`                         | `claude-opus-4-5`                         |
+| **AWS Bedrock ID**            | `anthropic.claude-opus-4-8` | `anthropic.claude-opus-4-7` | `anthropic.claude-opus-4-6-v1` | `anthropic.claude-sonnet-4-6` | `anthropic.claude-sonnet-4-5-20250929-v1:0` | `anthropic.claude-opus-4-5-20251101-v1:0` |
+| **Google Cloud ID**           | `claude-opus-4-8`           | `claude-opus-4-7`           | `claude-opus-4-6`              | `claude-sonnet-4-6`           | `claude-sonnet-4-5@20250929`                | `claude-opus-4-5@20251101`                |
+| **Pricing**                   | $5/$25 MTok                 | $5/$25 MTok                 | $5/$25 MTok                    | $3/$15 MTok                   | $3/$15 MTok                                 | $5/$25 MTok                               |
+| **Extended thinking**         | No                          | No                          | Yes (deprecated)               | Yes (deprecated)              | Yes                                         | Yes                                       |
+| **Adaptive thinking**         | Yes                         | Yes                         | Yes                            | Yes                           | No                                          | No                                        |
+| **Comparative latency**       | Moderate                    | Moderate                    | Moderate                       | Fast                          | Fast                                        | Moderate                                  |
+| **Context window**            | 1M tokens                   | 1M tokens                   | 1M tokens                      | 1M tokens                     | 200K tokens                                 | 200K tokens                               |
+| **Max output**                | 128K tokens                 | 128K tokens                 | 128K tokens                    | 128K tokens                   | 64K tokens                                  | 64K tokens                                |
+| **Reliable knowledge cutoff** | Jan 2026                    | Jan 2026                    | May 2025                       | Aug 2025                      | Jan 2025                                    | May 2025                                  |
+| **Training data cutoff**      | Jan 2026                    | Jan 2026                    | Aug 2025                       | Jan 2026                      | Jul 2025                                    | Aug 2025                                  |
 
 **Notes:**
 
@@ -79,6 +77,7 @@ Claude Fable 5 (`claude-fable-5`) is Anthropic's most capable widely released mo
 
 ## Retired Models
 
+- **Claude Opus 4.1** (`claude-opus-4-1-20250805`) -- retired August 5, 2026
 - **Claude Sonnet 4** (`claude-sonnet-4-20250514`) -- retired June 15, 2026
 - **Claude Opus 4** (`claude-opus-4-20250514`) -- retired June 15, 2026
 - **Claude Haiku 3** (`claude-3-haiku-20240307`) -- retired April 20, 2026

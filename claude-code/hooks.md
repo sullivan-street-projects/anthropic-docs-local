@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,13 +10,13 @@ category: "claude-code"
 
 Hooks are user-defined shell commands, HTTP endpoints, MCP tool calls, LLM prompts, or agents that execute automatically at specific points in Claude Code's lifecycle. Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
 
-> **Last updated:** August 2, 2026
+> **Last updated:** August 10, 2026
 
 ## Hook Lifecycle
 
 Hooks fire at specific points during a Claude Code session. When an event fires and a matcher matches, Claude Code passes JSON context about the event to your hook handler. For command hooks, input arrives on stdin. For HTTP hooks, it arrives as the POST request body. Your handler can then inspect the input, take action, and optionally return a decision. Some events fire once per session, while others fire repeatedly inside the agentic loop.
 
-## Hook Events (35 Total)
+## Hook Events (36 Total)
 
 | Event                 | Description                                                        | Matcher                                                                                                                                                                                         | Fires                      |
 | --------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
@@ -28,7 +28,7 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `PreToolUse`          | Before tool executes (can block)                                   | Tool name                                                                                                                                                                                       | Each tool call             |
 | `PermissionRequest`   | Permission dialog appears                                          | Tool name                                                                                                                                                                                       | Each permission prompt     |
 | `PermissionDenied`    | Auto mode classifier denies tool                                   | Tool name                                                                                                                                                                                       | Auto mode denials          |
-| `PostToolUse`         | After tool succeeds                                                | Tool name                                                                                                                                                                                       | Each tool call             |
+| `PostToolUse`         | After tool succeeds (except `EndConversation` calls)               | Tool name                                                                                                                                                                                       | Each tool call             |
 | `PostToolUseFailure`  | After tool fails                                                   | Tool name                                                                                                                                                                                       | Each failed tool call      |
 | `PostToolBatch`       | Full batch of parallel tool calls resolves                         | No matcher support                                                                                                                                                                              | Before next model call     |
 | `Notification`        | Notification events fire                                           | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`, `elicitation_complete`, `elicitation_response`                                                                        | Various                    |
@@ -41,6 +41,7 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `TaskCreated`         | Task created via TaskCreate tool                                   | No matcher support                                                                                                                                                                              | Task creation              |
 | `TaskCompleted`       | Task marked as completed                                           | No matcher support                                                                                                                                                                              | Task completion            |
 | `CwdChanged`          | Working directory changes                                          | No matcher support                                                                                                                                                                              | Directory changes          |
+| `DirectoryAdded`      | Additional working directory added                                 | No matcher support                                                                                                                                                                              | Directory additions        |
 | `FileChanged`         | Watched file changes on disk                                       | Literal filenames (basename)                                                                                                                                                                    | File modifications         |
 | `ConfigChange`        | Configuration file changes during session                          | `user_settings`, `project_settings`, `local_settings`, `policy_settings`, `skills`                                                                                                              | Config changes             |
 | `WorktreeCreate`      | Worktree being created via `--worktree` or `isolation: "worktree"` | No matcher support                                                                                                                                                                              | Worktree creation          |
@@ -87,7 +88,15 @@ Send JSON input as POST request body to an HTTP endpoint. The response body is p
 }
 ```
 
-HTTP hook error handling differs from command hooks: non-2xx responses, connection failures, and timeouts all produce non-blocking errors. To block a tool call, return a 2xx response with a JSON body containing the appropriate decision fields.
+HTTP hook response handling:
+
+- **2xx with empty body**: Success (exit 0 equivalent)
+- **2xx with plain text**: Success, text added as context
+- **2xx with JSON**: Success, parsed using the JSON output schema
+- **Non-2xx status**: Non-blocking error
+- **Connection failure or timeout**: Non-blocking error
+
+To block a tool call, return a 2xx response with a JSON body containing the appropriate decision fields (e.g., `permissionDecision: "deny"`).
 
 ### MCP Tool Hooks (`type: "mcp_tool"`)
 
@@ -116,7 +125,7 @@ Single LLM turn for decision-making. Respond with `{"ok": true}` or `{"ok": fals
 }
 ```
 
-### Agent-Based Hooks (`type: "agent"`)
+### Agent-Based Hooks (`type: "agent"`) -- Experimental
 
 Spawn a subagent for multi-turn verification. Can use tools: Read, Grep, Glob, Bash. Up to 50 tool turns.
 
@@ -255,7 +264,7 @@ Matcher evaluation types:
 | `StopFailure`                                                                                                                                                   | Error type                   | `rate_limit`, `authentication_failed`, `billing_error`, `overloaded`, `oauth_org_not_allowed`, `invalid_request`, `model_not_found`, `server_error`, `max_output_tokens`, `unknown` |
 | `InstructionsLoaded`                                                                                                                                            | Load reason                  | `session_start`, `nested_traversal`, `path_glob_match`, `include`, `compact`                                                                                                        |
 | `UserPromptExpansion`                                                                                                                                           | Command name                 | Expanded command names                                                                                                                                                              |
-| `UserPromptSubmit`, `Stop`, `TeammateIdle`, `TaskCreated`, `TaskCompleted`, `WorktreeCreate`, `WorktreeRemove`, `PostToolBatch`, `MessageDisplay`, `CwdChanged` | No matcher support           | Always fires on every occurrence                                                                                                                                                    |
+| `UserPromptSubmit`, `Stop`, `TeammateIdle`, `TaskCreated`, `TaskCompleted`, `WorktreeCreate`, `WorktreeRemove`, `PostToolBatch`, `MessageDisplay`, `CwdChanged`, `DirectoryAdded` | No matcher support           | Always fires on every occurrence                                                                                                                                                    |
 
 ### Match MCP Tools
 
@@ -282,6 +291,24 @@ The `if` field uses permission rule syntax for fine-grained filtering:
 | `Bash(rm *)`  | `echo $(date)`         | No       | No subcommand matches     |
 
 Leading `VAR=value` assignments are stripped. Filter fails open on parse errors.
+
+The `if` field also supports `Edit(*.ts)` syntax for file-path filtering on Edit/Write tool events.
+
+## Windows PowerShell
+
+Set `"shell": "powershell"` to run a hook via PowerShell:
+
+```json
+{
+  "type": "command",
+  "command": "powershell.exe",
+  "args": [
+    "-NoProfile",
+    "-ExecutionPolicy", "Bypass",
+    "-File", "${CLAUDE_PROJECT_DIR}/.claude/hooks/check.ps1"
+  ]
+}
+```
 
 ## Exit Codes
 
@@ -331,6 +358,7 @@ Leading `VAR=value` assignments are stripped. Filter fails open on parse errors.
 | `WorktreeRemove`     | Failures logged in debug mode only                      |
 | `InstructionsLoaded` | Exit code is ignored                                    |
 | `CwdChanged`         | Shows stderr to user only                               |
+| `DirectoryAdded`     | Shows stderr to user only                               |
 | `FileChanged`        | Shows stderr to user only                               |
 | `MessageDisplay`     | Shows stderr to user only                               |
 

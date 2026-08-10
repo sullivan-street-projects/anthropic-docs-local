@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,19 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### August 7, 2026
+
+- Managed Agents session budgets: hard cap on session spend with `budget_reached` stop reason. Session advisor via multiagent roster. `inference_geo` for agent model config. Skills loaded from mounted GitHub repos.
+
+### August 5, 2026
+
+- **Inference hooks** in beta for Claude Enterprise: AI security server can approve/deny prompts before inference.
+- Retired Claude Opus 4.1 (`claude-opus-4-1-20250805`). Requests now return an error. Upgrade to Opus 5.
+
+### August 1, 2026
+
+- Dreams (research preview) now supports Claude Opus 5.
 
 ### July 24, 2026
 
@@ -40,6 +53,7 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 ### July 10, 2026
 
+- Dreams (research preview) now supports Claude Fable 5 and Claude Sonnet 5.
 - Expanded Access Transparency documentation of `cmek_preserve` events with a filter example, an example event payload, and two preservation reason codes (`policy_violation_investigation`, `csae_report`).
 
 ### July 8, 2026

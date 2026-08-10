@@ -2,7 +2,7 @@
 title: "Web Search Tool"
 source_url: "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/web-search-tool"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "api"
 ---
 
@@ -10,7 +10,7 @@ category: "api"
 
 The web search tool gives Claude direct access to real-time web content, allowing it to answer questions with up-to-date information beyond its knowledge cutoff. The response includes citations for sources drawn from search results.
 
-With `web_search_20260209` and later versions, Claude can write and run code that filters the search results before they reach the context window (**dynamic filtering**), keeping only relevant information. Dynamic filtering is available with Claude Fable 5, Claude Opus 4.8, Claude Mythos 5, Claude Mythos Preview, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6.
+With `web_search_20260209` and later versions, Claude can write and run code that filters the search results before they reach the context window (**dynamic filtering**), keeping only relevant information. Dynamic filtering is available with Claude Fable 5, Claude Opus 5, Claude Opus 4.8, Claude Mythos 5, Claude Mythos Preview, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6.
 
 Three versions of the web search tool are available:
 
@@ -24,7 +24,7 @@ For web search's Zero Data Retention eligibility and the related `allowed_caller
 
 ## Supported Models
 
-All current Claude models: Opus 4.8, Opus 4.7, Opus 4.6, Opus 4.5, Opus 4.1, Opus 4, Sonnet 5, Sonnet 4.6, Sonnet 4.5, Sonnet 4, Haiku 4.5, Fable 5, Mythos 5, Mythos Preview.
+All current Claude models: Opus 5, Opus 4.8, Opus 4.7, Opus 4.6, Opus 4.5, Sonnet 5, Sonnet 4.6, Sonnet 4.5, Haiku 4.5, Fable 5, Mythos 5, Mythos Preview.
 
 ## How Web Search Works
 

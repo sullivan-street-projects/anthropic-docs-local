@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs. Connect a server when you find yourself copying data into chat from another tool.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** August 10, 2026
 
 ## What You Can Do with MCP
 
@@ -154,7 +154,7 @@ Expansion works in `command`, `args`, `env`, `url`, and `headers` fields.
 }
 ```
 
-If a required environment variable is not set and has no default value, Claude Code fails to parse the config.
+If a referenced environment variable is not set and has no default value, Claude Code reports a missing-variable warning for that server in `claude mcp list` output and uses the unexpanded `${VAR}` text as-is. Set the variable or add a `:-default` fallback.
 
 ## MCP CLI Commands
 
@@ -180,7 +180,11 @@ claude mcp serve
 
 Project-scoped servers from `.mcp.json` that are awaiting approval appear in `claude mcp list` as `Pending approval`. The `/mcp` panel shows the tool count next to each connected server and flags servers that advertise the tools capability but expose no tools.
 
-The server name `workspace` is reserved for internal use and will be skipped.
+Several server names are reserved for internal use and will be skipped: `workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, and `Claude Browser`.
+
+### Project Server Approvals and Workspace Trust
+
+As of v2.1.196, `claude mcp list` and `claude mcp get` read `.mcp.json` approvals only from settings files that aren't checked into the repository until you trust the workspace by running `claude` in it and accepting the workspace trust dialog. A cloned repository cannot approve its own servers: `enableAllProjectMcpServers` or `enabledMcpjsonServers` committed to the project's `.claude/settings.json` is ignored in an untrusted folder.
 
 ## Authentication
 
@@ -286,7 +290,17 @@ Use `headersHelper` for non-OAuth authentication schemes (Kerberos, short-lived 
 }
 ```
 
-The command must write a JSON object of string key-value pairs to stdout, runs in a shell with a 10-second timeout, and executes fresh on each connection. Claude Code sets `CLAUDE_CODE_MCP_SERVER_NAME` and `CLAUDE_CODE_MCP_SERVER_URL` in the helper environment.
+The command must write a JSON object of string key-value pairs to stdout, runs in a shell with a 10-second timeout, and executes fresh on each connection. Dynamic headers override any static `headers` with the same name.
+
+As of v2.1.193, if a tool call returns `401 Unauthorized` or `403 Forbidden`, Claude Code automatically re-runs the helper, reconnects with fresh headers, and retries the call once.
+
+Claude Code sets these environment variables when executing the helper:
+
+| Variable                      | Value                                                    |
+| ----------------------------- | -------------------------------------------------------- |
+| `CLAUDE_CODE_MCP_SERVER_NAME` | The name of the MCP server                               |
+| `CLAUDE_CODE_MCP_SERVER_URL`  | The URL of the MCP server                                |
+| `CLAUDE_PLUGIN_ROOT`          | The plugin's root directory (plugin-provided servers only) |
 
 ## Tool Search
 
@@ -357,7 +371,23 @@ If an HTTP or SSE server disconnects mid-session, Claude Code automatically reco
 
 ## Idle Timeout
 
-As of v2.1.187, a tool call to a remote HTTP, SSE, WebSocket, or claude.ai connector server that sends no response and no progress notification for 5 minutes aborts with an error. Set `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` in milliseconds to change the idle window, or set it to `0` to disable. Stdio servers are not subject to the idle timeout.
+As of v2.1.187, a tool call to a remote server that sends no response and no progress notification for the idle window aborts with an error. The idle window defaults to 5 minutes for HTTP, SSE, WebSocket, and claude.ai connector servers, and 30 minutes for stdio servers (as of v2.1.203; stdio was previously exempt). Set `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` in milliseconds to change the idle window, or set it to `0` to disable. IDE servers and SDK in-process servers are exempt.
+
+## Automatic Backgrounding of Long Tool Calls
+
+An MCP tool call in the main conversation that is still running after two minutes moves to a background task instead of blocking the session. Claude receives the task ID immediately and keeps working, and the result arrives as a task notification when the call settles. This requires Claude Code v2.1.212 or later.
+
+The task appears in `/tasks`, where you can also stop it. Configure with `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` (milliseconds), or set to `0` to disable. Setting `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` to `1` also disables it. Calls from subagents, IDE servers, and non-interactive mode (unless `CLAUDE_AUTO_BACKGROUND_TASKS=1`) are not backgrounded.
+
+## Configuration Warnings
+
+Claude Code warns when an MCP config value carries hidden leading or trailing whitespace, which often comes from pasting a token with a trailing newline. Claude Code checks `command`, `url`, each `args` entry, and the values and key names under `env` and `headers`. The warning appears in `claude mcp list` and `/mcp` without echoing the values.
+
+## Server Status Detail
+
+In `/mcp`, a remote server you've used before can show a `cached` status such as `cached 2h ago · connects on first use · 5 tools`. Claude Code loaded the server's tool list from a previous session instead of connecting at startup. Tools are available from your first message. Set `MCP_DISCOVERY_CACHE=0` to make every server connect at startup instead. Requires v2.1.221+.
+
+A server with empty `url` shows as `not configured` and is not connected. This lets plugins include placeholder entries.
 
 ## MCP Resources
 
@@ -393,15 +423,22 @@ Connectors you have never signed in to are collapsed behind a "Show unused conne
 
 Some Anthropic-hosted connectors (Microsoft 365, Gmail, Google Calendar) don't support local OAuth and must be connected via claude.ai Settings > Connectors.
 
+### Organization Controls on Connector Tools
+
+Organizations can set per-tool controls on claude.ai connectors. Claude Code reads these at startup:
+
+- **Tool set to `ask`**: Claude Code prompts on every call, even in `acceptEdits`, `auto`, and `bypassPermissions` permission modes. In `dontAsk` mode, the call is denied.
+- **Tool set to `blocked`**: The tool is filtered out before Claude sees it.
+
 ### Disable claude.ai Connectors
 
-Set `disableClaudeAiConnectors` to `true` in any settings scope, or use the environment variable:
+Set `disableClaudeAiConnectors` to `true` in any settings scope (uses any-source-true semantics), or use the environment variable:
 
 ```bash
 ENABLE_CLAUDEAI_MCP_SERVERS=false claude
 ```
 
-To block individual connectors, add them to `deniedMcpServers` by name or URL pattern.
+To block individual connectors, add them to `deniedMcpServers` by name or URL pattern. In Claude Code on the web, connectors arrive as `--mcp-config` entries, so `disableClaudeAiConnectors` does not apply there.
 
 ## MCP Elicitation
 

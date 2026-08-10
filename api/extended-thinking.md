@@ -2,7 +2,7 @@
 title: "Extended Thinking"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "api"
 ---
 
@@ -19,6 +19,7 @@ Extended thinking is available on all current Claude models. The table below sho
 | Model                           | Manual Extended Thinking (`budget_tokens`) | Recommended                                               |
 | ------------------------------- | ------------------------------------------ | --------------------------------------------------------- |
 | Claude Fable 5, Claude Mythos 5 | Not supported (400 error)                  | Adaptive thinking, always on; use effort to control depth |
+| Claude Opus 5                   | Not supported (400 error)                  | Adaptive thinking with effort                             |
 | Claude Mythos Preview           | Supported                                  | Adaptive thinking, on by default                          |
 | Claude Opus 4.8                 | Not supported (400 error)                  | Adaptive thinking with effort                             |
 | Claude Opus 4.7                 | Not supported (400 error)                  | Adaptive thinking with effort                             |

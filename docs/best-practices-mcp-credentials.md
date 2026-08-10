@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -292,7 +292,7 @@ Before committing `.mcp.json` changes, verify that:
 2. **All variables are documented** in `.env.example`
 3. **Defaults make sense** -- will a new developer get working defaults?
 4. **Server names are descriptive** -- `postgres-analytics` not `db1`
-5. **Reserved names are avoided** -- the name `workspace` is reserved for internal use
+5. **Reserved names are avoided** -- `workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, and `Claude Browser` are reserved
 
 ```bash
 # Quick audit: find any hardcoded-looking secrets
@@ -450,13 +450,15 @@ Or inline:
 - The command runs in a shell with a 10-second timeout
 - Dynamic headers override any static `headers` with the same name
 - The helper runs fresh on each connection (session start and reconnect) with no caching
+- As of v2.1.193, if a tool call returns `401 Unauthorized` or `403 Forbidden`, Claude Code automatically re-runs the helper, reconnects with fresh headers, and retries the call once
 
 Claude Code sets these environment variables when executing the helper:
 
-| Variable                      | Value                      |
-| ----------------------------- | -------------------------- |
-| `CLAUDE_CODE_MCP_SERVER_NAME` | the name of the MCP server |
-| `CLAUDE_CODE_MCP_SERVER_URL`  | the URL of the MCP server  |
+| Variable                      | Value                                                    |
+| ----------------------------- | -------------------------------------------------------- |
+| `CLAUDE_CODE_MCP_SERVER_NAME` | The name of the MCP server                               |
+| `CLAUDE_CODE_MCP_SERVER_URL`  | The URL of the MCP server                                |
+| `CLAUDE_PLUGIN_ROOT`          | The plugin's root directory (plugin-provided servers only) |
 
 Use these to write a single helper script that serves multiple MCP servers.
 
@@ -512,9 +514,20 @@ Or via environment variable:
 ENABLE_CLAUDEAI_MCP_SERVERS=false claude
 ```
 
-To block individual connectors rather than all of them, add them to `deniedMcpServers` by name or URL pattern.
+To block individual connectors rather than all of them, add them to `deniedMcpServers` by name or URL pattern. Note: In Claude Code on the web, connectors arrive as `--mcp-config` entries, so `disableClaudeAiConnectors` does not apply there.
 
-**Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- Managed MCP and enterprise controls.
+### Organization Controls on Connector Tools
+
+Organizations can set per-tool controls on claude.ai connectors. Claude Code reads these at startup:
+
+- **Tool set to `ask`**: Claude Code prompts on every call, even in `acceptEdits`, `auto`, and `bypassPermissions` permission modes. Allow rules that match the tool do not skip the prompt. In `dontAsk` mode, the call is denied.
+- **Tool set to `blocked`**: The tool is filtered out before Claude sees it.
+
+### Workspace Trust for Project Server Approvals
+
+As of v2.1.196, `claude mcp list` and `claude mcp get` read `.mcp.json` approvals only from settings files that aren't checked into the repository until you trust the workspace by running `claude` in it and accepting the workspace trust dialog. A cloned repository cannot approve its own servers: `enableAllProjectMcpServers` or `enabledMcpjsonServers` committed to `.claude/settings.json` is ignored in an untrusted folder.
+
+**Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- Managed MCP, enterprise controls, and workspace trust.
 
 ---
 
@@ -608,7 +621,7 @@ claude mcp reset-project-choices
 | Same server name in multiple scopes             | Confusion about which config is active            | Remember: Local > Project > User > Plugin > claude.ai |
 | Forgetting `--scope project`                    | Server added to Local instead of `.mcp.json`      | Re-add with `--scope project`                         |
 | Not testing with a fresh `.env`                 | Config works for you but breaks for others        | Test by removing `.env` and using `.env.example`      |
-| Using reserved name `workspace`                 | Server silently skipped at load time              | Choose a different server name                        |
+| Using reserved name (`workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, `Claude Browser`) | Server silently skipped at load time              | Choose a different server name                        |
 | Static `Authorization` header with OAuth server | Connection fails instead of falling back to OAuth | Remove the header to use the OAuth flow               |
 | Missing `--` separator for stdio                | Claude Code parses server flags as its own        | Always use `--` before server command                 |
 
@@ -622,7 +635,7 @@ Before committing any MCP configuration:
 - [ ] `.env` is listed in `.gitignore`
 - [ ] `.env.example` exists and documents all required variables
 - [ ] Default values (`${VAR:-default}`) are non-secret and sensible
-- [ ] Server names are descriptive and consistent (not `workspace`, which is reserved)
+- [ ] Server names are descriptive and consistent (avoid reserved names: `workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, `Claude Browser`)
 - [ ] OAuth servers don't include static tokens in committed config
 - [ ] OAuth scopes are restricted to the minimum necessary (`oauth.scopes`)
 - [ ] `headersHelper` scripts are reviewed for security (they execute arbitrary commands)
@@ -711,4 +724,7 @@ As of v2.1.187, a tool call to a remote server (HTTP, SSE, WebSocket, or claude.
 | `streamable-http` as alias for `http`                           | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Automatic reconnection with exponential backoff                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Idle timeout (`CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`)              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
-| Reserved server name `workspace`                                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Reserved server names (5 total)                                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| headersHelper auto-retry on 401/403 (v2.1.193+)                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Workspace trust for project server approvals (v2.1.196+)       | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Organization controls on connector tools (`ask`/`blocked`)     | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |

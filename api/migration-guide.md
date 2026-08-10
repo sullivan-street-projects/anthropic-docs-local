@@ -2,7 +2,7 @@
 title: "Migration Guide"
 source_url: "https://platform.claude.com/docs/en/docs/about-claude/models/migration-guide"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "api"
 ---
 
@@ -19,6 +19,72 @@ Claude Code includes a `/claude-api migrate` command that automates migration by
 - Managing prefill replacements
 - Calibrating effort levels
 - Detecting platform-specific clients (Amazon Bedrock, Google Cloud, Claude Platform on AWS, Microsoft Foundry)
+
+## Migrating to Claude Fable 5 and Claude Mythos 5
+
+Claude Fable 5 is Anthropic's most capable widely released model. Claude Mythos 5 is the same model offered in limited availability through Project Glasswing.
+
+**Pricing:** $10/M input tokens, $50/M output tokens
+**Data Retention:** 30-day requirement; returns 400 error for ZDR organizations
+
+**Baseline Settings (Both Models):**
+- **Thinking:** Adaptive thinking always on; manual extended thinking returns 400 error
+- **Prefill:** Returns 400 error; use system prompts instead
+- **Context window:** 1M tokens default, up to 128k output tokens per request
+
+**Key Divergences:**
+- **Safety classifiers:** Claude Fable 5 includes them (can return `stop_reason: "refusal"`); Claude Mythos 5 does not
+- **Priority Tier:** Supported on Claude Fable 5 only
+
+### From Claude Mythos Preview
+
+```python
+model = "claude-mythos-preview"  # Before
+model = "claude-mythos-5"  # After (or claude-fable-5 for GA)
+```
+
+**Features Not Available:**
+
+1. **Extended Thinking Removed:** `budget_tokens` not supported. Remove manual extended thinking configuration.
+2. **Assistant Prefill:** Not supported; use system prompts
+3. **Thinking Output:** Raw chain of thought never returned; set `thinking.display: "summarized"` for readable summaries
+4. **`thinking: {type: "disabled"}`** returns 400 error
+
+### From Claude Opus 5
+
+```python
+model = "claude-opus-5"  # Before
+model = "claude-fable-5"  # After
+```
+
+**Key Changes:**
+- Thinking can no longer be disabled (`thinking: {type: "disabled"}` returns 400 error)
+- Pricing increased: $10/$50 vs $5/$25
+- Priority Tier: Not supported on Claude Mythos 5
+- Data retention: 30-day requirement (vs no requirement on Opus 5)
+
+### From Claude Opus 4.8
+
+```python
+model = "claude-opus-4-8"  # Before
+model = "claude-fable-5"  # After
+```
+
+**Key Changes:**
+1. **Adaptive thinking always on:** Remove `thinking: {type: "disabled"}` configuration
+2. **Safety classifiers (Fable 5 only):** Handle `stop_reason: "refusal"` and `stop_details.category`
+3. **Lower prompt caching minimum:** 512 tokens vs 1,024 on Opus 4.8
+4. **Start at high effort:** Default remains `high`; lower settings often exceed prior model performance
+
+**Migration Checklist:**
+
+- [ ] Verify ZDR eligibility (30-day retention required)
+- [ ] Update model name
+- [ ] Remove `thinking: {type: "disabled"}` config
+- [ ] Handle `stop_reason: "refusal"` and read `stop_details.category`
+- [ ] Consider `fallbacks` parameter for auto-retry
+- [ ] Re-evaluate effort settings
+- [ ] Re-baseline costs and latency
 
 ## Migrating to Claude Opus 5
 
@@ -46,6 +112,9 @@ model = "claude-opus-5"  # After
 3. **Cache shorter prompts.** Minimum cacheable prompt length is 512 tokens (down from 1,024 on Opus 4.8).
 4. **Change tools mid-conversation (beta).** Add/remove tools between turns without invalidating prompt cache (beta header `mid-conversation-tool-changes-2026-07-01`).
 5. **Re-tune length/verbosity prompts.** Default responses run longer on Opus 5; prompt explicitly for conciseness.
+6. **Remove verification instructions.** Opus 5 self-verifies; explicit instructions cause over-verification.
+7. **Constrain task scope.** Narrow tasks need explicit scope boundaries.
+8. **Control subagent spawning.** Opus 5 delegates more readily.
 
 **Migration Checklist (Opus 4.8 → Opus 5):**
 

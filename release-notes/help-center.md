@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -11,6 +11,14 @@ category: "release-notes"
 Updates to Claude consumer and business applications.
 
 > For developer platform release notes, see [Platform Release Notes](platform.md).
+
+---
+
+## August 2026
+
+### August 6, 2026
+
+- Enterprise clients gained access to automated security scanning for third-party skills and plugins, enabling detection of potentially harmful code during upload or editing phases
 
 ---
 

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-08-02T00:00:00Z",
+  "last_full_update": "2026-08-10T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "8256bd99c59a6f413e376b881db59fb20d6449be6b660ad1dd6e4f5d31da04ce"
+      "sha256": "820580d821bf2e3fa2f7336fa37df26681981b42c789995176ef430803d1c98c"
     },
     {
       "id": "claude-code-features",
@@ -45,10 +45,10 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "https://code.claude.com/docs/en/hooks",
       "source_type": "manual",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "030662e447a2c28eb510eeb20fa1e39448a316ffb81b850c1bae12b9ba9bc80c"
+      "sha256": "6aec90464af5d65f8c884713ba2befeeb5a53cc787714ccd4dfc544d79350549"
     },
     {
       "id": "claude-code-mcp",
@@ -57,10 +57,10 @@
       "local_path": "claude-code/mcp-servers.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "64f764f3814723a42d704265d1f50bc90d58de235d9b47b68446680299f111bb"
+      "sha256": "2e7fc91135a5dc4f7e08a5117a23b09d3d4dc100abff7b928cd059384d7f90f8"
     },
     {
       "id": "claude-code-plugins",
@@ -112,7 +112,7 @@
     },
     {
       "id": "claude-code-felix-lee-designer",
-      "name": "Claude Code Guide for Designers — Felix Lee",
+      "name": "Claude Code Guide for Designers \u2014 Felix Lee",
       "category": "claude-code",
       "local_path": "claude-code/felix-lee-designer-guide.md",
       "source_url": "https://adplist.substack.com/p/claude-code-guide-for-designers",
@@ -141,10 +141,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "b65a9814a7cedbf3ec5d97a2a39db9aae7175ff4df4d384d0630583fec1a4deb"
+      "sha256": "0d5e58f4258e09952087342e0cd5dc6bc2a0566f9936e4dd57bd29a0ab1a63a0"
     },
     {
       "id": "typescript-sdk-readme",
@@ -165,10 +165,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "f9cc2aafa8140f419c9356e0fc0ede846d874c346a50bfa308bbf003369eb6a1"
+      "sha256": "85f8a71336cb268eed4af6101bee13dbbbc159e264aa207e5d4cecc282351e24"
     },
     {
       "id": "other-sdks-overview",
@@ -239,10 +239,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "23a7e9cdbd93d035d7f1fc10b349e92e7b80da22de9ae6ebd7dc974351d1dde4"
+      "sha256": "1d724c7d2cdfbcf18d2f29d31a8b5cba686103576d5184f47246b37dd9864bd6"
     },
     {
       "id": "release-notes-platform",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "7bfc8b15dc2ef9d6dbd400df7611efec31151215e4908ecd028873e8ac3b149f"
+      "sha256": "a2758433087ad42f4c9ab0ccc17e967db70360045a212c0b057bdcbe94a8ca26"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "a899e473eae08edb92d3afac249f3fa7cad9b8c764233ad39c214cd967c24e0a"
+      "sha256": "9e3fa20314f0f60e87c5b90013515aa986412525e7e8b7bcb68d545de41c87f6"
     },
     {
       "id": "release-notes-help-center",
@@ -275,10 +275,10 @@
       "local_path": "release-notes/help-center.md",
       "source_url": "https://support.claude.com/en/articles/12138966-release-notes",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "9f9cd65f81494ba308171c410db5a2584fb3ea6038d0c893dfd2cfc4386f3afe"
+      "sha256": "966142548692781f0faf88005ff24ddbfeb324199afb944989dd17588bc54f2f"
     },
     {
       "id": "api-overview",
@@ -323,10 +323,10 @@
       "local_path": "api/vision.md",
       "source_url": "https://platform.claude.com/docs/en/build-with-claude/vision",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "c01f2e681479a85072a8723cf1a308e3d2bd6a7a619555ce29cb0f22c815fea9"
+      "sha256": "5d881a42bf07ae65db90397ac9ede615971e99ad69fff827c37566e5ccf8c492"
     },
     {
       "id": "api-streaming",
@@ -347,10 +347,10 @@
       "local_path": "api/errors.md",
       "source_url": "https://platform.claude.com/docs/en/api/errors",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "e627fe452bc6abea900236c4c010c26f28dd7cda4de6f83f64a885112e883970"
+      "sha256": "c36cc13def09c8ad48b4d3d93d1f23490f7f6b95dcc7876b0f00e53349326d06"
     },
     {
       "id": "models-overview",
@@ -359,10 +359,10 @@
       "local_path": "models/overview.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/models/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "69cfac426b5108902b85ab4e7b79542fd8363b5d1f366506abd717838d5e7461"
+      "sha256": "3e5e7a4039e19174b2d799c495a47895eb4570afeeeeb8ff8fcbca53f77ce35b"
     },
     {
       "id": "model-opus-4-6",
@@ -419,10 +419,10 @@
       "local_path": "models/deprecations.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "491757ae5144cb2dbd7cdffbeeb5cf2a4c38c07af66dc96e76f3507f496ed02c"
+      "sha256": "e5de5b4a6693004e65b88b0e5cacd4e7bd8755935ca6b1f383e54fff0ee8d565"
     },
     {
       "id": "agent-sdk-readme",
@@ -431,10 +431,10 @@
       "local_path": "agent-sdk/README.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/overview",
       "source_type": "manual",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "50985cde6e79247b5a21f2c9ee4aa4e0403ab8f345e92cf90865e050a53af892"
+      "sha256": "84bf4043f1a13c8904e3e6c53b2fd41d6523b4b44315b0362b542de457dc673d"
     },
     {
       "id": "agent-sdk-quickstart",
@@ -443,10 +443,10 @@
       "local_path": "agent-sdk/quickstart.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/quickstart",
       "source_type": "manual",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "58c3796205f8e93fef538ef2a3991ec6bce0a5398ca461988bb76c857e66f493"
+      "sha256": "873bd9d932ec204dc82c04f7a902700dad5570592b9b611d0f91145a28d46ee4"
     },
     {
       "id": "agent-sdk-examples",
@@ -539,7 +539,7 @@
       "local_path": "research/papers/index.md",
       "source_url": "https://arxiv.org/search/?query=anthropic&searchtype=all",
       "source_type": "arxiv-pdfs",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "papers": [
         {
           "file": "constitutional-ai.pdf",
@@ -628,7 +628,7 @@
       ],
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "5336f529f4f29fa058f36e6e66aec136c281e9b7111d5bc99774ed386a40660a"
+      "sha256": "7b7c9f89f421a66cffd53c4191b670e39a7e158b9c3f83cce7735dddbb122e49"
     },
     {
       "id": "news-claude-code-security",
@@ -841,10 +841,10 @@
       "local_path": "api/adaptive-thinking.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "cb7403f080e366eccd971dfc92ed505fec633cb54ee7b03201a101f440195458"
+      "sha256": "192ab5736f2eaba2761c6fdcf24996f036c67331ea64fcb3d8172cc961568fc6"
     },
     {
       "id": "api-compaction",
@@ -853,10 +853,10 @@
       "local_path": "api/compaction.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/compaction",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "d3014c367af5a8faefd55771896f2f181150f32c6266c16017b3522303bca9e3"
+      "sha256": "d11bfe2d22d322bac6fb81c50b82481d89e739c8f397785f44ebe2ab9ec3b831"
     },
     {
       "id": "api-context-windows",
@@ -865,10 +865,10 @@
       "local_path": "api/context-windows.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "3d6a101523ed257e75913e4f0a69a5e0afc0ed907882def822959f0d2d21132a"
+      "sha256": "718abc679b72e1ec92a541a9904b8c38d65258b564edde8c988f134d97186ce6"
     },
     {
       "id": "api-models-overview",
@@ -877,10 +877,10 @@
       "local_path": "api/models-overview.md",
       "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "7d7d1b7d15e4b22e30d50a319184b8a70143dc5e7e14a8211e16f6c7c4307ddb"
+      "sha256": "b4885d9b6a2d6c7d1ebf927833c154226b7c0f7f18d9ab86d458ad7d513b95f3"
     },
     {
       "id": "api-migration-guide",
@@ -889,10 +889,10 @@
       "local_path": "api/migration-guide.md",
       "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models/migration-guide",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "1cbaf388361a6a87a296cdc563b388023883c6a5b59453061282fc4e0938af87"
+      "sha256": "7bec7c5807d214861eb9afc40985969a519286fb514ef422605b82baad9d15dc"
     },
     {
       "id": "api-extended-thinking",
@@ -901,10 +901,10 @@
       "local_path": "api/extended-thinking.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "bd78bf08007bdd0246ac6029b3c045e0b41bfb8e4f4de7a0299564e70a41bbd5"
+      "sha256": "ac7f8dc109820c8b6a4cb70231f171a067555ee589aab2322e4ac0d46d6c7a4a"
     },
     {
       "id": "api-effort-parameter",
@@ -913,10 +913,10 @@
       "local_path": "api/effort-parameter.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/effort",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "32424d659bf018775e4fa77a949509ce69a379e609f1dbf03214424c28ef2cb6"
+      "sha256": "b7099b89bf61b0e3ad489034a6b0c3bbcd13c45896adc532f53edf5d9c3ba5da"
     },
     {
       "id": "api-memory-tool",
@@ -937,10 +937,10 @@
       "local_path": "api/web-search-tool.md",
       "source_url": "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/web-search-tool",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "d24a9c0306e16b8db2df4778c1792f6da2adb53053a94495c3873cd954ddba02"
+      "sha256": "68df82aa833453923cbe5874a2282e3b50e4516d646cdcc1379ebba74ed56fd3"
     },
     {
       "id": "agent-sdk-typescript-v2",
@@ -973,10 +973,10 @@
       "local_path": "docs/best-practices-mcp-credentials.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-08-10T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "afe24971737ec81556ec88bbffb2c7ad29fac8b3f73653a770d67db9ab3b1b76"
+      "sha256": "ea5df66de30e4c59b88ee0e8c09f2d6393e1fa6720e250e24ea1d72aafeec6b0"
     },
     {
       "id": "research-opendev-coding-agents",

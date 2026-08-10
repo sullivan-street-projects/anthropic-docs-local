@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,22 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### August 7, 2026
+
+- Can now set a budget on a Claude Managed Agents session: a hard cap on the session's spend. A session that reaches its budget pauses with the `budget_reached` stop reason; changing or removing the budget resumes it. Deployments accept the same budget and apply it to each session they start.
+- Can now give a Claude Managed Agents session an advisor: configure it as a `{"type": "advisor"}` entry in the agent's multiagent roster.
+- Can now control where model inference runs for a Claude Managed Agents agent via `inference_geo` inside the `model` object.
+- Claude Managed Agents sessions can now load skills from a GitHub repository. Skills in the root `.claude/skills` directory are discovered automatically at session start.
+
+### August 5, 2026
+
+- **Inference hooks** are now in beta for Claude Enterprise organizations. Point Claude at your organization's AI security server; each governed prompt across claude.ai, Cowork, and Claude Code is held for allow/deny verdict before inference proceeds.
+- Retired the Claude Opus 4.1 model (`claude-opus-4-1-20250805`). Requests to this model now return an error. Recommend upgrading to Claude Opus 5.
+
+### August 1, 2026
+
+- Dreams (research preview) now supports Claude Opus 5.
 
 ### July 24, 2026
 
@@ -45,6 +61,7 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 ### July 10, 2026
 
+- Dreams (research preview) now supports Claude Fable 5 and Claude Sonnet 5.
 - Expanded Access Transparency documentation of `cmek_preserve` events with a filter example, an example event payload, and two preservation reason codes (`policy_violation_investigation`, `csae_report`). Documentation now clarifies that a preservation event is written whether initiated by a human reviewer or an automated safety pipeline.
 
 ### July 8, 2026

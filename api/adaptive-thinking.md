@@ -2,13 +2,13 @@
 title: "Adaptive Thinking"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-10T00:00:00Z"
 category: "api"
 ---
 
 # Adaptive Thinking
 
-Adaptive thinking is the recommended way to use extended thinking with Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6, and the only thinking mode on Claude Fable 5 and Claude Mythos 5. Instead of manually setting a thinking token budget, adaptive thinking lets Claude dynamically determine when and how much to use extended thinking based on the complexity of each request. Per-model defaults and restrictions are listed under [Supported models](#supported-models).
+Adaptive thinking is the recommended way to use extended thinking with Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6, and the only thinking mode on Claude Fable 5 and Claude Mythos 5. Instead of manually setting a thinking token budget, adaptive thinking lets Claude dynamically determine when and how much to use extended thinking based on the complexity of each request. Per-model defaults and restrictions are listed under [Supported models](#supported-models).
 
 > **Tip:** Adaptive thinking can drive better performance than extended thinking with a fixed `budget_tokens` for many workloads, especially bimodal tasks and long-horizon agentic workflows. No beta header is required.
 >
@@ -20,6 +20,7 @@ Adaptive thinking is supported on the following models:
 
 - Claude Fable 5 (`claude-fable-5`) and Claude Mythos 5 (`claude-mythos-5`), adaptive thinking is always on; `thinking: {type: "disabled"}` is not supported. Neither model is available under [zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
 - Claude Mythos Preview (`claude-mythos-preview`), adaptive thinking is the default; `thinking: {type: "disabled"}` is not supported, and manual `{type: "enabled", budget_tokens: N}` is still accepted.
+- Claude Opus 5 (`claude-opus-5`), adaptive thinking is on by default; `thinking: {type: "disabled"}` is allowed only at effort `high` or below. Manual `{type: "enabled"}` is rejected with a 400 error.
 - Claude Opus 4.8 (`claude-opus-4-8`), adaptive thinking is the only supported thinking mode. Thinking is off unless you explicitly set `thinking: {type: "adaptive"}`; manual `thinking: {type: "enabled"}` is rejected with a 400 error.
 - Claude Opus 4.7 (`claude-opus-4-7`), adaptive thinking is the only supported thinking mode. Thinking is off unless you explicitly set `thinking: {type: "adaptive"}`; manual `thinking: {type: "enabled"}` is rejected with a 400 error.
 - Claude Opus 4.6 (`claude-opus-4-6`), adaptive thinking is off unless you explicitly set `thinking: {type: "adaptive"}`; manual `{type: "enabled", budget_tokens: N}` is still accepted but deprecated.
