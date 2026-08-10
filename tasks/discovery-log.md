@@ -19,6 +19,47 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-08-10 — Weekly Update (quick discovery scan)
+
+- **Manifest sources checked**: 120 entries
+- **Added**: 1
+  - arXiv 2604.07729 "Emotion Concepts and their Function in a Large Language Model" (Sofroniew et al., Apr 2026) → research/papers/index.md
+- **Deferred (HIGH — engineering/product)**:
+  - https://www.anthropic.com/engineering/how-we-contain-claude — "How we contain Claude across products"
+  - https://www.anthropic.com/engineering/managed-agents — "Scaling Managed Agents"
+  - https://www.anthropic.com/engineering/claude-code-auto-mode — "How we built Claude Code auto mode"
+  - https://www.anthropic.com/engineering/harness-design-long-running-apps — "Harness design for long-running apps"
+  - https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills — "Equipping agents with Agent Skills"
+  - https://www.anthropic.com/research/global-workspace — "A global workspace in language models"
+  - https://www.anthropic.com/research/off-switch-dual-use — "An off switch for dual-use knowledge"
+  - https://www.anthropic.com/research/discovering-cryptographic-weaknesses — "Discovering cryptographic weaknesses with Claude"
+  - https://www.anthropic.com/news/redeploying-fable-5 — "Redeploying Fable 5"
+  - https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals — "Investigating three real-world incidents in cybersecurity evals"
+  - https://www.anthropic.com/news/position-open-weights-models — "Our position on open-weights models"
+- **Deferred (MEDIUM — research/features/policy)**:
+  - https://www.anthropic.com/engineering/april-23-postmortem — "Update on recent Claude Code quality reports"
+  - https://www.anthropic.com/research/project-pilot — "Project Pilot: Can AI control a drone?"
+  - https://www.anthropic.com/research/claude-plays-robotics — "Claude plays robotics"
+  - https://www.anthropic.com/research/claude-values-models-languages — "Claude's values across models and languages"
+  - https://www.anthropic.com/research/how-canada-uses-claude — "How Canada uses Claude"
+  - https://www.anthropic.com/research/project-fetch-phase-two — "Project Fetch: Phase two"
+  - https://www.anthropic.com/81k-interviews — "What 81,000 people want from AI"
+  - https://www.anthropic.com/features/project-deal — "Project Deal"
+  - https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards — "Improving Fable 5's biology safeguards"
+  - https://www.anthropic.com/news/hard-questions — "Inviting hard questions"
+  - https://www.anthropic.com/features/making-of-claude-code — "The Making of Claude Code"
+  - https://www.anthropic.com/engineering/swe-bench-sonnet — "Raising the bar on SWE-bench Verified"
+- **Deferred (LOW — partnerships/grants)**:
+  - tino-cuellar appointment, cognizant-anthropic partnership, economic-futures-research-fund-agenda, anthropic-economic-index-connector, donation-public-first-action, rare-disease-research-grants
+- **Recent news (Aug 2026 from web search, not yet tracked)**:
+  - Anthropic building in-house AI chip design team (Aug 5)
+  - Anthropic $10B computing deal with cloud startup (Aug 4)
+  - Millennium Partners AI Risk Analyst partnership (Aug 6)
+  - Claude Code self-hosted environments for Team/Enterprise (public beta)
+- **GitHub repos**: No new untracked repos. Star counts refreshed.
+- **SDK versions**: npm @anthropic-ai/sdk 0.116.0, PyPI anthropic 0.121.0
+- **Staleness**: `agent-sdk-typescript-v2-preview` — 7th consecutive 404. Final flag for removal.
+
 ### 2026-08-02 — Weekly Update (full discovery scan)
 
 - **Manifest sources checked**: 106 unique source_urls (117 entries at scan time)

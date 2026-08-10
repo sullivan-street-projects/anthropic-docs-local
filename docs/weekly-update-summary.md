@@ -1,54 +1,96 @@
 ---
-title: "Weekly Update Summary"
-date: "2026-08-02"
----
-
-# Weekly Update Summary — 2026-08-02
+# Weekly Update Summary — 2026-08-10
 
 ## What Changed
 
-### Models (major)
+### claude-code (3 files)
+- **claude-code/CHANGELOG.md** — 6 new versions (2.1.221–2.1.226): gateway spend-limit support, workspace trust prompts for agents, Remote Control improvements, and multiple bug fixes
+- **claude-code/hooks.md** — New DirectoryAdded event (36 total), HTTP hook response handling expanded (5 response types), Agent hooks marked Experimental, Windows PowerShell section, Edit(*.ts) if-field syntax
+- **claude-code/mcp-servers.md** — Automatic backgrounding of long tool calls (v2.1.212+), configuration warnings (whitespace detection), server status detail (caching), project server approvals / workspace trust (v2.1.196+), organization controls on connector tools
 
-- **`models/claude-opus-5.md`** — NEW. Claude Opus 5 (`claude-opus-5`), launched 2026-07-24, now the **default Opus model**. $5/$25 per MTok (same as Opus 4.8), 1M context, 128k max output, knowledge cutoff May 2026, adaptive thinking on by default.
-- **`models/claude-sonnet-5.md`** — NEW. Claude Sonnet 5 (`claude-sonnet-5`), launched 2026-06-30, most-agentic Sonnet yet; intro pricing $2/$10 through Aug 31 2026 then $3/$15. Default for Free & Pro.
-- `models/overview.md`, `api/models-overview.md` — content refresh: Opus 5 promoted to Latest table as default/recommended; Opus 4.8 moved to Legacy; Opus 4.6 / Sonnet 4.6 extended thinking marked deprecated.
-- `models/deprecations.md` — added Fable 5 / Opus 5 / Sonnet 5 rows; Mythos Preview reclassified to "deprecated."
-- `api/migration-guide.md` — new "Migrating to Claude Opus 5" section (drop-in from Opus 4.8; breaking change: disabling thinking allowed only at effort `high` or below).
-- `api/messages-api.md`, `api/tool-use.md` — added `claude-opus-5` to model tables.
+### sdks (2 files)
+- **sdks/python/CHANGELOG.md** — v0.121.0 (Aug 7): mid-conversation-tool-changes beta, session budgets, advisor tool, pinned inference location, skills auto-loading from GitHub, Claude Opus 4.1 retired
+- **sdks/typescript/CHANGELOG.md** — v0.116.0 (Aug 7): matching Python SDK features plus hardcoded User-Agent fix and bash tool timeout/abort improvements
 
-### Claude Code
+### api (10 files)
+- **api/migration-guide.md** — New Fable 5/Mythos 5 migration sections (from Mythos Preview, Opus 5, Opus 4.8). Added Opus 5 behavioral guidance: remove verification instructions, constrain task scope, control subagent spawning
+- **api/errors.md** — 3 new validation error sections: "Extended thinking not supported", "Adaptive thinking not supported", "Thinking cannot be disabled". Updated prefill error description
+- **api/models-overview.md** — Claude Opus 4.1 removed from legacy models table (retired Aug 5). Updated deprecation note to retirement note
+- **api/web-search-tool.md** — Opus 5 added to dynamic filtering and supported models. Retired models (Opus 4.1, Opus 4, Sonnet 4) removed from supported list
+- **api/adaptive-thinking.md** — Opus 5 added to supported models
+- **api/compaction.md** — Opus 5 added to supported models
+- **api/context-windows.md** — Opus 5 added to 1M context window models
+- **api/effort-parameter.md** — Opus 5 added to supported models
+- **api/extended-thinking.md** — Opus 5 added to supported models table
+- **api/vision.md** — Opus 5 added to high-resolution image tier
 
-- `claude-code/CHANGELOG.md` — refreshed through **v2.1.220** (verbatim). Opus 5 default + fast mode; nested subagents now spawn to depth 3 by default; `/code-review` runs as a background subagent; new `DirectoryAdded` hook; new `sandbox.network.strictAllowlist` and `workflowSizeGuideline` settings; dynamic workflows default to <15 agents; accessibility + Windows path fixes.
-- `claude-code/hooks.md` — content changed: 35 documented hook events; `SessionStart` gains a `fork` source; new SessionStart/Setup/SubagentStart output fields (`initialUserMessage`, `watchPaths`, `sessionTitle`, `reloadSkills`); **behavior change (v2.1.214): a hook exiting 2 with invalid JSON now BLOCKS the action.**
-- `claude-code/plugins.md` — multi-`--plugin-url` support; `claude plugin validate --strict`.
-- `engineering/claude-code-best-practices.md` — NEW (long-standing backlog item, ~5 cycles). Anthropic's agentic-coding best-practices guide.
+### models (2 files)
+- **models/overview.md** — Opus 4.1 removed from legacy table, added to retired models list
+- **models/deprecations.md** — Opus 4.1 status changed from "Deprecated" to "Retired" with retirement note
 
-### SDKs
+### release-notes (3 files)
+- **release-notes/platform.md** — 4 new entries: Aug 7 (Managed Agents session budgets, advisor tool, inference_geo, GitHub skills auto-loading), Aug 5 (inference hooks beta for Enterprise, Opus 4.1 retired), Aug 1 (Dreams supports Opus 5), Jul 10 addition
+- **release-notes/api.md** — Same 4 new entries in condensed form
+- **release-notes/help-center.md** — Aug 6 entry: enterprise security scanning for skills/plugins
 
-- `sdks/python/CHANGELOG.md` — through **0.120.2** (2026-07-28).
-- `sdks/typescript/CHANGELOG.md` — through **0.115.0** (2026-07-24); README copy fix.
-- `agent-sdk/README.md`, `agent-sdk/quickstart.md` — **both TS and Python SDKs now bundle the native Claude Code binary** (was TS-only).
+### agent-sdk (2 files)
+- **agent-sdk/README.md** — Updated comparison table (Agent SDK vs CLI vs Client SDK vs Managed Agents). Added Plugins capability. Renamed Google Vertex AI → Google Cloud's Agent Platform, Microsoft Azure → Microsoft Foundry
+- **agent-sdk/quickstart.md** — Matching platform rebrands, updated setup guide links, bundled binary edge cases
 
-### Research / Release Notes / Repos
+### research (1 file)
+- **research/papers/index.md** — Added arXiv 2604.07729 "Emotion Concepts and their Function in a Large Language Model" (Sofroniew et al., Apr 2026) — discovers internal emotion concept representations in Claude Sonnet 4.5 that causally influence outputs
 
-- `research/index.md`, `research/societal-impacts.md`, `research/policy.md` — new July posts (Frontier Red Team: cryptographic weaknesses, Project Pilot drone, Claude plays robotics; How Canada uses Claude; Claude's values across models and languages).
-- `research/papers/index.md` — added interpretability paper "Verbalizable Representations Form a Global Workspace in Language Models" (transformer-circuits.pub, Jul 6).
-- `release-notes/{platform,api,help-center}.md` — Opus 5 launch, fast mode removed for Opus 4.7, Workbench sunset (Aug 17), Enterprise Admin API, HIPAA self-serve, memory-system revamp.
-- `github-repos/index.md` — star refresh + 4 new repos (92 → 96): code-migration-kit-with-claude-code, cryptography-research-demo, k12-teacher-skills, rayon.
-- `skills/catalog.md` — star count 161k → 166k.
+### github-repos (1 file)
+- **github-repos/index.md** — Star counts refreshed across 96 repos. Notable: skills 167k (+1.6k), claude-code 141k (+900), cookbooks 51k (+360)
+
+### docs (1 file)
+- **docs/best-practices-mcp-credentials.md** — Updated reserved server names (5 total), headersHelper auto-retry on 401/403, CLAUDE_PLUGIN_ROOT env var, org controls on connector tools, workspace trust for project server approvals
 
 ## So What — Why It Matters
 
-- **Opus 5 is the new default Opus.** Any project pinning `claude-opus-4-8` or relying on the "default Opus" will now resolve differently. The one breaking change to note: with Opus 5 you can only disable extended thinking at effort `high` or below — `thinking:{type:"disabled"}` at `xhigh`/`max` returns HTTP 400.
-- **Sonnet 5 is the new Free/Pro default** and carries promotional pricing ($2/$10) only through Aug 31, 2026 — relevant for cost estimates on Sonnet-tier workloads.
-- **Hooks behavior change (v2.1.214):** a hook that exits 2 with malformed JSON now _blocks_ the action instead of being ignored. If any of our automation relies on hooks, malformed output is now a hard stop, not a silent pass.
-- **Both Agent SDKs bundle the native binary now** — Python users no longer need a separate Claude Code install.
-- **Deprecations:** Opus 4.1 still retires **Aug 5, 2026** (3 days out); replacement pointer is now Opus 5. Legacy Workbench + experimental prompt-tools APIs retire **Aug 17, 2026** (new Workbench at `/playground`).
+### Claude Opus 4.1 is now RETIRED
+Opus 4.1 was officially retired on Aug 5. Any code still referencing `claude-opus-4-1` model IDs will fail. Migrate to Opus 4.6 or Opus 5.
+
+### SDK session budgets and advisor tool are new
+Both Python (v0.121.0) and TypeScript (v0.116.0) SDKs shipped a `session_budgets` feature and an `advisor` tool. The `mid-conversation-tool-changes` beta allows modifying tools mid-conversation. Skills can now auto-load from GitHub repos.
+
+### Opus 5 is now fully documented across API docs
+Opus 5 has been added to supported model lists for: extended thinking, adaptive thinking, effort parameter, context windows (1M), vision (high-res), web search (dynamic filtering), and compaction. It was launched Jul 24 but many API doc pages hadn't been updated until now.
+
+### Fable 5 / Mythos 5 migration guidance
+New migration guide sections cover moving to Fable 5/Mythos 5 from Mythos Preview, Opus 5, and Opus 4.8. Includes important behavioral guidance for Opus 5: remove explicit verification instructions (it self-verifies), constrain task scope to prevent scope creep, and control subagent spawning.
+
+### Claude Code gateway spend-limits
+New in v2.1.222+: gateway-level spend limits allow organizations to cap Claude Code spending per user/team. Combined with workspace trust prompts (v2.1.224+) for agent security.
+
+### MCP server improvements
+Automatic backgrounding of long-running MCP tool calls (v2.1.212+), configuration warnings for whitespace in server configs, and organization-level controls on connector tools. Project server approvals now tied to workspace trust model.
+
+### New research: emotion representations in LLMs
+Anthropic's interpretability team found that Claude Sonnet 4.5 develops internal emotion concept representations that causally influence its outputs — not just pattern matching, but functional emotion-like states that affect reasoning.
 
 ## Action Items
 
-- **[Aug 5, 2026 — imminent]** Claude Opus 4.1 retires in 3 days. Anything still on `claude-opus-4-1` must migrate (recommended target: Opus 5).
-- **[Aug 17, 2026]** Legacy Workbench + experimental prompt-tools APIs retire. Migrate to `/playground` if used.
-- **[Stale source — 6th consecutive cycle]** `agent-sdk-typescript-v2-preview` (`agent-sdk/typescript-v2-preview.md`, source `github.com/anthropics/agent-sdk`) has been 404 for 6 cycles and produces a recurring validation warning. Recommend removing the manifest entry + local file. Flagged as a background task rather than deleted during this unattended run.
-- **[Discovery backlog]** ~16 untracked engineering/research posts surfaced (see `tasks/discovery-log.md`) — e.g. claude-code-auto-mode, harness-design-long-running-apps, managed-agents, how-we-contain-claude. Top 3 auto-added this cycle; remainder deferred for review.
-- **No breaking changes to our own tooling.** The update pipeline, validation, and schemas are unaffected.
+- **BREAKING**: If any project uses `claude-opus-4-1` model IDs, migrate immediately — the model is retired
+- **SDK UPDATE**: Consider upgrading to Python SDK 0.121.0 / TypeScript SDK 0.116.0 for session budgets and advisor tool
+- **Opus 5 behavioral notes**: When using Opus 5, remove explicit verification instructions from prompts (it handles this internally) and add guardrails for subagent spawning
+- **MCP**: If using custom MCP servers, review the new automatic backgrounding behavior for long tool calls
+- **Platform rebrands**: Google Vertex AI is now "Google Cloud's Agent Platform", Microsoft Azure is now "Microsoft Foundry" — update any integration references
+
+## Discovery — New Untracked Content
+
+28 new sources found on anthropic.com not yet tracked. Highlights:
+
+**HIGH priority (engineering/product):**
+- "How we contain Claude across products" (engineering)
+- "Scaling Managed Agents" (engineering)
+- "How we built Claude Code auto mode" (engineering)
+- "Harness design for long-running apps" (engineering)
+- "Equipping agents with Agent Skills" (engineering)
+
+**HIGH priority (research):**
+- "A global workspace in language models" (research)
+- "An off switch for dual-use knowledge" (research)
+- "Discovering cryptographic weaknesses with Claude" (research)
+
+Run `/update-anthropic-docs --discover` for the full list.

@@ -29,15 +29,49 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 5
+Total cycles logged: 6
 Total improvements applied: 2
 Total improvements deferred: 2
 Most-improved infrastructure: manifest.json (2 changes: hashes + URL corrections)
-Most-informative category: claude-code (13 insights sourced from it)
-Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 6th consecutive 404)
-Last cycle: 2026-08-02 — 0 applied (1 workflow lesson recorded), 0 deferred
+Most-informative category: claude-code (16 insights sourced from it)
+Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 7th consecutive 404)
+Last cycle: 2026-08-10 — 0 applied, 0 deferred
 
 ## Entries
+
+### 2026-08-10 — Update: all
+
+Content changes analyzed: 25 files (all with real content changes)
+Improvements identified: 0
+Improvements applied: 0
+Improvements deferred: 0
+
+**Already aligned (content teaches, infra already does it):**
+
+- claude-code/CHANGELOG.md → gateway spend-limits, workspace trust prompts for agents. Our pipeline runs in a managed environment and doesn't use gateway spend-limits. Workspace trust is informational for agent security posture. No infra change needed.
+- claude-code/hooks.md → DirectoryAdded event, HTTP hook response types, Agent hooks marked Experimental. Our repo doesn't use hooks in automation. Informational.
+- claude-code/mcp-servers.md → automatic backgrounding of long tool calls, org controls on connector tools. Our update skill uses WebFetch, not custom MCP tool calls. Informational.
+- api/migration-guide.md → Opus 5 behavioral guidance (remove verification instructions, constrain task scope, control subagent spawning). Our update agents are already well-scoped with specific instructions. Aligned.
+- api/errors.md → new thinking-related validation errors. Our infra doesn't make direct API calls. Informational.
+- sdks/python/CHANGELOG.md + sdks/typescript/CHANGELOG.md → session budgets, advisor tool, skills auto-loading. These are SDK features for app developers; our repo doesn't use the SDK directly. Informational.
+
+**Staleness report:**
+
+- Stable (unchanged but accessible): ~57 web-extracted snapshot articles (not re-fetched; timestamps preserved at last successful fetch).
+- Possibly dead: 1 (7th consecutive cycle) — `agent-sdk-typescript-v2-preview`: https://github.com/anthropics/agent-sdk — 404. STRONGLY recommend removal. This is the final flag — should be removed in the next attended session.
+- Relocated: 0.
+
+**Discovery findings (Phase 2.5):**
+
+- No new GitHub repos found. Star counts refreshed.
+- 1 new arXiv paper added: 2604.07729 "Emotion Concepts and their Function in a Large Language Model" (Sofroniew et al., Anthropic interpretability team).
+- ~28 untracked sources found on anthropic.com (11 HIGH, 12 MEDIUM, 5 LOW). See discovery-log.md.
+- SDK versions: npm @anthropic-ai/sdk 0.116.0, PyPI anthropic 0.121.0.
+
+**No action needed:**
+
+- All 25 changed files carried genuine content; 0 were timestamp-only this cycle.
+- High-signal week driven by Opus 4.1 retirement, SDK releases, and Opus 5 docs backfill.
 
 ### 2026-08-02 — Update: all
 

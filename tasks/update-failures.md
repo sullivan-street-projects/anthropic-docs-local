@@ -66,6 +66,16 @@ Track source-specific failures with resolutions. Review at session start to avoi
 - **Resolution**: Existing local content preserved; timestamps left untouched (source not re-fetchable). NOT deleted during this unattended run.
 - **Prevention**: Removal is overdue — flagged as a background task chip for the user to remove the manifest entry (`agent-sdk-typescript-v2-preview`) AND the local file `agent-sdk/typescript-v2-preview.md` in one action. Once removed, the recurring warning disappears. Do not keep re-flagging beyond this — escalate to removal.
 
+### 2026-08-10 — agent-sdk-typescript-v2-preview (7th consecutive)
+
+- **Error**: `github.com/anthropics/agent-sdk` still 404 — 7th consecutive cycle. Produces recurring Layer-3 validation warning.
+- **Resolution**: Not re-fetched. Existing content preserved. FINAL FLAG — should be removed in next attended session.
+- **Prevention**: Remove manifest entry + local file. No further logging needed.
+
+### 2026-08-10 — no fetch failures
+
+- **Note**: All actively-fetched sources succeeded this cycle. 25 content-changed files across all source types. Key drivers: Opus 4.1 retirement, SDK releases (Python 0.121.0, TS 0.116.0), Opus 5 docs backfill across API pages.
+
 ### 2026-08-02 — no fetch failures
 
 - **Note**: All actively-fetched sources (github-raw, github-api, manual, arxiv, volatile web-extracted) succeeded this cycle. No 404s on code.claude.com or platform.claude.com. Dual model launch (Opus 5 / Sonnet 5) made this an unusually high-signal week (26 content-changed files, 0 timestamp-only).
