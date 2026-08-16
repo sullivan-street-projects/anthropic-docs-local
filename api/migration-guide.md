@@ -2,7 +2,7 @@
 title: "Migration Guide"
 source_url: "https://platform.claude.com/docs/en/docs/about-claude/models/migration-guide"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "api"
 ---
 
@@ -172,7 +172,7 @@ client.messages.create(
 
 Claude Sonnet 5 offers the best combination of speed and intelligence. It builds on Claude Sonnet 4.6.
 
-**Pricing:** Introductory $2/$10 per million input/output tokens through August 31, 2026; then $3/$15 standard pricing.
+**Pricing:** $2/$10 per million input/output tokens. This was introductory pricing that became the standard price on August 10, 2026 (the previously scheduled increase to $3/$15 on September 1, 2026 will not occur).
 
 **Breaking Changes:**
 

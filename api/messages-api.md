@@ -2,7 +2,7 @@
 title: "Messages API"
 source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "api"
 ---
 
@@ -230,6 +230,14 @@ Enable incremental streaming of the response using server-sent events (SSE). See
 ### `cache_control` (object)
 
 Top-level cache control marker with TTL: `"5m"` or `"1h"`.
+
+### `container` (string)
+
+Optional identifier for a container to reuse across requests (for example, to persist code execution state).
+
+### `inference_geo` (string)
+
+Optional geographic region for inference processing (data residency control). Supported on models released after February 1, 2026; US-only inference is available at a pricing premium.
 
 ## Extended Thinking
 

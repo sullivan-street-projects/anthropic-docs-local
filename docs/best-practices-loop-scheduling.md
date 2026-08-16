@@ -2,7 +2,7 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "claude-code"
 ---
 

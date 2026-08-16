@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs. Connect a server when you find yourself copying data into chat from another tool.
 
-> **Last updated:** July 12, 2026
+> **Last updated:** August 16, 2026
 
 ## What You Can Do with MCP
 
@@ -357,7 +357,23 @@ If an HTTP or SSE server disconnects mid-session, Claude Code automatically reco
 
 ## Idle Timeout
 
-As of v2.1.187, a tool call to a remote HTTP, SSE, WebSocket, or claude.ai connector server that sends no response and no progress notification for 5 minutes aborts with an error. Set `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` in milliseconds to change the idle window, or set it to `0` to disable. Stdio servers are not subject to the idle timeout.
+As of v2.1.187, a tool call to an MCP server that sends no response and no progress notification for the idle window aborts with an error instead of waiting for the wall-clock limit. The idle window defaults to 5 minutes for HTTP, SSE, WebSocket, and claude.ai connector servers, and to 30 minutes for stdio servers (as of v2.1.203; before that, stdio servers were exempt). It applies to every server type except IDE servers and SDK in-process servers. Set `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` in milliseconds to change the idle window, or set it to `0` to disable the check.
+
+A per-server `timeout` of at least 1000 also acts as a floor on the idle timeout (v2.1.203+): Claude Code never aborts that server's tool calls for idleness sooner than the per-server `timeout`.
+
+### Per-Request Timer
+
+For HTTP, SSE, or claude.ai connector servers, a second per-request timer covers each request through to the server's first response byte. That timer is 60 seconds unless you set the per-server `timeout` or `MCP_TOOL_TIMEOUT`; setting either to 60 seconds or higher raises the per-request timer to that value (a lower value doesn't shorten it). Stdio and WebSocket servers have no per-request timer.
+
+## Automatic Backgrounding of Long Tool Calls
+
+As of v2.1.212, an MCP tool call in the main conversation that is still running after two minutes moves to a background task instead of blocking the session. Claude receives the task ID immediately and keeps working; the result arrives as a task notification when the call settles. The task appears in `/tasks`, where you can also stop it, and doesn't survive exiting the session. Per-call limits (wall-clock and idle timeouts) still apply while the call runs in the background.
+
+Set `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` in milliseconds to change the threshold, or `0` to turn backgrounding off. Setting `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1` also disables it. Some calls never move to the background: calls from subagents, calls to IDE servers, calls in non-interactive mode (unless `CLAUDE_AUTO_BACKGROUND_TASKS=1`), and calls waiting on an open elicitation dialog.
+
+## Discovery Cache
+
+As of v2.1.221, a remote (HTTP or SSE) server you've used before can show a `cached` status in `/mcp` and `/plugin`, such as `cached 2h ago · connects on first use · 5 tools`. Claude Code loaded the server's tool list from a previous session instead of connecting at startup, and connects the server the first time Claude calls one of its tools. The tools are available from your first message. To make every server connect at startup instead, set `MCP_DISCOVERY_CACHE=0`.
 
 ## MCP Resources
 
@@ -445,14 +461,16 @@ Claude Desktop configuration:
 
 ## Environment Variables
 
-| Variable                            | Description                                                   |
-| ----------------------------------- | ------------------------------------------------------------- |
-| `MCP_TIMEOUT`                       | Server startup timeout in ms (default: 10000)                 |
-| `MCP_TOOL_TIMEOUT`                  | Per-tool execution timeout                                    |
-| `MAX_MCP_OUTPUT_TOKENS`             | Output token limit (default: 25000)                           |
-| `ENABLE_TOOL_SEARCH`                | Tool search behavior (`auto`, `true`, `false`)                |
-| `ENABLE_CLAUDEAI_MCP_SERVERS`       | Enable/disable Claude.ai MCP servers                          |
-| `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | Idle timeout in ms for remote tool calls (default: 5 minutes) |
+| Variable                             | Description                                                                |
+| ------------------------------------ | -------------------------------------------------------------------------- |
+| `MCP_TIMEOUT`                        | Server startup timeout in ms (default: 10000)                              |
+| `MCP_TOOL_TIMEOUT`                   | Per-tool execution timeout                                                 |
+| `MAX_MCP_OUTPUT_TOKENS`              | Output token limit (default: 25000)                                        |
+| `ENABLE_TOOL_SEARCH`                 | Tool search behavior (`auto`, `true`, `false`)                             |
+| `ENABLE_CLAUDEAI_MCP_SERVERS`        | Enable/disable Claude.ai MCP servers                                       |
+| `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`  | Idle timeout in ms (default: 5 min remote / 30 min stdio)                  |
+| `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before long calls background (default: 2 min); `0` disables |
+| `MCP_DISCOVERY_CACHE`                | Set to `0` to connect every server at startup (disable cached discovery)   |
 
 Per-server `timeout` field in `.mcp.json` overrides `MCP_TOOL_TIMEOUT` for that server only. Values below 1000 are ignored.
 

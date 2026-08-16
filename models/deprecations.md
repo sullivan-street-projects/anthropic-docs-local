@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "models"
 ---
 
@@ -58,7 +58,7 @@ To identify usage of deprecated models:
 | `claude-opus-4-7`            | Active        | N/A               | Not sooner than April 16, 2027     |
 | `claude-opus-4-6`            | Active        | N/A               | Not sooner than February 5, 2027   |
 | `claude-opus-4-5-20251101`   | Active        | N/A               | Not sooner than November 24, 2026  |
-| `claude-opus-4-1-20250805`   | Deprecated    | June 5, 2026      | August 5, 2026                     |
+| `claude-opus-4-1-20250805`   | Retired       | June 5, 2026      | August 5, 2026                     |
 | `claude-opus-4-20250514`     | Retired       | April 14, 2026    | June 15, 2026                      |
 | `claude-sonnet-5`            | Active        | N/A               | Not sooner than June 30, 2027      |
 | `claude-sonnet-4-6`          | Active        | N/A               | Not sooner than February 17, 2027  |
@@ -72,6 +72,8 @@ To identify usage of deprecated models:
 ## Deprecation History
 
 ### 2026-06-05: Claude Opus 4.1 model
+
+**Note:** This model was retired August 5, 2026.
 
 On June 5, 2026, Anthropic notified developers using Claude Opus 4.1 of its upcoming retirement on the Claude API.
 

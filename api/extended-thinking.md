@@ -2,7 +2,7 @@
 title: "Extended Thinking"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "api"
 ---
 
@@ -20,6 +20,7 @@ Extended thinking is available on all current Claude models. The table below sho
 | ------------------------------- | ------------------------------------------ | --------------------------------------------------------- |
 | Claude Fable 5, Claude Mythos 5 | Not supported (400 error)                  | Adaptive thinking, always on; use effort to control depth |
 | Claude Mythos Preview           | Supported                                  | Adaptive thinking, on by default                          |
+| Claude Opus 5                   | Not supported (400 error)                  | Adaptive thinking with effort                             |
 | Claude Opus 4.8                 | Not supported (400 error)                  | Adaptive thinking with effort                             |
 | Claude Opus 4.7                 | Not supported (400 error)                  | Adaptive thinking with effort                             |
 | Claude Sonnet 5                 | Not supported (400 error)                  | Adaptive thinking with effort                             |
@@ -164,7 +165,7 @@ The `display` field on the thinking configuration controls how thinking content 
 **Display Options:**
 
 - `"summarized"` (default for Claude 4 models): Thinking blocks contain summarized thinking text
-- `"omitted"` (default for Claude Fable 5, Claude Mythos 5, Claude Sonnet 5, Claude Opus 4.8, Claude Opus 4.7): Thinking blocks are returned with an empty `thinking` field. The `signature` field still carries the encrypted full thinking for multi-turn continuity
+- `"omitted"` (default for Claude Fable 5, Claude Mythos 5, Claude Opus 5, Claude Sonnet 5, Claude Opus 4.8, Claude Opus 4.7): Thinking blocks are returned with an empty `thinking` field. The `signature` field still carries the encrypted full thinking for multi-turn continuity
 
 **Benefits of omitted thinking:**
 Setting `display: "omitted"` is useful when your application doesn't surface thinking content to users. The primary benefit is **faster time-to-first-text-token when streaming:** the server skips streaming thinking tokens entirely and delivers only the signature.
@@ -427,6 +428,7 @@ Extended thinking with tool use in Claude 4 models supports interleaved thinking
 | ------------------------------- | -------------------------------------------------------------------------------------------- |
 | Claude Fable 5, Claude Mythos 5 | Automatic with adaptive thinking. No beta header needed.                                     |
 | Claude Mythos Preview           | Automatic. No beta header needed or supported.                                               |
+| Claude Opus 5                   | Automatic with adaptive thinking. No beta header needed.                                     |
 | Claude Opus 4.8                 | Automatic with adaptive thinking. No beta header needed.                                     |
 | Claude Opus 4.7                 | Automatic with adaptive thinking. No beta header needed.                                     |
 | Claude Opus 4.6                 | Automatic with adaptive thinking. Beta header deprecated and safely ignored.                 |

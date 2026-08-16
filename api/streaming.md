@@ -2,7 +2,7 @@
 title: "Streaming API"
 source_url: "https://platform.claude.com/docs/en/api/streaming"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "api"
 ---
 
@@ -398,7 +398,7 @@ Server tool use blocks (`server_tool_use`) and results (`web_search_tool_result`
 with client.messages.stream(
     model="claude-opus-4-8",
     max_tokens=1024,
-    tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 5}],
+    tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": 5}],
     messages=[{"role": "user", "content": "What is the latest news about AI safety?"}],
 ) as stream:
     for event in stream:

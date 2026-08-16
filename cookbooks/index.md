@@ -2,7 +2,7 @@
 title: "Cookbooks Index"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "cookbooks"
 ---
 
@@ -69,6 +69,7 @@ If you have ideas for new examples or guides, share them on the [issues page](ht
 - [Enable JSON mode](https://github.com/anthropics/anthropic-cookbook/blob/main/misc/how_to_enable_json_mode.ipynb): Ensure consistent JSON output from Claude.
 - [Create a moderation filter](https://github.com/anthropics/anthropic-cookbook/blob/main/misc/building_moderation_filter.ipynb): Use Claude to create a content moderation filter for your application.
 - [Prompt caching](https://github.com/anthropics/anthropic-cookbook/blob/main/misc/prompt_caching.ipynb): Learn techniques for efficient prompt caching with Claude.
+- [Cost optimization](https://github.com/anthropics/anthropic-cookbook/blob/main/cost_optimization/cost_optimization.ipynb): Work through a cost optimization checklist on an agent, measuring pass rate and cost per task to find the Pareto-optimal configuration.
 
 ## Additional Resources
 

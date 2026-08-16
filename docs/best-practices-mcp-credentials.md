@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -680,7 +680,9 @@ Stdio servers are local processes and are not reconnected automatically.
 
 ### Idle Timeout
 
-As of v2.1.187, a tool call to a remote server (HTTP, SSE, WebSocket, or claude.ai connector) that sends no response and no progress notification for 5 minutes aborts with an error. Set the `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` environment variable in milliseconds to change the window, or set it to `0` to disable. Stdio servers are not subject to the idle timeout.
+As of v2.1.187, a tool call that sends no response and no progress notification for the idle window aborts with an error. The window defaults to 5 minutes for HTTP, SSE, WebSocket, and claude.ai connector servers, and to 30 minutes for stdio servers (as of v2.1.203; before that, stdio servers were exempt). It applies to every server type except IDE servers and SDK in-process servers. Set the `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` environment variable in milliseconds to change the window, or set it to `0` to disable. A per-server `timeout` of at least 1000 also acts as a floor, so idle aborts never fire sooner than that value (v2.1.203+).
+
+An MCP tool call in the main conversation still running after two minutes moves to a background task instead of blocking the session (v2.1.212+). Set `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` in milliseconds to change the threshold, or `0` to disable.
 
 ---
 

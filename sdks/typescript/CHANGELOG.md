@@ -2,11 +2,75 @@
 title: "TypeScript SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "sdks"
 ---
 
 # Changelog
+
+## 0.117.1 (2026-08-13)
+
+Full Changelog: [sdk-v0.117.0...sdk-v0.117.1](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.117.0...sdk-v0.117.1)
+
+### Chores
+
+* **ci:** allow manually re-publishing a package to npm from the release workflow ([af60c1f](https://github.com/anthropics/anthropic-sdk-typescript/commit/af60c1f980557368fb10c3701d8dc8a1fa75d70e))
+* **internal:** tag uploaded preview builds with the branch name ([#295](https://github.com/anthropics/anthropic-sdk-typescript/issues/295)) ([228f44e](https://github.com/anthropics/anthropic-sdk-typescript/commit/228f44ee4848e6a26be27d26093635e2dba783ea))
+
+## 0.117.0 (2026-08-13)
+
+Full Changelog: [sdk-v0.116.0...sdk-v0.117.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.116.0...sdk-v0.117.0)
+
+### Features
+
+* **api:** add output_behavior to dream creation (create a new memory store or update the input store in place) ([6a5bd0f](https://github.com/anthropics/anthropic-sdk-typescript/commit/6a5bd0f34d214759f97d485e46b09203fff3ea99))
+
+
+### Bug Fixes
+
+* **build:** include dotfiles when flattening dist during git installs ([917dbbb](https://github.com/anthropics/anthropic-sdk-typescript/commit/917dbbb40070dbd1f861b16fcf297720d96f691b))
+* **client:** add models ([a7bfbb1](https://github.com/anthropics/anthropic-sdk-typescript/commit/a7bfbb1b31e9d1dffe9a83b90ec1d0dabf5c36db))
+* **messages:** honor per-request timeout in the non-streaming long-request check ([#272](https://github.com/anthropics/anthropic-sdk-typescript/issues/272)) ([0fdd8a8](https://github.com/anthropics/anthropic-sdk-typescript/commit/0fdd8a8feb5d16fbb943490a2b1e8ecf915596d6))
+* **streaming:** apply all message_delta fields when accumulating streamed messages ([#289](https://github.com/anthropics/anthropic-sdk-typescript/issues/289)) ([7b82659](https://github.com/anthropics/anthropic-sdk-typescript/commit/7b82659d70201ae3edab846f1693366db7e62ce3))
+* **tool-runner:** forward the response container id to the next request ([#271](https://github.com/anthropics/anthropic-sdk-typescript/issues/271)) ([5bdee4a](https://github.com/anthropics/anthropic-sdk-typescript/commit/5bdee4a8ddd83e2f1c71daa429345b3b0fea4602))
+* **tools:** align path resolution, skill-archive members, and heartbeat bounds with the other SDKs ([#264](https://github.com/anthropics/anthropic-sdk-typescript/issues/264)) ([5fbc729](https://github.com/anthropics/anthropic-sdk-typescript/commit/5fbc729c82ec3967c9f76428d0f733b5fa61ddd5))
+
+
+### Chores
+
+* **ci:** run breaking-change detection as a ci.yml job on every push ([c34c1d5](https://github.com/anthropics/anthropic-sdk-typescript/commit/c34c1d53f3227b3978621590e67f5a33f5cad107))
+* **internal:** switch from yarn to pnpm ([f4eeea0](https://github.com/anthropics/anthropic-sdk-typescript/commit/f4eeea09648620d35517513814ffdc3bd3080801))
+* **tools:** escape backslashes in skill archive exclusion patterns ([#311](https://github.com/anthropics/anthropic-sdk-typescript/issues/311)) ([67ede1c](https://github.com/anthropics/anthropic-sdk-typescript/commit/67ede1c665883b7785af3240c749601d7ca19255))
+
+
+### Documentation
+
+* **api:** clarify that user profile name is optional for resold profiles ([1b6fed5](https://github.com/anthropics/anthropic-sdk-typescript/commit/1b6fed5868bd16dd92120440d373da22084be237))
+
+## 0.116.0 (2026-08-07)
+
+Full Changelog: [sdk-v0.115.0...sdk-v0.116.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.115.0...sdk-v0.116.0)
+
+### Features
+
+* **api:** add `mid-conversation-tool-changes-2026-07-01` beta ([70e04f6](https://github.com/anthropics/anthropic-sdk-typescript/commit/70e04f689baa233e7cb2fed6bb807562f5595928))
+* **api:** add support for session budgets, advisor tool, pinned inference location and skills auto-loading from GitHub ([1336a4a](https://github.com/anthropics/anthropic-sdk-typescript/commit/1336a4a90387a7005f6211b6df5e2b247f4cb6b3))
+* **tools:** make bash timeout and abort errors matchable by class ([#259](https://github.com/anthropics/anthropic-sdk-typescript/issues/259)) ([201b12e](https://github.com/anthropics/anthropic-sdk-typescript/commit/201b12e8acd69d7ab7068fe078f7988ab23897d2))
+
+
+### Bug Fixes
+
+* **client:** use hardcoded User-Agent strings instead of constructor names ([0b97f04](https://github.com/anthropics/anthropic-sdk-typescript/commit/0b97f04042584d234162a7ff8a5c4b8095ad800e))
+
+
+### Chores
+
+* **api:** remove retired Claude Opus 4.1 models ([11b685c](https://github.com/anthropics/anthropic-sdk-typescript/commit/11b685c66fea6d7d8a8e5354af9a188ee6b8c598))
+* **docs:** small updates to descriptions ([413cc5f](https://github.com/anthropics/anthropic-sdk-typescript/commit/413cc5f120a1b1879d467ccd7d5edef5b8b1741e))
+* **docs:** updates to a few documentation strings ([c38a1de](https://github.com/anthropics/anthropic-sdk-typescript/commit/c38a1de5fc86e9bc59eafdba4adf267398534f6f))
+* **internal/deps:** bump @babel/core and @babel/helpers to 7.29.7 ([#261](https://github.com/anthropics/anthropic-sdk-typescript/issues/261)) ([3164934](https://github.com/anthropics/anthropic-sdk-typescript/commit/316493468067bc40a9c00fbf8c7de29c770c4c61))
+* **internal/deps:** install tsc-multi from the npm registry ([#265](https://github.com/anthropics/anthropic-sdk-typescript/issues/265)) ([c787f90](https://github.com/anthropics/anthropic-sdk-typescript/commit/c787f9022cf7ba0703bf7399dcb63e491615d2e8))
+* **internal:** codegen related update ([73b3d61](https://github.com/anthropics/anthropic-sdk-typescript/commit/73b3d61009118740b0931b537ce03b212c62ab05))
 
 ## 0.115.0 (2026-07-24)
 

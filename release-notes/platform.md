@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,35 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### August 11, 2026
+
+- The **Compliance API** now returns transcripts of Cowork and Claude Code sessions that run on your users' machines, in beta for Claude Enterprise organizations. `GET /v1/compliance/apps/sessions/local` lists sessions across your organization, `GET /v1/compliance/apps/sessions/local/{session_id}` retrieves one session's metadata, and `GET /v1/compliance/apps/sessions/local/{session_id}/messages` returns its transcript, all with your existing Compliance Access Key and the `read:compliance_user_data` scope.
+- Added the `anthropic-workspace-id` response header to the Claude API. It carries the `wrkspc_`-prefixed ID of the workspace that the request's API key or access token resolved to, including your organization's Default Workspace.
+
+### August 10, 2026
+
+- The introductory pricing for **Claude Sonnet 5** ($2 / $10 per MTok) is now the standard price: the previously scheduled increase to $3 / $15 per MTok on September 1, 2026 will not occur.
+
+### August 7, 2026
+
+- Can now set a budget on a Claude Managed Agents session: a hard cap on the session's spend, priced at public list rates. A session that reaches its budget pauses with the `budget_reached` stop reason instead of starting new model requests; changing or removing the budget resumes it. Deployments accept the same budget and apply it to each session they start.
+- Can now give a Claude Managed Agents session an advisor: a model at least as capable as the agent's own that the session's primary thread can consult mid-turn for strategic guidance. Configure it as a `{"type": "advisor"}` entry in the agent's multiagent roster, naming the `model` to consult.
+- Can now control where model inference runs for a Claude Managed Agents agent. Set `inference_geo` inside the `model` object when you create the agent, or override it for a single session.
+- Claude Managed Agents sessions can now load skills from a GitHub repository. When a session mounts a repository, any skills in its root `.claude/skills` directory are discovered automatically at session start.
+
+### August 5, 2026
+
+- **Inference hooks** are now in beta for Claude Enterprise organizations. Point Claude at your organization's AI security server, and each governed prompt across claude.ai, Cowork, and Claude Code is held for the server's allow or deny verdict before inference proceeds. Requests are signed, failure handling is configurable, and every denial is recorded in the compliance Activity Feed.
+- Retired the Claude Opus 4.1 model (`claude-opus-4-1-20250805`). All requests to this model on the Claude API now return an error. Recommend upgrading to Claude Opus 5. Researchers can request ongoing access through the External Researcher Access Program.
+
+### August 3, 2026
+
+- The **Compliance API** now returns transcripts of Cowork sessions started on claude.ai web or mobile, in beta for Claude Enterprise organizations. `GET /v1/compliance/apps/sessions/remote` lists sessions and `GET /v1/compliance/apps/sessions/remote/{session_id}/messages` returns one session's transcript, using your existing Compliance Access Key with the `read:compliance_user_data` scope.
+
+### August 1, 2026
+
+- Dreams (research preview) now supports Claude Opus 5.
 
 ### July 24, 2026
 
@@ -45,6 +74,7 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 ### July 10, 2026
 
+- Dreams (research preview) now supports Claude Fable 5 and Claude Sonnet 5.
 - Expanded Access Transparency documentation of `cmek_preserve` events with a filter example, an example event payload, and two preservation reason codes (`policy_violation_investigation`, `csae_report`). Documentation now clarifies that a preservation event is written whether initiated by a human reviewer or an automated safety pipeline.
 
 ### July 8, 2026

@@ -2,7 +2,7 @@
 title: "API Overview"
 source_url: "https://platform.claude.com/docs/en/api/overview"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "api"
 ---
 
@@ -119,10 +119,11 @@ If you exceed these limits, you'll receive a 413 `request_too_large` error.
 
 ### Response Headers
 
-The Claude API includes the following headers in every response:
+The Claude API includes the following headers in its responses:
 
-- `request-id`: A globally unique identifier for the request
-- `anthropic-organization-id`: The organization ID associated with the API key used in the request
+- `request-id`: A globally unique identifier for the request (for example, `req_018EeWyXxfu5pfWkrYcMdjWG`)
+- `anthropic-organization-id`: The ID of the organization that the API key or access token used in the request belongs to
+- `anthropic-workspace-id`: The `wrkspc_`-prefixed ID of the workspace that the API key or access token resolved to (for example, `wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ`), including when that is your organization's Default Workspace. Absent when the credential doesn't resolve to a workspace (for example, on Admin API requests) or the request fails before authentication completes
 
 > Claude Platform on AWS adds an AWS request ID (`x-amzn-requestid`) alongside the standard `request-id` header. See [Request IDs](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#request-ids) for the dual-ID handling pattern.
 

@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,32 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### August 11, 2026
+
+- Compliance API now returns transcripts of Cowork and Claude Code sessions on users' machines (beta, Claude Enterprise): `GET /v1/compliance/apps/sessions/local`, `.../local/{session_id}`, and `.../local/{session_id}/messages`, using the Compliance Access Key with `read:compliance_user_data` scope.
+- Added `anthropic-workspace-id` response header carrying the `wrkspc_`-prefixed workspace ID the request's key/token resolved to.
+
+### August 10, 2026
+
+- **Claude Sonnet 5** introductory pricing ($2 / $10 per MTok) is now the standard price; the planned September 1, 2026 increase to $3 / $15 will not occur.
+
+### August 7, 2026
+
+- Managed Agents: session budgets (hard spend cap; session pauses with `budget_reached` stop reason); session advisor (`{"type": "advisor"}` in the multiagent roster); per-agent/per-session `inference_geo`; sessions can load skills from a mounted GitHub repo's root `.claude/skills`.
+
+### August 5, 2026
+
+- **Inference hooks** in beta for Claude Enterprise: governed prompts across claude.ai, Cowork, and Claude Code are held for an org AI security server's allow/deny verdict before inference; denials logged in the compliance Activity Feed.
+- Retired Claude Opus 4.1 (`claude-opus-4-1-20250805`); requests now return an error. Recommend Claude Opus 5.
+
+### August 3, 2026
+
+- Compliance API now returns transcripts of Cowork sessions started on claude.ai web/mobile (beta, Claude Enterprise): `GET /v1/compliance/apps/sessions/remote` and `.../remote/{session_id}/messages`.
+
+### August 1, 2026
+
+- Dreams (research preview) now supports Claude Opus 5.
 
 ### July 24, 2026
 
@@ -40,6 +66,7 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 ### July 10, 2026
 
+- Dreams (research preview) now supports Claude Fable 5 and Claude Sonnet 5.
 - Expanded Access Transparency documentation of `cmek_preserve` events with a filter example, an example event payload, and two preservation reason codes (`policy_violation_investigation`, `csae_report`).
 
 ### July 8, 2026

@@ -2,7 +2,7 @@
 title: "API Errors"
 source_url: "https://platform.claude.com/docs/en/api/errors"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-08-16T00:00:00Z"
 category: "api"
 ---
 
@@ -13,7 +13,7 @@ category: "api"
 The API follows a predictable HTTP error code format:
 
 - 400 - `invalid_request_error`: There was an issue with the format or content of your request. This error type may also be used for other 4XX status codes not listed in this section.
-- 401 - `authentication_error`: There's an issue with your API key. On Claude Platform on AWS, this can also indicate a problem with your AWS credentials or SigV4 signature.
+- 401 - `authentication_error`: There's an issue with your API key (for example, it's malformed, revoked, or expired; see Key expiration). On Claude Platform on AWS, this can also indicate a problem with your AWS credentials or SigV4 signature.
 - 402 - `billing_error`: There's an issue with your billing or payment information. Check your payment details in the Claude Console, or in AWS Marketplace if you're using Claude Platform on AWS.
 - 403 - `permission_error`: Your API key does not have permission to use the specified resource.
 - 404 - `not_found_error`: The requested resource was not found.
@@ -155,14 +155,14 @@ See [Streaming Messages](https://platform.claude.com/docs/en/build-with-claude/s
 
 ### Prefill not supported
 
-Claude Fable 5, Claude Mythos 5, Claude Mythos Preview, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, and Claude Sonnet 4.6 do not support prefilling assistant messages. Sending a request with a prefilled last assistant message to any of these models returns a 400 `invalid_request_error`:
+Claude 4.6 and later models and Claude Mythos Preview do not support prefilling assistant messages. Sending a request with a prefilled last assistant message to any of these models returns a 400 `invalid_request_error`:
 
 ```json
 {
   "type": "error",
   "error": {
     "type": "invalid_request_error",
-    "message": "Prefilling assistant messages is not supported for this model."
+    "message": "This model does not support assistant message prefill. The conversation must end with a user message."
   }
 }
 ```
@@ -178,6 +178,36 @@ If the most recent assistant message contains `thinking` or `redacted_thinking` 
 ```
 
 With tool use, every `thinking` and `redacted_thinking` block from the assistant turn must be passed back exactly as received, including blocks whose `thinking` field is empty. Pass thinking blocks back unchanged, and if your application filters content blocks by type before resending, include both `thinking` and `redacted_thinking`. See [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#preserving-thinking-blocks).
+
+### Extended thinking not supported
+
+Claude 4.7 and later models have removed extended thinking. Sending `thinking: {"type": "enabled"}` to any of these models returns a 400 `invalid_request_error`:
+
+```
+"thinking.type.enabled" is not supported for this model. Use "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
+```
+
+Use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) instead.
+
+### Adaptive thinking not supported
+
+Models that support only extended thinking (Claude 4.5 and earlier models) reject `thinking: {"type": "adaptive"}` with a 400 `invalid_request_error`:
+
+```
+adaptive thinking is not supported on this model
+```
+
+Use `thinking: {"type": "enabled", "budget_tokens": N}` on these models; see [Extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for the configuration.
+
+### Thinking cannot be disabled
+
+On Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview, thinking is always on. Sending `thinking: {"type": "disabled"}` to any of these models returns a 400 `invalid_request_error`:
+
+```
+"thinking.type.disabled" is not supported for this model. Thinking defaults to adaptive mode when not specified; use "thinking.type.enabled" with "budget_tokens" for extended thinking.
+```
+
+On Claude Fable 5 and Claude Mythos 5, the error message's own suggestion of `"thinking.type.enabled"` is also rejected. Omit the `thinking` parameter and the request runs with adaptive thinking. To keep thinking content out of responses without turning thinking off, set `display: "omitted"` on the thinking configuration.
 
 ### Outbound web identity federation disabled (Claude Platform on AWS)
 

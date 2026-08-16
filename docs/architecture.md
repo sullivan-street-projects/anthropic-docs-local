@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-08-02T16:58:04.171Z"
+generated_at: "2026-08-16T13:16:51.243Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-08-02
+> Auto-generated from manifest.json on 2026-08-16
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 120 |
+| Total Sources | 127 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-08-02T00:00:00Z |
-| Last Discovery Run | 2026-08-02T00:00:00Z |
+| Last Full Update | 2026-08-16T00:00:00Z |
+| Last Discovery Run | 2026-08-16T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 100 | WebFetch with content extraction |
+| web-extracted | 107 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 97 | High-confidence sources, auto-trusted |
+| auto | 104 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -88,6 +88,7 @@ generator: "scripts/generate-architecture.js"
 | [Effective Context Engineering for AI Agents](../claude-code/context-engineering.md) | web-extracted | 0.9 |
 | [How Anthropic Teams Use Claude Code](../claude-code/how-anthropic-teams-use-claude-code.md) | web-extracted | 0.9 |
 | [How Anthropic Teams Use Claude Code (PDF)](../claude-code/how-anthropic-teams-use-claude-code.pdf) | web-extracted | 1 |
+| [The Making of Claude Code](../claude-code/making-of-claude-code.md) | web-extracted | 0.8 |
 
 ### cookbooks
 
@@ -117,6 +118,11 @@ generator: "scripts/generate-architecture.js"
 | [Building effective agents](../engineering/building-effective-agents.md) | web-extracted | 0.85 |
 | [Contextual Retrieval](../engineering/contextual-retrieval.md) | web-extracted | 0.85 |
 | [Claude Code: Best practices for agentic coding](../engineering/claude-code-best-practices.md) | web-extracted | 0.85 |
+| [Equipping agents for the real world with Agent Skills](../engineering/equipping-agents-agent-skills.md) | web-extracted | 0.8 |
+| [How we built Claude Code auto mode](../engineering/claude-code-auto-mode.md) | web-extracted | 0.8 |
+| [Scaling Managed Agents](../engineering/managed-agents.md) | web-extracted | 0.8 |
+| [Harness design for long-running application development](../engineering/harness-design-long-running-apps.md) | web-extracted | 0.8 |
+| [How we contain Claude across products](../engineering/how-we-contain-claude.md) | web-extracted | 0.8 |
 
 ### github-repos
 
@@ -199,6 +205,7 @@ generator: "scripts/generate-architecture.js"
 | [Anthropic Economic Index: Cadences (June 2026)](../research/economic-index-june-2026.md) | web-extracted | 0.85 |
 | [Natural Language Autoencoders](../research/natural-language-autoencoders.md) | web-extracted | 0.85 |
 | [Teaching Claude why](../research/teaching-claude-why.md) | web-extracted | 0.85 |
+| [Patterns and problems in emerging multiagent systems](../research/multiagent-systems.md) | web-extracted | 0.8 |
 
 ### sdks
 
@@ -270,7 +277,8 @@ anthropic-docs-local/
 │   ├── scheduled-tasks.md
 │   ├── context-engineering.md
 │   ├── how-anthropic-teams-use-claude-code.md
-│   └── how-anthropic-teams-use-claude-code.pdf
+│   ├── how-anthropic-teams-use-claude-code.pdf
+│   └── making-of-claude-code.md
 ├── cookbooks/
 │   └── index.md
 ├── engineering/
@@ -291,7 +299,12 @@ anthropic-docs-local/
 │   ├── claude-think-tool.md
 │   ├── building-effective-agents.md
 │   ├── contextual-retrieval.md
-│   └── claude-code-best-practices.md
+│   ├── claude-code-best-practices.md
+│   ├── equipping-agents-agent-skills.md
+│   ├── claude-code-auto-mode.md
+│   ├── managed-agents.md
+│   ├── harness-design-long-running-apps.md
+│   └── how-we-contain-claude.md
 ├── github-repos/
 │   └── index.md
 ├── models/
@@ -353,7 +366,8 @@ anthropic-docs-local/
 │   ├── claude-code-expertise.md
 │   ├── economic-index-june-2026.md
 │   ├── natural-language-autoencoders.md
-│   └── teaching-claude-why.md
+│   ├── teaching-claude-why.md
+│   └── multiagent-systems.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md
