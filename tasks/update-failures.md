@@ -66,6 +66,16 @@ Track source-specific failures with resolutions. Review at session start to avoi
 - **Resolution**: Existing local content preserved; timestamps left untouched (source not re-fetchable). NOT deleted during this unattended run.
 - **Prevention**: Removal is overdue — flagged as a background task chip for the user to remove the manifest entry (`agent-sdk-typescript-v2-preview`) AND the local file `agent-sdk/typescript-v2-preview.md` in one action. Once removed, the recurring warning disappears. Do not keep re-flagging beyond this — escalate to removal.
 
+### 2026-08-16 — agent-sdk-typescript-v2 (confirmed 404, removal escalated)
+
+- **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified this cycle via curl). Source now 133 days stale. Manifest id is `agent-sdk-typescript-v2` (the earlier failures log referenced it as `...-v2-preview`; a separate `-preview` id was already removed). Local file `agent-sdk/typescript-v2-preview.md` is still validly tracked by the `agent-sdk-typescript-v2` entry (not an orphan).
+- **Resolution**: NOT re-fetched (known dead, correctly excluded from fetch agents). NOT auto-deleted in this unattended run — the update skill's Phase 4e protocol says a 404 gets logged + user-alerted, not auto-removed, and permanent deletion needs user confirmation. Re-surfaced as a one-click removal task chip for the user.
+- **Prevention**: This is the concrete case motivating optimizations plan item #18 (`lifecycle_status`). Until #18 lands, a confirmed-404 source will keep emitting one staleness warning per cycle. User action: remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to the current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*).
+
+### 2026-08-16 — no fetch failures (actively-fetched sources)
+
+- **Note**: All actively-fetched sources succeeded (8 github-raw, 9 manual, 14 volatile web-extracted, github-repos API, arXiv search, 7 new-source fetches). No 404s on code.claude.com, platform.claude.com, or the 7 new anthropic.com posts. The only 404 was the already-known dead `agent-sdk-typescript-v2` (above), which is intentionally not fetched. 0 sha256 mismatches after single-writer reconcile.
+
 ### 2026-08-02 — no fetch failures
 
 - **Note**: All actively-fetched sources (github-raw, github-api, manual, arxiv, volatile web-extracted) succeeded this cycle. No 404s on code.claude.com or platform.claude.com. Dual model launch (Opus 5 / Sonnet 5) made this an unusually high-signal week (26 content-changed files, 0 timestamp-only).

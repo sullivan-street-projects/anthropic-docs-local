@@ -19,6 +19,27 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-08-16 — Weekly Update (full discovery scan)
+
+- **Manifest sources checked**: 120 (before adds) → 127 (after adds)
+- **Added (HIGH priority, trusted anthropic.com domain — auto-added per automated-run policy)**: 7
+  - `equipping-agents-agent-skills` → engineering/equipping-agents-agent-skills.md ← anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
+  - `claude-code-auto-mode` → engineering/claude-code-auto-mode.md ← anthropic.com/engineering/claude-code-auto-mode
+  - `managed-agents` → engineering/managed-agents.md ← anthropic.com/engineering/managed-agents
+  - `harness-design-long-running-apps` → engineering/harness-design-long-running-apps.md ← anthropic.com/engineering/harness-design-long-running-apps (confirmed DISTINCT from tracked `effective-harnesses-for-long-running-agents`)
+  - `how-we-contain-claude` → engineering/how-we-contain-claude.md ← anthropic.com/engineering/how-we-contain-claude
+  - `making-of-claude-code` → claude-code/making-of-claude-code.md ← anthropic.com/features/making-of-claude-code
+  - `multiagent-systems` → research/multiagent-systems.md ← anthropic.com/research/multiagent-systems
+  - These cleared most of the multi-cycle HIGH backlog (Agent Skills / auto-mode / Managed Agents / harness design were deferred since ~2026-08-02 and earlier).
+- **Models**: No new model since Opus 5 (Jul 24). Opus 5 / Sonnet 5 / Fable 5 / Mythos 5 all already tracked. No HIGH model flag.
+- **Deferred (MEDIUM — news)**: claude-text-watermark, redeploying-fable-5, improving-fable-5-biology-safeguards, investigating-incidents-cybersecurity-evals, anthropic-economic-index-connector, cognizant-anthropic, rare-disease-research-grants
+- **Deferred (MEDIUM — research)**: discovering-cryptographic-weaknesses, riemann-zeta, global-workspace, claude-values-models-languages, off-switch-dual-use
+- **Deferred (LOW)**: position-open-weights-models, hard-questions, tino-cuellar, economic-futures-research-fund-agenda, donation-public-first-action, claude-plays-robotics, project-pilot, project-deal, 81k-interviews, how-canada-uses-claude, reviewing-evidence-worker-retraining
+- **Unconfirmed (search-only, no first-party URL surfaced)**: custom AI chip design team (TechCrunch Aug 5), Volta/Riot compute deals, Millennium partnership — check /news next cycle for first-party posts.
+- **GitHub repos**: 3 new (zeta-23-lean, amulet2, mockturtle); star counts refreshed for all major repos (skills 169.6k, claude-code 141.6k).
+- **SDK versions**: npm @anthropic-ai/sdk 0.117.1, PyPI anthropic 0.122.0 (both in sync with tracked CHANGELOGs).
+- **Staleness**: `agent-sdk-typescript-v2` (github.com/anthropics/agent-sdk) — confirmed 404 again, 133 days stale. Removal escalated to a user task chip (not auto-deleted in unattended run per skill Phase 4e).
+
 ### 2026-08-02 — Weekly Update (full discovery scan)
 
 - **Manifest sources checked**: 106 unique source_urls (117 entries at scan time)

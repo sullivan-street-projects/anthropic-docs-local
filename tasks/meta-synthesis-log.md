@@ -29,15 +29,45 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 5
-Total improvements applied: 2
-Total improvements deferred: 2
+Total cycles logged: 6
+Total improvements applied: 2 (0 code changes this cycle)
+Total improvements deferred: 3 (reinforced #18 source-lifecycle tracking)
 Most-improved infrastructure: manifest.json (2 changes: hashes + URL corrections)
-Most-informative category: claude-code (13 insights sourced from it)
-Staleness alerts: 1 source flagged across all cycles (agent-sdk-typescript-v2-preview — 6th consecutive 404)
-Last cycle: 2026-08-02 — 0 applied (1 workflow lesson recorded), 0 deferred
+Most-informative category: engineering/research (this cycle: multiagent-systems research validates our concurrency design)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~7th cycle); removal escalated to a user task chip
+Last cycle: 2026-08-16 — 0 applied, 1 strong already-aligned finding, 1 deferred reinforced
 
 ## Entries
+
+### 2026-08-16 — Update: all
+
+Content changes analyzed: 40 modified + 7 added (all real content changes)
+Improvements identified: 1 already-aligned validation, 1 deferred reinforcement
+Improvements applied: 0 code changes
+Improvements deferred: 1 (reinforced, not new)
+
+**Strong already-aligned finding (content independently validates our infra):**
+
+- `research/multiagent-systems.md` (newly added, Frontier Red Team, 2026-08-13) catalogs multiagent failure modes that map 1:1 onto risks our update pipeline already engineers against:
+  - "goal-conflict / turf wars" (agents fighting over shared state) → our **single-writer manifest.json rule** (agents write only content files; orchestrator alone edits the manifest) prevents exactly this.
+  - "epistemic vulnerability to deception" (agents trusting each other's claims) → our **recompute-sha256-from-disk rule** (never trust agent-reported hashes) is the concrete defense.
+  - "conformity / low-variance collapse" → our agents get **orthogonal, non-overlapping source sets**, so they can't collapse onto the same output.
+    This cycle's run (6 parallel agents, single-writer reconcile, 0 hash mismatches, 0 races) is empirical confirmation. No change needed — record the alignment.
+
+**Deferred (reinforced, already in optimizations plan as #18):**
+
+- `models/deprecations.md` this cycle shows **Claude Opus 4.1 retired (Aug 5, requests now error)**, and `agent-sdk-typescript-v2` is a **confirmed-404 source (133 days stale)**. Both are concrete motivating cases for plan item #18 (source `lifecycle_status`: active/legacy/deprecated/archived). Still MEDIUM effort (schema + validate.js + manifest); left in plan, priority reinforced with two real cases.
+
+**Already aligned (content teaches, infra already does it):**
+
+- `engineering/harness-design-long-running-apps.md` (newly added) → planner/generator/evaluator harness with generator-evaluator loops. Our pipeline already mirrors this: Phase 0/1 plans, Phase 2 agents generate, Phase 3 validate.js + write-persistence check evaluates and re-does failures. No change.
+- `engineering/managed-agents.md` → stateless brain / sandboxed hands / durable append-only session log. Our `.update-session.json` + `--resume` is the durable-session analogue. Aligned.
+- `claude-code/CHANGELOG.md` → self-hosted runners, cross-session SendMessage/ListAgents. Informational; our automation is single-orchestrator and does not depend on these.
+- Reconcile side-benefit: syncing `last_fetched` to each file's frontmatter `fetched_at` cleared the long-standing Layer-3 timestamp-mismatch warning class. The single-writer reconcile script is now the canonical bookkeeping step.
+
+### 2026-08-02 — Update: all
+
+Content changes analyzed: 26 files (23 modified + 3 added, all with real content changes)
 
 ### 2026-08-02 — Update: all
 
