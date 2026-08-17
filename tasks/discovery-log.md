@@ -19,6 +19,17 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-08-17 — Weekly Update (lightweight discovery scan)
+
+- **Manifest sources checked**: 127 (unchanged)
+- **Added**: 0 (all discoveries are carry-forwards from 2026-08-16 scan)
+- **Deferred (carry-forward, same as 2026-08-16)**: 27 articles across news (11), research (11), engineering (2), features/other (3). No priority changes — all previously triaged.
+- **Notable carry-forwards (HIGH from previous cycle)**: claude-text-watermark, improving-fable-5-biology-safeguards, riemann-zeta, discovering-cryptographic-weaknesses, project-pilot, off-switch-dual-use, global-workspace, reviewing-evidence-worker-retraining, investigating-incidents-cybersecurity-evals, position-open-weights-models, tino-cuellar
+- **Potentially new (not seen in 2026-08-16 log)**: aug-2026-risk-report (PDF) — anthropic.com/aug-2026-risk-report — needs verification next cycle
+- **GitHub repos**: No new repos since 2026-08-16. mockturtle and amulet2 (created Aug 15-16) already in index.
+- **SDK versions**: npm @anthropic-ai/sdk 0.117.1, PyPI anthropic 0.122.0 (unchanged from 2026-08-16)
+- **Staleness**: `agent-sdk-typescript-v2` — 134 days stale, confirmed 404, removal still pending user action
+
 ### 2026-08-16 — Weekly Update (full discovery scan)
 
 - **Manifest sources checked**: 120 (before adds) → 127 (after adds)

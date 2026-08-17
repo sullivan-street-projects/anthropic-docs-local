@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-17T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs. Connect a server when you find yourself copying data into chat from another tool.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** August 17, 2026
 
 ## What You Can Do with MCP
 
@@ -154,7 +154,9 @@ Expansion works in `command`, `args`, `env`, `url`, and `headers` fields.
 }
 ```
 
-If a required environment variable is not set and has no default value, Claude Code fails to parse the config.
+If a referenced environment variable is not set and has no default value, the config still loads: Claude Code reports a missing-variable warning for that server in `claude mcp list` output and in `/mcp`, and uses the unexpanded `${VAR}` text as-is. Set the variable or add a `:-default` fallback so the server starts with the value you intend.
+
+Claude Code also warns when an MCP config value carries hidden leading or trailing whitespace (often from pasting a token with a trailing newline). It checks `command`, `url`, each `args` entry, and the values and key names under `env` and `headers`, showing the affected fields without echoing their values.
 
 ## MCP CLI Commands
 
@@ -180,7 +182,7 @@ claude mcp serve
 
 Project-scoped servers from `.mcp.json` that are awaiting approval appear in `claude mcp list` as `Pending approval`. The `/mcp` panel shows the tool count next to each connected server and flags servers that advertise the tools capability but expose no tools.
 
-The server name `workspace` is reserved for internal use and will be skipped.
+Several server names are reserved for Claude Code's built-in servers: `workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, and `Claude Browser`. If your configuration defines a server with a reserved name, Claude Code skips it at load time and shows a warning asking you to rename it. `claude mcp add` rejects a reserved name with an error.
 
 ## Authentication
 
@@ -347,9 +349,23 @@ An MCP server can also mark individual tools as always-loaded by including `"ant
 
 Server instructions help Claude understand when to search for your tools. Claude Code truncates tool descriptions and server instructions at 2KB each -- keep them concise and put critical details near the start.
 
+## Server Status & Diagnostics
+
+When a server's status is `Failed to connect`, `claude mcp list` appends the failure detail (HTTP status code and error text), and `claude mcp get <name>` shows it on an `Issue:` line. Claude Code redacts credential-like text from this detail and never includes the expanded server URL. Requires v2.1.219 or later.
+
+Project-scoped servers from `.mcp.json` that are awaiting approval appear as `Pending approval`. Run `claude` interactively to review and approve them. Rejected servers show as `Rejected (see disabledMcpjsonServers in settings)`.
+
+### Disable a Server Without Removing It
+
+Toggle a server off in the `/mcp` panel to stop Claude Code from connecting to it without losing its configuration. Claude Code records your choice per project in `~/.claude.json` via `disabledMcpServers` (opt-out for servers that default to on) and `enabledMcpServers` (opt-in for built-in servers that default to off, such as `computer-use`).
+
+### `roots/list` for Working Directories
+
+Claude Code answers the MCP `roots/list` request with the session's launch directory plus every additional working directory you've granted with `--add-dir`, `/add-dir`, or the `additionalDirectories` setting. Claude Code sends `notifications/roots/list_changed` when that set changes (v2.1.203+).
+
 ## Dynamic Tool Updates
 
-Claude Code supports MCP `list_changed` notifications, allowing MCP servers to dynamically update their available tools, prompts, and resources without requiring you to disconnect and reconnect.
+Claude Code supports MCP `list_changed` notifications, allowing MCP servers to dynamically update their available tools, prompts, and resources without requiring you to disconnect and reconnect. If a refresh request fails, Claude Code keeps the server's previously discovered tools until a later refresh succeeds (v2.1.214+).
 
 ## Automatic Reconnection
 

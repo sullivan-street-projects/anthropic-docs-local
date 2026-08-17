@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-17T00:00:00Z"
 category: "research"
 ---
 
@@ -109,7 +109,7 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
-Last checked for new papers: August 16, 2026. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the August 2 check. Searches surfaced only (a) third-party arXiv papers that cite Anthropic but are not Anthropic-authored, and (b) recent Anthropic research published as anthropic.com / Alignment Science Blog posts without confirmed arXiv identifiers (e.g. "Agentic Misalignment in Summer 2026," alignment.anthropic.com, Jul 13, 2026). No entries added.
+Last checked for new papers: August 17, 2026. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the August 2 check. Recent Anthropic research (Riemann hypothesis lower-bound improvement, "Patterns and problems in emerging multiagent systems" Aug 13, "Reviewing the evidence on worker retraining programs" Aug 12) has appeared as anthropic.com posts without confirmed arXiv identifiers. Third-party arXiv papers citing Anthropic (e.g. 2606.18193, a red-team study of Fable 5 & Opus 4.8) are not Anthropic-authored. No entries added.
 
 Last checked for new papers: August 2, 2026. Added "Verbalizable Representations Form a Global Workspace in Language Models" (transformer-circuits.pub, Jul 6, 2026) to the non-arXiv notable list. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the July 12 check; recent Anthropic research from mid-July onward (e.g. "Claude's values across models and languages," "How Canada uses Claude," "An off switch for dual-use knowledge in AI models") has appeared as anthropic.com posts without confirmed arXiv identifiers, so no arXiv entries were added.
 

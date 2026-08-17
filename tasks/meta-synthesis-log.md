@@ -29,15 +29,45 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 6
+Total cycles logged: 7
 Total improvements applied: 2 (0 code changes this cycle)
 Total improvements deferred: 3 (reinforced #18 source-lifecycle tracking)
 Most-improved infrastructure: manifest.json (2 changes: hashes + URL corrections)
-Most-informative category: engineering/research (this cycle: multiagent-systems research validates our concurrency design)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~7th cycle); removal escalated to a user task chip
-Last cycle: 2026-08-16 — 0 applied, 1 strong already-aligned finding, 1 deferred reinforced
+Most-informative category: engineering/research
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 (~8th cycle); removal escalated to a user task chip
+Last cycle: 2026-08-17 — 0 applied, 0 deferred, low-signal week (1 day since last update)
 
 ## Entries
+
+### 2026-08-17 — Update: all
+
+Content changes analyzed: 14 modified (5 content changes, 9 timestamp-only)
+Improvements identified: 0
+Improvements applied: 0
+Improvements deferred: 0
+
+**Content changes (real):**
+
+- `api/overview.md` → Sessions API endpoint path corrected (`/v1/sessions/{id}/stream` → `/v1/sessions/{id}/events/stream`), Workbench → Playground rename (sunset Aug 17), link updates. Informational — no API calls in our infra.
+- `claude-code/mcp-servers.md` → Expanded reserved server names (5 total), env var expansion behavior fix (warns, doesn't fail), new Server Status & Diagnostics section (failure detail, server toggle, `roots/list`). Already captured by agent in best-practices-mcp-credentials.md update.
+- `docs/best-practices-loop-scheduling.md` → Added `ultracode` to effort level list. Informational.
+- `docs/best-practices-mcp-credentials.md` → Env var expansion fix, expanded reserved names pitfall. Cascaded from mcp-servers.md changes.
+- `skills/catalog.md` → Star count update (166k→169.9k). Informational.
+
+**Already aligned (no action needed):**
+
+- MCP reserved server names expansion → best-practices-mcp-credentials.md already updated in same cycle by agent.
+- Env var expansion behavior → already corrected in both mcp-servers.md and best-practices docs.
+
+**Staleness report:**
+
+- Stable (unchanged but accessible): ~65 web-extracted snapshot articles (not re-fetched; timestamps preserved at real last-fetch date).
+- Possibly dead: 1 (~8th cycle) — `agent-sdk-typescript-v2`: github.com/anthropics/agent-sdk — 404, 134 days stale. Removal continues to be escalated.
+- Relocated: 0.
+
+**No action needed:**
+
+- Low-signal week (only 1 day since last full update on 2026-08-16). Most changes are timestamp-only refreshes of manual sources.
 
 ### 2026-08-16 — Update: all
 

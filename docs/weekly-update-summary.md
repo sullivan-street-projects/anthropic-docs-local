@@ -1,67 +1,53 @@
-# Weekly Update Summary — 2026-08-16
+# Weekly Update Summary — 2026-08-17
 
-**Bottom line:** A high-signal week — 40 content-changed files plus 7 new first-party sources added. Two changes need your attention: **Sonnet 5's price stays at $2/$10 (the Sept 1 increase is cancelled)** and **Claude Opus 4.1 is now retired (requests error)**.
+**Bottom line:** Low-signal week — only 1 day since the last full update. 5 files with real content changes, 9 timestamp-only. No new models, no breaking changes, no pricing changes.
 
 ## What Changed
 
-### Models & Pricing (`models/`, `api/`)
+### Content Changes (5 files)
 
-- **`models/overview.md`, `api/models-overview.md`, `api/migration-guide.md`** — Sonnet 5 is now **$2/$10 per M tokens as the standard price**; the previously-announced Sept 1 increase to $3/$15 is cancelled. Introductory-pricing note removed.
-- **`models/overview.md`, `models/deprecations.md`** — **Claude Opus 4.1 (`claude-opus-4-1-20250805`) retired Aug 5, 2026** — moved from Legacy/Deprecated to Retired; requests now error.
-- **`api/effort-parameter.md`, `api/extended-thinking.md`** — Claude Opus 5 added to supported-model tables (effort levels incl. max/xhigh; interleaved thinking; new "Recommended Effort Levels for Opus 5" section).
+**API** (1 file)
+- **`api/overview.md`** — Corrected Sessions API endpoint path (`/v1/sessions/{id}/stream` → `/v1/sessions/{id}/events/stream`). Workbench → Playground rename (legacy Workbench sunset Aug 17). Refreshed links for Message Batches, Models API, Files API, and Rate Limits pages.
 
-### Claude Code (`claude-code/`)
+**Claude Code** (1 file)
+- **`claude-code/mcp-servers.md`** — Expanded reserved MCP server names from 1 to 5 (`workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, `Claude Browser`). Corrected env var expansion behavior (warns on unset vars, doesn't fail). Added new Server Status & Diagnostics section: failure detail reporting (v2.1.219+), server toggle (`disabledMcpServers`/`enabledMcpServers`), `roots/list` MCP request support (v2.1.203+), `list_changed` refresh resilience (v2.1.214+).
 
-- **`CHANGELOG.md`** — 13 new versions (2.1.221 → 2.1.233): **self-hosted runners** (run sessions on your own machines/containers, Team/Enterprise); **cross-session messaging** (`SendMessage`/`ListAgents` between sessions/machines); **GitLab support** (MR URLs, marketplace clones, token redaction, `glab` sandboxing); plugin marketplace `archive`/`command` sources; sandbox credential masking; new env vars (`CLAUDE_CODE_TOOL_MEMORY_LIMIT`, `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS`).
-- **`hooks.md`** — new **`DirectoryAdded`** lifecycle event; new `elicitation_url_dialog` Notification matcher.
-- **`mcp-servers.md`, `docs/best-practices-mcp-credentials.md`** — **stdio MCP servers are now subject to the 30-min idle timeout** (v2.1.203; previously exempt); automatic backgrounding of long tool calls (v2.1.212); discovery cache (v2.1.221).
+**Docs** (2 files)
+- **`docs/best-practices-loop-scheduling.md`** — Added `ultracode` to the `--effort` level list.
+- **`docs/best-practices-mcp-credentials.md`** — Cascaded fixes from mcp-servers.md: env var expansion behavior correction, expanded reserved server names pitfall to full 5-name list.
 
-### SDKs (`sdks/`)
+**Skills** (1 file)
+- **`skills/catalog.md`** — Star count update: 166k → 169.9k stars, 18.9k → 20.2k forks.
 
-- **Python 0.122.0 / 0.121.0**, **TypeScript 0.117.1 / 0.116.0** — `output_behavior` on dream creation; **session budgets**, **advisor tool**, pinned inference location (`inference_geo`), GitHub-repo skills auto-loading; `mid-conversation-tool-changes-2026-07-01` beta; **retired Opus 4.1 models removed**; Bedrock/Vertex gain `beta.messages.parse`/`stream`/`tool_runner` (Python).
+### Timestamp-Only Updates (9 files)
+- `agent-sdk/README.md`, `agent-sdk/examples.md`, `agent-sdk/quickstart.md` — Manual re-synthesis, no content changes
+- `claude-code/features.md`, `claude-code/hooks.md`, `claude-code/plugins.md` — Manual re-synthesis, no content changes
+- `github-repos/index.md` — Star counts refreshed (minor movements across 77 repos)
+- `research/papers/index.md` — Checked for new arXiv papers, none found
+- `sdks/other/overview.md` — Re-fetched, no content changes
 
-### API reference (`api/`)
-
-- **`api/errors.md`** — new thinking-related validation errors ("Extended thinking not supported", "Adaptive thinking not supported", "Thinking cannot be disabled"); prefill list generalized to "Claude 4.6 and later"; 401 note for expired keys.
-- **`api/overview.md`, `api/messages-api.md`, `api/streaming.md`** — new `anthropic-workspace-id` response header; `container`/`inference_geo` params; stale web-search tool version corrected.
-
-### Release notes (`release-notes/`)
-
-- Six new dated platform/API entries (Aug 1–11): Compliance API session transcripts, Managed Agents session budgets, inference hooks beta, Opus 4.1 retirement, Dreams on Opus 5. Help center: **Skill and plugin security scanning (beta)** for Enterprise (Aug 6).
-
-### New sources added (7)
-
-Cleared a multi-cycle HIGH-priority backlog from anthropic.com:
-
-- **`engineering/equipping-agents-agent-skills.md`** — Agent Skills (SKILL.md + three-level progressive disclosure).
-- **`engineering/claude-code-auto-mode.md`** — the classifier pipeline behind auto-approving low-risk permissions (0.4% false-positive rate).
-- **`engineering/managed-agents.md`** — decoupling agents into stateless brain / sandboxed hands / durable session log (~60% faster time-to-first-token).
-- **`engineering/harness-design-long-running-apps.md`** — planner/generator/evaluator harness with Playwright-based grading.
-- **`engineering/how-we-contain-claude.md`** — three containment patterns (gVisor container, OS sandbox, sealed VM).
-- **`claude-code/making-of-claude-code.md`** — oral history of Claude Code from 2021 VS Code extension to launch.
-- **`research/multiagent-systems.md`** — Frontier Red Team on multiagent failure modes (conformity collapse, collusion, deception, turf wars).
-
-### Repo index & housekeeping
-
-- **`github-repos/index.md`** — 3 new repos (zeta-23-lean, amulet2, mockturtle); star counts refreshed (skills 169.6k, claude-code 141.6k).
-- **`research/papers/index.md`** — no new arXiv papers; Anthropic continues shipping research as blog posts.
+### No Changes (113 files)
+- All 8 github-raw sources unchanged (Claude Code 2.1.233, Python SDK 0.122.0, TypeScript SDK 0.117.1)
+- ~65 stable snapshot articles — not re-fetched per policy
+- Remaining volatile web-extracted sources unchanged
 
 ## So What — Why It Matters
 
-- **Sonnet 5 pricing is locked at $2/$10 — budget relief.** Any cost models that assumed the Sept 1 jump to $3/$15 should be reverted. Sonnet 5 stays the cheap default.
-- **Opus 4.1 is a hard break.** Any code still pinning `claude-opus-4-1-20250805` will now get errors, not a fallback. Grep your configs and repin to Opus 5 (or Opus 4.8).
-- **stdio MCP servers now time out.** Long-idle local MCP servers that relied on being exempt from the 30-min idle timeout will now be reaped — relevant to any long-running MCP integrations (this repo's guidance file was corrected to match).
-- **New Claude Code muscle for automation:** self-hosted runners and cross-session messaging are directly relevant to scheduled/headless pipelines like this one.
-- **The multiagent research validates our own update pipeline** — its documented failure modes (turf wars, agent-to-agent deception, conformity collapse) are exactly what our single-writer manifest + verify-sha256-from-disk + orthogonal-work-partition design prevents. (See meta-synthesis log.)
+- **Workbench → Playground rename**: Anthropic is sunsetting the legacy Workbench interface as of Aug 17. Update any bookmarks or docs linking to `/workbench` → `/playground`.
+
+- **MCP Server Status improvements**: Claude Code v2.1.219+ surfaces detailed failure reasons for MCP server connections. Five server names are reserved — avoid using them for custom servers.
+
+- **SDK versions stable**: No new releases since Aug 13 (Python 0.122.0, TypeScript 0.117.1). Claude Code at 2.1.233.
+
+- **No new models, pricing changes, or deprecations** this week.
 
 ## Action Items
 
-1. **Repin any `claude-opus-4-1-20250805` usage** → Opus 5 / Opus 4.8. This one errors now, not silently.
-2. **Revert Sonnet 5 cost assumptions** to $2/$10 standard (drop the cancelled Sept 1 increase).
-3. **Audit long-running local MCP servers** for the new stdio 30-min idle timeout; set per-server `timeout` where a server must persist.
-4. **One-click cleanup pending:** a task chip proposes removing the dead `agent-sdk-typescript-v2` source (github.com/anthropics/agent-sdk, 404 for ~7 cycles). Removing it stops the recurring staleness warning.
-5. **Stale branch cleanup (manual):** 6 old `claude/zealous-heisenberg-*` weekly-run branches (Jul 6–Aug 10) remain on the remote, now superseded by master. Remote branch deletion is blocked in unattended runs — delete them from GitHub or a local terminal when convenient.
+- **No breaking changes** requiring immediate attention.
+- **Pending cleanup**: `agent-sdk-typescript-v2` manifest entry (github.com/anthropics/agent-sdk → 404 for 134 days / ~8 cycles). Remove the manifest entry + `agent-sdk/typescript-v2-preview.md`, or repoint to code.claude.com/docs/en/agent-sdk/*.
+- **27 untracked articles** on anthropic.com remain deferred from previous cycles. Notable HIGH-priority items: Riemann zeta research (Aug 10), text watermarking (Aug 14), worker retraining study (Aug 12), cryptographic weaknesses (Jul 28). Consider adding in a dedicated session.
+- **Potential new discovery**: August 2026 Risk Report PDF at anthropic.com/aug-2026-risk-report — needs verification.
 
 ---
 
-_Master is at `57c692b`. Validation: 4 layers pass, 0 errors, 125/125 hashes verified. 81 advisory staleness warnings (intentional stable snapshots)._
+_Validation: 5 layers pass, 0 errors, 125/125 hashes verified. 80 advisory staleness warnings (intentional stable snapshots)._
