@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, LSP servers, background monitors, and default settings into a single installable unit.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** August 24, 2026
 
 ## Plugins vs Standalone Configuration
 
@@ -126,6 +126,7 @@ LICENSE
 | `monitors/`       | Plugin root | Background monitor configurations in `monitors.json`                           |
 | `.mcp.json`       | Plugin root | MCP server configurations                                                      |
 | `.lsp.json`       | Plugin root | LSP server configurations for code intelligence                                |
+| `monitors/`       | Plugin root | Background monitor configurations in `monitors.json`                           |
 | `bin/`            | Plugin root | Executables added to Bash tool's `PATH` while plugin is enabled                |
 | `settings.json`   | Plugin root | Default settings applied when the plugin is enabled                            |
 

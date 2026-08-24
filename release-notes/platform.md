@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,26 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### August 20, 2026
+
+- Released **v1.0 of the Python SDK**. The SDK's HTTP layer moves from `httpx` to httpx2, a maintained, API-compatible fork. v1.0 requires Python 3.10 or later and removes long-deprecated surface, including the legacy Text Completions API, the `temperature`, `top_p`, and `top_k` parameters on Messages methods, and the tool runner's client-side `compaction_control`. See the [v1 migration guide](https://github.com/anthropics/anthropic-sdk-python/blob/main/MIGRATION.md) for every change.
+
+### August 19, 2026
+
+- The **computer use tool** is out of beta on the Claude API as the `computer_toolset_20260801` toolset: no beta header, batch actions, `zoom` enabled by default, and per-member configuration through `configs`. See [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124).
+- Launched the **browser use tool** (`browser_toolset_20260801`), a client toolset for driving a browser that your application hosts. It works inside a browser viewport, reading the page's accessibility tree, elements, forms, and tabs.
+- Both toolsets are available for Claude Fable 5, Claude Mythos 5, Claude Opus 5, Claude Sonnet 5, and Claude Opus 4.8 on the Claude API.
+- The **Files API** is out of beta on the Claude API. Requests to `/v1/files` endpoints no longer require the `files-api-2025-04-14` beta header. Includes file expiration support and `page`/`next_page` pagination.
+- **Agent Skills** and the Skills API (`/v1/skills`) are out of beta on the Claude API. Requests no longer require the `skills-2025-10-02` beta header.
+- The **Admin API** user-management endpoints for Claude Enterprise organizations (members, invites, groups, custom roles) are out of beta. The `anthropic-beta: ce-user-management-2026-07-13` header is no longer required on group and custom-role requests.
+- Claude Managed Agents: can now restrict which sites an agent's `web_search` and `web_fetch` tools can reach via `allowed_domains` or `blocked_domains`.
+- Claude Managed Agents: self-hosted sandbox sessions can now attach memory stores with download/sync support in Python, TypeScript, and Go SDK workers.
+- The session viewer in the Claude Console has been redesigned with a timeline minimap, grouped transcript, and Inspector panel.
+
+### August 18, 2026
+
+- Workbench is now **Playground** in the Claude Console. Playground supports every Messages API parameter and includes templates that demonstrate API features.
 
 ### August 11, 2026
 
@@ -92,7 +112,7 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 ### June 30, 2026
 
-- Launched **Claude Sonnet 5** (`claude-sonnet-5`) at introductory pricing of $2 / $10 per MTok through August 31, 2026 (standard $3 / $15 thereafter). Supports 1M token context window, 128k max output tokens. Breaking changes: adaptive thinking on by default; manual extended thinking removed (returns 400); non-default sampling parameters return 400. New tokenizer produces ~30% more tokens for the same text.
+- Launched **Claude Sonnet 5** (`claude-sonnet-5`) at introductory pricing of $2 / $10 per MTok (made the standard price on August 10, 2026). Supports 1M token context window, 128k max output tokens. Breaking changes: adaptive thinking on by default; manual extended thinking removed (returns 400); non-default sampling parameters return 400. New tokenizer produces ~30% more tokens for the same text.
 - Claude Managed Agents session event streams now support event deltas. Opt in with `event_deltas[]` query parameter.
 - Listing sessions now supports backward pagination with `prev_page` cursor.
 - Session creation can now override agent configuration (model, system prompt, tools, MCP servers, skills) for a single session.

@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,23 +10,24 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment, combining a model that reasons about your code with built-in tools for file operations, search, execution, and web access.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** August 24, 2026
 
 ## Extension Architecture
 
 Claude Code combines a model that reasons about your code with built-in tools for file operations, search, execution, and web access. Beyond the built-in tools, Claude Code provides an extension layer for customization:
 
-| Feature               | What It Does                                                  | When to Use                                                                 | Example                                                                         |
-| --------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| **CLAUDE.md**         | Persistent context loaded every conversation                  | Project conventions, "always do X" rules                                    | "Use pnpm, not npm. Run tests before committing."                               |
-| **Skills**            | Instructions, knowledge, and workflows Claude can use         | Reusable content, reference docs, repeatable tasks                          | `/deploy` runs your deployment checklist; API docs skill with endpoint patterns |
-| **Subagents**         | Isolated execution context that returns summarized results    | Context isolation, parallel tasks, specialized workers                      | Research task that reads many files but returns only key findings               |
-| **Agent Teams**       | Coordinate multiple independent Claude Code sessions          | Parallel research, feature development, debugging with competing hypotheses | Spawn reviewers to check security, performance, and tests simultaneously        |
-| **Code Intelligence** | Language-server navigation and diagnostics                    | Typed languages, large codebases where grep is slow or imprecise            | Jump to a symbol's definition instead of reading the whole file                 |
-| **MCP**               | Connect to external services                                  | External data or actions                                                    | Query your database, post to Slack, control a browser                           |
-| **Hooks**             | Script, HTTP request, prompt, or subagent triggered by events | Automation that must run on every matching event                            | Run ESLint after every file edit                                                |
-| **Artifacts**         | Publish session output as a private, interactive web page     | Output you want to see or share visually rather than as terminal text       | An incident timeline that updates as Claude investigates                        |
-| **Plugins**           | Package and distribute feature sets                           | Reuse across repos, share with teams via marketplaces                       | Namespaced skills like `/my-plugin:review`                                      |
+| Feature                   | What It Does                                                  | When to Use                                                                 | Example                                                                         |
+| ------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **CLAUDE.md**             | Persistent context loaded every conversation                  | Project conventions, "always do X" rules                                    | "Use pnpm, not npm. Run tests before committing."                               |
+| **Skills**                | Instructions, knowledge, and workflows Claude can use         | Reusable content, reference docs, repeatable tasks                          | `/deploy` runs your deployment checklist; API docs skill with endpoint patterns |
+| **Subagents**             | Isolated execution context that returns summarized results    | Context isolation, parallel tasks, specialized workers                      | Research task that reads many files but returns only key findings               |
+| **Dynamic Workflows**     | Script Claude writes that runs many subagents in background   | Work that outgrows a handful of subagents, or findings you want cross-checked | Audit a whole codebase, with a second set of agents verifying each finding     |
+| **Cross-Session Messaging** | Claude delivers a message from one session to another       | Sessions you run yourself that need each other's findings mid-task          | One session warns another that a change it made breaks what the other is building on |
+| **Code Intelligence**     | Language-server navigation and diagnostics                    | Typed languages, large codebases where grep is slow or imprecise            | Jump to a symbol's definition instead of reading the whole file                 |
+| **MCP**                   | Connect to external services                                  | External data or actions                                                    | Query your database, post to Slack, control a browser                           |
+| **Hooks**                 | Script, HTTP request, prompt, or subagent triggered by events | Automation that must run on every matching event                            | Run ESLint after every file edit                                                |
+| **Artifacts**             | Publish session output as a private, interactive web page     | Output you want to see or share visually rather than as terminal text       | An incident timeline that updates as Claude investigates                        |
+| **Plugins**               | Package and distribute feature sets                           | Reuse across repos, share with teams via marketplaces                       | Namespaced skills like `/my-plugin:review`                                      |
 
 ## Built-in Tools
 
@@ -89,6 +90,7 @@ You don't need to configure everything up front. Each feature has a recognizable
 - `--resume <name>`: Resume a specific named session
 - `--resume` (no arg): Browse and select from session picker
 - `--from-pr <number>`: Resume from a pull request context
+- `--teleport`: Resume web session in local terminal
 - `/rename`: Give sessions memorable names for easy retrieval
 
 ### Context Compaction
@@ -97,6 +99,7 @@ You don't need to configure everything up front. Each feature has a recognizable
 - Manual compaction with `/compact`
 - Custom compaction prompts: `/compact focus on the API changes`
 - Hooks can re-inject context after compaction (SessionStart with `compact` matcher)
+- `--autocompact <auto|tokens>`: Set auto-compact window for session
 
 ## Permission & Security
 
@@ -108,6 +111,7 @@ You don't need to configure everything up front. Each feature has a recognizable
 | `plan`              | Claude can only read/search, cannot modify files                                |
 | `acceptEdits`       | Auto-approve file edits, ask for other actions                                  |
 | `auto`              | A model classifier approves or denies each tool call (Team/Enterprise/API only) |
+| `manual`            | Requires explicit approval for every tool call                                  |
 | `dontAsk`           | Auto-approve most actions                                                       |
 | `bypassPermissions` | Full autonomy (requires `--dangerously-skip-permissions`)                       |
 
@@ -159,19 +163,19 @@ Each extension has different context costs:
 - **`.claude/rules/`**: Every session or when matching files are opened; can be scoped to file paths via `paths` frontmatter
 - **Skills**: On demand, task-specific
 
+### Subagent vs Dynamic Workflow
+
+- **Subagents** are workers Claude spawns, each returning a summary to the conversation that spawned it
+- **Dynamic workflows** are scripts Claude writes that run many subagents in the background and return one result
+- Use a subagent for quick, focused work: research a question, verify a claim, review a file
+- Use a dynamic workflow when a job outgrows a handful of subagents, or when you want findings cross-checked before you see them (codebase-wide audit, large migration, multi-angle plan)
+
 ### MCP vs Skill
 
 - **MCP** connects Claude to external services (databases, APIs, browsers)
 - **Skills** teach Claude knowledge about how to use those services effectively
 - They combine: MCP gives ability, skills give knowledge and workflow patterns
 - Example: MCP connects to your database, a skill documents your schema and query patterns
-
-### Subagent vs Agent Team
-
-- **Subagents** run inside your session and report results back to main context
-- **Agent teams** are independent Claude Code sessions that communicate with each other
-- Use subagents for focused tasks; use agent teams when teammates need to share findings and coordinate
-- Transition point: if running parallel subagents but hitting context limits, or if subagents need to communicate, agent teams are the natural next step
 
 ### Hook vs Skill
 
@@ -225,16 +229,25 @@ Isolated execution contexts:
 - Do not inherit conversation history from main session
 - Useful when context window is getting full
 - Built-in Explore and Plan agents omit CLAUDE.md and git status for speed
+- Named subagents can message each other
 
-## Agent Teams (Experimental)
+## Dynamic Workflows
 
-Coordinate multiple independent Claude sessions working on related tasks:
+Scripts Claude writes that run many subagents in the background:
 
-- Shared task boards for coordination
-- Inter-agent messaging (peer-to-peer)
-- Parallel execution across git worktrees
-- Quality gates and verification
-- Disabled by default
+- Claude writes the orchestration script, not just individual subagents
+- Subagents can be cross-checked against each other
+- Use when work outgrows a handful of subagents
+- Ask for a workflow in your prompt to start one
+- Good for codebase-wide audits, large migrations, multi-perspective plans
+
+## Cross-Session Messaging
+
+Let Claude pass a message from one of your sessions to another:
+
+- Sessions you run yourself can share findings mid-task
+- Useful when parallel sessions need coordination
+- One session can warn another about breaking changes
 
 ## How Features Layer
 
@@ -281,6 +294,10 @@ MCP servers can push notifications to Claude Code sessions via channels. Claude 
 
 Minimal startup mode (`--bare` flag) that skips auto-discovery of hooks, skills, plugins, MCP servers, auto memory, and CLAUDE.md. Useful for scripted calls that need fast startup. Sets `CLAUDE_CODE_SIMPLE` environment variable.
 
+## Safe Mode
+
+Start with all customizations disabled (`--safe-mode` flag) for troubleshooting broken configuration. Disables hooks, skills, plugins, MCP, CLAUDE.md, themes, and other customizations.
+
 ## Platform Support
 
 | Platform               | Description                                               |
@@ -294,6 +311,7 @@ Minimal startup mode (`--bare` flag) that skips auto-discovery of hooks, skills,
 | Remote Control         | Control Claude Code from Claude.ai or the Claude app      |
 | Chrome Integration     | Browser automation and web testing (`--chrome` flag)      |
 | Teleport               | Resume web sessions in local terminal (`--teleport` flag) |
+| Self-Hosted Runner     | On-demand runners for self-hosted environments            |
 
 ## Git Worktrees
 
@@ -317,6 +335,35 @@ cat build-error.txt | claude -p 'explain the root cause' > output.txt
 claude -p 'analyze code' --output-format json
 claude -p 'parse logs' --output-format stream-json
 ```
+
+## Background Agents
+
+Run agents as separate processes managed by a supervisor daemon:
+
+```bash
+# Start a background agent
+claude --bg "investigate the flaky test"
+
+# Monitor background agents
+claude agents
+
+# Attach to a background session
+claude attach 7c5dcf5d
+
+# View logs from a background session
+claude logs 7c5dcf5d
+
+# Stop a background session
+claude stop 7c5dcf5d
+
+# Restart a background session with conversation intact
+claude respawn 7c5dcf5d
+
+# Run a shell command as a background job
+claude --bg --exec 'pytest -x'
+```
+
+Use `claude daemon status` for diagnostics and `claude daemon stop --any` to recover from an unresponsive supervisor.
 
 ## Team & Enterprise Features
 
@@ -354,6 +401,9 @@ claude -p 'parse logs' --output-format stream-json
 | `/agents`         | View available agents                             |
 | `/reload-plugins` | Reload plugin configurations                      |
 | `/loop`           | Run a prompt or command on a recurring interval   |
+| `/doctor`         | Print installation and settings diagnostics       |
+| `/context`        | View context window usage                         |
+| `/add-dir`        | Add additional working directories                |
 
 ## Sources
 
@@ -361,7 +411,8 @@ claude -p 'parse logs' --output-format stream-json
 - [How Claude Code Works](https://code.claude.com/docs/en/how-claude-code-works)
 - [Skills](https://code.claude.com/docs/en/skills)
 - [Subagents](https://code.claude.com/docs/en/sub-agents)
-- [Agent Teams](https://code.claude.com/docs/en/agent-teams)
+- [Dynamic Workflows](https://code.claude.com/docs/en/workflows)
+- [Cross-Session Messaging](https://code.claude.com/docs/en/cross-session-messaging)
 - [CLI Reference](https://code.claude.com/docs/en/cli-usage)
 - [Remote Control](https://code.claude.com/docs/en/remote-control)
 - [Chrome Integration](https://code.claude.com/docs/en/chrome)

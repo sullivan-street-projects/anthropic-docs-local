@@ -2,7 +2,7 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -173,7 +173,7 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--tools "Bash,Edit,Read"`                 | Restrict which built-in tools Claude can use (use `""` to disable all, `"default"` for all)                                              |
 | `--max-budget-usd N`                       | Maximum dollar amount to spend on API calls before stopping                                                                              |
 | `--fallback-model <model>`                 | Enable automatic fallback model(s) when default is overloaded; accepts comma-separated list                                              |
-| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max` (available levels depend on model)                                             |
+| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max`, `ultracode` (available levels depend on model)                                |
 | `--bare`                                   | Minimal mode: skip hooks, skills, plugins, MCP, auto memory, CLAUDE.md for faster startup                                                |
 | `--safe-mode`                              | Start with all customizations disabled (hooks, skills, plugins, MCP, CLAUDE.md, themes, etc.) for troubleshooting                        |
 | `--no-session-persistence`                 | Disable session saving to disk (print mode only)                                                                                         |
@@ -183,6 +183,7 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--append-system-prompt "text"`            | Append custom text to end of default system prompt                                                                                       |
 | `--system-prompt-file <path>`              | Load system prompt from a file                                                                                                           |
 | `--append-system-prompt-file <path>`       | Append file contents to default prompt                                                                                                   |
+| `--append-subagent-system-prompt "text"`   | Append custom text to every subagent's system prompt (v2.1.205+)                                                                         |
 | `--mcp-config <path>`                      | Load MCP servers from JSON files or strings                                                                                              |
 | `--strict-mcp-config`                      | Only use MCP servers from `--mcp-config`, ignoring all other MCP configurations                                                          |
 | `--setting-sources <list>`                 | Comma-separated list of setting sources to load (`user`, `project`, `local`)                                                             |
@@ -192,13 +193,24 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--agent <name>`                           | Specify an agent for the current session                                                                                                 |
 | `--agents <json>`                          | Define custom subagents dynamically via JSON                                                                                             |
 | `--advisor <model>`                        | Enable server-side advisor tool with a model alias                                                                                       |
+| `--autocompact <auto\|tokens>`             | Set auto-compact window for session (v2.1.221+)                                                                                          |
 | `--verbose`                                | Enable verbose logging; shows full turn-by-turn output                                                                                   |
 | `--debug`                                  | Enable debug mode with optional category filtering                                                                                       |
+| `--debug-file <path>`                      | Write debug logs to specific file (implicitly enables debug mode)                                                                        |
 | `--init`                                   | Run Setup hooks with the `init` matcher before the session (print mode only)                                                             |
 | `--init-only`                              | Run Setup and SessionStart hooks, then exit without starting a conversation                                                              |
+| `--maintenance`                            | Run Setup hooks with `maintenance` matcher before session (print mode only)                                                              |
 | `--exclude-dynamic-system-prompt-sections` | Move per-machine sections from system prompt into first user message for better cache reuse                                              |
 | `--input-format`                           | Specify input format for print mode (`text`, `stream-json`)                                                                              |
 | `--include-hook-events`                    | Include hook lifecycle events in output stream (requires `--output-format stream-json`)                                                  |
+| `--forward-subagent-text`                  | Emit subagent text and thinking blocks in output stream (v2.1.211+)                                                                      |
+| `--cloud`                                  | Create new web session on claude.ai with task description                                                                                |
+| `--exec`                                   | Run shell command as PTY-backed background job instead of session                                                                        |
+| `--plugin-dir <path>`                      | Load plugin from directory or .zip archive                                                                                               |
+| `--plugin-url <url>`                       | Fetch plugin .zip from URL (loaded for that session only)                                                                                |
+| `--betas`                                  | Beta headers to include in API requests (API key users only)                                                                             |
+| `--prompt-suggestions`                     | Emit predicted next user prompt after each turn (requires `-p`, `stream-json`, `--verbose`)                                              |
+| `--environment <id>`                       | Create cloud session on self-hosted environment (v2.1.224+)                                                                              |
 
 ### Tier 3: GitHub Actions Example
 
@@ -243,11 +255,17 @@ claude logs 7c5dcf5d
 # Stop a background session
 claude stop 7c5dcf5d
 
+# Restart background session with conversation intact
+claude respawn 7c5dcf5d
+
+# Remove background session from list (transcript preserved)
+claude rm 7c5dcf5d
+
 # Run a shell command as a background job
 claude --bg --exec 'pytest -x'
 ```
 
-Background agents run as separate processes managed by a supervisor daemon. Unlike `/loop`, they persist independently of your interactive session. Use `claude daemon status` for diagnostics and `claude daemon stop --any` to recover from an unresponsive supervisor.
+Background agents run as separate processes managed by a supervisor daemon. Unlike `/loop`, they persist independently of your interactive session. Use `claude daemon status` for diagnostics and `claude daemon stop --any` to recover from an unresponsive supervisor. Use `claude daemon stop --any --keep-workers` to stop the supervisor but leave background sessions running.
 
 ---
 
@@ -324,6 +342,11 @@ claude --bg --exec 'npm test'
 | `--tools` flag for restricting built-in tools     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--disallowedTools` deny rules                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--fallback-model` comma-separated chains         | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| System prompt flags (4 variants)                  | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| System prompt flags (5 variants incl subagent)    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--cloud` / `--environment` web session flags     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--autocompact` flag                              | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--exec` / `--plugin-dir` / `--plugin-url`        | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `claude respawn` / `claude rm` commands            | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--forward-subagent-text` stream flag             | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | Cron scheduling approach                          | General best practice, CLI flags verified                  | Medium     |
 | GitHub Actions approach                           | General best practice, CLI flags verified                  | Medium     |

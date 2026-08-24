@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs. Connect a server when you find yourself copying data into chat from another tool.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** August 24, 2026
 
 ## What You Can Do with MCP
 
@@ -27,7 +27,7 @@ With MCP servers connected, you can ask Claude Code to:
 
 Browse reviewed connectors in the [Anthropic Directory](https://claude.ai/directory). Directory connectors use the same MCP infrastructure as Claude Code, so you can add any remote server listed there with `claude mcp add`.
 
-To build your own server, see the [MCP server guide](https://modelcontextprotocol.io/docs/develop/build-server) for protocol fundamentals. You can also have Claude scaffold a server for you with the official `mcp-server-dev` plugin:
+To build your own server, see the [MCP server guide](https://modelcontextprotocol.io/docs/develop/build-server) for protocol fundamentals and the [Claude connector building docs](https://claude.com/docs/connectors/building) for authentication, testing, and Directory submission. You can also have Claude scaffold a server for you with the official `mcp-server-dev` plugin:
 
 ```
 /plugin install mcp-server-dev@claude-plugins-official
@@ -89,7 +89,7 @@ claude mcp add --env AIRTABLE_API_KEY=YOUR_KEY --transport stdio airtable \
   -- npx -y airtable-mcp-server
 ```
 
-Claude Code sets `CLAUDE_PROJECT_DIR` in the spawned server's environment to the project root, so your server can resolve project-relative paths.
+Claude Code sets `CLAUDE_PROJECT_DIR` in the spawned server's environment to the project root, so your server can resolve project-relative paths. Claude Code also responds to `roots/list` requests with the session's launch directory plus every additional working directory granted with `--add-dir`, `/add-dir`, or the `additionalDirectories` setting, and sends `notifications/roots/list_changed` when that set changes (v2.1.203+).
 
 > **Important: Option ordering** -- All options (`--transport`, `--env`, `--scope`, `--header`) must come before the server name. The `--` (double dash) separates the server name from the command and arguments passed to the MCP server.
 

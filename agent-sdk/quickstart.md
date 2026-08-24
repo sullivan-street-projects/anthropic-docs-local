@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Get started with the Python or TypeScript Agent SDK to build AI agents that work autonomously. This quickstart walks you through building an agent that reads your code, finds bugs, and fixes them without manual intervention.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** August 24, 2026
 
 **What you'll do:**
 

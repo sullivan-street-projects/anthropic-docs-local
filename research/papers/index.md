@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 This directory contains the full PDF versions of Anthropic's key research papers from arXiv. These papers form the theoretical and empirical foundation for Claude's development.
 
-> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 10 new (2025-2026, not yet downloaded)
+> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 11 new (2025-2026, not yet downloaded)
 
 ## New Papers (2025-2026)
 
@@ -28,6 +28,7 @@ The following papers have been identified since the last full update. PDFs have 
 | The Hot Mess of AI: Misalignment Scaling with Intelligence and Task Complexity | [2601.23045](https://arxiv.org/abs/2601.23045) | Jan 2026 | ICLR 2026. As tasks get harder, model failures become increasingly incoherent rather than systematically misaligned. Anthropic Fellows Program. By Hägele et al.   |
 | Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption         | [2511.15080](https://arxiv.org/abs/2511.15080) | Nov 2025 | Documents Claude usage patterns in 150+ countries, finding directive task delegation rose from 27% to 39% in eight months.                                         |
 | How AI Assistance Impacts the Formation of Coding Skills                       | [2601.20245](https://arxiv.org/abs/2601.20245) | Jan 2026 | Investigates how AI coding assistants affect skill development in programmers. By Shen, Tamkin et al. (Anthropic).                                                 |
+| Mind Viruses: Self-Propagating Ideas in Multi-Agent LLM Systems                | [2608.10218](https://arxiv.org/abs/2608.10218) | Aug 2026 | Anthropic Fellows Program. Studies how ideas/goals self-propagate through multi-agent systems. Brief system prompt warning provides near-total immunity. By Papadopoulos, Shah, Zimmerman, Lindsey. |
 
 ### Non-arXiv Notable Research (2025)
 
@@ -95,11 +96,12 @@ For those new to Anthropic's research, suggested reading order:
 15. **Reasoning Models CoT Faithfulness** (2025) - Limits of monitoring
 16. **Emergent Misalignment** (2025) - Reward hacking to sabotage
 17. **The Hot Mess of AI** (2026, ICLR) - Incoherence vs. systematic misalignment at scale
+18. **Mind Viruses** (2026) - Self-propagation in multi-agent systems
 
 ### Governance Track
 
-18. **Collective Constitutional AI** - Democratic input on AI values
-19. **Influence Functions** - Tracing outputs to training data
+19. **Collective Constitutional AI** - Democratic input on AI values
+20. **Influence Functions** - Tracing outputs to training data
 
 ## Citation Information
 
@@ -109,7 +111,7 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
-Last checked for new papers: August 16, 2026. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the August 2 check. Searches surfaced only (a) third-party arXiv papers that cite Anthropic but are not Anthropic-authored, and (b) recent Anthropic research published as anthropic.com / Alignment Science Blog posts without confirmed arXiv identifiers (e.g. "Agentic Misalignment in Summer 2026," alignment.anthropic.com, Jul 13, 2026). No entries added.
+Last checked for new papers: August 24, 2026. Added 2608.10218 "Mind Viruses: Self-Propagating Ideas in Multi-Agent LLM Systems" (Papadopoulos, Shah, Zimmerman, Lindsey; Anthropic Fellows Program, August 10, 2026). No other new Anthropic-authored arXiv papers with verified arXiv IDs identified since the August 16 check.
 
 Last checked for new papers: August 2, 2026. Added "Verbalizable Representations Form a Global Workspace in Language Models" (transformer-circuits.pub, Jul 6, 2026) to the non-arXiv notable list. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the July 12 check; recent Anthropic research from mid-July onward (e.g. "Claude's values across models and languages," "How Canada uses Claude," "An off switch for dual-use knowledge in AI models") has appeared as anthropic.com posts without confirmed arXiv identifiers, so no arXiv entries were added.
 

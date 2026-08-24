@@ -29,15 +29,44 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 6
+Total cycles logged: 7
 Total improvements applied: 2 (0 code changes this cycle)
 Total improvements deferred: 3 (reinforced #18 source-lifecycle tracking)
 Most-improved infrastructure: manifest.json (2 changes: hashes + URL corrections)
-Most-informative category: engineering/research (this cycle: multiagent-systems research validates our concurrency design)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~7th cycle); removal escalated to a user task chip
-Last cycle: 2026-08-16 — 0 applied, 1 strong already-aligned finding, 1 deferred reinforced
+Most-informative category: engineering/claude-code (this cycle: hooks.md continueAgentic + Dynamic Workflows teach new automation patterns)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~8th cycle, 141 days stale); removal escalated to a user task chip
+Last cycle: 2026-08-24 — 0 applied, 3 already-aligned, 1 deferred reinforced
 
 ## Entries
+
+### 2026-08-24 — Update: all
+
+Content changes analyzed: 29 files modified (19 content-changed, 10 timestamp-only)
+Improvements identified: 0 new code changes; 3 already-aligned validations
+Improvements applied: 0
+Improvements deferred: 1 (reinforced, not new)
+
+**Already aligned (content teaches, infra already does it):**
+
+- `research/papers/index.md` → New paper "Mind Viruses: Self-Propagating Ideas in Multi-Agent LLM Systems" (2608.10218) studies how ideas/goals self-propagate through multi-agent systems. A brief system prompt warning provides near-total immunity. Our pipeline already gives agents orthogonal, non-overlapping source sets (per lessons.md invariant #3). Directly validates our concurrency design alongside the multiagent-systems research from 2026-08-16.
+
+- `claude-code/hooks.md` → `continueAgentic` field (v2.1.200+) for PostToolUse/Stop/SubagentStop enables automated hook-driven agentic continuation. Our update pipeline doesn't use hooks (we orchestrate via subagents), but the pattern validates our multi-agent approach to automation. No change needed.
+
+- `claude-code/features.md` → Dynamic Workflows (script-based multi-agent orchestration) and Cross-Session Messaging mirror our pipeline's architecture. Self-Hosted Runner support is informational. No change needed.
+
+**Deferred (reinforced, already in optimizations plan as #18):**
+
+- `models/deprecations.md` → Python SDK v1.0 `TypeError` on removed params and `api/extended-thinking.md` deprecation banner reinforce the need for lifecycle tracking (#18). Sources and API features go through active→deprecated→removed stages. Still MEDIUM effort; priority re-reinforced.
+
+**Staleness report:**
+
+- Stable (unchanged but accessible): ~65 web-extracted snapshot articles (timestamps preserved at last successful fetch)
+- Possibly dead: 1 (8th consecutive cycle) — `agent-sdk-typescript-v2`: https://github.com/anthropics/agent-sdk — 404, 141 days stale. Removal overdue.
+- Relocated: 0
+
+**Discovery findings (Phase 2.5):**
+
+- 28 new untracked URLs found. 3 HIGH priority post-Aug-16 (protein design, Risk Report PDF, worker retraining). 4 MEDIUM-HIGH from Aug 2-16 window. 5 new GitHub repos. PyPI anthropic 1.0.0 (breaking). 1 new arXiv paper added.
 
 ### 2026-08-16 — Update: all
 

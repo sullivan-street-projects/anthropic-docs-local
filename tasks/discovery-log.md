@@ -19,6 +19,27 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-08-24 — Weekly Update (full discovery scan)
+
+- **Manifest sources checked**: 127 (no new adds this cycle — automated run)
+- **Added**: 0 (automated run — user not present to approve)
+- **New content found**: 28 untracked URLs
+- **Deferred (HIGH — post Aug 16)**:
+  - `Claude-accelerates-protein-design` → research — How Claude is accelerating protein design and analytical chemistry (Aug 18)
+  - `aug-2026-risk-report` → news/policy — Risk Report: August 2026 (PDF on CDN)
+  - `reviewing-the-evidence-on-worker-retraining-programs` → research — Reviewing the evidence on worker retraining programs (Aug 12)
+- **Deferred (MEDIUM-HIGH — Aug 2-16 window)**:
+  - `claude-text-watermark` → news — How Claude's text watermark works (Aug 14)
+  - `riemann-zeta` → research — Learning more about Claude's mathematical capabilities (Aug 10)
+  - `improving-fable-5-s-biology-safeguards` → news — Improving Fable 5's biology safeguards (Aug 7)
+  - `tino-cuellar` → news — Tino Cuéllar joins as CGAO (Aug 4)
+- **Deferred (MEDIUM — Jul 12-Aug 2 window)**: investigating-incidents-cybersecurity-evals, discovering-cryptographic-weaknesses, position-open-weights-models, project-pilot, economic-futures-research-fund-agenda, anthropic-economic-index-connector, how-canada-uses-claude, claude-values-models-languages, claude-plays-robotics, off-switch-dual-use, global-workspace
+- **Deferred (LOW)**: cognizant-anthropic, hard-questions, donation-public-first-action, rare-disease-research-grants, redeploying-fable-5, project-fetch-phase-two, project-deal, election-safeguards-update, april-23-postmortem, 81k-interviews, ben-bernanke
+- **GitHub repos**: 5 new since Aug 1 (zeta-23-lean 188★, oncall-kit 26★, OpenROAD-flow-scripts 0★, amulet2, mockturtle)
+- **SDK versions**: npm @anthropic-ai/sdk 0.120.0, PyPI anthropic 1.0.0 (BREAKING — httpx2, Python 3.10+)
+- **arXiv**: 1 new paper added — Mind Viruses: Self-Propagating Ideas in Multi-Agent LLM Systems (2608.10218)
+- **Staleness**: `agent-sdk-typescript-v2` (github.com/anthropics/agent-sdk) — confirmed 404 again, 141 days stale. Removal still recommended.
+
 ### 2026-08-16 — Weekly Update (full discovery scan)
 
 - **Manifest sources checked**: 120 (before adds) → 127 (after adds)

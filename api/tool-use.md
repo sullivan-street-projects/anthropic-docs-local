@@ -2,7 +2,7 @@
 title: "Tool Use Guide"
 source_url: "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "api"
 ---
 
@@ -326,6 +326,7 @@ Anthropic publishes the schema and trains Claude on it. Your application still e
 - **Bash tool** (`bash_20250124`): Run shell commands in a persistent session that maintains state.
 - **Text Editor tool** (`text_editor_20250728`): View and modify text files to debug, fix, and improve code.
 - **Computer Use tool**: Take screenshots and control the mouse and keyboard in a desktop environment.
+- **Browser Use tool** (`browser_toolset_20260801`): Navigate, read, and interact with webpages in your own browser environment.
 
 ### Server Tools
 
@@ -363,11 +364,14 @@ When you use `tools`, the API automatically includes a special system prompt tha
 | Claude Opus 4.7   | 675 tokens  | 804 tokens |
 | Claude Opus 4.6   | 497 tokens  | 589 tokens |
 | Claude Opus 4.5   | 496 tokens  | 588 tokens |
+| Claude Opus 4.1 (retired, except on Bedrock and Google Cloud) | 313 tokens  | 315 tokens |
+| Claude Opus 4 (retired, except on Google Cloud)   | 313 tokens  | 315 tokens |
 | Claude Sonnet 5   | 354 tokens  | 474 tokens |
 | Claude Sonnet 4.6 | 497 tokens  | 589 tokens |
 | Claude Sonnet 4.5 | 496 tokens  | 588 tokens |
+| Claude Sonnet 4 (retired, except on Bedrock and Google Cloud) | 313 tokens  | 315 tokens |
 | Claude Haiku 4.5  | 496 tokens  | 588 tokens |
-| Claude Haiku 3.5  | 264 tokens  | 355 tokens |
+| Claude Haiku 3.5 (retired, except on Bedrock and Google Cloud) | 264 tokens  | 355 tokens |
 
 ### Server Tool Pricing
 

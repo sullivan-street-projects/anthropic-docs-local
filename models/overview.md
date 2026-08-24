@@ -2,7 +2,7 @@
 title: "Claude Models Overview"
 source_url: "https://platform.claude.com/docs/en/about-claude/models/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "models"
 ---
 

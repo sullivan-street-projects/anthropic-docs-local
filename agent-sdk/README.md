@@ -2,7 +2,7 @@
 title: "Claude Agent SDK"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -12,7 +12,7 @@ Build production AI agents with Claude Code as a library. The Agent SDK gives yo
 
 > **Note:** The Claude Code SDK has been renamed to the Claude Agent SDK. See the [Migration Guide](https://code.claude.com/docs/en/agent-sdk/migration-guide) if migrating from the old SDK.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** August 24, 2026
 
 ## Overview
 
@@ -26,6 +26,8 @@ The Agent SDK enables programmatic access to Claude Code's agentic capabilities:
 - Session management with context persistence, resumption, and forking
 - Permissions control for security and governance
 - Filesystem-based configuration (Skills, Slash commands, Memory, Plugins)
+- Dynamic workflows for orchestrating many subagents from a script
+- Cross-session messaging between Claude Code sessions
 
 ## Quick Example
 
@@ -62,14 +64,12 @@ for await (const message of query({
 
 ## When to Use
 
-| Use Case                                                           | Recommended    |
-| ------------------------------------------------------------------ | -------------- |
-| CI/CD pipelines                                                    | Agent SDK      |
-| Production AI agents                                               | Agent SDK      |
-| Custom applications                                                | Agent SDK      |
-| Interactive development                                            | CLI            |
-| Quick one-off tasks                                                | CLI            |
-| Production agents without operating sandbox/session infrastructure | Managed Agents |
+| If you're...                                                                    | Use              | Why                                                                                  |
+| ------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------ |
+| Building an agent without implementing the tool loop yourself                   | **Agent SDK**    | A library that runs the agent loop in your own process, in Python or TypeScript      |
+| Doing interactive development or running one-off tasks                          | **CLI**          | The terminal interface, built for daily interactive use                               |
+| Calling the API directly and implementing the tool loop yourself                | **Client SDK**   | Direct access to the Anthropic API; you implement the tool loop yourself             |
+| Running long-running/async agents without managing sandbox/session infra        | **Managed Agents** | Hosted REST API. Anthropic runs the agent and the sandbox                           |
 
 Many teams use both: CLI for daily development, SDK for production. Workflows translate directly between them.
 

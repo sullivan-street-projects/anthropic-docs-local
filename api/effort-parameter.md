@@ -2,19 +2,19 @@
 title: "Effort Parameter"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/effort"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-08-24T00:00:00Z"
 category: "api"
 ---
 
 # Effort Parameter
 
-This feature is eligible for Zero Data Retention (ZDR). When your organization has a ZDR arrangement, data sent through this feature is not stored after the API response is returned.
+## Compatibility
 
-The effort parameter lets you control how eager Claude is about spending tokens when responding to requests. You can trade off between response thoroughness and token efficiency with a single model. The effort parameter is available on all supported models with no beta header required.
+- **ZDR:** Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
+- **Supported models:** `claude-fable-5`, `claude-mythos-5`, `claude-mythos-preview`, `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-sonnet-5`, `claude-sonnet-4-6`, `claude-opus-4-5-20251101`
+- **Platforms:** Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, Microsoft Foundry
 
-## Supported Models
-
-The effort parameter is supported by Claude Fable 5, Claude Mythos 5, Claude Mythos Preview, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, Claude Sonnet 4.6, and Claude Opus 4.5.
+The effort parameter lets you control how many tokens Claude spends when responding to requests. You can trade off between response thoroughness and token efficiency with a single model. The effort parameter is available on all supported models with no beta header required.
 
 For Claude Opus 4.6 and Sonnet 4.6, effort replaces `budget_tokens` as the recommended way to control thinking depth. Combine effort with adaptive thinking (`thinking: {type: "adaptive"}`) for the best experience. While `budget_tokens` is still accepted on Opus 4.6 and Sonnet 4.6, it is deprecated and will be removed in a future model release. At `high` (default) and `max` effort, Claude will almost always think. At lower effort levels, it may skip thinking for simpler problems.
 
@@ -43,7 +43,9 @@ This approach has two major advantages:
 | `xhigh`  | Extended capability for long-horizon work. Available on Claude Fable 5, Claude Mythos 5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, and Claude Sonnet 5.                                                                                    | Long-running agentic and coding tasks (over 30 minutes) with token budgets in the millions |
 | `high`   | High capability. Equivalent to not setting the parameter.                                                                                                                                                                                         | Complex reasoning, difficult coding problems, agentic tasks                                |
 | `medium` | Balanced approach with moderate token savings.                                                                                                                                                                                                    | Agentic tasks that require a balance of speed, cost, and performance                       |
-| `low`    | Most efficient. Significant token savings with some capability reduction.                                                                                                                                                                         | Simpler tasks that need the best speed and lowest costs, like subagents                    |
+| `low`    | Most efficient. Significant token savings with some capability reduction.                                                                                                                                                                         | Simpler tasks that need the best speed and lowest costs, such as subagents                 |
+
+`xhigh` is a newer level; some models that support `max` don't support `xhigh`.
 
 Effort is a behavioral signal, not a strict token budget. At lower effort levels, Claude will still think on sufficiently difficult problems, but it will think less than it would at higher effort levels for the same problem.
 
@@ -118,7 +120,7 @@ curl https://api.anthropic.com/v1/messages \
     --header "anthropic-version: 2023-06-01" \
     --header "content-type: application/json" \
     --data '{
-        "model": "claude-opus-4-8",
+        "model": "claude-opus-5",
         "max_tokens": 4096,
         "messages": [{
             "role": "user",
@@ -136,7 +138,7 @@ curl https://api.anthropic.com/v1/messages \
 client = anthropic.Anthropic()
 
 response = client.messages.create(
-    model="claude-opus-4-8",
+    model="claude-opus-5",
     max_tokens=4096,
     messages=[
         {
@@ -156,7 +158,7 @@ print(response.content[0].text)
 const client = new Anthropic();
 
 const response = await client.messages.create({
-  model: "claude-opus-4-8",
+  model: "claude-opus-5",
   max_tokens: 4096,
   messages: [
     {
@@ -182,7 +184,7 @@ console.log(textBlock?.text);
 client := anthropic.NewClient()
 
 response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-	Model:     anthropic.ModelClaudeOpus4_8,
+	Model:     anthropic.ModelClaudeOpus5,
 	MaxTokens: 4096,
 	Messages: []anthropic.MessageParam{
 		anthropic.NewUserMessage(anthropic.NewTextBlock("Analyze the trade-offs between microservices and monolithic architectures")),
