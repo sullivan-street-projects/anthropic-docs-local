@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "63d9e0c17c90756f746a848524c45dbc753f775ddd1fc7006a62a4ecf3193742"
+      "sha256": "f601b6a40aecd41ea4d03583dc5cf23ac482c39f7e227c8553a5740ee3bcf4b4"
     },
     {
       "id": "claude-code-features",
@@ -45,10 +45,10 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "https://code.claude.com/docs/en/hooks",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "2b9025ab208bf9e80f64e2dd9f93cd0847b987c90bbbaaa9663461a06d0b25a1"
+      "sha256": "ff4385c3bc461ae605fde662880b28dd975edf738aa88d669734f0065c2222b8"
     },
     {
       "id": "claude-code-mcp",
@@ -129,10 +129,10 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "f675f612d69cb7ac97486e0c5dedb5e80b7673520e06396240f308d1f4483a4d"
+      "sha256": "74e69da8035742f124f4fb083fd9a2adbf2d32d60012dc082781e05fa76fb2f0"
     },
     {
       "id": "python-sdk-changelog",
@@ -141,10 +141,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "76d2c3e0705c822ba8f97ae9c8f7612fe370c67497ce3df5f1401e8bdadb0506"
+      "sha256": "76c70aa5e3b95e3ab65dcf4c44d9f9efab31d68eaa7488a9a348c69827c5085e"
     },
     {
       "id": "typescript-sdk-readme",
@@ -153,10 +153,10 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "4b44db3495bd019f20d2954c3d9f00ab426705c6eb4fe377888ff3c3ed28681c"
+      "sha256": "62f4f67738b216ca15b1b6031337e60aae9d6f4b2fac05f4be32daa3aa403f97"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -165,10 +165,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "e86c1152c5f7a6d5a4608ef69bcf8bbc368398ff81099f5c4acb33f56339bd4f"
+      "sha256": "98c6c6465c684449777336bf41b99431a369d1bb490fb46b4ad490bbb071fff1"
     },
     {
       "id": "other-sdks-overview",
@@ -239,10 +239,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "718ac31b68c13a88d8199e13a9592f8a05ea40d9cb97b76dcd199ef72fea7d2f"
+      "sha256": "50d8da50fc29e384d2e551bc9e99adea416898b16aa0fa6241e97f57503c8052"
     },
     {
       "id": "release-notes-platform",
@@ -359,10 +359,10 @@
       "local_path": "models/overview.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/models/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "a9804901551551b0bedc019725faa4c9450b5874944ae3069d37560d60a04404"
+      "sha256": "afb4b3741bc6637eaa885dbdaf21a6714c6bf8c4349459cd04209079cc4ac9ae"
     },
     {
       "id": "model-opus-4-6",
@@ -419,10 +419,10 @@
       "local_path": "models/deprecations.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "7998fdd97ae53b4a301a74d5e5076e5666afa65528f16497b0844c9c8b7e5384"
+      "sha256": "fdcb19b8527e453625723ab750995f69ae8626571dac3e03367ae15358c73c26"
     },
     {
       "id": "agent-sdk-readme",
@@ -479,10 +479,10 @@
       "local_path": "research/index.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "cba1e06e7d114034c4240f58f84eff1361fee23dee68961ea93dd45e687785c6"
+      "sha256": "454790e98f90ac655519da318d3464629cbfbdf83e2b7585fe864d321e0922bc"
     },
     {
       "id": "research-alignment",
@@ -877,10 +877,10 @@
       "local_path": "api/models-overview.md",
       "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "53e1d255b10e97ed08419644300e5472bc3a8bc5deed0cb1c7935dfbff0334e4"
+      "sha256": "f390ea2f5e884b7d0e5f315ab1ee6b9b9fc57b8ae827aefb6dc2f2d4e203e3e9"
     },
     {
       "id": "api-migration-guide",
@@ -1617,7 +1617,287 @@
       "review_status": "auto",
       "confidence": 0.8,
       "sha256": "da7ef9f25def5a112afac222c27d5b409a504526b6b7d86f5754b77c845828f5"
+    },
+    {
+      "id": "research-riemann-zeta",
+      "name": "Learning more about Claude's mathematical capabilities",
+      "category": "research",
+      "local_path": "research/riemann-zeta.md",
+      "source_url": "https://www.anthropic.com/research/riemann-zeta",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "5393aa77547cc7ca9f9c6dbb2dc38f60d71e57fb992c0fb9907389bb338e032f"
+    },
+    {
+      "id": "research-claude-accelerates-protein-design",
+      "name": "How Claude is accelerating protein design and analytical chemistry",
+      "category": "research",
+      "local_path": "research/claude-accelerates-protein-design.md",
+      "source_url": "https://www.anthropic.com/research/Claude-accelerates-protein-design",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "9155e34d5cb9e31c2f096e5ff68dd9f969c92b10de2ca05b197bd86ccf6bb728"
+    },
+    {
+      "id": "research-global-workspace",
+      "name": "A Global Workspace in Language Models",
+      "category": "research",
+      "local_path": "research/global-workspace.md",
+      "source_url": "https://www.anthropic.com/research/global-workspace",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "5ba7529c4631123ee2f248b501f3f7e9684eba94879a9875ee213b31459533c0"
+    },
+    {
+      "id": "research-formalizing-fermats-last-theorem",
+      "name": "Formalizing Fermat's Last Theorem",
+      "category": "research",
+      "local_path": "research/formalizing-fermats-last-theorem.md",
+      "source_url": "https://www.anthropic.com/research/formalizing-fermats-last-theorem",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "c0067065dcd6ff1c3c8cc40b9d0156366a41dc32d0a7388ade799702a3b757a5"
+    },
+    {
+      "id": "research-automated-researchers-mitigate-alignment-failures",
+      "name": "Automated Researchers Can Reliably Mitigate Alignment Failures",
+      "category": "research",
+      "local_path": "research/automated-researchers-mitigate-alignment-failures.md",
+      "source_url": "https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "530a9fbf30e5680fd09a19f10108558a2a667fb590a34cae012f7641d5960f18"
+    },
+    {
+      "id": "research-discovering-cryptographic-weaknesses",
+      "name": "Discovering cryptographic weaknesses with Claude",
+      "category": "research",
+      "local_path": "research/discovering-cryptographic-weaknesses.md",
+      "source_url": "https://www.anthropic.com/research/discovering-cryptographic-weaknesses",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "5b70ee7b8c24aee4130e450413860d4dc5d52ba07517a7328e89b27ff55f1280"
+    },
+    {
+      "id": "research-project-pilot",
+      "name": "Project Pilot: Can AI Control a Drone?",
+      "category": "research",
+      "local_path": "research/project-pilot.md",
+      "source_url": "https://www.anthropic.com/research/project-pilot",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "94341ceb6e5c1e0f7c037e3fefcebf38b96dee241f8d18c562159d6810b1a427"
+    },
+    {
+      "id": "research-how-canada-uses-claude",
+      "name": "How Canada Uses Claude: Findings from the Anthropic Economic Index",
+      "category": "research",
+      "local_path": "research/how-canada-uses-claude.md",
+      "source_url": "https://www.anthropic.com/research/how-canada-uses-claude",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "ac931736f6d1d9e12510d6d5fe3e6a4f40fbceecc761ef7cfca01ce00751ebe4"
+    },
+    {
+      "id": "research-reviewing-the-evidence-on-worker-retraining-programs",
+      "name": "Reviewing the Evidence on Worker Retraining Programs",
+      "category": "research",
+      "local_path": "research/reviewing-the-evidence-on-worker-retraining-programs.md",
+      "source_url": "https://www.anthropic.com/research/reviewing-the-evidence-on-worker-retraining-programs",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "5abce3d454a16c59721a7820f175f522645ca5a783a13c4dcb39d768f970389d"
+    },
+    {
+      "id": "research-enabling-independent-research",
+      "name": "Enabling Independent Research on How People Use Claude",
+      "category": "research",
+      "local_path": "research/enabling-independent-research.md",
+      "source_url": "https://www.anthropic.com/research/enabling-independent-research",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "9aef44ae6c04fad83e8aaff286ff9ebc65c29cc62bc818f0a98f56bcedabc16b"
+    },
+    {
+      "id": "model-fable-5-1-mythos-5-1",
+      "name": "Claude Fable 5.1 and Claude Mythos 5.1",
+      "category": "models",
+      "local_path": "models/claude-fable-5-1-mythos-5-1.md",
+      "source_url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "c7a6fbae2183c9fa88be5e9f90596e5c4b51de95e8f5754416aae39e19feae43"
+    },
+    {
+      "id": "news-redeploying-fable-5",
+      "name": "Redeploying Claude Fable 5",
+      "category": "news",
+      "local_path": "news/redeploying-fable-5.md",
+      "source_url": "https://www.anthropic.com/news/redeploying-fable-5",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "e594013426536dbc5003091c7a3d5d12ff2aab95b7169e3a44968144409e06f0"
+    },
+    {
+      "id": "news-model-hardware-standard-research-preview",
+      "name": "Previewing the Model Hardware Standard",
+      "category": "news",
+      "local_path": "news/model-hardware-standard-research-preview.md",
+      "source_url": "https://www.anthropic.com/news/model-hardware-standard-research-preview",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "c49ee7271647640e491f235bffd2b26e6c8124dec0bac604273023b7cda06dc5"
+    },
+    {
+      "id": "news-claude-text-watermark",
+      "name": "How Claude's Text Watermarking Works",
+      "category": "news",
+      "local_path": "news/claude-text-watermark.md",
+      "source_url": "https://www.anthropic.com/news/claude-text-watermark",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "e73d6d34af42b223466f994b0111c87c9f4f0a38d3a091f2dc4324a04801aabc"
+    },
+    {
+      "id": "news-enterprise-frontier-safeguards",
+      "name": "Developing Enterprise Frontier Safeguards with our customers",
+      "category": "news",
+      "local_path": "news/enterprise-frontier-safeguards.md",
+      "source_url": "https://www.anthropic.com/news/enterprise-frontier-safeguards",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "8659371b02438d25d2ec11abda925aa461274ee80feb2f4b648b9dbca873d730"
+    },
+    {
+      "id": "news-improving-alignment-security-efforts",
+      "name": "Improving our alignment and security efforts",
+      "category": "news",
+      "local_path": "news/improving-alignment-security-efforts.md",
+      "source_url": "https://www.anthropic.com/news/improving-alignment-security-efforts",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "f0d127064ecfddd18661b0bf7e3f5e263478e0543abb6099ab62bb249d963dda"
+    },
+    {
+      "id": "news-expanding-support-for-scientists",
+      "name": "Expanding our support for scientists",
+      "category": "news",
+      "local_path": "news/expanding-support-for-scientists.md",
+      "source_url": "https://www.anthropic.com/news/expanding-support-for-scientists",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "71ff9b93aed21a962d1cc998c4966dc5622731c4d3d8701977475711da0a639e"
+    },
+    {
+      "id": "news-improving-fable-5-s-biology-safeguards",
+      "name": "Improving Fable 5's Biology Safeguards",
+      "category": "news",
+      "local_path": "news/improving-fable-5-s-biology-safeguards.md",
+      "source_url": "https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "f38d5b045f3396abdb838eaccb057f5819a36ac051afb23c7c0e7c2c8ebc18ef"
+    },
+    {
+      "id": "news-investigating-incidents-cybersecurity-evals",
+      "name": "Investigating Three Real-World Incidents in Our Cybersecurity Evaluations",
+      "category": "news",
+      "local_path": "news/investigating-incidents-cybersecurity-evals.md",
+      "source_url": "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "cb7483d3ec62d2500a2f06bf37dd084ec75761bf43fdcd7b1ec150a08a7eebbf"
+    },
+    {
+      "id": "news-position-open-weights-models",
+      "name": "Our position on open-weights models",
+      "category": "news",
+      "local_path": "news/position-open-weights-models.md",
+      "source_url": "https://www.anthropic.com/news/position-open-weights-models",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "371600314b659b099e7f2390d70cf16e1cb1c0ec3c70a46681b6237d7285c7cc"
+    },
+    {
+      "id": "news-wellbeing-research-grants",
+      "name": "Funding better evaluations of AI's impact on wellbeing",
+      "category": "news",
+      "local_path": "news/wellbeing-research-grants.md",
+      "source_url": "https://www.anthropic.com/news/wellbeing-research-grants",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "1a262f5e427fa732a6d3a767f096fadde49b9a6612fb3d25d5129a441a19d8b0"
+    },
+    {
+      "id": "engineering-april-23-postmortem",
+      "name": "An Update on Recent Claude Code Quality Reports",
+      "category": "engineering",
+      "local_path": "engineering/april-23-postmortem.md",
+      "source_url": "https://www.anthropic.com/engineering/april-23-postmortem",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "9fe026a46ba9d012a0e529a188090707ca2956973affc0928f70b4613c507910"
+    },
+    {
+      "id": "engineering-swe-bench-sonnet",
+      "name": "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet",
+      "category": "engineering",
+      "local_path": "engineering/swe-bench-sonnet.md",
+      "source_url": "https://www.anthropic.com/engineering/swe-bench-sonnet",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-06T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "76fb7f0057ed8a713db8e04491bb16e7b79b2d6e0ab30baed18c902048a27f04"
     }
   ],
-  "last_discovery_run": "2026-08-16T00:00:00Z"
+  "last_discovery_run": "2026-08-16T00:00:00Z",
+  "metadata": {
+    "last_full_update": "2026-09-06T00:00:00Z",
+    "last_discovery_run": "2026-09-06T00:00:00Z"
+  }
 }

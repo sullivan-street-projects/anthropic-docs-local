@@ -1,18 +1,18 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-08-16T13:16:51.243Z"
+generated_at: "2026-09-06T18:53:31.433Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-08-16
+> Auto-generated from manifest.json on 2026-09-06
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 127 |
+| Total Sources | 150 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 107 | WebFetch with content extraction |
+| web-extracted | 130 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 104 | High-confidence sources, auto-trusted |
+| auto | 127 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -123,6 +123,8 @@ generator: "scripts/generate-architecture.js"
 | [Scaling Managed Agents](../engineering/managed-agents.md) | web-extracted | 0.8 |
 | [Harness design for long-running application development](../engineering/harness-design-long-running-apps.md) | web-extracted | 0.8 |
 | [How we contain Claude across products](../engineering/how-we-contain-claude.md) | web-extracted | 0.8 |
+| [An Update on Recent Claude Code Quality Reports](../engineering/april-23-postmortem.md) | web-extracted | 0.85 |
+| [Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet](../engineering/swe-bench-sonnet.md) | web-extracted | 0.85 |
 
 ### github-repos
 
@@ -146,6 +148,7 @@ generator: "scripts/generate-architecture.js"
 | [Claude Opus 4.8](../models/claude-opus-4-8.md) | web-extracted | 0.85 |
 | [Claude Opus 5](../models/claude-opus-5.md) | web-extracted | 0.85 |
 | [Claude Sonnet 5](../models/claude-sonnet-5.md) | web-extracted | 0.85 |
+| [Claude Fable 5.1 and Claude Mythos 5.1](../models/claude-fable-5-1-mythos-5-1.md) | web-extracted | 0.85 |
 
 ### news
 
@@ -171,6 +174,16 @@ generator: "scripts/generate-architecture.js"
 | [Statement on Fable 5 / Mythos 5 access](../news/fable-mythos-access.md) | web-extracted | 0.85 |
 | [Introducing Claude Tag](../news/introducing-claude-tag.md) | web-extracted | 0.85 |
 | [Anthropic raises $65B in Series H](../news/series-h.md) | web-extracted | 0.85 |
+| [Redeploying Claude Fable 5](../news/redeploying-fable-5.md) | web-extracted | 0.85 |
+| [Previewing the Model Hardware Standard](../news/model-hardware-standard-research-preview.md) | web-extracted | 0.85 |
+| [How Claude's Text Watermarking Works](../news/claude-text-watermark.md) | web-extracted | 0.85 |
+| [Developing Enterprise Frontier Safeguards with our customers](../news/enterprise-frontier-safeguards.md) | web-extracted | 0.85 |
+| [Improving our alignment and security efforts](../news/improving-alignment-security-efforts.md) | web-extracted | 0.85 |
+| [Expanding our support for scientists](../news/expanding-support-for-scientists.md) | web-extracted | 0.85 |
+| [Improving Fable 5's Biology Safeguards](../news/improving-fable-5-s-biology-safeguards.md) | web-extracted | 0.85 |
+| [Investigating Three Real-World Incidents in Our Cybersecurity Evaluations](../news/investigating-incidents-cybersecurity-evals.md) | web-extracted | 0.85 |
+| [Our position on open-weights models](../news/position-open-weights-models.md) | web-extracted | 0.85 |
+| [Funding better evaluations of AI's impact on wellbeing](../news/wellbeing-research-grants.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -206,6 +219,16 @@ generator: "scripts/generate-architecture.js"
 | [Natural Language Autoencoders](../research/natural-language-autoencoders.md) | web-extracted | 0.85 |
 | [Teaching Claude why](../research/teaching-claude-why.md) | web-extracted | 0.85 |
 | [Patterns and problems in emerging multiagent systems](../research/multiagent-systems.md) | web-extracted | 0.8 |
+| [Learning more about Claude's mathematical capabilities](../research/riemann-zeta.md) | web-extracted | 0.85 |
+| [How Claude is accelerating protein design and analytical chemistry](../research/claude-accelerates-protein-design.md) | web-extracted | 0.85 |
+| [A Global Workspace in Language Models](../research/global-workspace.md) | web-extracted | 0.85 |
+| [Formalizing Fermat's Last Theorem](../research/formalizing-fermats-last-theorem.md) | web-extracted | 0.85 |
+| [Automated Researchers Can Reliably Mitigate Alignment Failures](../research/automated-researchers-mitigate-alignment-failures.md) | web-extracted | 0.85 |
+| [Discovering cryptographic weaknesses with Claude](../research/discovering-cryptographic-weaknesses.md) | web-extracted | 0.85 |
+| [Project Pilot: Can AI Control a Drone?](../research/project-pilot.md) | web-extracted | 0.85 |
+| [How Canada Uses Claude: Findings from the Anthropic Economic Index](../research/how-canada-uses-claude.md) | web-extracted | 0.85 |
+| [Reviewing the Evidence on Worker Retraining Programs](../research/reviewing-the-evidence-on-worker-retraining-programs.md) | web-extracted | 0.85 |
+| [Enabling Independent Research on How People Use Claude](../research/enabling-independent-research.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -304,7 +327,9 @@ anthropic-docs-local/
 │   ├── claude-code-auto-mode.md
 │   ├── managed-agents.md
 │   ├── harness-design-long-running-apps.md
-│   └── how-we-contain-claude.md
+│   ├── how-we-contain-claude.md
+│   ├── april-23-postmortem.md
+│   └── swe-bench-sonnet.md
 ├── github-repos/
 │   └── index.md
 ├── models/
@@ -319,7 +344,8 @@ anthropic-docs-local/
 │   ├── claude-opus-4-7.md
 │   ├── claude-opus-4-8.md
 │   ├── claude-opus-5.md
-│   └── claude-sonnet-5.md
+│   ├── claude-sonnet-5.md
+│   └── claude-fable-5-1-mythos-5-1.md
 ├── news/
 │   ├── claude-code-security.md
 │   ├── detecting-distillation-attacks.md
@@ -340,7 +366,17 @@ anthropic-docs-local/
 │   ├── claude-opus-4-8.md
 │   ├── fable-mythos-access.md
 │   ├── introducing-claude-tag.md
-│   └── series-h.md
+│   ├── series-h.md
+│   ├── redeploying-fable-5.md
+│   ├── model-hardware-standard-research-preview.md
+│   ├── claude-text-watermark.md
+│   ├── enterprise-frontier-safeguards.md
+│   ├── improving-alignment-security-efforts.md
+│   ├── expanding-support-for-scientists.md
+│   ├── improving-fable-5-s-biology-safeguards.md
+│   ├── investigating-incidents-cybersecurity-evals.md
+│   ├── position-open-weights-models.md
+│   └── wellbeing-research-grants.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -367,7 +403,17 @@ anthropic-docs-local/
 │   ├── economic-index-june-2026.md
 │   ├── natural-language-autoencoders.md
 │   ├── teaching-claude-why.md
-│   └── multiagent-systems.md
+│   ├── multiagent-systems.md
+│   ├── riemann-zeta.md
+│   ├── claude-accelerates-protein-design.md
+│   ├── global-workspace.md
+│   ├── formalizing-fermats-last-theorem.md
+│   ├── automated-researchers-mitigate-alignment-failures.md
+│   ├── discovering-cryptographic-weaknesses.md
+│   ├── project-pilot.md
+│   ├── how-canada-uses-claude.md
+│   ├── reviewing-the-evidence-on-worker-retraining-programs.md
+│   └── enabling-independent-research.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md

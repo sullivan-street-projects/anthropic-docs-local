@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-06T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -16,7 +16,7 @@ Hooks are user-defined shell commands, HTTP endpoints, MCP tool calls, LLM promp
 
 Hooks fire at specific points during a Claude Code session. When an event fires and a matcher matches, Claude Code passes JSON context about the event to your hook handler. For command hooks, input arrives on stdin. For HTTP hooks, it arrives as the POST request body. Your handler can then inspect the input, take action, and optionally return a decision. Some events fire once per session, while others fire repeatedly inside the agentic loop.
 
-## Hook Events (31 Total)
+## Hook Events (33 Total)
 
 | Event                 | Description                                                        | Matcher                                                                                                                                                                                         | Fires                      |
 | --------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
@@ -48,6 +48,8 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `WorktreeRemove`      | Worktree being removed at session exit or subagent finish          | No matcher support                                                                                                                                                                              | Worktree removal           |
 | `PreCompact`          | Before context compaction                                          | `manual`, `auto`                                                                                                                                                                                | Each compaction            |
 | `PostCompact`         | After context compaction                                           | `manual`, `auto`                                                                                                                                                                                | Each compaction            |
+| `PreModelSwitch`      | Before Claude Code applies a requested model switch (can block)    | Canonical model name (e.g., `claude-opus-5`, `claude-opus-4-6\|claude-opus-5`, `.*opus.*`)                                                                                                      | Before model changes       |
+| `PostModelSwitch`     | After the session's model changes, including auto-switches         | Canonical model name                                                                                                                                                                            | After model changes        |
 | `Elicitation`         | MCP server requests user input                                     | MCP server name                                                                                                                                                                                 | MCP elicitation requests   |
 | `ElicitationResult`   | User responds to MCP elicitation                                   | MCP server name                                                                                                                                                                                 | MCP elicitation responses  |
 | `SessionEnd`          | Session terminates                                                 | `clear`, `resume`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other`                                                                                                        | Once per session           |
@@ -192,13 +194,13 @@ hooks:
 
 ### Common Fields
 
-| Field           | Required | Description                                                                        |
-| --------------- | -------- | ---------------------------------------------------------------------------------- |
-| `type`          | Yes      | `"command"`, `"http"`, `"mcp_tool"`, `"prompt"`, or `"agent"`                      |
-| `if`            | No       | Permission rule syntax to filter (tool events only, e.g., `"Bash(git *)"`)         |
-| `timeout`       | No       | Seconds before canceling. Defaults: 600 command/http/mcp_tool, 30 prompt, 60 agent |
-| `statusMessage` | No       | Custom spinner message displayed while hook runs                                   |
-| `once`          | No       | If `true`, runs only once per session (skills only)                                |
+| Field           | Required | Description                                                                                                                          |
+| --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`          | Yes      | `"command"`, `"http"`, `"mcp_tool"`, `"prompt"`, or `"agent"`                                                                        |
+| `if`            | No       | Permission rule syntax to filter (tool events only, e.g., `"Bash(git *)"`)                                                           |
+| `timeout`       | No       | Seconds before canceling. Defaults: 600 command/http/mcp_tool, 30 prompt, 60 agent                                                   |
+| `statusMessage` | No       | Custom spinner message displayed while hook runs                                                                                     |
+| `once`          | No       | If `true`, removes the hook after its first successful run (skill frontmatter only; ignored in settings files and agent frontmatter) |
 
 ### Command Hook Fields
 
@@ -252,6 +254,7 @@ Matcher evaluation types:
 | `DirectoryAdded`                                                                                                                                                | How directory was added      | `slash_command`, `register_repo_root`                                                                                                                                                      |
 | `SubagentStart`, `SubagentStop`                                                                                                                                 | Agent type                   | `Bash`, `Explore`, `Plan`, or custom agent names                                                                                                                                           |
 | `PreCompact`, `PostCompact`                                                                                                                                     | What triggered compaction    | `manual`, `auto`                                                                                                                                                                           |
+| `PreModelSwitch`, `PostModelSwitch`                                                                                                                             | Canonical model name         | `claude-opus-5`, `claude-opus-4-6\|claude-opus-5`, `.*opus.*`                                                                                                                              |
 | `ConfigChange`                                                                                                                                                  | Configuration source         | `user_settings`, `project_settings`, `local_settings`, `policy_settings`, `skills`                                                                                                         |
 | `Elicitation`, `ElicitationResult`                                                                                                                              | MCP server name              | Server-specific elicitation events                                                                                                                                                         |
 | `StopFailure`                                                                                                                                                   | Error type                   | `rate_limit`, `authentication_failed`, `billing_error`, `overloaded`, `oauth_org_not_allowed`, `invalid_request`, `model_not_found`, `server_error`, `max_output_tokens`, `unknown`        |
@@ -310,6 +313,7 @@ Leading `VAR=value` assignments are stripped. Filter fails open on parse errors.
 | `TaskCompleted`       | Prevents task from being marked completed                          |
 | `ConfigChange`        | Blocks config change from taking effect (except `policy_settings`) |
 | `PreCompact`          | Prevents compaction                                                |
+| `PreModelSwitch`      | Blocks the model switch                                            |
 | `Elicitation`         | Denies elicitation                                                 |
 | `ElicitationResult`   | Blocks response (becomes decline)                                  |
 | `PostToolBatch`       | Stops the agentic loop                                             |
@@ -336,23 +340,24 @@ Leading `VAR=value` assignments are stripped. Filter fails open on parse errors.
 | `DirectoryAdded`     | Stderr goes to debug log                                |
 | `FileChanged`        | Shows stderr to user only                               |
 | `MessageDisplay`     | Shows stderr to user only                               |
+| `PostModelSwitch`    | Shows stderr to user only                               |
 
 ## JSON Output Patterns
 
 ### Decision Control by Event
 
-| Events                                                                                                                  | Decision Pattern               | Key Fields                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| UserPromptSubmit, UserPromptExpansion, PostToolUse, PostToolUseFailure, Stop, SubagentStop, ConfigChange, PostToolBatch | Top-level `decision`           | `decision: "block"`, `reason`                                                                                |
-| TeammateIdle, TaskCompleted                                                                                             | Exit code or `continue: false` | Exit code 2 blocks; JSON `continue: false` also stops                                                        |
-| PreToolUse                                                                                                              | `hookSpecificOutput`           | `permissionDecision` (allow/deny/ask/defer), `permissionDecisionReason`, `updatedInput`, `additionalContext` |
-| PermissionRequest                                                                                                       | `hookSpecificOutput`           | `decision.behavior` (allow/deny), `decision.updatedInput`, `decision.appliedRule`                            |
-| PermissionDenied                                                                                                        | `hookSpecificOutput`           | `retry: true` to tell model it may retry                                                                     |
-| PostToolUse                                                                                                             | `hookSpecificOutput`           | `updatedToolOutput` (modify result), `additionalContext`                                                     |
-| MessageDisplay                                                                                                          | `hookSpecificOutput`           | `displayContent` (replace displayed text, screen only)                                                       |
-| Elicitation, ElicitationResult                                                                                          | `hookSpecificOutput`           | `action` (accept/decline/cancel), `content`                                                                  |
-| WorktreeCreate                                                                                                          | stdout path                    | Print absolute path to created worktree                                                                      |
-| WorktreeRemove, Notification, SessionEnd, PostCompact, InstructionsLoaded                                               | None                           | No decision control (side effects only)                                                                      |
+| Events                                                                                                                                  | Decision Pattern               | Key Fields                                                                                                   |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| UserPromptSubmit, UserPromptExpansion, PostToolUse, PostToolUseFailure, Stop, SubagentStop, ConfigChange, PostToolBatch, PreModelSwitch | Top-level `decision`           | `decision: "block"`, `reason`                                                                                |
+| TeammateIdle, TaskCompleted                                                                                                             | Exit code or `continue: false` | Exit code 2 blocks; JSON `continue: false` also stops                                                        |
+| PreToolUse                                                                                                                              | `hookSpecificOutput`           | `permissionDecision` (allow/deny/ask/defer), `permissionDecisionReason`, `updatedInput`, `additionalContext` |
+| PermissionRequest                                                                                                                       | `hookSpecificOutput`           | `decision.behavior` (allow/deny), `decision.updatedInput`, `decision.appliedRule`                            |
+| PermissionDenied                                                                                                                        | `hookSpecificOutput`           | `retry: true` to tell model it may retry                                                                     |
+| PostToolUse                                                                                                                             | `hookSpecificOutput`           | `updatedToolOutput` (modify result), `additionalContext`                                                     |
+| MessageDisplay                                                                                                                          | `hookSpecificOutput`           | `displayContent` (replace displayed text, screen only)                                                       |
+| Elicitation, ElicitationResult                                                                                                          | `hookSpecificOutput`           | `action` (accept/decline/cancel), `content`                                                                  |
+| WorktreeCreate                                                                                                                          | stdout path                    | Print absolute path to created worktree                                                                      |
+| WorktreeRemove, Notification, SessionEnd, PostCompact, InstructionsLoaded                                                               | None                           | No decision control (side effects only)                                                                      |
 
 ### PreToolUse Output
 

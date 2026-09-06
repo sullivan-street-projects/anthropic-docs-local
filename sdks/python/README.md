@@ -2,7 +2,7 @@
 title: "Python SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-06T00:00:00Z"
 category: "sdks"
 ---
 
@@ -21,6 +21,8 @@ Full documentation is available at **[platform.claude.com/docs/en/api/sdks/pytho
 ```sh
 pip install anthropic
 ```
+
+Upgrading from a `0.x` release? See the [v1 migration guide](MIGRATION.md).
 
 ## Getting started
 
@@ -41,7 +43,7 @@ message = client.messages.create(
         }
     ],
 
-    model="claude-opus-4-6",
+    model="claude-opus-5",
 )
 
 print(message.content)
@@ -50,7 +52,7 @@ print(message.content)
 
 ## Requirements
 
-Python 3.9+
+Python 3.10+
 
 ## Contributing
 

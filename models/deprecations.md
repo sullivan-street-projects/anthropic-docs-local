@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-06T00:00:00Z"
 category: "models"
 ---
 
@@ -52,6 +52,7 @@ To identify usage of deprecated models:
 
 | API Model Name               | Current State | Deprecated        | Tentative Retirement Date          |
 | :--------------------------- | :------------ | :---------------- | :--------------------------------- |
+| `claude-fable-5-1`           | Active        | N/A               | Not sooner than September 1, 2027  |
 | `claude-fable-5`             | Active        | N/A               | Not sooner than June 9, 2027       |
 | `claude-opus-5`              | Active        | N/A               | Not sooner than July 24, 2027      |
 | `claude-opus-4-8`            | Active        | N/A               | Not sooner than May 28, 2027       |
@@ -138,11 +139,11 @@ On April 14, 2026, Anthropic notified developers using Claude Sonnet 4 and Claud
 
 ## API Parameter Deprecations
 
-Anthropic occasionally deprecates request parameters that no longer apply to current models. Deprecated parameters remain in the SDK request types so existing code continues to type-check, but their behavior changes per model.
+Anthropic occasionally deprecates request parameters that no longer apply to current models. How the API treats a deprecated parameter depends on the model. Most SDKs keep deprecated parameters in their request types so existing code continues to type-check. The Python SDK (v1.0 and later) removes `temperature`, `top_p`, and `top_k`, so passing them raises a `TypeError`.
 
-| Parameter                       | Status                                 | Behavior                                                                                                                                                    | Recommended Replacement                         |
-| :------------------------------ | :------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------- |
-| `temperature`, `top_p`, `top_k` | Deprecated (Claude Opus 4.7 and later) | Returns a 400 error when set to a non-default value on Claude 4.7 and later models (including Claude Opus 5, Opus 4.8, Sonnet 5) and Claude Mythos Preview. | Omit and use prompting to guide model behavior. |
+| Parameter                       | Status                                 | Behavior                                                                                                      | Recommended Replacement                         |
+| :------------------------------ | :------------------------------------- | :------------------------------------------------------------------------------------------------------------ | :---------------------------------------------- |
+| `temperature`, `top_p`, `top_k` | Deprecated (Claude Opus 4.7 and later) | Returns a 400 error when set to a non-default value on Claude 4.7 and later models and Claude Mythos Preview. | Omit and use prompting to guide model behavior. |
 
 For migration steps, see the [Migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide).
 

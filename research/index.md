@@ -2,7 +2,7 @@
 title: "Research Index"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-09-06T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 Comprehensive index of Anthropic's research papers, studies, and publications spanning AI safety, interpretability, alignment, and societal impacts.
 
-> **Last updated:** August 2, 2026
+> **Last updated:** September 6, 2026
 
 ## Research Categories
 
@@ -23,41 +23,47 @@ Comprehensive index of Anthropic's research papers, studies, and publications sp
 
 ## Latest Publications (2026)
 
-| Date         | Title                                                                                                                                      | Category          |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
-| Jul 28, 2026 | Discovering cryptographic weaknesses with Claude                                                                                           | Frontier Red Team |
-| Jul 24, 2026 | Project Pilot: Can AI control a drone?                                                                                                     | Frontier Red Team |
-| Jul 14, 2026 | How Canada uses Claude: Findings from the Anthropic Economic Index                                                                         | Economic Research |
-| Jul 13, 2026 | Claude's values across models and languages                                                                                                | Societal Impacts  |
-| Jul 9, 2026  | Claude plays robotics                                                                                                                      | Frontier Red Team |
-| Jul 8, 2026  | [An off switch for dual-use knowledge in AI models](https://www.anthropic.com/research/off-switch-dual-use)                                | Alignment         |
-| Jul 6, 2026  | [A global workspace in language models](https://www.anthropic.com/research/global-workspace)                                               | Interpretability  |
-| Jun 26, 2026 | [Anthropic Economic Index report: Cadences](https://www.anthropic.com/research/economic-index-june-2026-report)                            | Economic Research |
-| Jun 18, 2026 | [Project Fetch: Phase two](https://www.anthropic.com/research/project-fetch-phase-two)                                                     | Frontier Red Team |
-| Jun 16, 2026 | [Agentic coding and persistent returns to expertise](https://www.anthropic.com/research/claude-code-expertise)                             | Economic Research |
-| Jun 8, 2026  | [Paving the way for agents in biology](https://www.anthropic.com/research/agents-in-biology)                                               | Science           |
-| Jun 8, 2026  | [Measuring LLMs' impact on N-day exploits](https://www.anthropic.com/research/n-days)                                                      | Frontier Red Team |
-| Jun 5, 2026  | [Making Claude a chemist](https://www.anthropic.com/research/making-claude-a-chemist)                                                      | Science           |
-| Jun 3, 2026  | [Mapping AI-enabled cyber threats: LLM ATT&CK Navigator](https://www.anthropic.com/research/attack-navigator)                              | Frontier Red Team |
-| Jun 3, 2026  | [What we learned mapping a year's worth of AI-enabled cyber threats](https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack) | Policy            |
-| May 27, 2026 | [Coding agents in the social sciences](https://www.anthropic.com/research/coding-agents-social-sciences)                                   | Economic Research |
-| May 22, 2026 | [Project Glasswing: An initial update](https://www.anthropic.com/research/glasswing-initial-update)                                        | Announcements     |
-| May 8, 2026  | [Teaching Claude why](https://www.anthropic.com/research/teaching-claude-why)                                                              | Alignment         |
-| May 7, 2026  | [Natural Language Autoencoders: Turning Claude's thoughts into text](https://www.anthropic.com/research/natural-language-autoencoders)     | Interpretability  |
-| Apr 24, 2026 | [Project Deal](https://www.anthropic.com/features/project-deal)                                                                            | Research          |
-| Mar 18, 2026 | [What 81,000 people want from AI](https://www.anthropic.com/81k-interviews)                                                                | Societal Impacts  |
-| Feb 25, 2026 | Update on Model Deprecation Commitments for Claude Opus 3                                                                                  | Alignment         |
-| Feb 23, 2026 | The Persona Selection Model                                                                                                                | Alignment         |
-| Feb 23, 2026 | Anthropic Education Report: The AI Fluency Index                                                                                           | Societal Impacts  |
-| Feb 18, 2026 | Measuring AI Agent Autonomy in Practice                                                                                                    | Societal Impacts  |
-| Feb 16, 2026 | India Country Brief: Anthropic Economic Index                                                                                              | Economic Research |
-| Jan 30, 2026 | The Hot Mess of AI: Misalignment Scaling (ICLR 2026)                                                                                       | Alignment         |
-| Jan 29, 2026 | How AI Assistance Impacts the Formation of Coding Skills                                                                                   | Alignment         |
-| Jan 28, 2026 | Disempowerment Patterns in Real-World AI Usage                                                                                             | Alignment         |
-| Jan 22, 2026 | Claude's New Constitution                                                                                                                  | Alignment         |
-| Jan 19, 2026 | The Assistant Axis: Situating and Stabilizing LLM Character                                                                                | Interpretability  |
-| Jan 15, 2026 | Anthropic Economic Index: Building Blocks for Understanding AI Use                                                                         | Economic Research |
-| Jan 9, 2026  | Next-generation Constitutional Classifiers                                                                                                 | Alignment         |
+| Date         | Title                                                                                                                                                  | Category          |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
+| Sep 4, 2026  | [Formalizing Fermat's Last Theorem](https://www.anthropic.com/research/formalizing-fermats-last-theorem)                                               | Science           |
+| Aug 28, 2026 | [Automated researchers can reliably mitigate alignment failures](https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures) | Alignment         |
+| Aug 26, 2026 | [Enabling independent research on how people use Claude](https://www.anthropic.com/research/enabling-independent-research)                             | Societal Impacts  |
+| Aug 18, 2026 | [How Claude is accelerating protein design and analytical chemistry](https://www.anthropic.com/research/Claude-accelerates-protein-design)             | Science           |
+| Aug 12, 2026 | [Reviewing the evidence on worker retraining programs](https://www.anthropic.com/research/reviewing-the-evidence-on-worker-retraining-programs)        | Economic Research |
+| Aug 10, 2026 | [Learning more about Claude's mathematical capabilities](https://www.anthropic.com/research/riemann-zeta)                                              | Science           |
+| Jul 28, 2026 | Discovering cryptographic weaknesses with Claude                                                                                                       | Frontier Red Team |
+| Jul 24, 2026 | Project Pilot: Can AI control a drone?                                                                                                                 | Frontier Red Team |
+| Jul 14, 2026 | How Canada uses Claude: Findings from the Anthropic Economic Index                                                                                     | Economic Research |
+| Jul 13, 2026 | Claude's values across models and languages                                                                                                            | Societal Impacts  |
+| Jul 9, 2026  | Claude plays robotics                                                                                                                                  | Frontier Red Team |
+| Jul 8, 2026  | [An off switch for dual-use knowledge in AI models](https://www.anthropic.com/research/off-switch-dual-use)                                            | Alignment         |
+| Jul 6, 2026  | [A global workspace in language models](https://www.anthropic.com/research/global-workspace)                                                           | Interpretability  |
+| Jun 26, 2026 | [Anthropic Economic Index report: Cadences](https://www.anthropic.com/research/economic-index-june-2026-report)                                        | Economic Research |
+| Jun 18, 2026 | [Project Fetch: Phase two](https://www.anthropic.com/research/project-fetch-phase-two)                                                                 | Frontier Red Team |
+| Jun 16, 2026 | [Agentic coding and persistent returns to expertise](https://www.anthropic.com/research/claude-code-expertise)                                         | Economic Research |
+| Jun 8, 2026  | [Paving the way for agents in biology](https://www.anthropic.com/research/agents-in-biology)                                                           | Science           |
+| Jun 8, 2026  | [Measuring LLMs' impact on N-day exploits](https://www.anthropic.com/research/n-days)                                                                  | Frontier Red Team |
+| Jun 5, 2026  | [Making Claude a chemist](https://www.anthropic.com/research/making-claude-a-chemist)                                                                  | Science           |
+| Jun 3, 2026  | [Mapping AI-enabled cyber threats: LLM ATT&CK Navigator](https://www.anthropic.com/research/attack-navigator)                                          | Frontier Red Team |
+| Jun 3, 2026  | [What we learned mapping a year's worth of AI-enabled cyber threats](https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack)             | Policy            |
+| May 27, 2026 | [Coding agents in the social sciences](https://www.anthropic.com/research/coding-agents-social-sciences)                                               | Economic Research |
+| May 22, 2026 | [Project Glasswing: An initial update](https://www.anthropic.com/research/glasswing-initial-update)                                                    | Announcements     |
+| May 8, 2026  | [Teaching Claude why](https://www.anthropic.com/research/teaching-claude-why)                                                                          | Alignment         |
+| May 7, 2026  | [Natural Language Autoencoders: Turning Claude's thoughts into text](https://www.anthropic.com/research/natural-language-autoencoders)                 | Interpretability  |
+| Apr 24, 2026 | [Project Deal](https://www.anthropic.com/features/project-deal)                                                                                        | Research          |
+| Mar 18, 2026 | [What 81,000 people want from AI](https://www.anthropic.com/81k-interviews)                                                                            | Societal Impacts  |
+| Feb 25, 2026 | Update on Model Deprecation Commitments for Claude Opus 3                                                                                              | Alignment         |
+| Feb 23, 2026 | The Persona Selection Model                                                                                                                            | Alignment         |
+| Feb 23, 2026 | Anthropic Education Report: The AI Fluency Index                                                                                                       | Societal Impacts  |
+| Feb 18, 2026 | Measuring AI Agent Autonomy in Practice                                                                                                                | Societal Impacts  |
+| Feb 16, 2026 | India Country Brief: Anthropic Economic Index                                                                                                          | Economic Research |
+| Jan 30, 2026 | The Hot Mess of AI: Misalignment Scaling (ICLR 2026)                                                                                                   | Alignment         |
+| Jan 29, 2026 | How AI Assistance Impacts the Formation of Coding Skills                                                                                               | Alignment         |
+| Jan 28, 2026 | Disempowerment Patterns in Real-World AI Usage                                                                                                         | Alignment         |
+| Jan 22, 2026 | Claude's New Constitution                                                                                                                              | Alignment         |
+| Jan 19, 2026 | The Assistant Axis: Situating and Stabilizing LLM Character                                                                                            | Interpretability  |
+| Jan 15, 2026 | Anthropic Economic Index: Building Blocks for Understanding AI Use                                                                                     | Economic Research |
+| Jan 9, 2026  | Next-generation Constitutional Classifiers                                                                                                             | Alignment         |
 
 ## Publications (2025)
 
