@@ -29,13 +29,13 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 6
-Total improvements applied: 2 (0 code changes this cycle)
-Total improvements deferred: 3 (reinforced #18 source-lifecycle tracking)
-Most-improved infrastructure: manifest.json (2 changes: hashes + URL corrections)
-Most-informative category: engineering/research (this cycle: multiagent-systems research validates our concurrency design)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~7th cycle); removal escalated to a user task chip
-Last cycle: 2026-08-16 — 0 applied, 1 strong already-aligned finding, 1 deferred reinforced
+Total cycles logged: 7
+Total improvements applied: 5 (0 code changes this cycle; 3 workflow/process lessons on 2026-09-06)
+Total improvements deferred: 5 (reinforced #18 source-lifecycle tracking; +1 PDF-ingestion deferral)
+Most-improved infrastructure: tasks/lessons.md (3 workflow rules on agent-stall recovery this cycle) / manifest.json (hashes + URL corrections)
+Most-informative category: operational this cycle (background-agent stall recovery); models/claude-code (Fable 5.1 launch, 33 hook events, SDK 1.x major)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~8th cycle); removal escalated to a user task chip
+Last cycle: 2026-09-06 — 3 applied (process lessons), 23 sources auto-added, 3 agents stalled+recovered, 0 validation errors
 
 ## Entries
 
@@ -238,3 +238,28 @@ Improvements deferred: 0
 **No action needed:**
 
 - 68 content changes had no infrastructure implications (timestamp-only updates)
+
+### 2026-09-06 — Update: all (weekly full refresh)
+
+Content changes analyzed: 13 modified + 23 added
+Improvements identified: 3 (all LOW, workflow/process)
+Improvements applied: 3
+Improvements deferred: 1 (reinforced #18 source-lifecycle tracking)
+
+**Applied:**
+
+- [this run's 3 agent stalls] → new lessons.md rule: cap background-agent batch sizes / fetch volatile sets inline; the 600s stream watchdog is background-agent-specific, so the orchestrator's own WebFetch is immune → tasks/lessons.md
+- [stalled agent left body-changed but timestamp-stale api/models-overview.md] → new lessons.md rule: manually bump `fetched_at` on any git-modified file whose timestamp is stale during reconcile → tasks/lessons.md
+- [22 discovered sources auto-added cleanly] → confirmed the unattended auto-add rule clears backlog with 0 validation errors → tasks/lessons.md + tasks/discovery-log.md
+
+**Deferred:**
+
+- [agent-sdk-typescript-v2 confirmed 404 ~8th cycle] → needs manifest-entry removal or repoint → permanent deletion needs user confirmation (Phase 4e) → re-flagged as user task chip; reinforces optimizations #18 (lifecycle_status)
+- [Fable 5.1 / Mythos 5.1 System Card PDF] → high-value first-party PDF not ingested → PDF ingestion is heavier → logged in discovery-log for a PDF-capable run
+
+**Already aligned:**
+
+- claude-code/hooks.md expanded to 33 hook events (single-responsibility, event-typed decision patterns) — our pipeline already mirrors event-scoped, single-writer design; no infra change needed.
+- Python/TS SDK 1.x major release — our github-raw verbatim storage + CHANGELOG diffing already captured it correctly; single-writer reconcile + recompute-from-disk produced 0 hash mismatches across 34 changed files.
+
+**No strong content→infrastructure principle this cycle:** the richest signal was operational (agent-stall recovery), not a doctrine the scripts/schema should encode.

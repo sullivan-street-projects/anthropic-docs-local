@@ -79,3 +79,13 @@ Track source-specific failures with resolutions. Review at session start to avoi
 ### 2026-08-02 — no fetch failures
 
 - **Note**: All actively-fetched sources (github-raw, github-api, manual, arxiv, volatile web-extracted) succeeded this cycle. No 404s on code.claude.com or platform.claude.com. Dual model launch (Opus 5 / Sonnet 5) made this an unusually high-signal week (26 content-changed files, 0 timestamp-only).
+
+### 2026-09-06 — three background agents stalled (600s watchdog)
+- **Error**: 3 of 6 background `general-purpose` fetch agents failed with "Agent stalled: no progress for 600s (stream watchdog did not recover)": (1) volatile web-extracted+arxiv (1st attempt), (2) manual docs, (3) volatile web-extracted (replacement). Each stalled on the final/near-final source of its serial batch; the report was lost but written files persisted.
+- **Resolution**: Recovered by `git status` on each agent's target paths, verifying what landed, then finishing the remainder inline via the orchestrator's own WebFetch (not subject to the background watchdog): confirmed `api/models-overview.md` body was complete and bumped its stale `fetched_at`; confirmed `api/migration-guide.md` already carried Opus 5 content (no change needed); added the 6 genuinely-new post rows to `research/index.md`. `claude-code/hooks.md` (the one manual change) landed fine. Net: no content lost.
+- **Prevention**: See new lessons.md entries — cap background-agent batch sizes and/or fetch volatile sets inline. (Observed 2026-09-06.)
+
+### 2026-09-06 — agent-sdk-typescript-v2 (confirmed 404, ~8th cycle)
+- **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified this cycle via curl). Source last_fetched 2026-04-05 (~154 days stale). Emits one Layer-4 staleness warning per cycle.
+- **Resolution**: NOT re-fetched (known dead, excluded from fetch agents). NOT auto-deleted (Phase 4e: 404 → log + user-alert; permanent deletion needs user confirmation). Re-surfaced as a one-click removal task chip.
+- **Prevention**: Overdue for removal — remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*). This is the concrete case for optimizations item #18 (lifecycle_status).
