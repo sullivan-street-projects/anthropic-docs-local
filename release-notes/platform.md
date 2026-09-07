@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,47 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### September 3, 2026
+
+- Launched **ant CLI version 1.30.0** with new `ant apply` command for infrastructure-as-code. Creates and updates agents, environments, skills, memory stores, and deployments. Generates `claude-lock.json` lockfile for reproducible deployments. Enables CI/CD automation of Claude Managed Agents resources.
+
+### September 1, 2026
+
+- Launched **Claude Fable 5.1** (`claude-fable-5-1`) and **Claude Mythos 5.1** (`claude-mythos-5-1`). 1M token context window, 128k max output tokens, always-on adaptive thinking. Pricing: $10/$50 per MTok (same as Claude Fable 5). Cache reads: $0.25 per MTok (0.025x base input price, reduced from 0.1x). Available on Claude API, Amazon Bedrock, Claude Platform on AWS, Google Cloud, Microsoft Foundry.
+- API changes for Fable 5.1/Mythos 5.1: `tool_choice` types `any` and `tool` not supported (return 400 error); `auto` and `none` remain supported.
+- Thinking block handling: preserved only for same model or newer. For new accounts created after August 31, 2026, replaying blocks after system prompt/tools changes returns 400 error. Beta header `thinking-binding-controls-2026-08-01` available for `input_transformations` field.
+- Per-message effort changes now in beta on Fable 5.1, Mythos 5.1, and Opus 5. Beta header: `mid-conversation-output-config-2026-07-01`. Add `role: "system"` message with `output_config.effort` in messages array.
+- Turn-scoped system messages in beta (header: `mid-conversation-system-clear-at-2026-08-21`). Set `clear_at: "next_user_message"` for per-turn reminders.
+- `thinking.display = "updates"` in beta (header: `thinking-display-updates-2026-08-18`). Returns empty thinking field with short progress updates as text between tool calls.
+- Claude Fable 5.1/Mythos 5.1 require 30-day data retention (not available under zero data retention).
+- Claude Fable 5.1/Mythos 5.1 text carries Anthropic watermark. Supported media from code execution carries C2PA Content Credentials via Files API.
+
+### August 27, 2026
+
+- Python 1.2.0, TypeScript 0.122.0, Go 1.68.0, Java 2.59.0, Ruby 1.67.0, C# 12.44.0: `client.beta.files` and `client.beta.skills` no longer send beta headers. Returns same shapes as `client.files` and `client.skills`. `client.beta.skills.delete()` now deletes the Skill and all versions.
+- **Admin API** now available in Python, TypeScript, C#, Go, Java, PHP, Ruby SDKs and the `ant` CLI. Under `client.beta.organization`.
+- API keys now support **personal keys** (act as you, same permissions) and **service account keys** (represent service accounts). Can be workspace-scoped or cross-workspace.
+
+### August 20, 2026
+
+- Launched **Python SDK v1.0**. HTTP layer migrated from `httpx` to `httpx2`. Requires Python 3.10+. Removes deprecated surfaces: legacy Text Completions API, `temperature`/`top_p`/`top_k` parameters on Messages, client-side `compaction_control`. Breaking: `.with_raw_response` now requires `await response.parse()`.
+- Computer use and browser use toolsets now available on Google Cloud / Vertex AI.
+
+### August 19, 2026
+
+- **Files API** out of beta. Upload files via `/v1/files` endpoints. Set `expires_in_seconds` on upload, reports `expires_at` in objects. Pagination with `page`, `next_page`, and `ids[]` filter support.
+- **Agent Skills** out of beta. `/v1/skills` endpoints for custom skills. Load via `container` parameter in Messages API. No longer requires `skills-2025-10-02` beta header.
+- **Computer use tool** out of beta. Version `computer_toolset_20260801`. Batch actions supported, zoom enabled by default.
+- **Browser use tool** out of beta. Version `browser_toolset_20260801`. Drives browser in viewport with accessibility tree, element references, form input, tab management, downloads.
+
+### August 18, 2026
+
+- Renamed **Workbench** to **Playground** (`platform.claude.com/playground`). Supports every Messages API parameter. Shows SDK request and API response. Includes feature templates.
+
+### August 13, 2026
+
+- Prompt caching cache reads reduced to $0.25 per MTok for Claude Fable 5.1/Mythos 5.1 (0.025x base input price). Standard models remain at 0.1x base input price.
 
 ### August 11, 2026
 

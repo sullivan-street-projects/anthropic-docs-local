@@ -2,7 +2,7 @@
 title: "Research Index"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-09-06T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "research"
 ---
 

@@ -1,16 +1,14 @@
 ---
 title: "Agent SDK Quickstart"
-source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
+source_url: "https://code.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "agent-sdk"
 ---
 
 # Claude Agent SDK Quickstart
 
 Get started with the Python or TypeScript Agent SDK to build AI agents that work autonomously. This quickstart walks you through building an agent that reads your code, finds bugs, and fixes them without manual intervention.
-
-> **Last updated:** August 16, 2026
 
 **What you'll do:**
 
@@ -44,7 +42,7 @@ npm install @anthropic-ai/claude-agent-sdk
 npm install --save-dev tsx
 ```
 
-Setting `"type": "module"` in `package.json` lets your agent script use top-level `await`, and [tsx](https://tsx.is) runs TypeScript files directly.
+Setting `"type": "module"` in `package.json` lets your agent script use top-level `await`, and [tsx](https://tsx.hirok.io) runs TypeScript files directly. npm prints `added N packages` when the install succeeds.
 
 #### TypeScript (existing project)
 
@@ -53,7 +51,7 @@ npm install @anthropic-ai/claude-agent-sdk
 npm install --save-dev tsx
 ```
 
-[tsx](https://tsx.is) runs TypeScript files directly. If your project uses CommonJS, name your agent script `agent.mts` instead of `agent.ts`. The `.mts` extension makes tsx treat the file as an ES module, so top-level `await` works without converting your whole project to ES modules. Use `agent.mts` in place of `agent.ts` in the create and run steps later in this quickstart.
+[tsx](https://tsx.hirok.io) runs TypeScript files directly. If your project uses CommonJS, name your agent script `agent.mts` instead of `agent.ts`. The `.mts` extension makes tsx treat the file as an ES module, so top-level `await` works without converting your whole project to ES modules. Use `agent.mts` in place of `agent.ts` in the create and run steps later in this quickstart.
 
 #### Python (uv -- recommended)
 
@@ -84,11 +82,14 @@ pip install claude-agent-sdk
 
 If PowerShell blocks `Activate.ps1` with an execution policy error, run `Set-ExecutionPolicy -Scope Process RemoteSigned` first.
 
-> **Note:** Both the TypeScript and Python SDKs now bundle a native Claude Code binary for your platform, so you don't need to install Claude Code separately.
+> **Note:** Both the TypeScript and Python SDKs bundle a native Claude Code binary, so most installs need no separate Claude Code install. Some installs have no bundled binary:
+>
+> - If pip installs the Python SDK's source distribution instead of a platform wheel (for example on ARM64 Windows), no binary is bundled. [Install Claude Code natively](https://code.claude.com/docs/en/setup#install-claude-code). The Python SDK finds it on your `PATH`.
+> - The TypeScript SDK installs its binary through npm optional dependencies, so an install that skips them (for example `npm ci --omit=optional`) gets no binary even on a supported platform. Reinstall without skipping optional dependencies, or [install Claude Code natively](https://code.claude.com/docs/en/setup#install-claude-code) and set `pathToClaudeCodeExecutable` to its path.
 
 ### 3. Set Your API Key
 
-Set your API key as an environment variable in the shell where you'll run your agent:
+Get an API key from the [Claude Console](https://platform.claude.com/), then set it as an environment variable in the shell where you'll run your agent:
 
 **macOS / Linux:**
 
@@ -108,10 +109,10 @@ The SDK also supports authentication via third-party API providers:
 
 - **Amazon Bedrock**: set `CLAUDE_CODE_USE_BEDROCK=1` and configure AWS credentials
 - **Claude Platform on AWS**: set `CLAUDE_CODE_USE_ANTHROPIC_AWS=1` and `ANTHROPIC_AWS_WORKSPACE_ID`, then configure AWS credentials
-- **Google Cloud's Agent Platform** (Vertex AI): set `CLAUDE_CODE_USE_VERTEX=1` and configure Google Cloud credentials
-- **Microsoft Foundry** (Azure): set `CLAUDE_CODE_USE_FOUNDRY=1` and configure Azure credentials
+- **Google Cloud's Agent Platform**: set `CLAUDE_CODE_USE_VERTEX=1` and configure Google Cloud credentials
+- **Microsoft Foundry**: set `CLAUDE_CODE_USE_FOUNDRY=1` and configure Azure credentials
 
-See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Claude Platform on AWS](https://code.claude.com/docs/en/claude-platform-on-aws), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Azure AI Foundry](https://code.claude.com/docs/en/microsoft-foundry) for details.
+See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Claude Platform on AWS](https://code.claude.com/docs/en/claude-platform-on-aws), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Microsoft Foundry](https://code.claude.com/docs/en/microsoft-foundry) for details.
 
 > **Note:** Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Use the API key authentication methods instead.
 
@@ -209,6 +210,8 @@ The `async for` loop keeps running as Claude thinks, calls tools, observes resul
 
 The message handling inside the loop filters for human-readable output. Without filtering, you'd see raw message objects including system initialization and internal state, which is useful for debugging but noisy otherwise.
 
+> **Note:** This example uses streaming to show progress in real-time. If you don't need live output (e.g., for background jobs or CI pipelines), you can collect all messages at once. See [Streaming vs. single-turn mode](https://code.claude.com/docs/en/agent-sdk/streaming-vs-single-mode) for details.
+
 ### Run Your Agent
 
 #### TypeScript
@@ -239,7 +242,9 @@ After running, check `utils.py`. You'll see defensive code handling empty lists 
 2. **Analyzed** the logic and identified edge cases that would crash
 3. **Edited** the file to add proper error handling
 
-> **Tip:** If you see "API key not found", make sure you've set the `ANTHROPIC_API_KEY` environment variable in the shell where you run your agent. The SDK doesn't load `.env` files automatically. See the [full troubleshooting guide](https://code.claude.com/docs/en/troubleshooting) for more help.
+This is what makes the Agent SDK different: Claude executes tools directly instead of asking you to implement them.
+
+> **Tip:** If you see an authentication error such as `Not logged in` or `Invalid API key`, make sure you've set the `ANTHROPIC_API_KEY` environment variable in the shell where you run your agent. The SDK doesn't load `.env` files automatically. See the [full troubleshooting guide](https://code.claude.com/docs/en/troubleshooting) for more help.
 
 ## Try Other Prompts
 
@@ -293,22 +298,7 @@ Tools control what your agent can do:
 
 ### Permission Modes
 
-Permission modes control how much human oversight you want:
-
-| Mode                | Behavior                                                                                      | Use case                                  |
-| ------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| `acceptEdits`       | Auto-approves file edits and common filesystem commands, asks for other actions               | Trusted development workflows             |
-| `plan`              | Runs read-only tools; file edits are never auto-approved and reach your `canUseTool` callback | Scoping a task before approving execution |
-| `auto`              | A model classifier approves or denies each tool call                                          | Autonomous agents with safety guardrails  |
-| `dontAsk`           | Denies anything not in `allowedTools`                                                         | Locked-down headless agents               |
-| `bypassPermissions` | Runs every tool without prompting, unless an explicit `ask` rule matches                      | Sandboxed CI, fully trusted environments  |
-| `default`           | Requires a `canUseTool` callback to handle approval                                           | Custom approval flows                     |
-
-The quickstart uses `acceptEdits` mode, which auto-approves file operations so the agent can run without interactive prompts. If you want to prompt users for approval, use `default` mode and provide a [`canUseTool` callback](https://code.claude.com/docs/en/agent-sdk/user-input) that collects user input. For more control, see [Permissions](https://code.claude.com/docs/en/agent-sdk/permissions).
-
-## Streaming vs Single-Turn Mode
-
-The quickstart uses streaming to show progress in real-time. If you don't need live output (e.g., for background jobs or CI pipelines), you can collect all messages at once. See [Streaming vs. single-turn mode](https://code.claude.com/docs/en/agent-sdk/streaming-vs-single-mode) for details.
+Permission modes control how much human oversight you want. The SDK evaluates the active mode together with your allow and deny rules in a fixed order, described in [How permissions are evaluated](https://code.claude.com/docs/en/agent-sdk/permissions#how-permissions-are-evaluated). For the full list of modes, their behavior, and when to use each, see [Permission mode in How the agent loop works](https://code.claude.com/docs/en/agent-sdk/agent-loop#permission-mode).
 
 ## Next Steps
 
@@ -318,3 +308,4 @@ The quickstart uses streaming to show progress in real-time. If you don't need l
 - [MCP servers](https://code.claude.com/docs/en/agent-sdk/mcp) -- connect to databases, browsers, APIs, and other external systems
 - [Hosting](https://code.claude.com/docs/en/agent-sdk/hosting) -- deploy agents to Docker, cloud, and CI/CD
 - [Example agents](https://github.com/anthropics/claude-agent-sdk-demos) -- see complete examples: email assistant, research agent, and more
+- [Troubleshooting](https://code.claude.com/docs/en/agent-sdk/troubleshooting) -- fix Agent SDK errors by the exact message you see

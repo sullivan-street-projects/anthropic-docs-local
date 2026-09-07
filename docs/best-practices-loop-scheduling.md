@@ -1,14 +1,14 @@
 ---
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
-source_url: "https://code.claude.com/docs/en/cli-usage"
+source_url: "https://code.claude.com/docs/en/best-practices"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "claude-code"
 ---
 
 # Best Practices: `/loop` Command & Scheduling in Claude Code
 
-> **Documentation Status:** The `/loop` command was introduced in Claude Code v2.1.71 (see [CHANGELOG](../claude-code/CHANGELOG.md)). It is listed in the official [CLI Reference](https://code.claude.com/docs/en/cli-usage) and [Interactive Mode](https://code.claude.com/docs/en/interactive-mode) pages. The guidance below is synthesized from changelog entries, CLI reference documentation, and observed behavior.
+> **Documentation Status:** The `/loop` command was introduced in Claude Code v2.1.71 (see [CHANGELOG](../claude-code/CHANGELOG.md)). It is listed in the official [CLI Reference](https://code.claude.com/docs/en/cli-usage) and [Interactive Mode](https://code.claude.com/docs/en/interactive-mode) pages. The guidance below is synthesized from the [Best Practices](https://code.claude.com/docs/en/best-practices) page, changelog entries, CLI reference documentation, and observed behavior.
 
 ---
 
@@ -117,6 +117,15 @@ Then inside the session:
 ```
 
 **Source:** CLI reference confirms `--allowedTools` supports tool-specific permissions with argument patterns.
+
+### 3.6 Use Verification Gates
+
+When a loop monitors for a condition, pair it with a verification mechanism so Claude can act and confirm its work:
+
+- **`/goal` condition**: Set a [goal condition](https://code.claude.com/docs/en/goal) that a separate evaluator re-checks after every turn. Claude keeps working until the goal resolves.
+- **Stop hook**: A [Stop hook](https://code.claude.com/docs/en/hooks#stop) runs your check as a script and blocks the turn from ending until it passes. Claude Code overrides the hook after 8 consecutive blocks.
+- **Verification subagent**: A [verification subagent](https://code.claude.com/docs/en/sub-agents) reviews the result in a fresh context, ensuring the agent doing the work isn't the one grading it.
+- **`/verify`**: Run [`/verify`](https://code.claude.com/docs/en/skills#run-and-verify-your-app) after Claude's check passes to confirm the change against the running app.
 
 ---
 
@@ -249,9 +258,60 @@ claude --bg --exec 'pytest -x'
 
 Background agents run as separate processes managed by a supervisor daemon. Unlike `/loop`, they persist independently of your interactive session. Use `claude daemon status` for diagnostics and `claude daemon stop --any` to recover from an unresponsive supervisor.
 
+### Agent View
+
+Run `claude agents` to dispatch sessions that keep running in the background and watch them from one screen. This is a research preview feature that provides a centralized view of all running background agents.
+
+### Agent Teams (Experimental)
+
+Agent teams provide automated coordination of multiple sessions with shared tasks, messaging, and a team lead. This feature is experimental and disabled by default.
+
 ---
 
-## 7. Security Considerations
+## 7. Parallel Execution Patterns
+
+### Fan Out Across Files
+
+For large migrations or analyses, distribute work across many parallel Claude invocations. In a git repository, run [`/batch <instruction>`](https://code.claude.com/docs/en/commands#all-commands) to have Claude split the change across 5 to 30 subagents. Each subagent works in its own worktree and opens a pull request.
+
+To drive the fan-out from your own script:
+
+1. **Generate a task list**: Have Claude write the list of files (e.g., `list all 2,000 Python files that need migrating and save the list to files.txt`)
+2. **Loop through the list**:
+
+```bash
+for file in $(cat files.txt); do
+  claude -p "Migrate $file from Python 2 to Python 3. Return OK or FAIL." \
+    --allowedTools "Edit,Bash(git commit *)"
+done
+```
+
+3. **Test on a few files, then run on all**: Refine your prompt based on what goes wrong with the first 2-3 files, then run on the full set.
+
+### Multiple Claude Sessions
+
+Pick the parallel approach that fits how much coordination you want:
+
+| Approach | Description |
+| -------- | ----------- |
+| [Worktrees](https://code.claude.com/docs/en/worktrees) | Separate CLI sessions in isolated git checkouts |
+| [Cross-session messaging](https://code.claude.com/docs/en/cross-session-messaging) | Let sessions pass findings to each other |
+| [Desktop app](https://code.claude.com/docs/en/desktop#work-in-parallel-with-sessions) | Manage multiple local sessions visually |
+| [Claude Code on the web](https://code.claude.com/docs/en/claude-code-on-the-web) | Run sessions in the cloud |
+| [Agent view](https://code.claude.com/docs/en/agent-view) | Research preview: dispatch and watch background sessions from one screen |
+| [Agent teams](https://code.claude.com/docs/en/agent-teams) | Experimental: automated multi-session coordination |
+
+### Autonomous Execution with Auto Mode
+
+For uninterrupted execution with background safety checks, use [auto mode](https://code.claude.com/docs/en/permission-modes#eliminate-prompts-with-auto-mode). A classifier model reviews commands before they run, blocking scope escalation, unknown infrastructure, and hostile-content-driven actions while letting routine work proceed without prompts:
+
+```bash
+claude --permission-mode auto -p "fix all lint errors"
+```
+
+---
+
+## 8. Security Considerations
 
 ### Permission Modes
 
@@ -282,7 +342,7 @@ The agent can read environment variables through MCP server configurations or sh
 
 ---
 
-## 8. Quick Reference
+## 9. Quick Reference
 
 ```
 # Start a loop
@@ -302,28 +362,39 @@ claude --bg "monitor the deploy"
 
 # Background shell command
 claude --bg --exec 'npm test'
+
+# Fan out a migration
+/batch "migrate each file from Python 2 to Python 3"
+
+# Run with auto mode (classifier-based safety)
+claude --permission-mode auto -p "fix all lint errors"
 ```
 
 ---
 
 ## Sources & Verification
 
-| Claim                                             | Source                                                     | Confidence |
-| ------------------------------------------------- | ---------------------------------------------------------- | ---------- |
-| `/loop` syntax and interval formats               | CHANGELOG v2.1.71                                          | High       |
-| Session-scoped lifecycle                          | CHANGELOG v2.1.71 + observed behavior                      | High       |
-| `-p` flag for non-interactive mode                | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--allowedTools` permission syntax                | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--permission-mode` options (6 modes)             | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--max-turns` flag                                | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--output-format json`                            | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--bg` background agents                          | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `claude agents` / `claude attach` / `claude logs` | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--effort` levels (low/medium/high/xhigh/max)     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--bare` / `--safe-mode` flags                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--tools` flag for restricting built-in tools     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--disallowedTools` deny rules                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--fallback-model` comma-separated chains         | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| System prompt flags (4 variants)                  | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| Cron scheduling approach                          | General best practice, CLI flags verified                  | Medium     |
-| GitHub Actions approach                           | General best practice, CLI flags verified                  | Medium     |
+| Claim                                             | Source                                                              | Confidence |
+| ------------------------------------------------- | ------------------------------------------------------------------- | ---------- |
+| `/loop` syntax and interval formats               | CHANGELOG v2.1.71                                                   | High       |
+| Session-scoped lifecycle                          | CHANGELOG v2.1.71 + observed behavior                               | High       |
+| `-p` flag for non-interactive mode                | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--allowedTools` permission syntax                | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--permission-mode` options (6 modes)             | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--max-turns` flag                                | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--output-format json`                            | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--bg` background agents                          | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `claude agents` / `claude attach` / `claude logs` | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--effort` levels (low/medium/high/xhigh/max)     | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--bare` / `--safe-mode` flags                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--tools` flag for restricting built-in tools     | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--disallowedTools` deny rules                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `--fallback-model` comma-separated chains         | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| System prompt flags (4 variants)                  | [CLI Reference](https://code.claude.com/docs/en/cli-usage)          | High       |
+| `/batch` for fan-out across subagents             | [Best Practices](https://code.claude.com/docs/en/best-practices)    | High       |
+| `/goal` condition for verification                | [Best Practices](https://code.claude.com/docs/en/best-practices)    | High       |
+| Stop hook verification gate                       | [Best Practices](https://code.claude.com/docs/en/best-practices)    | High       |
+| Agent view and agent teams                        | [Best Practices](https://code.claude.com/docs/en/best-practices)    | High       |
+| Auto mode with classifier                         | [Best Practices](https://code.claude.com/docs/en/best-practices)    | High       |
+| Cron scheduling approach                          | General best practice, CLI flags verified                           | Medium     |
+| GitHub Actions approach                           | General best practice, CLI flags verified                           | Medium     |

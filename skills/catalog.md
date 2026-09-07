@@ -2,13 +2,13 @@
 title: "Skills Catalog"
 source_url: "https://github.com/anthropics/skills"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "skills"
 ---
 
 # Skills Catalog
 
-> **Source:** [anthropics/skills](https://github.com/anthropics/skills) -- 166k stars, 18.9k forks
+> **Source:** [anthropics/skills](https://github.com/anthropics/skills) -- 175k stars, 20.7k forks
 
 Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks.
 
@@ -26,18 +26,13 @@ Skills teach Claude how to complete specific tasks in a repeatable way, whether 
 
 ```
 anthropics/skills/
-├── .claude-plugin/          # Claude Code plugin configuration
 ├── skills/                  # Skill examples by category
 │   ├── Creative & Design
 │   ├── Development & Technical
 │   ├── Enterprise & Communication
-│   ├── docx/               # Document creation (DOCX)
-│   ├── pdf/                # Document creation (PDF)
-│   ├── pptx/               # Document creation (PPTX)
-│   └── xlsx/               # Document creation (XLSX)
+│   └── Document Skills
 ├── spec/                    # Agent Skills specification
-├── template/                # Skill template
-└── README.md
+└── template/                # Skill template
 ```
 
 ## Skill Categories

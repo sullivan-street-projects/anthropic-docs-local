@@ -1,263 +1,256 @@
 ---
-title: "Adaptive Thinking"
+title: "Steering Thinking"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "api"
 ---
 
-# Adaptive Thinking
+# Steering Thinking
 
-Adaptive thinking is the recommended way to use extended thinking with Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6, and the only thinking mode on Claude Fable 5 and Claude Mythos 5. Instead of manually setting a thinking token budget, adaptive thinking lets Claude dynamically determine when and how much to use extended thinking based on the complexity of each request. Per-model defaults and restrictions are listed under [Supported models](#supported-models).
+> **Note:** To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
-> **Tip:** Adaptive thinking can drive better performance than extended thinking with a fixed `budget_tokens` for many workloads, especially bimodal tasks and long-horizon agentic workflows. No beta header is required.
->
-> If your workload requires predictable latency or precise control over thinking costs, extended thinking with `budget_tokens` is still functional on Claude Opus 4.6 and Claude Sonnet 4.6 but is deprecated and no longer recommended.
+Claude's thinking is adaptive: the model evaluates each request and decides for itself whether to think and how much. You set an intent, optionally specify the effort, and the model allocates reasoning where it judges reasoning will help.
 
-## Supported Models
+This makes thinking a strong fit for workloads that mix trivial and complex requests, and for long-horizon agentic workflows where the right amount of reasoning varies from step to step.
 
-Adaptive thinking is supported on the following models:
+To learn how to turn thinking on, how to read thinking output, and about [thinking output on Claude Fable 5 and Claude Mythos 5](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-output-on-claude-fable-5-and-claude-mythos-5), see the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) overview. This page covers how Claude decides when to think, how to steer that decision, and the caching, cost, and pricing mechanics that follow from it.
 
-- Claude Fable 5 (`claude-fable-5`) and Claude Mythos 5 (`claude-mythos-5`), adaptive thinking is always on; `thinking: {type: "disabled"}` is not supported. Neither model is available under [zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
-- Claude Mythos Preview (`claude-mythos-preview`), adaptive thinking is the default; `thinking: {type: "disabled"}` is not supported, and manual `{type: "enabled", budget_tokens: N}` is still accepted.
-- Claude Opus 4.8 (`claude-opus-4-8`), adaptive thinking is the only supported thinking mode. Thinking is off unless you explicitly set `thinking: {type: "adaptive"}`; manual `thinking: {type: "enabled"}` is rejected with a 400 error.
-- Claude Opus 4.7 (`claude-opus-4-7`), adaptive thinking is the only supported thinking mode. Thinking is off unless you explicitly set `thinking: {type: "adaptive"}`; manual `thinking: {type: "enabled"}` is rejected with a 400 error.
-- Claude Opus 4.6 (`claude-opus-4-6`), adaptive thinking is off unless you explicitly set `thinking: {type: "adaptive"}`; manual `{type: "enabled", budget_tokens: N}` is still accepted but deprecated.
-- Claude Sonnet 5 (`claude-sonnet-5`), adaptive thinking is on by default; pass `thinking: {type: "disabled"}` to turn it off. Manual `{type: "enabled"}` is rejected with a 400 error.
-- Claude Sonnet 4.6 (`claude-sonnet-4-6`), adaptive thinking is off unless you explicitly set `thinking: {type: "adaptive"}`; manual `{type: "enabled", budget_tokens: N}` is still accepted but deprecated.
+## How Claude Decides When to Think
 
-> **Warning:** `thinking.type: "enabled"` and `budget_tokens` are **deprecated** on Opus 4.6 and Sonnet 4.6 and will be removed in a future model release. Use `thinking.type: "adaptive"` with the `effort` parameter instead. Existing `budget_tokens` configurations are still functional but no longer recommended; plan to migrate.
->
-> Older models (Sonnet 4.5, Opus 4.5, etc.) do not support adaptive thinking and require `thinking.type: "enabled"` with `budget_tokens`.
+Thinking is optional for the model. On each request, Claude weighs the complexity of the input and decides whether deeper reasoning would improve the answer. A simple factual question may get a direct response with no thinking block at all; a multistep math problem or a tricky debugging task triggers deeper reasoning.
 
-## How Adaptive Thinking Works
+The decision happens per request. The same conversation can contain turns with and without thinking, and a turn where Claude chose not to think contains no thinking block. Don't build application logic that assumes every assistant turn starts with one.
 
-In adaptive mode, thinking is optional for the model. Claude evaluates the complexity of each request and determines whether and how much to use extended thinking. At the default effort level (`high`), Claude almost always thinks. At lower effort levels, Claude may skip thinking for simpler problems.
+The primary control over this decision is the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) parameter, which acts as soft guidance for how willing Claude should be to think and how deeply; see [Effort levels](#effort-levels) on this page for what each level does.
 
-Adaptive thinking also automatically enables interleaved thinking. This means Claude can think between tool calls, making it especially effective for agentic workflows.
+If you want Claude to think less often, lower the effort level before reaching for prompt-based steering.
 
-## How to Use Adaptive Thinking
+Thinking also interleaves with tool use automatically: Claude can think between tool calls, reflecting on each tool result before deciding what to do next ([interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking)). You don't need a beta header or any additional configuration for this.
 
-Set `thinking.type` to `"adaptive"` in your API request:
+For the full picture of how the thinking configuration and the effort parameter interact, see [Thinking and effort](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-effort).
 
-```python
-import anthropic
+## Steering How Often Claude Thinks
 
-client = anthropic.Anthropic()
+Whether Claude thinks on a given turn is promptable. Effort sets the overall posture, but you can also shape the decision directly with natural-language guidance, either globally in the system prompt or per message from the user turn.
 
-response = client.messages.create(
-    model="claude-opus-4-8",
-    max_tokens=16000,
-    thinking={"type": "adaptive"},
-    messages=[
-        {
-            "role": "user",
-            "content": "Explain why the sum of two even numbers is always even.",
-        }
-    ],
-)
+Use the two levers together in this order:
 
-for block in response.content:
-    if block.type == "thinking":
-        print(f"\nThinking: {block.thinking}")
-    elif block.type == "text":
-        print(f"\nResponse: {block.text}")
-```
+1. Set the effort level that matches your workload's default balance of quality and latency.
+2. Add prompt guidance only if Claude's triggering still doesn't match your needs at that level.
 
-```typescript
-const client = new Anthropic();
+For broader prompting guidance with thinking, see [leverage thinking and interleaved thinking capabilities](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#leverage-thinking-and-interleaved-thinking-capabilities).
 
-const response = await client.messages.create({
-  model: "claude-opus-4-8",
-  max_tokens: 16000,
-  thinking: {
-    type: "adaptive",
-  },
-  messages: [
-    {
-      role: "user",
-      content: "Explain why the sum of two even numbers is always even.",
-    },
-  ],
-});
+### Effort Levels
 
-for (const block of response.content) {
-  if (block.type === "thinking") {
-    console.log(`\nThinking: ${block.thinking}`);
-  } else if (block.type === "text") {
-    console.log(`\nResponse: ${block.text}`);
-  }
+Effort is the primary steering lever for thinking. Each level sets a different default for how often Claude thinks and how deeply:
+
+| Effort level     | Thinking behavior                                                                    |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| `max`            | Claude always thinks with no constraints on thinking depth.                          |
+| `xhigh`          | Claude always thinks deeply with extended exploration.                               |
+| `high` (default) | Claude almost always thinks. Provides deep reasoning on complex tasks.               |
+| `medium`         | Claude uses moderate thinking. May skip thinking for simple queries.                 |
+| `low`            | Claude minimizes thinking. Skips thinking for simple tasks where speed matters most. |
+
+This table describes how each level changes thinking behavior. For guidance on which level to choose for a given workload, including per-model recommendations, see [When to adjust the effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort#when-to-adjust-the-effort-parameter) on the effort page.
+
+Effort is set at `output_config.effort`, not inside the `thinking` object; for full per-language examples, see [Effort](https://platform.claude.com/docs/en/build-with-claude/effort#basic-usage).
+
+```json
+{
+  "model": "claude-opus-5",
+  "max_tokens": 4096,
+  "output_config": { "effort": "medium" },
+  "messages": [{ "role": "user", "content": "..." }]
 }
 ```
 
-## Effort Parameter
+Level availability varies by model; the [effort availability table](https://platform.claude.com/docs/en/build-with-claude/effort#effort-levels) on the effort page is the authority for which levels each model supports.
 
-Combine adaptive thinking with the effort parameter to guide how much thinking Claude does:
+### System Prompt Guidance
 
-| Effort level     | Thinking behavior                                                                                                                                           |
-| :--------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `max`            | Claude always thinks with no constraints on thinking depth. Available on all models that support adaptive thinking.                                         |
-| `xhigh`          | Claude always thinks deeply with extended exploration. Available on Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Opus 4.7, and Claude Sonnet 5. |
-| `high` (default) | Claude almost always thinks. Provides deep reasoning on complex tasks.                                                                                      |
-| `medium`         | Claude uses moderate thinking. May skip thinking for very simple queries.                                                                                   |
-| `low`            | Claude minimizes thinking. Skips thinking for simple tasks where speed matters most.                                                                        |
+System prompt guidance shifts Claude's thinking threshold for every request in the conversation. If Claude is thinking more often than your workload needs, add guidance like this to your system prompt:
 
-```python
-response = client.messages.create(
-    model="claude-opus-4-8",
-    max_tokens=16000,
-    thinking={"type": "adaptive"},
-    output_config={"effort": "medium"},
-    messages=[{"role": "user", "content": "What is the capital of France?"}],
-)
+```text
+Extended thinking adds latency and should only be used when it
+will meaningfully improve answer quality, typically for problems
+that require multistep reasoning. When in doubt, respond directly.
 ```
 
-## Streaming with Adaptive Thinking
+To encourage thinking instead, use a phrase like:
 
-Adaptive thinking works seamlessly with streaming. Thinking blocks are streamed via `thinking_delta` events just like manual thinking mode:
-
-```python
-client = anthropic.Anthropic()
-
-with client.messages.stream(
-    model="claude-opus-4-8",
-    max_tokens=16000,
-    thinking={"type": "adaptive"},
-    messages=[
-        {
-            "role": "user",
-            "content": "What is the greatest common divisor of 1071 and 462?",
-        }
-    ],
-) as stream:
-    for event in stream:
-        if event.type == "content_block_start":
-            print(f"\nStarting {event.content_block.type} block...")
-        elif event.type == "content_block_delta":
-            if event.delta.type == "thinking_delta":
-                print(event.delta.thinking, end="", flush=True)
-            elif event.delta.type == "text_delta":
-                print(event.delta.text, end="", flush=True)
+```text
+This task involves multistep reasoning. Think carefully before responding.
 ```
 
-## Adaptive vs Manual vs Disabled Thinking
+Steering effectiveness can be sensitive to exact wording. If one phrasing doesn't produce the behavior you want, try a more direct variant.
 
-| Mode         | Config                                          | Availability                                                                                                                                                                          | When to use                                                                          |
-| :----------- | :---------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------- |
-| **Adaptive** | `thinking: {type: "adaptive"}`                  | Claude Fable 5 (always on), Claude Mythos 5 (always on), Claude Mythos Preview (default), Claude Opus 4.8 (only mode), Opus 4.7 (only mode), Opus 4.6, Sonnet 5 (default), Sonnet 4.6 | Claude determines when and how much to use extended thinking. Use `effort` to guide. |
-| **Manual**   | `thinking: {type: "enabled", budget_tokens: N}` | All models except Claude Fable 5, Claude Mythos 5, Claude Sonnet 5, Claude Opus 4.8, and Claude Opus 4.7 (rejected with a 400 error). Deprecated on Opus 4.6 and Sonnet 4.6.          | When you need precise control over thinking token spend.                             |
-| **Disabled** | `thinking: {type: "disabled"}`                  | All models except Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview. On Claude Sonnet 5, pass `{type: "disabled"}` explicitly (omitting `thinking` defaults to adaptive).    | When you don't need extended thinking and want the lowest latency.                   |
+### Per-Message Steering
 
-**Interleaved thinking availability by mode:**
+You can also steer thinking on a per-message basis from the user turn, independently of the system prompt. Appending `"Please think hard before responding."` to a user message encourages Claude to think on that turn; `"Answer directly without deliberating."` suppresses it.
 
-- **Adaptive mode:** Interleaved thinking is automatically enabled on Claude Fable 5, Claude Mythos 5, Claude Mythos Preview, Claude Opus 4.8, Claude Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6. On Claude Fable 5, Claude Mythos 5, Mythos Preview, Claude Opus 4.8, and Opus 4.7, inter-tool reasoning always lives inside thinking blocks.
-- **Manual mode on Sonnet 4.6:** Interleaved thinking works through the `interleaved-thinking-2025-05-14` beta header.
-- **Manual mode on Opus 4.6:** Interleaved thinking is not available. If your agentic workflow requires thinking between tool calls on Opus 4.6, use adaptive mode.
+Per-message steering is useful when only some requests in a conversation warrant extended reasoning. An agent harness, for example, can append the encouraging phrase on planning steps and the suppressing phrase on routine confirmations, without touching the system prompt or changing any request parameters between turns.
 
-## Working with Thinking Blocks
+### Verify Steering on Your Workload
 
-### Summarized Thinking
+Prompt-based steering changes model behavior, so treat it like any other prompt change: measure before you ship. Run a representative sample of your traffic with and without the guidance, and compare how often thinking triggers (the presence of thinking blocks in responses), output token usage, latency, and answer quality on the cases that matter to you.
 
-With extended thinking enabled, the Messages API for Claude 4 models returns a summary of Claude's full thinking process. Summarized thinking provides the full intelligence benefits of extended thinking, while preventing misuse. This is the default behavior on Claude 4 models when the `display` field on the thinking configuration is unset or set to `"summarized"`. On Claude Fable 5, Claude Mythos 5, Claude Sonnet 5, Claude Opus 4.8, Claude Opus 4.7, and Claude Mythos Preview, `display` defaults to `"omitted"` instead, so you must set `display: "summarized"` explicitly to receive summarized thinking.
+> **Warning:** Steering Claude to think less often may reduce quality on tasks that benefit from reasoning. Lowering the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level is usually the better first lever, since it is a calibrated control rather than a wording-sensitive instruction. Measure the impact on your specific workloads before deploying prompt-based tuning to production.
 
-Important considerations for summarized thinking:
+## Mechanics
 
-- You're charged for the full thinking tokens generated by the original request, not the summary tokens.
-- The billed output token count will **not match** the count of tokens you see in the response.
-- On Claude 4 models, the first few lines of thinking output are more verbose, providing detailed reasoning that's particularly helpful for prompt engineering purposes. Claude Mythos Preview summarizes from the first token, so its thinking blocks do not show this verbose preamble.
-- Summarization preserves the key ideas of Claude's thinking process with minimal added latency, enabling a streamable user experience.
+Three mechanics follow from Claude managing its own thinking: turn validation, prompt caching, and how you bound cost.
 
-### Controlling Thinking Display
+### Turn Validation
 
-The `display` field on the thinking configuration controls how thinking content is returned in API responses:
+Assistant turns don't need to start with a thinking block. (Models using a legacy manual thinking budget enforce that the final assistant turn of a thinking-enabled request begins with one; see [Turn structure in manual mode](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#turn-structure-in-manual-mode).)
 
-- `"summarized"`: Thinking blocks contain summarized thinking text. This is the default on Claude Opus 4.6, Claude Sonnet 4.6, and earlier Claude 4 models.
-- `"omitted"`: Thinking blocks are returned with an empty `thinking` field. The `signature` field still carries the encrypted full thinking for multi-turn continuity. This is the default on Claude Fable 5, Claude Mythos 5, Claude Sonnet 5, Claude Opus 4.8, Claude Opus 4.7, and Claude Mythos Preview.
+For multi-turn applications, this means you can pass back conversation history in whatever shape you have it:
 
-Setting `display: "omitted"` is useful when your application doesn't surface thinking content to users. The primary benefit is **faster time-to-first-text-token when streaming**.
+- Assistant turns where Claude chose not to think are valid history as-is.
+- You can resume a conversation that began without thinking, or that used a different thinking configuration, without rewriting its history.
+- History assembled from mixed sources doesn't need thinking blocks reinserted at the start of each assistant turn to pass validation.
 
-To receive summarized thinking text on models where the default is `"omitted"`, set `thinking.display` to `"summarized"` explicitly:
-
-```python
-thinking = {
-    "type": "adaptive",
-    "display": "summarized",
-}
-```
-
-For omitted thinking, use:
-
-```python
-thinking = {"type": "adaptive", "display": "omitted"}
-```
-
-### Thinking Encryption
-
-Full thinking content is encrypted and returned in the `signature` field. This field is used to verify that thinking blocks were generated by Claude when passed back to the API.
-
-Important considerations:
-
-- It is only strictly necessary to send back thinking blocks when using tools with extended thinking. Otherwise you can omit thinking blocks from previous turns.
-- `signature` values are significantly longer in Claude 4 models than in previous models.
-- The `signature` field is an opaque field and should not be interpreted or parsed.
-- `signature` values are compatible across platforms (Claude APIs, Amazon Bedrock, and Google Cloud).
-
-### Thinking Output on Claude Fable 5 and Claude Mythos 5
-
-On Claude Fable 5 and Claude Mythos 5, the raw chain of thought is never returned. The thinking blocks you receive are regular `thinking` blocks, not `redacted_thinking`. The `thinking.display` setting works the same as on other models:
-
-- `"summarized"` returns a readable summary of the reasoning.
-- `"omitted"` (the default on these models) still includes `thinking` blocks in responses, but their `thinking` field is an empty string.
-
-When continuing a conversation on the same model, pass each thinking block back to the API exactly as received, including blocks whose `thinking` field is empty.
-
-On Claude Fable 5, a request that attempts to elicit the model's internal reasoning as part of the response text can be refused with `stop_details.category: "reasoning_extraction"`.
-
-## Important Considerations
-
-### Validation Changes
-
-When using adaptive thinking, previous assistant turns don't need to start with thinking blocks. This is more flexible than manual mode, where the API enforces that thinking-enabled turns begin with a thinking block.
+The relaxation is about validation, not about what you should send. When you have thinking blocks, pass them back unmodified, particularly during tool use, where they carry the reasoning behind Claude's tool calls. See the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) overview for the full rules.
 
 ### Prompt Caching
 
-Consecutive requests using `adaptive` thinking preserve prompt cache breakpoints. However, switching between `adaptive` and `enabled`/`disabled` thinking modes breaks cache breakpoints for messages. System prompts and tool definitions remain cached regardless of mode changes.
+Consecutive requests that keep the same thinking configuration and effort level preserve prompt caching; see [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching) for the full rules. The resolved effort value is rendered into the prompt, so changing it between requests invalidates cache breakpoints, just as changing the legacy [`budget_tokens`](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#extended-thinking-with-prompt-caching) parameter does on models that use it. Setting `effort` explicitly to the model's default is equivalent to omitting it and does not break the cache.
 
-### Tuning Thinking Behavior
+The practical consequence: pick a thinking configuration and an effort level per conversation and keep them. If some turns need more or less thinking, steer with [per-message prompting](#per-message-steering): guidance appended to the newest user message leaves earlier cache breakpoints intact, where a configuration or effort change does not.
 
-Adaptive thinking's triggering behavior is promptable. If Claude is thinking more or less often than you'd like, you can add guidance to your system prompt:
+**Effort changes invalidate the prompt cache:**
 
+With the cache breakpoint in the messages array, changing effort from the default `high` to `medium` invalidates it: the third request shows `cache_creation_input_tokens=3546` and `cache_read_input_tokens=0` where the second showed a full cache read.
+
+Example output:
+
+```text
+First request - establishing cache
+First response usage: { cache_creation_input_tokens: 3546, cache_read_input_tokens: 0, input_tokens: 15, output_tokens: 1033 }
+
+Second request - same configuration (cache hit expected)
+Second response usage: { cache_creation_input_tokens: 0, cache_read_input_tokens: 3546, input_tokens: 1062, output_tokens: 1630 }
+
+Third request - different effort level (cache miss expected)
+Third response usage: { cache_creation_input_tokens: 3546, cache_read_input_tokens: 0, input_tokens: 2706, output_tokens: 1468 }
 ```
-Extended thinking adds latency and should only be used when it
-will meaningfully improve answer quality — typically for problems
-that require multi-step reasoning. When in doubt, respond directly.
-```
 
-To encourage thinking instead:
+**Python example:**
 
-```
-This task involves multi-step reasoning. Think carefully before responding.
-```
+```python
+import requests
 
-You can also steer thinking on a per-message basis from the user turn. Appending `"Please think hard before responding."` to a user message encourages Claude to think on that turn; `"Answer directly without deliberating."` suppresses it.
+client = Anthropic()
+
+
+def fetch_article_content(url):
+    text = requests.get(url).text
+    lines = (line.strip() for line in text.splitlines())
+    return "\n".join(line for line in lines if line)
+
+
+# Fetch the content of the article
+book_url = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt"
+book_content = fetch_article_content(book_url)
+# Use just enough text for caching (first few chapters)
+LARGE_TEXT = book_content[:10000]
+
+# No system prompt - caching in messages instead
+MESSAGES = [
+    {
+        "role": "user",
+        "content": [
+            {
+                "type": "text",
+                "text": LARGE_TEXT,
+                "cache_control": {"type": "ephemeral"},
+            },
+            {"type": "text", "text": "Analyze the tone of this passage."},
+        ],
+    }
+]
+
+# First request - establish cache
+print("First request - establishing cache")
+response1 = client.messages.create(
+    model="claude-opus-5",
+    max_tokens=16000,
+    thinking={"type": "adaptive"},
+    messages=MESSAGES,
+)
+
+print(f"First response usage: {response1.usage}")
+
+MESSAGES.append({"role": "assistant", "content": response1.content})
+MESSAGES.append({"role": "user", "content": "Analyze the characters in this passage."})
+
+# Second request - same configuration (cache hit expected)
+print("\nSecond request - same configuration (cache hit expected)")
+response2 = client.messages.create(
+    model="claude-opus-5",
+    max_tokens=16000,
+    thinking={"type": "adaptive"},
+    messages=MESSAGES,
+)
+
+print(f"Second response usage: {response2.usage}")
+
+MESSAGES.append({"role": "assistant", "content": response2.content})
+MESSAGES.append({"role": "user", "content": "Analyze the setting in this passage."})
+
+# Third request - different effort level (cache miss expected)
+print("\nThird request - different effort level (cache miss expected)")
+response3 = client.messages.create(
+    model="claude-opus-5",
+    max_tokens=16000,
+    thinking={"type": "adaptive"},
+    output_config={"effort": "medium"},
+    messages=MESSAGES,
+)
+
+print(f"Third response usage: {response3.usage}")
+```
 
 ### Cost Control
 
-Use `max_tokens` as a hard limit on total output (thinking + response text). The `effort` parameter provides additional soft guidance on how much thinking Claude allocates.
+You don't set a thinking token budget. Two controls bound cost:
 
-At `high` and `max` effort levels, Claude may think more extensively and can be more likely to exhaust the `max_tokens` budget. If you observe `stop_reason: "max_tokens"` in responses, consider increasing `max_tokens` or lowering the effort level.
+- `max_tokens` is a hard cap on total output for the request, thinking and response text combined. Claude never generates past it. In a tool-use loop, each request in the turn has its own `max_tokens`, so it doesn't bound the whole turn's spend.
+- `effort` is soft guidance on how much of that output Claude allocates to thinking. It shapes behavior but doesn't guarantee a token count.
 
-### Pricing
+Because thinking counts toward `max_tokens`, set it high enough to leave room for both the reasoning and the answer. A `max_tokens` sized for a response with no thinking is often too small once Claude starts thinking on hard requests.
 
-The thinking process incurs charges for:
+At `high` effort and above, Claude may think extensively and is more likely to exhaust the budget. If you see [`stop_reason: "max_tokens"`](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#stopped-at-max-tokens) in responses, you have two remedies:
 
-- Tokens used during thinking (output tokens)
-- Thinking blocks from prior assistant turns kept in context (input tokens)
+- Raise `max_tokens` to give the model more room for thinking plus the answer.
+- Lower the effort level so Claude thinks less and leaves more of the budget for response text.
+
+Which one is right depends on whether the truncated responses needed the reasoning. If quality on those requests matters, raise the cap; if they were over-thought, lower the effort.
+
+## Pricing
+
+Thinking incurs charges for:
+
+- Tokens Claude uses while thinking (billed as output tokens)
+- Thinking blocks from prior assistant turns that remain in context, per the [preservation default](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model): all turns by default on keep-all models, only the last turn elsewhere (billed as input tokens)
 - Standard text output tokens
 
-When using summarized thinking, the billed output token count will **not** match the visible token count in the response. You are billed for the full thinking process, not the thinking content visible in the response.
+> **Note:** When thinking is active, a specialized system prompt is automatically included to support this feature.
 
-To see how many billed output tokens were spent on internal reasoning, read `usage.output_tokens_details.thinking_tokens` in the response:
+What you're billed for is the same regardless of the `display` setting; only what you see changes:
+
+|                             | `display: "summarized"`                              | `display: "omitted"`                                 |
+| --------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| **Input tokens**            | Tokens in your original request                      | Same as summarized                                   |
+| **Output tokens (billed)**  | The full thinking tokens Claude generated internally | Same as summarized                                   |
+| **Output tokens (visible)** | The summarized thinking text                         | Zero thinking tokens (the `thinking` field is empty) |
+| **Summary generation**      | No charge                                            | Not applicable                                       |
+
+> **Warning:** The billed output token count does **not** match the visible token count in the response. You are billed for the full thinking process, not the thinking content visible in the response.
+
+To see how many billed output tokens were spent on internal reasoning, read `usage.output_tokens_details.thinking_tokens` in the response. This value reflects the raw reasoning the model generated (not the summarized text returned in the body) and is always less than or equal to `output_tokens`. Subtract it from `output_tokens` to approximate the non-reasoning portion of the output. When streaming, this breakdown appears only on the final `message_delta` event.
 
 ```json
 {
@@ -270,3 +263,11 @@ To see how many billed output tokens were spent on internal reasoning, read `usa
   }
 }
 ```
+
+`output_tokens` remains the inclusive, authoritative total used for billing. `output_tokens_details` is a read-only breakdown for observability. For complete pricing information including base rates, cache writes, cache hits, and output tokens, see [Pricing](https://platform.claude.com/docs/en/about-claude/pricing).
+
+## Next Steps
+
+- [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) - Turn thinking on, read thinking output, and check per-model support.
+- [Thinking in tool and multi-turn workflows](https://platform.claude.com/docs/en/build-with-claude/thinking-tool-workflows) - Preserve thinking blocks across tool calls and manage thinking in multi-turn conversations.
+- [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) - Control how much thinking and output Claude allocates per request.

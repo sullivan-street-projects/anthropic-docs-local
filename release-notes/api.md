@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,50 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### September 3, 2026
+
+- **ant CLI v1.30.0**: Introduces `ant apply` command for creating and updating agents, environments, skills, memory stores, and deployments from repository files. Generates and approves plans, writes `claude-lock.json` lockfile for CI/CD consistency.
+
+### September 1, 2026
+
+- Launched **Claude Fable 5.1** (`claude-fable-5-1`) and **Claude Mythos 5.1** (`claude-mythos-5-1`). 1M token context window by default, 128k max output tokens, always-on adaptive thinking, at $10 / $50 per MTok (same as Fable 5). Cache reads at $0.25 per MTok. Available on Claude API, Amazon Bedrock, Claude Platform on AWS, Google Cloud, and Microsoft Foundry.
+- `tool_choice` types `any` and `tool` not supported on Fable 5.1 / Mythos 5.1 (returns 400 error); use `auto` or `none`.
+- Thinking blocks from previous models preserved only for same or newer models.
+- Per-message effort changes in beta.
+- Turn-scoped system messages in beta (`mid-conversation-system-clear-at-2026-08-21` header).
+- `thinking.display` accepts `"updates"` value in beta.
+- Text watermarking and C2PA Content Credentials added.
+- Fable 5.1 / Mythos 5.1 require 30-day data retention minimum.
+- Admin API documentation now shows `anthropic-version` header requirement.
+
+### August 27, 2026
+
+- SDK updates (Python 1.2.0, TypeScript 0.122.0, Go 1.68.0, Java 2.59.0, Ruby 1.67.0, C# 12.44.0): `client.beta.files` and `client.beta.skills` no longer require beta headers; `client.beta.skills.delete()` now deletes Skill with all versions; `BetaSkill` renamed to `BetaContainerSkill`.
+- **Personal & Service Account Keys**: new key types available in Claude Console. Can be scoped to workspace or work across workspaces/admin endpoints. Workspace API keys remain as legacy option.
+
+### August 26, 2026
+
+- **Compliance API** session endpoints out of beta for Cowork and Claude Code. Local session endpoints now return Claude Science and Claude for Microsoft 365 transcripts (beta).
+- **Admin API** available in SDKs and CLI under `client.beta.organization`, covering organization info, members, invites, workspaces, API keys, rate limits, service accounts, WIF, and CMEK. Available in ant CLI, Python, TypeScript, C#, Go, Java, PHP, and Ruby SDKs.
+
+### August 20, 2026
+
+- **Python SDK v1.0** released. Moves from `httpx` to `httpx2` (API-compatible fork). Requires Python 3.10+. Removes deprecated APIs: Text Completions, `temperature`/`top_p`/`top_k` parameters, legacy tool runner. `.with_raw_response` requires `await response.parse()` on async client. `AnthropicBedrock` raises error if no AWS region configured.
+- **Computer & Browser Use Tools** now available on Google Cloud: `computer_toolset_20260801` and `browser_toolset_20260801` support Claude Fable 5, Mythos 5, Opus 5, Sonnet 5, and Opus 4.8.
+
+### August 19, 2026
+
+- **Computer Use Tool** out of beta (`computer_toolset_20260801`). Batch actions support, zoom enabled by default, per-member configuration via `configs`.
+- Launched **Browser Use Tool** (`browser_toolset_20260801`): client toolset for browser control, works within browser viewport, supports accessibility tree, forms, tabs, downloads, and file upload.
+- **Files API** out of beta. No more `files-api-2025-04-14` header required. File expiration support (set `expires_in_seconds`). Pagination with `page`, `next_page`, `ids[]` filtering.
+- **Agent Skills** out of beta. No more `skills-2025-10-02` header required. Load skills via `container` parameter in Messages API.
+- **Admin API** out of beta for Claude Enterprise. User management endpoints (members, invites, groups, custom roles). `anthropic-beta: ce-user-management-2026-07-13` header no longer required.
+- Managed Agents: restrict `web_search` and `web_fetch` with `allowed_domains`/`blocked_domains`; self-hosted sandboxes can attach memory stores; Console session viewer redesigned with timeline, transcript grouping, and inspector panel.
+
+### August 18, 2026
+
+- **Workbench renamed to Playground**. New playground at `platform.claude.com/playground` supports all Messages API parameters, includes templates and full SDK request display.
 
 ### August 11, 2026
 

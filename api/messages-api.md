@@ -2,7 +2,7 @@
 title: "Messages API"
 source_url: "https://platform.claude.com/docs/en/api/messages"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "api"
 ---
 
@@ -34,6 +34,15 @@ Messages operate on alternating `user` and `assistant` conversational turns. Con
 ]
 ```
 
+**Continuing assistant response:**
+
+```json
+[
+  { "role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun" },
+  { "role": "assistant", "content": "The best answer is (" }
+]
+```
+
 **Content can be a string or array of content blocks:**
 
 ```json
@@ -48,22 +57,25 @@ Messages operate on alternating `user` and `assistant` conversational turns. Con
 
 The model to use for the response. Available models:
 
-| Model             | Model ID            |
-| :---------------- | :------------------ |
-| Claude Opus 5     | `claude-opus-5`     |
-| Claude Fable 5    | `claude-fable-5`    |
-| Claude Mythos 5   | `claude-mythos-5`   |
-| Claude Opus 4.8   | `claude-opus-4-8`   |
-| Claude Opus 4.7   | `claude-opus-4-7`   |
-| Claude Opus 4.6   | `claude-opus-4-6`   |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` |
-| Claude Haiku 4.5  | `claude-haiku-4-5`  |
-| Claude Opus 4.5   | `claude-opus-4-5`   |
-| Claude Sonnet 4.5 | `claude-sonnet-4-5` |
+| Model               | Model ID              |
+| :------------------ | :-------------------- |
+| Claude Fable 5.1    | `claude-fable-5-1`    |
+| Claude Mythos 5.1   | `claude-mythos-5-1`   |
+| Claude Sonnet 5     | `claude-sonnet-5`     |
+| Claude Opus 5       | `claude-opus-5`       |
+| Claude Fable 5      | `claude-fable-5`      |
+| Claude Mythos 5     | `claude-mythos-5`     |
+| Claude Opus 4.8     | `claude-opus-4-8`     |
+| Claude Opus 4.7     | `claude-opus-4-7`     |
+| Claude Opus 4.6     | `claude-opus-4-6`     |
+| Claude Sonnet 4.6   | `claude-sonnet-4-6`   |
+| Claude Haiku 4.5    | `claude-haiku-4-5`    |
+| Claude Opus 4.5     | `claude-opus-4-5`     |
+| Claude Sonnet 4.5   | `claude-sonnet-4-5`   |
 
 ### `max_tokens` (number)
 
-Maximum number of tokens to generate before stopping. The model may stop before reaching this limit if it produces a natural end of turn or hits a stop sequence. Set to `0` to warm the prompt cache without generating a response.
+Maximum number of tokens to generate before stopping (minimum: 0). The model may stop before reaching this limit if it produces a natural end of turn or hits a stop sequence. Set to `0` to warm the prompt cache without generating a response.
 
 ### `messages` (array)
 
@@ -197,18 +209,18 @@ System prompt providing context and instructions for the conversation. Can be a 
 
 ### `temperature` (number, default: 1.0)
 
-Controls randomness of sampling. Range: 0.0 to 1.0.
+Controls randomness of sampling. Range: 0.0 to 1.0. Deprecated for recent models.
 
 - `0.0`: More deterministic, best for analytical and factual tasks
 - `1.0`: More creative and varied output
 
 ### `top_p` (number)
 
-Nucleus sampling threshold. Use either `top_p` or `temperature`, not both.
+Nucleus sampling threshold. Use either `top_p` or `temperature`, not both. Deprecated for recent models.
 
 ### `top_k` (number)
 
-Only sample from the top K most likely options at each step.
+Only sample from the top K most likely options at each step. Deprecated for recent models.
 
 ### `stop_sequences` (array of strings)
 
@@ -379,7 +391,7 @@ Cache control can be applied to system prompts, messages, tool definitions, and 
   "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
   "type": "message",
   "role": "assistant",
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-5",
   "content": [{ "type": "text", "text": "Hello! How can I help you today?" }],
   "stop_reason": "end_turn",
   "stop_sequence": null,
@@ -450,7 +462,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   -H 'anthropic-version: 2023-06-01' \
   -H "X-Api-Key: $ANTHROPIC_API_KEY" \
   -d '{
-    "model": "claude-opus-4-6",
+    "model": "claude-opus-5",
     "tools": [...],
     "messages": [...]
   }'
@@ -472,3 +484,4 @@ The token counting endpoint accepts the same parameters as the Messages API (inc
 - Thinking tokens count toward `max_tokens`.
 - When using extended thinking, the `temperature` parameter must remain at the default value of 1.0.
 - The `anthropic-version` header must be set to `2023-06-01` or later.
+- `temperature`, `top_k`, and `top_p` are deprecated for recent models.

@@ -9,10 +9,10 @@
       "local_path": "claude-code/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "680614aaeaffad8e382cc29ca586ed80525911708e85e398aec39fbc864b829f"
+      "sha256": "f0b8c55440a00dbf3dd74278e8e8b0047852ce1c1a573894af058f9313334214"
     },
     {
       "id": "claude-code-changelog",
@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "f601b6a40aecd41ea4d03583dc5cf23ac482c39f7e227c8553a5740ee3bcf4b4"
+      "sha256": "122c57f1e5321a028e412806a0ddfe96816448aee39af5a6ef9e3058e75915f7"
     },
     {
       "id": "claude-code-features",
@@ -33,10 +33,10 @@
       "local_path": "claude-code/features.md",
       "source_url": "https://code.claude.com/docs/en/features-overview",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "d0fe23718d6d19b5f52608df20ac60ddc6c5c8f1513da4cd91dbd3fd49960e5e"
+      "sha256": "36d372707784517fec2ace145f73ecf9485ad76aa702e0edd5f3f7b9b19605d4"
     },
     {
       "id": "claude-code-hooks",
@@ -45,10 +45,10 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "https://code.claude.com/docs/en/hooks",
       "source_type": "manual",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "ff4385c3bc461ae605fde662880b28dd975edf738aa88d669734f0065c2222b8"
+      "sha256": "1322daf82c064261275023c06562af2af503bcb4fb7ed83cb87d697dfa8146f2"
     },
     {
       "id": "claude-code-mcp",
@@ -57,10 +57,10 @@
       "local_path": "claude-code/mcp-servers.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "35a85ca2708d7005e6e0921e3d1e09d780c298bcb63f3caad5fd12d536d33780"
+      "sha256": "030c056d15aee1fac3ca2571f22ea086d2c77fb78fbe59cb98b469075ab88fc0"
     },
     {
       "id": "claude-code-plugins",
@@ -69,10 +69,10 @@
       "local_path": "claude-code/plugins.md",
       "source_url": "https://code.claude.com/docs/en/plugins",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "287a519d1648d96d0088d97acb812a94e420347c54e25df1510a9a324f173f24"
+      "sha256": "6cc2680d107360b69ec0be10de9a7def4273fcfe6e13624d679d0a9fd165241c"
     },
     {
       "id": "claude-code-best-practices",
@@ -81,10 +81,10 @@
       "local_path": "claude-code/best-practices.md",
       "source_url": "https://x.com/bcherny/status/2007179832300581177",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "284ac223aa871bcac2aca642ac0547fbd22149b6f63295cd76debfbeb636cd92"
+      "sha256": "c9d156181381c3a400788452bdbbe51efb201ff64e8738d44ca172d8d912aa5e"
     },
     {
       "id": "claude-code-boris-team-tips",
@@ -129,10 +129,10 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "74e69da8035742f124f4fb083fd9a2adbf2d32d60012dc082781e05fa76fb2f0"
+      "sha256": "75bebf7142ae5bb995cd368108a29cdd31ba44bca9357c5f6d348befdb5bbb85"
     },
     {
       "id": "python-sdk-changelog",
@@ -141,10 +141,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "76c70aa5e3b95e3ab65dcf4c44d9f9efab31d68eaa7488a9a348c69827c5085e"
+      "sha256": "c4da6b5358fb334f827bd8e2e3c839e7f0995bc6bee76f6d4d365ad7f29d4b5c"
     },
     {
       "id": "typescript-sdk-readme",
@@ -153,10 +153,10 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "62f4f67738b216ca15b1b6031337e60aae9d6f4b2fac05f4be32daa3aa403f97"
+      "sha256": "e9937e5173c682cb39ee3b123a349719a3e926b4de907f3522add44efc5446af"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -165,10 +165,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "98c6c6465c684449777336bf41b99431a369d1bb490fb46b4ad490bbb071fff1"
+      "sha256": "851337471056d56526d441d344e9892c75edefb61414d655e92082d8b28b776a"
     },
     {
       "id": "other-sdks-overview",
@@ -177,10 +177,10 @@
       "local_path": "sdks/other/overview.md",
       "source_url": "https://platform.claude.com/docs/en/api/client-sdks",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "48957ab07b40aa646384166fadc27f03dc94a75ed7e8614302b4b49154e943cf"
+      "sha256": "1591764bb5021e3aceeeb114c28a40f3431657c6ba74ace2eb67cad35c6cb736"
     },
     {
       "id": "skills-readme",
@@ -189,10 +189,10 @@
       "local_path": "skills/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "854c513fba6a26ee1ed2c4b1c585003eb4f2a98cf00e6b240e5e94c1f1e0e44d"
+      "sha256": "27c7a1a3f007acbb30d6d301f7c37421e342b961a0697a4ad43aa9b7177fa38c"
     },
     {
       "id": "skills-catalog",
@@ -201,10 +201,10 @@
       "local_path": "skills/catalog.md",
       "source_url": "https://github.com/anthropics/skills",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "0ebcb44db5dc13092ec427073405bf22ad8730c283dc9b459a10718b03a7972a"
+      "sha256": "042001a0763ae6e696d353af567db87a0743ebef2896c39c169ac6888fa6fee8"
     },
     {
       "id": "skills-building-guide",
@@ -239,10 +239,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "50d8da50fc29e384d2e551bc9e99adea416898b16aa0fa6241e97f57503c8052"
+      "sha256": "ebdcb020c517fa4dab53cc507f42d9e631bebdda47fb13af9649ecbe8849ceba"
     },
     {
       "id": "release-notes-platform",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "313b7f4c130b86de4b8740d296508539e13cb702b4005fe0f09ace21e7674850"
+      "sha256": "b33be5311b3b0335c6ad60976e2924fb4820b5a7bc3614a09435b5a6a59b151b"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "9141a4f1319a25691d6d8bd2283c2a62592e2bf0272d6dffe38af4221da8f318"
+      "sha256": "061c1129180087dd51c17fdf3794ac60cf3fed6e98e857eb5e12dad2f0d49cdc"
     },
     {
       "id": "release-notes-help-center",
@@ -275,10 +275,10 @@
       "local_path": "release-notes/help-center.md",
       "source_url": "https://support.claude.com/en/articles/12138966-release-notes",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "cc4faa5658d1a272cb6231a7272d186610432caa3870509324c755867fd53117"
+      "sha256": "5bcc139bd060b749f60aaa83a5eaf0687c9e883818fac7698069bb8c8851d3f6"
     },
     {
       "id": "api-overview",
@@ -287,10 +287,10 @@
       "local_path": "api/overview.md",
       "source_url": "https://platform.claude.com/docs/en/api/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "093a011d09811084a678db1e818dbd963aa7116586c0893ec4e32ab12cec5969"
+      "sha256": "fb0ab0d9083625fc5aacda45f39b1aa9065c366c9915d75b656098bef17c6b91"
     },
     {
       "id": "api-messages",
@@ -299,10 +299,10 @@
       "local_path": "api/messages-api.md",
       "source_url": "https://platform.claude.com/docs/en/api/messages",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "71c4477ef786a0c8c675c323ed3789beebfa0236065f4e9b8dde6246eb00b588"
+      "sha256": "b1633ab58e5a1bd732252be955896c4c9ac7f8e9a92b1feb6f97eb4b05b013e5"
     },
     {
       "id": "api-tool-use",
@@ -311,10 +311,10 @@
       "local_path": "api/tool-use.md",
       "source_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "956643f2dec54c19fdcfecf6c42e6bd031ad231d9b1059a1c693f0ebe68e8ee3"
+      "sha256": "230d36760f165120ec52f0bef270d3604f0d24c2acf22587272b6448c4319052"
     },
     {
       "id": "api-vision",
@@ -323,10 +323,10 @@
       "local_path": "api/vision.md",
       "source_url": "https://platform.claude.com/docs/en/build-with-claude/vision",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "c01f2e681479a85072a8723cf1a308e3d2bd6a7a619555ce29cb0f22c815fea9"
+      "sha256": "19901a5125d9ca4c9c905d7b36579dd5a1b623073f1a41c0dcccfd9da098877b"
     },
     {
       "id": "api-streaming",
@@ -335,10 +335,10 @@
       "local_path": "api/streaming.md",
       "source_url": "https://platform.claude.com/docs/en/api/streaming",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "a806152b8c0b1d7dbc8cb0a887e0ea2f1d49b6d78234158814deff06452a1cec"
+      "sha256": "b4654ba1e8ff55c5c040c13b5185edd908bff47886d32b8d07bef859260c5acc"
     },
     {
       "id": "api-errors",
@@ -347,10 +347,10 @@
       "local_path": "api/errors.md",
       "source_url": "https://platform.claude.com/docs/en/api/errors",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "472f39702f6d34211ef0ab7a270287727c7d4341754fbe30f95525e7b880f9b4"
+      "sha256": "a88f00f6603e7d6548686fc53890b49536923c13a15fe9afb73c2b65b7d30cd1"
     },
     {
       "id": "models-overview",
@@ -359,10 +359,10 @@
       "local_path": "models/overview.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/models/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "afb4b3741bc6637eaa885dbdaf21a6714c6bf8c4349459cd04209079cc4ac9ae"
+      "sha256": "997380e76d92b0b36b55fb0913004a7a0efbb3a6226aaff8ccb426fba4d97b5f"
     },
     {
       "id": "model-opus-4-6",
@@ -371,10 +371,10 @@
       "local_path": "models/claude-opus-4-6.md",
       "source_url": "https://www.anthropic.com/news/claude-opus-4-6",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "65e00113b48cdd792afd6fef5083ac6149559b6075ed918d8d65e162d977fd74"
+      "sha256": "9498f8f87a4ab40e6067c400e28c011219372511fbc021304ced7fbdf3e0045b"
     },
     {
       "id": "model-opus-4-5",
@@ -383,10 +383,10 @@
       "local_path": "models/claude-opus-4-5.md",
       "source_url": "https://www.anthropic.com/news/claude-opus-4-5",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "5f724dba421252e176ad1020e8a325561191b4f9cf01b2a564e6c13e8324acdd"
+      "sha256": "478c3c4a152a878630fb30df98eeaae3a90fc7dd0e0a94fd8f0aed809f622e39"
     },
     {
       "id": "model-sonnet-4-5",
@@ -395,10 +395,10 @@
       "local_path": "models/claude-sonnet-4-5.md",
       "source_url": "https://www.anthropic.com/news/claude-sonnet-4-5",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "991b6dd84a22b77a74393b0c3b6f76dad0ce34f45c13d726ed01d8e3a67e1eef"
+      "sha256": "7e1f587d890e94b34630dad68569a022f95d2b8418afeea812f0acc5e90e7479"
     },
     {
       "id": "model-haiku-4-5",
@@ -407,10 +407,10 @@
       "local_path": "models/claude-haiku-4-5.md",
       "source_url": "https://www.anthropic.com/news/claude-haiku-4-5",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "3916942a8cae2de249eea6c0fc48f5a5b68fa33ef0e95112935b124ebb4673ce"
+      "sha256": "66186f3898c014102f7dc8767eb9e845a03fb0f25233f221f434ad19e4dbe4a5"
     },
     {
       "id": "models-deprecations",
@@ -419,10 +419,10 @@
       "local_path": "models/deprecations.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "fdcb19b8527e453625723ab750995f69ae8626571dac3e03367ae15358c73c26"
+      "sha256": "72df0176512507c31850d2b5384c2a2c785c3d87df8a7c81d99796fc02c72f43"
     },
     {
       "id": "agent-sdk-readme",
@@ -431,10 +431,10 @@
       "local_path": "agent-sdk/README.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/overview",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "bfa0362173be5b2a777db94fb85aa7f83146a57005af2d72b7acf64c17a0b9fc"
+      "sha256": "5d3e5a2e2f5adb7ed12d03bb5a351e0eaaf0131c7a7b8e774f0bb2ff8761888c"
     },
     {
       "id": "agent-sdk-quickstart",
@@ -443,10 +443,10 @@
       "local_path": "agent-sdk/quickstart.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/quickstart",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "4bbb9e93193837791492ec559d8f8e8ab8c5269be8e48ac9f7c597f90068c15d"
+      "sha256": "8a785fe5d2c6bf5bd78dc18f5048de8c3b6c5ed9b38882ed23401532aceb2dc9"
     },
     {
       "id": "agent-sdk-examples",
@@ -455,10 +455,10 @@
       "local_path": "agent-sdk/examples.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/overview",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "04f576051d57b42dfa10cf4cda4325b39ebb8437ab3f1758d541effaef18a8c7"
+      "sha256": "c891bcf02e7eb49e82906f21707ea098745c67ead4a30848bc4aff7681ccb42a"
     },
     {
       "id": "cookbooks-index",
@@ -467,10 +467,10 @@
       "local_path": "cookbooks/index.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "b3ccc120c92b51d49f62bd4060c41a57d7edb05b5cb8145a508afeed8aa8c02e"
+      "sha256": "b6fee5b22d37b0a0726db3057e92d7f57ee97eb70d4d1a37c9e7fffbc5376e55"
     },
     {
       "id": "research-index",
@@ -479,10 +479,10 @@
       "local_path": "research/index.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "454790e98f90ac655519da318d3464629cbfbdf83e2b7585fe864d321e0922bc"
+      "sha256": "947de4f267f3d7c40f11c259bfe66ebceab1a29a41bb42aabdd4a791779f15a4"
     },
     {
       "id": "research-alignment",
@@ -539,7 +539,7 @@
       "local_path": "research/papers/index.md",
       "source_url": "https://arxiv.org/search/?query=anthropic&searchtype=all",
       "source_type": "arxiv-pdfs",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "papers": [
         {
           "file": "constitutional-ai.pdf",
@@ -628,7 +628,7 @@
       ],
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "c1ff2c6fda2da59a9e66d998dfb00adb932afe26799fa2ee6abce4409540beae"
+      "sha256": "95782b6cced035f9206d9e886967b6ff03d27e0278d8c1f7b3d1affc6ece331b"
     },
     {
       "id": "news-claude-code-security",
@@ -721,10 +721,10 @@
       "local_path": "research/deprecation-updates-opus-3.md",
       "source_url": "https://www.anthropic.com/research/deprecation-updates-opus-3",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "4b0d5cfb39d4714a2265f53c1542345a80a4c3332d8f61e5d064b72c6ebcde51"
+      "sha256": "356e53ffb93d4531994e4cf060231645c99f21821d40fe79217d9f6512983a46"
     },
     {
       "id": "research-persona-selection-model",
@@ -745,10 +745,10 @@
       "local_path": "research/ai-fluency-index.md",
       "source_url": "https://www.anthropic.com/research/AI-fluency-index",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "872fdf00533f6d3840e925e696ea9a65d363857f7b671334b5e404c97118bfb7"
+      "sha256": "fe3f324a7035a462988d01a113d6cb0a8d6fd6b386317db8380595fc246216c4"
     },
     {
       "id": "engineering-effective-context-engineering",
@@ -841,10 +841,10 @@
       "local_path": "api/adaptive-thinking.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "cb7403f080e366eccd971dfc92ed505fec633cb54ee7b03201a101f440195458"
+      "sha256": "39eba75b90533f92f3ca73bb0923eeacee3b3d62e648cd99e3c8f47069697776"
     },
     {
       "id": "api-compaction",
@@ -853,10 +853,10 @@
       "local_path": "api/compaction.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/compaction",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "d3014c367af5a8faefd55771896f2f181150f32c6266c16017b3522303bca9e3"
+      "sha256": "3aebf69f9cc1806e83b2ec0dd1e3ff97a4eedfb2e4b0c1725967c5a3a45b7847"
     },
     {
       "id": "api-context-windows",
@@ -865,10 +865,10 @@
       "local_path": "api/context-windows.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "3d6a101523ed257e75913e4f0a69a5e0afc0ed907882def822959f0d2d21132a"
+      "sha256": "ba6e32ceb192b2238d9beae377cc13da39cae8a462e2960873ccafaf9fb93a58"
     },
     {
       "id": "api-models-overview",
@@ -877,10 +877,10 @@
       "local_path": "api/models-overview.md",
       "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "f390ea2f5e884b7d0e5f315ab1ee6b9b9fc57b8ae827aefb6dc2f2d4e203e3e9"
+      "sha256": "5c2973db39b5f20a685b351e381e86a6e99a5ef90c0053c1c4e7dd3221846d86"
     },
     {
       "id": "api-migration-guide",
@@ -889,10 +889,10 @@
       "local_path": "api/migration-guide.md",
       "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models/migration-guide",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "ff98aa9f18215a250146cba877e61ace19ea64f35c9d3135fa29d4bbb86b7ffd"
+      "sha256": "5bd8e3799a8a699a0d1925c896712e9c765ae0f4105c8e280a652f5fb02d10c2"
     },
     {
       "id": "api-extended-thinking",
@@ -901,10 +901,10 @@
       "local_path": "api/extended-thinking.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "03a180db27e4b04b6e348e598696d08aca045cc399b791329f7afc2fa16c6e7e"
+      "sha256": "0269b22f5a1a6f5d0fb149d3f7865c6b0ca0f9e722030a5ebc92dff6adb43449"
     },
     {
       "id": "api-effort-parameter",
@@ -913,10 +913,10 @@
       "local_path": "api/effort-parameter.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/effort",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "28cfe0dfb3995e90f110d5c2c270cf5c4b18a051790573767ecae019071188b1"
+      "sha256": "65446d358949abe6ac1946fa6ef4242a659e81c7b748d826877977cc41327a0a"
     },
     {
       "id": "api-memory-tool",
@@ -925,10 +925,10 @@
       "local_path": "api/memory-tool.md",
       "source_url": "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/memory-tool",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "fd875656821d3ab87b6608b08a92d23460612b56cd4be3568ccb4868519e7272"
+      "sha256": "8574be7473b5c48331e13b5fa0bdafae133e2bc8875a322419337709d54f2043"
     },
     {
       "id": "api-web-search-tool",
@@ -937,10 +937,10 @@
       "local_path": "api/web-search-tool.md",
       "source_url": "https://platform.claude.com/docs/en/docs/agents-and-tools/tool-use/web-search-tool",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "d24a9c0306e16b8db2df4778c1792f6da2adb53053a94495c3873cd954ddba02"
+      "sha256": "f67dbb4b2ca55cd955ae643812d035927f54852dded2d3f11cf494734e9850ba"
     },
     {
       "id": "agent-sdk-typescript-v2",
@@ -961,10 +961,10 @@
       "local_path": "docs/best-practices-loop-scheduling.md",
       "source_url": "https://code.claude.com/docs/en/cli-usage",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "c923653491082e7a967c7145535addfce9e96cad787ff58fa515a85d4d4f039d"
+      "sha256": "dce023a06f9d0576ca4aa27cfe2e55c5e9c43f7bfaaebd232e819dcdc43ab762"
     },
     {
       "id": "best-practices-mcp-credentials",
@@ -973,10 +973,10 @@
       "local_path": "docs/best-practices-mcp-credentials.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "0f946de85573da69ceb9a962e3d2c16bb211bc7e7710f96de9a7b501e67fec0b"
+      "sha256": "e3e7614707ae4e687686432317317be2754f12bb285189b0f0f4441249730b57"
     },
     {
       "id": "research-opendev-coding-agents",
@@ -985,11 +985,11 @@
       "local_path": "research/opendev-coding-agents.md",
       "source_url": "https://arxiv.org/abs/2603.05344",
       "source_type": "arxiv-pdfs",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
       "notes": "External paper (Nghi D. Q. Bui). Relevant to coding agent architecture and context engineering.",
-      "sha256": "7ebe2dda6b69dfa15ae832d7c1c72070e36264cdde7a924b2964542dade5ade2"
+      "sha256": "bbf094158f44e266a7fe44ca7cad744879ea30c4e9ff0dd36eea08e87814e39d"
     },
     {
       "id": "claude-code-scheduled-tasks",
@@ -1144,10 +1144,10 @@
       "local_path": "models/claude-sonnet-4-6.md",
       "source_url": "https://www.anthropic.com/news/claude-sonnet-4-6",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "1b7b3a2001e3bee9abd8f1704ff42d5d28f14c254639694ca4cb4c07dc65f0ad"
+      "sha256": "ec19108934259cd69fabfe9457e60c3434d7dbc7f3f302365a337bc79bcd2004"
     },
     {
       "id": "engineering-eval-awareness-browsecomp",
@@ -1192,10 +1192,10 @@
       "local_path": "engineering/advanced-tool-use.md",
       "source_url": "https://www.anthropic.com/engineering/advanced-tool-use",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "d7fa614f96daf1859e00df8906c31fed76a572ee2cce480b827a3ed7723eab67"
+      "sha256": "909bb754e5cd99cd4662e835e72644738c813ad9ba875435c9e3cdc49bb8e69c"
     },
     {
       "id": "engineering-code-execution-with-mcp",
@@ -1288,10 +1288,10 @@
       "local_path": "research/india-brief-economic-index.md",
       "source_url": "https://www.anthropic.com/research/india-brief-economic-index",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "dd0210b47ff2a0970176c11f21a72a4cef09354e0f63b4c5233fc3923e617bfc"
+      "sha256": "1519397361447d67c6e25fde2b233deea989065168ab06ced489f3feae182f82"
     },
     {
       "id": "research-ai-assistance-coding-skills",
@@ -1348,10 +1348,10 @@
       "local_path": "models/claude-fable-5-mythos-5.md",
       "source_url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "4b4496d030e9115b3dccdc2d58d6b364366d83a998ee2ae6fe5c5df2d961b891"
+      "sha256": "12a1cae31009bbf20e742716903583d6d7170e5d7ecee3227271f7f7d20468f1"
     },
     {
       "id": "model-opus-4-7",
@@ -1360,10 +1360,10 @@
       "local_path": "models/claude-opus-4-7.md",
       "source_url": "https://www.anthropic.com/news/claude-opus-4-7",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "3f3431c47911822650f83b18050b531d44bfe63b7236a97125e685106d3d2a51"
+      "sha256": "80a2f62b3a71abaf9b39d829b687b7924baa866478e23ae74283976f9c28082f"
     },
     {
       "id": "model-opus-4-8",
@@ -1372,10 +1372,10 @@
       "local_path": "models/claude-opus-4-8.md",
       "source_url": "https://www.anthropic.com/news/claude-opus-4-8",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "9bbaeeb3b322e95fcef51ccb9b5abb916d1b65121d78f16958f087fd5dd3df7f"
+      "sha256": "2fed88d6a54c0907d4aa33005c43355c7b66ea2fd9ef7cb553050dbe52b1a655"
     },
     {
       "id": "news-claude-corps",
@@ -1468,10 +1468,10 @@
       "local_path": "research/economic-index-june-2026.md",
       "source_url": "https://www.anthropic.com/research/economic-index-june-2026-report",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "a86b253e16b87f4d4e0f12dfa3657318a1a23a04dedc37f53739106c78331a93"
+      "sha256": "2ac5b73749bb9cb5f2018fc713c393af29b6e3a1e22c63c6db683b86d4475ea6"
     },
     {
       "id": "research-natural-language-autoencoders",
@@ -1504,10 +1504,10 @@
       "local_path": "models/claude-opus-5.md",
       "source_url": "https://www.anthropic.com/news/claude-opus-5",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "8e00535118000eb3524a8465ae720392def4e6cb19c76d69238c0ecb4a26a478"
+      "sha256": "611db796badcd1b33fbc4e47fe4fc9d32b9882d344aaf756c384b5872ba5cec7"
     },
     {
       "id": "model-sonnet-5",
@@ -1516,10 +1516,10 @@
       "local_path": "models/claude-sonnet-5.md",
       "source_url": "https://www.anthropic.com/news/claude-sonnet-5",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "4a82dd76efa8269ea3d10696390fb52338c8304b3b954546f6cbfae837ac69f2"
+      "sha256": "3c8e61e3799e3921e5adeb90702cdcf2d29988ab75cb0bf3f6852bbe883bdfeb"
     },
     {
       "id": "engineering-claude-code-best-practices",
@@ -1528,11 +1528,11 @@
       "local_path": "engineering/claude-code-best-practices.md",
       "source_url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-02T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
       "notes": "Source 308-redirects to https://code.claude.com/docs/en/best-practices (maintained current version).",
-      "sha256": "237cf9747865bce3a8668095ad421ece95f9b54322d5a78a3f888c97385cb350"
+      "sha256": "f3124727a5d677300074054d2bb963afd25c0472a24a6d9a2d3031ac385e77ea"
     },
     {
       "id": "equipping-agents-agent-skills",
@@ -1745,10 +1745,10 @@
       "local_path": "models/claude-fable-5-1-mythos-5-1.md",
       "source_url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-07T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "c7a6fbae2183c9fa88be5e9f90596e5c4b51de95e8f5754416aae39e19feae43"
+      "sha256": "ca2e75266f2d53fe0debc01de1d82f402f41a32b1115acb55e419751cf66fc90"
     },
     {
       "id": "news-redeploying-fable-5",
@@ -1897,7 +1897,7 @@
   ],
   "last_discovery_run": "2026-08-16T00:00:00Z",
   "metadata": {
-    "last_full_update": "2026-09-06T00:00:00Z",
-    "last_discovery_run": "2026-09-06T00:00:00Z"
+    "last_full_update": "2026-09-07T00:00:00Z",
+    "last_discovery_run": "2026-09-07T00:00:00Z"
   }
 }

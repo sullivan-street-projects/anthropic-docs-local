@@ -1,14 +1,14 @@
 ---
 title: "Best Practices: MCP Server Credential Management & Access Control"
-source_url: "https://code.claude.com/docs/en/mcp"
+source_url: "https://code.claude.com/docs/en/mcp-servers"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "claude-code"
 ---
 
 # Best Practices: MCP Server Credential Management & Access Control
 
-> **Documentation Status:** MCP server configuration is comprehensively documented at [code.claude.com/docs/en/mcp](https://code.claude.com/docs/en/mcp). All claims in this document have been verified against the official documentation as of June 2026.
+> **Documentation Status:** MCP server configuration is comprehensively documented at [code.claude.com/docs/en/mcp](https://code.claude.com/docs/en/mcp). All claims in this document have been verified against the official documentation as of September 2026.
 
 ---
 
@@ -36,7 +36,7 @@ your-project/
 
 ### File 1: `.mcp.json` (Committed -- The Server Declaration)
 
-This file declares _which_ MCP servers the project uses. It references credentials via environment variable placeholders -- never hardcoded values. The `type` field accepts `streamable-http` as an alias for `http`, so configurations copied from MCP server documentation work without modification.
+This file declares _which_ MCP servers the project uses. It references credentials via environment variable placeholders -- never hardcoded values. The `type` field accepts `streamable-http` as an alias for `http`, so configurations copied from MCP server documentation work without modification. A JSON entry with a `url` but no `type` is a configuration error -- Claude Code reads an entry with no `type` as a stdio server.
 
 ```json
 {
@@ -134,6 +134,8 @@ Environment variables are expanded in these fields:
 - `env` -- environment variables passed to the server process
 - `url` -- HTTP/SSE/WebSocket endpoint URLs
 - `headers` -- HTTP request headers
+
+**Warning:** If a variable isn't set and has no default, Claude Code reports a warning and uses the unexpanded `${VAR}` text. Set the variable or add a `:-default` fallback.
 
 **Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- _"The expansion works in the `command`, `args`, `env`, `url`, and `headers` fields."_
 
@@ -292,7 +294,7 @@ Before committing `.mcp.json` changes, verify that:
 2. **All variables are documented** in `.env.example`
 3. **Defaults make sense** -- will a new developer get working defaults?
 4. **Server names are descriptive** -- `postgres-analytics` not `db1`
-5. **Reserved names are avoided** -- the name `workspace` is reserved for internal use
+5. **Reserved names are avoided** -- the names `workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, and `Claude Browser` are reserved for internal use; Claude Code silently skips servers with reserved names, and `claude mcp add` rejects them with an error
 
 ```bash
 # Quick audit: find any hardcoded-looking secrets
@@ -360,9 +362,15 @@ claude mcp add --transport http \
   my-server https://mcp.example.com/mcp
 ```
 
-For CI/non-interactive use, set the secret via environment variable:
+Additional methods for providing the client secret:
 
 ```bash
+# Via add-json
+claude mcp add-json my-server \
+  '{"type":"http","url":"https://mcp.example.com/mcp","oauth":{"clientId":"your-client-id","callbackPort":8080}}' \
+  --client-secret
+
+# Via environment variable (CI/non-interactive use)
 MCP_CLIENT_SECRET=your-secret claude mcp add --transport http \
   --client-id your-client-id --client-secret --callback-port 8080 \
   my-server https://mcp.example.com/mcp
@@ -448,17 +456,35 @@ Or inline:
 
 - The command must write a JSON object of string key-value pairs to stdout
 - The command runs in a shell with a 10-second timeout
+- Specify as an absolute path or put on `PATH`
 - Dynamic headers override any static `headers` with the same name
 - The helper runs fresh on each connection (session start and reconnect) with no caching
 
 Claude Code sets these environment variables when executing the helper:
 
-| Variable                      | Value                      |
-| ----------------------------- | -------------------------- |
-| `CLAUDE_CODE_MCP_SERVER_NAME` | the name of the MCP server |
-| `CLAUDE_CODE_MCP_SERVER_URL`  | the URL of the MCP server  |
+| Variable                      | Value                                          |
+| ----------------------------- | ---------------------------------------------- |
+| `CLAUDE_CODE_MCP_SERVER_NAME` | The name of the MCP server                     |
+| `CLAUDE_CODE_MCP_SERVER_URL`  | The URL of the MCP server                      |
+| `CLAUDE_PLUGIN_ROOT`          | Plugin root directory (if from plugin)         |
 
-Use these to write a single helper script that serves multiple MCP servers.
+**Security:** Credential-like environment variables (TOKEN, SECRET, PASSWORD, KEY, AUTH) are removed from the helper's environment for servers in project `.mcp.json` or at local scope.
+
+### Trust Before headersHelper Runs
+
+For project `.mcp.json` servers or local-scope servers, `headersHelper` runs only after accepting the [trust dialog](https://code.claude.com/docs/en/permissions#project-allow-rules-and-workspace-trust).
+
+To bypass the dialog (e.g., in automated environments), set in `~/.claude.json`:
+
+```json
+{
+  "projects": {
+    "<path>": {
+      "hasTrustDialogAccepted": true
+    }
+  }
+}
+```
 
 `headersHelper` executes arbitrary shell commands. When defined at project or local scope, it only runs after you accept the workspace trust dialog.
 
@@ -498,7 +524,16 @@ Servers can be restricted with `allowedMcpServers` and `deniedMcpServers`, which
 
 MCP servers added in claude.ai are automatically available in Claude Code when authenticated with a claude.ai account. Connectors you have never signed in to are collapsed in the `/mcp` panel. Connectors from claude.ai are only fetched when the active authentication method is your claude.ai subscription (not when using `ANTHROPIC_API_KEY`, `apiKeyHelper`, or third-party providers).
 
-To disable claude.ai connectors:
+#### Organization Controls on Connectors
+
+Your organization can set per-tool controls on connectors:
+
+- **Tool set to `ask`**: Claude Code prompts on every call with reason "Your organization requires approval for this tool"
+- **Tool set to `blocked`**: Tool filtered out before Claude sees it
+
+#### Disabling Connectors
+
+To disable all claude.ai connectors:
 
 ```json
 {
@@ -512,13 +547,37 @@ Or via environment variable:
 ENABLE_CLAUDEAI_MCP_SERVERS=false claude
 ```
 
-To block individual connectors rather than all of them, add them to `deniedMcpServers` by name or URL pattern.
+To block individual connectors rather than all of them, add them to `deniedMcpServers` by name or URL pattern:
+
+```json
+{
+  "deniedMcpServers": ["claude.ai Slack"]
+}
+```
 
 **Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- Managed MCP and enterprise controls.
 
 ---
 
-## 9. The Complete Developer Onboarding Flow
+## 9. Tools Requiring User Interaction
+
+MCP servers can mark specific tools as requiring user approval on every call, regardless of permission mode:
+
+```json
+{
+  "name": "grant_access",
+  "description": "Requests access to a protected resource",
+  "_meta": {
+    "anthropic/requiresUserInteraction": true
+  }
+}
+```
+
+This is set by the server, not by Claude Code configuration. Tools marked this way always prompt the user before execution.
+
+---
+
+## 10. The Complete Developer Onboarding Flow
 
 Here's the recommended onboarding experience for a new developer joining a project with MCP servers:
 
@@ -550,7 +609,7 @@ Step 6: (Optional) Authenticate remote OAuth servers
 
 ---
 
-## 10. MCP Management Commands
+## 11. MCP Management Commands
 
 Quick reference for managing MCP servers via the CLI:
 
@@ -596,7 +655,88 @@ claude mcp reset-project-choices
 
 ---
 
-## 11. Common Pitfalls
+## 12. Server Status & Configuration Warnings
+
+### Status Indicators
+
+The `/mcp` panel shows these connection states:
+
+| Indicator                | Meaning                                                                                 |
+| ------------------------ | --------------------------------------------------------------------------------------- |
+| `✔ Connected`            | Successfully connected                                                                  |
+| `! Needs authentication` | Requires OAuth sign-in                                                                  |
+| `✘ Failed to connect`    | Connection error                                                                        |
+| `⏸ Pending approval`     | Project `.mcp.json` server awaiting approval                                             |
+| `✘ Rejected`             | Blocked by `disabledMcpjsonServers`                                                     |
+| `⊘ Disabled`             | Toggled off in `/mcp`                                                                   |
+| `cached ... ago`         | Tool list loaded from cache; connects on first tool call                                |
+
+### Configuration Warnings
+
+Claude Code warns about these common issues:
+
+- **Hidden whitespace**: Values with leading/trailing whitespace (e.g., token pasted with trailing newline). Edit configuration to remove it.
+- **Same name in multiple scopes**: Warns when a server name is defined in multiple scopes with different endpoints. OAuth sign-ins are stored per endpoint. Keep one definition and remove others: `claude mcp remove <name> --scope <scope>`.
+- **Missing environment variable**: Warns when a `${VAR}` reference has no default and the variable is unset. Set the variable or add a `${VAR:-default}` fallback.
+
+---
+
+## 13. MCP Output & Timeouts
+
+### Output Limits
+
+- **Warning threshold**: 10,000 tokens
+- **Default limit**: 25,000 tokens
+- **Configurable**: `MAX_MCP_OUTPUT_TOKENS` environment variable
+
+```bash
+export MAX_MCP_OUTPUT_TOKENS=50000
+claude
+```
+
+### Per-Tool Size Limits
+
+Servers can declare larger limits per tool via metadata:
+
+```json
+{
+  "name": "get_schema",
+  "description": "Returns the full database schema",
+  "_meta": {
+    "anthropic/maxResultSizeChars": 200000
+  }
+}
+```
+
+### Timeouts
+
+| Setting                                | Default                                  | Purpose                                                   |
+| -------------------------------------- | ---------------------------------------- | --------------------------------------------------------- |
+| `MCP_TIMEOUT`                          | System default                           | Overall startup timeout                                   |
+| `MCP_TOOL_TIMEOUT`                     | ~28 hours                                | Per-tool call timeout                                     |
+| Per-server `timeout`                   | None                                     | Milliseconds, set in `.mcp.json` entry                    |
+| `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`    | 5 min (HTTP/SSE/WS), 30 min (stdio)     | Abort tool call with no response/progress                 |
+| `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`   | 2 minutes                                | Move long MCP tool calls to background task (v2.1.212+)   |
+
+Per-server `timeout` example:
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "type": "http",
+      "url": "https://example.com/mcp",
+      "timeout": 600000
+    }
+  }
+}
+```
+
+A per-server `timeout` of at least 1000 ms also acts as a floor for idle aborts, so idle aborts never fire sooner than that value (v2.1.203+). Set `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` to `0` to disable idle timeout entirely. Set `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` to `0` to disable auto-backgrounding.
+
+---
+
+## 14. Common Pitfalls
 
 | Pitfall                                         | Problem                                           | Fix                                                   |
 | ----------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
@@ -611,28 +751,11 @@ claude mcp reset-project-choices
 | Using reserved name `workspace`                 | Server silently skipped at load time              | Choose a different server name                        |
 | Static `Authorization` header with OAuth server | Connection fails instead of falling back to OAuth | Remove the header to use the OAuth flow               |
 | Missing `--` separator for stdio                | Claude Code parses server flags as its own        | Always use `--` before server command                 |
+| JSON entry with `url` but no `type`             | Misread as stdio server                           | Always set `"type": "http"` for HTTP servers          |
 
 ---
 
-## 12. Security Checklist
-
-Before committing any MCP configuration:
-
-- [ ] No hardcoded API keys, tokens, or passwords in `.mcp.json`
-- [ ] `.env` is listed in `.gitignore`
-- [ ] `.env.example` exists and documents all required variables
-- [ ] Default values (`${VAR:-default}`) are non-secret and sensible
-- [ ] Server names are descriptive and consistent (not `workspace`, which is reserved)
-- [ ] OAuth servers don't include static tokens in committed config
-- [ ] OAuth scopes are restricted to the minimum necessary (`oauth.scopes`)
-- [ ] `headersHelper` scripts are reviewed for security (they execute arbitrary commands)
-- [ ] Team members have been informed of required credentials
-- [ ] `grep -rn 'sk-\|ghp_\|Bearer [a-z]' .mcp.json` returns no results
-- [ ] Pre-configured OAuth client secrets use `MCP_CLIENT_SECRET` env var or keychain, never plaintext in config
-
----
-
-## 13. MCP Elicitation for Interactive Auth
+## 15. MCP Elicitation for Interactive Auth
 
 MCP servers can request structured input mid-task via **elicitation**. This is useful for interactive authentication flows where the server needs credentials it can't get from environment variables. No configuration is required on your side -- elicitation dialogs appear automatically when a server requests them.
 
@@ -666,7 +789,7 @@ See [claude-code/hooks.md](../claude-code/hooks.md) for the full `Elicitation` a
 
 ---
 
-## 14. Connection Reliability
+## 16. Connection Reliability
 
 ### Automatic Reconnection
 
@@ -678,11 +801,28 @@ As of v2.1.191, capability discovery requests (`tools/list`, `prompts/list`, `re
 
 Stdio servers are local processes and are not reconnected automatically.
 
-### Idle Timeout
+### Auto-Backgrounding Long Tool Calls
 
-As of v2.1.187, a tool call that sends no response and no progress notification for the idle window aborts with an error. The window defaults to 5 minutes for HTTP, SSE, WebSocket, and claude.ai connector servers, and to 30 minutes for stdio servers (as of v2.1.203; before that, stdio servers were exempt). It applies to every server type except IDE servers and SDK in-process servers. Set the `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` environment variable in milliseconds to change the window, or set it to `0` to disable. A per-server `timeout` of at least 1000 also acts as a floor, so idle aborts never fire sooner than that value (v2.1.203+).
+As of v2.1.212, an MCP tool call in the main conversation still running after two minutes moves to a background task instead of blocking the session. Set `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` in milliseconds to change the threshold, or `0` to disable.
 
-An MCP tool call in the main conversation still running after two minutes moves to a background task instead of blocking the session (v2.1.212+). Set `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` in milliseconds to change the threshold, or `0` to disable.
+---
+
+## 17. Security Checklist
+
+Before committing any MCP configuration:
+
+- [ ] No hardcoded API keys, tokens, or passwords in `.mcp.json`
+- [ ] `.env` is listed in `.gitignore`
+- [ ] `.env.example` exists and documents all required variables
+- [ ] Default values (`${VAR:-default}`) are non-secret and sensible
+- [ ] Server names are descriptive and not reserved (`workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, `Claude Browser`)
+- [ ] OAuth servers don't include static tokens in committed config
+- [ ] OAuth scopes are restricted to the minimum necessary (`oauth.scopes`)
+- [ ] `headersHelper` scripts are reviewed for security (they execute arbitrary commands)
+- [ ] Team members have been informed of required credentials
+- [ ] `grep -rn 'sk-\|ghp_\|Bearer [a-z]' .mcp.json` returns no results
+- [ ] Pre-configured OAuth client secrets use `MCP_CLIENT_SECRET` env var or keychain, never plaintext in config
+- [ ] HTTP entries have explicit `"type": "http"` -- an entry with `url` but no `type` is misread as stdio
 
 ---
 
@@ -699,18 +839,31 @@ An MCP tool call in the main conversation still running after two minutes moves 
 | OAuth browser-based authentication                              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | `claude mcp login/logout` CLI commands                          | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | `headersHelper` for dynamic authentication                      | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `CLAUDE_PLUGIN_ROOT` env var for headersHelper                  | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Credential-like env vars removed from helper environment        | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Trust dialog bypass via `hasTrustDialogAccepted`                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | `oauth.scopes` for restricting OAuth scopes                     | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | `MCP_CLIENT_SECRET` env var for CI                              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Managed MCP with allowlist/denylist                             | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | claude.ai connectors integration                                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Organization controls on connectors (ask/blocked)               | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | `disableClaudeAiConnectors` setting                             | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `deniedMcpServers` for blocking individual connectors           | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `requiresUserInteraction` tool metadata                         | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Per-tool size limits (`maxResultSizeChars`)                     | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Server status indicators                                        | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Configuration warnings (whitespace, name conflicts, reserved)   | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Reserved names (5 total)                                        | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `MCP_TIMEOUT` and `MCP_TOOL_TIMEOUT` env vars                  | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Per-server `timeout` field                                      | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Idle timeout and `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`            | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Auto-background for long MCP calls (v2.1.212+)                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Capability discovery retry (v2.1.191)                           | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `streamable-http` alias and `url` without `type` caveat        | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | CLI commands (add, add-json, list, remove, login, logout, etc.) | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | `.env` auto-reading by Claude Code                              | Observed behavior, consistent with docs                                                     | High       |
 | `.env.example` onboarding pattern                               | Industry best practice, referenced in [best-practices.md](../claude-code/best-practices.md) | Medium     |
 | `add-from-claude-desktop` import command                        | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | `CLAUDE_PROJECT_DIR` for stdio servers                          | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | WebSocket transport (`type: "ws"`)                              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
-| `streamable-http` as alias for `http`                           | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Automatic reconnection with exponential backoff                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
-| Idle timeout (`CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`)              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
-| Reserved server name `workspace`                                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |

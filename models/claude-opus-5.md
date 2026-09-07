@@ -2,7 +2,7 @@
 title: "Claude Opus 5"
 source_url: "https://www.anthropic.com/news/claude-opus-5"
 source_type: "web-extracted"
-fetched_at: "2026-08-02T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "models"
 ---
 
@@ -14,20 +14,20 @@ category: "models"
 
 ## Positioning
 
-Claude Opus 5 is Anthropic's new flagship Opus model. It is the new **default model on Claude Max** and the **strongest model available on Claude Pro**. Anthropic positions it as delivering "the frontier intelligence of Claude Fable 5 at half the price."
+Claude Opus 5 is Anthropic's new flagship Opus model, positioned between Opus 4.8 and the higher-tier Fable 5. It is the new **default model on Claude Max** and the **strongest model available on Claude Pro**. Anthropic positions it as delivering "the frontier intelligence of Claude Fable 5 at half the price."
 
 ## Pricing & Availability
 
 ### Standard Mode
 
 - Input: $5 per million tokens
-- Output: $25 per million tokens
+- Output: $25 per million tokens (matching Opus 4.8 pricing)
 
 ### Fast Mode
 
 - Around 2.5x the default speed at twice the base price
 
-Available via the Claude API (`claude-opus-5`), claude.ai (Max/Pro), and Claude Code.
+Available via the Claude API (`claude-opus-5`), claude.ai (Max/Pro), Claude Code, and Claude Cowork.
 
 ## Technical Specifications
 
@@ -59,6 +59,16 @@ Available via the Claude API (`claude-opus-5`), claude.ai (Max/Pro), and Claude 
 
 Opus 5 emphasizes verifying its own work and iterating carefully until it succeeds. Highlighted behaviors include:
 
-- Autonomous problem-solving — e.g., building computer vision pipelines when it cannot directly view output
+- Autonomous problem-solving — e.g., building computer vision pipelines and test harnesses when it cannot directly view output
 - Independently debugging complex systems
 - Stronger agentic reliability across long, multi-step end-to-end tasks
+
+## Safety & Alignment
+
+Claude Opus 5 represents Anthropic's most aligned system to date:
+
+- Automated behavioral audits show the lowest misaligned behavior scores across the model lineup
+- Reduced susceptibility to manipulation compared to predecessors
+- Cyber classifiers intervene approximately 85% less frequently than Fable 5 while still restricting binary-based scanning, penetration testing, and exploit development
+
+**Limitations:** Remains behind Mythos 5 for cybersecurity exploitation and biology research applications.

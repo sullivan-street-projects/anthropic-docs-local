@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -14,7 +14,21 @@ Updates to Claude consumer and business applications.
 
 ---
 
+## September 2026
+
+### September 1, 2026
+
+- Claude Fable 5.1 and Claude Mythos 5.1 launched with 1M token context window, 128k max output, always-on adaptive thinking, text watermarking, and C2PA Content Credentials
+
+---
+
 ## August 2026
+
+### August 19, 2026
+
+- Computer Use Tool out of beta with batch actions and zoom support
+- Browser Use Tool launched for browser automation within viewport
+- Workbench renamed to Playground at platform.claude.com/playground
 
 ### August 6, 2026
 

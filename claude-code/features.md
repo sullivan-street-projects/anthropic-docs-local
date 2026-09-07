@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment, combining a model that reasons about your code with built-in tools for file operations, search, execution, and web access.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** September 7, 2026
 
 ## Extension Architecture
 
@@ -21,6 +21,8 @@ Claude Code combines a model that reasons about your code with built-in tools fo
 | **CLAUDE.md**         | Persistent context loaded every conversation                  | Project conventions, "always do X" rules                                    | "Use pnpm, not npm. Run tests before committing."                               |
 | **Skills**            | Instructions, knowledge, and workflows Claude can use         | Reusable content, reference docs, repeatable tasks                          | `/deploy` runs your deployment checklist; API docs skill with endpoint patterns |
 | **Subagents**         | Isolated execution context that returns summarized results    | Context isolation, parallel tasks, specialized workers                      | Research task that reads many files but returns only key findings               |
+| **Dynamic Workflows** | Script Claude writes that runs many subagents in background   | Work that outgrows a handful of subagents, cross-checked findings          | Audit a whole codebase with a second set of agents verifying each finding       |
+| **Cross-session Msg** | Claude delivers a message from one session to another         | Sessions you run that need each other's findings mid-task                  | One session warns another that a change breaks what it's building on            |
 | **Agent Teams**       | Coordinate multiple independent Claude Code sessions          | Parallel research, feature development, debugging with competing hypotheses | Spawn reviewers to check security, performance, and tests simultaneously        |
 | **Code Intelligence** | Language-server navigation and diagnostics                    | Typed languages, large codebases where grep is slow or imprecise            | Jump to a symbol's definition instead of reading the whole file                 |
 | **MCP**               | Connect to external services                                  | External data or actions                                                    | Query your database, post to Slack, control a browser                           |
@@ -165,6 +167,16 @@ Each extension has different context costs:
 - **Skills** teach Claude knowledge about how to use those services effectively
 - They combine: MCP gives ability, skills give knowledge and workflow patterns
 - Example: MCP connects to your database, a skill documents your schema and query patterns
+
+### Subagent vs Dynamic Workflow
+
+Both do work outside your main conversation. With subagents, Claude decides turn by turn what runs next. In a dynamic workflow, a script decides:
+
+- **Subagents** are workers Claude spawns, each returning a summary to the conversation that spawned it
+- **Dynamic workflows** are scripts Claude writes that run many subagents in the background and return one result
+- Use a subagent when you need a quick, focused worker: research a question, verify a claim, review a file
+- Use a dynamic workflow when a job outgrows a handful of subagents, or when you want findings cross-checked before you see them (codebase-wide audit, large migration, plan drafted from several angles)
+- To pass a finding from one of your sessions to another, use cross-session messaging
 
 ### Subagent vs Agent Team
 
@@ -361,9 +373,12 @@ claude -p 'parse logs' --output-format stream-json
 - [How Claude Code Works](https://code.claude.com/docs/en/how-claude-code-works)
 - [Skills](https://code.claude.com/docs/en/skills)
 - [Subagents](https://code.claude.com/docs/en/sub-agents)
+- [Dynamic Workflows](https://code.claude.com/docs/en/workflows)
+- [Cross-session Messaging](https://code.claude.com/docs/en/cross-session-messaging)
 - [Agent Teams](https://code.claude.com/docs/en/agent-teams)
 - [CLI Reference](https://code.claude.com/docs/en/cli-usage)
 - [Remote Control](https://code.claude.com/docs/en/remote-control)
 - [Chrome Integration](https://code.claude.com/docs/en/chrome)
 - [Artifacts](https://code.claude.com/docs/en/artifacts)
 - [Channels](https://code.claude.com/docs/en/channels)
+- [Steering Claude Code (Blog)](https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more)

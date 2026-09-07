@@ -1,8 +1,8 @@
 ---
 title: "Claude Agent SDK"
-source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
+source_url: "https://code.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -12,7 +12,7 @@ Build production AI agents with Claude Code as a library. The Agent SDK gives yo
 
 > **Note:** The Claude Code SDK has been renamed to the Claude Agent SDK. See the [Migration Guide](https://code.claude.com/docs/en/agent-sdk/migration-guide) if migrating from the old SDK.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** September 7, 2026
 
 ## Overview
 
@@ -268,5 +268,9 @@ Use of the Claude Agent SDK is governed by [Anthropic's Commercial Terms of Serv
 
 - [SDK Overview](https://code.claude.com/docs/en/agent-sdk/overview)
 - [Quickstart](https://code.claude.com/docs/en/agent-sdk/quickstart)
+- [Migration Guide](https://code.claude.com/docs/en/agent-sdk/migration-guide)
+- [Agent Loop](https://code.claude.com/docs/en/agent-sdk/agent-loop)
 - [Python SDK Reference](https://code.claude.com/docs/en/agent-sdk/python)
 - [TypeScript SDK Reference](https://code.claude.com/docs/en/agent-sdk/typescript)
+- [Example Agents](https://github.com/anthropics/claude-agent-sdk-demos)
+- [Agent Harness Design (Blog)](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code)

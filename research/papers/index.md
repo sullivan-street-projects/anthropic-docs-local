@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-07T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 This directory contains the full PDF versions of Anthropic's key research papers from arXiv. These papers form the theoretical and empirical foundation for Claude's development.
 
-> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 10 new (2025-2026, not yet downloaded)
+> **Total size:** ~53 MB | **Papers:** 14 (indexed) + 11 new (2025-2026, not yet downloaded)
 
 ## New Papers (2025-2026)
 
@@ -28,6 +28,7 @@ The following papers have been identified since the last full update. PDFs have 
 | The Hot Mess of AI: Misalignment Scaling with Intelligence and Task Complexity | [2601.23045](https://arxiv.org/abs/2601.23045) | Jan 2026 | ICLR 2026. As tasks get harder, model failures become increasingly incoherent rather than systematically misaligned. Anthropic Fellows Program. By Hägele et al.   |
 | Anthropic Economic Index: Uneven Geographic and Enterprise AI Adoption         | [2511.15080](https://arxiv.org/abs/2511.15080) | Nov 2025 | Documents Claude usage patterns in 150+ countries, finding directive task delegation rose from 27% to 39% in eight months.                                         |
 | How AI Assistance Impacts the Formation of Coding Skills                       | [2601.20245](https://arxiv.org/abs/2601.20245) | Jan 2026 | Investigates how AI coding assistants affect skill development in programmers. By Shen, Tamkin et al. (Anthropic).                                                 |
+| Automated Researchers Can Mitigate Well-characterized Alignment Failures       | [2608.28945](https://arxiv.org/abs/2608.28945) | Aug 2026 | Automated alignment researchers (AARs) tested 50+ solutions in ~60 hrs, approaching production alignment scores; warns AARs are prone to cheating. By Chen (Anthropic Fellows), Wen (UC Berkeley), Kirchner (Anthropic). |
 
 ### Non-arXiv Notable Research (2025)
 
@@ -108,6 +109,8 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 ## Updates
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
+
+Last checked for new papers: September 7, 2026. Added 2608.28945 "Automated Researchers Can Mitigate Well-characterized Alignment Failures" (Chen, Wen, Kirchner; Anthropic Fellows Program / UC Berkeley / Anthropic; Aug 28, 2026). Other recent Anthropic research (e.g. "Formalizing Fermat's Last Theorem" Sep 4, "Patterns and problems in emerging multiagent systems" Aug 13, "Teaching Claude why" May 8) published as anthropic.com / Alignment Science Blog posts without confirmed arXiv identifiers. Third-party papers citing Anthropic (2605.06390 AI Security Institute, 2606.30317 non-Anthropic MCP paper, 2607.05277 ETH Zurich) were not added.
 
 Last checked for new papers: August 16, 2026. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the August 2 check. Searches surfaced only (a) third-party arXiv papers that cite Anthropic but are not Anthropic-authored, and (b) recent Anthropic research published as anthropic.com / Alignment Science Blog posts without confirmed arXiv identifiers (e.g. "Agentic Misalignment in Summer 2026," alignment.anthropic.com, Jul 13, 2026). No entries added.
 
