@@ -80,6 +80,10 @@ Track source-specific failures with resolutions. Review at session start to avoi
 
 - **Note**: All actively-fetched sources (github-raw, github-api, manual, arxiv, volatile web-extracted) succeeded this cycle. No 404s on code.claude.com or platform.claude.com. Dual model launch (Opus 5 / Sonnet 5) made this an unusually high-signal week (26 content-changed files, 0 timestamp-only).
 
+### 2026-09-07 — no fetch failures (all sources)
+
+- **Note**: All actively-fetched sources succeeded — 8 github-raw, 40 volatile web-extracted, 9 manual, 2 arxiv, 1 github-api, 8 newly-discovered. 0 stalls (no background agent stalls this cycle — batch sizes kept to ≤6 per agent, per lessons). 0 sha256 mismatches after single-writer reconcile. The only known-dead source (agent-sdk-typescript-v2) was correctly excluded from fetch.
+
 ### 2026-09-06 — three background agents stalled (600s watchdog)
 - **Error**: 3 of 6 background `general-purpose` fetch agents failed with "Agent stalled: no progress for 600s (stream watchdog did not recover)": (1) volatile web-extracted+arxiv (1st attempt), (2) manual docs, (3) volatile web-extracted (replacement). Each stalled on the final/near-final source of its serial batch; the report was lost but written files persisted.
 - **Resolution**: Recovered by `git status` on each agent's target paths, verifying what landed, then finishing the remainder inline via the orchestrator's own WebFetch (not subject to the background watchdog): confirmed `api/models-overview.md` body was complete and bumped its stale `fetched_at`; confirmed `api/migration-guide.md` already carried Opus 5 content (no change needed); added the 6 genuinely-new post rows to `research/index.md`. `claude-code/hooks.md` (the one manual change) landed fine. Net: no content lost.

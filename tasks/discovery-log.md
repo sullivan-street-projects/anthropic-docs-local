@@ -158,6 +158,24 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
   - Claude is a space to think, Claude's new constitution, advanced tool use, code execution with MCP, Claude Code sandboxing, desktop extensions, think tool, building effective agents, contextual retrieval, India country brief, AI assistance coding skills, disempowerment patterns, assistant axis, Project Vend phase two
 - **Notes**: No new arxiv papers found. Run full `/update-anthropic-docs --discover` to add these sources.
 
+### 2026-09-07 — Weekly Update (discovery scan)
+
+- **Manifest sources checked**: 150 (before adds)
+- **Added (HIGH/MEDIUM priority, trusted anthropic.com domain — auto-added per automated-run policy)**: 8
+  - `news-anthropic-economic-index-connector` → news/anthropic-economic-index-connector.md ← anthropic.com/news/anthropic-economic-index-connector (HIGH — new product feature)
+  - `research-anthropic-institute-agenda` → research/anthropic-institute-agenda.md ← anthropic.com/research/anthropic-institute-agenda (HIGH — TAI research pillars)
+  - `news-tino-cuellar` → news/tino-cuellar.md ← anthropic.com/news/tino-cuellar (MEDIUM)
+  - `news-anthropic-public-record` → news/anthropic-public-record.md ← anthropic.com/news/anthropic-public-record (MEDIUM)
+  - `news-economic-futures-research-fund-agenda` → news/economic-futures-research-fund-agenda.md ← anthropic.com/news/economic-futures-research-fund-agenda (MEDIUM)
+  - `news-google-broadcom-partnership-compute` → news/google-broadcom-partnership-compute.md ← anthropic.com/news/google-broadcom-partnership-compute (MEDIUM)
+  - `research-economic-index-march-2026-report` → research/economic-index-march-2026-report.md ← anthropic.com/research/economic-index-march-2026-report (MEDIUM)
+  - `research-anthropic-economic-index-january-2026-report` → research/anthropic-economic-index-january-2026-report.md ← anthropic.com/research/anthropic-economic-index-january-2026-report (MEDIUM)
+- **Deferred (LOW)**: anthropic-s-recommendations-ostp-u-s-ai-action-plan (Mar 2025 backfill — very old)
+- **Engineering**: All 25 engineering posts already tracked — no gaps
+- **SDK versions**: npm @anthropic-ai/sdk 0.124.0, PyPI anthropic 1.4.0 (both current)
+- **Staleness**: `agent-sdk-typescript-v2` — confirmed 404 again (~8th+ cycle). Removal re-flagged.
+- **New arXiv paper**: 2608.28945 "Automated Researchers Can Mitigate Well-characterized Alignment Failures" (Aug 28, 2026) — added to research/papers/index.md
+
 ### 2026-09-06 — Discovery Run (during weekly update)
 - **New sources found**: 22 (all first-party anthropic.com; all resolved 200 after slug correction)
 - **Added**: 23 sources auto-added (per unattended-run rule) — model-fable-5-1-mythos-5-1; research-{riemann-zeta, claude-accelerates-protein-design, global-workspace, formalizing-fermats-last-theorem, automated-researchers-mitigate-alignment-failures, discovering-cryptographic-weaknesses, project-pilot, how-canada-uses-claude, reviewing-the-evidence-on-worker-retraining-programs, enabling-independent-research}; news-{redeploying-fable-5, model-hardware-standard-research-preview, claude-text-watermark, enterprise-frontier-safeguards, improving-alignment-security-efforts, expanding-support-for-scientists, improving-fable-5-s-biology-safeguards, investigating-incidents-cybersecurity-evals, position-open-weights-models, wellbeing-research-grants}; engineering-{april-23-postmortem, swe-bench-sonnet}. (Note: 4 discovered research posts — cryptographic-weaknesses, project-pilot, how-canada, global-workspace — were already in research/index.md's table; they now also have dedicated files.)

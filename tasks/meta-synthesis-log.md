@@ -29,15 +29,45 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 7
-Total improvements applied: 5 (0 code changes this cycle; 3 workflow/process lessons on 2026-09-06)
-Total improvements deferred: 5 (reinforced #18 source-lifecycle tracking; +1 PDF-ingestion deferral)
-Most-improved infrastructure: tasks/lessons.md (3 workflow rules on agent-stall recovery this cycle) / manifest.json (hashes + URL corrections)
-Most-informative category: operational this cycle (background-agent stall recovery); models/claude-code (Fable 5.1 launch, 33 hook events, SDK 1.x major)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~8th cycle); removal escalated to a user task chip
-Last cycle: 2026-09-06 — 3 applied (process lessons), 23 sources auto-added, 3 agents stalled+recovered, 0 validation errors
+Total cycles logged: 8
+Total improvements applied: 5 (0 code changes this cycle; 0 workflow/process lessons needed — prior lessons worked)
+Total improvements deferred: 5 (reinforced #18 source-lifecycle tracking)
+Most-improved infrastructure: tasks/lessons.md / manifest.json
+Most-informative category: api (near-complete rewrite — GA promotions, Extended Thinking deprecated, Steering Thinking, 9-language examples); models (Sonnet 5 price lock, Opus 5 safety)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~9th cycle); removal escalated
+Last cycle: 2026-09-07 — 0 applied (no new lessons needed), 8 sources auto-added, 0 agent stalls, 0 validation errors, ~30 content-changed files
 
 ## Entries
+
+### 2026-09-07 — Update: all (weekly full refresh)
+
+Content changes analyzed: ~30 modified + 8 added (all real content changes)
+Improvements identified: 0 (no new infrastructure lessons this cycle — prior lessons worked perfectly)
+Improvements applied: 0
+Improvements deferred: 1 (reinforced #18 source-lifecycle tracking)
+
+**Already aligned (content teaches, infra already does it):**
+
+- api/adaptive-thinking.md → renamed to "Steering Thinking" with effort levels as primary steering lever. Our pipeline doesn't call the Claude API directly, so no code change. Informational.
+- api/extended-thinking.md → deprecated in favor of Steering Thinking. Same — informational for projects using the API, not for our infra.
+- api/overview.md → Files API & Skills API now GA. Informational.
+- api/tool-use.md → complete rewrite with 9-language examples. Informational — our infra doesn't generate API examples.
+- engineering/claude-code-best-practices.md → `/verify`, `/batch`, auto mode, parallel sessions. Our pipeline already uses parallel agents and validation; `/batch` is interesting for fan-out but not needed for our current single-orchestrator pattern.
+- claude-code/mcp-servers.md → MCP v2 runtime, server status indicators, org controls. Informational — our pipeline doesn't use MCP servers.
+- docs/best-practices-loop-scheduling.md → verification gates, `/verify`. Our pipeline already has 5-layer validation. Aligned.
+- docs/best-practices-mcp-credentials.md → `requiresUserInteraction`, MCP output limits. Informational.
+
+**Staleness report:**
+
+- Stable (unchanged but accessible): ~90 web-extracted snapshot articles (not re-fetched; timestamps preserved)
+- Possibly dead: 1 (~9th consecutive cycle) — `agent-sdk-typescript-v2`: github.com/anthropics/agent-sdk — 404. Removal escalated.
+- Relocated: 0
+
+**Operational notes:**
+
+- 0 agent stalls this cycle (vs 3 last cycle). Batch-size cap (≤6) from 2026-09-06 lessons fully prevented the 600s watchdog issue.
+- Single-writer reconcile: 0 sha256 mismatches across 61 files.
+- 8 new sources auto-added from discovery (per unattended-run policy). Manifest now 158 sources.
 
 ### 2026-08-16 — Update: all
 
