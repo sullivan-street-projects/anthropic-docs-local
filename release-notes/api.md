@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-13T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,55 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### September 10, 2026
+
+- Managed Agents permission policies add `auto`: the server evaluates each agent/MCP tool call and runs, denies, or pauses it for approval. `agent.tool_use`/`agent.mcp_tool_use` events report the decision in an `evaluation` field.
+- `ant` CLI adds `ant beta:sessions connect` to attach your terminal to a Managed Agents session (follow live, message, approve/deny tool calls); `--web` serves the Console session viewer locally.
+
+### September 3, 2026
+
+- `ant` CLI 1.30.0 adds `ant apply` to create/update agents, environments, skills, memory stores, and deployments from repo files, writing a `claude-lock.json` lockfile.
+- Per-message effort changes (beta) now also on Google Cloud for Fable 5.1, Mythos 5.1, and Opus 5 (`mid-conversation-output-config-2026-07-01` header).
+
+### September 1, 2026
+
+- Launched **Claude Fable 5.1** (`claude-fable-5-1`) and **Claude Mythos 5.1** (`claude-mythos-5-1`, Project Glasswing). Both: 1M context, 128k output, always-on adaptive thinking, $10 / $50 per MTok (same as Fable 5), cache reads cut to $0.25 per MTok. Available on Claude API, Amazon Bedrock, Claude Platform on AWS, Google Cloud, and Microsoft Foundry.
+- On Fable 5.1 / Mythos 5.1, `tool_choice` `any` and `tool` return 400 (`auto`/`none` unchanged); use strict tool use or structured outputs.
+- Thinking blocks preserved only for the producing model or newer; Fable 5.1 checks the prefix hasn't changed (new accounts from Aug 31, 2026 get a 400 on mismatch). New `thinking-binding-controls-2026-08-01` header adds `input_transformations` and `thinking.block_binding.prefix_mismatch_behavior`.
+- Per-message effort changes in beta on Fable 5.1, Mythos 5.1, Opus 5 via a `role: "system"` message with `output_config.effort` (`mid-conversation-output-config-2026-07-01` header).
+- Turn-scoped system messages in beta (`mid-conversation-system-clear-at-2026-08-21` header): `clear_at: "next_user_message"` renders for one turn at no later token cost.
+- `thinking.display` adds `"updates"` in beta (`thinking-display-updates-2026-08-18` header): progress updates between tool calls return as text.
+- Fable 5.1 / Mythos 5.1 text carries Anthropic's watermark; code-execution media carries C2PA Content Credentials via the Files API. Both require 30-day data retention.
+- Admin API Claude Enterprise, Analytics API, and Compliance API guides now show the `anthropic-version` header; send it on every request.
+
+### August 27, 2026
+
+- Python SDK 1.2.0, TS 0.122.0, Go 1.68.0, Java 2.59.0, Ruby 1.67.0, C# 12.44.0: `client.beta.files`/`client.beta.skills` drop the `files-api-2025-04-14`/`skills-2025-10-02` headers and return the same shapes as `client.files`/`client.skills`. `client.beta.skills.delete()` now deletes all versions; `BetaSkill` renamed `BetaContainerSkill`.
+- Can now create **personal keys** and **service account keys** in the Console (act as you or a service account; stop working when the account leaves the org; scoped to a workspace or across admin endpoints). Workspace API keys remain a legacy option.
+
+### August 26, 2026
+
+- Compliance API session endpoints out of beta for Cowork and Claude Code sessions; local endpoints now also return Claude Science (`claude_science`) and Claude for Microsoft 365 (`office_agents*`) session transcripts (beta, Claude Enterprise).
+- **Admin API** now available in the `ant` CLI and Python/TypeScript/C#/Go/Java/PHP/Ruby SDKs under `client.beta.organization` (org info, members, invites, workspaces, API keys, rate limits, service accounts, WIF issuers/rules, CMEK). Usage/cost and Claude Enterprise user-management/analytics endpoints remain curl-only.
+
+### August 20, 2026
+
+- Released **v1.0 of the Python SDK**: HTTP layer moves from `httpx` to `httpx2` (API-compatible fork), requires Python 3.10+, removes the legacy Text Completions API, the `temperature`/`top_p`/`top_k` Messages params, and the tool runner's `compaction_control`. `AnthropicBedrock` now errors without a configured AWS region.
+- Computer use (`computer_toolset_20260801`) and browser use (`browser_toolset_20260801`) toolsets now on Google Cloud for Fable 5, Mythos 5, Opus 5, Sonnet 5, Opus 4.8.
+
+### August 19, 2026
+
+- **Computer use tool** out of beta on the Claude API as `computer_toolset_20260801` (no beta header, batch actions, `zoom` default-on, per-member `configs`).
+- Launched the **browser use tool** (`browser_toolset_20260801`), a client toolset for driving an application-hosted browser (accessibility tree, element references, form input, tab management, download reporting, opt-in file upload). Both toolsets support Fable 5, Mythos 5, Opus 5, Sonnet 5, Opus 4.8.
+- **Files API** out of beta: `/v1/files` and file-referencing Messages requests no longer need `files-api-2025-04-14`; current format adds file expiration and `page`/`next_page` pagination with an `ids[]` filter.
+- **Agent Skills** and the Skills API (`/v1/skills`) out of beta; no longer need `skills-2025-10-02`.
+- Admin API Claude Enterprise user-management endpoints (members, invites, groups, custom roles) out of beta; `ce-user-management-2026-07-13` no longer required.
+- Managed Agents `web_search`/`web_fetch` now accept `allowed_domains`/`blocked_domains` (plus `max_content_tokens`/`user_location`) in `agent_toolset_20260401` `configs`; self-hosted-sandbox sessions can attach memory stores. Redesigned Console session viewer.
+
+### August 18, 2026
+
+- Workbench is now **playground** (`platform.claude.com/playground`): supports every Messages API parameter, includes feature templates, and shows the full SDK request and API response per run.
 
 ### August 11, 2026
 

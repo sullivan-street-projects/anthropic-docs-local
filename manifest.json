@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-08-16T00:00:00Z",
+  "last_full_update": "2026-09-13T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "f601b6a40aecd41ea4d03583dc5cf23ac482c39f7e227c8553a5740ee3bcf4b4"
+      "sha256": "2fbc44ff44f17d3da8033ecb4242b99d14df6890f94399aaa7a1f08920d2f9a2"
     },
     {
       "id": "claude-code-features",
@@ -33,10 +33,10 @@
       "local_path": "claude-code/features.md",
       "source_url": "https://code.claude.com/docs/en/features-overview",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "d0fe23718d6d19b5f52608df20ac60ddc6c5c8f1513da4cd91dbd3fd49960e5e"
+      "sha256": "9e53156b2737ad988f9dabfe6b789178d5fc6c871b8ea06014a40f3027c25b26"
     },
     {
       "id": "claude-code-hooks",
@@ -45,10 +45,10 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "https://code.claude.com/docs/en/hooks",
       "source_type": "manual",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "ff4385c3bc461ae605fde662880b28dd975edf738aa88d669734f0065c2222b8"
+      "sha256": "08257562f904ed9ba2fdc24f8c30e761e0c75b508b9b3646361d4e6e962ef947"
     },
     {
       "id": "claude-code-mcp",
@@ -69,10 +69,10 @@
       "local_path": "claude-code/plugins.md",
       "source_url": "https://code.claude.com/docs/en/plugins",
       "source_type": "manual",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "287a519d1648d96d0088d97acb812a94e420347c54e25df1510a9a324f173f24"
+      "sha256": "6a57efa24594773d694a444241e04ce753ec1d6637bdbf61873abecb9fd1a2b2"
     },
     {
       "id": "claude-code-best-practices",
@@ -141,10 +141,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "76c70aa5e3b95e3ab65dcf4c44d9f9efab31d68eaa7488a9a348c69827c5085e"
+      "sha256": "e8e9a1024f5270cd229d0484449841a375beb1d6e0e631fac280eed7e0e6e0bd"
     },
     {
       "id": "typescript-sdk-readme",
@@ -165,10 +165,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "98c6c6465c684449777336bf41b99431a369d1bb490fb46b4ad490bbb071fff1"
+      "sha256": "a5c0787bc5cbc71de62b27aaa2e3a26cf0443a361d59468e67f9551f5a716557"
     },
     {
       "id": "other-sdks-overview",
@@ -239,10 +239,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "50d8da50fc29e384d2e551bc9e99adea416898b16aa0fa6241e97f57503c8052"
+      "sha256": "a4063568d91befc65cff369f66bb4026e2e1b04948ee4774eeabb9acc5fedf00"
     },
     {
       "id": "release-notes-platform",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "313b7f4c130b86de4b8740d296508539e13cb702b4005fe0f09ace21e7674850"
+      "sha256": "79948aa9cf09b398aef37c6ee8560102b3324bd36b33a425c55eef5754e53f68"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "9141a4f1319a25691d6d8bd2283c2a62592e2bf0272d6dffe38af4221da8f318"
+      "sha256": "a3c7f5cf708d8b1d86608a7c3c2d00c144588b360e63025bdda47a7c7f6857c7"
     },
     {
       "id": "release-notes-help-center",
@@ -275,10 +275,10 @@
       "local_path": "release-notes/help-center.md",
       "source_url": "https://support.claude.com/en/articles/12138966-release-notes",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "cc4faa5658d1a272cb6231a7272d186610432caa3870509324c755867fd53117"
+      "sha256": "49f0e82edc360e3b948bc861a0e5ae16927fb06d850e9a0e9751e258129f755f"
     },
     {
       "id": "api-overview",
@@ -287,10 +287,10 @@
       "local_path": "api/overview.md",
       "source_url": "https://platform.claude.com/docs/en/api/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-08-16T00:00:00Z",
+      "last_fetched": "2026-09-13T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "093a011d09811084a678db1e818dbd963aa7116586c0893ec4e32ab12cec5969"
+      "sha256": "8cd5faf47a7f5bf0fe008a7746cb9541cac2825a23bff85205edb2da5f61a60d"
     },
     {
       "id": "api-messages",
@@ -1893,11 +1893,59 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "76fb7f0057ed8a713db8e04491bb16e7b79b2d6e0ab30baed18c902048a27f04"
+    },
+    {
+      "id": "news-threat-intelligence-september-2026",
+      "name": "Detecting and Countering Misuse of AI: September 2026",
+      "category": "news",
+      "local_path": "news/threat-intelligence-report-september-2026.md",
+      "source_url": "https://www.anthropic.com/threat-intelligence-report-september-2026",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-13T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "ff88ce2b582aaac01b69800e882a0f2114b1d24095c46507d4520914b0da6df6"
+    },
+    {
+      "id": "research-alignment-assessment-cybersecurity-incidents",
+      "name": "An Alignment Assessment of Recent Cybersecurity Incidents",
+      "category": "research",
+      "local_path": "research/alignment-assessment-cybersecurity-incidents.md",
+      "source_url": "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-13T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "abcb453ff58a2898baba1a16395ce00158de4a3afc191ec28e578cce9de5cb3d"
+    },
+    {
+      "id": "research-intelligence-targeting-conventional-weapons",
+      "name": "Measuring AI Capabilities in Intelligence Targeting and Conventional Weapons",
+      "category": "research",
+      "local_path": "research/intelligence-targeting-conventional-weapons-capabilities.md",
+      "source_url": "https://www.anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-13T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "b5b4d80fffe5756764dda8dd922fcc5415f8c15b409d810184868bb78639938a"
+    },
+    {
+      "id": "news-tino-cuellar",
+      "name": "Mariano-Florentino (Tino) Cuéllar to join Anthropic as Chief Global Affairs Officer",
+      "category": "news",
+      "local_path": "news/tino-cuellar.md",
+      "source_url": "https://www.anthropic.com/news/tino-cuellar",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-13T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "40e81955054f93edf26a2d25247eaf2f4e807cc6695c79466c1cd20df247cba1"
     }
   ],
-  "last_discovery_run": "2026-08-16T00:00:00Z",
+  "last_discovery_run": "2026-09-13T00:00:00Z",
   "metadata": {
-    "last_full_update": "2026-09-06T00:00:00Z",
-    "last_discovery_run": "2026-09-06T00:00:00Z"
+    "last_full_update": "2026-09-13T00:00:00Z",
+    "last_discovery_run": "2026-09-13T00:00:00Z"
   }
 }

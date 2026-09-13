@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-13T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,23 +10,25 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment, combining a model that reasons about your code with built-in tools for file operations, search, execution, and web access.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** September 13, 2026
 
 ## Extension Architecture
 
 Claude Code combines a model that reasons about your code with built-in tools for file operations, search, execution, and web access. Beyond the built-in tools, Claude Code provides an extension layer for customization:
 
-| Feature               | What It Does                                                  | When to Use                                                                 | Example                                                                         |
-| --------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| **CLAUDE.md**         | Persistent context loaded every conversation                  | Project conventions, "always do X" rules                                    | "Use pnpm, not npm. Run tests before committing."                               |
-| **Skills**            | Instructions, knowledge, and workflows Claude can use         | Reusable content, reference docs, repeatable tasks                          | `/deploy` runs your deployment checklist; API docs skill with endpoint patterns |
-| **Subagents**         | Isolated execution context that returns summarized results    | Context isolation, parallel tasks, specialized workers                      | Research task that reads many files but returns only key findings               |
-| **Agent Teams**       | Coordinate multiple independent Claude Code sessions          | Parallel research, feature development, debugging with competing hypotheses | Spawn reviewers to check security, performance, and tests simultaneously        |
-| **Code Intelligence** | Language-server navigation and diagnostics                    | Typed languages, large codebases where grep is slow or imprecise            | Jump to a symbol's definition instead of reading the whole file                 |
-| **MCP**               | Connect to external services                                  | External data or actions                                                    | Query your database, post to Slack, control a browser                           |
-| **Hooks**             | Script, HTTP request, prompt, or subagent triggered by events | Automation that must run on every matching event                            | Run ESLint after every file edit                                                |
-| **Artifacts**         | Publish session output as a private, interactive web page     | Output you want to see or share visually rather than as terminal text       | An incident timeline that updates as Claude investigates                        |
-| **Plugins**           | Package and distribute feature sets                           | Reuse across repos, share with teams via marketplaces                       | Namespaced skills like `/my-plugin:review`                                      |
+| Feature                     | What It Does                                                                          | When to Use                                                                   | Example                                                                         |
+| --------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **CLAUDE.md**               | Persistent context loaded every conversation                                          | Project conventions, "always do X" rules                                      | "Use pnpm, not npm. Run tests before committing."                               |
+| **Skills**                  | Instructions, knowledge, and workflows Claude can use                                 | Reusable content, reference docs, repeatable tasks                            | `/deploy` runs your deployment checklist; API docs skill with endpoint patterns |
+| **Subagents**               | Isolated execution context that returns summarized results                            | Context isolation, parallel tasks, specialized workers                        | Research task that reads many files but returns only key findings               |
+| **Dynamic Workflows**       | Script Claude writes that runs many subagents in the background, returning one result | Work that outgrows a handful of subagents, or findings you want cross-checked | Audit a whole codebase, with a second set of agents verifying each finding      |
+| **Cross-Session Messaging** | Claude delivers a message from one of your sessions to another                        | Sessions you run yourself that need each other's findings mid-task            | One session warns another that a change it made breaks what the other builds on |
+| **Agent Teams**             | Coordinate multiple independent Claude Code sessions                                  | Parallel research, feature development, debugging with competing hypotheses   | Spawn reviewers to check security, performance, and tests simultaneously        |
+| **Code Intelligence**       | Language-server navigation and diagnostics                                            | Typed languages, large codebases where grep is slow or imprecise              | Jump to a symbol's definition instead of reading the whole file                 |
+| **MCP**                     | Connect to external services                                                          | External data or actions                                                      | Query your database, post to Slack, control a browser                           |
+| **Hooks**                   | Script, HTTP request, prompt, or subagent triggered by events                         | Automation that must run on every matching event                              | Run ESLint after every file edit                                                |
+| **Artifacts**               | Publish session output as a private, interactive web page                             | Output you want to see or share visually rather than as terminal text         | An incident timeline that updates as Claude investigates                        |
+| **Plugins**                 | Package and distribute feature sets                                                   | Reuse across repos, share with teams via marketplaces                         | Namespaced skills like `/my-plugin:review`                                      |
 
 ## Built-in Tools
 
@@ -226,6 +228,22 @@ Isolated execution contexts:
 - Useful when context window is getting full
 - Built-in Explore and Plan agents omit CLAUDE.md and git status for speed
 
+## Dynamic Workflows
+
+A dynamic workflow is a script Claude writes that runs many subagents in the background and returns a single result. Where subagents let Claude decide turn by turn what runs next, a workflow lets the script decide.
+
+- Use when a job outgrows a handful of subagents, or when you want findings cross-checked before you see them (codebase-wide audits, large migrations, a plan drafted from several angles)
+- Start one by asking for a workflow in your prompt
+- A second set of agents can verify each finding produced by the first
+
+## Cross-Session Messaging
+
+Claude can pass a message from one of your sessions to another, so sessions you run yourself can share findings mid-task.
+
+- Ask the first session's Claude to send a finding; Claude delivers it to the other session
+- Useful when a change one session makes breaks something another session is building on
+- Subagents that Claude named when spawning them can also message each other
+
 ## Agent Teams (Experimental)
 
 Coordinate multiple independent Claude sessions working on related tasks:
@@ -361,6 +379,8 @@ claude -p 'parse logs' --output-format stream-json
 - [How Claude Code Works](https://code.claude.com/docs/en/how-claude-code-works)
 - [Skills](https://code.claude.com/docs/en/skills)
 - [Subagents](https://code.claude.com/docs/en/sub-agents)
+- [Dynamic Workflows](https://code.claude.com/docs/en/workflows)
+- [Cross-Session Messaging](https://code.claude.com/docs/en/cross-session-messaging)
 - [Agent Teams](https://code.claude.com/docs/en/agent-teams)
 - [CLI Reference](https://code.claude.com/docs/en/cli-usage)
 - [Remote Control](https://code.claude.com/docs/en/remote-control)

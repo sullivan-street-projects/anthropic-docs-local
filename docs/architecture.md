@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-09-06T18:53:31.433Z"
+generated_at: "2026-09-13T13:30:09.149Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-09-06
+> Auto-generated from manifest.json on 2026-09-13
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 150 |
+| Total Sources | 154 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-08-16T00:00:00Z |
-| Last Discovery Run | 2026-08-16T00:00:00Z |
+| Last Full Update | 2026-09-13T00:00:00Z |
+| Last Discovery Run | 2026-09-13T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 130 | WebFetch with content extraction |
+| web-extracted | 134 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 127 | High-confidence sources, auto-trusted |
+| auto | 131 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -184,6 +184,8 @@ generator: "scripts/generate-architecture.js"
 | [Investigating Three Real-World Incidents in Our Cybersecurity Evaluations](../news/investigating-incidents-cybersecurity-evals.md) | web-extracted | 0.85 |
 | [Our position on open-weights models](../news/position-open-weights-models.md) | web-extracted | 0.85 |
 | [Funding better evaluations of AI's impact on wellbeing](../news/wellbeing-research-grants.md) | web-extracted | 0.85 |
+| [Detecting and Countering Misuse of AI: September 2026](../news/threat-intelligence-report-september-2026.md) | web-extracted | 0.85 |
+| [Mariano-Florentino (Tino) Cuéllar to join Anthropic as Chief Global Affairs Officer](../news/tino-cuellar.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -229,6 +231,8 @@ generator: "scripts/generate-architecture.js"
 | [How Canada Uses Claude: Findings from the Anthropic Economic Index](../research/how-canada-uses-claude.md) | web-extracted | 0.85 |
 | [Reviewing the Evidence on Worker Retraining Programs](../research/reviewing-the-evidence-on-worker-retraining-programs.md) | web-extracted | 0.85 |
 | [Enabling Independent Research on How People Use Claude](../research/enabling-independent-research.md) | web-extracted | 0.85 |
+| [An Alignment Assessment of Recent Cybersecurity Incidents](../research/alignment-assessment-cybersecurity-incidents.md) | web-extracted | 0.85 |
+| [Measuring AI Capabilities in Intelligence Targeting and Conventional Weapons](../research/intelligence-targeting-conventional-weapons-capabilities.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -376,7 +380,9 @@ anthropic-docs-local/
 │   ├── improving-fable-5-s-biology-safeguards.md
 │   ├── investigating-incidents-cybersecurity-evals.md
 │   ├── position-open-weights-models.md
-│   └── wellbeing-research-grants.md
+│   ├── wellbeing-research-grants.md
+│   ├── threat-intelligence-report-september-2026.md
+│   └── tino-cuellar.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -413,7 +419,9 @@ anthropic-docs-local/
 │   ├── project-pilot.md
 │   ├── how-canada-uses-claude.md
 │   ├── reviewing-the-evidence-on-worker-retraining-programs.md
-│   └── enabling-independent-research.md
+│   ├── enabling-independent-research.md
+│   ├── alignment-assessment-cybersecurity-incidents.md
+│   └── intelligence-targeting-conventional-weapons-capabilities.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md

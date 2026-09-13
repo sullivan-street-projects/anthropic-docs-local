@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-13T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, LSP servers, background monitors, and default settings into a single installable unit.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** September 13, 2026
 
 ## Plugins vs Standalone Configuration
 
@@ -307,6 +307,9 @@ Settings from `settings.json` take priority over `settings` declared in `plugin.
 # Validate plugin structure
 claude plugin validate
 
+# Run a plugin's eval suite (test prompts, scored with/without the plugin)
+claude plugin eval
+
 # Initialize a new plugin in skills directory
 claude plugin init <name>
 
@@ -339,6 +342,20 @@ If Claude Code can't fetch a `--plugin-url` archive, or the archive is invalid, 
 When a `--plugin-dir` plugin has the same name as an installed marketplace plugin, the local copy takes precedence for that session. Exception: plugins that managed settings force-enable or force-disable cannot be overridden by `--plugin-dir`.
 
 As you make changes, run `/reload-plugins` to pick up updates without restarting. Changes to LSP server configuration still require a full restart.
+
+### Load a Folder of Plugins
+
+Pass a folder that holds several plugins (e.g. `--plugin-dir ./plugins`) to load them all at once (requires Claude Code v2.1.265+). Claude Code reads the folder's top level: if it has no manifest or components at that level, each immediate subfolder that has a `.claude-plugin/plugin.json` manifest loads as a separate plugin, and everything else is skipped without an error. In an interactive session, Claude Code also watches the folder -- a subfolder you add loads as a new plugin once its manifest is present, and removing a subfolder unloads its plugin. If applying a change mid-conversation would invalidate the prompt cache, Claude Code holds it and prompts you to run `/reload-plugins`.
+
+## Plugin Evals
+
+Loading a plugin with `--plugin-dir` confirms it works; a plugin eval measures how often Claude actually reaches for it and gets the right result. Run a plugin's test-prompt suite with:
+
+```bash
+claude plugin eval
+```
+
+Each prompt runs several times both with and without the plugin loaded, so you can see what the plugin contributes and catch regressions when you change it or a new model ships. This makes evals useful for gating CI on plugin quality. See the [Plugin evals guide](https://code.claude.com/docs/en/plugin-evals) for the suite format and reporting.
 
 ## Marketplace
 
@@ -455,4 +472,5 @@ The [claude-plugins-official](https://github.com/anthropics/claude-plugins-offic
 - [Plugins Reference](https://code.claude.com/docs/en/plugins-reference)
 - [Plugin Marketplaces](https://code.claude.com/docs/en/plugin-marketplaces)
 - [Plugin Hints](https://code.claude.com/docs/en/plugin-hints)
+- [Plugin Evals](https://code.claude.com/docs/en/plugin-evals)
 - [Skills Documentation](https://code.claude.com/docs/en/skills)

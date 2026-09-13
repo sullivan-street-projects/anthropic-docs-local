@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-13T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -14,7 +14,23 @@ Updates to Claude consumer and business applications.
 
 ---
 
+## September 2026
+
+### September 10, 2026
+
+- Smart reports (beta): Enterprise plans can examine team Claude usage patterns, cost analysis, workflow friction points, and opportunities to package repeated processes as shared skills
+
+### September 1, 2026
+
+- Claude Fable 5.1 and Claude Mythos 5.1 launched, the latest advanced models for coding and knowledge work tasks
+
+---
+
 ## August 2026
+
+### August 25, 2026
+
+- Memory now operates consistently between chat and Cowork in the cloud. Users can view, edit, and remove memory items in Settings, with a new option to exclude sensitive topics unless explicitly enabled. Memory defaults to "on" for Free/Pro/Max plans and "off" for Team/Enterprise organizations
 
 ### August 6, 2026
 
