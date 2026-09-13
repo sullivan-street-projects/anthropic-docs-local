@@ -1941,6 +1941,76 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "40e81955054f93edf26a2d25247eaf2f4e807cc6695c79466c1cd20df247cba1"
+    },
+    {
+      "id": "news-anthropic-economic-index-connector",
+      "name": "Anthropic Economic Index Connector",
+      "category": "news",
+      "local_path": "news/anthropic-economic-index-connector.md",
+      "source_url": "https://www.anthropic.com/news/anthropic-economic-index-connector",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-07T00:00:00Z",
+      "sha256": "455e4df8e85b50719543f93b7a016cc54868f4ba5bdc1767efedcce2206d727d"
+    },
+    {
+      "id": "research-anthropic-institute-agenda",
+      "name": "Focus areas for The Anthropic Institute",
+      "category": "research",
+      "local_path": "research/anthropic-institute-agenda.md",
+      "source_url": "https://www.anthropic.com/research/anthropic-institute-agenda",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-07T00:00:00Z",
+      "sha256": "71e02bfdab62c9a7031e358792b48fcbf672da0c7cc6395790f3402a86da47bb"
+    },
+    {
+      "id": "news-anthropic-public-record",
+      "name": "Results from the first Anthropic Public Record",
+      "category": "news",
+      "local_path": "news/anthropic-public-record.md",
+      "source_url": "https://www.anthropic.com/news/anthropic-public-record",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-07T00:00:00Z",
+      "sha256": "eb68c4253ee01301a9b522a88031ccc0564d6940de75b5e10434e3f7ab6c00ea"
+    },
+    {
+      "id": "news-economic-futures-research-fund-agenda",
+      "name": "Economic Futures Research Fund agenda",
+      "category": "news",
+      "local_path": "news/economic-futures-research-fund-agenda.md",
+      "source_url": "https://www.anthropic.com/news/economic-futures-research-fund-agenda",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-07T00:00:00Z",
+      "sha256": "f9529d94a0bf5450238dd4b3e0402b5d36961bf9857437d88ecdfded6ed13c2e"
+    },
+    {
+      "id": "news-google-broadcom-partnership-compute",
+      "name": "Google and Broadcom compute partnership",
+      "category": "news",
+      "local_path": "news/google-broadcom-partnership-compute.md",
+      "source_url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-07T00:00:00Z",
+      "sha256": "3d7b5d06868e02faf7ac67d55c8df41e146201367b7dbf83c6c37ca7146b5ddc"
+    },
+    {
+      "id": "research-economic-index-march-2026-report",
+      "name": "Economic Index: Learning curves (March 2026)",
+      "category": "research",
+      "local_path": "research/economic-index-march-2026-report.md",
+      "source_url": "https://www.anthropic.com/research/economic-index-march-2026-report",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-07T00:00:00Z",
+      "sha256": "86a419acd178d8d824c0574dbe89c35fbeb217a7e35700811300f92ae1634d0e"
+    },
+    {
+      "id": "research-anthropic-economic-index-january-2026-report",
+      "name": "Economic Index: Economic primitives (January 2026)",
+      "category": "research",
+      "local_path": "research/anthropic-economic-index-january-2026-report.md",
+      "source_url": "https://www.anthropic.com/research/anthropic-economic-index-january-2026-report",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-07T00:00:00Z",
+      "sha256": "187a509216becc4a8faf1d3edec43db19ffab50f0a11b18df8ab9a6ae2e94580"
     }
   ],
   "last_discovery_run": "2026-09-13T00:00:00Z",

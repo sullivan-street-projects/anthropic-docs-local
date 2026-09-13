@@ -1,6 +1,6 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-09-13T13:30:09.149Z"
+generated_at: "2026-09-13T13:43:41.062Z"
 generator: "scripts/generate-architecture.js"
 ---
 
@@ -12,7 +12,7 @@ generator: "scripts/generate-architecture.js"
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 154 |
+| Total Sources | 161 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 134 | WebFetch with content extraction |
+| web-extracted | 141 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -186,6 +186,10 @@ generator: "scripts/generate-architecture.js"
 | [Funding better evaluations of AI's impact on wellbeing](../news/wellbeing-research-grants.md) | web-extracted | 0.85 |
 | [Detecting and Countering Misuse of AI: September 2026](../news/threat-intelligence-report-september-2026.md) | web-extracted | 0.85 |
 | [Mariano-Florentino (Tino) Cuéllar to join Anthropic as Chief Global Affairs Officer](../news/tino-cuellar.md) | web-extracted | 0.85 |
+| [Anthropic Economic Index Connector](../news/anthropic-economic-index-connector.md) | web-extracted | undefined |
+| [Results from the first Anthropic Public Record](../news/anthropic-public-record.md) | web-extracted | undefined |
+| [Economic Futures Research Fund agenda](../news/economic-futures-research-fund-agenda.md) | web-extracted | undefined |
+| [Google and Broadcom compute partnership](../news/google-broadcom-partnership-compute.md) | web-extracted | undefined |
 
 ### release-notes
 
@@ -233,6 +237,9 @@ generator: "scripts/generate-architecture.js"
 | [Enabling Independent Research on How People Use Claude](../research/enabling-independent-research.md) | web-extracted | 0.85 |
 | [An Alignment Assessment of Recent Cybersecurity Incidents](../research/alignment-assessment-cybersecurity-incidents.md) | web-extracted | 0.85 |
 | [Measuring AI Capabilities in Intelligence Targeting and Conventional Weapons](../research/intelligence-targeting-conventional-weapons-capabilities.md) | web-extracted | 0.85 |
+| [Focus areas for The Anthropic Institute](../research/anthropic-institute-agenda.md) | web-extracted | undefined |
+| [Economic Index: Learning curves (March 2026)](../research/economic-index-march-2026-report.md) | web-extracted | undefined |
+| [Economic Index: Economic primitives (January 2026)](../research/anthropic-economic-index-january-2026-report.md) | web-extracted | undefined |
 
 ### sdks
 
@@ -382,7 +389,11 @@ anthropic-docs-local/
 │   ├── position-open-weights-models.md
 │   ├── wellbeing-research-grants.md
 │   ├── threat-intelligence-report-september-2026.md
-│   └── tino-cuellar.md
+│   ├── tino-cuellar.md
+│   ├── anthropic-economic-index-connector.md
+│   ├── anthropic-public-record.md
+│   ├── economic-futures-research-fund-agenda.md
+│   └── google-broadcom-partnership-compute.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -421,7 +432,10 @@ anthropic-docs-local/
 │   ├── reviewing-the-evidence-on-worker-retraining-programs.md
 │   ├── enabling-independent-research.md
 │   ├── alignment-assessment-cybersecurity-incidents.md
-│   └── intelligence-targeting-conventional-weapons-capabilities.md
+│   ├── intelligence-targeting-conventional-weapons-capabilities.md
+│   ├── anthropic-institute-agenda.md
+│   ├── economic-index-march-2026-report.md
+│   └── anthropic-economic-index-january-2026-report.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md
