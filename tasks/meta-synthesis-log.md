@@ -29,15 +29,40 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 7
-Total improvements applied: 5 (0 code changes this cycle; 3 workflow/process lessons on 2026-09-06)
-Total improvements deferred: 5 (reinforced #18 source-lifecycle tracking; +1 PDF-ingestion deferral)
-Most-improved infrastructure: tasks/lessons.md (3 workflow rules on agent-stall recovery this cycle) / manifest.json (hashes + URL corrections)
-Most-informative category: operational this cycle (background-agent stall recovery); models/claude-code (Fable 5.1 launch, 33 hook events, SDK 1.x major)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~8th cycle); removal escalated to a user task chip
-Last cycle: 2026-09-06 — 3 applied (process lessons), 23 sources auto-added, 3 agents stalled+recovered, 0 validation errors
+Total cycles logged: 8
+Total improvements applied: 6 (1 code change this cycle: validate.js truncation-marker detection)
+Total improvements deferred: 6 (reinforced #18 source-lifecycle tracking; +1 self-eval harness for the update process)
+Most-improved infrastructure: scripts/validate.js (truncation detection this cycle) / tasks/lessons.md (agent-stall recovery)
+Most-informative category: security/research this cycle (alignment-assessment-cybersecurity-incidents, threat-intelligence report); claude-code (v2.1.270: plugin eval, output-style)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~9th cycle, 161 days stale); removal still escalated to a user task chip
+Last cycle: 2026-09-13 — 1 code improvement applied (truncation check), 4 sources auto-added, 1 agent stalled+recovered, 0 validation errors
 
 ## Entries
+
+### 2026-09-13 — Update: all
+
+Content changes analyzed: 11 modified + 4 added (all real content changes; several volatile pages verified unchanged and correctly left untouched)
+Improvements identified: 1 applied (code), 1 deferred (new), 3 already-aligned
+Improvements applied: 1 code change
+Improvements deferred: 1 (new)
+
+**Applied (LOW effort, code):**
+
+- The threat-intelligence report (`news/threat-intelligence-report-september-2026.md`) was **silently truncated during WebFetch extraction** — a long multi-section report where the Surveillance Operations and later harm-category sections were cut off. Nothing in the pipeline caught this; a partial mirror would ship unnoticed. → Added a **Layer-4 truncation-marker check in `scripts/validate.js`**: it scans every `web-extracted` file body for markers like "truncated in source material" / "Content continues but was truncated" and warns to re-fetch. It correctly flags this cycle's threat-intel file. This turns a silent quality failure into a tracked, actionable warning.
+
+**Deferred (MEDIUM/HIGH):**
+
+- `claude-code/CHANGELOG.md` v2.1.269 introduces **`claude plugin eval`** — scored, reproducible eval suites with JSON+HTML reports. Our own update pipeline has `validate.js` (structural checks) but **no eval harness that scores the update _process_ itself** (did it fetch the right volatile set? did it correctly leave stable snapshots untouched? did it recover from a stall?). A reproducible self-eval would catch process regressions. HIGH effort (new harness + fixtures). → Add to `docs/plans/meta-analysis-optimizations.md`.
+
+**Already aligned (content independently validates our infra):**
+
+- `research/alignment-assessment-cybersecurity-incidents.md` (new) documents **"biased reasoning"** — models disregarding evidence that contradicts their assumptions (recognized real evidence 79% when shown individually, but only 1% during the incident). This is the same epistemic failure mode our pipeline defends against with the **recompute-sha256-from-disk / verify-from-disk rule** (never trust an agent's self-reported state). This cycle proved it again: Agent A (aggregation pages) stalled at the 600s watchdog and its final message was a truncated partial ("Now the authentication headers table and the surrounding text:"). We ignored that report and **reconciled from disk (git status + frontmatter + integrity check)** to confirm 4 files landed intact and 2 were legitimately unchanged. No content lost. No change needed.
+- Release notes: **`ant apply` writes a `claude-lock.json` lockfile** so re-runs update the same resources instead of duplicating — the same idempotency principle as our **single-writer `manifest.json` + `.update-session.json`** resume state. Aligned.
+- Release notes: **Managed Agents `auto` permission policy** (server evaluates each tool call → run/deny/pause) mirrors our **Phase 2.5 discovery triage** (evaluate each discovered source → auto-add trusted first-party / skip / defer). Aligned.
+
+**Staleness (4e):**
+
+- `agent-sdk-typescript-v2` (`https://github.com/anthropics/agent-sdk`) — re-verified **HTTP 404** this cycle (~9th consecutive; last_fetched 2026-04-05, 161 days stale). Per Phase 4e protocol: logged + user-alerted, NOT auto-deleted (permanent deletion needs user confirmation). Concrete motivating case for optimizations item #18 (`lifecycle_status`).
 
 ### 2026-08-16 — Update: all
 

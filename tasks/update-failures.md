@@ -81,11 +81,31 @@ Track source-specific failures with resolutions. Review at session start to avoi
 - **Note**: All actively-fetched sources (github-raw, github-api, manual, arxiv, volatile web-extracted) succeeded this cycle. No 404s on code.claude.com or platform.claude.com. Dual model launch (Opus 5 / Sonnet 5) made this an unusually high-signal week (26 content-changed files, 0 timestamp-only).
 
 ### 2026-09-06 — three background agents stalled (600s watchdog)
+
 - **Error**: 3 of 6 background `general-purpose` fetch agents failed with "Agent stalled: no progress for 600s (stream watchdog did not recover)": (1) volatile web-extracted+arxiv (1st attempt), (2) manual docs, (3) volatile web-extracted (replacement). Each stalled on the final/near-final source of its serial batch; the report was lost but written files persisted.
 - **Resolution**: Recovered by `git status` on each agent's target paths, verifying what landed, then finishing the remainder inline via the orchestrator's own WebFetch (not subject to the background watchdog): confirmed `api/models-overview.md` body was complete and bumped its stale `fetched_at`; confirmed `api/migration-guide.md` already carried Opus 5 content (no change needed); added the 6 genuinely-new post rows to `research/index.md`. `claude-code/hooks.md` (the one manual change) landed fine. Net: no content lost.
 - **Prevention**: See new lessons.md entries — cap background-agent batch sizes and/or fetch volatile sets inline. (Observed 2026-09-06.)
 
 ### 2026-09-06 — agent-sdk-typescript-v2 (confirmed 404, ~8th cycle)
+
 - **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified this cycle via curl). Source last_fetched 2026-04-05 (~154 days stale). Emits one Layer-4 staleness warning per cycle.
 - **Resolution**: NOT re-fetched (known dead, excluded from fetch agents). NOT auto-deleted (Phase 4e: 404 → log + user-alert; permanent deletion needs user confirmation). Re-surfaced as a one-click removal task chip.
 - **Prevention**: Overdue for removal — remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*). This is the concrete case for optimizations item #18 (lifecycle_status).
+
+### 2026-09-13 — one background agent stalled (600s watchdog), recovered from disk
+
+- **Error**: Agent A ("Fetch volatile aggregation pages", 6-source batch) failed with "Agent stalled: no progress for 600s (stream watchdog did not recover)". Its final message was a truncated fragment ("Now the authentication headers table and the surrounding text:"). The other two agents (manual docs; discovery) completed normally.
+- **Resolution**: Did NOT resume. `git status` on the agent's 6 target paths showed 4 files written with bumped `fetched_at` (release-notes/{platform,api,help-center}.md, api/overview.md) — verified intact (frontmatter closes at line 7, last lines complete, sensible diffs). The 2 un-written files (models/overview.md, api/models-overview.md) were independently re-fetched inline by the orchestrator and confirmed materially unchanged (current lineup already present), so correctly left untouched. No content lost.
+- **Prevention**: Existing mitigation held — batches were capped at ≤6 slow fetches, and orchestrator inline WebFetch (not subject to the background watchdog) finished the remainder. Reinforces the lessons.md rule: verify a stalled agent from disk, never from its last message.
+
+### 2026-09-13 — WebFetch truncated the September threat-intelligence report
+
+- **Error**: WebFetch of `https://www.anthropic.com/threat-intelligence-report-september-2026` returned a partial extraction — Surveillance Operations and later harm-category sections were cut off ("[Content continues but was truncated in source material]"). The report is very long (7 harm categories).
+- **Resolution**: Stored the substantial extracted content (full cyber + influence operations sections) with an explicit truncation note in the body. Added a validate.js Layer-4 check that flags web-extracted files containing truncation markers, so this file is now tracked for re-fetch.
+- **Prevention**: For known-long reports, prefer targeted multi-fetch of individual sections over a single WebFetch. The new truncation-marker validation will surface any future partial extraction.
+
+### 2026-09-13 — agent-sdk-typescript-v2 (confirmed 404, ~9th cycle)
+
+- **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via curl). last_fetched 2026-04-05 (161 days stale). Emits one Layer-4 staleness warning per cycle.
+- **Resolution**: NOT re-fetched (known dead). NOT auto-deleted (Phase 4e: 404 → log + user-alert; permanent deletion needs user confirmation). Re-surfaced as a one-click removal task chip.
+- **Prevention**: Remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*). Concrete case for optimizations item #18 (lifecycle_status).

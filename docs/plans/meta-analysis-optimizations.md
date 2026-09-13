@@ -81,6 +81,7 @@ Each item below cites the specific Anthropic content in this repo that motivates
 **Current state:** validate.js is a single code-based grader. It checks structure but not semantics. It doesn't verify timestamp consistency or detect staleness — both stated quality criteria in CLAUDE.md.
 
 **Fix:**
+
 - **Code tier:** Add timestamp consistency check (frontmatter `fetched_at` vs manifest `last_fetched`), staleness detection (>30 days behind `last_full_update`), confidence type validation
 - **Model tier (future):** Post-update subagent that spot-checks 5 random files for semantic issues (truncated content, garbled extraction, stale information)
 
@@ -91,6 +92,7 @@ Each item below cites the specific Anthropic content in this repo that motivates
 **Current state:** `tasks/lessons.md` is 25 lines. No tracking of fetch failures, no discovery log. When an update fails, the failure context is lost — next session hits the same issue blind.
 
 **Fix:**
+
 - Create `tasks/update-failures.md` — source-specific failure history with resolutions
 - Create `tasks/discovery-log.md` — new sources found per discovery run with inclusion/exclusion decisions
 - Reference both from CLAUDE.md so every session loads this context
@@ -102,6 +104,7 @@ Each item below cites the specific Anthropic content in this repo that motivates
 **Current state:** If an update fails mid-way (e.g., rate limited at source 40 of 79), restart from scratch.
 
 **Fix:**
+
 - Add `--resume` flag to update skill
 - Write `.update-session.json` during updates tracking: current phase, sources completed, sources failed
 - On `--resume`, read session state and skip completed sources
@@ -113,6 +116,7 @@ Each item below cites the specific Anthropic content in this repo that motivates
 **Current state:** No hooks. All quality checks depend on the LLM remembering to run validate.js.
 
 **Fix:**
+
 - Create `.claude/settings.json` with hooks:
   - `PostToolUse` on Bash containing `git commit` → run `node scripts/validate.js`
   - `SessionStart` → run `node scripts/validate.js --quick` (quick sanity check)
@@ -124,6 +128,7 @@ Each item below cites the specific Anthropic content in this repo that motivates
 **Current state:** Description is `"Update local Anthropic documentation repository"` — vague enough to mis-trigger.
 
 **Fix:** Rewrite to:
+
 ```
 Fetch and update Anthropic documentation sources from external URLs (GitHub, anthropic.com, arXiv).
 Use when: "refresh docs", "update sources", "sync documentation", "run discovery".
@@ -145,6 +150,7 @@ Do NOT use for: manually editing docs, reviewing content, answering questions ab
 **Current state:** Quality criteria exist in CLAUDE.md prose but aren't codified or enforced.
 
 **Fix:** The validate.js improvements (timestamp consistency, staleness, confidence validation) effectively codify these principles. Each validation check maps to a constitutional principle:
+
 - **Accuracy:** SHA-256 integrity check
 - **Attribution:** Required frontmatter fields
 - **Consistency:** Timestamp alignment
@@ -173,6 +179,7 @@ These were identified through complete reading of every content file in the repo
 **Current state:** validate.js runs one flat pass. No distinction between structural errors (missing file), semantic errors (stale content), and integrity errors (hash mismatch). All treated equally.
 
 **Fix:** Restructure validate.js into 4 explicit validation layers:
+
 1. **Schema layer:** JSON structure, enum values, required fields
 2. **Reference layer:** Manifest ↔ file consistency, orphan detection
 3. **Content layer:** Frontmatter completeness, timestamp alignment
@@ -187,6 +194,7 @@ Each layer reports independently. A schema failure is blocking; a staleness warn
 **Current state:** No lifecycle tracking for documentation sources. If anthropic.com restructures a page, the source silently breaks. No way to mark a source as "deprecated — use new URL" or "archived — no longer maintained."
 
 **Fix:** Add `lifecycle_status` field to manifest schema:
+
 - `active` — actively fetched and maintained
 - `legacy` — still valid but superseded by newer source
 - `deprecated` — will be removed; replacement exists
@@ -199,6 +207,7 @@ Each layer reports independently. A schema failure is blocking; a staleness warn
 **Current state:** `tasks/lessons.md` exists but only has 25 lines and hasn't been updated since February. CLAUDE.md doesn't reference it. There's no instruction telling Claude to update lessons after encountering problems.
 
 **Fix:** Add to CLAUDE.md:
+
 ```
 ## After Any Update Failure
 1. Log the failure in tasks/update-failures.md with: source_id, error, resolution
@@ -213,6 +222,7 @@ Each layer reports independently. A schema failure is blocking; a staleness warn
 **Current state:** The update skill is a single 300+ line file with all instructions inline. Source type handling details, manual source protocol, error handling — everything lives in one file that gets fully loaded into context every time.
 
 **Fix:** Restructure:
+
 ```
 .claude/commands/update-anthropic-docs.md     — Core workflow (phases, modes, critical rules)
 .claude/commands/references/
@@ -228,6 +238,7 @@ Each layer reports independently. A schema failure is blocking; a staleness warn
 **Current state:** The update skill commits once at the end (Phase 3). If 75 sources update fine but 4 break, the entire batch is one commit. Can't easily revert the broken ones.
 
 **Fix:** Add intermediate commits:
+
 - After Phase 2 (fetch): commit fetched files with message "WIP: Fetched N sources"
 - After Phase 2.5 (discovery): commit any new source additions
 - After Phase 3 (verify): final commit with validation confirmation
@@ -240,6 +251,7 @@ Each layer reports independently. A schema failure is blocking; a staleness warn
 **Current state:** SHA-256 hashes exist in manifest but are only used for initial integrity verification. No mechanism to detect when web-extracted content has subtly drifted (e.g., a page was restructured, key sections removed, or content was truncated during extraction).
 
 **Fix:** Add a `--diff` flag to update skill that:
+
 1. Fetches current content from source
 2. Compares against local file using diff (not just hash)
 3. Reports the nature of changes (additions, deletions, restructuring)
@@ -252,6 +264,7 @@ Each layer reports independently. A schema failure is blocking; a staleness warn
 **Current state:** The update skill has no explicit plan mode step. It jumps straight into fetching without confirming the plan with the user.
 
 **Fix:** Add Phase 0 to update skill:
+
 ```
 Phase 0: Plan (always runs)
 - Read manifest.json
@@ -263,9 +276,20 @@ Phase 0: Plan (always runs)
 
 ---
 
+### 24. Self-eval harness for the update process (from `claude-code/CHANGELOG.md` v2.1.269 — `claude plugin eval`)
+
+**Lesson:** Claude Code shipped `claude plugin eval` — run a suite against the tool and get **scored, reproducible** results (JSON + HTML report). Evals are how you catch regressions in agentic behavior, not just structure.
+
+**Current state:** `scripts/validate.js` checks the _output_ (frontmatter, references, hashes, integrity) but nothing scores the _update process itself_: did the run fetch the correct volatile set, correctly leave stable snapshots untouched (no false timestamp bumps), auto-add the right discovered sources, and recover from an agent stall? These process properties are only verified by hand each week.
+
+**Fix (HIGH effort):** Build a small reproducible self-eval: fixtures with known-changed vs known-stable sources and a canned discovery result, then assert the pipeline (a) rewrites only the changed files, (b) leaves stable files' `fetched_at` untouched, (c) adds exactly the expected new manifest entries, (d) reconciles all sha256 from disk. Emit a scored pass/fail report. Motivated by the 2026-09-13 cycle, where these properties held but were confirmed only manually.
+
+---
+
 ## Implementation Plan
 
 ### Phase 1: Schema + data fixes (items #1, #5, #6, #7, #18)
+
 1. Add `news`, `engineering` to category enum in both schema files
 2. Add `notes` optional field to manifest source schema
 3. Add `last_discovery_run` optional field to manifest top-level schema
@@ -274,6 +298,7 @@ Phase 0: Plan (always runs)
 6. Add `package.json` with script entries
 
 ### Phase 2: Validation improvements (items #2, #9, #17)
+
 7. Add `news`, `engineering` to orphan scan dirs in validate.js
 8. Restructure validate.js into 4 layers: schema → reference → content → integrity
 9. Add timestamp consistency check (fetched_at vs last_fetched)
@@ -282,11 +307,13 @@ Phase 0: Plan (always runs)
 12. Add SHA-256 hash verification (integrity layer)
 
 ### Phase 3: Architecture + automation (items #3, #4, #14)
+
 13. Update generate-architecture.js for all 12 categories
 14. Regenerate `docs/architecture.md`
 15. Add architecture regeneration to update skill Phase 3
 
 ### Phase 4: Update skill improvements (items #13, #20, #21, #22, #23)
+
 16. Improve skill description with WHAT/WHEN/NOT triggers
 17. Add Phase 0 (plan confirmation before executing)
 18. Add intermediate checkpoint commits (after fetch, after discovery, after verify)
@@ -294,11 +321,13 @@ Phase 0: Plan (always runs)
 20. Move detailed instructions to `references/` subdirectory (progressive disclosure)
 
 ### Phase 5: Structured memory + self-correction (items #10, #19)
+
 21. Create `tasks/update-failures.md` — failure log with resolutions
 22. Create `tasks/discovery-log.md` — discovery run history
 23. Update CLAUDE.md to reference memory files + add self-correction protocol
 
 ### Phase 6: Session resilience + hooks (items #11, #12, future)
+
 24. Add `--resume` flag and `.update-session.json` to update skill
 25. Add hooks for deterministic validation (PostToolUse on git commit, SessionStart sanity check)
 
@@ -308,20 +337,20 @@ Phase 0: Plan (always runs)
 
 Every item in this plan traces back to content stored in this repo:
 
-| Plan Item | Source File | Anthropic Principle |
-|-----------|-------------|---------------------|
-| #9 Multi-tier validation | `engineering/demystifying-evals-for-ai-agents.md` | Three grader types |
-| #10 Structured memory | `engineering/effective-context-engineering.md` | Smallest high-signal token set |
-| #11 Session resumption | `engineering/effective-harnesses-for-long-running-agents.md` | Initializer + incremental pattern |
-| #12 Deterministic hooks | `claude-code/hooks.md` | Zero-token lifecycle events |
-| #13 Skill descriptions | `skills/building-skills-guide.md` | WHAT/WHEN/NOT triggers |
-| #14 Architecture regen | `engineering/writing-tools-for-agents.md` | Meaningful context over IDs |
-| #15 Doc constitution | `research/alignment.md` | Constitutional AI principles |
-| #16 Parallel orchestration | `engineering/multi-agent-research-system.md` | Orchestrator-worker 90% improvement |
-| #17 Layered validation | `api/errors.md` + `engineering/postmortem-three-recent-issues.md` | Structured error categories + subtle drift |
-| #18 Source lifecycle | `models/deprecations.md` | Active → Legacy → Deprecated → Retired |
-| #19 Self-correction loop | `claude-code/best-practices.md` | "Update CLAUDE.md after every correction" |
-| #20 Progressive disclosure | `skills/building-skills-guide.md` | Three-level skill loading |
-| #21 Checkpoint workflow | `claude-code/how-anthropic-teams-use-claude-code.md` | "Commit checkpoints regularly" |
-| #22 Content drift detection | `engineering/postmortem-three-recent-issues.md` | Subtle quality degradation |
-| #23 Plan mode gate | `claude-code/best-practices.md` | "Start every complex task in plan mode" |
+| Plan Item                   | Source File                                                       | Anthropic Principle                        |
+| --------------------------- | ----------------------------------------------------------------- | ------------------------------------------ |
+| #9 Multi-tier validation    | `engineering/demystifying-evals-for-ai-agents.md`                 | Three grader types                         |
+| #10 Structured memory       | `engineering/effective-context-engineering.md`                    | Smallest high-signal token set             |
+| #11 Session resumption      | `engineering/effective-harnesses-for-long-running-agents.md`      | Initializer + incremental pattern          |
+| #12 Deterministic hooks     | `claude-code/hooks.md`                                            | Zero-token lifecycle events                |
+| #13 Skill descriptions      | `skills/building-skills-guide.md`                                 | WHAT/WHEN/NOT triggers                     |
+| #14 Architecture regen      | `engineering/writing-tools-for-agents.md`                         | Meaningful context over IDs                |
+| #15 Doc constitution        | `research/alignment.md`                                           | Constitutional AI principles               |
+| #16 Parallel orchestration  | `engineering/multi-agent-research-system.md`                      | Orchestrator-worker 90% improvement        |
+| #17 Layered validation      | `api/errors.md` + `engineering/postmortem-three-recent-issues.md` | Structured error categories + subtle drift |
+| #18 Source lifecycle        | `models/deprecations.md`                                          | Active → Legacy → Deprecated → Retired     |
+| #19 Self-correction loop    | `claude-code/best-practices.md`                                   | "Update CLAUDE.md after every correction"  |
+| #20 Progressive disclosure  | `skills/building-skills-guide.md`                                 | Three-level skill loading                  |
+| #21 Checkpoint workflow     | `claude-code/how-anthropic-teams-use-claude-code.md`              | "Commit checkpoints regularly"             |
+| #22 Content drift detection | `engineering/postmortem-three-recent-issues.md`                   | Subtle quality degradation                 |
+| #23 Plan mode gate          | `claude-code/best-practices.md`                                   | "Start every complex task in plan mode"    |

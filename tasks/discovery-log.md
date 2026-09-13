@@ -19,7 +19,16 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
-### 2026-08-16 — Weekly Update (full discovery scan)
+### 2026-09-13 — Weekly Update (Phase 2.5 discovery scan)
+
+- **Manifest sources checked**: 150 (before adds) → 154 (after adds)
+- **Added (first-party anthropic.com, auto-added per automated-run policy)**: 4
+  - `news-threat-intelligence-september-2026` → news/threat-intelligence-report-september-2026.md ← anthropic.com/threat-intelligence-report-september-2026 (HIGH — security; note: non-standard path, no /news/ prefix; body flagged truncated for future re-fetch)
+  - `research-alignment-assessment-cybersecurity-incidents` → research/alignment-assessment-cybersecurity-incidents.md ← anthropic.com/research/alignment-assessment-cybersecurity-incidents (HIGH — alignment)
+  - `research-intelligence-targeting-conventional-weapons` → research/intelligence-targeting-conventional-weapons-capabilities.md ← anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities (HIGH — Frontier Red Team)
+  - `news-tino-cuellar` → news/tino-cuellar.md ← anthropic.com/news/tino-cuellar (MEDIUM — personnel/policy, Chief Global Affairs Officer)
+- **Deferred**: none
+- **Rejected / already tracked**: Fable/Mythos 5.1 announcement (already `model-fable-5-1-mythos-5-1`); 0 new engineering posts (all 25 tracked); 0 new Anthropic-authored arXiv papers (search surfaced only third-party papers citing Anthropic — confirms the standing note that recent Anthropic research publishes as anthropic.com posts, not arXiv IDs).
 
 - **Manifest sources checked**: 120 (before adds) → 127 (after adds)
 - **Added (HIGH priority, trusted anthropic.com domain — auto-added per automated-run policy)**: 7
@@ -159,6 +168,7 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 - **Notes**: No new arxiv papers found. Run full `/update-anthropic-docs --discover` to add these sources.
 
 ### 2026-09-06 — Discovery Run (during weekly update)
+
 - **New sources found**: 22 (all first-party anthropic.com; all resolved 200 after slug correction)
 - **Added**: 23 sources auto-added (per unattended-run rule) — model-fable-5-1-mythos-5-1; research-{riemann-zeta, claude-accelerates-protein-design, global-workspace, formalizing-fermats-last-theorem, automated-researchers-mitigate-alignment-failures, discovering-cryptographic-weaknesses, project-pilot, how-canada-uses-claude, reviewing-the-evidence-on-worker-retraining-programs, enabling-independent-research}; news-{redeploying-fable-5, model-hardware-standard-research-preview, claude-text-watermark, enterprise-frontier-safeguards, improving-alignment-security-efforts, expanding-support-for-scientists, improving-fable-5-s-biology-safeguards, investigating-incidents-cybersecurity-evals, position-open-weights-models, wellbeing-research-grants}; engineering-{april-23-postmortem, swe-bench-sonnet}. (Note: 4 discovered research posts — cryptographic-weaknesses, project-pilot, how-canada, global-workspace — were already in research/index.md's table; they now also have dedicated files.)
 - **Deferred**: Fable 5.1 / Mythos 5.1 System Card PDF (www-cdn.anthropic.com ...System Card.pdf) — high-value first-party PDF; deferred because PDF ingestion (curl + Read) is heavier; flag for next PDF-capable run.
