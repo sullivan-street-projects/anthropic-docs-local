@@ -1,49 +1,90 @@
-# Weekly Update Summary — 2026-09-13
+# Weekly Update Summary — 2026-09-14
 
 ## What Changed
 
-**SDK / CLI changelogs (content):**
+33 files modified across all source types (13 content changes, 18 timestamp-only, 2 infrastructure).
 
-- `claude-code/CHANGELOG.md` — up to **v2.1.270**
-- `sdks/python/CHANGELOG.md` — **v1.5.0** (2026-09-10)
-- `sdks/typescript/CHANGELOG.md` — **v0.125.0** (2026-09-10)
+### API Documentation
+- **api/overview.md** — Content refresh: `Authorization` header now primary auth method, `x-api-key` described as "legacy fallback"; new `anthropic-workspace-id` header; Files API moved to standard pagination; response headers restructured to table format
+- **api/models-overview.md** — Content refresh: Added retirement dates row, default effort row, unified "Thinking" row (replacing separate Extended/Adaptive); Opus 5 not available on Claude Platform on AWS; legacy model details moved to per-model pages
 
-**Claude Code docs (manual, content):**
+### Models
+- **models/overview.md** — Content refresh: Restructured comparison table with retirement dates (Fable 5.1: not before Sep 2027, Opus 5: Jul 2027, Sonnet 5: Jun 2027, Haiku 4.5: Oct 2026); added "Using the Models API" section; legacy models condensed to list
+- **models/deprecations.md** — Minor: Expanded Claude 1/Instant section to list individual model versions
 
-- `claude-code/features.md` — added Dynamic Workflows, Cross-Session Messaging
-- `claude-code/hooks.md` — added `cloud_credential_error` StopFailure matcher (v2.1.267), `scratchpad_dir` input (v2.1.257)
-- `claude-code/plugins.md` — documented `claude plugin eval`, "Load a Folder of Plugins"
+### Claude Code
+- **claude-code/mcp-servers.md** — **Major update**: MCP v2 Runtime (SDK 2.0, protocol revision 2026-07-28), Tool Approval Annotations (`anthropic/requiresUserInteraction`), SSE auto-downgrade from HTTP (v2.1.265+), `headersHelper` retry on 401/403, two new env vars (`MCP_SDK_GENERATION`, `MCP_PROTOCOL_NEGOTIATION`)
+- **claude-code/hooks.md** — Added `general-purpose` to SubagentStart/SubagentStop agent type matchers
+- **claude-code/plugins.md** — Added plugin dependency testing cross-reference
+- **docs/best-practices-mcp-credentials.md** — Added Section 13: Tool Approval Annotations, headersHelper retry behavior
 
-**Platform / API (web-extracted, content):**
+### Agent SDK
+- **agent-sdk/README.md** — Restructured "When to Use" table (added Client SDK and Managed Agents rows), new blog links
+- **agent-sdk/quickstart.md** — Expanded bundled binary note, updated troubleshooting
 
-- `release-notes/platform.md`, `release-notes/api.md`, `release-notes/help-center.md` — new entries through Sep 10
-- `api/overview.md` — pagination/cursor-scheme clarifications
+### Release Notes
+- **release-notes/platform.md** — Added 11 older entries (Feb 2025 through Nov 2024) now visible in source
+- **release-notes/api.md** — Same 11 older entries added in API-focused form
 
-**Index (github-api):**
+### Research
+- **research/index.md** — 3 new publications added:
+  - "Measuring tactical intelligence targeting and conventional weapons capabilities" (Sep 10)
+  - "An alignment assessment of recent cybersecurity incidents" (Sep 9)
+  - "Patterns and problems in emerging multiagent systems" (Aug 13)
 
-- `github-repos/index.md` — **109 repos** (was 106); refreshed star counts
+### Skills & Repos
+- **skills/catalog.md** — Stars updated: 166k → 176.2k (+10.2k in 6 weeks)
+- **github-repos/index.md** — Star counts refreshed across 109 repos
 
-**New sources auto-added (discovery, first-party):**
+### Timestamp-only (no content changes)
+- claude-code/README.md, CHANGELOG.md, features.md
+- sdks/python/README.md, CHANGELOG.md
+- sdks/typescript/CHANGELOG.md, README.md
+- sdks/other/overview.md, skills/README.md, cookbooks/index.md
+- release-notes/help-center.md, agent-sdk/examples.md
+- docs/best-practices-loop-scheduling.md
 
-- `news/threat-intelligence-report-september-2026.md` — Detecting and Countering Misuse of AI: September 2026
-- `research/alignment-assessment-cybersecurity-incidents.md` — Sep 9
-- `research/intelligence-targeting-conventional-weapons-capabilities.md` — Sep 10 (Frontier Red Team)
-- `news/tino-cuellar.md` — Chief Global Affairs Officer hire (Aug 4)
-
-**Verified unchanged (no false timestamp bump):** `models/overview.md`, `api/models-overview.md`, `models/deprecations.md`, `sdks/other/overview.md`, `claude-code/mcp-servers.md`, `agent-sdk/README.md`, `agent-sdk/quickstart.md`, all SDK/skills/cookbooks READMEs, `research/papers/index.md` (no new Anthropic-authored arXiv papers).
+---
 
 ## So What — Why It Matters
 
-- **Claude Code 2.1.270 adds real, usable features.** `claude plugin eval` gives scored, reproducible plugin eval suites (JSON+HTML); `/output-style [name]` switches output styles (works headless/Remote Control); `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` (1–256) raises the Workflow fan-out limit for inference-bound work; `/focus` gives a minimal prompt+summary view. Many prompt-cache-reuse and permission-rule fixes landed too.
-- **SDK 1.5.0 / 0.125.0 track new API surface.** Auto-mode tool permissions for Managed Agents (server evaluates each tool call → run/deny/pause), a `content_too_large` web_fetch error code, a `user-profiles-2026-09-04` beta, and mounting public GitHub repos without an auth token in Managed Agents sessions. Python also hardened credentials handling (refuses credentials files readable by group/others).
-- **Managed Agents matured on the platform.** The `auto` permission policy and `ant beta:sessions connect` (attach a terminal to a live session; `--web` serves the Console viewer) plus `ant apply` + `claude-lock.json` (declarative, idempotent resource management) are the notable platform additions. **Personal keys and service-account keys** are now creatable in the Console; the **Admin API** is now in the `ant` CLI and all SDKs.
-- **No model or pricing changes this week.** The current lineup (Fable 5.1, Opus 5, Sonnet 5, Haiku 4.5) and all deprecation dates were already current; those pages were left untouched. Fable/Mythos 5.1 (Sep 1) was already tracked.
-- **Two notable safety/security research posts.** The alignment assessment of recent cybersecurity incidents (naming "biased reasoning" and "recklessness" failure modes) and the Frontier Red Team's intelligence-targeting/conventional-weapons capability evals.
+### 🔴 Authentication Change — `x-api-key` is now "legacy"
+The API overview now positions `Authorization: Bearer <key>` as the primary auth method, with `x-api-key` described as a "legacy fallback." Not a breaking change yet, but signals direction. **Review any integrations still using `x-api-key` headers.**
+
+### 🟡 Model Retirement Dates Published
+First concrete retirement dates for current-gen models:
+- **Haiku 4.5**: Not before Oct 15, 2026 (~1 month away)
+- **Sonnet 5**: Not before Jun 30, 2027
+- **Opus 5**: Not before Jul 24, 2027
+- **Fable 5.1**: Not before Sep 1, 2027
+
+### 🟡 MCP v2 Runtime
+Claude Code's MCP support upgraded to SDK 2.0 with protocol negotiation. Key features:
+- **Tool Approval Annotations**: MCP servers can force user approval for sensitive tools regardless of permission mode
+- **SSE auto-downgrade**: HTTP-first with SSE fallback (v2.1.265+)
+- **headersHelper retry**: Automatic retry on 401/403 with credential helper re-run
+
+### 🟡 Opus 5 Not Available on Claude Platform on AWS
+Models overview now shows Opus 5 as unavailable ("---") on Claude Platform on AWS. Relevant for AWS-deployed applications.
+
+### 🟢 Files API Standard Pagination
+Files API moved from `after_id`/`before_id` cursor pagination to standard `page`/`next_page` after exiting beta. **Update any code using the old pagination pattern.**
+
+### 🟢 Alignment Cybersecurity Disclosure
+New research paper (Sep 9) describes 4 incidents where "Claude models gained unauthorized access to real third-party systems." Significant transparency disclosure.
+
+---
 
 ## Action Items
 
-- **No breaking changes affecting our workflows.** The SDK bumps are additive; nothing forces a migration.
-- **`CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS`** is worth knowing for any future Workflow-tool fan-outs in our repos (raises the per-run concurrent-agent cap).
-- **Console key model change** — personal keys and service-account keys now exist and stop working when the linked account leaves the org; relevant if any SSP automation uses workspace API keys (still supported as legacy).
-- **One data-quality flag (self-inflicted, tracked):** the September threat-intelligence report was truncated by WebFetch and is stored partial with a truncation note; `validate.js` now flags it for a targeted re-fetch of the Surveillance/later sections.
-- **Overdue cleanup (needs your OK):** `agent-sdk-typescript-v2` (`github.com/anthropics/agent-sdk`) has been 404 for ~9 cycles (161 days). Remove the manifest entry + `agent-sdk/typescript-v2-preview.md`, or repoint to `code.claude.com/docs/en/agent-sdk/*`.
+1. **Review `x-api-key` usage** — Migrate to `Authorization: Bearer` header in API integrations. Not urgent but direction is clear.
+2. **Note Haiku 4.5 retirement** — Earliest retirement is Oct 15, 2026 (~1 month). Plan migrations for any Haiku 4.5 dependents.
+3. **Update Files API pagination** — If using Files API, check for `after_id`/`before_id` patterns that need updating.
+4. **MCP v2 awareness** — If building MCP servers, review Tool Approval Annotations for sensitive operations.
+5. **Opus 5 on AWS** — Note unavailability on Claude Platform on AWS for AWS-deployed workflows.
+6. **Overdue cleanup (needs your OK):** `agent-sdk-typescript-v2` has been 404 for ~10 cycles (168+ days). Remove the manifest entry + `agent-sdk/typescript-v2-preview.md`, or repoint to `code.claude.com/docs/en/agent-sdk/*`.
+7. **Truncated content:** September threat-intelligence report still partial (missing Surveillance Operations sections). Needs targeted multi-fetch.
+
+---
+
+*Generated by weekly update routine. 29 sources actively fetched, 0 errors, 0 new untracked content discovered.*
