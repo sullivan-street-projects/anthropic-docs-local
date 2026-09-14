@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-09-06T00:00:00Z"
+fetched_at: "2026-09-14T00:00:00Z"
 category: "models"
 ---
 
@@ -134,8 +134,13 @@ On April 14, 2026, Anthropic notified developers using Claude Sonnet 4 and Claud
 
 | Retirement Date  | Deprecated Model                                  | Recommended Replacement     |
 | :--------------- | :------------------------------------------------ | :-------------------------- |
-| November 6, 2024 | `claude-1.0` through `claude-1.3`                 | `claude-haiku-4-5-20251001` |
-| November 6, 2024 | `claude-instant-1.0` through `claude-instant-1.2` | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-1.0`         | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-1.1`         | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-1.2`         | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-1.3`         | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-instant-1.0` | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-instant-1.1` | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-instant-1.2` | `claude-haiku-4-5-20251001` |
 
 ## API Parameter Deprecations
 

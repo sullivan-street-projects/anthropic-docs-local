@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-14T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -462,6 +462,8 @@ Use these to write a single helper script that serves multiple MCP servers.
 
 `headersHelper` executes arbitrary shell commands. When defined at project or local scope, it only runs after you accept the workspace trust dialog.
 
+Dynamic headers override static headers with the same name. If a tool call returns `401 Unauthorized` or `403 Forbidden`, Claude Code re-runs the helper, reconnects, and retries once. The server is marked as needing authentication in `/mcp` only if the retry also fails.
+
 **Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- Dynamic headers section.
 
 ---
@@ -632,7 +634,34 @@ Before committing any MCP configuration:
 
 ---
 
-## 13. MCP Elicitation for Interactive Auth
+## 13. Tool Approval Annotations
+
+MCP servers can mark individual tools as requiring explicit user approval, providing an additional layer of security for sensitive operations:
+
+```json
+{
+  "name": "sensitive_tool",
+  "description": "A sensitive operation",
+  "_meta": {
+    "anthropic/requiresUserInteraction": true
+  }
+}
+```
+
+Key behaviors:
+
+- Prompts on every call, even in `auto`/`bypassPermissions` modes
+- No "don't ask again" option
+- Denied in `dontAsk` mode
+- In non-interactive mode with `--permission-prompt-tool`, converts allow to deny with message
+
+This is useful for MCP server authors who want to ensure that certain high-impact operations (database writes, deployment triggers, payment actions) always get explicit human approval regardless of the caller's permission mode.
+
+**Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- Tool approval annotation.
+
+---
+
+## 14. MCP Elicitation for Interactive Auth
 
 MCP servers can request structured input mid-task via **elicitation**. This is useful for interactive authentication flows where the server needs credentials it can't get from environment variables. No configuration is required on your side -- elicitation dialogs appear automatically when a server requests them.
 
@@ -666,7 +695,7 @@ See [claude-code/hooks.md](../claude-code/hooks.md) for the full `Elicitation` a
 
 ---
 
-## 14. Connection Reliability
+## 15. Connection Reliability
 
 ### Automatic Reconnection
 
@@ -714,3 +743,5 @@ An MCP tool call in the main conversation still running after two minutes moves 
 | Automatic reconnection with exponential backoff                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Idle timeout (`CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`)              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Reserved server name `workspace`                                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `headersHelper` retry on 401/403                                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `anthropic/requiresUserInteraction` tool approval               | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |

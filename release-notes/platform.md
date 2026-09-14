@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-09-13T00:00:00Z"
+fetched_at: "2026-09-14T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -559,3 +559,51 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 - Launched Claude Sonnet 3.7.
 - Released token-efficient tool use implementation.
 - Released updated bash, text editor, and computer use tools.
+
+### February 10, 2025
+
+- Added `anthropic-organization-id` response header to all API responses, providing the organization ID associated with the API key used in the request.
+
+### January 31, 2025
+
+- Java SDK moved from alpha to beta.
+
+### January 23, 2025
+
+- Launched citations capability in the API for source attribution.
+- Added support for plain text and custom content documents in the Messages API.
+
+### January 21, 2025
+
+- Announced deprecation of Claude 2, Claude 2.1, and Claude Sonnet 3 models.
+
+### January 15, 2025
+
+- Updated prompt caching: setting a cache breakpoint now automatically reads from your longest previously cached prefix.
+- Can now put words in Claude's mouth when using tools.
+
+### January 10, 2025
+
+- Optimized prompt caching in the Message Batches API to improve cache hit rate.
+
+### December 19, 2024
+
+- Added delete endpoint in the Message Batches API.
+
+### December 17, 2024
+
+- Models API, Message Batches API, Token counting API, Prompt Caching, and PDF support now available without beta header.
+- Released Java SDK (alpha) and Go SDK (alpha).
+
+### December 4, 2024
+
+- Added group by API key on Usage and Cost pages, new columns and sorting on API keys page in the Console.
+
+### November 21, 2024
+
+- Released the Admin API for programmatic organization resource management.
+
+### November 20, 2024
+
+- Updated rate limits: replaced tokens per minute with input and output tokens per minute rate limits.
+- Added tool use support in the Workbench.

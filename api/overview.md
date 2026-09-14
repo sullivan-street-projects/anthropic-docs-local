@@ -2,7 +2,7 @@
 title: "API Overview"
 source_url: "https://platform.claude.com/docs/en/api/overview"
 source_type: "web-extracted"
-fetched_at: "2026-09-13T00:00:00Z"
+fetched_at: "2026-09-14T00:00:00Z"
 category: "api"
 ---
 
@@ -42,22 +42,23 @@ For the complete API reference with all endpoints, parameters, and response sche
 
 ## Authentication
 
-For details on both authentication methods and when to use each, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). All requests to the Claude API must include these headers:
+For details on each authentication method and when to use it, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). Requests to the Claude API include these headers:
 
-| Header              | Value                                                                                                                                                                                                                   | Required                              |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| `x-api-key`         | Your API key from Console                                                                                                                                                                                               | One of `x-api-key` or `Authorization` |
-| `Authorization`     | `Bearer <token>`, where `<token>` is a short-lived access token obtained from `POST /v1/oauth/token` via [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) | One of `x-api-key` or `Authorization` |
-| `anthropic-version` | API version (for example, `2023-06-01`)                                                                                                                                                                                 | Yes                                   |
-| `content-type`      | `application/json`                                                                                                                                                                                                      | Yes                                   |
+| Header                  | Value                                                                                                                                                                                                                        | Required                                                                                                                                                                      |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Authorization`         | `Bearer <token>`, where `<token>` is your API key or a short-lived access token obtained from `POST /v1/oauth/token` through [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) | Yes, unless `x-api-key` is set                                                                                                                                                |
+| `x-api-key`             | Your API key from Console. Legacy fallback for `Authorization`, still supported                                                                                                                                              | No                                                                                                                                                                            |
+| `anthropic-workspace-id`| ID of the [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) the request runs in (for example, `wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ`)                                                                    | Required with a multi-workspace API key. Optional for other API keys. Not used with Workload Identity Federation tokens, which select a workspace at token exchange.           |
+| `anthropic-version`     | API version (for example, `2023-06-01`)                                                                                                                                                                                      | Yes                                                                                                                                                                           |
+| `content-type`          | `application/json`                                                                                                                                                                                                           | Yes                                                                                                                                                                           |
 
-If you are using the [Client SDKs](#client-sdks), the SDK will send these headers automatically. For API versioning details, see [API versions](https://platform.claude.com/docs/en/api/versioning).
+If you are using the [Client SDKs](#client-sdks), the SDK sends the authentication, version, and content-type headers automatically; you pass `anthropic-workspace-id` yourself when your key needs it. For API versioning details, see [API versions](https://platform.claude.com/docs/en/api/versioning).
 
 When accessing Claude through a [cloud platform](#claude-api-vs-cloud-platforms), authentication is integrated with the cloud provider's IAM system. See the platform-specific documentation for supported credential types, required headers, and authentication options.
 
 ### Getting API Keys
 
-The API is made available through the web [Console](https://platform.claude.com/). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). You choose each key's [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration) when you create it. Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and [control spend](https://platform.claude.com/docs/en/api/rate-limits) by use case.
+The API is made available through the web [Console](https://platform.claude.com/). You can use [playground](https://platform.claude.com/playground) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). You choose each key's type (see [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types)) and its [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration) when you create it. Use [workspaces](https://platform.claude.com/settings/workspaces) to separate environments and [control spend](https://platform.claude.com/docs/en/api/rate-limits) by use case.
 
 ## Client SDKs
 
@@ -65,7 +66,7 @@ Anthropic provides official SDKs that simplify API integration by handling authe
 
 **Benefits:**
 
-- Automatic header management (x-api-key, anthropic-version, content-type)
+- Automatic header management (authentication, anthropic-version, content-type)
 - Type-safe request and response handling
 - Built-in retry logic and error handling
 - Streaming support
@@ -93,9 +94,9 @@ Access Claude through AWS, Google Cloud, or Microsoft Azure:
 
 | Platform               | Provider                             | Documentation                                                                                                    |
 | ---------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
-| Claude Platform on AWS | AWS (Anthropic-operated)             | [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)           |
-| Amazon Bedrock         | AWS                                  | [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)       |
 | Agent Platform         | Google Cloud                         | [Claude on Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai)              |
+| Amazon Bedrock         | AWS                                  | [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)       |
+| Claude Platform on AWS | AWS (Anthropic-operated)             | [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)           |
 | Microsoft Foundry      | Microsoft Azure (Anthropic-operated) | [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
 
 > Claude Managed Agents is available through the direct Claude API and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws). For feature availability across platforms, see the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
@@ -119,9 +120,13 @@ If you exceed these limits, you'll receive a 413 `request_too_large` error.
 
 The Claude API includes the following headers in its responses:
 
-- `request-id`: A globally unique identifier for the request (for example, `req_018EeWyXxfu5pfWkrYcMdjWG`)
-- `anthropic-organization-id`: The ID of the organization that the API key or access token used in the request belongs to
-- `anthropic-workspace-id`: The `wrkspc_`-prefixed ID of the workspace that the API key or access token resolved to (for example, `wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ`), including when that is your organization's Default Workspace. Absent when the credential doesn't resolve to a workspace (for example, on Admin API requests) or the request fails before authentication completes
+| Header                      | Description                                                                                                                                                                                                                                                                                          |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `request-id`                | A globally unique identifier for the request, such as `req_018EeWyXxfu5pfWkrYcMdjWG`. Include it when you contact support about a specific request.                                                                                                                                                 |
+| `anthropic-organization-id` | The ID of the organization that the API key or access token used in the request belongs to.                                                                                                                                                                                                          |
+| `anthropic-workspace-id`    | The `wrkspc_`-prefixed ID of the workspace that the API key or access token resolved to, such as `wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ`, including when that is your organization's Default Workspace. Absent when the credential doesn't resolve to a workspace or the request fails before authentication completes. |
+
+For the rate limit headers, see [Response headers](https://platform.claude.com/docs/en/api/rate-limits#response-headers) in Rate limits.
 
 > Claude Platform on AWS adds an AWS request ID (`x-amzn-requestid`) alongside the standard `request-id` header. See [Request IDs](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#request-ids) for the dual-ID handling pattern.
 
@@ -134,7 +139,7 @@ The API enforces rate limits and spend limits to prevent misuse and manage capac
 - **Spend limits**: Maximum monthly cost for API usage
 - **Rate limits**: Maximum number of requests per minute (RPM) and tokens per minute (TPM)
 
-You can view your organization's current limits in the [Console](https://platform.claude.com/settings/limits). For higher limits, use **Request rate limit increase** on the [Limits](https://platform.claude.com/settings/limits) page.
+You can view your rate limits on the [Rate limits](https://platform.claude.com/settings/limits) page and your spend limits on the [Billing](https://platform.claude.com/settings/billing) page in the Console. For higher rate limits or a higher monthly spend cap, use **Request rate limit increase** on the Rate limits page.
 
 For detailed information about limits, tiers, and the token bucket algorithm used for rate limiting, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits).
 
@@ -158,4 +163,4 @@ To go back a page, pass `prev_page` as the `page` parameter. `prev_page` is `nul
 
 Every SDK provides an auto-paginating iterator that follows `next_page` for you. In Python and TypeScript, you get it by iterating the list result directly. The other SDKs provide the iterator through a separate method. SDK auto-pagination is forward-only; to go back a page, read `prev_page` from the response and pass it back as the `page` parameter yourself. See [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) for language-specific details.
 
-> Some list endpoints use a different cursor scheme. The [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing), the [Files API](https://platform.claude.com/docs/en/build-with-claude/files), the [Models API](https://platform.claude.com/docs/en/api/models/list), and several [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) endpoints take `after_id` and `before_id` query parameters instead of `page`. Their responses return `has_more`, `first_id`, and `last_id` instead of `next_page`. Some endpoints that use the `page` scheme, such as `GET /v1/skills`, also return a `has_more` Boolean alongside `next_page`. See the reference page for each endpoint for its exact pagination fields.
+> Some list endpoints use a different cursor scheme. The [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing), the [Models API](https://platform.claude.com/docs/en/api/models/list), and several [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) endpoints take `after_id` and `before_id` query parameters instead of `page`. Their responses return `has_more`, `first_id`, and `last_id` instead of `next_page`. See the reference page for each endpoint for its exact pagination fields.

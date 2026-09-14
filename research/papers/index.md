@@ -109,6 +109,8 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
 
+Last checked for new papers: September 14, 2026. No new Anthropic-authored arXiv papers identified. Three search queries surfaced only third-party papers citing Anthropic (Arbiter Agent, Ghost in Grammar, Interpretability as Alignment, Automated Alignment is Harder, Not All Eval-Awareness Is Equal, International AI Safety Report 2026). Confirms standing pattern: recent Anthropic research publishes as anthropic.com / transformer-circuits.pub posts, not as arXiv preprints.
+
 Last checked for new papers: August 16, 2026. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the August 2 check. Searches surfaced only (a) third-party arXiv papers that cite Anthropic but are not Anthropic-authored, and (b) recent Anthropic research published as anthropic.com / Alignment Science Blog posts without confirmed arXiv identifiers (e.g. "Agentic Misalignment in Summer 2026," alignment.anthropic.com, Jul 13, 2026). No entries added.
 
 Last checked for new papers: August 2, 2026. Added "Verbalizable Representations Form a Global Workspace in Language Models" (transformer-circuits.pub, Jul 6, 2026) to the non-arXiv notable list. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the July 12 check; recent Anthropic research from mid-July onward (e.g. "Claude's values across models and languages," "How Canada uses Claude," "An off switch for dual-use knowledge in AI models") has appeared as anthropic.com posts without confirmed arXiv identifiers, so no arXiv entries were added.

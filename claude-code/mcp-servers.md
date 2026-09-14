@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-14T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs. Connect a server when you find yourself copying data into chat from another tool.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** September 14, 2026
 
 ## What You Can Do with MCP
 
@@ -65,6 +65,8 @@ claude mcp add --transport http secure-api https://api.example.com/mcp \
 When configuring via JSON, `type` accepts `streamable-http` as an alias for `http` (the MCP specification name).
 
 ### Remote SSE Server (Deprecated)
+
+SSE transport is deprecated but still supported. As of v2.1.265+, Claude Code tries HTTP first and switches to SSE when needed.
 
 ```bash
 # Basic syntax
@@ -154,7 +156,7 @@ Expansion works in `command`, `args`, `env`, `url`, and `headers` fields.
 }
 ```
 
-If a required environment variable is not set and has no default value, Claude Code fails to parse the config.
+If a referenced variable is not set and has no default, Claude Code reports a missing-variable warning in `claude mcp list` output, uses the unexpanded `${VAR}` text as-is, and still attempts to load the server.
 
 ## MCP CLI Commands
 
@@ -286,7 +288,9 @@ Use `headersHelper` for non-OAuth authentication schemes (Kerberos, short-lived 
 }
 ```
 
-The command must write a JSON object of string key-value pairs to stdout, runs in a shell with a 10-second timeout, and executes fresh on each connection. Claude Code sets `CLAUDE_CODE_MCP_SERVER_NAME` and `CLAUDE_CODE_MCP_SERVER_URL` in the helper environment.
+The command must write a JSON object of string key-value pairs to stdout, runs in a shell with a 10-second timeout, and executes fresh on each connection. Dynamic headers override static headers with the same name. If a tool call returns `401 Unauthorized` or `403 Forbidden`, Claude Code re-runs the helper, reconnects, and retries once; the server is marked as needing authentication in `/mcp` only if the retry also fails.
+
+Claude Code sets `CLAUDE_CODE_MCP_SERVER_NAME` and `CLAUDE_CODE_MCP_SERVER_URL` in the helper environment. If the server is plugin-provided, `CLAUDE_PLUGIN_ROOT` is also available.
 
 ## Tool Search
 
@@ -459,6 +463,67 @@ Claude Desktop configuration:
 - Configure: `MAX_MCP_OUTPUT_TOKENS=50000`
 - Per-tool override: Set `_meta["anthropic/maxResultSizeChars"]` in tool's `tools/list` response (up to 500,000 characters hard ceiling)
 
+## MCP Client Runtimes
+
+### v1 Runtime
+
+Based on MCP TypeScript SDK 1.x.
+
+### v2 Runtime
+
+Based on MCP TypeScript SDK 2.0 with protocol revision 2026-07-28. Default on Claude Code v2.1.232+ (except on Bedrock, AWS Platform, Google Cloud, Microsoft Foundry unless `CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` is set).
+
+v2 runtime features:
+
+- Asks HTTP/claude.ai servers if they support the newer protocol revision
+- Receives `list_changed` notifications over a persistent stream
+- Stream closes and reopens with backoff limits
+
+Configuration:
+
+```bash
+MCP_SDK_GENERATION=v1              # Force v1
+MCP_SDK_GENERATION=v2              # Force v2
+MCP_PROTOCOL_NEGOTIATION=auto      # Auto-detect protocol version
+MCP_PROTOCOL_NEGOTIATION=legacy    # Use older protocol
+```
+
+## Tool Approval Annotation
+
+MCP servers can mark individual tools as requiring explicit user approval via `anthropic/requiresUserInteraction`:
+
+```json
+{
+  "name": "sensitive_tool",
+  "description": "A sensitive operation",
+  "_meta": {
+    "anthropic/requiresUserInteraction": true
+  }
+}
+```
+
+- Prompts on every call (even in `auto`/`bypassPermissions` modes)
+- No "don't ask again" option
+- Denied in `dontAsk` mode
+- In non-interactive mode with `--permission-prompt-tool`, converts allow to deny with message
+
+## Tool Input Schema Handling
+
+When a tool schema uses `anyOf`, `oneOf`, or `allOf` at the root (rejected by the Claude API), Claude Code flattens it into a single object with a description explaining parameter groups. Tools are excluded if they have property names outside 1-64 characters, non-ASCII names, or invalid JSON Schema draft 2020-12.
+
+## Server Status Indicators
+
+| Status                       | Meaning                                                               |
+| ---------------------------- | --------------------------------------------------------------------- |
+| `✔ Connected`                | Operational                                                           |
+| `! Needs authentication`     | OAuth sign-in required                                                |
+| `✘ Failed to connect`        | Connection error (details in `/mcp`)                                  |
+| `⏸ Pending approval`         | Project `.mcp.json` server awaiting approval                          |
+| `✘ Rejected`                 | `disabledMcpjsonServers` rejects it                                   |
+| `⊘ Disabled for this project`| Server disabled via `/mcp` toggle                                     |
+| `cached 2h ago`              | Tool list loaded from discovery cache (connects on first tool use)    |
+| `not configured`             | Empty `url` (placeholder server)                                      |
+
 ## Environment Variables
 
 | Variable                             | Description                                                                |
@@ -471,6 +536,8 @@ Claude Desktop configuration:
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`  | Idle timeout in ms (default: 5 min remote / 30 min stdio)                  |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before long calls background (default: 2 min); `0` disables |
 | `MCP_DISCOVERY_CACHE`                | Set to `0` to connect every server at startup (disable cached discovery)   |
+| `MCP_SDK_GENERATION`                 | Force MCP client runtime (`v1` or `v2`)                                    |
+| `MCP_PROTOCOL_NEGOTIATION`           | Protocol version negotiation (`auto` or `legacy`)                          |
 
 Per-server `timeout` field in `.mcp.json` overrides `MCP_TOOL_TIMEOUT` for that server only. Values below 1000 are ignored.
 

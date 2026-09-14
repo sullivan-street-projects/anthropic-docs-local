@@ -19,6 +19,29 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-09-14 — Daily Discovery Scan
+
+- **Manifest sources checked**: 154 source_urls
+- **New sources found**: 0
+- **Added**: 0
+- **Deferred**: 0
+- **Rejected**: 0
+
+**News page** (https://www.anthropic.com/news): 13 articles visible, all 13 already tracked in manifest. No new articles since the 2026-09-13 scan.
+
+**Engineering page** (https://www.anthropic.com/engineering): 25 posts visible, all 25 already tracked in manifest. No new posts.
+
+**Research page** (https://www.anthropic.com/research): 10 articles visible, all 10 already tracked in manifest. No new articles.
+
+**WebSearch** ("anthropic.com September 2026"): Surfaced the Fable 5.1/Mythos 5.1 System Card PDF (www-cdn.anthropic.com, already deferred from 2026-09-06) and a webinar page (scaling-claude-with-cost-controls-sept-2026, not a content article). No new first-party content articles found.
+
+**arXiv search**: 3 queries run ("arxiv anthropic AI research paper 2026", "arxiv.org anthropic 2026 new paper", "site:arxiv.org anthropic 2026 alignment safety interpretability"). Results surfaced only third-party papers that cite or reference Anthropic (Arbiter Agent, Ghost in Grammar, Interpretability as Alignment, Automated Alignment is Harder, Not All Eval-Awareness Is Equal, International AI Safety Report 2026). No new Anthropic-authored arXiv papers identified. Confirms standing pattern: recent Anthropic research publishes as anthropic.com / transformer-circuits.pub posts, not as arXiv preprints.
+
+**Still-deferred high-value items** (carried forward):
+- Fable 5.1 / Mythos 5.1 System Card PDF (www-cdn.anthropic.com) — deferred since 2026-09-06
+- Claude Opus 5 System Card — deferred since 2026-08-02
+- agent-sdk-typescript-v2 removal — 404 for ~10 consecutive cycles, removal overdue
+
 ### 2026-09-13 — Weekly Update (Phase 2.5 discovery scan)
 
 - **Manifest sources checked**: 150 (before adds) → 154 (after adds)

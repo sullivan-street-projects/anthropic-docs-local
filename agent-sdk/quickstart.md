@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-14T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -10,7 +10,7 @@ category: "agent-sdk"
 
 Get started with the Python or TypeScript Agent SDK to build AI agents that work autonomously. This quickstart walks you through building an agent that reads your code, finds bugs, and fixes them without manual intervention.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** September 14, 2026
 
 **What you'll do:**
 
@@ -84,7 +84,7 @@ pip install claude-agent-sdk
 
 If PowerShell blocks `Activate.ps1` with an execution policy error, run `Set-ExecutionPolicy -Scope Process RemoteSigned` first.
 
-> **Note:** Both the TypeScript and Python SDKs now bundle a native Claude Code binary for your platform, so you don't need to install Claude Code separately.
+> **Note:** Both the TypeScript and Python SDKs bundle a native Claude Code binary, so most installs need no separate Claude Code install. Edge cases: if pip installs the source distribution instead of a platform wheel (e.g., ARM64 Windows), no binary is bundled -- [install Claude Code natively](https://code.claude.com/docs/en/setup#install-claude-code). The TypeScript SDK installs its binary through npm optional dependencies, so `npm ci --omit=optional` gets no binary -- reinstall without skipping optional dependencies, or install natively and set `pathToClaudeCodeExecutable`.
 
 ### 3. Set Your API Key
 
@@ -239,7 +239,7 @@ After running, check `utils.py`. You'll see defensive code handling empty lists 
 2. **Analyzed** the logic and identified edge cases that would crash
 3. **Edited** the file to add proper error handling
 
-> **Tip:** If you see "API key not found", make sure you've set the `ANTHROPIC_API_KEY` environment variable in the shell where you run your agent. The SDK doesn't load `.env` files automatically. See the [full troubleshooting guide](https://code.claude.com/docs/en/troubleshooting) for more help.
+> **Tip:** If you see an authentication error such as `Not logged in` or `Invalid API key`, make sure you've set the `ANTHROPIC_API_KEY` environment variable in the shell where you run your agent. The SDK doesn't load `.env` files automatically. See the [full troubleshooting guide](https://code.claude.com/docs/en/troubleshooting) or the [Agent SDK troubleshooting guide](https://code.claude.com/docs/en/agent-sdk/troubleshooting) for more help.
 
 ## Try Other Prompts
 

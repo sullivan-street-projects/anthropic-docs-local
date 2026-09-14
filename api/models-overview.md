@@ -2,7 +2,7 @@
 title: "Models Overview"
 source_url: "https://platform.claude.com/docs/en/docs/about-claude/models"
 source_type: "web-extracted"
-fetched_at: "2026-09-06T00:00:00Z"
+fetched_at: "2026-09-14T00:00:00Z"
 category: "api"
 ---
 
@@ -20,22 +20,24 @@ Claude Fable 5.1 is generally available on the Claude API, Claude Platform on AW
 
 ## Latest Models (Recommended)
 
-| Feature                       | Claude Fable 5.1                                      | Claude Opus 5                                  | Claude Sonnet 5                                | Claude Haiku 4.5                                  |
-| :---------------------------- | :---------------------------------------------------- | :--------------------------------------------- | :--------------------------------------------- | :------------------------------------------------ |
-| **Description**               | For demanding reasoning and long-horizon agentic work | For complex agentic coding and enterprise work | The best combination of speed and intelligence | The fastest model with near-frontier intelligence |
-| **Claude API ID**             | claude-fable-5-1                                      | claude-opus-5                                  | claude-sonnet-5                                | claude-haiku-4-5-20251001                         |
-| **Claude API alias**          | claude-fable-5-1                                      | claude-opus-5                                  | claude-sonnet-5                                | claude-haiku-4-5                                  |
-| **AWS Bedrock ID**            | anthropic.claude-fable-5-1                            | anthropic.claude-opus-5                        | anthropic.claude-sonnet-5                      | anthropic.claude-haiku-4-5                        |
-| **Google Cloud ID**           | claude-fable-5-1                                      | claude-opus-5                                  | claude-sonnet-5                                | claude-haiku-4-5@20251001                         |
-| **Microsoft Foundry ID**      | claude-fable-5-1                                      | claude-opus-5                                  | claude-sonnet-5                                | claude-haiku-4-5                                  |
-| **Pricing**                   | $10 / $50 per MTok (input / output)                   | $5 / $25 per MTok                              | $2 / $10 per MTok                              | $1 / $5 per MTok                                  |
-| **Extended thinking**         | No                                                    | No                                             | No                                             | Yes                                               |
-| **Adaptive thinking**         | Yes (always on)                                       | Yes                                            | Yes                                            | No                                                |
-| **Comparative latency**       | Slower                                                | Moderate                                       | Fast                                           | Fastest                                           |
-| **Context window**            | 1M tokens                                             | 1M tokens                                      | 1M tokens                                      | 200k tokens                                       |
-| **Max output**                | 128k tokens                                           | 128k tokens                                    | 128k tokens                                    | 64k tokens                                        |
-| **Reliable knowledge cutoff** | Jun 2026                                              | May 2026                                       | Jan 2026                                       | Feb 2025                                          |
-| **Training data cutoff**      | Jun 2026                                              | May 2026                                       | Jan 2026                                       | Jul 2025                                          |
+| Feature                        | Claude Fable 5.1                                      | Claude Opus 5                                  | Claude Sonnet 5                                | Claude Haiku 4.5                                  |
+| :----------------------------- | :---------------------------------------------------- | :--------------------------------------------- | :--------------------------------------------- | :------------------------------------------------ |
+| **Description**                | For demanding reasoning and long-horizon agentic work | For complex agentic coding and enterprise work | The best combination of speed and intelligence | The fastest model with near-frontier intelligence |
+| **Claude API ID**              | claude-fable-5-1                                      | claude-opus-5                                  | claude-sonnet-5                                | claude-haiku-4-5-20251001                         |
+| **Claude API alias**           | claude-fable-5-1                                      | claude-opus-5                                  | claude-sonnet-5                                | claude-haiku-4-5                                  |
+| **AWS Bedrock ID**             | anthropic.claude-fable-5-1                            | anthropic.claude-opus-5                        | anthropic.claude-sonnet-5                      | anthropic.claude-haiku-4-5                        |
+| **Google Cloud ID**            | claude-fable-5-1                                      | claude-opus-5                                  | claude-sonnet-5                                | claude-haiku-4-5@20251001                         |
+| **Microsoft Foundry ID**       | claude-fable-5-1                                      | claude-opus-5                                  | claude-sonnet-5                                | claude-haiku-4-5                                  |
+| **Claude Platform on AWS ID**  | claude-fable-5-1                                      | ---                                            | claude-sonnet-5                                | claude-haiku-4-5                                  |
+| **Pricing**                    | $10 / $50 per MTok (input / output)                   | $5 / $25 per MTok                              | $2 / $10 per MTok                              | $1 / $5 per MTok                                  |
+| **Thinking**                   | Adaptive (always on)                                  | Adaptive                                       | Adaptive                                       | Extended                                          |
+| **Default effort**             | `high`                                                | `high`                                         | `high`                                         | Not supported                                     |
+| **Comparative latency**        | Slower                                                | Moderate                                       | Fast                                           | Fastest                                           |
+| **Context window**             | 1M tokens                                             | 1M tokens                                      | 1M tokens                                      | 200k tokens                                       |
+| **Max output**                 | 128k tokens                                           | 128k tokens                                    | 128k tokens                                    | 64k tokens                                        |
+| **Reliable knowledge cutoff**  | Jun 2026                                              | May 2026                                       | Jan 2026                                       | Feb 2025                                          |
+| **Training data cutoff**       | Jun 2026                                              | May 2026                                       | Jan 2026                                       | Jul 2025                                          |
+| **Retirement (not before)**    | September 1, 2027                                     | July 24, 2027                                  | June 30, 2027                                  | October 15, 2026                                  |
 
 > **Note:** Prompt cache reads cost 10% of the base input price, but only 2.5% ($0.25 / MTok) on Claude Fable 5.1 and Claude Mythos 5.1.
 
@@ -43,17 +45,25 @@ Claude Fable 5.1 is generally available on the Claude API, Claude Platform on AW
 
 > **Note:** Claude Fable 5.1, Claude Opus 5, and Claude Sonnet 5 are available on Bedrock through Claude in Amazon Bedrock (the Messages-API Bedrock endpoint).
 
-> **Note:** On Claude Opus 4.8, the `effort` parameter defaults to `high` on all surfaces, including the Claude API, Claude Code, and claude.ai. On Claude Opus 5 and Claude Sonnet 5, it defaults to `high` on the Claude API and Claude Code. Set `effort` explicitly to use a different level.
+> **Note:** The `effort` parameter defaults to `high` on Claude Fable 5.1, Claude Opus 5, and Claude Sonnet 5 on the Claude API. Set `effort` explicitly to use a different level. Extended thinking (manual `thinking.type` "enabled" + `budget_tokens`) is deprecated on Claude Opus 4.6 and Claude Sonnet 4.6 and not accepted on later models.
 
 > **Note:** The Max output values above apply to the synchronous Messages API. On the Message Batches API, Claude Opus 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6 support up to 300k output tokens by using the `output-300k-2026-03-24` beta header.
 
-> **Note:** On Microsoft Foundry, Claude Opus 4.8 has a 200k-token context window.
+> **Note:** Retirement dates are Anthropic's commitment for Anthropic-operated platforms (Claude API, Claude Platform on AWS, Microsoft Foundry). Amazon Bedrock and Google Cloud set their own dates.
 
 Claude Mythos 5.1 and Claude Mythos Preview are offered separately for defensive cybersecurity workflows as part of Project Glasswing. Access is invitation-only and there is no self-serve sign-up.
 
 ## Legacy Models (Still Available)
 
-Claude Fable 5 moved to legacy status when Claude Fable 5.1 launched on September 1, 2026.
+Claude Fable 5 moved to legacy status when Claude Fable 5.1 launched on September 1, 2026. Each legacy model has its own page with full specs:
+
+- [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview)
+- [Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-4-8/overview)
+- [Claude Opus 4.7](https://platform.claude.com/docs/en/models/opus-4-7/overview)
+- [Claude Opus 4.6](https://platform.claude.com/docs/en/models/opus-4-6/overview)
+- [Claude Opus 4.5](https://platform.claude.com/docs/en/models/opus-4-5/overview)
+- [Claude Sonnet 4.6](https://platform.claude.com/docs/en/models/sonnet-4-6/overview)
+- [Claude Sonnet 4.5](https://platform.claude.com/docs/en/models/sonnet-4-5/overview)
 
 | Feature                       | Claude Fable 5           | Claude Opus 4.8           | Claude Opus 4.7           | Claude Opus 4.6              | Claude Sonnet 4.6           | Claude Sonnet 4.5                         | Claude Opus 4.5                         |
 | :---------------------------- | :----------------------- | :------------------------ | :------------------------ | :--------------------------- | :-------------------------- | :---------------------------------------- | :-------------------------------------- |
@@ -95,7 +105,7 @@ Claude Platform on AWS uses the same model IDs as the Claude API (for example, `
 ## Key Capabilities
 
 - **Performance:** Top-tier results in reasoning, coding, multilingual tasks, long-context handling, honesty, and image processing
-- **Adaptive thinking:** Opus 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6 support dynamic thinking allocation; Fable 5.1, Mythos 5.1, Fable 5, and Mythos 5 have always-on adaptive thinking
+- **Thinking:** Adaptive thinking lets the model decide how much to think, steered by `effort`; Fable 5.1, Mythos 5.1, Fable 5, and Mythos 5 have always-on adaptive thinking. Extended thinking (manual `budget_tokens` mode) is the earlier approach on Sonnet 4.5, Opus 4.5, and Haiku 4.5; it is deprecated on Opus 4.6 and Sonnet 4.6
 - **1M context:** 1M token context window on Claude Fable 5.1, Mythos 5.1, Fable 5, Mythos 5, Opus 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6
 - **Context awareness:** Sonnet 5, Sonnet 4.6, Sonnet 4.5, and Haiku 4.5 track remaining context budget
 

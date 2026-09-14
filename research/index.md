@@ -2,7 +2,7 @@
 title: "Research Index"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-09-06T00:00:00Z"
+fetched_at: "2026-09-14T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 Comprehensive index of Anthropic's research papers, studies, and publications spanning AI safety, interpretability, alignment, and societal impacts.
 
-> **Last updated:** September 6, 2026
+> **Last updated:** September 14, 2026
 
 ## Research Categories
 
@@ -23,15 +23,18 @@ Comprehensive index of Anthropic's research papers, studies, and publications sp
 
 ## Latest Publications (2026)
 
-| Date         | Title                                                                                                                                                  | Category          |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
-| Sep 4, 2026  | [Formalizing Fermat's Last Theorem](https://www.anthropic.com/research/formalizing-fermats-last-theorem)                                               | Science           |
+| Date         | Title                                                                                                                                                                                  | Category          |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| Sep 10, 2026 | [Measuring tactical intelligence targeting and conventional weapons capabilities of AI models](https://www.anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities) | Frontier Red Team |
+| Sep 9, 2026  | [An alignment assessment of recent cybersecurity incidents](https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents)                                            | Alignment         |
+| Sep 4, 2026  | [Formalizing Fermat's Last Theorem](https://www.anthropic.com/research/formalizing-fermats-last-theorem)                                                                               | Science           |
 | Aug 28, 2026 | [Automated researchers can reliably mitigate alignment failures](https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures) | Alignment         |
 | Aug 26, 2026 | [Enabling independent research on how people use Claude](https://www.anthropic.com/research/enabling-independent-research)                             | Societal Impacts  |
 | Aug 18, 2026 | [How Claude is accelerating protein design and analytical chemistry](https://www.anthropic.com/research/Claude-accelerates-protein-design)             | Science           |
-| Aug 12, 2026 | [Reviewing the evidence on worker retraining programs](https://www.anthropic.com/research/reviewing-the-evidence-on-worker-retraining-programs)        | Economic Research |
-| Aug 10, 2026 | [Learning more about Claude's mathematical capabilities](https://www.anthropic.com/research/riemann-zeta)                                              | Science           |
-| Jul 28, 2026 | Discovering cryptographic weaknesses with Claude                                                                                                       | Frontier Red Team |
+| Aug 13, 2026 | [Patterns and problems in emerging multiagent systems](https://www.anthropic.com/research/multiagent-systems)                                                                          | Frontier Red Team |
+| Aug 12, 2026 | [Reviewing the evidence on worker retraining programs](https://www.anthropic.com/research/reviewing-the-evidence-on-worker-retraining-programs)                                        | Economic Research |
+| Aug 10, 2026 | [Learning more about Claude's mathematical capabilities](https://www.anthropic.com/research/riemann-zeta)                                                                              | Science           |
+| Jul 28, 2026 | [Discovering cryptographic weaknesses with Claude](https://www.anthropic.com/research/discovering-cryptographic-weaknesses)                                                            | Frontier Red Team |
 | Jul 24, 2026 | Project Pilot: Can AI control a drone?                                                                                                                 | Frontier Red Team |
 | Jul 14, 2026 | How Canada uses Claude: Findings from the Anthropic Economic Index                                                                                     | Economic Research |
 | Jul 13, 2026 | Claude's values across models and languages                                                                                                            | Societal Impacts  |

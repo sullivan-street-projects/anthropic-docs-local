@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-09-13T00:00:00Z"
+fetched_at: "2026-09-14T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, LSP servers, background monitors, and default settings into a single installable unit.
 
-> **Last updated:** September 13, 2026
+> **Last updated:** September 14, 2026
 
 ## Plugins vs Standalone Configuration
 
@@ -340,6 +340,8 @@ claude --plugin-url "https://example.com/my-plugin.zip https://example.com/other
 If Claude Code can't fetch a `--plugin-url` archive, or the archive is invalid, it starts without the plugin and records a load error in the `/plugin` manager's **Errors** tab.
 
 When a `--plugin-dir` plugin has the same name as an installed marketplace plugin, the local copy takes precedence for that session. Exception: plugins that managed settings force-enable or force-disable cannot be overridden by `--plugin-dir`.
+
+To test a plugin together with a plugin it depends on, see [Plugin dependencies](https://code.claude.com/docs/en/plugin-dependencies#test-a-plugin-and-its-dependency-locally).
 
 As you make changes, run `/reload-plugins` to pick up updates without restarting. Changes to LSP server configuration still require a full restart.
 
