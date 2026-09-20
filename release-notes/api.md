@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-09-13T00:00:00Z"
+fetched_at: "2026-09-20T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,14 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### September 18, 2026
+
+- Compliance API local session endpoints now also return transcripts of **Claude in Chrome** sessions (`product_surface` value `claude_in_chrome`), in beta for Claude Enterprise organizations.
+
+### September 14, 2026
+
+- Messages API can now **compact a conversation on demand** with the `compact-2026-09-04` beta header. Send a `compaction` parameter and the server summarizes prior turns into signed compaction blocks, cutting context and token cost on long agentic runs. The Python (`compact_before_next_turn()`) and TypeScript (`compactBeforeNextTurn()`) tool runners expose it.
 
 ### September 10, 2026
 

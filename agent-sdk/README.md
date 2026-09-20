@@ -2,7 +2,7 @@
 title: "Claude Agent SDK"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-09-20T00:00:00Z"
 category: "agent-sdk"
 ---
 

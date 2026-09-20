@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-09-13T13:43:41.062Z"
+generated_at: "2026-09-20T13:18:03.331Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-09-13
+> Auto-generated from manifest.json on 2026-09-20
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 161 |
+| Total Sources | 165 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-09-13T00:00:00Z |
-| Last Discovery Run | 2026-09-13T00:00:00Z |
+| Last Full Update | 2026-09-20T00:00:00Z |
+| Last Discovery Run | 2026-09-20T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 141 | WebFetch with content extraction |
+| web-extracted | 145 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 131 | High-confidence sources, auto-trusted |
+| auto | 135 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -190,6 +190,8 @@ generator: "scripts/generate-architecture.js"
 | [Results from the first Anthropic Public Record](../news/anthropic-public-record.md) | web-extracted | undefined |
 | [Economic Futures Research Fund agenda](../news/economic-futures-research-fund-agenda.md) | web-extracted | undefined |
 | [Google and Broadcom compute partnership](../news/google-broadcom-partnership-compute.md) | web-extracted | undefined |
+| [Introducing the Life Sciences Verification Program](../news/life-sciences-verification-program.md) | web-extracted | 0.85 |
+| [Partnering with Accenture on embedded evaluation](../news/accenture-embedded-evaluation.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -240,6 +242,8 @@ generator: "scripts/generate-architecture.js"
 | [Focus areas for The Anthropic Institute](../research/anthropic-institute-agenda.md) | web-extracted | undefined |
 | [Economic Index: Learning curves (March 2026)](../research/economic-index-march-2026-report.md) | web-extracted | undefined |
 | [Economic Index: Economic primitives (January 2026)](../research/anthropic-economic-index-january-2026-report.md) | web-extracted | undefined |
+| [How Claude is uplifting biomolecular modeling](../research/claude-uplifts-biomolecular-modeling.md) | web-extracted | 0.85 |
+| [Measurements for understanding the pace of AI development inside frontier labs](../research/measuring-pace-of-ai-development.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -393,7 +397,9 @@ anthropic-docs-local/
 │   ├── anthropic-economic-index-connector.md
 │   ├── anthropic-public-record.md
 │   ├── economic-futures-research-fund-agenda.md
-│   └── google-broadcom-partnership-compute.md
+│   ├── google-broadcom-partnership-compute.md
+│   ├── life-sciences-verification-program.md
+│   └── accenture-embedded-evaluation.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -435,7 +441,9 @@ anthropic-docs-local/
 │   ├── intelligence-targeting-conventional-weapons-capabilities.md
 │   ├── anthropic-institute-agenda.md
 │   ├── economic-index-march-2026-report.md
-│   └── anthropic-economic-index-january-2026-report.md
+│   ├── anthropic-economic-index-january-2026-report.md
+│   ├── claude-uplifts-biomolecular-modeling.md
+│   └── measuring-pace-of-ai-development.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md

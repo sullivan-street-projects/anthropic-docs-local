@@ -2,7 +2,7 @@
 title: "Research Index"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-09-06T00:00:00Z"
+fetched_at: "2026-09-20T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 Comprehensive index of Anthropic's research papers, studies, and publications spanning AI safety, interpretability, alignment, and societal impacts.
 
-> **Last updated:** September 6, 2026
+> **Last updated:** September 20, 2026
 
 ## Research Categories
 
@@ -25,6 +25,8 @@ Comprehensive index of Anthropic's research papers, studies, and publications sp
 
 | Date         | Title                                                                                                                                                  | Category          |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
+| Sep 17, 2026 | [How Claude is uplifting biomolecular modeling](https://www.anthropic.com/research/claude-uplifts-biomolecular-modeling)                               | Science           |
+| Aug 2026     | [Measurements for understanding the pace of AI development inside frontier labs](https://www.anthropic.com/institute/measuring-pace-of-ai-development) | Policy            |
 | Sep 4, 2026  | [Formalizing Fermat's Last Theorem](https://www.anthropic.com/research/formalizing-fermats-last-theorem)                                               | Science           |
 | Aug 28, 2026 | [Automated researchers can reliably mitigate alignment failures](https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures) | Alignment         |
 | Aug 26, 2026 | [Enabling independent research on how people use Claude](https://www.anthropic.com/research/enabling-independent-research)                             | Societal Impacts  |

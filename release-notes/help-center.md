@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-09-13T00:00:00Z"
+fetched_at: "2026-09-20T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -15,6 +15,10 @@ Updates to Claude consumer and business applications.
 ---
 
 ## September 2026
+
+### September 15, 2026
+
+- Salesforce in Claude (beta): a Salesforce plugin with 37 pre-built sales skills is now available on paid plans, letting sales teams work with Salesforce records directly inside Claude
 
 ### September 10, 2026
 
