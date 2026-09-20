@@ -29,13 +29,13 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 8
-Total improvements applied: 6 (1 code change this cycle: validate.js truncation-marker detection)
+Total cycles logged: 9
+Total improvements applied: 7 (1 code change this cycle: validate.js now integrity-checks binary/PDF sources, not just .md)
 Total improvements deferred: 6 (reinforced #18 source-lifecycle tracking; +1 self-eval harness for the update process)
-Most-improved infrastructure: scripts/validate.js (truncation detection this cycle) / tasks/lessons.md (agent-stall recovery)
-Most-informative category: security/research this cycle (alignment-assessment-cybersecurity-incidents, threat-intelligence report); claude-code (v2.1.270: plugin eval, output-style)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~9th cycle, 161 days stale); removal still escalated to a user task chip
-Last cycle: 2026-09-13 — 1 code improvement applied (truncation check), 4 sources auto-added, 1 agent stalled+recovered, 0 validation errors
+Most-improved infrastructure: scripts/validate.js (2 cycles running: truncation detection, then PDF-integrity coverage) / tasks/lessons.md (agent-stall recovery)
+Most-informative category: claude-code + sdks this cycle (compaction API across CHANGELOGs + release notes; subagent-output framing); research (measuring-pace-of-ai-development)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~10th cycle); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
+Last cycle: 2026-09-20 — 1 code improvement applied (PDF hash verification), 4 sources auto-added, 0 agents stalled (all fetches inline), 0 validation errors
 
 ## Entries
 
@@ -288,3 +288,20 @@ Improvements deferred: 1 (reinforced #18 source-lifecycle tracking)
 - Python/TS SDK 1.x major release — our github-raw verbatim storage + CHANGELOG diffing already captured it correctly; single-writer reconcile + recompute-from-disk produced 0 hash mismatches across 34 changed files.
 
 **No strong content→infrastructure principle this cycle:** the richest signal was operational (agent-stall recovery), not a doctrine the scripts/schema should encode.
+
+### 2026-09-20 — Update: all
+
+Content changes analyzed: 8 (3 CHANGELOGs, 3 release-notes, github-repos index, research index) + 4 new sources
+Improvements identified: 1
+Improvements applied: 1
+Improvements deferred: 1
+
+**Applied:**
+- Verification gap found while reviewing this cycle's "verifiable/signed artifact" theme (compaction signed blocks; measuring-pace-of-ai-development's "verifiable measurements") → validate.js Layer 4 only integrity-checked `.md` files (`local_path.endsWith(".md")`), silently skipping the 2 tracked PDFs (skills-building-guide-pdf, how-anthropic-teams-use-pdf) even though they carry sha256. → Changed the guard to verify any source with a stored hash (readFileSync returns a Buffer, so the digest already covers binary bytes); gated the text-based truncation scan to `.md` so PDF bytes are never scanned for markers. Result: 163 → 165 hashes verified.
+
+**Deferred:**
+- news/threat-intelligence-report-september-2026.md still carries a truncation marker (partial WebFetch from 09-13). Targeted multi-section re-fetch is MEDIUM effort → left for a focused pass; validate.js keeps flagging it.
+
+**Already aligned:**
+- Claude Code 2.1.278 "subagent results reach the main agent under a header marking them as subagent output, so text in a subagent's result cannot pass as the session's own instructions" AND measuring-pace-of-ai-development's "treat what comes from another agent as a claim to check rather than a thought of its own" — both match our standing invariants: single-writer manifest, recompute-sha256-from-disk (never trust agent-reported hashes), and verify-a-stalled-agent-from-disk-not-its-last-message. This cycle validated the design again; no change needed.
+- measuring-pace's online vs. offline monitors (coverage / review latency / escalation) mirror our pipeline: validate.js is the offline monitor (100% file coverage, advisory flags), and the reconcile-from-disk pass is the "verify the claim" step.

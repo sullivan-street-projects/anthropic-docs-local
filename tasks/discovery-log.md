@@ -174,3 +174,14 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 - **Deferred**: Fable 5.1 / Mythos 5.1 System Card PDF (www-cdn.anthropic.com ...System Card.pdf) — high-value first-party PDF; deferred because PDF ingestion (curl + Read) is heavier; flag for next PDF-capable run.
 - **Rejected**: "Tino Cuéllar to join Anthropic" (leadership hire — hiring/personnel filter). Third-party arXiv papers that merely use/mention Claude (not Anthropic-authored) — no new Anthropic-authored arXiv papers this cycle.
 - **Slug correction**: Fable 5.1 launch is at `www.anthropic.com/claude-fable-and-mythos-5-1` (NO `/news/` prefix) — the discovery agent's normalized `/news/...` guess 404'd. Verify each discovered URL resolves before adding.
+
+### 2026-09-20 — Discovery Run (Phase 2.5, during update)
+- **New sources found**: 4 (all first-party anthropic.com; auto-added per unattended-run policy)
+- **Added**:
+  - research-claude-uplifts-biomolecular-modeling (research/claude-uplifts-biomolecular-modeling.md) — Sep 17
+  - news-life-sciences-verification-program (news/life-sciences-verification-program.md) — Sep 17
+  - news-accenture-embedded-evaluation (news/accenture-embedded-evaluation.md) — Sep 18
+  - research-measuring-pace-of-ai-development (research/measuring-pace-of-ai-development.md) — Aug 2026 (surfaced now)
+- **Deferred**: none
+- **Rejected**: none
+- **Notes**: Engineering blog index showed nothing newer than April 2026. arXiv search surfaced no new Anthropic-authored Sep 2026 papers (research-papers-index left at its real date — honest, not bumped). New GitHub repos noted (uplifting-biomolecular-modeling, claude-for-financial-advisors) and captured in the regenerated github-repos/index.md rather than as standalone doc sources.

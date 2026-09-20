@@ -109,3 +109,13 @@ Track source-specific failures with resolutions. Review at session start to avoi
 - **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via curl). last_fetched 2026-04-05 (161 days stale). Emits one Layer-4 staleness warning per cycle.
 - **Resolution**: NOT re-fetched (known dead). NOT auto-deleted (Phase 4e: 404 → log + user-alert; permanent deletion needs user confirmation). Re-surfaced as a one-click removal task chip.
 - **Prevention**: Remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*). Concrete case for optimizations item #18 (lifecycle_status).
+
+### 2026-09-20 — agent-sdk-typescript-v2 (confirmed 404, ~10th cycle)
+
+- **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via curl). last_fetched 2026-04-05 (168 days stale). Emits one Layer-4 staleness warning per cycle.
+- **Resolution**: NOT re-fetched (known dead). NOT auto-deleted (Phase 4e: 404 → log + user-alert; permanent deletion needs user confirmation). Local file `agent-sdk/typescript-v2-preview.md` preserved.
+- **Prevention**: Remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*, which are live and tracked via the manual agent-sdk-readme/quickstart sources). Concrete case for optimizations item #18 (lifecycle_status).
+
+### 2026-09-20 — no fetch failures (actively-fetched sources)
+
+- **Note**: All actively-fetched sources succeeded (8 github-raw via curl, 9 manual docs verified against live, github-repos API pages 1-2, 6 volatile aggregation/release-notes pages, 4 new-source fetches, 3 discovery index pages). No 404s on code.claude.com, platform.claude.com, support.claude.com, or www.anthropic.com. Zero background agents used (all fetches inline by the orchestrator), so zero 600s-watchdog stalls. 0 sha256 mismatches after single-writer reconcile; 165/165 hashes verified.

@@ -431,8 +431,9 @@ function validateIntegrity(manifest) {
       }
     }
 
-    // SHA-256 hash verification (for files that have hashes)
-    if (source.sha256 && source.local_path.endsWith(".md")) {
+    // SHA-256 hash verification (for any source with a stored hash, .md or binary
+    // such as PDFs — readFileSync returns a Buffer, so the digest covers raw bytes)
+    if (source.sha256) {
       const filePath = path.join(ROOT, source.local_path);
       if (fs.existsSync(filePath)) {
         const content = fs.readFileSync(filePath);
@@ -445,8 +446,12 @@ function validateIntegrity(manifest) {
         }
         hashesChecked++;
 
-        // Truncation detection for web-extracted mirrors
-        if (source.source_type === "web-extracted") {
+        // Truncation detection for web-extracted mirrors (text files only —
+        // never scan binary bytes such as PDFs for text markers)
+        if (
+          source.source_type === "web-extracted" &&
+          source.local_path.endsWith(".md")
+        ) {
           const text = content.toString("utf-8").toLowerCase();
           if (
             TRUNCATION_MARKERS.some((mkr) => text.includes(mkr.toLowerCase()))
