@@ -1,49 +1,53 @@
-# Weekly Update Summary — 2026-09-13
+# Weekly Update Summary — 2026-09-20
 
 ## What Changed
 
-**SDK / CLI changelogs (content):**
+**Changelogs (github-raw, verbatim)**
 
-- `claude-code/CHANGELOG.md` — up to **v2.1.270**
-- `sdks/python/CHANGELOG.md` — **v1.5.0** (2026-09-10)
-- `sdks/typescript/CHANGELOG.md` — **v0.125.0** (2026-09-10)
+- `claude-code/CHANGELOG.md` — new content: v2.1.271 → v2.1.278
+- `sdks/python/CHANGELOG.md` — new content: v1.6.0, v1.7.0
+- `sdks/typescript/CHANGELOG.md` — new content: v0.126.0, v0.127.0
 
-**Claude Code docs (manual, content):**
+**Release notes (web-extracted)**
 
-- `claude-code/features.md` — added Dynamic Workflows, Cross-Session Messaging
-- `claude-code/hooks.md` — added `cloud_credential_error` StopFailure matcher (v2.1.267), `scratchpad_dir` input (v2.1.257)
-- `claude-code/plugins.md` — documented `claude plugin eval`, "Load a Folder of Plugins"
+- `release-notes/api.md`, `release-notes/platform.md` — added Sep 14 (on-demand compaction) and Sep 18 (Claude in Chrome compliance transcripts)
+- `release-notes/help-center.md` — added Sep 15 (Salesforce in Claude, beta)
 
-**Platform / API (web-extracted, content):**
+**Indexes**
 
-- `release-notes/platform.md`, `release-notes/api.md`, `release-notes/help-center.md` — new entries through Sep 10
-- `api/overview.md` — pagination/cursor-scheme clarifications
+- `github-repos/index.md` — regenerated, 109 → 111 repos, refreshed star counts
+- `research/index.md` — added 2 new research entries
 
-**Index (github-api):**
+**New sources added (4, all first-party anthropic.com — auto-added per unattended-run policy)**
 
-- `github-repos/index.md` — **109 repos** (was 106); refreshed star counts
+- `research/claude-uplifts-biomolecular-modeling.md` (Sep 17) — new content
+- `news/life-sciences-verification-program.md` (Sep 17) — new content
+- `news/accenture-embedded-evaluation.md` (Sep 18) — new content
+- `research/measuring-pace-of-ai-development.md` (Aug 2026) — new content
 
-**New sources auto-added (discovery, first-party):**
+**Verified-current, timestamp only** (fetched and checked against live today, no material drift): 9 manual docs (`claude-code/{features,hooks,mcp-servers,plugins}.md`, `agent-sdk/{README,quickstart,examples}.md`, `docs/best-practices-*.md`), `models/overview.md`, `models/deprecations.md`.
 
-- `news/threat-intelligence-report-september-2026.md` — Detecting and Countering Misuse of AI: September 2026
-- `research/alignment-assessment-cybersecurity-incidents.md` — Sep 9
-- `research/intelligence-targeting-conventional-weapons-capabilities.md` — Sep 10 (Frontier Red Team)
-- `news/tino-cuellar.md` — Chief Global Affairs Officer hire (Aug 4)
+**Infrastructure (meta-synthesis)**
 
-**Verified unchanged (no false timestamp bump):** `models/overview.md`, `api/models-overview.md`, `models/deprecations.md`, `sdks/other/overview.md`, `claude-code/mcp-servers.md`, `agent-sdk/README.md`, `agent-sdk/quickstart.md`, all SDK/skills/cookbooks READMEs, `research/papers/index.md` (no new Anthropic-authored arXiv papers).
+- `scripts/validate.js` — now integrity-checks every hashed source, including the 2 PDFs (was `.md`-only). 165/165 hashes verified.
 
 ## So What — Why It Matters
 
-- **Claude Code 2.1.270 adds real, usable features.** `claude plugin eval` gives scored, reproducible plugin eval suites (JSON+HTML); `/output-style [name]` switches output styles (works headless/Remote Control); `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` (1–256) raises the Workflow fan-out limit for inference-bound work; `/focus` gives a minimal prompt+summary view. Many prompt-cache-reuse and permission-rule fixes landed too.
-- **SDK 1.5.0 / 0.125.0 track new API surface.** Auto-mode tool permissions for Managed Agents (server evaluates each tool call → run/deny/pause), a `content_too_large` web_fetch error code, a `user-profiles-2026-09-04` beta, and mounting public GitHub repos without an auth token in Managed Agents sessions. Python also hardened credentials handling (refuses credentials files readable by group/others).
-- **Managed Agents matured on the platform.** The `auto` permission policy and `ant beta:sessions connect` (attach a terminal to a live session; `--web` serves the Console viewer) plus `ant apply` + `claude-lock.json` (declarative, idempotent resource management) are the notable platform additions. **Personal keys and service-account keys** are now creatable in the Console; the **Admin API** is now in the `ant` CLI and all SDKs.
-- **No model or pricing changes this week.** The current lineup (Fable 5.1, Opus 5, Sonnet 5, Haiku 4.5) and all deprecation dates were already current; those pages were left untouched. Fable/Mythos 5.1 (Sep 1) was already tracked.
-- **Two notable safety/security research posts.** The alignment assessment of recent cybersecurity incidents (naming "biased reasoning" and "recklessness" failure modes) and the Frontier Red Team's intelligence-targeting/conventional-weapons capability evals.
+**On-demand conversation compaction is now a first-class API feature.** The Messages API added a `compact-2026-09-04` beta header and a `compaction` parameter that summarizes prior turns into signed compaction blocks; both SDKs added a tool-runner method for it (`compact_before_next_turn()` / `compactBeforeNextTurn()`). For any long-running agent we build on the API, this is the sanctioned way to control context growth and token cost instead of hand-rolling summarization — worth adopting where we run multi-turn agents.
+
+**Claude Code now reads `AGENTS.md` as a fallback when no `CLAUDE.md` exists** (v2.1.277). No action for this repo (it has `CLAUDE.md`, which takes precedence), but relevant for repos that use the `AGENTS.md` convention.
+
+**The `TaskOutput` tool was removed** (v2.1.278); background-task output is now read with the `Read` tool, and `taskOutputMaxChars` / `TASK_MAX_OUTPUT_LENGTH` no longer have any effect. Only matters if a script or agent depended on `TaskOutput`.
+
+**Rate-limit API: `group_type` is deprecated** in favor of a `group` object with `display_name` (Python 1.7.0 / TS 0.127.0). Cosmetic for us; note it if we ever parse rate-limit responses.
+
+**Model lineup and deprecations unchanged this week.** Current lineup stays Fable 5.1 / Opus 5 / Sonnet 5 / Haiku 4.5 at the same pricing; no new models, no new deprecations. Opus 4.1 remains retired (since Aug 5).
+
+**New product/program launches:** Life Sciences Verification Program (biology research access with tailored safeguards, public beta), Salesforce in Claude (beta, 37 sales skills), and an Accenture embedded-evaluation partnership ($1B+ over five years).
 
 ## Action Items
 
-- **No breaking changes affecting our workflows.** The SDK bumps are additive; nothing forces a migration.
-- **`CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS`** is worth knowing for any future Workflow-tool fan-outs in our repos (raises the per-run concurrent-agent cap).
-- **Console key model change** — personal keys and service-account keys now exist and stop working when the linked account leaves the org; relevant if any SSP automation uses workspace API keys (still supported as legacy).
-- **One data-quality flag (self-inflicted, tracked):** the September threat-intelligence report was truncated by WebFetch and is stored partial with a truncation note; `validate.js` now flags it for a targeted re-fetch of the Surveillance/later sections.
-- **Overdue cleanup (needs your OK):** `agent-sdk-typescript-v2` (`github.com/anthropics/agent-sdk`) has been 404 for ~9 cycles (161 days). Remove the manifest entry + `agent-sdk/typescript-v2-preview.md`, or repoint to `code.claude.com/docs/en/agent-sdk/*`.
+- **No breaking changes affect our current workflows.** The Python SDK still requires 3.10+ (unchanged); `temperature`/`top_p`/`top_k` remain removed in Python SDK ≥1.0 and error on Claude 4.7+ models — already known.
+- **Consider adopting the compaction API** for any long-horizon agent work built on the Messages API or the tool runner.
+- **Pending (deferred):** `news/threat-intelligence-report-september-2026.md` still carries a truncation marker from the Sep 13 fetch; a targeted section-by-section re-fetch would clear the standing validate.js warning.
+- **Pending (user action):** the dead `agent-sdk-typescript-v2` source (`github.com/anthropics/agent-sdk`, 404 for ~10 cycles) should be removed from the manifest or repointed to the live `code.claude.com/docs/en/agent-sdk/*` docs (already tracked via the manual agent-sdk sources).
