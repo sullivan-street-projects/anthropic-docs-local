@@ -119,3 +119,13 @@ Track source-specific failures with resolutions. Review at session start to avoi
 ### 2026-09-20 — no fetch failures (actively-fetched sources)
 
 - **Note**: All actively-fetched sources succeeded (8 github-raw via curl, 9 manual docs verified against live, github-repos API pages 1-2, 6 volatile aggregation/release-notes pages, 4 new-source fetches, 3 discovery index pages). No 404s on code.claude.com, platform.claude.com, support.claude.com, or www.anthropic.com. Zero background agents used (all fetches inline by the orchestrator), so zero 600s-watchdog stalls. 0 sha256 mismatches after single-writer reconcile; 165/165 hashes verified.
+
+### 2026-09-21 — agent-sdk-typescript-v2 (confirmed 404, ~11th cycle)
+
+- **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404. last_fetched 2026-04-05 (169 days stale). Emits one Layer-4 staleness warning per cycle.
+- **Resolution**: NOT re-fetched (known dead). NOT auto-deleted (Phase 4e: permanent deletion needs user confirmation).
+- **Prevention**: Removal is critically overdue. Remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs.
+
+### 2026-09-21 — no fetch failures (actively-fetched sources)
+
+- **Note**: All actively-fetched sources succeeded. 8 github-raw (curl), 4 manual docs content-changed + 5 unchanged, github-repos API (2 pages, 111 repos), 3 volatile web-extracted content-changed + 5 unchanged, 13 new-source fetches (all 200). Used 6 background agents (4 Phase 2 + 2 new-source batches); zero 600s-watchdog stalls. 0 sha256 mismatches after single-writer reconcile; 178/178 hashes verified.

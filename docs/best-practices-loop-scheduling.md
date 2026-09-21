@@ -2,13 +2,13 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-09-21T00:00:00Z"
 category: "claude-code"
 ---
 
 # Best Practices: `/loop` Command & Scheduling in Claude Code
 
-> **Documentation Status:** The `/loop` command was introduced in Claude Code v2.1.71 (see [CHANGELOG](../claude-code/CHANGELOG.md)). It is listed in the official [CLI Reference](https://code.claude.com/docs/en/cli-usage) and [Interactive Mode](https://code.claude.com/docs/en/interactive-mode) pages. The guidance below is synthesized from changelog entries, CLI reference documentation, and observed behavior.
+> **Documentation Status:** The `/loop` command was introduced in Claude Code v2.1.71 (see [CHANGELOG](../claude-code/CHANGELOG.md)). It is listed in the official [CLI Reference](https://code.claude.com/docs/en/cli-usage) and [Interactive Mode](https://code.claude.com/docs/en/interactive-mode) pages. The guidance below is synthesized from changelog entries, CLI reference documentation, and observed behavior. Last verified September 21, 2026.
 
 ---
 
@@ -166,14 +166,14 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `-p "prompt"`                              | Non-interactive / print mode -- runs prompt and exits                                                                                    |
 | `--output-format json`                     | Machine-readable output for logging/parsing (options: `text`, `json`, `stream-json`)                                                     |
 | `--max-turns N`                            | Limit agent turns to prevent runaway execution                                                                                           |
-| `--permission-mode`                        | Control what the agent can do without human approval (options: `default`, `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions`) |
+| `--permission-mode`                        | Control what the agent can do without human approval (options: `default`, `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions`, `manual`) |
 | `--dangerously-skip-permissions`           | Equivalent to `--permission-mode bypassPermissions` -- **use with extreme caution**                                                      |
 | `--allowedTools "Tool(args)"`              | Restrict which tools the agent may use; supports pattern matching                                                                        |
 | `--disallowedTools "Tool(args)"`           | Deny rules; a bare tool name removes tools from context, a scoped rule denies only matching calls                                        |
 | `--tools "Bash,Edit,Read"`                 | Restrict which built-in tools Claude can use (use `""` to disable all, `"default"` for all)                                              |
 | `--max-budget-usd N`                       | Maximum dollar amount to spend on API calls before stopping                                                                              |
 | `--fallback-model <model>`                 | Enable automatic fallback model(s) when default is overloaded; accepts comma-separated list                                              |
-| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max` (available levels depend on model)                                             |
+| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max`, `ultracode` (available levels depend on model)                                |
 | `--bare`                                   | Minimal mode: skip hooks, skills, plugins, MCP, auto memory, CLAUDE.md for faster startup                                                |
 | `--safe-mode`                              | Start with all customizations disabled (hooks, skills, plugins, MCP, CLAUDE.md, themes, etc.) for troubleshooting                        |
 | `--no-session-persistence`                 | Disable session saving to disk (print mode only)                                                                                         |
@@ -199,6 +199,23 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--exclude-dynamic-system-prompt-sections` | Move per-machine sections from system prompt into first user message for better cache reuse                                              |
 | `--input-format`                           | Specify input format for print mode (`text`, `stream-json`)                                                                              |
 | `--include-hook-events`                    | Include hook lifecycle events in output stream (requires `--output-format stream-json`)                                                  |
+| `--include-partial-messages`               | Include partial streaming events in output                                                                                               |
+| `--replay-user-messages`                   | Re-emit user messages for acknowledgment                                                                                                 |
+| `--disable-slash-commands`                 | Disable all skills and commands                                                                                                          |
+| `--from-pr <number>`                       | Filter to sessions linked to a specific PR                                                                                               |
+| `--exec`                                   | Run shell command as PTY-backed background job                                                                                           |
+| `--autocompact <auto\|tokens>`             | Set auto-compact window for context management                                                                                           |
+| `--permission-prompts <host\|none>`        | Set who answers permission prompts in print mode                                                                                         |
+| `--permission-prompt-tool`                 | Specify MCP tool to handle permission prompts                                                                                            |
+| `--restricted`                             | Start in restricted mode for shared machines                                                                                             |
+| `--cloud`                                  | Create/queue message to cloud session                                                                                                    |
+| `--environment <id>`                       | Run on self-hosted environment (starts with `ccpool_`)                                                                                   |
+| `--ref <branch>`                           | Base checkout on named ref instead of local HEAD                                                                                         |
+| `--remote` / `--rc`                        | Start Remote Control session                                                                                                             |
+| `--forward-subagent-text`                  | Emit subagent text and thinking blocks in stream                                                                                         |
+| `--prompt-suggestions`                     | Emit predicted next user prompt                                                                                                          |
+| `--advisor <model>`                        | Enable server-side advisor tool with a model alias                                                                                       |
+| `--debug-file <path>`                      | Write debug logs to specific file                                                                                                        |
 
 ### Tier 3: GitHub Actions Example
 
@@ -242,6 +259,12 @@ claude logs 7c5dcf5d
 
 # Stop a background session
 claude stop 7c5dcf5d
+
+# Restart a background session
+claude respawn 7c5dcf5d
+
+# Remove a background session
+claude rm 7c5dcf5d
 
 # Run a shell command as a background job
 claude --bg --exec 'pytest -x'
@@ -319,7 +342,9 @@ claude --bg --exec 'npm test'
 | `--output-format json`                            | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--bg` background agents                          | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `claude agents` / `claude attach` / `claude logs` | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| `--effort` levels (low/medium/high/xhigh/max)     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `claude respawn` / `claude rm`                     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `claude ultrareview` non-interactive code review   | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--effort` levels (low/medium/high/xhigh/max/ultracode) | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High  |
 | `--bare` / `--safe-mode` flags                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--tools` flag for restricting built-in tools     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--disallowedTools` deny rules                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |

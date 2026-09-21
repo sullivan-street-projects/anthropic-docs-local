@@ -29,13 +29,13 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 9
-Total improvements applied: 7 (1 code change this cycle: validate.js now integrity-checks binary/PDF sources, not just .md)
-Total improvements deferred: 6 (reinforced #18 source-lifecycle tracking; +1 self-eval harness for the update process)
-Most-improved infrastructure: scripts/validate.js (2 cycles running: truncation detection, then PDF-integrity coverage) / tasks/lessons.md (agent-stall recovery)
-Most-informative category: claude-code + sdks this cycle (compaction API across CHANGELOGs + release notes; subagent-output framing); research (measuring-pace-of-ai-development)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~10th cycle); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-09-20 — 1 code improvement applied (PDF hash verification), 4 sources auto-added, 0 agents stalled (all fetches inline), 0 validation errors
+Total cycles logged: 10
+Total improvements applied: 7
+Total improvements deferred: 6
+Most-improved infrastructure: scripts/validate.js (truncation detection + PDF-integrity coverage) / tasks/lessons.md (agent-stall recovery)
+Most-informative category: claude-code (hooks.md: 6 new notification matchers, enterprise hook allowlists, cloud sessions; mcp-servers.md: credential variable security, MCP runtime v2, schema flattening); api (Authorization header now primary, x-api-key legacy)
+Staleness alerts: agent-sdk-typescript-v2 — confirmed 404 (~11th cycle, 169 days); threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
+Last cycle: 2026-09-21 — 0 code improvements applied, 13 sources auto-added, 0 agents stalled (6 agents used), 0 validation errors
 
 ## Entries
 
@@ -288,6 +288,23 @@ Improvements deferred: 1 (reinforced #18 source-lifecycle tracking)
 - Python/TS SDK 1.x major release — our github-raw verbatim storage + CHANGELOG diffing already captured it correctly; single-writer reconcile + recompute-from-disk produced 0 hash mismatches across 34 changed files.
 
 **No strong content→infrastructure principle this cycle:** the richest signal was operational (agent-stall recovery), not a doctrine the scripts/schema should encode.
+
+### 2026-09-21 — Update: all
+
+Content changes analyzed: 9 modified + 13 added
+Improvements identified: 0 code changes, 2 already-aligned
+Improvements applied: 0
+Improvements deferred: 0
+
+**Already aligned:**
+- `api/overview.md` Authorization header promotion (x-api-key → legacy) — our pipeline makes no direct API calls, so no change needed. Informational for downstream projects.
+- `claude-code/hooks.md` Enterprise Hook Allowlists (`allowedHttpHookUrls`, `allowManagedHooksOnly`) — enterprise security controls. Our scheduled automation does not use HTTP hooks or managed hooks; informational.
+- `claude-code/mcp-servers.md` Credential Variable security (ANTHROPIC_API_KEY reads as empty in .mcp.json) — good security practice. Our automation does not share API keys via MCP server configs; informational.
+- `docs/best-practices-loop-scheduling.md` 17 new CLI flags — `--cloud`, `--remote`, `--restricted`, `--exec` are useful for automation but don't change our current pipeline. `ultracode` effort level is informational.
+
+**Staleness (4e):**
+- `agent-sdk-typescript-v2` — HTTP 404 (~11th consecutive cycle, 169 days stale). NOT auto-deleted. Removal critically overdue.
+- `news/threat-intelligence-report-september-2026.md` — still carries truncation marker from 09-13.
 
 ### 2026-09-20 — Update: all
 

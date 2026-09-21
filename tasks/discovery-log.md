@@ -19,6 +19,31 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-09-21 — Weekly Update (Phase 2.5 discovery scan)
+
+- **Manifest sources checked**: 165 (before adds) → 178 (after adds)
+- **Added (first-party anthropic.com, auto-added per automated-run policy)**: 13
+  - `news-claude-design-anthropic-labs` → news/claude-design-anthropic-labs.md ← anthropic.com/news/claude-design-anthropic-labs (HIGH — product launch, Apr 2026)
+  - `news-claude-science-ai-workbench` → news/claude-science-ai-workbench.md ← anthropic.com/news/claude-science-ai-workbench (HIGH — product launch, Jun 2026)
+  - `news-claude-for-creative-work` → news/claude-for-creative-work.md ← anthropic.com/news/claude-for-creative-work (HIGH — product launch, Apr 2026)
+  - `news-glasswing` → news/glasswing.md ← anthropic.com/glasswing (MEDIUM — security initiative, Apr 2026)
+  - `news-expanding-project-glasswing` → news/expanding-project-glasswing.md ← anthropic.com/news/expanding-project-glasswing (MEDIUM — security, Jun 2026)
+  - `research-glasswing-initial-update` → research/glasswing-initial-update.md ← anthropic.com/research/glasswing-initial-update (MEDIUM — security research, May 2026)
+  - `research-off-switch-dual-use` → research/off-switch-dual-use.md ← anthropic.com/research/off-switch-dual-use (MEDIUM — safety, Jul 2026)
+  - `research-exploit` → research/exploit.md ← anthropic.com/research/exploit (MEDIUM — Frontier Red Team, Mar 2026)
+  - `news-enterprise-ai-services-company` → news/enterprise-ai-services-company.md ← anthropic.com/news/enterprise-ai-services-company (MEDIUM — partnerships, May 2026)
+  - `news-ai-enabled-cyber-threats-mitre-attack` → news/AI-enabled-cyber-threats-mitre-attack.md ← anthropic.com/news/AI-enabled-cyber-threats-mitre-attack (MEDIUM — security, Jun 2026)
+  - `news-reflect-with-claude` → news/reflect-with-claude.md ← anthropic.com/news/reflect-with-claude (MEDIUM — product feature, Jul 2026)
+  - `news-healthcare-life-sciences` → news/healthcare-life-sciences.md ← anthropic.com/news/healthcare-life-sciences (MEDIUM — vertical, Jan 2026)
+  - `research-econ-scenarios` → research/econ-scenarios.md ← anthropic.com/institute/econ-scenarios (MEDIUM — economics, Sep 2026)
+- **Deferred (LOW)**: ben-bernanke (personnel), anthropic-invests-50-billion (infrastructure, Nov 2025)
+- **Rejected**: none
+- **SDK versions**: npm @anthropic-ai/sdk 0.127.0, PyPI anthropic 1.7.0 (major version bump!)
+- **arXiv**: no new Anthropic-authored papers
+- **Engineering**: no new posts beyond the 25 already tracked
+- **GitHub repos**: no new untracked repos (star counts refreshed in index)
+- **Notes**: Largest gap was April-July 2026 (Claude Design, Claude Science, Project Glasswing). These were not on the news index page; discovered via web search. The /news page only shows ~13 most recent items.
+
 ### 2026-09-13 — Weekly Update (Phase 2.5 discovery scan)
 
 - **Manifest sources checked**: 150 (before adds) → 154 (after adds)

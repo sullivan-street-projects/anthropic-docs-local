@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-09-20T13:18:03.331Z"
+generated_at: "2026-09-21T13:24:06.293Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-09-20
+> Auto-generated from manifest.json on 2026-09-21
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 165 |
+| Total Sources | 178 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-09-20T00:00:00Z |
-| Last Discovery Run | 2026-09-20T00:00:00Z |
+| Last Full Update | 2026-09-21T00:00:00Z |
+| Last Discovery Run | 2026-09-21T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 145 | WebFetch with content extraction |
+| web-extracted | 158 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 135 | High-confidence sources, auto-trusted |
+| auto | 148 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -192,6 +192,15 @@ generator: "scripts/generate-architecture.js"
 | [Google and Broadcom compute partnership](../news/google-broadcom-partnership-compute.md) | web-extracted | undefined |
 | [Introducing the Life Sciences Verification Program](../news/life-sciences-verification-program.md) | web-extracted | 0.85 |
 | [Partnering with Accenture on embedded evaluation](../news/accenture-embedded-evaluation.md) | web-extracted | 0.85 |
+| [Introducing Claude Design by Anthropic Labs](../news/claude-design-anthropic-labs.md) | web-extracted | 0.85 |
+| [Claude Science, an AI workbench for scientists](../news/claude-science-ai-workbench.md) | web-extracted | 0.85 |
+| [Claude for Creative Work](../news/claude-for-creative-work.md) | web-extracted | 0.85 |
+| [Project Glasswing: Securing critical software for the AI era](../news/glasswing.md) | web-extracted | 0.85 |
+| [Expanding Project Glasswing](../news/expanding-project-glasswing.md) | web-extracted | 0.85 |
+| [Building a new enterprise AI services company](../news/enterprise-ai-services-company.md) | web-extracted | 0.85 |
+| [What we learned mapping AI-enabled cyber threats](../news/AI-enabled-cyber-threats-mitre-attack.md) | web-extracted | 0.85 |
+| [Introducing a way to reflect on how you use Claude](../news/reflect-with-claude.md) | web-extracted | 0.85 |
+| [Advancing Claude in healthcare and the life sciences](../news/healthcare-life-sciences.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -244,6 +253,10 @@ generator: "scripts/generate-architecture.js"
 | [Economic Index: Economic primitives (January 2026)](../research/anthropic-economic-index-january-2026-report.md) | web-extracted | undefined |
 | [How Claude is uplifting biomolecular modeling](../research/claude-uplifts-biomolecular-modeling.md) | web-extracted | 0.85 |
 | [Measurements for understanding the pace of AI development inside frontier labs](../research/measuring-pace-of-ai-development.md) | web-extracted | 0.85 |
+| [Project Glasswing: An initial update](../research/glasswing-initial-update.md) | web-extracted | 0.85 |
+| [An off switch for dual-use knowledge in AI models](../research/off-switch-dual-use.md) | web-extracted | 0.85 |
+| [Reverse engineering Claude s CVE-2026-2796 exploit](../research/exploit.md) | web-extracted | 0.85 |
+| [Scenarios for our Economic Future](../research/econ-scenarios.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -399,7 +412,16 @@ anthropic-docs-local/
 │   ├── economic-futures-research-fund-agenda.md
 │   ├── google-broadcom-partnership-compute.md
 │   ├── life-sciences-verification-program.md
-│   └── accenture-embedded-evaluation.md
+│   ├── accenture-embedded-evaluation.md
+│   ├── claude-design-anthropic-labs.md
+│   ├── claude-science-ai-workbench.md
+│   ├── claude-for-creative-work.md
+│   ├── glasswing.md
+│   ├── expanding-project-glasswing.md
+│   ├── enterprise-ai-services-company.md
+│   ├── AI-enabled-cyber-threats-mitre-attack.md
+│   ├── reflect-with-claude.md
+│   └── healthcare-life-sciences.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -443,7 +465,11 @@ anthropic-docs-local/
 │   ├── economic-index-march-2026-report.md
 │   ├── anthropic-economic-index-january-2026-report.md
 │   ├── claude-uplifts-biomolecular-modeling.md
-│   └── measuring-pace-of-ai-development.md
+│   ├── measuring-pace-of-ai-development.md
+│   ├── glasswing-initial-update.md
+│   ├── off-switch-dual-use.md
+│   ├── exploit.md
+│   └── econ-scenarios.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md

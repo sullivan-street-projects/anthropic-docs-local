@@ -2,13 +2,13 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-09-21T00:00:00Z"
 category: "claude-code"
 ---
 
 # Best Practices: MCP Server Credential Management & Access Control
 
-> **Documentation Status:** MCP server configuration is comprehensively documented at [code.claude.com/docs/en/mcp](https://code.claude.com/docs/en/mcp). All claims in this document have been verified against the official documentation as of June 2026.
+> **Documentation Status:** MCP server configuration is comprehensively documented at [code.claude.com/docs/en/mcp](https://code.claude.com/docs/en/mcp). All claims in this document have been verified against the official documentation as of September 2026.
 
 ---
 
@@ -142,6 +142,24 @@ Environment variables are expanded in these fields:
 Claude Code sets `CLAUDE_PROJECT_DIR` in the spawned server's environment to the project root, so your server can resolve project-relative paths without depending on the working directory. This is the same directory hooks receive. Read it inside your server process (e.g., `process.env.CLAUDE_PROJECT_DIR` in Node or `os.environ["CLAUDE_PROJECT_DIR"]` in Python).
 
 Referencing it via `${VAR}` expansion in `.mcp.json` requires a default such as `${CLAUDE_PROJECT_DIR:-.}` since the variable is set in the server's environment, not Claude Code's own environment.
+
+### Credential Variables That Read as Empty
+
+In remote server `url` and `headers`, Claude Code reads certain credential variables as empty to prevent `.mcp.json` or plugins from sending your credentials to external servers. Covered credential names include:
+
+- Claude Code credentials: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`
+- Cloud provider credentials: `AWS_BEARER_TOKEN_BEDROCK`
+- Other credentials: `HTTPS_PROXY`, `NPM_TOKEN`
+
+Non-credential variables like `API_KEY` expand normally. To provide a covered credential to an MCP server, copy it to a variable with your own name and reference that instead:
+
+```bash
+# Instead of ${ANTHROPIC_API_KEY}, use your own variable
+MY_ANTHROPIC_KEY=$ANTHROPIC_API_KEY
+# Then reference ${MY_ANTHROPIC_KEY} in .mcp.json
+```
+
+**Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- Credential variables section.
 
 ### Three Ways to Provide Variable Values
 
@@ -516,6 +534,13 @@ To block individual connectors rather than all of them, add them to `deniedMcpSe
 
 **Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- Managed MCP and enterprise controls.
 
+### Organization Controls on Connector Tools
+
+Organizations can set per-tool controls on claude.ai connectors. Claude Code reads these at startup and enforces locally:
+
+- **Tool set to `ask`**: Claude Code prompts on every call with the reason "Your organization requires approval for this tool." The prompt appears even in `acceptEdits`, `auto`, and `bypassPermissions` modes. Allow rules don't skip the prompt. In `dontAsk` mode, the call is denied instead.
+- **Tool set to `blocked`**: Claude Code filters the tool out before Claude sees it. The tool never appears in the tool list.
+
 ---
 
 ## 9. The Complete Developer Onboarding Flow
@@ -608,9 +633,10 @@ claude mcp reset-project-choices
 | Same server name in multiple scopes             | Confusion about which config is active            | Remember: Local > Project > User > Plugin > claude.ai |
 | Forgetting `--scope project`                    | Server added to Local instead of `.mcp.json`      | Re-add with `--scope project`                         |
 | Not testing with a fresh `.env`                 | Config works for you but breaks for others        | Test by removing `.env` and using `.env.example`      |
-| Using reserved name `workspace`                 | Server silently skipped at load time              | Choose a different server name                        |
+| Using reserved names (`workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, `Claude Browser`) | Server silently skipped at load time | Choose a different server name |
 | Static `Authorization` header with OAuth server | Connection fails instead of falling back to OAuth | Remove the header to use the OAuth flow               |
 | Missing `--` separator for stdio                | Claude Code parses server flags as its own        | Always use `--` before server command                 |
+| Credential variables in remote server config    | Claude Code reads them as empty for security      | Copy to a custom variable name and reference that     |
 
 ---
 
@@ -629,6 +655,7 @@ Before committing any MCP configuration:
 - [ ] Team members have been informed of required credentials
 - [ ] `grep -rn 'sk-\|ghp_\|Bearer [a-z]' .mcp.json` returns no results
 - [ ] Pre-configured OAuth client secrets use `MCP_CLIENT_SECRET` env var or keychain, never plaintext in config
+- [ ] Credential variables (`ANTHROPIC_API_KEY`, `AWS_BEARER_TOKEN_BEDROCK`, etc.) are not referenced directly in remote server config (Claude Code reads them as empty)
 
 ---
 
@@ -714,3 +741,8 @@ An MCP tool call in the main conversation still running after two minutes moves 
 | Automatic reconnection with exponential backoff                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Idle timeout (`CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`)              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Reserved server name `workspace`                                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Credential variables read as empty for security                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| MCP Client Runtimes (v1/v2), `MCP_SDK_GENERATION` env var       | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Organization connector tool controls (`ask`/`blocked`)          | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `disabledMcpServers`/`enabledMcpServers` toggle lists           | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Tool input schema flattening (`anyOf`/`oneOf`/`allOf`)          | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |

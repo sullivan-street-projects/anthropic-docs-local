@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-09-21T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Hooks are user-defined shell commands, HTTP endpoints, MCP tool calls, LLM prompts, or agents that execute automatically at specific points in Claude Code's lifecycle. Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
 
-> **Last updated:** September 13, 2026
+> **Last updated:** September 21, 2026
 
 ## Hook Lifecycle
 
@@ -31,12 +31,12 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `PostToolUse`         | After tool succeeds                                                | Tool name                                                                                                                                                                                                                 | Each tool call             |
 | `PostToolUseFailure`  | After tool fails                                                   | Tool name                                                                                                                                                                                                                 | Each failed tool call      |
 | `PostToolBatch`       | Full batch of parallel tool calls resolves                         | No matcher support                                                                                                                                                                                                        | Before next model call     |
-| `Notification`        | Notification events fire                                           | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`, `elicitation_complete`, `elicitation_response`                                                                                                  | Various                    |
+| `Notification`        | Notification events fire                                           | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`, `elicitation_url_dialog`, `elicitation_complete`, `elicitation_response`, `agent_needs_input`, `agent_completed`, `quota_auto_resume_fired`, `quota_auto_resume_stale`, `quota_auto_resume_disabled` | Various                    |
 | `MessageDisplay`      | Assistant message text is displayed                                | No matcher support                                                                                                                                                                                                        | Each display               |
 | `SubagentStart`       | Subagent spawned                                                   | Agent type                                                                                                                                                                                                                | Each subagent spawn        |
 | `SubagentStop`        | Subagent finishes                                                  | Agent type                                                                                                                                                                                                                | Each subagent finish       |
 | `Stop`                | Main Claude finishes responding                                    | No matcher support                                                                                                                                                                                                        | Each response              |
-| `StopFailure`         | Turn ends due to API error                                         | Error type: `rate_limit`, `overloaded`, `authentication_failed`, `oauth_org_not_allowed`, `billing_error`, `cloud_credential_error`, `invalid_request`, `model_not_found`, `server_error`, `max_output_tokens`, `unknown` | API errors                 |
+| `StopFailure`         | Turn ends due to API error                                         | Error type: `rate_limit`, `overloaded`, `authentication_failed`, `oauth_org_not_allowed`, `account_on_hold`, `billing_error`, `cloud_credential_error`, `invalid_request`, `model_not_found`, `server_error`, `max_output_tokens`, `unknown` | API errors                 |
 | `TeammateIdle`        | Agent team teammate about to go idle                               | Teammate role                                                                                                                                                                                                             | Agent teams                |
 | `TaskCreated`         | Task created via TaskCreate tool                                   | No matcher support                                                                                                                                                                                                        | Task creation              |
 | `TaskCompleted`       | Task marked as completed                                           | No matcher support                                                                                                                                                                                                        | Task completion            |
@@ -250,14 +250,14 @@ Matcher evaluation types:
 | `Setup`                                                                                                                                                         | CLI flag                     | `init`, `maintenance`                                                                                                                                                                                         |
 | `SessionEnd`                                                                                                                                                    | Why session ended            | `clear`, `resume`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other`                                                                                                                      |
 | `FileChanged`                                                                                                                                                   | Literal filenames (basename) | `.envrc`, `.env`                                                                                                                                                                                              |
-| `Notification`                                                                                                                                                  | Notification type            | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`, `elicitation_url_dialog`, `elicitation_complete`, `elicitation_response`, `agent_needs_input`, `agent_completed`                    |
+| `Notification`                                                                                                                                                  | Notification type            | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`, `elicitation_url_dialog`, `elicitation_complete`, `elicitation_response`, `agent_needs_input`, `agent_completed`, `quota_auto_resume_fired`, `quota_auto_resume_stale`, `quota_auto_resume_disabled` |
 | `DirectoryAdded`                                                                                                                                                | How directory was added      | `slash_command`, `register_repo_root`                                                                                                                                                                         |
 | `SubagentStart`, `SubagentStop`                                                                                                                                 | Agent type                   | `Bash`, `Explore`, `Plan`, or custom agent names                                                                                                                                                              |
 | `PreCompact`, `PostCompact`                                                                                                                                     | What triggered compaction    | `manual`, `auto`                                                                                                                                                                                              |
 | `PreModelSwitch`, `PostModelSwitch`                                                                                                                             | Canonical model name         | `claude-opus-5`, `claude-opus-4-6\|claude-opus-5`, `.*opus.*`                                                                                                                                                 |
 | `ConfigChange`                                                                                                                                                  | Configuration source         | `user_settings`, `project_settings`, `local_settings`, `policy_settings`, `skills`                                                                                                                            |
 | `Elicitation`, `ElicitationResult`                                                                                                                              | MCP server name              | Server-specific elicitation events                                                                                                                                                                            |
-| `StopFailure`                                                                                                                                                   | Error type                   | `rate_limit`, `authentication_failed`, `billing_error`, `cloud_credential_error`, `overloaded`, `oauth_org_not_allowed`, `invalid_request`, `model_not_found`, `server_error`, `max_output_tokens`, `unknown` |
+| `StopFailure`                                                                                                                                                   | Error type                   | `rate_limit`, `authentication_failed`, `account_on_hold`, `billing_error`, `cloud_credential_error`, `overloaded`, `oauth_org_not_allowed`, `invalid_request`, `model_not_found`, `server_error`, `max_output_tokens`, `unknown` |
 | `InstructionsLoaded`                                                                                                                                            | Load reason                  | `session_start`, `nested_traversal`, `path_glob_match`, `include`, `compact`                                                                                                                                  |
 | `UserPromptExpansion`                                                                                                                                           | Command name                 | Expanded command names                                                                                                                                                                                        |
 | `UserPromptSubmit`, `Stop`, `TeammateIdle`, `TaskCreated`, `TaskCompleted`, `WorktreeCreate`, `WorktreeRemove`, `PostToolBatch`, `MessageDisplay`, `CwdChanged` | No matcher support           | Always fires on every occurrence                                                                                                                                                                              |
@@ -320,12 +320,13 @@ Leading `VAR=value` assignments are stripped. Filter fails open on parse errors.
 
 **Cannot block (exit 2 shows stderr only):**
 
-| Hook Event           | What Happens                                            |
-| -------------------- | ------------------------------------------------------- |
-| `PostToolUse`        | Shows stderr to Claude (tool already ran)               |
-| `PostToolUseFailure` | Shows stderr to Claude (tool already failed)            |
-| `PermissionDenied`   | Ignored; use JSON `retry: true` instead                 |
-| `StopFailure`        | Shows stderr to user only                               |
+| Hook Event           | What Happens                                                     |
+| -------------------- | ---------------------------------------------------------------- |
+| `PostToolUse`        | Shows stderr to Claude (tool already ran)                        |
+| `PostToolUseFailure` | Shows stderr to Claude (tool already failed)                     |
+| `PermissionRequest`  | Exit code 2 not honored; use `decision` object instead           |
+| `PermissionDenied`   | Ignored; use JSON `retry: true` instead                          |
+| `StopFailure`        | Hook output discarded entirely; only `terminalSequence` applies  |
 | `Notification`       | Shows stderr to user only                               |
 | `SubagentStart`      | Shows stderr to user only                               |
 | `SessionStart`       | Shows stderr to user only                               |
@@ -485,9 +486,30 @@ Direct edits to hooks in settings files do not take effect immediately. Claude C
 | `CLAUDE_EFFORT`                 | Effort level (for some events)                                                    |
 | `CLAUDE_PLUGIN_OPTION_<KEY>`    | Plugin hooks: user-configured plugin option values                                |
 
+Note: `OTEL_*` exporter variables are stripped from all hook subprocesses. Additional scrubbing is enabled when `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1` is set.
+
 ## How Hooks Layer
 
 Hooks merge across all sources: all registered hooks fire for their matching events regardless of source (user settings, project settings, plugins, managed settings). This differs from skills and MCP servers which override by name.
+
+## Cloud Sessions
+
+Cloud sessions do **not** read `~/.claude/settings.json`. They do read:
+
+- Repository `.claude/settings.json`
+- Plugin hooks from declared plugins
+- Organization managed settings
+
+For self-hosted runners, the runner host's `~/.claude/` provides seeded hooks, and the runner image's managed settings file applies when present.
+
+## Hook Allowlists (Enterprise)
+
+| Setting                   | Description                                                                                              |
+| ------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `allowedHttpHookUrls`     | Allowlist of URLs for HTTP hooks                                                                         |
+| `httpHookAllowedEnvVars`  | Environment variables allowed in HTTP hook headers                                                       |
+| `allowManagedHooksOnly`   | Block user, project, local, and plugin hooks (except forced plugins)                                     |
+| `disableCommandPluginSources` | Controls command-sourced plugins                                                                     |
 
 ## Common Hook Patterns
 
@@ -743,8 +765,9 @@ Hook behavior evolves frequently. Notable recent changes:
 
 | Version   | Change                                                                                                                                                                                        |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| v2.1.267+ | `cloud_credential_error` matcher added to `StopFailure` error types.                                                                                                                          |
+| v2.1.267+ | `cloud_credential_error` matcher added to `StopFailure` error types. `account_on_hold` also added.                                                                                            |
 | v2.1.257+ | `scratchpad_dir` common input field (path to the session's scratchpad directory for temporary files).                                                                                         |
+| v2.1.248+ | Better JSON parse error handling for hook output.                                                                                                                                             |
 | v2.1.218+ | Subagent frontmatter hooks blocked in untrusted (`-p`) folders until workspace trust is accepted.                                                                                             |
 | v2.1.214+ | Single-segment glob matching in `if` rules: `Edit(src/**)` matches only `src/` in cwd, not at any depth. Exit 2 with invalid JSON now blocks the action (previously treated as non-blocking). |
 | v2.1.207+ | Plugin option values removed from shell-form hooks; use `CLAUDE_PLUGIN_OPTION_<KEY>` env vars instead.                                                                                        |
@@ -755,7 +778,9 @@ Hook behavior evolves frequently. Notable recent changes:
 | v2.1.141+ | `terminalSequence` output field for OSC escape sequences (OSC 0/1/2/9/9;4/99/777, BEL).                                                                                                       |
 | v2.1.139+ | Command hooks run in their own session without a controlling terminal.                                                                                                                        |
 
-Per-event timeout defaults are also narrowed for some events: `UserPromptSubmit` lowers to 30s, `MessageDisplay` to 10s, and `SessionEnd` runs on a ~1.5s total budget.
+Per-event timeout defaults are also narrowed for some events: `UserPromptSubmit` lowers to 30s, `PreModelSwitch` and `PostModelSwitch` to 30s, `MessageDisplay` to 10s, and `SessionEnd` runs on a ~1.5s total budget.
+
+Timeout behavior varies by event: a timed-out `PreToolUse` command/http/mcp_tool hook does **not** block (the tool proceeds through the normal permission flow), while a timed-out `PreModelSwitch` hook **does** block the model switch.
 
 ## Sources
 
