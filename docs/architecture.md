@@ -1,18 +1,18 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-09-20T13:18:03.331Z"
+generated_at: "2026-09-27T13:21:57.996Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-09-20
+> Auto-generated from manifest.json on 2026-09-27
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 165 |
+| Total Sources | 169 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 145 | WebFetch with content extraction |
+| web-extracted | 149 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 135 | High-confidence sources, auto-trusted |
+| auto | 139 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -149,6 +149,7 @@ generator: "scripts/generate-architecture.js"
 | [Claude Opus 5](../models/claude-opus-5.md) | web-extracted | 0.85 |
 | [Claude Sonnet 5](../models/claude-sonnet-5.md) | web-extracted | 0.85 |
 | [Claude Fable 5.1 and Claude Mythos 5.1](../models/claude-fable-5-1-mythos-5-1.md) | web-extracted | 0.85 |
+| [Claude Opus 5.5](../models/claude-opus-5-5.md) | web-extracted | 0.85 |
 
 ### news
 
@@ -244,6 +245,9 @@ generator: "scripts/generate-architecture.js"
 | [Economic Index: Economic primitives (January 2026)](../research/anthropic-economic-index-january-2026-report.md) | web-extracted | undefined |
 | [How Claude is uplifting biomolecular modeling](../research/claude-uplifts-biomolecular-modeling.md) | web-extracted | 0.85 |
 | [Measurements for understanding the pace of AI development inside frontier labs](../research/measuring-pace-of-ai-development.md) | web-extracted | 0.85 |
+| [Claude Discovers a Novel Enzyme System with CRISPR-like Repeats](../research/claude-discovers-novel-enzyme-system.md) | web-extracted | 0.85 |
+| [Project Swap: What Happens When Agents Trade for Us?](../research/project-swap.md) | web-extracted | 0.85 |
+| [Yes, Claude Can Do Nine Loops](../research/yes-claude-can-do-nine-loops.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -360,7 +364,8 @@ anthropic-docs-local/
 │   ├── claude-opus-4-8.md
 │   ├── claude-opus-5.md
 │   ├── claude-sonnet-5.md
-│   └── claude-fable-5-1-mythos-5-1.md
+│   ├── claude-fable-5-1-mythos-5-1.md
+│   └── claude-opus-5-5.md
 ├── news/
 │   ├── claude-code-security.md
 │   ├── detecting-distillation-attacks.md
@@ -443,7 +448,10 @@ anthropic-docs-local/
 │   ├── economic-index-march-2026-report.md
 │   ├── anthropic-economic-index-january-2026-report.md
 │   ├── claude-uplifts-biomolecular-modeling.md
-│   └── measuring-pace-of-ai-development.md
+│   ├── measuring-pace-of-ai-development.md
+│   ├── claude-discovers-novel-enzyme-system.md
+│   ├── project-swap.md
+│   └── yes-claude-can-do-nine-loops.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md

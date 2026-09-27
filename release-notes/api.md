@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-09-27T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,21 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### September 24, 2026
+
+- **Refusal billing:** pre-output refusals are now billed at normal rates when `stop_details.category` is `"bio"`, `"frontier_llm"`, or `"reasoning_extraction"` (mid-stream refusals were already billed); other pre-output refusal categories remain unbilled.
+- **Compliance API:** local session endpoints out of beta for Claude for Microsoft 365 (`office_agents*`); Activity Feed no longer returns `filename`/`title` (look up by ID with `read:compliance_user_data`).
+
+### September 23, 2026
+
+- **Cache diagnostics out of beta** — no longer needs the `cache-diagnosis-2026-04-07` header; opt in with the `diagnostics` object and `POST /v1/messages` always returns a `diagnostics` field (`null` when not opted in).
+
+### September 22, 2026
+
+- **Claude Opus 5.5** (`claude-opus-5-5`) launched: 1M context, 128k max output, always-on adaptive thinking, **$4 / $20 per MTok** (cache reads 5% of base input). On Opus 5.5 thinking cannot be disabled (omit `thinking`, steer with `effort`, default `medium`); `tool_choice` `any`/`tool` return 400 (use `auto` + strict tool use); computer use requires `computer_toolset_20260801` on the Claude API and Google Cloud (`computer_20251124` returns 400; still works on Bedrock). Fast mode (research preview) available on the API.
+- **Inline tool definitions (beta)** — `inline-tools-2026-09-15` header: a `tool_addition` block in a mid-conversation `role: "system"` message can carry a tool's full definition, adding/changing/upgrading a tool without editing `tools` or invalidating the prompt cache.
+- **MCP tool-list pinning** — with `mcp-client-2026-09-15`, the definition can be an MCP toolset; the response's `mcp_tool_listing` block pins each server's fetched tool list when sent back.
 
 ### September 18, 2026
 

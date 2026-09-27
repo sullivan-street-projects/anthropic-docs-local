@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "1be9471889f4be22bc055b7e77693a87dfa276d9336c6a5fec75af488f9ab00f"
+      "sha256": "aaa658a55e623afd402b54a5fd78c3b054532eb56d3d50cd0eca510d2cd27891"
     },
     {
       "id": "claude-code-features",
@@ -45,10 +45,10 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "https://code.claude.com/docs/en/hooks",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "39b222eef258c00bbbd4d0d17bbe59c167465f1cf1f6721dca543b58099561dc"
+      "sha256": "3c561dd8a92d4748b341359304aa02967a718ca87f2f8fecc52540a04c5a1239"
     },
     {
       "id": "claude-code-mcp",
@@ -129,10 +129,10 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "74e69da8035742f124f4fb083fd9a2adbf2d32d60012dc082781e05fa76fb2f0"
+      "sha256": "b8087d7cbd48b0f3c5f15ae2e2f72dc2aeb4c1797a58be00f8541c567236afb2"
     },
     {
       "id": "python-sdk-changelog",
@@ -141,10 +141,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "4599e7ba82d88059ddf8364043cd1ea994aa8d31830c437cbdc13079902e28ae"
+      "sha256": "b45cf863e9fa8d990fb1d40d94f7d2258d375e4b9074ead07060d4f87fdd1de8"
     },
     {
       "id": "typescript-sdk-readme",
@@ -153,10 +153,10 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "62f4f67738b216ca15b1b6031337e60aae9d6f4b2fac05f4be32daa3aa403f97"
+      "sha256": "dbd5bdf0a7699bf77aee2b17e8c67070a4736c3a0190b96f02bbd4cf5d276e7f"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -165,10 +165,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "66789051cda939867704944cf3a3160eea3bc49d016e1902ccc0a4f5258fa3e3"
+      "sha256": "f114150b06a716bd6399ebab387e91dcc8a8a399ff29f7759a62d85c7e684cf4"
     },
     {
       "id": "other-sdks-overview",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "653ececa846e171ceb0cfe050973e4ca12383940f1ecb13c4ac024fca7c0a9a5"
+      "sha256": "b21c7b15b1a473f6bf111c86e2cb5186e4d089606fbd795f3384278e2eb6db8d"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "090035fa1390be167f769b619c45f8769dceb200a0b00d677dc45bb5d3ccda00"
+      "sha256": "c33c5d408d078914c58ca0df3f183fd9f353fb379e8355702815e2036deeba97"
     },
     {
       "id": "release-notes-help-center",
@@ -359,10 +359,10 @@
       "local_path": "models/overview.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/models/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "a517b4a2efd0580eb82b2c018f8a316a5b5f27930bc986fde950a24aebe38a22"
+      "sha256": "f8c16ec5fa842612612aae33614ca9fae100f705598c6aae8211b231437cef95"
     },
     {
       "id": "model-opus-4-6",
@@ -419,10 +419,10 @@
       "local_path": "models/deprecations.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "9bdd27d883eae5f9d942abd691506d3bebdc784702048c3fe451bad324ffa642"
+      "sha256": "e31a27fc0d2616de2c3a707d41c77fbc7648d2f7d3c2d3423882b3fcc52b8c6f"
     },
     {
       "id": "agent-sdk-readme",
@@ -877,10 +877,10 @@
       "local_path": "api/models-overview.md",
       "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-06T00:00:00Z",
+      "last_fetched": "2026-09-27T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "f390ea2f5e884b7d0e5f315ab1ee6b9b9fc57b8ae827aefb6dc2f2d4e203e3e9"
+      "sha256": "12a60cfa0069055c1b8fdf5d01969a26750514beb2bf3e7ad102c22dc30f52da"
     },
     {
       "id": "api-migration-guide",
@@ -2059,11 +2059,59 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "09d3702f5ac6240538c983a90629cbbc7590a420c22f521648470bc8214f9b09"
+    },
+    {
+      "id": "model-opus-5-5",
+      "name": "Claude Opus 5.5",
+      "category": "models",
+      "local_path": "models/claude-opus-5-5.md",
+      "source_url": "https://www.anthropic.com/claude-opus-5-5",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-27T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "f34762996ed8758c2975596d8c84de5dbef919f9f46e1ac539aab2899541d032"
+    },
+    {
+      "id": "research-claude-discovers-novel-enzyme-system",
+      "name": "Claude Discovers a Novel Enzyme System with CRISPR-like Repeats",
+      "category": "research",
+      "local_path": "research/claude-discovers-novel-enzyme-system.md",
+      "source_url": "https://www.anthropic.com/news/claude-discovers-novel-enzyme-system",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-27T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "b0c7a906cdbb8402753279f0b464c35ab176c58f6da63d6639d61d1a01e256bc"
+    },
+    {
+      "id": "research-project-swap",
+      "name": "Project Swap: What Happens When Agents Trade for Us?",
+      "category": "research",
+      "local_path": "research/project-swap.md",
+      "source_url": "https://www.anthropic.com/research/project-swap",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-27T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "522f2212971d9c51861acc8ea3715a3ec9bf27e465b9c3fb005e82b988aa3960"
+    },
+    {
+      "id": "research-yes-claude-can-do-nine-loops",
+      "name": "Yes, Claude Can Do Nine Loops",
+      "category": "research",
+      "local_path": "research/yes-claude-can-do-nine-loops.md",
+      "source_url": "https://www.anthropic.com/research/yes-claude-can-do-nine-loops",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-09-27T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "15865d4136922a06b862b451494b987f54d2afdb0898810e62d176ebdcb5f03c"
     }
   ],
   "last_discovery_run": "2026-09-20T00:00:00Z",
   "metadata": {
-    "last_full_update": "2026-09-20T00:00:00Z",
-    "last_discovery_run": "2026-09-20T00:00:00Z"
+    "last_full_update": "2026-09-27T00:00:00Z",
+    "last_discovery_run": "2026-09-27T00:00:00Z"
   }
 }

@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-09-27T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -13,9 +13,28 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 
+### September 24, 2026
+
+- **Refusal billing:** Refusals that arrive before any output are now billed at the model's normal rates when `stop_details.category` is `"bio"`, `"frontier_llm"`, or `"reasoning_extraction"` (mid-stream refusals were already billed). Pre-output refusals in other categories remain unbilled. See [How refusals are billed](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed).
+- **Compliance API:** Local session endpoints are out of beta for Claude for Microsoft 365 sessions (Excel, PowerPoint, Word, Outlook — `product_surface` beginning `office_agents`). The Activity Feed no longer returns file names, project document names, or artifact titles (`filename`/`title` fields now always empty or omitted); look names up by ID with a Compliance Access Key holding the `read:compliance_user_data` scope.
+
+### September 23, 2026
+
+- **Cache diagnostics out of beta** on the Claude API — no longer requires the `cache-diagnosis-2026-04-07` beta header. Include the `diagnostics` object on a Messages request to opt in; `POST /v1/messages` responses now always include a `diagnostics` field (`null` when the request did not opt in).
+
+### September 22, 2026
+
+- **Launched Claude Opus 5.5** (`claude-opus-5-5`), a model for long-running agentic coding and knowledge work: 1M token context window by default, 128k max output tokens, always-on adaptive thinking, priced at **$4 / $20 per MTok** (Claude Opus 5 is $5 / $25). Available on the Claude API, Amazon Bedrock, Claude Platform on AWS, Google Cloud, and Microsoft Foundry.
+- **Opus 5.5 thinking/tool constraints:** thinking cannot be disabled — `thinking: {"type": "disabled"}` and the manual `enabled` form both return 400; omit `thinking` and steer depth with the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) (default `medium`). `tool_choice` types `any` and `tool` also return 400; use `auto` with [strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use).
+- **Computer use on Opus 5.5** requires the `computer_toolset_20260801` toolset on the Claude API and Google Cloud (the earlier `computer_20251124` tool returns 400); on Amazon Bedrock `computer_20251124` continues working.
+- **Fast mode** (research preview) is available for Claude Opus 5.5 on the Claude API.
+- **Inline tool definitions (beta)** — with the `inline-tools-2026-09-15` beta header, tools can be defined inside a mid-conversation `role: "system"` message. A `tool_addition` block can carry a tool's full definition (`tool: {"type": "tool_definition", "definition": {...}}`), letting you add a tool, change its schema, or move a server tool to a newer version without editing `tools` or invalidating the prompt cache.
+- **MCP tool-list pinning** — with the MCP connector's `mcp-client-2026-09-15` beta header, the definition can be an MCP toolset; a response records each server's fetched tool list in an `mcp_tool_listing` block, which pins that list when sent back.
+
 ### September 18, 2026
 
 - Compliance API local session endpoints now also return transcripts of **Claude in Chrome** sessions (`product_surface` value `claude_in_chrome`), in beta for Claude Enterprise organizations.
+- For cache diagnostics, a response to a request that sends the `cache-diagnosis-2026-04-07` beta header now always includes the `diagnostics` field (`null` when the request did not include the `diagnostics` object).
 
 ### September 14, 2026
 

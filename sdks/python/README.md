@@ -2,10 +2,9 @@
 title: "Python SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-09-06T00:00:00Z"
+fetched_at: "2026-09-27T00:00:00Z"
 category: "sdks"
 ---
-
 # Claude SDK for Python
 
 [![PyPI version](https://img.shields.io/pypi/v/anthropic.svg)](https://pypi.org/project/anthropic/)
@@ -43,7 +42,7 @@ message = client.messages.create(
         }
     ],
 
-    model="claude-opus-5",
+    model="claude-opus-5-5",
 )
 
 print(message.content)
