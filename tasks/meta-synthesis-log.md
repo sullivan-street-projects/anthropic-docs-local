@@ -29,15 +29,39 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 9
-Total improvements applied: 7 (1 code change this cycle: validate.js now integrity-checks binary/PDF sources, not just .md)
-Total improvements deferred: 6 (reinforced #18 source-lifecycle tracking; +1 self-eval harness for the update process)
-Most-improved infrastructure: scripts/validate.js (2 cycles running: truncation detection, then PDF-integrity coverage) / tasks/lessons.md (agent-stall recovery)
-Most-informative category: claude-code + sdks this cycle (compaction API across CHANGELOGs + release notes; subagent-output framing); research (measuring-pace-of-ai-development)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~10th cycle); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-09-20 — 1 code improvement applied (PDF hash verification), 4 sources auto-added, 0 agents stalled (all fetches inline), 0 validation errors
+Total cycles logged: 10
+Total improvements applied: 7 (0 code changes this cycle — dominant signals were informational or already-aligned)
+Total improvements deferred: 6 (reinforced #18 source-lifecycle tracking again)
+Most-improved infrastructure: scripts/validate.js (truncation detection, then PDF-integrity coverage) / tasks/lessons.md (agent-stall recovery, model-launch cascade)
+Most-informative category: models + sdks this cycle (Claude Opus 5.5 launch cascaded across model tables, deprecations, release notes, and both SDK READMEs); research (Project Swap, nine-loops, ART enzyme discovery)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~11th cycle, 175 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
+Last cycle: 2026-09-27 — 0 code improvements applied, 4 sources auto-added (Opus 5.5 + 3 research posts), 0 agents stalled (all fetches inline), 0 validation errors, 169/169 hashes verified
 
 ## Entries
+
+### 2026-09-27 — Update: all
+
+Content changes analyzed: 13 modified + 4 added (all real content changes; manual docs verified against live and mostly left honestly untouched)
+Improvements identified: 0 applied (code), 1 deferred (reinforced), 4 already-aligned
+Improvements applied: 0 code changes
+Improvements deferred: 1 (reinforced #18)
+
+**No code change this cycle (honest outcome).** The dominant signal was the **Claude Opus 5.5 launch** — a big _content_ event but with no principle our scripts/schema don't already encode. It produced a clean "model-launch cascade": one flagship release shifted the current-lineup table, the legacy table, `models/deprecations.md`, `api/models-overview.md`, `release-notes/{platform,api}.md`, and both SDK READMEs' example model IDs in lockstep. Recorded as a lessons.md workflow pattern rather than code.
+
+**Already aligned (content independently validates our infra):**
+
+- `research/project-swap.md` (new): the finding that **representation quality dominates outcomes — 85% of market inefficiency was preference _misunderstanding_, only 15% bargaining**, and that agents "require verification mechanisms before acting on someone's behalf" — is the same principle as our **verify-from-disk / recompute-sha256 rule**: the quality of the mirror depends on faithfully representing the source, not on trusting an agent's self-report. No change needed.
+- `research/yes-claude-can-do-nine-loops.md` (new): an autonomous long-horizon computation was trusted only after **independent human verification (Lance Dixon)**. Mirrors validate.js as the independent offline checker over agent output. Aligned.
+- `research/claude-discovers-novel-enzyme-system.md` (new): ~950 agents fanned out over ~200k candidates with **orthogonal search partitions**, narrowing to ~20 — the same parallel-fan-out-with-orthogonal-partitions design our update agents use. Aligned.
+- Release notes / SDK CHANGELOGs: **inline tool definitions + MCP tool-list pinning (beta)** — pinning a fetched tool list so it can't drift or invalidate the prompt cache — is the same idempotency/pinning principle as our **sha256 content pinning** of each source. Aligned.
+
+**Deferred (reinforced, already in optimizations plan as #18):**
+
+- `agent-sdk-typescript-v2` (`https://github.com/anthropics/agent-sdk`) — re-verified **HTTP 404** this cycle (~11th consecutive; last_fetched 2026-04-05, 175 days stale). Per Phase 4e: logged + user-alerted, NOT auto-deleted. Concrete motivating case for optimizations item #18 (`lifecycle_status`).
+
+**Staleness (4e):**
+
+- Possibly dead: 1 — `agent-sdk-typescript-v2` (above). Relocated: 0. Stable-but-accessible: ~104 web-extracted snapshot articles (not re-fetched; timestamps left honest, not bumped). `news/threat-intelligence-report-september-2026.md` still carries a truncation marker (from 2026-09-13) — targeted re-fetch still deferred.
 
 ### 2026-09-13 — Update: all
 
@@ -297,11 +321,14 @@ Improvements applied: 1
 Improvements deferred: 1
 
 **Applied:**
+
 - Verification gap found while reviewing this cycle's "verifiable/signed artifact" theme (compaction signed blocks; measuring-pace-of-ai-development's "verifiable measurements") → validate.js Layer 4 only integrity-checked `.md` files (`local_path.endsWith(".md")`), silently skipping the 2 tracked PDFs (skills-building-guide-pdf, how-anthropic-teams-use-pdf) even though they carry sha256. → Changed the guard to verify any source with a stored hash (readFileSync returns a Buffer, so the digest already covers binary bytes); gated the text-based truncation scan to `.md` so PDF bytes are never scanned for markers. Result: 163 → 165 hashes verified.
 
 **Deferred:**
+
 - news/threat-intelligence-report-september-2026.md still carries a truncation marker (partial WebFetch from 09-13). Targeted multi-section re-fetch is MEDIUM effort → left for a focused pass; validate.js keeps flagging it.
 
 **Already aligned:**
+
 - Claude Code 2.1.278 "subagent results reach the main agent under a header marking them as subagent output, so text in a subagent's result cannot pass as the session's own instructions" AND measuring-pace-of-ai-development's "treat what comes from another agent as a claim to check rather than a thought of its own" — both match our standing invariants: single-writer manifest, recompute-sha256-from-disk (never trust agent-reported hashes), and verify-a-stalled-agent-from-disk-not-its-last-message. This cycle validated the design again; no change needed.
 - measuring-pace's online vs. offline monitors (coverage / review latency / escalation) mirror our pipeline: validate.js is the offline monitor (100% file coverage, advisory flags), and the reconcile-from-disk pass is the "verify the claim" step.

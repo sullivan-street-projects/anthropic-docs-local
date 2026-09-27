@@ -1,53 +1,47 @@
-# Weekly Update Summary — 2026-09-20
+# Weekly Update Summary — 2026-09-27
 
 ## What Changed
 
-**Changelogs (github-raw, verbatim)**
+### Models (the big one)
 
-- `claude-code/CHANGELOG.md` — new content: v2.1.271 → v2.1.278
-- `sdks/python/CHANGELOG.md` — new content: v1.6.0, v1.7.0
-- `sdks/typescript/CHANGELOG.md` — new content: v0.126.0, v0.127.0
+- **`models/claude-opus-5-5.md`** — NEW. Claude Opus 5.5 (`claude-opus-5-5`), launched Sep 22, now the default Opus.
+- **`models/overview.md`** — Opus 5.5 added to the current lineup as the recommended default; Claude Opus 5 moved to the legacy table.
+- **`api/models-overview.md`** — same lineup/legacy shift, "start with Opus 5.5", effort/thinking/cache notes.
+- **`models/deprecations.md`** — added `claude-opus-5-5`, plus previously-missing `claude-mythos-5-1`, `claude-mythos-5`, `claude-mythos-preview` status rows.
 
-**Release notes (web-extracted)**
+### SDKs
 
-- `release-notes/api.md`, `release-notes/platform.md` — added Sep 14 (on-demand compaction) and Sep 18 (Claude in Chrome compliance transcripts)
-- `release-notes/help-center.md` — added Sep 15 (Salesforce in Claude, beta)
+- **`sdks/python/CHANGELOG.md`** — 1.7.0 → 1.8.0. **`sdks/typescript/CHANGELOG.md`** — 0.127.0 → 0.128.0. Both add `claude-opus-5-5`, inline tool definitions, and MCP tool-list pinning (beta).
+- **`sdks/python/README.md`**, **`sdks/typescript/README.md`** — example model bumped to `claude-opus-5-5`.
 
-**Indexes**
+### Claude Code
 
-- `github-repos/index.md` — regenerated, 109 → 111 repos, refreshed star counts
-- `research/index.md` — added 2 new research entries
+- **`claude-code/CHANGELOG.md`** — 2.1.278 → 2.1.283 (new content).
+- **`claude-code/hooks.md`** — `Notification` gains `quota_auto_resume_*` matchers; `StopFailure` gains `account_on_hold`.
 
-**New sources added (4, all first-party anthropic.com — auto-added per unattended-run policy)**
+### Release notes
 
-- `research/claude-uplifts-biomolecular-modeling.md` (Sep 17) — new content
-- `news/life-sciences-verification-program.md` (Sep 17) — new content
-- `news/accenture-embedded-evaluation.md` (Sep 18) — new content
-- `research/measuring-pace-of-ai-development.md` (Aug 2026) — new content
+- **`release-notes/platform.md`**, **`release-notes/api.md`** — Sep 22–24 entries.
 
-**Verified-current, timestamp only** (fetched and checked against live today, no material drift): 9 manual docs (`claude-code/{features,hooks,mcp-servers,plugins}.md`, `agent-sdk/{README,quickstart,examples}.md`, `docs/best-practices-*.md`), `models/overview.md`, `models/deprecations.md`.
+### Research (new first-party posts)
 
-**Infrastructure (meta-synthesis)**
+- **`research/claude-discovers-novel-enzyme-system.md`** — NEW (Sep 23).
+- **`research/project-swap.md`** — NEW (Sep 24).
+- **`research/yes-claude-can-do-nine-loops.md`** — NEW (Sep 25).
 
-- `scripts/validate.js` — now integrity-checks every hashed source, including the 2 PDFs (was `.md`-only). 165/165 hashes verified.
+165 → 169 tracked sources. Validation: 0 errors, 169/169 SHA-256 hashes verified.
 
 ## So What — Why It Matters
 
-**On-demand conversation compaction is now a first-class API feature.** The Messages API added a `compact-2026-09-04` beta header and a `compaction` parameter that summarizes prior turns into signed compaction blocks; both SDKs added a tool-runner method for it (`compact_before_next_turn()` / `compactBeforeNextTurn()`). For any long-running agent we build on the API, this is the sanctioned way to control context growth and token cost instead of hand-rolling summarization — worth adopting where we run multi-turn agents.
-
-**Claude Code now reads `AGENTS.md` as a fallback when no `CLAUDE.md` exists** (v2.1.277). No action for this repo (it has `CLAUDE.md`, which takes precedence), but relevant for repos that use the `AGENTS.md` convention.
-
-**The `TaskOutput` tool was removed** (v2.1.278); background-task output is now read with the `Read` tool, and `taskOutputMaxChars` / `TASK_MAX_OUTPUT_LENGTH` no longer have any effect. Only matters if a script or agent depended on `TaskOutput`.
-
-**Rate-limit API: `group_type` is deprecated** in favor of a `group` object with `display_name` (Python 1.7.0 / TS 0.127.0). Cosmetic for us; note it if we ever parse rate-limit responses.
-
-**Model lineup and deprecations unchanged this week.** Current lineup stays Fable 5.1 / Opus 5 / Sonnet 5 / Haiku 4.5 at the same pricing; no new models, no new deprecations. Opus 4.1 remains retired (since Aug 5).
-
-**New product/program launches:** Life Sciences Verification Program (biology research access with tailored safeguards, public beta), Salesforce in Claude (beta, 37 sales skills), and an Accenture embedded-evaluation partnership ($1B+ over five years).
+- **Claude Opus 5.5 is the new default Opus, and it's cheaper.** $4/$20 per MTok (down 20% from Opus 5's $5/$25), cache reads $0.20/MTok (down 60%), ~30% faster output, and Anthropic claims it runs ~40% cheaper than Opus 5 while matching Fable 5.1 on most tasks. For any project picking a model, Opus 5.5 is now the sensible default over Opus 5.
+- **Three breaking API behaviors on Opus 5.5** if you migrate code: (1) thinking cannot be disabled — omit `thinking`, steer with `effort` (default `medium`); (2) `tool_choice` `any`/`tool` return 400 — use `auto` with strict tool use; (3) computer use needs the `computer_toolset_20260801` toolset (the old `computer_20251124` returns 400 on the API and Google Cloud, still works on Bedrock).
+- **SDKs 1.8.0 / 0.128.0** add two beta capabilities worth knowing: inline tool definitions (define/change a tool mid-conversation without invalidating the prompt cache) and MCP tool-list pinning (record and re-send a server's fetched tool list so it doesn't drift).
+- **Cache diagnostics went GA** (no beta header needed); **refusals that arrive before output are now billed** for `bio`/`frontier_llm`/`reasoning_extraction` categories.
+- **Research signal, not product:** Claude autonomously found a novel enzyme system (ART, CRISPR-like), computed a nine-loop physics amplitude with independent human verification, and ran an agent-mediated trading study (Project Swap) whose headline lesson — representation quality matters more than bargaining skill — is relevant to anyone building agents that act on a user's behalf.
 
 ## Action Items
 
-- **No breaking changes affect our current workflows.** The Python SDK still requires 3.10+ (unchanged); `temperature`/`top_p`/`top_k` remain removed in Python SDK ≥1.0 and error on Claude 4.7+ models — already known.
-- **Consider adopting the compaction API** for any long-horizon agent work built on the Messages API or the tool runner.
-- **Pending (deferred):** `news/threat-intelligence-report-september-2026.md` still carries a truncation marker from the Sep 13 fetch; a targeted section-by-section re-fetch would clear the standing validate.js warning.
-- **Pending (user action):** the dead `agent-sdk-typescript-v2` source (`github.com/anthropics/agent-sdk`, 404 for ~10 cycles) should be removed from the manifest or repointed to the live `code.claude.com/docs/en/agent-sdk/*` docs (already tracked via the manual agent-sdk sources).
+- **No breaking changes to our own workflows.** Our automation makes no direct Claude API calls, so the Opus 5.5 API constraints are informational.
+- **When you next pin a model in code or an SDK example, prefer `claude-opus-5-5`.** The SDK READMEs already use it.
+- **Standing cleanup (unchanged):** `agent-sdk-typescript-v2` (`github.com/anthropics/agent-sdk`) is confirmed 404 for the ~11th cycle (175 days stale). It needs a one-time manual removal (manifest entry + `agent-sdk/typescript-v2-preview.md`) or a repoint to the live `code.claude.com/docs/en/agent-sdk/*` docs. Not auto-deleted in unattended runs.
+- **Known truncation:** `news/threat-intelligence-report-september-2026.md` still carries a truncation marker from the 2026-09-13 partial WebFetch; a targeted section re-fetch remains outstanding.

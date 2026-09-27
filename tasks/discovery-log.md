@@ -19,6 +19,21 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-09-27 — Discovery Run (Phase 2.5, during update)
+
+- **New sources found**: 4 (all first-party anthropic.com; auto-added per unattended-run policy)
+- **Added**:
+  - `model-opus-5-5` (models/claude-opus-5-5.md) ← anthropic.com/claude-opus-5-5 — Sep 22 (HIGH, flagship; NOTE: non-standard slug, NO `/news/` prefix)
+  - `research-claude-discovers-novel-enzyme-system` (research/claude-discovers-novel-enzyme-system.md) ← anthropic.com/news/claude-discovers-novel-enzyme-system — Sep 23 (HIGH; life sciences / ART enzyme system)
+  - `research-project-swap` (research/project-swap.md) ← anthropic.com/research/project-swap — Sep 24 (agent-mediated trading study)
+  - `research-yes-claude-can-do-nine-loops` (research/yes-claude-can-do-nine-loops.md) ← anthropic.com/research/yes-claude-can-do-nine-loops — Sep 25 (autonomous physics calculation)
+- **Deferred**: `features/ebola-response` ("The Situation Report", Sep 22) — MEDIUM, features/news; not clearly a docs/research asset, revisit if it recurs.
+- **Rejected / already tracked**: Sep 17 items (claude-uplifts-biomolecular-modeling, measuring-pace-of-ai-development) added last cycle; Fermat's Last Theorem (Sep 4) already tracked.
+- **GitHub repos**: 3 new low-star repos noted (claude-code-playground ⭐1, serde-saphyr ⭐1, raft-rs ⭐2) — not standalone doc sources; github-repos/index.md left untouched (regenerated 09-20, star counts ~1 week old, no high-value new repo). uplifting-biomolecular-modeling (⭐298) and claude-for-financial-advisors (⭐71) captured last cycle.
+- **SDK versions**: npm @anthropic-ai/sdk 1.8.0 (2026-09-22), TS 0.128.0 (2026-09-22) — both add claude-opus-5-5 + inline tools + MCP tool-list pinning; in sync with tracked CHANGELOGs.
+- **arXiv**: no new Anthropic-authored papers (search surfaced only third-party papers citing Anthropic) — research-papers-index left at real date, not bumped.
+- **Staleness**: `agent-sdk-typescript-v2` (github.com/anthropics/agent-sdk) — confirmed 404 again (~11th cycle, 175 days stale). Removal escalated to user task chip (not auto-deleted in unattended run per skill Phase 4e).
+
 ### 2026-09-13 — Weekly Update (Phase 2.5 discovery scan)
 
 - **Manifest sources checked**: 150 (before adds) → 154 (after adds)
@@ -176,6 +191,7 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 - **Slug correction**: Fable 5.1 launch is at `www.anthropic.com/claude-fable-and-mythos-5-1` (NO `/news/` prefix) — the discovery agent's normalized `/news/...` guess 404'd. Verify each discovered URL resolves before adding.
 
 ### 2026-09-20 — Discovery Run (Phase 2.5, during update)
+
 - **New sources found**: 4 (all first-party anthropic.com; auto-added per unattended-run policy)
 - **Added**:
   - research-claude-uplifts-biomolecular-modeling (research/claude-uplifts-biomolecular-modeling.md) — Sep 17
