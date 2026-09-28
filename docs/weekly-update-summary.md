@@ -1,47 +1,52 @@
-# Weekly Update Summary — 2026-09-27
+# Weekly Update Summary — 2026-09-28
 
 ## What Changed
 
-### Models (the big one)
-
-- **`models/claude-opus-5-5.md`** — NEW. Claude Opus 5.5 (`claude-opus-5-5`), launched Sep 22, now the default Opus.
-- **`models/overview.md`** — Opus 5.5 added to the current lineup as the recommended default; Claude Opus 5 moved to the legacy table.
-- **`api/models-overview.md`** — same lineup/legacy shift, "start with Opus 5.5", effort/thinking/cache notes.
-- **`models/deprecations.md`** — added `claude-opus-5-5`, plus previously-missing `claude-mythos-5-1`, `claude-mythos-5`, `claude-mythos-preview` status rows.
-
-### SDKs
-
-- **`sdks/python/CHANGELOG.md`** — 1.7.0 → 1.8.0. **`sdks/typescript/CHANGELOG.md`** — 0.127.0 → 0.128.0. Both add `claude-opus-5-5`, inline tool definitions, and MCP tool-list pinning (beta).
-- **`sdks/python/README.md`**, **`sdks/typescript/README.md`** — example model bumped to `claude-opus-5-5`.
+### API Documentation
+- **api/overview.md** — Content refresh: Authorization header promoted to primary authentication method (x-api-key now "legacy fallback"), `anthropic-workspace-id` header added for multi-workspace API keys, Workbench renamed to "playground", response headers reformatted as table, Files API removed from pagination note
+- **api/context-windows.md** — Content refresh: "Extended Thinking" renamed to "Thinking" throughout, Opus 5.5/Opus 5/Fable 5.1/Mythos 5.1 added to 1M-token context window model list, Haiku 4.5 interleaved thinking caveat added, compaction model list simplified to "Claude 4.6 and later"
 
 ### Claude Code
+- **claude-code/features.md** — Content refresh: Output Styles added as a new extension feature (session-wide role/tone/format instructions), hooks description expanded to include "MCP tool call" as hook type, Agent Teams row removed from extension table
 
-- **`claude-code/CHANGELOG.md`** — 2.1.278 → 2.1.283 (new content).
-- **`claude-code/hooks.md`** — `Notification` gains `quota_auto_resume_*` matchers; `StopFailure` gains `account_on_hold`.
+### Release Notes
+- **release-notes/platform.md** — New entries: Sep 9 cache diagnostics fingerprint storage change, Sep 14 thinking controls beta header, ant CLI version (v1.32.0)
+- **release-notes/api.md** — Same Sep 9/14 entries as platform notes
+- **release-notes/help-center.md** — New entries: Sep 25 plugin developer portal launch, Sep 22 Claude Opus 5.5 release (40% lower cost than Opus 5), Sep 16 Cowork unification + Design/Slides/Docs in-conversation integration
 
-### Release notes
+### Research
+- **research/index.md** — 5 new publications added to the index: "Yes, Claude can do Nine Loops" (Science), "Project Swap" (Economic Research), "Measuring tactical intelligence targeting..." (Frontier Red Team), "An alignment assessment of recent cybersecurity incidents" (Alignment), "Patterns and problems in emerging multiagent systems" (Frontier Red Team)
 
-- **`release-notes/platform.md`**, **`release-notes/api.md`** — Sep 22–24 entries.
+### Infrastructure
+- **manifest.json** — 7 sha256 hashes recomputed, last_full_update and last_discovery_run bumped to 2026-09-28
+- **docs/architecture.md** — Auto-regenerated
 
-### Research (new first-party posts)
-
-- **`research/claude-discovers-novel-enzyme-system.md`** — NEW (Sep 23).
-- **`research/project-swap.md`** — NEW (Sep 24).
-- **`research/yes-claude-can-do-nine-loops.md`** — NEW (Sep 25).
-
-165 → 169 tracked sources. Validation: 0 errors, 169/169 SHA-256 hashes verified.
+169 tracked sources. Validation: 0 errors, 169/169 SHA-256 hashes verified.
 
 ## So What — Why It Matters
 
-- **Claude Opus 5.5 is the new default Opus, and it's cheaper.** $4/$20 per MTok (down 20% from Opus 5's $5/$25), cache reads $0.20/MTok (down 60%), ~30% faster output, and Anthropic claims it runs ~40% cheaper than Opus 5 while matching Fable 5.1 on most tasks. For any project picking a model, Opus 5.5 is now the sensible default over Opus 5.
-- **Three breaking API behaviors on Opus 5.5** if you migrate code: (1) thinking cannot be disabled — omit `thinking`, steer with `effort` (default `medium`); (2) `tool_choice` `any`/`tool` return 400 — use `auto` with strict tool use; (3) computer use needs the `computer_toolset_20260801` toolset (the old `computer_20251124` returns 400 on the API and Google Cloud, still works on Bedrock).
-- **SDKs 1.8.0 / 0.128.0** add two beta capabilities worth knowing: inline tool definitions (define/change a tool mid-conversation without invalidating the prompt cache) and MCP tool-list pinning (record and re-send a server's fetched tool list so it doesn't drift).
-- **Cache diagnostics went GA** (no beta header needed); **refusals that arrive before output are now billed** for `bio`/`frontier_llm`/`reasoning_extraction` categories.
-- **Research signal, not product:** Claude autonomously found a novel enzyme system (ART, CRISPR-like), computed a nine-loop physics amplitude with independent human verification, and ran an agent-mediated trading study (Project Swap) whose headline lesson — representation quality matters more than bargaining skill — is relevant to anyone building agents that act on a user's behalf.
+### API Authentication Restructuring
+The `Authorization: Bearer <token>` header is now the **primary** auth method; `x-api-key` is explicitly labeled a "legacy fallback." Projects still using `x-api-key` work fine today, but new code should use `Authorization`. The new `anthropic-workspace-id` header is **required** for multi-workspace API keys — if you use multiple workspaces, your integration may need updating.
+
+### "Extended Thinking" → "Thinking" Terminology Shift
+Anthropic has dropped the "Extended" prefix — it's now just "Thinking" in all documentation. This is a naming change only; behavior is unchanged. Update any user-facing docs or internal references that say "extended thinking."
+
+### Output Styles (Claude Code)
+New feature letting you set Claude's role, tone, and response format for an entire session via a persistent style instruction. Includes a built-in "Concise" style. Useful for teams wanting consistent Claude behavior without repeating prompts.
+
+### Plugin Developer Portal
+Launched Sep 25 — developers can now submit plugins to the Claude directory with review tracking and usage analytics.
+
+### Cowork + Design/Slides/Docs Integration
+Claude Cowork is now integrated into all conversations (not a separate mode), and Design, Slides, and Docs are available directly in conversations across all plans. Major UX shift for Claude's consumer/business products.
+
+### Thinking Controls Beta
+New `thinking-binding-controls-2026-08-01` beta header adds `thinking_mismatch_allowed` to `input_transformations`. Relevant for applications that need fine-grained control over thinking behavior.
 
 ## Action Items
 
-- **No breaking changes to our own workflows.** Our automation makes no direct Claude API calls, so the Opus 5.5 API constraints are informational.
-- **When you next pin a model in code or an SDK example, prefer `claude-opus-5-5`.** The SDK READMEs already use it.
-- **Standing cleanup (unchanged):** `agent-sdk-typescript-v2` (`github.com/anthropics/agent-sdk`) is confirmed 404 for the ~11th cycle (175 days stale). It needs a one-time manual removal (manifest entry + `agent-sdk/typescript-v2-preview.md`) or a repoint to the live `code.claude.com/docs/en/agent-sdk/*` docs. Not auto-deleted in unattended runs.
-- **Known truncation:** `news/threat-intelligence-report-september-2026.md` still carries a truncation marker from the 2026-09-13 partial WebFetch; a targeted section re-fetch remains outstanding.
+- **Monitor `x-api-key` deprecation timeline**: While still supported as "legacy," the promotion of `Authorization` suggests eventual deprecation. No action needed now, but plan to migrate.
+- **Update internal terminology**: "Extended Thinking" → "Thinking" across any docs or tools that reference it.
+- **agent-sdk-typescript-v2 cleanup overdue**: `github.com/anthropics/agent-sdk` has been 404 for 12 consecutive cycles (176 days). Should be removed from manifest or repointed to current Agent SDK docs at code.claude.com.
+- **threat-intelligence-report still truncated**: `news/threat-intelligence-report-september-2026.md` still carries a truncation marker from the 09-13 fetch — needs targeted multi-section re-fetch.
+- **Several platform.claude.com URLs have moved**: models-overview, migration-guide, and changelog paths have changed. The manifest source_urls should be updated to the new paths to prevent future confusion.

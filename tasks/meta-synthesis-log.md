@@ -29,15 +29,43 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 10
-Total improvements applied: 7 (0 code changes this cycle — dominant signals were informational or already-aligned)
+Total cycles logged: 11
+Total improvements applied: 7 (0 code changes this cycle — all changes informational)
 Total improvements deferred: 6 (reinforced #18 source-lifecycle tracking again)
 Most-improved infrastructure: scripts/validate.js (truncation detection, then PDF-integrity coverage) / tasks/lessons.md (agent-stall recovery, model-launch cascade)
-Most-informative category: models + sdks this cycle (Claude Opus 5.5 launch cascaded across model tables, deprecations, release notes, and both SDK READMEs); research (Project Swap, nine-loops, ART enzyme discovery)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~11th cycle, 175 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-09-27 — 0 code improvements applied, 4 sources auto-added (Opus 5.5 + 3 research posts), 0 agents stalled (all fetches inline), 0 validation errors, 169/169 hashes verified
+Most-informative category: api this cycle ("Extended Thinking"→"Thinking" rename, Authorization header promotion, workspace-id header, Output Styles feature); release-notes (plugin dev portal, Cowork unification, Design/Slides/Docs integration)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~12th cycle, 176 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
+Last cycle: 2026-09-28 — 0 code improvements applied, 0 sources auto-added (1-day delta, nothing new), 0 agents stalled (all fetches inline), 0 validation errors, 169/169 hashes verified
 
 ## Entries
+
+### 2026-09-28 — Update: all
+
+Content changes analyzed: 7 modified (all real content changes; 8 github-raw sources verified unchanged)
+Improvements identified: 0 applied (code), 1 deferred (reinforced), 2 already-aligned
+Improvements applied: 0 code changes
+Improvements deferred: 1 (reinforced #18)
+
+**No code change this cycle (honest outcome).** A light 1-day delta: 7 volatile/manual pages updated, 0 new sources discovered, 0 new arXiv papers. The dominant signals were terminology and API surface changes, not new principles.
+
+**Already aligned (content independently validates our infra):**
+
+- `api/overview.md`: **Authorization header promoted to primary, x-api-key now "legacy fallback"** and `anthropic-workspace-id` added as a required header for multi-workspace keys. This is an API authentication restructuring — informational for our pipeline (we don't make API calls). No change needed.
+- `api/context-windows.md`: **"Extended Thinking" renamed to "Thinking" throughout** — a product terminology shift. Our mirror correctly reflects whatever the source says. The compaction model list was simplified to "Claude 4.6 and later" — same pattern as our mirror's design of not enumerating every model. Aligned.
+
+**Noteworthy informational changes (no infra impact):**
+
+- `claude-code/features.md`: **Output Styles** added as a new extension feature (instructions that set Claude's role, tone, and response format for a whole session). **Agent Teams row removed** from extension table. Hooks description now includes "MCP tool call" as a hook type. All informational — our pipeline doesn't use these features.
+- `release-notes/help-center.md`: **Plugin developer portal launched** (Sep 25); **Cowork unified into all conversations** (Sep 16); **Design, Slides, and Docs available directly in conversations** (Sep 16). These are product features, not pipeline-relevant.
+- `release-notes/{platform,api}.md`: **Cache diagnostics fingerprint storage** changed (Sep 9); **thinking controls beta** header added (Sep 14). Informational for API users.
+
+**Deferred (reinforced, already in optimizations plan as #18):**
+
+- `agent-sdk-typescript-v2` (`https://github.com/anthropics/agent-sdk`) — known 404 (~12th cycle, 176 days stale). Per Phase 4e: logged + user-alerted, NOT auto-deleted. Concrete motivating case for optimizations item #18 (`lifecycle_status`).
+
+**Staleness (4e):**
+
+- Possibly dead: 1 — `agent-sdk-typescript-v2` (above). Relocated: 0. Stable-but-accessible: ~104 web-extracted snapshot articles (not re-fetched; timestamps left honest, not bumped). `news/threat-intelligence-report-september-2026.md` still carries a truncation marker (from 2026-09-13) — targeted re-fetch still deferred.
 
 ### 2026-09-27 — Update: all
 

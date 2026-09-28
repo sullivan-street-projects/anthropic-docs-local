@@ -19,6 +19,16 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-09-28 — Discovery Run (Phase 2.5, during update)
+
+- **New sources found**: 0 (clean 1-day delta from 2026-09-27)
+- **Added**: none
+- **Deferred**: `features/ebola-response` ("The Situation Report", Sep 22) — carried forward from last cycle as MEDIUM priority; not clearly a docs/research asset.
+- **Rejected / already tracked**: All articles on anthropic.com/news, /research, and /engineering already tracked.
+- **GitHub repos**: 1 new low-star repo noted (claude-code-playground ⭐2, Sep 25) — not a standalone doc source. Notable star jumps: financial-services +2,762 to 37,976; code-migration-kit +375 to 716. github-repos/index.md left untouched (regenerated 09-20, no high-value new repo).
+- **arXiv**: no new Anthropic-authored papers (search surfaced only third-party papers citing Anthropic) — research-papers-index left at real date.
+- **Staleness**: `agent-sdk-typescript-v2` (github.com/anthropics/agent-sdk) — confirmed 404 again (~12th cycle, 176 days stale). Removal escalated to user task chip (not auto-deleted in unattended run per skill Phase 4e).
+
 ### 2026-09-27 — Discovery Run (Phase 2.5, during update)
 
 - **New sources found**: 4 (all first-party anthropic.com; auto-added per unattended-run policy)
