@@ -1,12 +1,12 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-09-27T13:21:57.996Z"
+generated_at: "2026-09-28T13:21:23.364Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-09-27
+> Auto-generated from manifest.json on 2026-09-28
 
 ## Overview
 
@@ -16,8 +16,8 @@ generator: "scripts/generate-architecture.js"
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-09-20T00:00:00Z |
-| Last Discovery Run | 2026-09-20T00:00:00Z |
+| Last Full Update | 2026-09-28T00:00:00Z |
+| Last Discovery Run | 2026-09-28T00:00:00Z |
 
 ## Source Types Distribution
 

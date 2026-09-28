@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-09-27T00:00:00Z"
+fetched_at: "2026-09-28T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -35,11 +35,16 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 ### September 14, 2026
 
 - Messages API can now **compact a conversation on demand** with the `compact-2026-09-04` beta header. Send a `compaction` parameter and the server summarizes prior turns into signed compaction blocks, cutting context and token cost on long agentic runs. The Python (`compact_before_next_turn()`) and TypeScript (`compactBeforeNextTurn()`) tool runners expose it.
+- **Thinking controls (beta):** `thinking-binding-controls-2026-08-01` header adds `thinking_mismatch_allowed` entry type to `input_transformations` field.
 
 ### September 10, 2026
 
 - Managed Agents permission policies add `auto`: the server evaluates each agent/MCP tool call and runs, denies, or pauses it for approval. `agent.tool_use`/`agent.mcp_tool_use` events report the decision in an `evaluation` field.
-- `ant` CLI adds `ant beta:sessions connect` to attach your terminal to a Managed Agents session (follow live, message, approve/deny tool calls); `--web` serves the Console session viewer locally.
+- `ant` CLI (v1.32.0) adds `ant beta:sessions connect` to attach your terminal to a Managed Agents session (follow live, message, approve/deny tool calls); `--web` serves the Console session viewer locally.
+
+### September 9, 2026
+
+- **Cache diagnostics:** API now stores fingerprints only when the request includes the `diagnostics` object; requests with only the beta header no longer get stored fingerprints.
 
 ### September 3, 2026
 

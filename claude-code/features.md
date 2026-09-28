@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-09-28T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,25 +10,25 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment, combining a model that reasons about your code with built-in tools for file operations, search, execution, and web access.
 
-> **Last updated:** September 13, 2026
+> **Last updated:** September 28, 2026
 
 ## Extension Architecture
 
 Claude Code combines a model that reasons about your code with built-in tools for file operations, search, execution, and web access. Beyond the built-in tools, Claude Code provides an extension layer for customization:
 
-| Feature                     | What It Does                                                                          | When to Use                                                                   | Example                                                                         |
-| --------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| **CLAUDE.md**               | Persistent context loaded every conversation                                          | Project conventions, "always do X" rules                                      | "Use pnpm, not npm. Run tests before committing."                               |
-| **Skills**                  | Instructions, knowledge, and workflows Claude can use                                 | Reusable content, reference docs, repeatable tasks                            | `/deploy` runs your deployment checklist; API docs skill with endpoint patterns |
-| **Subagents**               | Isolated execution context that returns summarized results                            | Context isolation, parallel tasks, specialized workers                        | Research task that reads many files but returns only key findings               |
-| **Dynamic Workflows**       | Script Claude writes that runs many subagents in the background, returning one result | Work that outgrows a handful of subagents, or findings you want cross-checked | Audit a whole codebase, with a second set of agents verifying each finding      |
-| **Cross-Session Messaging** | Claude delivers a message from one of your sessions to another                        | Sessions you run yourself that need each other's findings mid-task            | One session warns another that a change it made breaks what the other builds on |
-| **Agent Teams**             | Coordinate multiple independent Claude Code sessions                                  | Parallel research, feature development, debugging with competing hypotheses   | Spawn reviewers to check security, performance, and tests simultaneously        |
-| **Code Intelligence**       | Language-server navigation and diagnostics                                            | Typed languages, large codebases where grep is slow or imprecise              | Jump to a symbol's definition instead of reading the whole file                 |
-| **MCP**                     | Connect to external services                                                          | External data or actions                                                      | Query your database, post to Slack, control a browser                           |
-| **Hooks**                   | Script, HTTP request, prompt, or subagent triggered by events                         | Automation that must run on every matching event                              | Run ESLint after every file edit                                                |
-| **Artifacts**               | Publish session output as a private, interactive web page                             | Output you want to see or share visually rather than as terminal text         | An incident timeline that updates as Claude investigates                        |
-| **Plugins**                 | Package and distribute feature sets                                                   | Reuse across repos, share with teams via marketplaces                         | Namespaced skills like `/my-plugin:review`                                      |
+| Feature                     | What It Does                                                                          | When to Use                                                                                              | Example                                                                                              |
+| --------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **CLAUDE.md**               | Persistent context loaded every conversation                                          | Project conventions, "always do X" rules                                                                 | "Use pnpm, not npm. Run tests before committing."                                                    |
+| **Output Styles**           | Instructions that set Claude's role, tone, and response format for a whole session    | A voice, length, or format you want in every response, or Claude working as something other than an SWE  | The built-in Concise style for shorter responses; a custom style that answers with a diagram first    |
+| **Skills**                  | Instructions, knowledge, and workflows Claude can use                                 | Reusable content, reference docs, repeatable tasks                                                       | `/deploy` runs your deployment checklist; API docs skill with endpoint patterns                      |
+| **Subagents**               | Isolated execution context that returns summarized results                            | Context isolation, parallel tasks, specialized workers                                                   | Research task that reads many files but returns only key findings                                    |
+| **Dynamic Workflows**       | Script Claude writes that runs many subagents in the background, returning one result | Work that outgrows a handful of subagents, or findings you want cross-checked                            | Audit a whole codebase, with a second set of agents verifying each finding                           |
+| **Cross-Session Messaging** | Claude delivers a message from one of your sessions to another                        | Sessions you run yourself that need each other's findings mid-task                                       | One session warns another that a change it made breaks what the other builds on                      |
+| **Code Intelligence**       | Language-server navigation and diagnostics                                            | Typed languages, large codebases where grep is slow or imprecise                                         | Jump to a symbol's definition instead of reading the whole file                                      |
+| **MCP**                     | Connect to external services                                                          | External data or actions                                                                                 | Query your database, post to Slack, control a browser                                                |
+| **Hooks**                   | Script, HTTP request, MCP tool call, prompt, or subagent triggered by events          | Automation that must run on every matching event                                                         | Run ESLint after every file edit                                                                     |
+| **Artifacts**               | Publish session output as a private, interactive web page                             | Output you want to see or share visually rather than as terminal text                                    | An incident timeline that updates as Claude investigates                                             |
+| **Plugins**                 | Package and distribute feature sets                                                   | Reuse across repos, share with teams via marketplaces                                                    | Namespaced skills like `/my-plugin:review`                                                           |
 
 ## Built-in Tools
 
@@ -69,6 +69,7 @@ You don't need to configure everything up front. Each feature has a recognizable
 | Trigger                                                                    | Add                                                  |
 | -------------------------------------------------------------------------- | ---------------------------------------------------- |
 | Claude gets a convention or command wrong twice                            | Add it to CLAUDE.md                                  |
+| You keep asking Claude to be shorter, explain more, or answer in same format | Set an output style                                 |
 | You keep typing the same prompt to start a task                            | Save it as a user-invocable skill                    |
 | You paste the same playbook into chat for the third time                   | Capture it as a skill                                |
 | You keep copying data from a browser tab Claude can't see                  | Connect that system as an MCP server                 |
@@ -129,10 +130,11 @@ You don't need to configure everything up front. Each feature has a recognizable
 
 Each extension has different context costs:
 
-| Feature               | When It Loads                  | What Loads                                          | Context Cost                                 |
-| --------------------- | ------------------------------ | --------------------------------------------------- | -------------------------------------------- |
-| **CLAUDE.md**         | Session start                  | Full content                                        | Every request                                |
-| **Skills**            | Session start + when used      | Descriptions at start, full content when used       | Low (descriptions every request)*            |
+| Feature               | When It Loads                              | What Loads                                                                  | Context Cost                                 |
+| --------------------- | ------------------------------------------ | --------------------------------------------------------------------------- | -------------------------------------------- |
+| **CLAUDE.md**         | Session start                              | Full content                                                                | Every request                                |
+| **Output styles**     | Session start, and again when you switch   | The active style's full instructions; nothing for the Default style         | Every request                                |
+| **Skills**            | Session start + when used                  | Descriptions at start, full content when used                               | Low (descriptions every request)*            |
 | **MCP servers**       | Session start                  | Tool names; full schemas on demand                  | Low until a tool is used                     |
 | **Code intelligence** | After file edits and on demand | Diagnostics after edits; symbol locations on lookup | Low; reduces file reads elsewhere            |
 | **Subagents**         | When spawned                   | Fresh context with specified skills                 | Isolated from main session                   |

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-09-20T00:00:00Z",
+  "last_full_update": "2026-09-28T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -33,10 +33,10 @@
       "local_path": "claude-code/features.md",
       "source_url": "https://code.claude.com/docs/en/features-overview",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "4711129697f30c8134dd91da66b3b9113c69293c7256d86bc3c127514dc909ca"
+      "sha256": "a7f459618edc692f0a2788d9a22ab2dffa6f74f592ca2b0b1be52f8a38d7075f"
     },
     {
       "id": "claude-code-hooks",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-27T00:00:00Z",
+      "last_fetched": "2026-09-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "b21c7b15b1a473f6bf111c86e2cb5186e4d089606fbd795f3384278e2eb6db8d"
+      "sha256": "c89e691121399c54a4649b556c46feca481e14a7611949bc9bc44060e300fc16"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-27T00:00:00Z",
+      "last_fetched": "2026-09-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "c33c5d408d078914c58ca0df3f183fd9f353fb379e8355702815e2036deeba97"
+      "sha256": "c25c06ba10274fefb5e223b48cbc7777e0614fc32478885fcabffb4e1dd8ee09"
     },
     {
       "id": "release-notes-help-center",
@@ -275,10 +275,10 @@
       "local_path": "release-notes/help-center.md",
       "source_url": "https://support.claude.com/en/articles/12138966-release-notes",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "f0812e203a718ba1f889a72330668af468d9d9aae5ebc041dee87b3f8a1c0ce3"
+      "sha256": "737cbfa30df46c6a49d75c79c4be8b80ccee779faea78819fd317e5bd63d9789"
     },
     {
       "id": "api-overview",
@@ -287,10 +287,10 @@
       "local_path": "api/overview.md",
       "source_url": "https://platform.claude.com/docs/en/api/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-13T00:00:00Z",
+      "last_fetched": "2026-09-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "8cd5faf47a7f5bf0fe008a7746cb9541cac2825a23bff85205edb2da5f61a60d"
+      "sha256": "003def4bf4e399cb8f08edf211e1f52dde1cc53f2093bfc2dae88dd5baa827ab"
     },
     {
       "id": "api-messages",
@@ -479,10 +479,10 @@
       "local_path": "research/index.md",
       "source_url": "https://www.anthropic.com/research",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-09-28T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "77d4c624c9f588d7004ef7cf4eb1430f1fed8066f2f808e86385a3b497f73180"
+      "sha256": "466c3cc0dc7adb00872db3cbc8f5bed72460b983f99c7aa73a9b684c86ad6fa7"
     },
     {
       "id": "research-alignment",
@@ -865,10 +865,10 @@
       "local_path": "api/context-windows.md",
       "source_url": "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows",
       "source_type": "web-extracted",
-      "last_fetched": "2026-07-12T00:00:00Z",
+      "last_fetched": "2026-09-28T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "3d6a101523ed257e75913e4f0a69a5e0afc0ed907882def822959f0d2d21132a"
+      "sha256": "a405d95ddb00e763b37bff538472f374167f299bde5a335cc207ec6c9777630c"
     },
     {
       "id": "api-models-overview",
@@ -2109,7 +2109,7 @@
       "sha256": "15865d4136922a06b862b451494b987f54d2afdb0898810e62d176ebdcb5f03c"
     }
   ],
-  "last_discovery_run": "2026-09-20T00:00:00Z",
+  "last_discovery_run": "2026-09-28T00:00:00Z",
   "metadata": {
     "last_full_update": "2026-09-27T00:00:00Z",
     "last_discovery_run": "2026-09-27T00:00:00Z"

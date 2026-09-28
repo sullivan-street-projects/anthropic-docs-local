@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-09-28T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -15,6 +15,19 @@ Updates to Claude consumer and business applications.
 ---
 
 ## September 2026
+
+### September 25, 2026
+
+- Plugin developer portal launched, enabling submissions to Claude directory with review tracking and usage analytics
+
+### September 22, 2026
+
+- Claude Opus 5.5 released as the first model in the new Claude 5.5 family, matching Opus 5 performance at 40% lower operational cost
+
+### September 16, 2026
+
+- Claude Cowork integrated into all conversations, unifying chat and task interfaces across web, desktop, and mobile platforms
+- Claude Design, Slides, and Docs now available directly within conversations across all plans, with on-canvas editing and design system imports
 
 ### September 15, 2026
 

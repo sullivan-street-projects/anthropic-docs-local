@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-09-27T00:00:00Z"
+fetched_at: "2026-09-28T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -39,11 +39,16 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 ### September 14, 2026
 
 - The Messages API can now **compact a conversation on demand** with the `compact-2026-09-04` beta header. Send a `compaction` parameter and the server summarizes earlier turns into signed compaction blocks, reducing context and token cost on long agentic runs. The Python (`compact_before_next_turn()`) and TypeScript (`compactBeforeNextTurn()`) tool runners expose the same capability.
+- **Thinking controls (beta):** The `thinking-binding-controls-2026-08-01` beta header adds a `thinking_mismatch_allowed` entry type to the `input_transformations` response field.
 
 ### September 10, 2026
 
 - Claude Managed Agents permission policies now include `auto`: the server evaluates each agent or MCP tool call and runs it, denies it, or pauses for your approval. `agent.tool_use` and `agent.mcp_tool_use` events report how each call was evaluated in an `evaluation` field alongside `evaluated_permission`.
-- The `ant` CLI adds `ant beta:sessions connect`, which attaches your terminal to a Claude Managed Agents session so you can follow it live, send messages, and allow or deny tool calls awaiting approval. Pass `--web` to serve the Claude Console's session viewer locally and open the session there instead.
+- The `ant` CLI (v1.32.0) adds `ant beta:sessions connect`, which attaches your terminal to a Claude Managed Agents session so you can follow it live, send messages, and allow or deny tool calls awaiting approval. Pass `--web` to serve the Claude Console's session viewer locally and open the session there instead.
+
+### September 9, 2026
+
+- **Cache diagnostics:** The API now stores fingerprints only when the request includes the `diagnostics` object; requests that send only the beta header no longer get stored fingerprints.
 
 ### September 3, 2026
 
