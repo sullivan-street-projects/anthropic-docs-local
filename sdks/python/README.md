@@ -2,7 +2,7 @@
 title: "Python SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-09-27T00:00:00Z"
+fetched_at: "2026-10-11T00:00:00Z"
 category: "sdks"
 ---
 # Claude SDK for Python
@@ -12,6 +12,8 @@ category: "sdks"
 The Claude SDK for Python provides access to the [Claude API](https://docs.anthropic.com/en/api/) from Python applications.
 
 ## Documentation
+
+Tool helpers (`@beta_tool`, the tool runner and `ToolError`) are documented in [tools.md](tools.md). The browser and computer toolset classes have their own guides, [browser-toolset.md](browser-toolset.md) and [computer-toolset.md](computer-toolset.md).
 
 Full documentation is available at **[platform.claude.com/docs/en/api/sdks/python](https://platform.claude.com/docs/en/api/sdks/python)**.
 

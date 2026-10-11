@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-09-27T00:00:00Z"
+fetched_at: "2026-10-11T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -211,6 +211,7 @@ hooks:
 | `shell`       | No       | Shell to use for execution (e.g., `"bash"`, `"powershell"`) |
 | `async`       | No       | If `true`, runs in background without blocking              |
 | `asyncRewake` | No       | If `true`, runs in background and wakes Claude on exit 2    |
+| `onFailure`   | No       | `"continue"` (default) or `"block"` on a non-zero exit (requires v2.1.295+) |
 
 ### HTTP Hook Fields
 

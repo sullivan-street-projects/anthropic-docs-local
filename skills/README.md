@@ -2,10 +2,9 @@
 title: "Skills README"
 source_url: "https://raw.githubusercontent.com/anthropics/skills/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-10-11T00:00:00Z"
 category: "skills"
 ---
-
 > **Note:** This repository contains Anthropic's implementation of skills for Claude. For information about the Agent Skills standard, see [agentskills.io](http://agentskills.io).
 
 [![skills.sh](https://skills.sh/b/anthropics/skills)](https://skills.sh/anthropics/skills)

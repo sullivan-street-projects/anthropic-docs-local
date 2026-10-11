@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-11T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -14,7 +14,33 @@ Updates to Claude consumer and business applications.
 
 ---
 
+## October 2026
+
+### October 7, 2026
+
+- Claude Haiku 5.5 launched: Anthropic's newest small model for high-volume, cost-sensitive tasks, described as "the cheapest, fastest, and most capable small model we've released"
+- Monthly API credits for Max and Team plans: subscribers get monthly credits to run their own apps and agents on the Claude Platform, claimed by linking a Claude Console organization in billing settings
+
+---
+
 ## September 2026
+
+### September 28, 2026
+
+- Claude Sonnet 5.5 launched: a faster, lower-cost companion to Opus 5.5 and the second model in the 5.5 family
+
+### September 25, 2026
+
+- Build plugins for Claude: a new developer portal lets you submit plugins to the Claude directory, track them through review, and view usage analytics once they're live
+
+### September 22, 2026
+
+- Claude Opus 5.5 launched: the first model in the 5.5 family — it matches Fable 5.1 on most work and costs 40% less to run than Opus 5
+
+### September 16, 2026
+
+- Cowork in every conversation: Cowork's capabilities are available from any chat without choosing a mode first, rolling out gradually to Pro and Max on web, desktop, and mobile
+- Designs, decks, and docs in any conversation: Claude Design, Claude Slides, and Claude Docs are available within conversations and in the Artifacts tab; Artifacts are on every plan including Free (Design, Slides, and Docs are in beta on Enterprise, off by default until an owner enables them)
 
 ### September 15, 2026
 

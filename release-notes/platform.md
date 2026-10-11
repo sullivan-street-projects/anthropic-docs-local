@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-09-27T00:00:00Z"
+fetched_at: "2026-10-11T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,44 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### October 9, 2026
+
+- **Managed Agents dynamic workflows (beta):** agents can write and run multi-agent workflows for large jobs such as reviewing hundreds of documents. Enable with the `managed-agents-2026-04-01` beta header and the agent setting `"multiagent": {"type": "multiagent_20261001", "workflows": {"type": "enabled"}}`. Follow runs via `workflow_run.*` events on the session event stream.
+
+### October 8, 2026
+
+- **Compliance API:** Chat endpoints now return chats from the unified Claude experience (beta, Enterprise organizations). Claude Docs documents can be downloaded as Word files (beta).
+
+### October 7, 2026
+
+- **Launched Claude Haiku 5.5** (`claude-haiku-5-5`), for high-volume, latency-sensitive tasks (classification, extraction, routing): 1M token context window, 128k max output, adaptive thinking, and the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) (default `medium`), starting at **$0.10 / $0.50 per MTok**. Breaking changes from Haiku 4.5: `budget_tokens`, `temperature`, `top_p`, `top_k`, and assistant prefill return 400 errors; `computer_20250124` is rejected (use `computer_toolset_20260801` on the Claude API and Google Cloud, or `computer_20251124` on Bedrock); adaptive thinking is on by default and thinking text is omitted unless `thinking.display` is `"summarized"`.
+- **Claude Sonnet 5.5 cache reads** cut to $0.10 / MTok (0.05x base input).
+- **SDK browser and computer use classes** added for the Python and TypeScript SDKs (beta).
+- **Claude Max and Team plans** now include monthly API credits for running apps and agents on the Claude Platform.
+- **Managed Agents networking:** with `limited` networking, `allowed_hosts` now also governs `web_search` and `web_fetch`. `web_fetch` fetches only URLs already present in session context (user messages or prior search results); others return `url_not_in_prior_context`.
+
+### October 6, 2026
+
+- **Models API:** `capabilities.server_tools` reports whether each model accepts the web search and code execution tools.
+
+### October 5, 2026
+
+- **Models API:** `capabilities.thinking.types.disabled` reports whether a model accepts `thinking: {type: "disabled"}`.
+
+### October 1, 2026
+
+- **Models API:** new `line` field groups models (for example, Opus 4.5 and 4.6 both report `opus`). Read `line` instead of inferring it from the model's `id`.
+- **Dreams (research preview)** now supports Opus 5.5, Fable 5.1, and Sonnet 5.5.
+
+### September 30, 2026
+
+- **Admin API out of beta** in SDK versions Python 1.10.0, TypeScript 0.130.0, and others. Use `client.organization` and `ant organization`; the `client.beta.organization` path remains available.
+- **Claude Sonnet 4.5 deprecated** (`claude-sonnet-4-5-20250929`), retiring November 30, 2026. Migrate to `claude-sonnet-5-5`.
+
+### September 28, 2026
+
+- **Launched Claude Sonnet 5.5** (`claude-sonnet-5-5`), the best combination of speed and intelligence at **$2 / $10 per MTok**: 1M context, 128k max output, adaptive thinking (default effort `high`). To turn off up-front thinking, use `thinking: {"type": "between_tools"}` at `high` effort or below instead of `"disabled"`. `tool_choice` types `any` and `tool` return 400 errors; `computer_20251124` is not accepted on the Claude API or Google Cloud; the advisor tool rejects Opus 4.8, Opus 4.7, and Sonnet 5 as advisors. Thinking blocks are bound to the producing account or linked accounts — other accounts' blocks are silently dropped.
 
 ### September 24, 2026
 

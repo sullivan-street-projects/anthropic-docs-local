@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-09-27T13:21:57.996Z"
+generated_at: "2026-10-11T13:20:00.804Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-09-27
+> Auto-generated from manifest.json on 2026-10-11
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 169 |
+| Total Sources | 184 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-09-20T00:00:00Z |
-| Last Discovery Run | 2026-09-20T00:00:00Z |
+| Last Full Update | 2026-10-11T00:00:00Z |
+| Last Discovery Run | 2026-10-11T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 149 | WebFetch with content extraction |
+| web-extracted | 164 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 139 | High-confidence sources, auto-trusted |
+| auto | 154 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -150,6 +150,8 @@ generator: "scripts/generate-architecture.js"
 | [Claude Sonnet 5](../models/claude-sonnet-5.md) | web-extracted | 0.85 |
 | [Claude Fable 5.1 and Claude Mythos 5.1](../models/claude-fable-5-1-mythos-5-1.md) | web-extracted | 0.85 |
 | [Claude Opus 5.5](../models/claude-opus-5-5.md) | web-extracted | 0.85 |
+| [Claude Haiku 5.5](../models/claude-haiku-5-5.md) | web-extracted | 0.85 |
+| [Claude Sonnet 5.5](../models/claude-sonnet-5-5.md) | web-extracted | 0.85 |
 
 ### news
 
@@ -193,6 +195,12 @@ generator: "scripts/generate-architecture.js"
 | [Google and Broadcom compute partnership](../news/google-broadcom-partnership-compute.md) | web-extracted | undefined |
 | [Introducing the Life Sciences Verification Program](../news/life-sciences-verification-program.md) | web-extracted | 0.85 |
 | [Partnering with Accenture on embedded evaluation](../news/accenture-embedded-evaluation.md) | web-extracted | 0.85 |
+| [2026 Usage Policy update](../news/2026-usage-policy-update.md) | web-extracted | 0.85 |
+| [Introducing the Anthropic Cyber Mission](../news/anthropic-cyber-mission.md) | web-extracted | 0.85 |
+| [Expanding the Cyber Verification Program](../news/cyber-verification-program.md) | web-extracted | 0.85 |
+| [Commitment to American scientific discovery (Genesis Mission)](../news/genesis-mission-commitment.md) | web-extracted | 0.85 |
+| [Claude Frontier Academy](../news/claude-frontier-academy.md) | web-extracted | 0.85 |
+| [Barclays scales Claude](../news/barclays-scales-claude.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -248,6 +256,13 @@ generator: "scripts/generate-architecture.js"
 | [Claude Discovers a Novel Enzyme System with CRISPR-like Repeats](../research/claude-discovers-novel-enzyme-system.md) | web-extracted | 0.85 |
 | [Project Swap: What Happens When Agents Trade for Us?](../research/project-swap.md) | web-extracted | 0.85 |
 | [Yes, Claude Can Do Nine Loops](../research/yes-claude-can-do-nine-loops.md) | web-extracted | 0.85 |
+| [Investigating unintended model actions](../research/investigating-unintended-model-actions.md) | web-extracted | 0.85 |
+| [GLM-5.3 and the spread of advanced cyber capabilities](../research/glm-5-3-advanced-cyber-capabilities.md) | web-extracted | 0.85 |
+| [The missing map of the sky](../research/the-missing-map-of-the-sky.md) | web-extracted | 0.85 |
+| [Opt-in vulnerability-finding service for open-source software](../research/launching-opt-in-vuln-finding-service-oss.md) | web-extracted | 0.85 |
+| [Claude-shaped science](../research/claude-shaped-science.md) | web-extracted | 0.85 |
+| [What work can robots do?](../research/what-work-can-robots-do.md) | web-extracted | 0.85 |
+| [What do you want from AI?](../research/your-thoughts-on-ai.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -365,7 +380,9 @@ anthropic-docs-local/
 │   ├── claude-opus-5.md
 │   ├── claude-sonnet-5.md
 │   ├── claude-fable-5-1-mythos-5-1.md
-│   └── claude-opus-5-5.md
+│   ├── claude-opus-5-5.md
+│   ├── claude-haiku-5-5.md
+│   └── claude-sonnet-5-5.md
 ├── news/
 │   ├── claude-code-security.md
 │   ├── detecting-distillation-attacks.md
@@ -404,7 +421,13 @@ anthropic-docs-local/
 │   ├── economic-futures-research-fund-agenda.md
 │   ├── google-broadcom-partnership-compute.md
 │   ├── life-sciences-verification-program.md
-│   └── accenture-embedded-evaluation.md
+│   ├── accenture-embedded-evaluation.md
+│   ├── 2026-usage-policy-update.md
+│   ├── anthropic-cyber-mission.md
+│   ├── cyber-verification-program.md
+│   ├── genesis-mission-commitment.md
+│   ├── claude-frontier-academy.md
+│   └── barclays-scales-claude.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -451,7 +474,14 @@ anthropic-docs-local/
 │   ├── measuring-pace-of-ai-development.md
 │   ├── claude-discovers-novel-enzyme-system.md
 │   ├── project-swap.md
-│   └── yes-claude-can-do-nine-loops.md
+│   ├── yes-claude-can-do-nine-loops.md
+│   ├── investigating-unintended-model-actions.md
+│   ├── glm-5-3-advanced-cyber-capabilities.md
+│   ├── the-missing-map-of-the-sky.md
+│   ├── launching-opt-in-vuln-finding-service-oss.md
+│   ├── claude-shaped-science.md
+│   ├── what-work-can-robots-do.md
+│   └── your-thoughts-on-ai.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md

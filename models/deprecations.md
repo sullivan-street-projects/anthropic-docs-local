@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-09-27T00:00:00Z"
+fetched_at: "2026-10-11T00:00:00Z"
 category: "models"
 ---
 
@@ -65,16 +65,26 @@ To identify usage of deprecated models:
 | `claude-opus-4-5-20251101`   | Active        | N/A               | Not sooner than November 24, 2026  |
 | `claude-opus-4-1-20250805`   | Retired       | June 5, 2026      | August 5, 2026                     |
 | `claude-opus-4-20250514`     | Retired       | April 14, 2026    | June 15, 2026                      |
+| `claude-sonnet-5-5`          | Active        | N/A               | Not sooner than September 28, 2027 |
 | `claude-sonnet-5`            | Active        | N/A               | Not sooner than June 30, 2027      |
 | `claude-sonnet-4-6`          | Active        | N/A               | Not sooner than February 17, 2027  |
-| `claude-sonnet-4-5-20250929` | Active        | N/A               | Not sooner than September 29, 2026 |
+| `claude-sonnet-4-5-20250929` | Deprecated    | September 30, 2026 | November 30, 2026                 |
 | `claude-sonnet-4-20250514`   | Retired       | April 14, 2026    | June 15, 2026                      |
 | `claude-3-7-sonnet-20250219` | Retired       | October 28, 2025  | February 19, 2026                  |
+| `claude-haiku-5-5`           | Active        | N/A               | Not sooner than October 7, 2027    |
 | `claude-haiku-4-5-20251001`  | Active        | N/A               | Not sooner than October 15, 2026   |
 | `claude-3-5-haiku-20241022`  | Retired       | December 19, 2025 | February 19, 2026                  |
 | `claude-3-haiku-20240307`    | Retired       | February 19, 2026 | April 20, 2026                     |
 
 ## Deprecation History
+
+### 2026-09-30: Claude Sonnet 4.5 model
+
+On September 30, 2026, Anthropic notified developers using Claude Sonnet 4.5 of its upcoming retirement on the Claude API.
+
+| Retirement Date   | Deprecated Model             | Recommended Replacement |
+| :---------------- | :--------------------------- | :---------------------- |
+| November 30, 2026 | `claude-sonnet-4-5-20250929` | `claude-sonnet-5-5`     |
 
 ### 2026-06-05: Claude Opus 4.1 model
 

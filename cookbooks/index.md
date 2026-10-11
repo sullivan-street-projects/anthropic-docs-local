@@ -2,10 +2,9 @@
 title: "Cookbooks Index"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-10-11T00:00:00Z"
 category: "cookbooks"
 ---
-
 # Claude Cookbooks
 
 The Claude Cookbooks provide code and guides designed to help developers build with Claude, offering copy-able code snippets that you can easily integrate into your own projects.
