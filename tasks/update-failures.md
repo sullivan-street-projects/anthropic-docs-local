@@ -18,6 +18,16 @@ Track source-specific failures with resolutions. Review at session start to avoi
 
 ## Log
 
+### 2026-10-11 — agent-sdk-typescript-v2 (confirmed 404, ~12th cycle)
+
+- **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via curl). last_fetched 2026-04-05 (~189 days stale). Emits one Layer-4 staleness warning per cycle.
+- **Resolution**: NOT re-fetched (known dead). NOT auto-deleted (Phase 4e: 404 → log + user-alert; permanent deletion needs user confirmation). Local file `agent-sdk/typescript-v2-preview.md` preserved.
+- **Prevention**: Remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*, live and tracked via the manual agent-sdk-readme/quickstart sources). Concrete case for optimizations item #18 (lifecycle_status).
+
+### 2026-10-11 — no fetch failures (actively-fetched sources)
+
+- **Note**: All actively-fetched sources succeeded (8 github-raw via curl; claude-code/hooks.md + plugins verified against live [hooks taxonomy already complete — the CHANGELOG's hook items were bug-fixes, not new events; added the one genuinely-new documented field, `onFailure`]; 6 live aggregation/release pages; github-repos API pages 1-2; 15 new-source fetches; 3 discovery index pages). No 404s on code.claude.com, platform.claude.com, support.claude.com, or www.anthropic.com (the dateless model slugs `/claude-haiku-5-5` and `/claude-sonnet-5-5` with NO `/news/` prefix resolved 200). Zero background agents used (all fetches inline by the orchestrator) → zero 600s-watchdog stalls. 0 sha256 mismatches after single-writer reconcile; 184/184 hashes verified. The only 404 was the known-dead agent-sdk source (above), intentionally not fetched. **Two model launches (Sonnet 5.5, Haiku 5.5) had stacked up because the 2026-10-04 run was skipped** — reconciled the full cascade against the live lineup and added a lineup-consistency check to validate.js (see lessons.md / meta-synthesis-log.md).
+
 ### 2026-03-22 — agent-sdk-typescript-v2-preview
 
 - **Error**: WebFetch of `https://github.com/anthropics/agent-sdk` returned 404. The repository may have been renamed, made private, or reorganized.

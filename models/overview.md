@@ -18,7 +18,7 @@ All current Claude models support text and image input, text output, multilingua
 
 ### Claude Fable 5.1 and Claude Mythos 5.1
 
-Claude Fable 5.1 (`claude-fable-5-1`) is Anthropic's most capable widely released model, tuned for demanding reasoning and long-horizon agentic work. It launched September 1, 2026. Compared with Claude Fable 5, it costs roughly 25% less for typical workloads because prompt cache reads are priced at 2.5% of the base input price (down from 10%). Claude Mythos 5.1 (`claude-mythos-5-1`) shares Claude Fable 5.1's specs and pricing (including the 2.5% cache-read rate) and continues the invitation-only Project Glasswing line alongside the deprecated Claude Mythos Preview (`claude-mythos-preview`). Claude Mythos is offered in limited availability to approved customers for defensive cybersecurity workflows; access is invitation-only with no self-serve sign-up.
+Claude Fable 5.1 (`claude-fable-5-1`) is Anthropic's most capable widely released model, tuned for demanding reasoning and long-horizon agentic work. It launched September 1, 2026. Compared with Claude Fable 5, it costs roughly 25% less for typical workloads because prompt cache reads are priced at 2.5% of the base input price (down from 10%). Claude Mythos 5.1 (`claude-mythos-5-1`) shares Claude Fable 5.1's specs and pricing (including the 2.5% cache-read rate) and continues the invitation-only Project Glasswing line alongside Claude Mythos 5 (`claude-mythos-5`) and the deprecated Claude Mythos Preview (`claude-mythos-preview`). Claude Mythos is offered in limited availability to approved customers for defensive cybersecurity workflows; access is invitation-only with no self-serve sign-up.
 
 ### Latest Models Comparison
 

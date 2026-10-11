@@ -362,7 +362,7 @@
       "last_fetched": "2026-10-11T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "75f1cd4d70a38fe38267e1409c38051d04739a3ec4fcee2132e0c5372ae3e648"
+      "sha256": "690c21e6a635d6fe20630f82720a7713e396865b4da699af9457498522f6a519"
     },
     {
       "id": "model-opus-4-6",
@@ -880,7 +880,7 @@
       "last_fetched": "2026-10-11T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "35c6f229bf88df61a960feaac86976d359f6519d86b961404a7e86c72489b05c"
+      "sha256": "6ca14bd7a43f443819c53771713e1170ef57173866d80767d333cce4da67b4e0"
     },
     {
       "id": "api-migration-guide",

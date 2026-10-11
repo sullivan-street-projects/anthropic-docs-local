@@ -29,13 +29,35 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 10
-Total improvements applied: 7 (0 code changes this cycle — dominant signals were informational or already-aligned)
+Total cycles logged: 11
+Total improvements applied: 8 (1 code change this cycle — a model-lineup cross-file consistency check in validate.js, motivated by the recurring model-launch cascade)
 Total improvements deferred: 6 (reinforced #18 source-lifecycle tracking again)
-Most-improved infrastructure: scripts/validate.js (truncation detection, then PDF-integrity coverage) / tasks/lessons.md (agent-stall recovery, model-launch cascade)
-Most-informative category: models + sdks this cycle (Claude Opus 5.5 launch cascaded across model tables, deprecations, release notes, and both SDK READMEs); research (Project Swap, nine-loops, ART enzyme discovery)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~11th cycle, 175 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-09-27 — 0 code improvements applied, 4 sources auto-added (Opus 5.5 + 3 research posts), 0 agents stalled (all fetches inline), 0 validation errors, 169/169 hashes verified
+Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade)
+Most-informative category: models + sdks again this cycle (TWO launches — Claude Sonnet 5.5 and Claude Haiku 5.5 — cascaded across both overview tables, deprecations, and release notes; Sonnet 4.5 deprecated); research (unintended model actions, GLM-5.3 cyber proliferation)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~12th cycle, 189 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
+Last cycle: 2026-10-11 — 1 code improvement applied (lineup consistency check), 15 sources auto-added (2 models + 7 research + 6 news), 0 agents stalled (all fetches inline), 0 validation errors, 184/184 hashes verified
+
+## Entries
+
+### 2026-10-11 — Update: all
+
+Content changes analyzed: 17 modified + 15 added (all real content changes)
+Improvements identified: 1 applied (code), 1 deferred (reinforced), 3 already-aligned
+Improvements applied: 1 code change
+Improvements deferred: 1 (reinforced #18)
+
+**Applied:**
+- `models/deprecations.md` + `models/overview.md` + `api/models-overview.md` (the model-launch cascade recurred — TWO launches, Sonnet 5.5 and Haiku 5.5, landed between runs because the 2026-10-04 run was skipped) → added a **Layer-4 model-lineup consistency check** to `scripts/validate.js`: every model listed **Active** in `models/deprecations.md` must be documented, by API ID, in both overview files. This directly guards the recurring half-applied-cascade failure the 09-27 lesson described ("overview says 'start with X' while deprecations still lacks the row"). The check immediately surfaced a real pre-existing gap — `claude-mythos-5` was Active but undocumented in both overviews — which was then fixed. Now: "Model lineup consistent across lineup files (15 active IDs)".
+
+**Already aligned (content independently validates our infra):**
+
+- `research/investigating-unintended-model-actions.md` (new): Anthropic found unintended model behaviors by **reviewing ground-truth transcripts rather than trusting self-reports**, and relies on **defense-in-depth** (classifiers + offline detection) because "alignment training is not yet sufficient or fully robust on its own." Same principle as our **verify-from-disk / recompute-sha256** rule and multi-layer `validate.js`. No change needed.
+- `research/launching-opt-in-vuln-finding-service-oss.md` (new): OSS Scanner sends **model-generated reports without human triage, explicitly flagged as possibly imperfect**. Mirrors our unattended **auto-add** policy, where new first-party sources are added at `confidence: 0.85` / `review_status: "auto"` — labeled machine-generated, not asserted as reviewed. Aligned.
+- SDK CHANGELOGs added a **CI check that PRs must update the changelog**. Analogous to our Phase 3 verify-writes-persisted step and this very meta-synthesis log requirement; the validate.js Layer-5 check already enforces that the log and memory files exist. Aligned (a stricter "did this run update the log?" gate is noted but not built — low value for a single-maintainer scheduled run).
+
+**Deferred (reinforced, already in optimizations plan as #18):**
+
+- `agent-sdk-typescript-v2` (`https://github.com/anthropics/agent-sdk`) — re-verified **HTTP 404** this cycle (~12th consecutive; last_fetched 2026-04-05, ~189 days stale). Per Phase 4e: logged + user-alerted, NOT auto-deleted. Concrete motivating case for optimizations item #18 (`lifecycle_status`).
 
 ## Entries
 

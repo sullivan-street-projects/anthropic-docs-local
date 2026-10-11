@@ -19,6 +19,16 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-10-11 — Discovery Run (Phase 2.5, during update)
+
+- **New sources found**: 16 untracked first-party anthropic.com URLs; 15 auto-added per unattended-run policy, 1 deferred.
+- **Added** (15):
+  - models: `model-haiku-5-5`, `model-sonnet-5-5`
+  - research: `research-investigating-unintended-model-actions`, `research-glm-5-3-cyber-capabilities`, `research-missing-map-of-the-sky`, `research-oss-vuln-finding-service`, `research-claude-shaped-science`, `research-what-work-can-robots-do`, `research-your-thoughts-on-ai`
+  - news: `news-2026-usage-policy-update`, `news-anthropic-cyber-mission`, `news-cyber-verification-program`, `news-genesis-mission-commitment`, `news-claude-frontier-academy`, `news-barclays-scales-claude`
+- **Deferred**: `https://www.anthropic.com/features/ebola-response` (a `/features/` situation-report page, lower priority; revisit if it proves durable).
+- **Note**: index scan found the engineering page listing only 2025-dated posts plus already-tracked 2026 posts — no new engineering sources. arXiv search returned no new Anthropic papers (name collision with the "anthropic principle"); research-papers-index unchanged.
+
 ### 2026-09-27 — Discovery Run (Phase 2.5, during update)
 
 - **New sources found**: 4 (all first-party anthropic.com; auto-added per unattended-run policy)

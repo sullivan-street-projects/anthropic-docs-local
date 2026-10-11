@@ -14,7 +14,7 @@ All current Claude models support text and image input, text output, multilingua
 
 ## Claude Fable 5.1 and Claude Mythos 5.1
 
-Claude Fable 5.1 (`claude-fable-5-1`) succeeds Claude Fable 5 as Anthropic's most capable widely released model, tuned for demanding reasoning and long-horizon agentic work. It launched September 1, 2026. Claude Mythos 5.1 (`claude-mythos-5-1`) shares Claude Fable 5.1's capabilities and pricing and continues the invitation-only Project Glasswing line alongside the deprecated Claude Mythos Preview (`claude-mythos-preview`). See the introducing blog post for launch details and API changes.
+Claude Fable 5.1 (`claude-fable-5-1`) succeeds Claude Fable 5 as Anthropic's most capable widely released model, tuned for demanding reasoning and long-horizon agentic work. It launched September 1, 2026. Claude Mythos 5.1 (`claude-mythos-5-1`) shares Claude Fable 5.1's capabilities and pricing and continues the invitation-only Project Glasswing line alongside Claude Mythos 5 (`claude-mythos-5`) and the deprecated Claude Mythos Preview (`claude-mythos-preview`). See the introducing blog post for launch details and API changes.
 
 Claude Fable 5.1 is generally available on the Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, and Microsoft Foundry. Per-token pricing matches Claude Fable 5 ($10 / $50 per MTok), but prompt cache reads are $0.25 per MTok (a quarter of the Claude Fable 5 rate), which makes Claude Fable 5.1 roughly 25% cheaper for typical cache-heavy workloads. Claude Mythos 5.1 is not generally available: it is offered in limited availability to approved customers in Project Glasswing.
 

@@ -489,6 +489,49 @@ function validateIntegrity(manifest) {
       );
     }
   }
+
+  // Model-lineup cross-file consistency.
+  // A flagship model launch changes the same facts in several files in
+  // lockstep (see tasks/lessons.md: "A flagship model launch cascades across
+  // ~7 files"). The classic half-applied failure is deprecations.md gaining a
+  // new Active model while models/overview.md or api/models-overview.md still
+  // lacks it (or vice versa). Assert every model listed Active in
+  // deprecations.md is documented, by its API ID, in both overview files.
+  const depPath = path.join(ROOT, "models/deprecations.md");
+  const ovPath = path.join(ROOT, "models/overview.md");
+  const apiOvPath = path.join(ROOT, "api/models-overview.md");
+  if (
+    fs.existsSync(depPath) &&
+    fs.existsSync(ovPath) &&
+    fs.existsSync(apiOvPath)
+  ) {
+    const dep = fs.readFileSync(depPath, "utf-8");
+    const tokens = (s) =>
+      new Set((s.match(/claude-[a-z0-9.-]+/gi) || []).map((x) => x.toLowerCase()));
+    const ovTokens = tokens(fs.readFileSync(ovPath, "utf-8"));
+    const apiTokens = tokens(fs.readFileSync(apiOvPath, "utf-8"));
+    const activeIds = [];
+    for (const line of dep.split("\n")) {
+      const m = line.match(/^\|\s*`?(claude-[a-z0-9.-]+)`?\s*\|\s*Active\b/i);
+      if (m) activeIds.push(m[1]);
+    }
+    let lineupGaps = 0;
+    for (const id of activeIds) {
+      const lid = id.toLowerCase();
+      const missing = [];
+      if (!ovTokens.has(lid)) missing.push("models/overview.md");
+      if (!apiTokens.has(lid)) missing.push("api/models-overview.md");
+      if (missing.length > 0) {
+        warn(
+          `Model lineup drift: ${id} is Active in models/deprecations.md but missing from ${missing.join(" and ")}`,
+        );
+        lineupGaps++;
+      }
+    }
+    if (activeIds.length > 0 && lineupGaps === 0) {
+      ok(`Model lineup consistent across lineup files (${activeIds.length} active IDs)`);
+    }
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
