@@ -19,6 +19,16 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-10-12 — Discovery Run (Phase 2.5, during update)
+
+- **New sources found**: 2 untracked first-party anthropic.com URLs; 2 auto-added per unattended-run policy, 0 deferred.
+- **Added** (2):
+  - news: `ebola-response` (news/ebola-response.md) ← anthropic.com/features/ebola-response — "The Situation Report" (Sep 22, 2026; previously deferred in 10-11 and 09-27 runs, now added)
+  - research: `econ-scenarios` (research/econ-scenarios.md) ← anthropic.com/institute/econ-scenarios — "Scenarios for our Economic Future" (~Sep 2026)
+- **Deferred**: none
+- **Note**: All 25 engineering articles, all research articles, and all news page articles confirmed present in manifest. No new engineering posts. arXiv search returned no new Anthropic-authored papers. GitHub repos index unchanged (115 repos, no new repos detected). SDK versions: Python anthropic 1.13.0, TypeScript @anthropic-ai/sdk 0.133.0 — both in sync with tracked CHANGELOGs. 4 background agents used (all completed, zero stalls).
+- **Staleness**: `agent-sdk-typescript-v2` (github.com/anthropics/agent-sdk) — confirmed 404 again (~13th cycle, 190 days stale). Removal escalated to user task chip (not auto-deleted in unattended run per skill Phase 4e).
+
 ### 2026-10-11 — Discovery Run (Phase 2.5, during update)
 
 - **New sources found**: 16 untracked first-party anthropic.com URLs; 15 auto-added per unattended-run policy, 1 deferred.

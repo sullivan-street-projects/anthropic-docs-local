@@ -18,6 +18,16 @@ Track source-specific failures with resolutions. Review at session start to avoi
 
 ## Log
 
+### 2026-10-12 — agent-sdk-typescript-v2 (confirmed 404, ~13th cycle)
+
+- **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via curl). last_fetched 2026-04-05 (~190 days stale). Emits one Layer-4 staleness warning per cycle.
+- **Resolution**: NOT re-fetched (known dead). NOT auto-deleted (Phase 4e: 404 → log + user-alert; permanent deletion needs user confirmation). Local file `agent-sdk/typescript-v2-preview.md` preserved.
+- **Prevention**: Remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*, live and tracked via the manual agent-sdk-readme/quickstart sources). Concrete case for optimizations item #18 (lifecycle_status).
+
+### 2026-10-12 — no fetch failures (actively-fetched sources)
+
+- **Note**: All actively-fetched sources succeeded (8 github-raw verified [3 CHANGELOGs had frontmatter restored per validation requirement]; 9 manual docs verified against live [8 changed, 1 unchanged]; 10 volatile web-extracted pages [10 changed, 2 unchanged]; github-repos verified via web [unchanged]; arXiv search [no new papers]; 2 new-source fetches from discovery). No 404s on code.claude.com, docs.anthropic.com, or www.anthropic.com. 4 background agents used → zero stalls. 0 sha256 mismatches after single-writer reconcile; 186/186 hashes verified. The only 404 was the known-dead agent-sdk source (above), intentionally not fetched.
+
 ### 2026-10-11 — agent-sdk-typescript-v2 (confirmed 404, ~12th cycle)
 
 - **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via curl). last_fetched 2026-04-05 (~189 days stale). Emits one Layer-4 staleness warning per cycle.

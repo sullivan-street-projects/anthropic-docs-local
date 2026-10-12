@@ -29,15 +29,38 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 11
-Total improvements applied: 8 (1 code change this cycle — a model-lineup cross-file consistency check in validate.js, motivated by the recurring model-launch cascade)
+Total cycles logged: 12
+Total improvements applied: 8 (0 code changes this cycle — high-signal manual sources but no new principle our scripts don't already encode)
 Total improvements deferred: 6 (reinforced #18 source-lifecycle tracking again)
 Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade)
-Most-informative category: models + sdks again this cycle (TWO launches — Claude Sonnet 5.5 and Claude Haiku 5.5 — cascaded across both overview tables, deprecations, and release notes; Sonnet 4.5 deprecated); research (unintended model actions, GLM-5.3 cyber proliferation)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~12th cycle, 189 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-10-11 — 1 code improvement applied (lineup consistency check), 15 sources auto-added (2 models + 7 research + 6 news), 0 agents stalled (all fetches inline), 0 validation errors, 184/184 hashes verified
+Most-informative category: claude-code this cycle (Output Styles, hooks onFailure/PreModelSwitch, MCP credential protection + Runtimes v1/v2, plugin Marketplace Tiers, 16 new CLI flags); api (expanded errors with Sonnet 5.5/Haiku 5.5 thinking, Models API capabilities, per-model migration guides)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~13th cycle, 190 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
+Last cycle: 2026-10-12 — 0 code improvements applied, 2 sources auto-added (ebola-response, econ-scenarios), 0 agents stalled (4 agents, all completed), 0 validation errors, 186/186 hashes verified
 
 ## Entries
+
+### 2026-10-12 — Update: all
+
+Content changes analyzed: 22 modified + 2 added (all real content changes)
+Improvements identified: 0 applied (code), 1 deferred (reinforced), 3 already-aligned
+Improvements applied: 0 code changes
+Improvements deferred: 1 (reinforced #18)
+
+**No code change this cycle (honest outcome).** The dominant signal was a high-signal week for **Claude Code manual sources** — Output Styles, new hook fields, MCP credential protection, plugin Marketplace Tiers, 16 new CLI flags — and **API docs** — expanded error documentation with Sonnet 5.5/Haiku 5.5 thinking modes, Models API capabilities, per-model migration guides. These are substantial _content_ updates but encode no new principle our scripts/schema don't already handle.
+
+**Already aligned (content independently validates our infra):**
+
+- `claude-code/mcp-servers.md` (updated): **Credential variable protection** blocks `ANTHROPIC_API_KEY` and other sensitive variables from appearing in remote server URLs/headers. Same defense-in-depth principle as our `validate.js` multi-layer checks and the standing rule to never commit files that might contain secrets. Aligned.
+- `claude-code/plugins.md` (updated): **Marketplace Tiers** (Official, Community, Third-party) with different trust levels. Same tiered-trust model as our discovery scan's priority-based auto-add policy (HIGH first-party → auto-add, MEDIUM → auto-add, LOW → defer). Aligned.
+- `api/models-overview.md` (updated): **Models API capability fields** (line, thinking.types.disabled, server_tools, code_execution) let callers programmatically discover what a model supports. Analogous to our manifest's per-source metadata (source_type, confidence, review_status) that tells the pipeline how to handle each source. Aligned.
+
+**Deferred (reinforced, already in optimizations plan as #18):**
+
+- `agent-sdk-typescript-v2` (`https://github.com/anthropics/agent-sdk`) — re-verified **HTTP 404** this cycle (~13th consecutive; last_fetched 2026-04-05, ~190 days stale). Per Phase 4e: logged + user-alerted, NOT auto-deleted. Concrete motivating case for optimizations item #18 (`lifecycle_status`).
+
+**Staleness (4e):**
+
+- Possibly dead: 1 — `agent-sdk-typescript-v2` (above). Relocated: 0. Stable-but-accessible: ~126 web-extracted snapshot articles (not re-fetched; timestamps left honest, not bumped). `news/threat-intelligence-report-september-2026.md` still carries a truncation marker (from 2026-09-13) — targeted re-fetch still deferred.
 
 ### 2026-10-11 — Update: all
 
