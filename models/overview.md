@@ -2,19 +2,19 @@
 title: "Claude Models Overview"
 source_url: "https://platform.claude.com/docs/en/about-claude/models/overview"
 source_type: "web-extracted"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "models"
 ---
 
 # Models Overview
 
-Claude is a family of state-of-the-art large language models developed by Anthropic. This guide introduces the available models and compares their performance.
+Claude is a family of state-of-the-art large language models developed by Anthropic. Compare the current lineup, find the model ID for every platform, and open each model's page for its full specs and resources.
 
 ## Choosing a Model
 
 If you're unsure which model to use, start with **Claude Opus 5.5** for most workloads. Use **Claude Fable 5.1** for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short.
 
-All current Claude models support text and image input, text output, multilingual capabilities, vision, and tool use. Models are available through the Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, and Microsoft Foundry.
+All current Claude models support text and image input, text output, multilingual capabilities, vision, and tool use. Each model's page lists the platforms it's available on.
 
 ### Claude Fable 5.1 and Claude Mythos 5.1
 
@@ -53,7 +53,7 @@ Claude Fable 5.1 (`claude-fable-5-1`) is Anthropic's most capable widely release
 - Starting with **Claude Sonnet 4.5 and all subsequent models**, Bedrock offers two endpoint types: **global endpoints** (dynamic routing for maximum availability) and **regional endpoints** (guaranteed data routing through specific geographic regions). Google Cloud offers three endpoint types: global endpoints, **multi-region endpoints** (dynamic routing within a geographic area), and regional endpoints.
 - **Claude Platform on AWS** uses the same model IDs as the Claude API (e.g., `claude-opus-4-6`), not Bedrock-style IDs. Model lifecycle on Claude Platform on AWS follows Anthropic's first-party Model deprecations, not Bedrock's.
 - You can query model capabilities and token limits programmatically with the Models API. The response includes `max_input_tokens`, `max_tokens`, and a `capabilities` object for every available model.
-- On Claude Opus 5.5, the `effort` parameter defaults to `medium`; on Claude Fable 5.1 and Claude Sonnet 5 it defaults to `high`. Set `effort` explicitly to use a different level. On Claude Opus 5.5, thinking cannot be disabled (`thinking: {"type": "disabled"}` and the manual `enabled` form both return 400) — omit the `thinking` field and steer depth with `effort`; `tool_choice` types `any` and `tool` also return 400 (use `auto` with strict tool use).
+- On Claude Opus 5.5 and Claude Haiku 5.5, the `effort` parameter defaults to `medium`; on Claude Fable 5.1 and Claude Sonnet 5.5 it defaults to `high`. Set `effort` explicitly to use a different level. On Claude Opus 5.5, thinking cannot be disabled (`thinking: {"type": "disabled"}` and the manual `enabled` form both return 400) — omit the `thinking` field and steer depth with `effort`; `tool_choice` types `any` and `tool` also return 400 (use `auto` with strict tool use).
 - The Max output values above apply to the synchronous Messages API. On the Message Batches API, Claude Opus 5.5, Opus 5, Sonnet 5.5, Sonnet 5, Haiku 5.5, Opus 4.8, Opus 4.7, Opus 4.6, and Sonnet 4.6 support up to 300K output tokens by using the `output-300k-2026-03-24` beta header.
 - Claude Fable 5.1 uses the tokenizer introduced with Claude Opus 4.7; compared to models before Claude Opus 4.7, the same text produces roughly 30% more tokens. The exact increase depends on the content.
 

@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Hooks are user-defined shell commands, HTTP endpoints, MCP tool calls, LLM prompts, or agents that execute automatically at specific points in Claude Code's lifecycle. Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
 
-> **Last updated:** September 13, 2026
+> **Last updated:** October 12, 2026
 
 ## Hook Lifecycle
 
@@ -37,7 +37,7 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `SubagentStop`        | Subagent finishes                                                  | Agent type                                                                                                                                                                                                                                                                     | Each subagent finish       |
 | `Stop`                | Main Claude finishes responding                                    | No matcher support                                                                                                                                                                                                                                                             | Each response              |
 | `StopFailure`         | Turn ends due to API error                                         | Error type: `rate_limit`, `overloaded`, `authentication_failed`, `oauth_org_not_allowed`, `account_on_hold`, `billing_error`, `cloud_credential_error`, `invalid_request`, `model_not_found`, `server_error`, `max_output_tokens`, `unknown`                                   | API errors                 |
-| `TeammateIdle`        | Agent team teammate about to go idle                               | Teammate role                                                                                                                                                                                                                                                                  | Agent teams                |
+| `TeammateIdle`        | Agent team teammate about to go idle                               | No matcher support                                                                                                                                                                                                                                                             | Agent teams                |
 | `TaskCreated`         | Task created via TaskCreate tool                                   | No matcher support                                                                                                                                                                                                                                                             | Task creation              |
 | `TaskCompleted`       | Task marked as completed                                           | No matcher support                                                                                                                                                                                                                                                             | Task completion            |
 | `CwdChanged`          | Working directory changes                                          | No matcher support                                                                                                                                                                                                                                                             | Directory changes          |
@@ -52,7 +52,7 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `PostModelSwitch`     | After the session's model changes, including auto-switches         | Canonical model name                                                                                                                                                                                                                                                           | After model changes        |
 | `Elicitation`         | MCP server requests user input                                     | MCP server name                                                                                                                                                                                                                                                                | MCP elicitation requests   |
 | `ElicitationResult`   | User responds to MCP elicitation                                   | MCP server name                                                                                                                                                                                                                                                                | MCP elicitation responses  |
-| `SessionEnd`          | Session terminates                                                 | `clear`, `resume`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other`                                                                                                                                                                                       | Once per session           |
+| `SessionEnd`          | Session terminates                                                 | `clear`, `resume`, `logout`, `prompt_input_exit`, `other`                                                                                                                                                                                                                      | Once per session           |
 
 ## Hook Types
 
@@ -211,7 +211,7 @@ hooks:
 | `shell`       | No       | Shell to use for execution (e.g., `"bash"`, `"powershell"`) |
 | `async`       | No       | If `true`, runs in background without blocking              |
 | `asyncRewake` | No       | If `true`, runs in background and wakes Claude on exit 2    |
-| `onFailure`   | No       | `"continue"` (default) or `"block"` on a non-zero exit (requires v2.1.295+) |
+| `onFailure`   | No       | `"continue"` (default) or `"block"` on a non-zero exit, timeout, or invalid output (requires v2.1.295+) |
 
 ### HTTP Hook Fields
 
@@ -220,6 +220,7 @@ hooks:
 | `url`            | Yes      | URL to send the POST request to                                                  |
 | `headers`        | No       | Additional HTTP headers as key-value pairs. Values support env var interpolation |
 | `allowedEnvVars` | No       | List of env var names that may be interpolated into header values                |
+| `onFailure`      | No       | `"continue"` (default) or `"block"` on non-2xx, connection failure, or timeout  |
 
 ### MCP Tool Hook Fields
 
@@ -249,7 +250,7 @@ Matcher evaluation types:
 | `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `PermissionRequest`, `PermissionDenied`                                                                      | Tool name                    | `Bash`, `Edit\|Write`, `mcp__.*`                                                                                                                                                                                                                                               |
 | `SessionStart`                                                                                                                                                  | How session started          | `startup`, `resume`, `clear`, `compact`, `fork`                                                                                                                                                                                                                                |
 | `Setup`                                                                                                                                                         | CLI flag                     | `init`, `maintenance`                                                                                                                                                                                                                                                          |
-| `SessionEnd`                                                                                                                                                    | Why session ended            | `clear`, `resume`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other`                                                                                                                                                                                       |
+| `SessionEnd`                                                                                                                                                    | Why session ended            | `clear`, `resume`, `logout`, `prompt_input_exit`, `other`                                                                                                                                                                                       |
 | `FileChanged`                                                                                                                                                   | Literal filenames (basename) | `.envrc`, `.env`                                                                                                                                                                                                                                                               |
 | `Notification`                                                                                                                                                  | Notification type            | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`, `elicitation_url_dialog`, `elicitation_complete`, `elicitation_response`, `agent_needs_input`, `agent_completed`, `quota_auto_resume_fired`, `quota_auto_resume_stale`, `quota_auto_resume_disabled` |
 | `DirectoryAdded`                                                                                                                                                | How directory was added      | `slash_command`, `register_repo_root`                                                                                                                                                                                                                                          |
@@ -261,7 +262,7 @@ Matcher evaluation types:
 | `StopFailure`                                                                                                                                                   | Error type                   | `rate_limit`, `authentication_failed`, `account_on_hold`, `billing_error`, `cloud_credential_error`, `overloaded`, `oauth_org_not_allowed`, `invalid_request`, `model_not_found`, `server_error`, `max_output_tokens`, `unknown`                                               |
 | `InstructionsLoaded`                                                                                                                                            | Load reason                  | `session_start`, `nested_traversal`, `path_glob_match`, `include`, `compact`                                                                                                                                                                                                   |
 | `UserPromptExpansion`                                                                                                                                           | Command name                 | Expanded command names                                                                                                                                                                                                                                                         |
-| `UserPromptSubmit`, `Stop`, `TeammateIdle`, `TaskCreated`, `TaskCompleted`, `WorktreeCreate`, `WorktreeRemove`, `PostToolBatch`, `MessageDisplay`, `CwdChanged` | No matcher support           | Always fires on every occurrence                                                                                                                                                                                                                                               |
+| `UserPromptSubmit`, `Stop`, `TeammateIdle`, `TaskCreated`, `TaskCompleted`, `WorktreeCreate`, `WorktreeRemove`, `PostToolBatch`, `MessageDisplay`, `CwdChanged` | No matcher support           | Always fires on every occurrence; a `matcher` on these is silently ignored                                                                                                                                                                                                                                               |
 
 ### Match MCP Tools
 
@@ -356,6 +357,7 @@ Leading `VAR=value` assignments are stripped. Filter fails open on parse errors.
 | PermissionDenied                                                                                                                        | `hookSpecificOutput`           | `retry: true` to tell model it may retry                                                                     |
 | PostToolUse                                                                                                                             | `hookSpecificOutput`           | `updatedToolOutput` (modify result), `additionalContext`                                                     |
 | MessageDisplay                                                                                                                          | `hookSpecificOutput`           | `displayContent` (replace displayed text, screen only)                                                       |
+| PreModelSwitch                                                                                                                          | `hookSpecificOutput`           | `permissionDecision` (allow/deny/ask), `permissionDecisionReason`                                            |
 | Elicitation, ElicitationResult                                                                                                          | `hookSpecificOutput`           | `action` (accept/decline/cancel), `content`                                                                  |
 | WorktreeCreate                                                                                                                          | stdout path                    | Print absolute path to created worktree                                                                      |
 | WorktreeRemove, Notification, SessionEnd, PostCompact, InstructionsLoaded                                                               | None                           | No decision control (side effects only)                                                                      |
@@ -485,6 +487,7 @@ Direct edits to hooks in settings files do not take effect immediately. Claude C
 | `CLAUDE_CODE_BRIDGE_SESSION_ID` | Remote Control session ID (v2.1.199+)                                             |
 | `CLAUDE_EFFORT`                 | Effort level (for some events)                                                    |
 | `CLAUDE_PLUGIN_OPTION_<KEY>`    | Plugin hooks: user-configured plugin option values                                |
+| `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB` | When `1`, strips additional variables from hook subprocesses                   |
 
 ## How Hooks Layer
 
@@ -736,7 +739,9 @@ These lifecycle events cannot block, but their `hookSpecificOutput` can inject c
 }
 ```
 
-`Setup` and `SubagentStart` support `additionalContext` only.
+On resume or fork, `SessionStart` can also receive `seconds_since_last_response`, `context_tokens`, `prompt_cache_likely_expired`, and `estimated_cache_write_usd` (v2.1.251+).
+
+`Setup` and `SubagentStart` support `additionalContext` only. `Stop` and `SubagentStop` support `additionalContext` as feedback that continues the conversation.
 
 ## Recent Additions & Version Notes
 
@@ -744,8 +749,11 @@ Hook behavior evolves frequently. Notable recent changes:
 
 | Version   | Change                                                                                                                                                                                        |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v2.1.296+ | `CLAUDE_ENV_FILE` for PowerShell commands.                                                                                                                                                    |
+| v2.1.295+ | `onFailure` field for command and HTTP hooks (`"continue"` or `"block"`).                                                                                                                     |
 | v2.1.267+ | `cloud_credential_error` matcher added to `StopFailure` error types.                                                                                                                          |
 | v2.1.257+ | `scratchpad_dir` common input field (path to the session's scratchpad directory for temporary files).                                                                                         |
+| v2.1.251+ | Resume/fork `SessionStart` input fields: `seconds_since_last_response`, `context_tokens`, `prompt_cache_likely_expired`, `estimated_cache_write_usd`.                                        |
 | v2.1.218+ | Subagent frontmatter hooks blocked in untrusted (`-p`) folders until workspace trust is accepted.                                                                                             |
 | v2.1.214+ | Single-segment glob matching in `if` rules: `Edit(src/**)` matches only `src/` in cwd, not at any depth. Exit 2 with invalid JSON now blocks the action (previously treated as non-blocking). |
 | v2.1.207+ | Plugin option values removed from shell-form hooks; use `CLAUDE_PLUGIN_OPTION_<KEY>` env vars instead.                                                                                        |

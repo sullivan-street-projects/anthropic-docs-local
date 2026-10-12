@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "models"
 ---
 
@@ -102,7 +102,7 @@ On April 14, 2026, Anthropic notified developers using Claude Sonnet 4 and Claud
 
 | Retirement Date | Deprecated Model           | Recommended Replacement |
 | :-------------- | :------------------------- | :---------------------- |
-| June 15, 2026   | `claude-sonnet-4-20250514` | `claude-sonnet-4-6`     |
+| June 15, 2026   | `claude-sonnet-4-20250514` | `claude-sonnet-5-5`     |
 | June 15, 2026   | `claude-opus-4-20250514`   | `claude-opus-4-8`       |
 
 ### 2026-02-19: Claude Haiku 3 (Retired April 20, 2026)
@@ -121,14 +121,14 @@ On April 14, 2026, Anthropic notified developers using Claude Sonnet 4 and Claud
 
 | Retirement Date   | Deprecated Model             | Recommended Replacement |
 | :---------------- | :--------------------------- | :---------------------- |
-| February 19, 2026 | `claude-3-7-sonnet-20250219` | `claude-sonnet-4-6`     |
+| February 19, 2026 | `claude-3-7-sonnet-20250219` | `claude-sonnet-5-5`     |
 
 ### 2025-08-13: Claude Sonnet 3.5 (Retired October 28, 2025)
 
 | Retirement Date  | Deprecated Model             | Recommended Replacement |
 | :--------------- | :--------------------------- | :---------------------- |
-| October 28, 2025 | `claude-3-5-sonnet-20240620` | `claude-sonnet-4-6`     |
-| October 28, 2025 | `claude-3-5-sonnet-20241022` | `claude-sonnet-4-6`     |
+| October 28, 2025 | `claude-3-5-sonnet-20240620` | `claude-sonnet-5-5`     |
+| October 28, 2025 | `claude-3-5-sonnet-20241022` | `claude-sonnet-5-5`     |
 
 ### 2025-06-30: Claude Opus 3 (Retired January 5, 2026)
 
@@ -142,14 +142,19 @@ On April 14, 2026, Anthropic notified developers using Claude Sonnet 4 and Claud
 | :-------------- | :------------------------- | :---------------------- |
 | July 21, 2025   | `claude-2.0`               | `claude-opus-4-8`       |
 | July 21, 2025   | `claude-2.1`               | `claude-opus-4-8`       |
-| July 21, 2025   | `claude-3-sonnet-20240229` | `claude-sonnet-4-6`     |
+| July 21, 2025   | `claude-3-sonnet-20240229` | `claude-sonnet-5-5`     |
 
 ### 2024-09-04: Claude 1 and Instant (Retired November 6, 2024)
 
-| Retirement Date  | Deprecated Model                                  | Recommended Replacement     |
-| :--------------- | :------------------------------------------------ | :-------------------------- |
-| November 6, 2024 | `claude-1.0` through `claude-1.3`                 | `claude-haiku-4-5-20251001` |
-| November 6, 2024 | `claude-instant-1.0` through `claude-instant-1.2` | `claude-haiku-4-5-20251001` |
+| Retirement Date  | Deprecated Model     | Recommended Replacement     |
+| :--------------- | :------------------- | :-------------------------- |
+| November 6, 2024 | `claude-1.0`         | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-1.1`         | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-1.2`         | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-1.3`         | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-instant-1.0` | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-instant-1.1` | `claude-haiku-4-5-20251001` |
+| November 6, 2024 | `claude-instant-1.2` | `claude-haiku-4-5-20251001` |
 
 ## API Parameter Deprecations
 

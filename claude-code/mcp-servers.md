@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 MCP is an open standard for AI-tool integrations, enabling Claude to connect to hundreds of external tools and data sources. MCP servers give Claude Code access to your tools, databases, and APIs. Connect a server when you find yourself copying data into chat from another tool.
 
-> **Last updated:** August 16, 2026
+> **Last updated:** October 12, 2026
 
 ## What You Can Do with MCP
 
@@ -66,6 +66,8 @@ When configuring via JSON, `type` accepts `streamable-http` as an alias for `htt
 
 ### Remote SSE Server (Deprecated)
 
+> **Note:** SSE is deprecated. HTTP transport falls back to SSE automatically on v2.1.265+.
+
 ```bash
 # Basic syntax
 claude mcp add --transport sse <name> <url>
@@ -117,13 +119,14 @@ The `type: "ws"` entry accepts the same `url`, `headers`, `headersHelper`, `time
 
 When the same server is defined in more than one place, Claude Code connects to it once, using the definition from the highest-precedence source. Fields are not merged across scopes:
 
-1. Local scope
-2. Project scope
-3. User scope
-4. Plugin-provided servers
-5. claude.ai connectors
+1. `managedMcpServers` (policy, v2.1.259+)
+2. Local scope
+3. Project scope
+4. User scope
+5. Plugin-provided servers
+6. claude.ai connectors
 
-The three user scopes match duplicates by name. Plugins and connectors match by endpoint.
+The three user scopes match duplicates by name. Plugins and connectors match by endpoint. A server from `managedMcpServers` outranks all other scopes.
 
 ### Choosing the Right Scope
 
@@ -154,7 +157,9 @@ Expansion works in `command`, `args`, `env`, `url`, and `headers` fields.
 }
 ```
 
-If a required environment variable is not set and has no default value, Claude Code fails to parse the config.
+If a required environment variable is not set and has no default value, Claude Code shows a warning and leaves the text unexpanded.
+
+**Credential variable protection:** Credential-like variables (such as `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `AWS_BEARER_TOKEN_BEDROCK`, `HTTPS_PROXY`, `NPM_TOKEN`) read as empty in a remote server's `url` and `headers` fields. This prevents a project or plugin from exfiltrating your credentials. `ANTHROPIC_BASE_URL` still expands. To pass a credential, copy it into a variable with your own name.
 
 ## MCP CLI Commands
 
@@ -178,7 +183,9 @@ claude mcp reset-project-choices
 claude mcp serve
 ```
 
-Project-scoped servers from `.mcp.json` that are awaiting approval appear in `claude mcp list` as `Pending approval`. The `/mcp` panel shows the tool count next to each connected server and flags servers that advertise the tools capability but expose no tools.
+Project-scoped servers from `.mcp.json` that are awaiting approval appear in `claude mcp list` as `Pending approval`. The `/mcp` panel shows the tool count next to each connected server and flags servers that advertise the tools capability but expose no tools. In a session, `/mcp reconnect all` retries failed servers (v2.1.284+).
+
+Status values include `Connected`, `Needs authentication`, `Failed to connect`, `Pending approval`, `Disabled for this project`, and `cached`.
 
 The server name `workspace` is reserved for internal use and will be skipped.
 
@@ -458,6 +465,9 @@ Claude Desktop configuration:
 - Default maximum: 25,000 tokens
 - Configure: `MAX_MCP_OUTPUT_TOKENS=50000`
 - Per-tool override: Set `_meta["anthropic/maxResultSizeChars"]` in tool's `tools/list` response (up to 500,000 characters hard ceiling)
+- Results over 50,000 characters are saved to a file in the session's `tool-results` directory with a preview shown instead
+- HTTP/SSE responses over 16 MB fail; paginate on the server side
+- Error text over ~11,000 characters is truncated to its first and last 5,000 characters
 
 ## Environment Variables
 
@@ -548,6 +558,23 @@ Features:
 - **Automatic lifecycle**: servers connect at startup; run `/reload-plugins` to connect/disconnect on plugin state changes
 - **Environment variables**: `${CLAUDE_PLUGIN_ROOT}` for bundled files, `${CLAUDE_PLUGIN_DATA}` for persistent state, `${CLAUDE_PROJECT_DIR}` for project root
 - **Multiple transport types**: stdio, SSE, HTTP, and WebSocket
+
+## Disabling Without Removing
+
+Toggling in `/mcp` writes per-project entries to `~/.claude.json`:
+
+- `disabledMcpServers`: opt-out list for most servers
+- `enabledMcpServers`: opt-in list for default-off built-ins such as `computer-use`
+- `disabledMcpjsonServers`: blocks project-scoped servers everywhere
+
+## MCP Runtimes
+
+Claude Code supports two client runtimes:
+
+- **v1**: MCP TypeScript SDK 1.x
+- **v2**: SDK 2.0, protocol revision 2026-07-28
+
+Selected with `MCP_SDK_GENERATION=v1|v2`. Negotiation is controlled by `MCP_PROTOCOL_NEGOTIATION=auto|legacy`.
 
 ## Practical Examples
 

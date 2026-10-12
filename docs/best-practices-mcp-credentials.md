@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -142,6 +142,12 @@ Environment variables are expanded in these fields:
 Claude Code sets `CLAUDE_PROJECT_DIR` in the spawned server's environment to the project root, so your server can resolve project-relative paths without depending on the working directory. This is the same directory hooks receive. Read it inside your server process (e.g., `process.env.CLAUDE_PROJECT_DIR` in Node or `os.environ["CLAUDE_PROJECT_DIR"]` in Python).
 
 Referencing it via `${VAR}` expansion in `.mcp.json` requires a default such as `${CLAUDE_PROJECT_DIR:-.}` since the variable is set in the server's environment, not Claude Code's own environment.
+
+### Credential Variable Protection
+
+Claude Code blocks credential-like variable names from expanding in a remote server's `url` and `headers` fields. This prevents a project or plugin `.mcp.json` from exfiltrating your credentials. Blocked names include `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `AWS_BEARER_TOKEN_BEDROCK`, `HTTPS_PROXY`, and `NPM_TOKEN`. These variables read as empty. `ANTHROPIC_BASE_URL` still expands. To pass a credential to a remote server, copy it into a variable with your own name.
+
+Credential-like variables are also stripped from `headersHelper` subprocesses when the server comes from a repo or plugin.
 
 ### Three Ways to Provide Variable Values
 
@@ -629,6 +635,7 @@ Before committing any MCP configuration:
 - [ ] Team members have been informed of required credentials
 - [ ] `grep -rn 'sk-\|ghp_\|Bearer [a-z]' .mcp.json` returns no results
 - [ ] Pre-configured OAuth client secrets use `MCP_CLIENT_SECRET` env var or keychain, never plaintext in config
+- [ ] Credential variables are copied to custom names (not `ANTHROPIC_API_KEY` etc.) for remote server `url`/`headers`
 
 ---
 
@@ -678,6 +685,14 @@ As of v2.1.191, capability discovery requests (`tools/list`, `prompts/list`, `re
 
 Stdio servers are local processes and are not reconnected automatically.
 
+### Disabling Servers Without Removing
+
+Toggle servers in `/mcp` to write per-project entries to `~/.claude.json`:
+
+- `disabledMcpServers`: opt-out list for most servers
+- `enabledMcpServers`: opt-in list for default-off built-ins such as `computer-use`
+- `disabledMcpjsonServers`: blocks project-scoped servers everywhere
+
 ### Idle Timeout
 
 As of v2.1.187, a tool call that sends no response and no progress notification for the idle window aborts with an error. The window defaults to 5 minutes for HTTP, SSE, WebSocket, and claude.ai connector servers, and to 30 minutes for stdio servers (as of v2.1.203; before that, stdio servers were exempt). It applies to every server type except IDE servers and SDK in-process servers. Set the `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` environment variable in milliseconds to change the window, or set it to `0` to disable. A per-server `timeout` of at least 1000 also acts as a floor, so idle aborts never fire sooner than that value (v2.1.203+).
@@ -713,4 +728,6 @@ An MCP tool call in the main conversation still running after two minutes moves 
 | `streamable-http` as alias for `http`                           | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Automatic reconnection with exponential backoff                 | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Idle timeout (`CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`)              | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| Credential variable protection in remote server URLs/headers    | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
+| `disabledMcpjsonServers` for blocking project-scoped servers    | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |
 | Reserved server name `workspace`                                | [MCP Documentation](https://code.claude.com/docs/en/mcp)                                    | High       |

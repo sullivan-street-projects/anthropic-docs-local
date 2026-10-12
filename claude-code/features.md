@@ -2,7 +2,7 @@
 title: "Claude Code Features"
 source_url: "https://code.claude.com/docs/en/features-overview"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -10,7 +10,7 @@ category: "claude-code"
 
 Comprehensive overview of Claude Code's features and capabilities. Claude Code is a terminal-based agentic coding tool that runs in your development environment, combining a model that reasons about your code with built-in tools for file operations, search, execution, and web access.
 
-> **Last updated:** September 13, 2026
+> **Last updated:** October 12, 2026
 
 ## Extension Architecture
 
@@ -19,6 +19,7 @@ Claude Code combines a model that reasons about your code with built-in tools fo
 | Feature                     | What It Does                                                                          | When to Use                                                                   | Example                                                                         |
 | --------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | **CLAUDE.md**               | Persistent context loaded every conversation                                          | Project conventions, "always do X" rules                                      | "Use pnpm, not npm. Run tests before committing."                               |
+| **[Output Style](/docs/en/output-styles)** | Instructions that set Claude's role, tone, and response format for a whole session | A voice, length, or format you want in every response                         | The built-in Concise style for shorter responses; a custom style with diagrams  |
 | **Skills**                  | Instructions, knowledge, and workflows Claude can use                                 | Reusable content, reference docs, repeatable tasks                            | `/deploy` runs your deployment checklist; API docs skill with endpoint patterns |
 | **Subagents**               | Isolated execution context that returns summarized results                            | Context isolation, parallel tasks, specialized workers                        | Research task that reads many files but returns only key findings               |
 | **Dynamic Workflows**       | Script Claude writes that runs many subagents in the background, returning one result | Work that outgrows a handful of subagents, or findings you want cross-checked | Audit a whole codebase, with a second set of agents verifying each finding      |
@@ -69,6 +70,7 @@ You don't need to configure everything up front. Each feature has a recognizable
 | Trigger                                                                    | Add                                                  |
 | -------------------------------------------------------------------------- | ---------------------------------------------------- |
 | Claude gets a convention or command wrong twice                            | Add it to CLAUDE.md                                  |
+| You keep asking Claude to be shorter, explain more, or answer in a format | Set an output style                                  |
 | You keep typing the same prompt to start a task                            | Save it as a user-invocable skill                    |
 | You paste the same playbook into chat for the third time                   | Capture it as a skill                                |
 | You keep copying data from a browser tab Claude can't see                  | Connect that system as an MCP server                 |
@@ -132,6 +134,7 @@ Each extension has different context costs:
 | Feature               | When It Loads                  | What Loads                                          | Context Cost                                 |
 | --------------------- | ------------------------------ | --------------------------------------------------- | -------------------------------------------- |
 | **CLAUDE.md**         | Session start                  | Full content                                        | Every request                                |
+| **Output styles**     | Session start, when switched   | Active style's full instructions; nothing for Default | Every request                              |
 | **Skills**            | Session start + when used      | Descriptions at start, full content when used       | Low (descriptions every request)*            |
 | **MCP servers**       | Session start                  | Tool names; full schemas on demand                  | Low until a tool is used                     |
 | **Code intelligence** | After file edits and on demand | Diagnostics after edits; symbol locations on lookup | Low; reduces file reads elsewhere            |
@@ -148,6 +151,14 @@ Each extension has different context costs:
 - **Subagents** are isolated workers that run separately from your main conversation
 - Skills can be reference or action; subagents provide context isolation
 - They combine: a subagent can preload specific skills (`skills:` field), and a skill can run in isolated context using `context: fork`
+
+### CLAUDE.md vs Output Style
+
+- **CLAUDE.md** holds facts and rules about your project (build commands, conventions, "never do X")
+- **Output styles** set how Claude responds (role, tone, length, response format)
+- Put project facts in CLAUDE.md; put response-level preferences in an output style
+- They combine: CLAUDE.md stays loaded whichever style you pick
+- Claude Code includes built-in styles, and you can write custom ones
 
 ### CLAUDE.md vs Skill
 

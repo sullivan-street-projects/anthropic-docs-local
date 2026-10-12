@@ -2,15 +2,15 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "claude-code"
 ---
 
 # Claude Code Plugins
 
-Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, LSP servers, background monitors, and default settings into a single installable unit.
+Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, LSP servers, background monitors, hooks modules, and default settings into a single installable unit. A plugin that has a hooks module (hooks written as JavaScript functions that can also draw panes and add commands) is called a **mod**.
 
-> **Last updated:** September 13, 2026
+> **Last updated:** October 12, 2026
 
 ## Plugins vs Standalone Configuration
 
@@ -447,6 +447,27 @@ If `version` is omitted and the plugin is distributed via git, the commit SHA is
 ## Official Plugins
 
 The [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) repository contains Anthropic's official plugins. Additional knowledge work plugins are available at [knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins).
+
+## Marketplace Tiers
+
+Claude Code distinguishes three marketplace tiers by name:
+
+- **Official**: Marketplaces with Anthropic's official names (e.g., `claude-plugins-official`), sourced from `github.com/anthropics/` repositories
+- **Community**: Marketplaces with Anthropic's community names (e.g., `claude-community`)
+- **Third-party**: Every other marketplace, including those from your organization
+
+## Context Cost of Enabled Plugins
+
+An enabled plugin is part of every session. For each skill, agent, and command that Claude can invoke on its own, the name and description are in Claude's context on every turn. The full text loads only when used. MCP tools follow MCP tool search behavior.
+
+Check a plugin's footprint:
+- **Before install**: Open the plugin from the Marketplaces tab in `/plugin`. Official marketplace plugins show a Context cost estimate.
+- **After install**: The Installed tab's "Not used recently" group lists plugins you could turn off.
+- **Disable without uninstalling**: Use `/plugin` or `claude plugin disable`.
+
+## Cloud Sessions
+
+A cloud session (including browser sessions at claude.ai/code) does not load the plugins in your local settings. Plugins must be installed in the cloud environment.
 
 ## Security Considerations
 

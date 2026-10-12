@@ -2,7 +2,7 @@
 title: "Research Index"
 source_url: "https://www.anthropic.com/research"
 source_type: "web-extracted"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "research"
 ---
 
@@ -10,7 +10,7 @@ category: "research"
 
 Comprehensive index of Anthropic's research papers, studies, and publications spanning AI safety, interpretability, alignment, and societal impacts.
 
-> **Last updated:** September 20, 2026
+> **Last updated:** October 12, 2026
 
 ## Research Categories
 
@@ -25,6 +25,15 @@ Comprehensive index of Anthropic's research papers, studies, and publications sp
 
 | Date         | Title                                                                                                                                                  | Category          |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
+| Oct 9, 2026  | [Investigating unintended model actions in our evaluations and internal use](https://www.anthropic.com/research/investigating-unintended-model-actions) | Alignment         |
+| Oct 8, 2026  | [The missing map of the sky](https://www.anthropic.com/research/the-missing-map-of-the-sky)                                                           | Science           |
+| Oct 8, 2026  | [Launching an opt-in vulnerability-finding service for open-source software](https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source) | Frontier Red Team |
+| Oct 1, 2026  | [Claude-shaped science](https://www.anthropic.com/research/claude-shaped-science)                                                                      | Science           |
+| Sep 30, 2026 | [What work can robots do?](https://www.anthropic.com/research/what-work-can-robots-do)                                                                 | Economics         |
+| Sep 29, 2026 | [What do you want from AI?](https://www.anthropic.com/research/your-thoughts-on-ai)                                                                   | Societal Impacts  |
+| Sep 29, 2026 | [GLM-5.3 and the spread of advanced cyber capabilities](https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities)      | Frontier Red Team |
+| Sep 25, 2026 | [Yes, Claude can do Nine Loops](https://www.anthropic.com/research/yes-claude-can-do-nine-loops)                                                       | Science           |
+| Sep 24, 2026 | [Project Swap: What happens when agents trade for us?](https://www.anthropic.com/research/project-swap)                                                | Economics         |
 | Sep 17, 2026 | [How Claude is uplifting biomolecular modeling](https://www.anthropic.com/research/claude-uplifts-biomolecular-modeling)                               | Science           |
 | Aug 2026     | [Measurements for understanding the pace of AI development inside frontier labs](https://www.anthropic.com/institute/measuring-pace-of-ai-development) | Policy            |
 | Sep 4, 2026  | [Formalizing Fermat's Last Theorem](https://www.anthropic.com/research/formalizing-fermats-last-theorem)                                               | Science           |

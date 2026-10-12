@@ -2,7 +2,7 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -199,6 +199,21 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--exclude-dynamic-system-prompt-sections` | Move per-machine sections from system prompt into first user message for better cache reuse                                              |
 | `--input-format`                           | Specify input format for print mode (`text`, `stream-json`)                                                                              |
 | `--include-hook-events`                    | Include hook lifecycle events in output stream (requires `--output-format stream-json`)                                                  |
+| `--advisor <model>`                        | Enable server-side advisor tool with a model alias (`fable`, `opus`, `sonnet`) or full model ID                                          |
+| `--autocompact <auto\|tokens>`              | Set auto-compact window for this session (e.g., `500k`)                                                                                  |
+| `--cloud`                                  | Create a new cloud session, or with a session ID queue a message into an existing one                                                    |
+| `--desktop`                                | Open the Claude Desktop app on the current directory                                                                                     |
+| `--environment <environment-id>`           | Create a cloud session on a self-hosted environment (IDs start with `ccpool_`)                                                           |
+| `--exec`                                   | Run a shell command as a PTY-backed background job (use with `--bg`)                                                                     |
+| `--forward-subagent-text`                  | Emit subagent text and thinking blocks in the output stream (requires `--print` and `--output-format stream-json`)                       |
+| `--permission-prompts <host\|none>`         | Set who answers permission prompts in print mode; `none` denies all                                                                      |
+| `--restricted`                             | Restricted mode: removes command/code tools unless named in `--tools`, confines file tools to working dirs, loads only managed settings  |
+| `--worktree`, `-w`                         | Start Claude in an isolated git worktree; pass `#<number>` to branch from a PR                                                           |
+| `--teammate-mode`                          | Set agent team display mode: `in-process`, `auto`, `tmux`, or `iterm2`                                                                  |
+| `--tmux`                                   | Create a tmux session for the worktree (requires `--worktree`)                                                                           |
+| `--system-prompt-snapshot`                 | `off` to rebuild system prompt every request; `on` (default) to reuse recorded prompt                                                    |
+| `--ref <branch>`                           | With `--environment`, base checkout on a named ref instead of local HEAD                                                                 |
+| `--prompt-suggestions`                     | Emit predicted next user prompts (requires `--print`, `--output-format stream-json`, `--verbose`)                                        |
 
 ### Tier 3: GitHub Actions Example
 
@@ -248,6 +263,22 @@ claude --bg --exec 'pytest -x'
 ```
 
 Background agents run as separate processes managed by a supervisor daemon. Unlike `/loop`, they persist independently of your interactive session. Use `claude daemon status` for diagnostics and `claude daemon stop --any` to recover from an unresponsive supervisor.
+
+Additional CLI commands:
+
+```bash
+# Restart a background session with conversation intact
+claude respawn 7c5dcf5d
+
+# Remove a background session from the list
+claude rm 7c5dcf5d
+
+# View supervisor daemon logs
+claude daemon logs
+
+# Run installation diagnostics
+claude doctor
+```
 
 ---
 
@@ -324,6 +355,12 @@ claude --bg --exec 'npm test'
 | `--tools` flag for restricting built-in tools     | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--disallowedTools` deny rules                    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--fallback-model` comma-separated chains         | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
-| System prompt flags (4 variants)                  | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| System prompt flags (5 variants incl. snapshot)   | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--advisor` server-side advisor tool              | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--cloud` / `--environment` cloud sessions        | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--worktree` / `--tmux` isolation                 | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--restricted` mode                               | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `--permission-prompts` host/none                  | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
+| `claude respawn`, `claude rm`, `claude doctor`    | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | Cron scheduling approach                          | General best practice, CLI flags verified                  | Medium     |
 | GitHub Actions approach                           | General best practice, CLI flags verified                  | Medium     |

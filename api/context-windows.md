@@ -2,7 +2,7 @@
 title: "Context Windows"
 source_url: "https://platform.claude.com/docs/en/docs/build-with-claude/context-windows"
 source_type: "web-extracted"
-fetched_at: "2026-07-12T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "api"
 ---
 
@@ -26,11 +26,9 @@ Everything in the request counts toward the context window: the system prompt, e
 
 ## Context Window Sizes by Model
 
-Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6 have a 1M-token context window on the Claude API, Amazon Bedrock, Google Cloud, and Microsoft Foundry. Claude Mythos Preview also has a 1M-token context window.
+Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Haiku 5.5, and Claude Mythos Preview have a 1M-token context window. A single request to any of them can generate up to 128k output tokens (`max_tokens`). Other Claude models, including Claude Sonnet 4.5 (deprecated), have a 200k-token context window.
 
-Claude Fable 5 and Claude Mythos 5 (`claude-fable-5` and `claude-mythos-5`) have a 1M-token context window, and a single request to these models can generate up to 128k output tokens (`max_tokens`). Other Claude models, including Claude Sonnet 4.5, have a 200k-token context window.
-
-For every model with a 1M-token context window, 1M is the default: you don't need a beta header, and long-context requests are billed at standard pricing.
+For every model with a 1M-token context window, 1M is the default: you don't need a beta header, and long-context requests are billed at standard pricing, except on Claude Haiku 5.5, where prompts over 100,000 tokens cost more.
 
 A single request can include up to 600 images or PDF pages (100 for models with a 200k-token context window). If you send many images or large documents, you might reach request size limits before the token limit.
 
@@ -42,7 +40,7 @@ With extended thinking, all input and output tokens, including thinking tokens, 
 
 The thinking budget tokens are a subset of your `max_tokens` parameter, are billed as output tokens, and count toward rate limits. With adaptive thinking, Claude determines its thinking allocation dynamically, so thinking token usage varies from request to request.
 
-Whether thinking blocks from previous assistant turns stay in the context window depends on the model. On Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview, the API keeps previous thinking blocks by default, and they count toward the context window like any other input tokens. On earlier Opus and Sonnet models and all Haiku models, the API automatically strips previous thinking blocks from the conversation history when you pass them back, which preserves token capacity for conversation content. To override the default in either direction, use thinking block clearing.
+Whether thinking blocks from previous assistant turns stay in the context window depends on the model. On Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, Claude Haiku 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview, the API keeps previous thinking blocks by default, and they count toward the context window like any other input tokens. On earlier Opus and Sonnet models and all Haiku models through Claude Haiku 4.5, the API automatically strips previous thinking blocks from the conversation history when you pass them back, which preserves token capacity for conversation content. For per-model defaults, see thinking block preservation by model. To override the default in either direction, use thinking block clearing.
 
 - **Stripping extended thinking:** On models that strip previous thinking blocks, extended thinking blocks are generated during each turn's output phase but are not carried forward as input tokens for subsequent turns. You do not need to strip the thinking blocks yourself: if you pass them back, the Claude API strips them automatically.
 - **Billing:** Extended thinking tokens are billed as output tokens once, when they are generated. On models that keep previous thinking blocks, the kept blocks are then part of later requests' input and are billed as input tokens, like the rest of the conversation history.
@@ -62,13 +60,13 @@ Considerations for tool use with extended thinking:
 - When you post tool results, you must include the entire unmodified thinking block that accompanies that tool request, including its signature.
 - The API uses cryptographic signatures to verify thinking block authenticity. If you modify a thinking block, the API returns an error.
 
-Most current Claude models support interleaved thinking, which lets Claude think between tool calls, including after it receives tool results. It is automatic on models with adaptive thinking. Claude Opus 4.5, Claude Sonnet 4.5, and earlier Claude 4 models require the `interleaved-thinking-2025-05-14` beta header.
+Most current Claude models support interleaved thinking, which lets Claude think between tool calls, including after it receives tool results. It is automatic on models with adaptive thinking. Claude Opus 4.5, Claude Sonnet 4.5 (deprecated), and earlier Claude 4 models require the `interleaved-thinking-2025-05-14` beta header, and Claude Haiku 4.5 does not support it.
 
 To reduce the context consumed by the tool definitions themselves, see [Manage tool context](https://platform.claude.com/docs/en/agents-and-tools/tool-use/manage-tool-context), or defer tool definitions with the [tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool).
 
 ## Context Awareness
 
-Claude Sonnet 5, Claude Sonnet 4.6, Claude Sonnet 4.5, and Claude Haiku 4.5 have **context awareness:** these models track their remaining context window (their "token budget") throughout a conversation. This lets the model manage long-running tasks against the space that remains rather than guess how many tokens are left. Context awareness is automatic: there is nothing for you to enable, and you never send the tags shown in this section yourself. The API injects them.
+Claude Sonnet 5, Claude Sonnet 4.6, Claude Sonnet 4.5 (deprecated), and Claude Haiku 4.5 have **context awareness:** these models track their remaining context window (their "token budget") throughout a conversation. This lets the model manage long-running tasks against the space that remains rather than guess how many tokens are left. Context awareness is automatic: there is nothing for you to enable, and you never send the tags shown in this section yourself. The API injects them.
 
 ### How It Works
 
@@ -88,13 +86,13 @@ After each tool call, the API gives Claude an update on its remaining capacity:
 
 Image tokens are included in these budgets.
 
-Newer models don't receive these injected tags. On Claude Opus 4.7 and later, Claude Fable 5, and Claude Mythos 5, you can give the model an explicit budget with task budgets, which are in beta.
+Claude Opus 4.7 and later Opus models, Claude Sonnet 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Haiku 5.5 don't receive these injected tags. On these models, you can give the model an explicit budget with task budgets, which are in beta.
 
 For agents that span multiple sessions, design your state artifacts so that context recovery is fast when a new session starts. The memory tool's multi-session pattern walks through a concrete approach. See also [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
 
 ## Managing Context with Compaction
 
-If your conversations regularly approach context window limits, use server-side compaction. Compaction automatically summarizes earlier parts of the conversation on the server, so the conversation can continue past the context window limit. It is available in beta for Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, Claude Mythos Preview, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6.
+If your conversations regularly approach context window limits, use server-side compaction. Compaction automatically summarizes earlier parts of the conversation on the server, so the conversation can continue past the context window limit. It is available in beta for Claude 4.6 and later models and Claude Mythos Preview.
 
 For more specialized needs, context editing offers additional strategies:
 

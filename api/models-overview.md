@@ -2,15 +2,15 @@
 title: "Models Overview"
 source_url: "https://platform.claude.com/docs/en/docs/about-claude/models"
 source_type: "web-extracted"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "api"
 ---
 
 # Models Overview
 
-Claude is a family of state-of-the-art large language models developed by Anthropic. If you're unsure which model to use, start with **Claude Opus 5.5** for most workloads. Use **Claude Fable 5.1** for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short.
+Claude is a family of state-of-the-art large language models developed by Anthropic. Compare the current lineup, find the model ID for every platform, and open each model's page for its full specs and resources.
 
-All current Claude models support text and image input, text output, multilingual capabilities, vision, and tool use. Models are available through the Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, and Microsoft Foundry.
+If you're unsure which model to use, start with **Claude Opus 5.5** for most workloads. Use **Claude Fable 5.1** for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short. All current models support text and image input, text output, multilingual capabilities, vision, and tool use. Each model's page lists the platforms it's available on.
 
 ## Claude Fable 5.1 and Claude Mythos 5.1
 
@@ -94,12 +94,22 @@ Starting with Claude Sonnet 4.5 and all subsequent models (including Claude Sonn
 
 Claude Platform on AWS uses the same model IDs as the Claude API (for example, `claude-opus-4-6`), not Bedrock-style IDs. Model lifecycle on Claude Platform on AWS follows Anthropic's first-party model deprecations, not Bedrock's.
 
+## Using the Models API
+
+You can query model capabilities and token limits programmatically with the Models API. The response includes `max_input_tokens`, `max_tokens`, and a `capabilities` object for every available model.
+
+Each model in the response also has a `line` field, which names the model line it belongs to. Claude Opus 4.5 and Claude Opus 4.6 both report `opus`. Use `line` to group models, for example, in a model picker. `line` is `null` when a model belongs to no line. Read `line` instead of inferring it from the model's `id`.
+
+Each model's `capabilities` object includes `thinking.types.disabled`, which reports whether the model accepts `thinking: {type: "disabled"}`. `supported` is `false` when the model rejects `"disabled"` with a 400 error, and `true` on a model that doesn't support thinking.
+
+Each model's `capabilities` object also includes `server_tools`, which reports whether the model accepts the web search and code execution tools. `server_tools.web_search.supported` and `server_tools.code_execution.supported` are `true` when the model accepts at least one version of that tool. The top-level `code_execution` capability is a different check: it reports whether code that Claude runs in the code execution tool can call the request's other tools (programmatic tool calling).
+
 ## Key Capabilities
 
 - **Performance:** Top-tier results in reasoning, coding, multilingual tasks, long-context handling, honesty, and image processing
 - **Adaptive thinking:** Sonnet 5.5, Haiku 5.5, Opus 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6 support dynamic thinking allocation; Opus 5.5, Fable 5.1, Mythos 5.1, Fable 5, and Mythos 5 have always-on adaptive thinking
 - **1M context:** 1M token context window on Claude Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1, Mythos 5.1, Fable 5, Mythos 5, Opus 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6
-- **Context awareness:** Sonnet 5.5, Haiku 5.5, Sonnet 5, Sonnet 4.6, Sonnet 4.5, and Haiku 4.5 track remaining context budget
+- **Context awareness:** Sonnet 5, Sonnet 4.6, Sonnet 4.5, and Haiku 4.5 track remaining context budget; Sonnet 5.5, Haiku 5.5, and later models use task budgets instead
 
 ## Migration
 

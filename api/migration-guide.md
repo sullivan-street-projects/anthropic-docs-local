@@ -2,13 +2,19 @@
 title: "Migration Guide"
 source_url: "https://platform.claude.com/docs/en/docs/about-claude/models/migration-guide"
 source_type: "web-extracted"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "api"
 ---
 
 # Claude Migration Guide
 
 This is a comprehensive guide for migrating to the latest Claude models from previous Claude versions. The guide covers Messages API code migration, with notes that Claude Managed Agents require only model name updates.
+
+> **Note:** The source page has been restructured into individual model migration guides. The latest migration guides are:
+> - [Claude Fable 5.1 and Claude Mythos 5.1 migration guide](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide)
+> - [Claude Opus 5.5 migration guide](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide)
+> - [Claude Sonnet 5.5 migration guide](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide)
+> - [Claude Haiku 5.5 migration guide](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide)
 
 ### Automated Migration
 

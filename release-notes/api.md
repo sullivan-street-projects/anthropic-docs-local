@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-12T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -78,6 +78,10 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 - Managed Agents permission policies add `auto`: the server evaluates each agent/MCP tool call and runs, denies, or pauses it for approval. `agent.tool_use`/`agent.mcp_tool_use` events report the decision in an `evaluation` field.
 - `ant` CLI adds `ant beta:sessions connect` to attach your terminal to a Managed Agents session (follow live, message, approve/deny tool calls); `--web` serves the Console session viewer locally.
+
+### September 9, 2026
+
+- Cache fingerprints are now stored only when the `diagnostics` object is included in the request.
 
 ### September 3, 2026
 
