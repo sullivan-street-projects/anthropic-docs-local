@@ -18,6 +18,22 @@ Track source-specific failures with resolutions. Review at session start to avoi
 
 ## Log
 
+### 2026-10-18 — manifest metadata timestamp drift (self-inflicted, caught + fixed same run)
+
+- **Error**: The single-writer reconcile script set `metadata.last_full_update` to 2026-10-18 but left the TOP-LEVEL `last_full_update` at 2026-10-11. `validate.js` and the staleness math read the top-level field, so the mirror reported wrong "days behind" numbers while passing (dates silently disagreed). Root cause: `manifest.json` carries a `metadata` block that duplicates `last_full_update`/`last_discovery_run`, and the script assumed `metadata.X` was authoritative.
+- **Resolution**: Set the top-level `last_full_update`/`last_discovery_run` to 2026-10-18 (re-validated: Layer 1 now reads 2026-10-18). Added a Layer-1 consistency check in `validate.js` that errors if the `metadata` copies disagree with the top-level fields.
+- **Prevention**: lessons.md rule added — always write the top-level timestamp fields; the metadata copy is cosmetic. The new validation check backstops any future drift (verified it errors + exits 1 on injected drift).
+
+### 2026-10-18 — agent-sdk-typescript-v2 (confirmed 404, ~13th cycle)
+
+- **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via the repos API scan; not fetched). last_fetched 2026-04-05 (196 days stale). Emits one Layer-4 staleness warning per cycle.
+- **Resolution**: NOT re-fetched (known dead). NOT auto-deleted (Phase 4e: 404 → log + user-alert; permanent deletion needs user confirmation). Local file `agent-sdk/typescript-v2-preview.md` preserved.
+- **Prevention**: Remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*, live and tracked via the manual agent-sdk-readme/quickstart sources). Concrete case for optimizations item #18 (lifecycle_status).
+
+### 2026-10-18 — no fetch failures (actively-fetched sources)
+
+- **Note**: All actively-fetched sources succeeded (8 github-raw via curl; 5 changed [claude-code CHANGELOG, both SDK CHANGELOGs + READMEs], 3 verified-unchanged [claude-code/skills READMEs, cookbooks index]; claude-code/hooks.md verified current vs live [onFailure + 33 events present; the new 12-per-event hook concurrency cap is NOT yet in the live docs page, so NOT invented locally]; 6 live aggregation/model/release pages; github-repos API; help-center release notes; 11 new-source fetches; 3 discovery index pages). No 404s on code.claude.com, platform.claude.com, support.claude.com, or www.anthropic.com. Zero background agents (all fetches inline by the orchestrator) → zero 600s-watchdog stalls. 0 sha256 mismatches after single-writer reconcile; 195/195 hashes verified. **No model launch** (SDK CHANGELOGs add no new model ID), so the model-launch cascade did not fire; live lineup matched local, lineup-consistency check passed. The only 404 was the known-dead agent-sdk source (above), intentionally not fetched.
+
 ### 2026-10-11 — agent-sdk-typescript-v2 (confirmed 404, ~12th cycle)
 
 - **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via curl). last_fetched 2026-04-05 (~189 days stale). Emits one Layer-4 staleness warning per cycle.

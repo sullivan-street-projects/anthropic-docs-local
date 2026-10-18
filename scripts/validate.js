@@ -117,6 +117,26 @@ function validateSchema(manifest) {
     ok(`last_full_update: ${manifest.last_full_update}`);
   }
 
+  // Metadata consistency: the manifest keeps a duplicate copy of these
+  // timestamps under `metadata`. The validator and staleness logic read the
+  // TOP-LEVEL fields, so a nested copy that silently drifts (e.g. a reconcile
+  // step updating only `metadata.last_full_update`) would make the dates lie.
+  // Flag any drift so the top-level field stays the single source of truth.
+  if (manifest.metadata && typeof manifest.metadata === "object") {
+    for (const key of ["last_full_update", "last_discovery_run"]) {
+      if (
+        manifest.metadata[key] !== undefined &&
+        manifest[key] !== undefined &&
+        manifest.metadata[key] !== manifest[key]
+      ) {
+        error(
+          `metadata.${key} (${manifest.metadata[key]}) disagrees with top-level ${key} (${manifest[key]}) — top-level is authoritative; sync them`,
+        );
+      }
+    }
+    ok("metadata timestamps consistent with top-level fields");
+  }
+
   if (!Array.isArray(manifest.sources)) {
     error("manifest.json missing sources array");
     return null;

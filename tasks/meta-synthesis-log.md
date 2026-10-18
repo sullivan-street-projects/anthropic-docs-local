@@ -29,15 +29,39 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 11
-Total improvements applied: 8 (1 code change this cycle — a model-lineup cross-file consistency check in validate.js, motivated by the recurring model-launch cascade)
-Total improvements deferred: 6 (reinforced #18 source-lifecycle tracking again)
-Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade)
-Most-informative category: models + sdks again this cycle (TWO launches — Claude Sonnet 5.5 and Claude Haiku 5.5 — cascaded across both overview tables, deprecations, and release notes; Sonnet 4.5 deprecated); research (unintended model actions, GLM-5.3 cyber proliferation)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~12th cycle, 189 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-10-11 — 1 code improvement applied (lineup consistency check), 15 sources auto-added (2 models + 7 research + 6 news), 0 agents stalled (all fetches inline), 0 validation errors, 184/184 hashes verified
+Total cycles logged: 12
+Total improvements applied: 9 (1 code change this cycle — a metadata/top-level timestamp-consistency check in validate.js, motivated by a real drift hit during this run's reconcile)
+Total improvements deferred: 7 (reinforced #18 source-lifecycle tracking again; observability/self-eval theme recurred via OTel + Scion)
+Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency → metadata timestamp consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade, metadata single-source-of-truth)
+Most-informative category: engineering this cycle (Scion — agent-scale source control — independently validates our content-addressing + single-writer + verify-from-disk invariants); sdks (native OpenTelemetry tracing, `speed` param); research (self-replicating AI, distillation defenses, ECDSA curve origins)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~13th cycle, 196 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
+Last cycle: 2026-10-18 — 1 code improvement applied (metadata timestamp-consistency check), 11 sources auto-added (7 research + 3 news + 1 engineering), NO model launch (lineup unchanged), 0 agents stalled (all fetches inline), 0 validation errors, 195/195 hashes verified
 
 ## Entries
+
+### 2026-10-18 — Update: all
+
+Content changes analyzed: 12 modified + 11 added (all real content changes)
+Improvements identified: 1 applied (code), 1 deferred (reinforced), 4 already-aligned
+Improvements applied: 1 code change
+Improvements deferred: 1 (reinforced #18)
+
+**Applied (LOW effort, code):**
+
+- During this run's single-writer reconcile, `manifest.json`'s **duplicate timestamp copies silently drifted**: the reconcile script updated `metadata.last_full_update` to 2026-10-18 while the TOP-LEVEL `last_full_update` (the field `validate.js` and the staleness logic actually read) stayed 2026-10-11. Nothing caught it until the staleness "days behind" numbers looked wrong. The manifest has carried a `metadata` block duplicating `last_full_update`/`last_discovery_run` since before this cycle — a dual-source-of-truth waiting to lie. → Added a **Layer-1 check in `scripts/validate.js`**: when a `metadata` block exists, `metadata.last_full_update` and `metadata.last_discovery_run` must equal their top-level counterparts, else a blocking error ("top-level is authoritative; sync them"). Verified positive (passes clean) and negative (errors + exit 1 on injected drift). This turns a silent date-lie into a blocking failure.
+
+**Already aligned (content independently validates our infra):**
+
+- `engineering/redesigning-source-control.md` (new, Scion — Anthropic's agent-scale source control) is a near-perfect mirror of our pipeline's invariants: **content-addressed, immutable objects cached without coordination** = our sha256 content-pinning + verify-from-disk; **server computes derived data (blame/history) from immutable inputs** = `validate.js` as the offline derived-data checker recomputing from disk each run; and the lesson that **the human's job is to say "no" when agents violate core constraints (e.g. "scanning the commit log instead of querying the review tool")** = our single-writer-manifest rule (agents write content files only; the orchestrator alone edits `manifest.json`). This cycle re-proved it: 195/195 hashes verified, 0 races, single-writer reconcile. No change needed.
+- `research/self-replicating-ai.md` (new): the Memento harness **restarts agents with notes from earlier attempts**, and adaptation improved across generations that **inherit notes from predecessors** (setup success 45% → 61–84%). That is exactly our `.update-session.json` resume + `tasks/lessons.md` accumulation loop — each weekly cycle restarts with accumulated notes. Aligned.
+- `research/distillation-defenses.md` (new): "preserved thinking" prevents new accounts from **editing prior context**, and reasoning is bound to the org that produced it — provenance/immutability + defense-in-depth (summarize → classify → rate-limit). Same layered, provenance-first posture as our multi-layer `validate.js` + verify-from-disk. Aligned.
+- `research/ecdsa-curve-origins.md` (new) + SDK **native OpenTelemetry tracing**: Claude's cryptographic claims were trusted only after **large-scale simulation, Lean formalization, and CC0 reproduction code**; the SDKs made every API call a reproducible, inspectable span. Reproducibility/observability of a process is the same principle as our sha256 reproducibility + full-coverage offline validation. Aligned. (The recurring OTel + "superfans watching components" theme reinforces the still-deferred self-eval-harness idea from 2026-09-13 — MEDIUM/HIGH, not built.)
+
+**Deferred (reinforced, already in optimizations plan as #18):**
+
+- `agent-sdk-typescript-v2` (`https://github.com/anthropics/agent-sdk`) — re-verified **HTTP 404** this cycle (~13th consecutive; last_fetched 2026-04-05, 196 days stale). Per Phase 4e: logged + user-alerted, NOT auto-deleted. Concrete motivating case for optimizations item #18 (`lifecycle_status`).
+
+**No model launch this cycle (honest note):** the SDK CHANGELOGs added no `add support for claude-*` line, so the model-launch cascade did NOT fire. Live lineup (Opus 5.5 / Fable 5.1 / Sonnet 5.5 / Haiku 5.5) matched local exactly; the 2026-10-11 lineup-consistency check passed (15 active IDs), confirming the mirror was not left half-updated. Model pages left honestly untouched.
 
 ### 2026-10-11 — Update: all
 

@@ -19,6 +19,20 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-10-18 — Discovery Run (Phase 2.5, during update)
+
+- **New sources found**: 11 untracked first-party anthropic.com URLs; all 11 auto-added per unattended-run policy.
+- **Added** (11):
+  - research (7): `research-designing-efficient-quantum-circuits` (Oct 16, Science — Claude extends quantum-circuit Pareto frontier, 53-hour run), `research-ecdsa-curve-origins` (Oct 16, Frontier Red Team — NIST curve seeds traced to `lrand48`+Unix timestamp; NOT a weakness), `research-self-replicating-ai` (Oct 12, Frontier Red Team — small-model IoT ARA "signs of life"), `research-distillation-defenses` (Oct 12, policy/security — classifier cuts extracted reasoning 90–99%), `research-ai-expectations-gap` (Oct 16, Economics), `research-employment-at-anthropic` (Oct 16, Economics — 6 agent-hrs per human-hr by Aug), `research-expectations-for-the-future` (Oct 16, Economics overview of the two reports)
+  - news (3): `news-an-update-on-independent-evaluators` (Oct 15 — METR employee-like access; 3 access tiers), `news-2026-us-midterms` (Oct 14 — election safeguards), `news-singapore-office-opening` (Oct 14 — 5th APAC office + MOU)
+  - engineering (1): `engineering-redesigning-source-control` (Oct — Scion, agent-scale source control; directly relevant to this repo's own pipeline design)
+- **Deferred**: `features/ebola-response` ("The Situation Report") — still a `/features/` situation page, carried over, not clearly a durable docs/research asset.
+- **Already tracked (not re-added)**: Oct 8–9 posts added last cycle (usage-policy-update, genesis-mission, cyber-mission, cyber-verification-program, claude-frontier-academy, barclays-scales-claude, investigating-unintended-model-actions, missing-map-of-the-sky, oss-vuln-finding-service).
+- **GitHub repos**: 2 repos created since last run (`oss-scanner` ⭐1112 created 10-08, `snix` mirror ⭐0 created 10-07) were ALREADY in `github-repos/index.md` (regenerated 10-11) — no new repos; index left untouched (star drift ~1 week old, no high-value new repo; not falsely bumped).
+- **SDK versions**: npm @anthropic-ai/sdk Python 1.15.0 (2026-10-15), TypeScript 0.135.0 (2026-10-15) — both add `speed` param + `between_tools` thinking type + native OpenTelemetry; in sync with tracked CHANGELOGs. **No new model ID** in either CHANGELOG → no model-launch cascade this cycle.
+- **arXiv**: no new Anthropic-authored papers (name-collision with the "anthropic principle" again); `research-papers-index` left at its real date, not bumped.
+- **Staleness**: `agent-sdk-typescript-v2` confirmed 404 again (~13th cycle, 196 days stale) — removal still escalated to user task chip, not auto-deleted.
+
 ### 2026-10-11 — Discovery Run (Phase 2.5, during update)
 
 - **New sources found**: 16 untracked first-party anthropic.com URLs; 15 auto-added per unattended-run policy, 1 deferred.
