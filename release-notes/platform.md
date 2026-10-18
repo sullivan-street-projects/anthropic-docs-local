@@ -2,7 +2,7 @@
 title: "Platform Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-18T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,16 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### October 15, 2026
+
+- **Compliance API:** now returns users' saved instructions (beta, Enterprise organizations).
+- **Fast mode** for Claude Opus 5.5 left research preview: it no longer needs the beta header, and is now available on Microsoft Foundry.
+
+### October 14, 2026
+
+- **OpenTelemetry export (beta):** trace Messages API requests and Managed Agents sessions via OpenTelemetry. The Python and TypeScript SDKs also add native OpenTelemetry tracing (SDK option `open_telemetry` / `openTelemetry`, or `ANTHROPIC_OPEN_TELEMETRY`).
+- **Managed Agents scheduled deployments** are available on Claude Platform on AWS.
 
 ### October 9, 2026
 

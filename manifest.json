@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-10-11T00:00:00Z",
+  "last_full_update": "2026-10-18T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -9,10 +9,10 @@
       "local_path": "claude-code/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "613ab457e4f6a4887de3e619958fc4c074a88ee807b25e255cc70d302fbb42c8"
+      "sha256": "c8721cc2c518ca8dc8a61875deb924c6d3f282fc59727f65f08977075049af8e"
     },
     {
       "id": "claude-code-changelog",
@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "9f833faf14e1987132231960f4dbffb7eb16ab1eb50e6a1151ca2a94a8a5a6c5"
+      "sha256": "c0444ecf9806374f4ae6d0e4575e71add8e05ce6e8d9854c77859dd187e7f901"
     },
     {
       "id": "claude-code-features",
@@ -129,10 +129,10 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "393f6b0397fa09f39427672506bb77f4fcbfa1d7fa3da260c5cde4e4200b012b"
+      "sha256": "24984c6bb91416a8c5d7f05863587d786dcf62ec5fc1f9848f404d203d168c79"
     },
     {
       "id": "python-sdk-changelog",
@@ -141,10 +141,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "9f83076f6e93254d67581eaefcbe6f670705173e08101243f07a65a25f231555"
+      "sha256": "e3f075f5b2da271dd1b65ba4d78d8bbfbc32a563f15e174c5ba0af0a4ea85c5c"
     },
     {
       "id": "typescript-sdk-readme",
@@ -153,10 +153,10 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "a2a85c63d719522111dded0b36adb0031e9170ccf2d2c313f2cf75bf0aaec029"
+      "sha256": "0efd8721fd7fdb225c00b396e61ea46b048b67ba30ce1f1ca99e8c84a0b59007"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -165,10 +165,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "a4ee9409278b73742687847cc778c42391d84bd4cbcef003ccd796e0cd8577eb"
+      "sha256": "c525e5416ce6590d7c91ac8eaf9fc032df105be84f8c2376092bef3c1cfa3f46"
     },
     {
       "id": "other-sdks-overview",
@@ -189,10 +189,10 @@
       "local_path": "skills/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "bdb8ca3426a6ddffa26e854438ca768dc579ea50d1e86009354ecf888c12d277"
+      "sha256": "dcc4c05466fe4ac251601bed822176cdbd75e070dac1a1ab2d84c85262aa3640"
     },
     {
       "id": "skills-catalog",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "a6c2e66270047e2e5b2a6ca6d5897a67b7cbd49fb30931ba629e86006d8f25f8"
+      "sha256": "2d64a4bf35a162851c0d682e416457fad733787212c7f0ee68e8ad35acba731d"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "3cc0a10845d65ea3be573115e7996b3f504a49d7635064dfd87287793e0cb8e2"
+      "sha256": "e1c631b14be1adb21ca682c43936ff3362f7d713d1d2a16f60bea5f747b8437b"
     },
     {
       "id": "release-notes-help-center",
@@ -467,10 +467,10 @@
       "local_path": "cookbooks/index.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "6f785506c3e83941aa5383598b25fefeb0b00cc3a24aca2f1fbbd99e09bb40a0"
+      "sha256": "f5fef4360ee6de50a08f103bb6a21d46b96f1538f9460870a35819ca87e925c5"
     },
     {
       "id": "research-index",
@@ -2287,11 +2287,143 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "1e6b89699195937fa6e344f127a7dad436d0568fa77659d3561ed0dbbc16fffd"
+    },
+    {
+      "id": "research-designing-efficient-quantum-circuits",
+      "name": "Designing more efficient quantum circuits with Claude",
+      "category": "research",
+      "local_path": "research/designing-efficient-quantum-circuits.md",
+      "source_url": "https://www.anthropic.com/research/designing-efficient-quantum-circuits",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "95dfb98bf64b1ec193657ba97ead25c356efe0f527eda1c203935b15bfce233b"
+    },
+    {
+      "id": "research-ecdsa-curve-origins",
+      "name": "Claude reveals the origins of the ECDSA curve seeds",
+      "category": "research",
+      "local_path": "research/ecdsa-curve-origins.md",
+      "source_url": "https://www.anthropic.com/research/ecdsa-curve-origins",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "b77a191f9a00c7d77d0ad3531e0bee89cc90c41a5edafc89fe40b07f2a761f94"
+    },
+    {
+      "id": "research-self-replicating-ai",
+      "name": "AI models may be capable of self-replicating without a datacenter",
+      "category": "research",
+      "local_path": "research/self-replicating-ai.md",
+      "source_url": "https://www.anthropic.com/research/self-replicating-ai",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "822b0a203a42326fde810851b70b9df99d907eb4b4b826bc1bcdad6653582765"
+    },
+    {
+      "id": "research-distillation-defenses",
+      "name": "Strengthening our defenses against distillation attacks",
+      "category": "research",
+      "local_path": "research/distillation-defenses.md",
+      "source_url": "https://www.anthropic.com/research/distillation-defenses",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "0934152958abdbc141a8e84e907991c2de0d918eb24fa31f12728919d7aa4528"
+    },
+    {
+      "id": "research-ai-expectations-gap",
+      "name": "The AI expectations gap",
+      "category": "research",
+      "local_path": "research/ai-expectations-gap.md",
+      "source_url": "https://www.anthropic.com/research/ai-expectations-gap",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "ccb3efa95691c3072aa2a69f6bd4aa506840b40375c3ce851b49dfaa48d5e435"
+    },
+    {
+      "id": "research-employment-at-anthropic",
+      "name": "How employment is changing at Anthropic",
+      "category": "research",
+      "local_path": "research/employment-at-anthropic.md",
+      "source_url": "https://www.anthropic.com/research/employment-at-anthropic",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "d60a59cae2a573f02794255d512778d9ffeb3661dabe293676b90bebdeea395f"
+    },
+    {
+      "id": "research-expectations-for-the-future",
+      "name": "Working at the frontier shapes expectations for the future",
+      "category": "research",
+      "local_path": "research/expectations-for-the-future.md",
+      "source_url": "https://www.anthropic.com/research/expectations-for-the-future",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "0d7feccefd191b7f6c3558b17b7a22ce66a3cf1b140e191378a049340589b264"
+    },
+    {
+      "id": "news-an-update-on-independent-evaluators",
+      "name": "An update on independent evaluators",
+      "category": "news",
+      "local_path": "news/an-update-on-independent-evaluators.md",
+      "source_url": "https://www.anthropic.com/news/an-update-on-independent-evaluators",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "ec1d259e2073e40d4d7b66d527ee9ab0c46b8e4dc30fa8c740bcaffbee6ad3c8"
+    },
+    {
+      "id": "news-2026-us-midterms",
+      "name": "Preparing for the 2026 US midterms",
+      "category": "news",
+      "local_path": "news/2026-us-midterms.md",
+      "source_url": "https://www.anthropic.com/news/2026-us-midterms",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "2d646911ebbc913d1f9b2a27716816021ad91c08d8c6d634a54bd2422476cd50"
+    },
+    {
+      "id": "news-singapore-office-opening",
+      "name": "Anthropic opens Singapore office and signs MOU",
+      "category": "news",
+      "local_path": "news/singapore-office-opening.md",
+      "source_url": "https://www.anthropic.com/news/singapore-office-opening",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "7ffd2217212c33338d975f0ccf307bc1f61b564b9ab6f97ccedac4a3b95bcab8"
+    },
+    {
+      "id": "engineering-redesigning-source-control",
+      "name": "Redesigning source control at Anthropic",
+      "category": "engineering",
+      "local_path": "engineering/redesigning-source-control.md",
+      "source_url": "https://www.anthropic.com/engineering/redesigning-source-control",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-18T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "889b27b312ddce5422b575d2566de9ac9b9abb180f92d18071016d8acc2c6fc0"
     }
   ],
-  "last_discovery_run": "2026-10-11T00:00:00Z",
+  "last_discovery_run": "2026-10-18T00:00:00Z",
   "metadata": {
-    "last_full_update": "2026-10-11T00:00:00Z",
-    "last_discovery_run": "2026-10-11T00:00:00Z"
+    "last_full_update": "2026-10-18T00:00:00Z",
+    "last_discovery_run": "2026-10-18T00:00:00Z"
   }
 }

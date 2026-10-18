@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-18T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,17 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### October 15, 2026
+
+- **Compliance API:** now returns users' saved instructions (beta, Enterprise).
+- **Fast mode** for Claude Opus 5.5 left research preview — no beta header required — and is now available on Microsoft Foundry.
+
+### October 14, 2026
+
+- **OpenTelemetry export (beta):** trace Messages API requests and Managed Agents sessions. The Python SDK (1.14.0+) and TypeScript SDK (0.134.0+) add native OpenTelemetry tracing, on by default when a tracer provider is registered; disable with `open_telemetry=False` / `openTelemetry: false` or `ANTHROPIC_OPEN_TELEMETRY=false`.
+- **New Messages API `speed` parameter** and `usage.speed` field (some models require a beta header). A Console organization's usage-tier spend cap is now returned as a read-only spend limit. `between_tools` added to thinking types in model capabilities (Python 1.15.0 / TypeScript 0.135.0).
+- **Managed Agents scheduled deployments** are available on Claude Platform on AWS.
 
 ### October 9, 2026
 

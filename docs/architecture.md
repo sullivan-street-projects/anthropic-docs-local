@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-10-11T13:20:00.804Z"
+generated_at: "2026-10-18T13:15:49.327Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-10-11
+> Auto-generated from manifest.json on 2026-10-18
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 184 |
+| Total Sources | 195 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-10-11T00:00:00Z |
-| Last Discovery Run | 2026-10-11T00:00:00Z |
+| Last Full Update | 2026-10-18T00:00:00Z |
+| Last Discovery Run | 2026-10-18T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 164 | WebFetch with content extraction |
+| web-extracted | 175 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 154 | High-confidence sources, auto-trusted |
+| auto | 165 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -125,6 +125,7 @@ generator: "scripts/generate-architecture.js"
 | [How we contain Claude across products](../engineering/how-we-contain-claude.md) | web-extracted | 0.8 |
 | [An Update on Recent Claude Code Quality Reports](../engineering/april-23-postmortem.md) | web-extracted | 0.85 |
 | [Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet](../engineering/swe-bench-sonnet.md) | web-extracted | 0.85 |
+| [Redesigning source control at Anthropic](../engineering/redesigning-source-control.md) | web-extracted | 0.85 |
 
 ### github-repos
 
@@ -201,6 +202,9 @@ generator: "scripts/generate-architecture.js"
 | [Commitment to American scientific discovery (Genesis Mission)](../news/genesis-mission-commitment.md) | web-extracted | 0.85 |
 | [Claude Frontier Academy](../news/claude-frontier-academy.md) | web-extracted | 0.85 |
 | [Barclays scales Claude](../news/barclays-scales-claude.md) | web-extracted | 0.85 |
+| [An update on independent evaluators](../news/an-update-on-independent-evaluators.md) | web-extracted | 0.85 |
+| [Preparing for the 2026 US midterms](../news/2026-us-midterms.md) | web-extracted | 0.85 |
+| [Anthropic opens Singapore office and signs MOU](../news/singapore-office-opening.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -263,6 +267,13 @@ generator: "scripts/generate-architecture.js"
 | [Claude-shaped science](../research/claude-shaped-science.md) | web-extracted | 0.85 |
 | [What work can robots do?](../research/what-work-can-robots-do.md) | web-extracted | 0.85 |
 | [What do you want from AI?](../research/your-thoughts-on-ai.md) | web-extracted | 0.85 |
+| [Designing more efficient quantum circuits with Claude](../research/designing-efficient-quantum-circuits.md) | web-extracted | 0.85 |
+| [Claude reveals the origins of the ECDSA curve seeds](../research/ecdsa-curve-origins.md) | web-extracted | 0.85 |
+| [AI models may be capable of self-replicating without a datacenter](../research/self-replicating-ai.md) | web-extracted | 0.85 |
+| [Strengthening our defenses against distillation attacks](../research/distillation-defenses.md) | web-extracted | 0.85 |
+| [The AI expectations gap](../research/ai-expectations-gap.md) | web-extracted | 0.85 |
+| [How employment is changing at Anthropic](../research/employment-at-anthropic.md) | web-extracted | 0.85 |
+| [Working at the frontier shapes expectations for the future](../research/expectations-for-the-future.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -363,7 +374,8 @@ anthropic-docs-local/
 │   ├── harness-design-long-running-apps.md
 │   ├── how-we-contain-claude.md
 │   ├── april-23-postmortem.md
-│   └── swe-bench-sonnet.md
+│   ├── swe-bench-sonnet.md
+│   └── redesigning-source-control.md
 ├── github-repos/
 │   └── index.md
 ├── models/
@@ -427,7 +439,10 @@ anthropic-docs-local/
 │   ├── cyber-verification-program.md
 │   ├── genesis-mission-commitment.md
 │   ├── claude-frontier-academy.md
-│   └── barclays-scales-claude.md
+│   ├── barclays-scales-claude.md
+│   ├── an-update-on-independent-evaluators.md
+│   ├── 2026-us-midterms.md
+│   └── singapore-office-opening.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -481,7 +496,14 @@ anthropic-docs-local/
 │   ├── launching-opt-in-vuln-finding-service-oss.md
 │   ├── claude-shaped-science.md
 │   ├── what-work-can-robots-do.md
-│   └── your-thoughts-on-ai.md
+│   ├── your-thoughts-on-ai.md
+│   ├── designing-efficient-quantum-circuits.md
+│   ├── ecdsa-curve-origins.md
+│   ├── self-replicating-ai.md
+│   ├── distillation-defenses.md
+│   ├── ai-expectations-gap.md
+│   ├── employment-at-anthropic.md
+│   └── expectations-for-the-future.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md
