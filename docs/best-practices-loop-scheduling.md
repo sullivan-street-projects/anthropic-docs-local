@@ -2,34 +2,52 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-19T00:00:00Z"
 category: "claude-code"
 ---
 
 # Best Practices: `/loop` Command & Scheduling in Claude Code
 
-> **Documentation Status:** The `/loop` command was introduced in Claude Code v2.1.71 (see [CHANGELOG](../claude-code/CHANGELOG.md)). It is listed in the official [CLI Reference](https://code.claude.com/docs/en/cli-usage) and [Interactive Mode](https://code.claude.com/docs/en/interactive-mode) pages. The guidance below is synthesized from changelog entries, CLI reference documentation, and observed behavior.
+> **Documentation Status:** The `/loop` command was introduced in Claude Code v2.1.71 (see [CHANGELOG](../claude-code/CHANGELOG.md)). It is now documented on its own page, [Run prompts on a schedule](https://code.claude.com/docs/en/scheduled-tasks), and listed in the [CLI Reference](https://code.claude.com/docs/en/cli-usage). The guidance below is synthesized from those pages, changelog entries, and observed behavior.
 
 ---
 
 ## 1. What Is `/loop`?
 
-`/loop` is a built-in slash command in Claude Code's interactive (REPL) mode that runs a prompt or another slash command on a recurring interval within the current session.
+`/loop` is a bundled skill in Claude Code's interactive (REPL) mode that runs a prompt or a skill repeatedly while the session stays open. Both the interval and the prompt are optional:
 
 ```
-/loop <interval> <prompt or /command>
+/loop [interval] [prompt or /skill]
 ```
+
+| What you provide          | Example                     | What happens                                                                 |
+| ------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
+| Interval and prompt       | `/loop 5m check the deploy` | Prompt runs on a fixed cron schedule                                         |
+| Prompt only               | `/loop check the deploy`    | Claude picks the delay (1 minute to 1 hour) after each iteration and explains why |
+| Interval only, or nothing | `/loop`                     | Built-in maintenance prompt (or your `loop.md`) runs                         |
 
 ### Interval Format
 
 | Suffix | Meaning | Example                               |
 | ------ | ------- | ------------------------------------- |
+| `s`    | Seconds (rounded up to whole minutes) | `/loop 90s check the build` |
 | `m`    | Minutes | `/loop 5m check the deploy`           |
 | `h`    | Hours   | `/loop 1h summarize git log`          |
 | `d`    | Days    | `/loop 1d run /update-anthropic-docs` |
-| `w`    | Weeks   | `/loop 1w audit dependencies`         |
 
-**Source:** CHANGELOG v2.1.71 -- _"Added `/loop` command to run a prompt or slash command on a recurring interval (e.g. `/loop 5m check the deploy`)"_
+The interval can lead as a bare token (`30m`) or trail as a clause (`every 2 hours`). Claude converts it to a cron expression; intervals that don't map to a clean cron step (e.g., `7m`, `90m`) are rounded to the nearest one that does, and Claude tells you what it picked.
+
+### Built-in Maintenance Prompt and `loop.md`
+
+With no prompt, each iteration: continues unfinished work from the conversation; tends to the current branch's PR (review comments, failed CI, merge conflicts); then runs cleanup passes (bug hunts, simplification). It doesn't start new initiatives, and irreversible actions (push, delete) proceed only when they continue something already authorized.
+
+Replace it with your own default by creating `.claude/loop.md` (project, takes precedence) or `~/.claude/loop.md` (user). It's plain Markdown, re-read every iteration, truncated beyond 25,000 bytes, and ignored when you pass a prompt on the command line.
+
+### What Runs as a Skill
+
+A scheduled fire only executes skills Claude is allowed to invoke on its own (e.g., `/loop 20m /review-pr 1234`). These reach Claude as plain text instead: built-in commands (`/permissions`, `/model`, `/clear`), skills with `disable-model-invocation: true` (including bundled `/verify`), skills withheld by `skillOverrides` or a `Skill` deny rule, and MCP prompts such as `/mcp__github__list_prs`.
+
+**Source:** CHANGELOG v2.1.71; [Run prompts on a schedule](https://code.claude.com/docs/en/scheduled-tasks)
 
 ---
 
@@ -37,9 +55,17 @@ category: "claude-code"
 
 ### Session-Scoped Lifecycle
 
-`/loop` runs **only** while your interactive Claude Code session is alive. When you close the terminal, exit with `/quit`, or the session times out, all loops stop.
+Scheduled tasks fire **only** while Claude Code is running and idle -- between your turns, never mid-response. Closing the terminal or letting the session exit stops them firing (backgrounding the session carries `/loop` tasks over to a background session). There is no catch-up: a fire missed while Claude was busy runs once when it becomes idle.
 
 **Implication:** `/loop` is ideal for _monitor-while-I-work_ tasks, not for 24/7 automation.
+
+### Seven-Day Expiry
+
+Recurring tasks expire 7 days after creation: they fire one final time, then delete themselves. Cancel and recreate before expiry, or use Routines / Desktop scheduled tasks for durable scheduling.
+
+### Jitter
+
+Recurring tasks run late by up to half the gap to the next run, capped at 30 minutes (every 10 min: 0-5 min late; every 30 min: 0-15; hourly or less often: 0-30). Exception: `*/5 * * * *` (what `/loop 5m` creates) starts 4 min 45 s after the previous run, to stay inside the 5-minute prompt cache. One-shot tasks scheduled at `:00` or `:30` run up to 90 seconds early -- pick an off-minute like `3 9 * * *` when timing matters. `CronCreate`/`CronList` output shows `next run` times (v2.1.299+). All times use your local timezone.
 
 ### Runs Inside the Agent Context
 
@@ -49,9 +75,9 @@ Each loop iteration executes within the same Claude Code agent context. This mea
 - It can reference files, tools, and MCP servers configured for the session
 - Each iteration consumes context window -- very frequent loops on large tasks can exhaust the window
 
-### No Built-In Persistence
+### Limited Persistence
 
-There is no mechanism to save or restore loops across sessions. If you need persistence, see Section 5 (Scheduling Tiers).
+On `claude --resume` / `--continue`, Claude Code restores tasks scheduled with `CronCreate`, except expired recurring tasks and one-shot tasks whose time has passed. A self-paced `/loop` (no interval) is **not** restored -- run `/loop` again. Background Bash and monitor tasks are never restored. With feature-flag fetching off, tasks you ask to keep across sessions are stored in the project's `.claude/scheduled_tasks.json` (errors if `.claude` or the file is a symlink) and only run in the folder where they were created. For scheduling independent of any session, see Section 5.
 
 ---
 
@@ -102,7 +128,11 @@ Since each iteration adds to the conversation context, long-running loops with v
 - **Use shorter monitoring windows** -- run the loop for a 2-hour work session, not 24 hours
 - **Prefer concise output** -- ask the agent to only report if something _changed_
 
-### 3.5 Pair With `--allowedTools` in Automation
+### 3.5 Prefer Self-Paced Loops or Monitor for Event-Like Polling
+
+Omit the interval (`/loop check whether CI passed and address any review comments`) to let Claude wait longer once things go quiet. Where the Monitor tool is available, Claude may stream a background script's output instead of polling, which is usually more token-efficient. To react to pushed events instead of polling, use Channels; to keep working toward a condition turn after turn, use `/goal`.
+
+### 3.6 Pair With `--allowedTools` in Automation
 
 If you're running `/loop` in a semi-automated fashion, consider restricting which tools the agent can use during loop iterations to prevent unintended side effects:
 
@@ -137,7 +167,7 @@ Destructive operations should always require human review. If you must automate 
 
 ### 4.3 Don't Set Intervals Below 1 Minute
 
-Even if technically possible, sub-minute intervals create excessive context usage and provide little value for most tasks.
+Cron has one-minute granularity, so seconds are rounded up to the nearest minute anyway; very short intervals also create excessive context usage and provide little value for most tasks.
 
 ---
 
@@ -147,9 +177,24 @@ Even if technically possible, sub-minute intervals create excessive context usag
 
 | Tier | Tool                  | Scope   | Persistence               | Best For                      |
 | ---- | --------------------- | ------- | ------------------------- | ----------------------------- |
-| 1    | `/loop`               | Session | None -- dies with session | Active monitoring during work |
-| 2    | System cron / launchd | Machine | Survives reboots          | Local recurring tasks         |
-| 3    | GitHub Actions / CI   | Cloud   | Always-on                 | Team-wide automation          |
+| 1    | `/loop`               | Session | Restored on `--resume` (with exceptions); 7-day expiry | Active monitoring during work |
+| 2    | System cron / launchd, or Desktop scheduled tasks | Machine | Survives reboots          | Local recurring tasks         |
+| 3    | Routines (cloud) or GitHub Actions / CI | Cloud   | Always-on                 | Team-wide automation          |
+
+Official comparison of Claude Code's built-in options:
+
+|                            | Cloud (Routines)                 | Desktop scheduled tasks         | `/loop`                         |
+| -------------------------- | -------------------------------- | ------------------------------- | ------------------------------- |
+| Runs on                    | Cloud, Anthropic-managed by default | Your machine                 | Your machine                    |
+| Requires machine on        | No                               | Yes                             | Yes                             |
+| Requires open session      | No                               | No                              | Yes                             |
+| Access to local files      | No (fresh clone)                 | Yes                             | Yes                             |
+| MCP servers                | Connectors configured per task   | Config files and connectors     | Inherits from session           |
+| Permission prompts         | No (runs autonomously)           | Configurable per task           | Inherits from session           |
+| Customizable schedule      | Via `/schedule` in the CLI       | Yes                             | Yes                             |
+| Minimum interval           | 1 hour                           | 1 minute                        | 1 minute                        |
+
+Routines can also be triggered via API call or GitHub events.
 
 ### Tier 2: System Cron Example
 
@@ -173,7 +218,7 @@ Key CLI flags for non-interactive cron usage (verified from [CLI Reference](http
 | `--tools "Bash,Edit,Read"`                 | Restrict which built-in tools Claude can use (use `""` to disable all, `"default"` for all)                                              |
 | `--max-budget-usd N`                       | Maximum dollar amount to spend on API calls before stopping                                                                              |
 | `--fallback-model <model>`                 | Enable automatic fallback model(s) when default is overloaded; accepts comma-separated list                                              |
-| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max` (available levels depend on model)                                             |
+| `--effort <level>`                         | Set effort level: `low`, `medium`, `high`, `xhigh`, `max`, or `ultracode` (`xhigh` with ultracode on; v2.1.203+); available levels depend on model |
 | `--bare`                                   | Minimal mode: skip hooks, skills, plugins, MCP, auto memory, CLAUDE.md for faster startup                                                |
 | `--safe-mode`                              | Start with all customizations disabled (hooks, skills, plugins, MCP, CLAUDE.md, themes, etc.) for troubleshooting                        |
 | `--no-session-persistence`                 | Disable session saving to disk (print mode only)                                                                                         |
@@ -288,11 +333,26 @@ The agent can read environment variables through MCP server configurations or sh
 # Start a loop
 /loop 5m <prompt>
 
-# Loop a slash command
+# Self-paced loop (Claude picks the interval)
+/loop <prompt>
+
+# Built-in maintenance prompt (or .claude/loop.md)
+/loop
+
+# Loop a skill
 /loop 1h /my-custom-command
 
-# Stop all loops
-# Close the session or use Ctrl+C
+# One-shot reminder (natural language)
+remind me at 3pm to push the release branch
+
+# List / cancel tasks (CronList / CronDelete; 8-char IDs, max 50 per session)
+what scheduled tasks do I have?
+cancel the deploy check job
+
+# Stop a self-paced loop while waiting: press Esc
+# Fixed-interval loops: cancel the task, or wait for the 7-day expiry
+# Disable the scheduler entirely
+CLAUDE_CODE_DISABLE_CRON=1 claude
 
 # Non-interactive equivalent for cron
 claude -p "prompt" --max-turns 10 --output-format json
@@ -310,8 +370,10 @@ claude --bg --exec 'npm test'
 
 | Claim                                             | Source                                                     | Confidence |
 | ------------------------------------------------- | ---------------------------------------------------------- | ---------- |
-| `/loop` syntax and interval formats               | CHANGELOG v2.1.71                                          | High       |
-| Session-scoped lifecycle                          | CHANGELOG v2.1.71 + observed behavior                      | High       |
+| `/loop` syntax and interval formats               | CHANGELOG v2.1.71; [Scheduled tasks](https://code.claude.com/docs/en/scheduled-tasks) | High       |
+| Session-scoped lifecycle, resume restore, 7-day expiry, jitter | [Scheduled tasks](https://code.claude.com/docs/en/scheduled-tasks) | High       |
+| `loop.md`, maintenance prompt, self-paced loops   | [Scheduled tasks](https://code.claude.com/docs/en/scheduled-tasks) | High       |
+| Cloud / Desktop / `/loop` comparison              | [Scheduled tasks](https://code.claude.com/docs/en/scheduled-tasks) | High       |
 | `-p` flag for non-interactive mode                | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--allowedTools` permission syntax                | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |
 | `--permission-mode` options (6 modes)             | [CLI Reference](https://code.claude.com/docs/en/cli-usage) | High       |

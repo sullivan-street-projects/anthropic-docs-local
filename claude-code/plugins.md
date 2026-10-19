@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-19T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -38,6 +38,20 @@ Plugins are reusable, distributable packages of Claude Code extensions. They bun
 - You're okay with namespaced skills like `/my-plugin:hello`
 
 Start with standalone configuration in `.claude/` for quick iteration, then convert to a plugin when you're ready to share.
+
+> A Claude Code plugin is not the VS Code extension or JetBrains plugin, and not a plugin for claude.ai chat/Cowork (same format, but a different set of components loads there). Plugin marketplaces are also distinct from [Claude Marketplace](https://claude.com/marketplace), the claude.com website for browsing plugins, connectors, and partners.
+
+## What an Enabled Plugin Adds to Your Sessions
+
+An enabled plugin is part of every session, not only sessions where you use it:
+
+- **Context and usage**: names and descriptions of every model-invocable skill, agent, and command sit in context on every turn; full text loads only when used. Plugin MCP servers follow MCP tool search.
+- **Processes**: the plugin's MCP servers run alongside each session and its hooks fire at their events.
+- **Permissions**: whatever the plugin runs, it runs as you.
+
+Check the footprint: before install, the **Marketplaces** tab in `/plugin` shows a **Context cost** estimate for official-marketplace plugins; after install, the **Installed** tab's **Not used recently** group lists candidates to turn off; disable without uninstalling via `/plugin` or `claude plugin disable`.
+
+A plugin must be present at three layers before its skills run: **settings** (marketplaces added, plugins enabled), **disk** (`~/.claude/plugins/`), and **session** (loaded at startup or on reload).
 
 ## Quickstart
 
@@ -249,6 +263,10 @@ When reviewing code, check for:
 ]
 ```
 
+### Hooks Module (Mods)
+
+A plugin can include a hooks module: hooks written as JavaScript functions, which can also draw panes and add commands. A plugin with one is called a **mod**; some mods are built into Claude Code.
+
 ### MCP Servers (`.mcp.json`)
 
 - Bundled external tool integrations
@@ -361,10 +379,23 @@ Each prompt runs several times both with and without the plugin loaded, so you c
 
 ### Marketplace Repositories
 
-Anthropic maintains two public marketplaces:
+A marketplace is a repository or directory with a `.claude-plugin/marketplace.json` catalog (not a hosted store). Install plugins from it by name, e.g. `commit-commands@claude-plugins-official`.
 
-- **`claude-plugins-official`**: Curated plugins maintained by Anthropic. Registered automatically on first interactive start.
+- **`claude-plugins-official`**: Curated plugins maintained by Anthropic. Added automatically on first interactive terminal start (unless a managed policy blocks it).
 - **`claude-community`**: Public community marketplace for third-party submissions. Add with `/plugin marketplace add anthropics/claude-plugins-community`.
+- **`claude-code-plugins`**: Anthropic's demo marketplace (official tier). Not added automatically, nor is the community marketplace.
+
+**Marketplace tiers** are determined by name: **Official** (Anthropic's official names, including `claude-plugins-official` and `claude-code-plugins`), **Community** (e.g., `claude-community`), and **Third-party** (everything else, including your org's). Claude Code accepts official and community names only for marketplaces sourced from `github.com/anthropics/` repositories. Any plugin, whatever its tier, can run code with your user privileges.
+
+Through managed settings, organizations can allowlist or block marketplaces, force-install plugins, and turn off session-only loading.
+
+### Install Scopes
+
+- **User**: enabled for you in every project on this computer
+- **Project**: enabled for everyone in the repository via committed `.claude/settings.json` (each collaborator still installs it locally)
+- **Local**: enabled for you in this repository only
+
+User-scope installs are shared between the terminal, the desktop app's local sessions, and the VS Code extension (same settings files). Cloud sessions (including claude.ai/code) don't load plugins from your local settings.
 
 ### Managing Marketplaces
 

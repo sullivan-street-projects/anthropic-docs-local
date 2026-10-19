@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-10-18T00:00:00Z",
+  "last_full_update": "2026-10-19T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-10-19T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "c0444ecf9806374f4ae6d0e4575e71add8e05ce6e8d9854c77859dd187e7f901"
+      "sha256": "2670fd898e9c6b990057389a1d5c4795df82bba33fa9f6e5e11623a562eec89d"
     },
     {
       "id": "claude-code-features",
@@ -33,10 +33,10 @@
       "local_path": "claude-code/features.md",
       "source_url": "https://code.claude.com/docs/en/features-overview",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-10-19T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "4711129697f30c8134dd91da66b3b9113c69293c7256d86bc3c127514dc909ca"
+      "sha256": "87927f6dbeccd39ceee698dc34e19d00daf4767383f03162667dc8ce0c179b92"
     },
     {
       "id": "claude-code-hooks",
@@ -45,10 +45,10 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "https://code.claude.com/docs/en/hooks",
       "source_type": "manual",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-19T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "5bdef18f44bae3bb9a32c053d9b77f985bb2ae39638d1838d6d7243262481ad8"
+      "sha256": "e574b0ea49b1d66ca21583bb6c119541db7d2910273d78ac22464b3d4bf59f0a"
     },
     {
       "id": "claude-code-mcp",
@@ -57,10 +57,10 @@
       "local_path": "claude-code/mcp-servers.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-10-19T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "1ef883dac0ddb0e6c98756940229901bcc43658028d70d1ac2a0cd7a24285ed9"
+      "sha256": "ba63f55caf47cce6c82a5310264ff8e9ca6a6c3f575a8930bb44e962ebd82660"
     },
     {
       "id": "claude-code-plugins",
@@ -69,10 +69,10 @@
       "local_path": "claude-code/plugins.md",
       "source_url": "https://code.claude.com/docs/en/plugins",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-10-19T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "8d3a4d04e2d66531a9fe0dfc8711488dfb42618f2f36f722ad52db096ddd1ce1"
+      "sha256": "34823da0a130401ed7e75cadc76dc8b77badfebce418c842d0b457bd4f89b622"
     },
     {
       "id": "claude-code-best-practices",
@@ -431,10 +431,10 @@
       "local_path": "agent-sdk/README.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/overview",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-10-19T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "66be664e2eeb93bb313f2d189b7aa4b62981f1443de1f1140f037f858531220d"
+      "sha256": "70ea900d64308d0af9fd5b3faba8905fce6481ea6712308775e4e7c0254fd475"
     },
     {
       "id": "agent-sdk-quickstart",
@@ -443,10 +443,10 @@
       "local_path": "agent-sdk/quickstart.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/quickstart",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-10-19T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "b77c2464df06418e3ec597395210207461537506f4e58169c23a2ce641afe39c"
+      "sha256": "9e158c1b5306fb7e879f9f9f460796ad54b3cef68c104c1c56f6dad94a5891ac"
     },
     {
       "id": "agent-sdk-examples",
@@ -961,10 +961,10 @@
       "local_path": "docs/best-practices-loop-scheduling.md",
       "source_url": "https://code.claude.com/docs/en/cli-usage",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-10-19T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "74e87295902a5b10f1786788a20f971c0bac0177d860c0202550a451b60eca6f"
+      "sha256": "84d5f6e7d4c9c1dea262d904cff71297733907dc8f380d846421c384e1a505dc"
     },
     {
       "id": "best-practices-mcp-credentials",
@@ -973,10 +973,10 @@
       "local_path": "docs/best-practices-mcp-credentials.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-10-19T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "d5082524baaa3c160bd6aec60da98838edbde8656fda3dc5ae1304001416f2a4"
+      "sha256": "1c7c82bb3514baff8d19b458d1fb6834f22a399a5699600c76eb41df640c88f0"
     },
     {
       "id": "research-opendev-coding-agents",
@@ -2419,11 +2419,35 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "889b27b312ddce5422b575d2566de9ac9b9abb180f92d18071016d8acc2c6fc0"
+    },
+    {
+      "id": "news-public-benefit-fund",
+      "name": "Investing in the public benefit (Anthropic Public Benefit Fund)",
+      "category": "news",
+      "local_path": "news/public-benefit-fund.md",
+      "source_url": "https://www.anthropic.com/news/public-benefit-fund",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-19T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "561ee8598633cfcf3e607f4f62ed1f04ea7c9bd1b86043b25997519e41ae2dc8"
+    },
+    {
+      "id": "research-econ-scenarios",
+      "name": "Scenarios for our Economic Future (Econ Scenario Explorer)",
+      "category": "research",
+      "local_path": "research/econ-scenarios.md",
+      "source_url": "https://www.anthropic.com/institute/econ-scenarios",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-19T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "b50a187dac5df09cba6a3993124a61c52c0227276e8412658b2fa97f1316a97f"
     }
   ],
-  "last_discovery_run": "2026-10-18T00:00:00Z",
+  "last_discovery_run": "2026-10-19T00:00:00Z",
   "metadata": {
-    "last_full_update": "2026-10-18T00:00:00Z",
-    "last_discovery_run": "2026-10-18T00:00:00Z"
+    "last_full_update": "2026-10-19T00:00:00Z",
+    "last_discovery_run": "2026-10-19T00:00:00Z"
   }
 }

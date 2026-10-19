@@ -2,7 +2,7 @@
 title: "Best Practices: MCP Server Credential Management & Access Control"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-19T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -122,7 +122,7 @@ A Local definition always overrides a Project definition of the same name. Manag
 
 | Pattern           | Behavior                                                     | Example                                    |
 | ----------------- | ------------------------------------------------------------ | ------------------------------------------ |
-| `${VAR}`          | Expands to value; config parse fails if unset and no default | `${API_KEY}`                               |
+| `${VAR}`          | Expands to value; if unset and no default, config still loads with a missing-variable warning and the literal `${VAR}` text is used | `${API_KEY}`                               |
 | `${VAR:-default}` | Expands to value; uses default if unset                      | `${API_BASE_URL:-https://api.example.com}` |
 
 ### Where Expansion Works
@@ -136,6 +136,12 @@ Environment variables are expanded in these fields:
 - `headers` -- HTTP request headers
 
 **Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- _"The expansion works in the `command`, `args`, `env`, `url`, and `headers` fields."_
+
+### Credential Variables That Read as Empty
+
+In a **remote** server's `url` and `headers`, Claude Code reads credential variables as empty instead of expanding them, so a committed `.mcp.json` or a plugin can't forward your Claude Code or cloud credentials to a server it names. Covered names include Claude Code's own credentials (`ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`), cloud provider credentials (`AWS_BEARER_TOKEN_BEDROCK`), and others like `HTTPS_PROXY` and `NPM_TOKEN`. This applies whether or not the variable is set, and `:-default` is ignored -- `Bearer ${ANTHROPIC_AUTH_TOKEN}` arrives as `Bearer ` and typically fails with `401`. Base URLs such as `ANTHROPIC_BASE_URL` still expand. Names outside the set (e.g., `API_KEY`) expand normally; to send a covered credential, copy it into a variable with your own name. Search a `--debug-file` log for `never expanded toward a remote server` to confirm.
+
+For local/project/user-scope servers, `/mcp`, `claude mcp list`, and `claude mcp get` display `${VAR}` references by name rather than resolved values (the `/mcp` detail view since v2.1.268), and failure details redact credential-like text.
 
 ### `CLAUDE_PROJECT_DIR` for Stdio Servers
 
@@ -457,10 +463,19 @@ Claude Code sets these environment variables when executing the helper:
 | ----------------------------- | -------------------------- |
 | `CLAUDE_CODE_MCP_SERVER_NAME` | the name of the MCP server |
 | `CLAUDE_CODE_MCP_SERVER_URL`  | the URL of the MCP server  |
+| `CLAUDE_PLUGIN_ROOT`          | the plugin's root directory (plugin-provided servers only) |
 
 Use these to write a single helper script that serves multiple MCP servers.
 
-`headersHelper` executes arbitrary shell commands. When defined at project or local scope, it only runs after you accept the workspace trust dialog.
+On a `401`/`403` tool call, Claude Code re-runs the helper, reconnects, and retries once before marking the server as needing authentication. When the helper returns an `Authorization` header, Claude Code doesn't fall back to OAuth; if the server rejects that credential at connect time, the connection is reported as failed.
+
+A plugin-provided `headersHelper` can't reference `${user_config.*}` values (since v2.1.207) because it runs through a shell; put `${user_config.KEY}` in the server's `headers` instead, or have the script read a config file.
+
+**Which variables a helper can read:** helpers you didn't write -- from a project `.mcp.json`, a plugin, or an inline server in a project/`--add-dir` agent file -- run with credential-looking variables removed (names containing `TOKEN`, `SECRET`, `PASSWORD`, `KEY`, or `AUTH` in any case, plus a fixed list such as `ANTHROPIC_CUSTOM_HEADERS`; Git's `GIT_CONFIG_KEY_<n>` excepted). User/local scope, managed, claude.ai connector, SDK, and `--mcp-config` helpers are not stripped. Have stripped helpers read credentials from a file or credential store.
+
+**Working directory:** plugin root for plugin servers; the declaring project directory for `.mcp.json`/local scope; the session's primary working directory for project agent files, SDK servers, and `--mcp-config`; `~/.claude` (or `CLAUDE_CONFIG_DIR`) for user scope, managed, connectors, and external agent files (v2.1.238+). Use absolute paths or `PATH`.
+
+**Trust:** `headersHelper` executes arbitrary shell commands. For project `.mcp.json` and local-scope servers it runs only after you accept the trust dialog for the project directory where the server is declared -- a parent folder's trust doesn't count, and `-p`/SDK sessions no longer bypass this (v2.1.238+). Until then the server connects with static `headers` only, and `-p`/SDK sessions print `headersHelper not run` to stderr. To trust without a dialog, set `projects["<path>"].hasTrustDialogAccepted: true` in `~/.claude.json`.
 
 **Source:** [MCP Documentation](https://code.claude.com/docs/en/mcp) -- Dynamic headers section.
 
@@ -608,7 +623,10 @@ claude mcp reset-project-choices
 | Same server name in multiple scopes             | Confusion about which config is active            | Remember: Local > Project > User > Plugin > claude.ai |
 | Forgetting `--scope project`                    | Server added to Local instead of `.mcp.json`      | Re-add with `--scope project`                         |
 | Not testing with a fresh `.env`                 | Config works for you but breaks for others        | Test by removing `.env` and using `.env.example`      |
-| Using reserved name `workspace`                 | Server silently skipped at load time              | Choose a different server name                        |
+| Using a reserved name (`workspace`, `claude-in-chrome`, `computer-use`, `Claude Preview`, `Claude Browser`) | Server skipped at load time with a warning | Choose a different server name                        |
+| Referencing `${ANTHROPIC_API_KEY}` etc. in a remote server's `url`/`headers` | Reads as empty; server returns `401` | Copy the value into a variable with your own name |
+| Pasted token with trailing newline/whitespace   | Value used as written; warning in `claude mcp list` / `/mcp` | Remove the whitespace from the config        |
+| Expecting a committed `enabledMcpjsonServers` to auto-approve | Ignored in an untrusted folder; server stays `Pending approval` | Trust the workspace, or approve via user/managed settings |
 | Static `Authorization` header with OAuth server | Connection fails instead of falling back to OAuth | Remove the header to use the OAuth flow               |
 | Missing `--` separator for stdio                | Claude Code parses server flags as its own        | Always use `--` before server command                 |
 
@@ -625,7 +643,7 @@ Before committing any MCP configuration:
 - [ ] Server names are descriptive and consistent (not `workspace`, which is reserved)
 - [ ] OAuth servers don't include static tokens in committed config
 - [ ] OAuth scopes are restricted to the minimum necessary (`oauth.scopes`)
-- [ ] `headersHelper` scripts are reviewed for security (they execute arbitrary commands)
+- [ ] `headersHelper` scripts are reviewed for security (they execute arbitrary commands) and read credentials from a file/credential store rather than env vars
 - [ ] Team members have been informed of required credentials
 - [ ] `grep -rn 'sk-\|ghp_\|Bearer [a-z]' .mcp.json` returns no results
 - [ ] Pre-configured OAuth client secrets use `MCP_CLIENT_SECRET` env var or keychain, never plaintext in config

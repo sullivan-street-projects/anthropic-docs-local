@@ -2,10 +2,14 @@
 title: "Claude Code CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-10-18T00:00:00Z"
+fetched_at: "2026-10-19T00:00:00Z"
 category: "claude-code"
 ---
 # Changelog
+
+## 2.1.303
+
+- Bug fixes and reliability improvements
 
 ## 2.1.302
 

@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-10-19T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -84,7 +84,10 @@ pip install claude-agent-sdk
 
 If PowerShell blocks `Activate.ps1` with an execution policy error, run `Set-ExecutionPolicy -Scope Process RemoteSigned` first.
 
-> **Note:** Both the TypeScript and Python SDKs now bundle a native Claude Code binary for your platform, so you don't need to install Claude Code separately.
+> **Note:** Both the TypeScript and Python SDKs bundle a native Claude Code binary, so most installs need no separate Claude Code install. Some installs have no bundled binary:
+>
+> - If pip installs the Python SDK's source distribution instead of a platform wheel (for example on ARM64 Windows), no binary is bundled. Install Claude Code natively; the Python SDK finds it on your `PATH`.
+> - The TypeScript SDK installs its binary through npm optional dependencies, so an install that skips them (for example `npm ci --omit=optional`) gets no binary even on a supported platform. Reinstall without skipping optional dependencies, or install Claude Code natively and set `pathToClaudeCodeExecutable` to its path.
 
 ### 3. Set Your API Key
 
@@ -239,7 +242,7 @@ After running, check `utils.py`. You'll see defensive code handling empty lists 
 2. **Analyzed** the logic and identified edge cases that would crash
 3. **Edited** the file to add proper error handling
 
-> **Tip:** If you see "API key not found", make sure you've set the `ANTHROPIC_API_KEY` environment variable in the shell where you run your agent. The SDK doesn't load `.env` files automatically. See the [full troubleshooting guide](https://code.claude.com/docs/en/troubleshooting) for more help.
+> **Tip:** If you see an authentication error such as `Not logged in` or `Invalid API key`, make sure you've set the `ANTHROPIC_API_KEY` environment variable in the shell where you run your agent. The SDK doesn't load `.env` files automatically. See the [full troubleshooting guide](https://code.claude.com/docs/en/troubleshooting) for more help.
 
 ## Try Other Prompts
 

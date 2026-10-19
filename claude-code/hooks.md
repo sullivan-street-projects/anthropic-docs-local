@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-19T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -211,7 +211,7 @@ hooks:
 | `shell`       | No       | Shell to use for execution (e.g., `"bash"`, `"powershell"`) |
 | `async`       | No       | If `true`, runs in background without blocking              |
 | `asyncRewake` | No       | If `true`, runs in background and wakes Claude on exit 2    |
-| `onFailure`   | No       | `"continue"` (default) or `"block"` on a non-zero exit (requires v2.1.295+) |
+| `onFailure`   | No       | `"continue"` (default) or `"block"` when the hook fails (can't start, exit other than 0/2, timeout, invalid output); requires v2.1.295+ |
 
 ### HTTP Hook Fields
 
@@ -220,6 +220,7 @@ hooks:
 | `url`            | Yes      | URL to send the POST request to                                                  |
 | `headers`        | No       | Additional HTTP headers as key-value pairs. Values support env var interpolation |
 | `allowedEnvVars` | No       | List of env var names that may be interpolated into header values                |
+| `onFailure`      | No       | `"continue"` (default) or `"block"` when the hook fails (connection error, non-2xx, timeout, invalid body); requires v2.1.295+ |
 
 ### MCP Tool Hook Fields
 
@@ -296,6 +297,35 @@ Leading `VAR=value` assignments are stripped. Filter fails open on parse errors.
 | `0`   | Action proceeds (or allows with JSON output)  |
 | `2`   | Action blocked (cannot be combined with JSON) |
 | Other | Non-blocking error logged in verbose mode     |
+
+### Block the Action When a Hook Fails (`onFailure`)
+
+On most events, a hook that fails or times out lets the action proceed, so a policy hook with a wrong path or crashing script lets everything through. Set `"onFailure": "block"` on a `command` or `http` hook to fail closed (v2.1.295+):
+
+```json
+{
+  "type": "command",
+  "command": "node",
+  "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/check-command.js"],
+  "onFailure": "block"
+}
+```
+
+Failures: can't start (missing script/executable), exit code other than 0 or 2 (even if it printed an allow JSON), HTTP connection error or non-2xx status, timeout, or invalid/schema-failing JSON output (plain-text stdout is not a failure). With `"block"`, a failure does what exit code 2 does on that event, except on `PermissionRequest`, where it denies the request. The error reads `failed; blocking because onFailure is "block"` (or `timed out`).
+
+No effect on `Stop`, `SubagentStop`, `TaskCompleted`, `TeammateIdle` hooks, or on `async`/`asyncRewake` command hooks.
+
+On Windows without Git Bash, a shell-form `PreToolUse`/`PermissionRequest` command hook with `onFailure` unset that fails can block the call (`blocking because Git Bash wasn't found...`). Fixes: install Git Bash (or set `CLAUDE_CODE_GIT_BASH_PATH`), use exec form, or set `"shell": "powershell"` with `"onFailure": "block"`; set `"onFailure": "continue"` to let the action proceed.
+
+### Hooks That Start a Background Process
+
+If a non-async command hook decides in a background process and exits, a deny printed after Claude Code stops reading doesn't block. Print the decision first, then start the background process with stdout/stderr redirected. A hook that prints an allow and then starts a background process without redirecting its output gets the tool call blocked (error includes `refusing to honor the suspect capture`).
+
+```bash
+#!/bin/bash
+"$CLAUDE_PROJECT_DIR"/.claude/hooks/policy-check.sh || exit $?
+"$CLAUDE_PROJECT_DIR"/.claude/hooks/upload-metrics.sh >/dev/null 2>&1 &
+```
 
 ### Exit Code 2 Behavior Per Event
 
@@ -392,6 +422,19 @@ PreToolUse hooks can:
 }
 ```
 
+**`classifierContext` (PostToolUse, v2.1.236+):** return `hookSpecificOutput.classifierContext` to send a short note about a tool result to the auto mode classifier (not to Claude), which never sees tool results itself:
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PostToolUse",
+    "classifierContext": "This query ran against the staging database, not production."
+  }
+}
+```
+
+Notes from settings/plugin/skill/agent hooks are treated as unverified application context (never establish user intent); in-process TypeScript Agent SDK callbacks may relay user statements the classifier can weigh as intent (restored notes after resume are unverified). Capped at 2,000 characters per tool call across all hooks; ignored from background hooks; discarded for calls the classifier doesn't record (e.g., file reads/searches). Return it alongside `updatedToolOutput` when the note describes rewritten output. Don't copy untrusted text into it.
+
 ### Universal Fields
 
 | Field               | Default | Description                                                                                  |
@@ -429,6 +472,8 @@ All hook events receive these fields as JSON:
 | `effort`          | Object with effort level: `low`, `medium`, `high`, `xhigh`, `max`                                 |
 | `scratchpad_dir`  | Path to the session's scratchpad directory for temporary files (v2.1.257+)                        |
 | `hook_event_name` | Name of the event that fired                                                                      |
+
+`PreToolUse` input for MCP tools also carries `mcp_server` (`name` plus `source`, e.g. `plugin`, `sdk`, `user`, `project`); base trust decisions on `source`, not the name prefix (v2.1.274+). `TaskCreated`, `TaskCompleted`, and `TeammateIdle` input can include `agent_id` identifying the subagent or in-process teammate (v2.1.290+).
 
 When running with `--agent` or inside a subagent, two additional fields:
 
@@ -744,6 +789,12 @@ Hook behavior evolves frequently. Notable recent changes:
 
 | Version   | Change                                                                                                                                                                                        |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v2.1.296+ | PowerShell commands receive variables from `CLAUDE_ENV_FILE` (assignments copied in, file never executed). Debug log records a `Hooks:` line with status and duration for each finished command hook. |
+| v2.1.295+ | `onFailure: "block"` for command/HTTP hooks (fail closed). Async hooks: multi-line JSON response accepted when alone on stdout. |
+| v2.1.290+ | `agent_id` on `TaskCreated`, `TaskCompleted`, `TeammateIdle` input. |
+| v2.1.274+ | `mcp_server` provenance object (`name`, `source`) in tool-event input for MCP tools. |
+| v2.1.271+ | Subagents using `SubagentHandback` deliver reports via that tool; read `tool_input.message` from a hook matched on `SubagentHandback` (`SubagentStop`'s `last_assistant_message` is not the report). |
+| v2.1.236+ | `classifierContext` PostToolUse output for the auto mode classifier. |
 | v2.1.267+ | `cloud_credential_error` matcher added to `StopFailure` error types.                                                                                                                          |
 | v2.1.257+ | `scratchpad_dir` common input field (path to the session's scratchpad directory for temporary files).                                                                                         |
 | v2.1.218+ | Subagent frontmatter hooks blocked in untrusted (`-p`) folders until workspace trust is accepted.                                                                                             |
