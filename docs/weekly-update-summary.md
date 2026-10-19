@@ -1,43 +1,60 @@
 ---
 title: "Weekly Update Summary"
-date: "2026-10-18"
+date: "2026-10-19"
 category: "meta"
 ---
 
-# Weekly Update Summary — 2026-10-18
+# Weekly Update Summary — 2026-10-19
 
-**No new model shipped this week, so the mirror stayed stable; the real signal was SDK observability, a wave of safety/economics research, and an engineering post that validates this repo's own design.** 23 files changed (12 updated, 11 new sources auto-added). Validation clean: 195/195 hashes verified, model-lineup consistency check passed, 0 errors.
+**Quiet week upstream. No new model and no SDK release. The main work was re-syncing nine hand-maintained Claude Code and Agent SDK docs against the live docs; three of them had wrong statements.** 13 files changed: 9 manual docs plus the Claude Code CHANGELOG were updated, and 2 new sources were added. Validation is clean: 197/197 hashes verified, the model-lineup consistency check passes, 0 errors.
+
+> This run came one day after the 2026-10-18 refresh, so very little upstream content had time to change.
 
 ## What Changed
 
-### Updated (content changed)
-- **claude-code/** — `CHANGELOG.md` through **v2.1.302** (new `CLAUDE_CODE_AUTO_MODE_MODEL` env var, fork subagents on by default, 12-per-event hook concurrency cap, many cloud-session/Slack fixes).
-- **sdks/** — Python **1.15.0** and TypeScript **0.135.0** CHANGELOGs + READMEs. Both add the Messages API `speed` parameter, `between_tools` thinking type, and a native **OpenTelemetry** tracing section.
-- **release-notes/** — `platform.md` + `api.md`: Oct 14 (OpenTelemetry export beta; Managed Agents scheduled deployments on AWS) and Oct 15 (Compliance API saved instructions beta; Fast mode GA for Opus 5.5, now on Microsoft Foundry).
-- **manifest.json** — 11 new sources; hashes + timestamps reconciled; `last_full_update` → 2026-10-18.
-- **docs/architecture.md** — regenerated.
-- **scripts/validate.js** — new Layer-1 metadata/top-level timestamp-consistency check (meta-synthesis).
+### Updated (content refresh)
+- **claude-code/**
+  - `hooks.md`: the `onFailure: "block"` fail-closed hooks (v2.1.295+); the PostToolUse `classifierContext` field; `mcp_server` provenance; `agent_id` on TaskCreated, TaskCompleted and TeammateIdle; a corrected `onFailure` description.
+  - `mcp-servers.md`: the largest change. See "Corrections" below.
+  - `features.md`: output styles are now a first-class feature; hooks can run an MCP tool call; what a subagent or fork loads (`omitClaudeMd`).
+  - `plugins.md`: three marketplace tiers (official, community, third-party); "mods" (plugins with a hooks module); install scopes; cloud sessions don't load locally installed plugins.
+  - `CHANGELOG.md`: v2.1.303, bug fixes only.
+- **agent-sdk/**
+  - `README.md`: Managed Agents can now run in a **self-hosted sandbox** and are reachable from the language SDKs and the `ant` CLI. Also added the CLI-as-subprocess option for other languages.
+  - `quickstart.md`: installs without a bundled binary (ARM64 Windows source build; `npm --omit=optional` needs `pathToClaudeCodeExecutable`).
+- **docs/** (best-practice guides)
+  - `best-practices-loop-scheduling.md`: rewritten against the live scheduled-tasks page.
+  - `best-practices-mcp-credentials.md`: the unset-variable behavior and the `headersHelper` trust rules.
+- **manifest.json** (2 new sources, hashes and timestamps reconciled) and **docs/architecture.md** (regenerated).
 
-### Added (Phase 2.5 discovery — 11 first-party anthropic.com sources)
-- **research/** (7): designing-efficient-quantum-circuits, ecdsa-curve-origins, self-replicating-ai, distillation-defenses, ai-expectations-gap, employment-at-anthropic, expectations-for-the-future.
-- **news/** (3): an-update-on-independent-evaluators, 2026-us-midterms, singapore-office-opening.
-- **engineering/** (1): redesigning-source-control (Scion).
+### New sources
+- `news/public-benefit-fund.md`: *Investing in the public benefit* (Oct 18)
+- `research/econ-scenarios.md`: *Scenarios for our Economic Future* (Econ Scenario Explorer v1.0)
 
-### Verified current, left unchanged (honest timestamps)
-Model pages (`models/overview.md`, `models/deprecations.md`) — lineup unchanged; `claude-code/hooks.md` and manual docs — verified vs live; `github-repos/index.md` — no new repos; `research/papers/index.md` — no new arXiv papers; ~130 stable snapshot articles.
+### Verified unchanged
+SDK READMEs and CHANGELOGs (Python 1.15.0, TypeScript 0.135.0), the release notes (newest entry Oct 15), the model lineup and deprecations, cookbooks, the skills README, the arXiv index (no new Anthropic-authored papers) and the GitHub repo list (115 repos, no new names).
 
 ## So What — Why It Matters
 
-- **No model launch = no cascade risk.** The SDK CHANGELOGs added no new model ID, the surest launch signal. The live lineup (Opus 5.5 / Fable 5.1 / Sonnet 5.5 / Haiku 5.5, "start with Opus 5.5") matched local exactly, and the lineup-consistency check confirmed nothing was left half-updated. Nothing to change on the model pages.
-- **Observability went native in the SDKs.** Both Python and TypeScript now emit an OpenTelemetry span per API call when a tracer provider is registered (opt out with `open_telemetry=False` / `openTelemetry: false` or `ANTHROPIC_OPEN_TELEMETRY=false`). New `speed` parameter + `usage.speed` on Messages (some models need a beta header). Relevant if we add tracing to any Claude-API integration.
-- **Fast mode for Opus 5.5 is GA** — no beta header needed, and available on Microsoft Foundry.
-- **Security/safety research is dense this week.** Distillation defenses cut extracted reasoning 90–99% (and bill blocked requests since Sep 24); a Frontier Red Team post argues small models are months from IoT self-replication; and Claude traced the long-mysterious NIST ECDSA curve seeds to a 1990s PRNG + Unix timestamp (explicitly **not** a weakness).
-- **Scion validates our own pipeline design.** Anthropic rebuilt source control for agent-scale merge volume (2,500 → 30,000 merges/day) on content-addressed immutable objects, server-side derived data, and "humans say no when agents violate core constraints" — the same content-addressing + single-writer-manifest + verify-from-disk invariants this repo runs on.
+- **Corrections to our own reference docs (highest impact).**
+  - The loop-scheduling guide said `/loop` tasks don't persist and that a `w` (weeks) interval exists. Both are wrong:
+    - Tasks are restored on `--resume`.
+    - Recurring tasks **expire after 7 days**.
+    - Intervals are `s/m/h/d` only.
+    - A session holds at most 50 tasks.
+  - The MCP docs said an unset `${VAR}` breaks config parsing. It now loads with a warning and leaves the text as written, so a missing secret can fail *silently* at connect time instead of loudly at startup.
+  - The MCP **discovery cache is now off by default** (since v2.1.238). Set `MCP_DISCOVERY_CACHE=1` to turn it on.
+- **Fail-closed hooks.** `onFailure: "block"` lets a security hook stop an action when the hook itself crashes or times out. Before, a broken guard hook silently let the action through.
+- **Per-project MCP disable.** `disabledMcpServers` / `enabledMcpServers` switch a server off for one project without removing it.
+- **Managed Agents in a self-hosted sandbox.** Agents can run on infrastructure you control, which matters for any client work with data-residency limits.
+- **Anthropic Public Benefit Fund.** 5% of shares at the start, plus 2% for each 50% gain in company value. With the founders' pledges and the employee match, about 20% of equity goes to the public good. This is governance news with no API impact.
+- **Econ Scenario Explorer.** Anthropic's own modest, substantial and extreme scenarios for 2030: GDP +1.6% / +8.3% / +32.4%, and in the extreme case knowledge-worker wages fall more than 10%. Useful framing for client conversations about AI and the workforce.
 
 ## Action Items
 
-- **No breaking changes affect our workflows.** The `speed` param and OpenTelemetry are additive; Fast-mode GA is a convenience.
-- **If we instrument any Claude-API code**, native SDK OpenTelemetry (Python ≥1.14.0 / TS ≥0.134.0) is now the simplest path — register a tracer provider and spans appear automatically.
-- **Stale source `agent-sdk-typescript-v2`** (github.com/anthropics/agent-sdk) is 404 for the ~13th consecutive cycle (196 days). One-click cleanup is overdue: remove the manifest entry + `agent-sdk/typescript-v2-preview.md`, or repoint to code.claude.com/docs/en/agent-sdk/*.
-- **Housekeeping fixed this run:** `manifest.json`'s duplicate `metadata` timestamps had silently drifted from the authoritative top-level fields; corrected, and `validate.js` now blocks that drift.
-- **Pre-existing remote branches:** 13 `origin/claude/zealous-heisenberg-*` branches remain unmerged into master (not from this run). Flagged for your awareness; not acted on.
+- **Recurring `/loop` jobs expire after 7 days.** If anything relies on an in-session `/loop` running for weeks, move it to Routines or a Desktop scheduled task. The cloud routine that produces this summary isn't affected.
+- **Security-relevant hooks:** consider adding `"onFailure": "block"` (Claude Code v2.1.295+) so they fail closed.
+- **MCP configs that rely on `${VAR}` secrets:** a missing variable no longer stops startup. Check the `/mcp` status and warnings when a server misbehaves.
+- **Check `docs/best-practices-mcp-credentials.md`:** it says Claude Code reads `.env` from the project root automatically. The live MCP page doesn't say so, and the Agent SDK quickstart says the SDK does *not* load `.env`. Treat that line as unconfirmed.
+- **Watch item:** `claude-haiku-4-5-20251001` still shows as Active, with retirement "not sooner than October 15, 2026", a date that has passed. A deprecation notice may come soon, so plan the migration to `claude-haiku-5-5`.
+- **No breaking SDK changes this week.**

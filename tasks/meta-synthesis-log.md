@@ -378,3 +378,24 @@ Improvements deferred: 1
 
 - Claude Code 2.1.278 "subagent results reach the main agent under a header marking them as subagent output, so text in a subagent's result cannot pass as the session's own instructions" AND measuring-pace-of-ai-development's "treat what comes from another agent as a claim to check rather than a thought of its own" — both match our standing invariants: single-writer manifest, recompute-sha256-from-disk (never trust agent-reported hashes), and verify-a-stalled-agent-from-disk-not-its-last-message. This cycle validated the design again; no change needed.
 - measuring-pace's online vs. offline monitors (coverage / review latency / escalation) mirror our pipeline: validate.js is the offline monitor (100% file coverage, advisory flags), and the reconcile-from-disk pass is the "verify the claim" step.
+
+### 2026-10-19 — Update: all
+
+Content changes analyzed: 10 modified (9 manual docs + CC CHANGELOG) + 2 new sources
+Improvements identified: 2
+Improvements applied: 2
+Improvements deferred: 0
+
+**Applied:**
+
+- [8 of 9 manual docs drifted, incl. wrong claims in loop-scheduling + MCP docs that earlier WebFetch-based "verified" passes missed] → manual-source fetch step now uses `curl <url>.md` for code.claude.com pages; key-manual-sources list corrected (agent-sdk URLs → code.claude.com, added the 2 docs/best-practices-* files) → .claude/commands/references/source-types.md + tasks/lessons.md
+- [GitHub org REST API 403 in cloud sessions] → documented WebFetch fallback for new-repo detection → tasks/lessons.md + tasks/update-failures.md
+
+**Already aligned:**
+
+- claude-code/hooks.md `onFailure: "block"` (fail-closed hooks) — this repo's pipeline has no hooks that guard actions, so nothing to adopt; the principle (a broken guard must not silently pass) matches validate.js exiting non-zero on Layer-1 errors.
+- claude-code/mcp-servers.md "unset ${VAR} now warns instead of failing" — no MCP config in this repo.
+
+**No action needed:**
+
+- 2 new sources (public-benefit-fund, econ-scenarios) and CC 2.1.303 have no infrastructure implications.

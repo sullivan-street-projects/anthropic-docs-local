@@ -225,3 +225,13 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 - **Deferred**: none
 - **Rejected**: none
 - **Notes**: Engineering blog index showed nothing newer than April 2026. arXiv search surfaced no new Anthropic-authored Sep 2026 papers (research-papers-index left at its real date — honest, not bumped). New GitHub repos noted (uplifting-biomolecular-modeling, claude-for-financial-advisors) and captured in the regenerated github-repos/index.md rather than as standalone doc sources.
+
+### 2026-10-19 — Discovery Run (Phase 2.5, during update)
+
+- **New sources found**: 2 (first-party anthropic.com; auto-added per unattended-run policy)
+- **Added**:
+  - news-public-benefit-fund (news/public-benefit-fund.md) — Oct 18
+  - research-econ-scenarios (research/econ-scenarios.md) — Econ Scenario Explorer v1.0, Sep 2026 (`/institute/` slug, no `/research/` prefix)
+- **Deferred**: https://www.anthropic.com/features/ebola-response (still deferred, 4th cycle)
+- **Rejected**: none. Web search surfaced only third-party IPO/partnership coverage with no first-party URLs.
+- **Notes**: No new Anthropic-authored arXiv papers (arXiv search covered ~Sep 13 – Oct 16). Engineering index has nothing newer than redesigning-source-control. GitHub org: 115 repos, no new names.

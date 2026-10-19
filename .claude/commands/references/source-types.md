@@ -39,7 +39,7 @@ Detailed handling instructions for each source type used in the update process.
 Manual sources require special handling because they are agent-synthesized:
 
 1. **Read** the existing local file completely
-2. **Fetch** the source URL with WebFetch
+2. **Fetch** the source URL. For `code.claude.com/docs/...` pages, `curl -sS <url>.md` to get the full raw markdown — WebFetch summaries miss small behavioral changes (see tasks/lessons.md, 2026-10-19). Use WebFetch only for pages without a `.md` variant
 3. **Compare** fetched content to existing file
 4. **Re-synthesize**: Update the local file with new information while preserving the established structure (headings, tables, code blocks)
 5. **Update timestamp** in frontmatter to current date
@@ -51,9 +51,11 @@ Manual sources require special handling because they are agent-synthesized:
 - `claude-code/hooks.md` — from https://code.claude.com/docs/en/hooks
 - `claude-code/mcp-servers.md` — from https://code.claude.com/docs/en/mcp
 - `claude-code/plugins.md` — from https://code.claude.com/docs/en/plugins
-- `agent-sdk/README.md` — from https://platform.claude.com/docs/en/agent-sdk/overview
-- `agent-sdk/quickstart.md` — from https://platform.claude.com/docs/en/agent-sdk/quickstart
-- `agent-sdk/examples.md` — from https://platform.claude.com/docs/en/agent-sdk/overview
+- `agent-sdk/README.md` — from https://code.claude.com/docs/en/agent-sdk/overview
+- `agent-sdk/quickstart.md` — from https://code.claude.com/docs/en/agent-sdk/quickstart
+- `agent-sdk/examples.md` — from https://code.claude.com/docs/en/agent-sdk/overview
+- `docs/best-practices-loop-scheduling.md` — from https://code.claude.com/docs/en/scheduled-tasks (+ cli-usage)
+- `docs/best-practices-mcp-credentials.md` — from https://code.claude.com/docs/en/mcp
 
 ## arxiv-pdfs Sources
 

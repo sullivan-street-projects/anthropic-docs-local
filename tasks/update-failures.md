@@ -155,3 +155,13 @@ Track source-specific failures with resolutions. Review at session start to avoi
 ### 2026-09-20 — no fetch failures (actively-fetched sources)
 
 - **Note**: All actively-fetched sources succeeded (8 github-raw via curl, 9 manual docs verified against live, github-repos API pages 1-2, 6 volatile aggregation/release-notes pages, 4 new-source fetches, 3 discovery index pages). No 404s on code.claude.com, platform.claude.com, support.claude.com, or www.anthropic.com. Zero background agents used (all fetches inline by the orchestrator), so zero 600s-watchdog stalls. 0 sha256 mismatches after single-writer reconcile; 165/165 hashes verified.
+
+### 2026-10-19 — github-repos-index (GitHub REST org endpoint blocked in cloud session)
+
+- **Error**: `curl https://api.github.com/orgs/anthropics/repos` → HTTP 403 "This GitHub API path is not available: sessions are bound to their configured repositories." Plain `curl https://github.com/orgs/anthropics/repositories` also 403 via the proxy.
+- **Resolution**: WebFetch of `https://github.com/orgs/anthropics/repositories?type=all&sort=created` worked (repo count 115, unchanged; the 30 most recently updated repo names all already in the index). Index left unchanged (star counts not refreshed — honest timestamp kept at 2026-10-11).
+- **Prevention**: In cloud/remote sessions, use WebFetch on the github.com org page for new-repo detection; the org-level REST API is session-scoped-out. Star-count refresh needs a non-scoped environment.
+
+### 2026-10-19 — no other fetch failures
+
+- **Note**: 8 github-raw via curl, 9 manual docs via curl of the `.md` page variants, 6 volatile web pages, 3 discovery index pages, 2 new-source fetches, arXiv search — all succeeded. 3 background agents, 0 watchdog stalls. 197/197 hashes verified after single-writer reconcile.
