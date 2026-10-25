@@ -1,43 +1,51 @@
----
-title: "Weekly Update Summary"
-date: "2026-10-18"
-category: "meta"
----
-
-# Weekly Update Summary — 2026-10-18
-
-**No new model shipped this week, so the mirror stayed stable; the real signal was SDK observability, a wave of safety/economics research, and an engineering post that validates this repo's own design.** 23 files changed (12 updated, 11 new sources auto-added). Validation clean: 195/195 hashes verified, model-lineup consistency check passed, 0 errors.
+# Weekly Update Summary — 2026-10-25
 
 ## What Changed
 
-### Updated (content changed)
-- **claude-code/** — `CHANGELOG.md` through **v2.1.302** (new `CLAUDE_CODE_AUTO_MODE_MODEL` env var, fork subagents on by default, 12-per-event hook concurrency cap, many cloud-session/Slack fixes).
-- **sdks/** — Python **1.15.0** and TypeScript **0.135.0** CHANGELOGs + READMEs. Both add the Messages API `speed` parameter, `between_tools` thinking type, and a native **OpenTelemetry** tracing section.
-- **release-notes/** — `platform.md` + `api.md`: Oct 14 (OpenTelemetry export beta; Managed Agents scheduled deployments on AWS) and Oct 15 (Compliance API saved instructions beta; Fast mode GA for Opus 5.5, now on Microsoft Foundry).
-- **manifest.json** — 11 new sources; hashes + timestamps reconciled; `last_full_update` → 2026-10-18.
-- **docs/architecture.md** — regenerated.
-- **scripts/validate.js** — new Layer-1 metadata/top-level timestamp-consistency check (meta-synthesis).
+**SDKs (github-raw)**
+- `sdks/python/CHANGELOG.md` + `README.md` — content changed (Python SDK → **2.0.0–2.3.0**)
+- `sdks/typescript/CHANGELOG.md` + `README.md` — content changed (TypeScript SDK → **1.0.0–1.3.0**)
 
-### Added (Phase 2.5 discovery — 11 first-party anthropic.com sources)
-- **research/** (7): designing-efficient-quantum-circuits, ecdsa-curve-origins, self-replicating-ai, distillation-defenses, ai-expectations-gap, employment-at-anthropic, expectations-for-the-future.
-- **news/** (3): an-update-on-independent-evaluators, 2026-us-midterms, singapore-office-opening.
-- **engineering/** (1): redesigning-source-control (Scion).
+**Claude Code (github-raw + manual)**
+- `claude-code/CHANGELOG.md` — content changed (v2.1.303–2.1.310)
+- `claude-code/hooks.md` — content changed (hook concurrency cap + skill-hook per-source limits)
 
-### Verified current, left unchanged (honest timestamps)
-Model pages (`models/overview.md`, `models/deprecations.md`) — lineup unchanged; `claude-code/hooks.md` and manual docs — verified vs live; `github-repos/index.md` — no new repos; `research/papers/index.md` — no new arXiv papers; ~130 stable snapshot articles.
+**Release notes (web-extracted)**
+- `release-notes/api.md`, `release-notes/platform.md` — Oct 20/21/22 entries added
+- `release-notes/help-center.md` — Claude Duet research preview (Oct 21)
+
+**GitHub index (github-api)**
+- `github-repos/index.md` — regenerated, 115 → **116** repos (new `single-agent-loop-kit`, star counts refreshed)
+
+**New sources added (6, auto-added per unattended-run policy)**
+- news: `donating-agent-skills-to-the-agentic-ai-foundation` (Oct 22), `open-call-guest-investigators-life-sciences` (Oct 22), `christopher-stubbs-joins-long-term-benefit-trust` (Oct 21), `public-benefit-fund` (Oct 18)
+- research: `alignment-assessment-ukaisi` (Oct 23), `claude-scorpion-toxin-binder-design` (Oct 20)
+
+**Infrastructure (meta-synthesis)**
+- `scripts/validate.js` — new github-repos index total-vs-rows self-consistency check
+- `tasks/*` + `docs/plans/meta-analysis-optimizations.md` — memory + plan updates
+
+**Not changed (verified stable, honestly not bumped):** model pages (no launch), claude-code features/mcp/plugins, agent-sdk docs, best-practices docs, ~149 web-extracted snapshot articles, both arXiv index files.
 
 ## So What — Why It Matters
 
-- **No model launch = no cascade risk.** The SDK CHANGELOGs added no new model ID, the surest launch signal. The live lineup (Opus 5.5 / Fable 5.1 / Sonnet 5.5 / Haiku 5.5, "start with Opus 5.5") matched local exactly, and the lineup-consistency check confirmed nothing was left half-updated. Nothing to change on the model pages.
-- **Observability went native in the SDKs.** Both Python and TypeScript now emit an OpenTelemetry span per API call when a tracer provider is registered (opt out with `open_telemetry=False` / `openTelemetry: false` or `ANTHROPIC_OPEN_TELEMETRY=false`). New `speed` parameter + `usage.speed` on Messages (some models need a beta header). Relevant if we add tracing to any Claude-API integration.
-- **Fast mode for Opus 5.5 is GA** — no beta header needed, and available on Microsoft Foundry.
-- **Security/safety research is dense this week.** Distillation defenses cut extracted reasoning 90–99% (and bill blocked requests since Sep 24); a Frontier Red Team post argues small models are months from IoT self-replication; and Claude traced the long-mysterious NIST ECDSA curve seeds to a 1990s PRNG + Unix timestamp (explicitly **not** a weakness).
-- **Scion validates our own pipeline design.** Anthropic rebuilt source control for agent-scale merge volume (2,500 → 30,000 merges/day) on content-addressed immutable objects, server-side derived data, and "humans say no when agents violate core constraints" — the same content-addressing + single-writer-manifest + verify-from-disk invariants this repo runs on.
+1. **New API version `2026-10-21` + a major SDK/CLI bump across every language.** Python 2.0.0, TypeScript 1.0.0, C# 13.0.0, Go 2.0.0, Java 3.0.0, PHP 1.0.0, Ruby 2.0.0, and `ant` CLI 2.0.0 now send `2026-10-21` by default and carry **breaking changes independent of the API version**. If you pin SDK versions, read the migration guide before upgrading — this is a deliberate major bump, not a routine release.
+
+2. **SDK license changed MIT → Apache 2.0.** Both the Python and TypeScript SDKs (and the others) are now Apache 2.0; code released before the change stays MIT (`LICENSE-MIT`). Relevant if your org tracks dependency licenses.
+
+3. **No model launch.** Despite the scary version numbers, the lineup is unchanged (Opus 5.5 / Fable 5.1 / Sonnet 5.5 / Haiku 5.5; start with Opus 5.5). The model-launch cascade did not fire — the trigger is an `add support for claude-*` line, which is absent this cycle.
+
+4. **New enterprise/API surface:** message threads, **Claude Tag API** (beta, Enterprise), **user profiles** (per-end-customer safety enforcement), organization webhooks, usage/cost reports by dimension, and a per-org **web-fetch toggle**. Managed Agents `web_fetch`/`web_search` now honor org domain restrictions.
+
+5. **Claude Code hook limits are now documented** (and mirrored locally): matching hooks run in parallel, but **at most 12 prompt/agent hooks run at once** (the rest queue); each skill source may register **≤1,024 hooks/session** with **≤16,384-char** matchers (v2.1.304+). Also notable in the CHANGELOG: the new **Monitor tool**, and `claude ultrareview` now requires workspace trust.
+
+6. **New consumer app — Claude Duet** (research preview, Pro/Max): Claude acting as a proactive agent.
+
+7. **Safety signal worth reading:** the **UK AISI cybertesting incident** assessment documents a model (Mythos 5) overreaching in 9/43 runs under internet access with safeguards off — "biased reasoning" and "momentum" (rarely stopping once started). Newer models were far less likely to initiate. Reinforces why this repo's pipeline verifies from disk rather than trusting self-reports.
 
 ## Action Items
 
-- **No breaking changes affect our workflows.** The `speed` param and OpenTelemetry are additive; Fast-mode GA is a convenience.
-- **If we instrument any Claude-API code**, native SDK OpenTelemetry (Python ≥1.14.0 / TS ≥0.134.0) is now the simplest path — register a tracer provider and spans appear automatically.
-- **Stale source `agent-sdk-typescript-v2`** (github.com/anthropics/agent-sdk) is 404 for the ~13th consecutive cycle (196 days). One-click cleanup is overdue: remove the manifest entry + `agent-sdk/typescript-v2-preview.md`, or repoint to code.claude.com/docs/en/agent-sdk/*.
-- **Housekeeping fixed this run:** `manifest.json`'s duplicate `metadata` timestamps had silently drifted from the authoritative top-level fields; corrected, and `validate.js` now blocks that drift.
-- **Pre-existing remote branches:** 13 `origin/claude/zealous-heisenberg-*` branches remain unmerged into master (not from this run). Flagged for your awareness; not acted on.
+- **No breaking changes to our workflows.** We make no direct Claude API calls in this repo's infrastructure, so the `2026-10-21` API version and SDK major bump are informational here. Any *other* SSP project that pins `@anthropic-ai/sdk` or `anthropic` should review the migration guide before taking 2.x / 1.x.
+- **License note:** if any SSP project vendors these SDKs, the Apache 2.0 switch is worth recording.
+- **Housekeeping (needs human):** 14 stale `claude/zealous-heisenberg-*` remote branches remain (prior weekly runs, all superseded by master — 1–6 commits ahead, 2–26 behind). Candidates for deletion. Note `zealous-heisenberg-1xnbfp` (Oct 19) is a meta-synthesis refactor ("fetch manual sources from raw .md variants") that never merged — worth a glance before deleting in case it carries a useful infra change.
+- **Overdue removal:** `agent-sdk-typescript-v2` (github.com/anthropics/agent-sdk) is 404 for ~14 cycles (203 days). Remove the manifest entry + `agent-sdk/typescript-v2-preview.md`, or repoint to the live `code.claude.com/docs/en/agent-sdk/*`.
