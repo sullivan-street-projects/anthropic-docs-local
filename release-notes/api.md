@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-10-18T00:00:00Z"
+fetched_at: "2026-10-25T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,24 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### October 22, 2026
+
+- **Claude Models on Google Cloud (Anthropic managed)** launched: the Claude API operated by Anthropic and reached through your Google Cloud project, with Google Cloud IAM for access and Google Cloud Marketplace for billing. **Fast mode for Claude Opus 5.5** is available there.
+
+### October 21, 2026
+
+- **API version `2026-10-21`** released (see the [migration guide](https://platform.claude.com/docs/en/api/versioning)). New SDK/CLI versions send it by default: **Python SDK 2.0.0, TypeScript SDK 1.0.0, C# 13.0.0, Go 2.0.0, Java 3.0.0, PHP 1.0.0, Ruby 2.0.0, and `ant` CLI 2.0.0**. These versions carry **breaking changes independent of the API version** and are now licensed under **Apache 2.0** (previously MIT; code released before the change stays MIT, see `LICENSE-MIT`).
+- **User profile enforcement fields:** `enforcement_status` and `enforcement_actions` report whether Anthropic has restricted or banned an end customer; filter with `enforcement_status[]` when listing profiles.
+
+### October 20, 2026
+
+- **Claude Tag API (beta, Enterprise)** with the `experimental-claude-tag-2026-10-21` header: `/v1/organizations/claude_tag/` endpoints read and change Claude Tag settings on Slack channels and workspaces, show which settings apply in a channel and where each comes from, and attach Access bundles. Requires an Admin API key with `read:claude_tag` or `write:claude_tag`. Not available to Claude Console organizations.
+- **User profiles launched** (`/v1/user_profiles`): tell Anthropic which end customer each request is for, so a safety enforcement action can target one end customer instead of the whole organization.
+- **Inference hooks** out of beta for Enterprise organizations.
+- **Organization webhooks** added to the Admin API (beta, `webhooks-2026-10-07` header) at `/v1/organizations/webhooks`, with event types for when a user profile is restricted/banned and when that ends.
+- **Web fetch org toggle:** admins can turn web fetch off per organization on the Capabilities page (Messages API requests that include the web fetch tool then return 400; Managed Agents `web_fetch` returns an error result), and set allowed/blocked domains when on.
+- **Managed Agents** `web_fetch` and `web_search` now follow organization domain restrictions in addition to the tool's own `allowed_domains`/`blocked_domains` (a URL must pass both lists, including redirects).
 
 ### October 15, 2026
 

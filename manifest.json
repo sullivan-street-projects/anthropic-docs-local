@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-10-18T00:00:00Z",
+  "last_full_update": "2026-10-25T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "c0444ecf9806374f4ae6d0e4575e71add8e05ce6e8d9854c77859dd187e7f901"
+      "sha256": "d1259a51f192926a1b962e1d5547bdc533972b397db0565476ddec19a3329c1d"
     },
     {
       "id": "claude-code-features",
@@ -45,10 +45,10 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "https://code.claude.com/docs/en/hooks",
       "source_type": "manual",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "5bdef18f44bae3bb9a32c053d9b77f985bb2ae39638d1838d6d7243262481ad8"
+      "sha256": "3d873793a1418d87e3cb6e9f146b034d9172171f2da0b4543fee60d6c2bce90a"
     },
     {
       "id": "claude-code-mcp",
@@ -129,10 +129,10 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "24984c6bb91416a8c5d7f05863587d786dcf62ec5fc1f9848f404d203d168c79"
+      "sha256": "23a29c357c59db5ada1e0aeb8af4d988a1df04ce32a2d39b51811b12ed3bdc5a"
     },
     {
       "id": "python-sdk-changelog",
@@ -141,10 +141,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "e3f075f5b2da271dd1b65ba4d78d8bbfbc32a563f15e174c5ba0af0a4ea85c5c"
+      "sha256": "11402aebdfc2f6970b5ded7a962cd8b938add31efc0d50b87a3779cd719c4685"
     },
     {
       "id": "typescript-sdk-readme",
@@ -153,10 +153,10 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "0efd8721fd7fdb225c00b396e61ea46b048b67ba30ce1f1ca99e8c84a0b59007"
+      "sha256": "b8e2c6b754b5cf9fc3e89915f2050df58375cff1c63dc78735b0782300e8da0d"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -165,10 +165,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "c525e5416ce6590d7c91ac8eaf9fc032df105be84f8c2376092bef3c1cfa3f46"
+      "sha256": "4b2683d796053b6ae19ce4d4882230a23d8f2ed30faab143ead0407a72803307"
     },
     {
       "id": "other-sdks-overview",
@@ -239,10 +239,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "f5e245fd1782d6ab3933446b2fe0f06582549c788d0de64595a47c1cda55f5de"
+      "sha256": "2c4baf11675915f06143850d4f0a827ec23bfd7470fc036150ae224a7b588f9c"
     },
     {
       "id": "release-notes-platform",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "2d64a4bf35a162851c0d682e416457fad733787212c7f0ee68e8ad35acba731d"
+      "sha256": "e2860aa0ab4e043a19817fe2c72b691c8d35a4731a086e0f1c1b7c4024ad9c26"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "e1c631b14be1adb21ca682c43936ff3362f7d713d1d2a16f60bea5f747b8437b"
+      "sha256": "539ddb3adff3d23f85a5623ce2a67f2cff290f8df7295a0b15af5983c25fe97f"
     },
     {
       "id": "release-notes-help-center",
@@ -275,10 +275,10 @@
       "local_path": "release-notes/help-center.md",
       "source_url": "https://support.claude.com/en/articles/12138966-release-notes",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-10-25T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "71f303c38805f0813a392045e6c526c6c9eeed5ab7251e9db6c9ab619d71cd27"
+      "sha256": "3ff7428b9b7ed63263e3059ee9f83f3b9ea42e1de606fbb8e57dfa3f567c86dc"
     },
     {
       "id": "api-overview",
@@ -2419,11 +2419,83 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "889b27b312ddce5422b575d2566de9ac9b9abb180f92d18071016d8acc2c6fc0"
+    },
+    {
+      "id": "news-donating-agent-skills-aaif",
+      "name": "Donating Agent Skills to the Agentic AI Foundation",
+      "category": "news",
+      "local_path": "news/donating-agent-skills-to-the-agentic-ai-foundation.md",
+      "source_url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-25T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "3f1430eb7c658083cfdd2ca39c3429839566351919f5795684b268ff4aba1707"
+    },
+    {
+      "id": "news-open-call-guest-investigators-life-sciences",
+      "name": "Open call for guest investigators in the life sciences",
+      "category": "news",
+      "local_path": "news/open-call-guest-investigators-life-sciences.md",
+      "source_url": "https://www.anthropic.com/news/open-call-guest-investigators-life-sciences",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-25T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "28229a1438eaca2e2f7c91b493bf67f2f3f50355270d06caccc2d1930719fa82"
+    },
+    {
+      "id": "news-christopher-stubbs-ltbt",
+      "name": "Physicist Christopher Stubbs joins Anthropic's Long-Term Benefit Trust",
+      "category": "news",
+      "local_path": "news/christopher-stubbs-joins-long-term-benefit-trust.md",
+      "source_url": "https://www.anthropic.com/news/christopher-stubbs-joins-long-term-benefit-trust",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-25T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "c04cb2002f28c017052554ec7a5ead755f5703a328a463d5f05df17a921c42bd"
+    },
+    {
+      "id": "news-public-benefit-fund",
+      "name": "Investing in the public benefit",
+      "category": "news",
+      "local_path": "news/public-benefit-fund.md",
+      "source_url": "https://www.anthropic.com/news/public-benefit-fund",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-25T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "7a28f8f50e4a5e654a94906c46b6d594a23bac73ffe72969e23791b15dd0d69f"
+    },
+    {
+      "id": "research-alignment-assessment-ukaisi",
+      "name": "An alignment assessment of the UK AISI cybertesting incident",
+      "category": "research",
+      "local_path": "research/alignment-assessment-ukaisi.md",
+      "source_url": "https://www.anthropic.com/research/alignment-assessment-ukaisi",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-25T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "eda7357ddd315a17d53f81f1bd3b7342ecb4b026c654a1f5f3a5f5dc02107272"
+    },
+    {
+      "id": "research-claude-scorpion-toxin-binder-design",
+      "name": "How Claude designed protein binders against scorpion neurotoxins",
+      "category": "research",
+      "local_path": "research/claude-scorpion-toxin-binder-design.md",
+      "source_url": "https://www.anthropic.com/research/claude-scorpion-toxin-binder-design",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-10-25T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "97b07d659bb8d04f3d625a9e7771ddac0eab807ecb0f7230ae110cf87fe1ed9f"
     }
   ],
-  "last_discovery_run": "2026-10-18T00:00:00Z",
+  "last_discovery_run": "2026-10-25T00:00:00Z",
   "metadata": {
-    "last_full_update": "2026-10-18T00:00:00Z",
-    "last_discovery_run": "2026-10-18T00:00:00Z"
+    "last_full_update": "2026-10-25T00:00:00Z",
+    "last_discovery_run": "2026-10-25T00:00:00Z"
   }
 }

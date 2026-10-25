@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-25T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -176,6 +176,8 @@ For enterprise administrators, `allowManagedHooksOnly` blocks user, project, and
 Hooks can be defined directly in skills and subagents using frontmatter. These hooks are scoped to the component's lifecycle and only run when that component is active.
 
 All hook events are supported. For subagents, `Stop` hooks are automatically converted to `SubagentStop`.
+
+**Per-source limits (Claude Code v2.1.304+):** each skill source — the project, the personal skills folder, and each plugin — can register at most **1,024 hooks per session**, and its matchers can total at most **16,384 characters**. A handler defined in more than one settings file runs once (duplicates are de-duplicated).
 
 ```yaml
 ---
@@ -450,9 +452,13 @@ Set `"async": true` on command hooks for background execution:
 
 Set `"asyncRewake": true` to run a background hook that wakes Claude on exit 2, showing the hook's stderr/stdout as a system reminder.
 
+## Hook Concurrency
+
+When an event fires, its matching hooks run in parallel. If more than **12** of them are prompt or agent hooks, 12 run at once and the rest start as running ones finish. Each waiting hook's `timeout` starts counting when that hook actually starts, not when the event fires.
+
 ## JSON Output Size Limits
 
-Hook output strings are capped at 10,000 characters. Excess text is saved to a file with a preview and file path shown instead.
+Hook output strings are capped at 10,000 characters — specifically `additionalContext`, `systemMessage`, and `initialUserMessage` are each capped at 10,000 characters. Excess text is saved to a file with a preview and file path shown instead.
 
 ## The `/hooks` Menu
 

@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-10-25T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -15,6 +15,10 @@ Updates to Claude consumer and business applications.
 ---
 
 ## October 2026
+
+### October 21, 2026
+
+- Claude Duet research preview: a new app in which Claude acts as a proactive agent, opened to Pro and Max plans (see the "Introducing Claude Duet" blog post).
 
 ### October 7, 2026
 

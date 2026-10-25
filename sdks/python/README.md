@@ -2,7 +2,7 @@
 title: "Python SDK README"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-10-18T00:00:00Z"
+fetched_at: "2026-10-25T00:00:00Z"
 category: "sdks"
 ---
 # Claude SDK for Python
@@ -43,10 +43,8 @@ message = client.messages.create(
             "content": "Hello, Claude",
         }
     ],
-
     model="claude-opus-5-5",
 )
-
 print(message.content)
 ```
 
@@ -93,4 +91,4 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for details. Versions released before the change from the MIT License, and third-party contributions merged before it, remain under the MIT License. See [LICENSE-MIT](LICENSE-MIT).

@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-10-18T13:15:49.327Z"
+generated_at: "2026-10-25T13:14:14.031Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-10-18
+> Auto-generated from manifest.json on 2026-10-25
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 195 |
+| Total Sources | 201 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-10-18T00:00:00Z |
-| Last Discovery Run | 2026-10-18T00:00:00Z |
+| Last Full Update | 2026-10-25T00:00:00Z |
+| Last Discovery Run | 2026-10-25T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 175 | WebFetch with content extraction |
+| web-extracted | 181 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 165 | High-confidence sources, auto-trusted |
+| auto | 171 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -205,6 +205,10 @@ generator: "scripts/generate-architecture.js"
 | [An update on independent evaluators](../news/an-update-on-independent-evaluators.md) | web-extracted | 0.85 |
 | [Preparing for the 2026 US midterms](../news/2026-us-midterms.md) | web-extracted | 0.85 |
 | [Anthropic opens Singapore office and signs MOU](../news/singapore-office-opening.md) | web-extracted | 0.85 |
+| [Donating Agent Skills to the Agentic AI Foundation](../news/donating-agent-skills-to-the-agentic-ai-foundation.md) | web-extracted | 0.85 |
+| [Open call for guest investigators in the life sciences](../news/open-call-guest-investigators-life-sciences.md) | web-extracted | 0.85 |
+| [Physicist Christopher Stubbs joins Anthropic's Long-Term Benefit Trust](../news/christopher-stubbs-joins-long-term-benefit-trust.md) | web-extracted | 0.85 |
+| [Investing in the public benefit](../news/public-benefit-fund.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -274,6 +278,8 @@ generator: "scripts/generate-architecture.js"
 | [The AI expectations gap](../research/ai-expectations-gap.md) | web-extracted | 0.85 |
 | [How employment is changing at Anthropic](../research/employment-at-anthropic.md) | web-extracted | 0.85 |
 | [Working at the frontier shapes expectations for the future](../research/expectations-for-the-future.md) | web-extracted | 0.85 |
+| [An alignment assessment of the UK AISI cybertesting incident](../research/alignment-assessment-ukaisi.md) | web-extracted | 0.85 |
+| [How Claude designed protein binders against scorpion neurotoxins](../research/claude-scorpion-toxin-binder-design.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -442,7 +448,11 @@ anthropic-docs-local/
 │   ├── barclays-scales-claude.md
 │   ├── an-update-on-independent-evaluators.md
 │   ├── 2026-us-midterms.md
-│   └── singapore-office-opening.md
+│   ├── singapore-office-opening.md
+│   ├── donating-agent-skills-to-the-agentic-ai-foundation.md
+│   ├── open-call-guest-investigators-life-sciences.md
+│   ├── christopher-stubbs-joins-long-term-benefit-trust.md
+│   └── public-benefit-fund.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -503,7 +513,9 @@ anthropic-docs-local/
 │   ├── distillation-defenses.md
 │   ├── ai-expectations-gap.md
 │   ├── employment-at-anthropic.md
-│   └── expectations-for-the-future.md
+│   ├── expectations-for-the-future.md
+│   ├── alignment-assessment-ukaisi.md
+│   └── claude-scorpion-toxin-binder-design.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md
