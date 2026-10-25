@@ -552,6 +552,30 @@ function validateIntegrity(manifest) {
       ok(`Model lineup consistent across lineup files (${activeIds.length} active IDs)`);
     }
   }
+
+  // github-repos index self-consistency.
+  // github-repos/index.md is a generated github-api file carrying a
+  // "Total public repositories: **N**" header above a table with one row per
+  // repo. The header and the row count are a dual source of truth: a hand-edit
+  // (adding a repo row, forgetting the total — or vice versa) silently desyncs
+  // them, the same drift class as the metadata/lineup checks above. Assert the
+  // stated total equals the number of table rows.
+  const repoIdxPath = path.join(ROOT, "github-repos/index.md");
+  if (fs.existsSync(repoIdxPath)) {
+    const idx = fs.readFileSync(repoIdxPath, "utf-8");
+    const totalMatch = idx.match(/Total public repositories:\s*\*\*(\d+)\*\*/);
+    const rowCount = (idx.match(/^\|\s*\[[^\]]+\]\(https?:\/\//gm) || []).length;
+    if (totalMatch) {
+      const stated = parseInt(totalMatch[1], 10);
+      if (stated !== rowCount) {
+        warn(
+          `github-repos/index.md total drift: header says ${stated} repositories but the table has ${rowCount} rows`,
+        );
+      } else {
+        ok(`github-repos index total consistent with table (${rowCount} repos)`);
+      }
+    }
+  }
 }
 
 // ═══════════════════════════════════════════════════════════

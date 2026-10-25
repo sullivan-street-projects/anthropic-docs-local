@@ -18,6 +18,16 @@ Track source-specific failures with resolutions. Review at session start to avoi
 
 ## Log
 
+### 2026-10-25 — agent-sdk-typescript-v2 (confirmed 404, ~14th cycle)
+
+- **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via the repos API scan; not fetched). last_fetched 2026-04-05 (203 days stale). Emits one Layer-4 staleness warning per cycle.
+- **Resolution**: NOT re-fetched (known dead). NOT auto-deleted (Phase 4e: 404 → log + user-alert; permanent deletion needs user confirmation). Local file `agent-sdk/typescript-v2-preview.md` preserved.
+- **Prevention**: Remove the `agent-sdk-typescript-v2` manifest entry + `agent-sdk/typescript-v2-preview.md`, OR repoint to current Agent SDK docs (code.claude.com/docs/en/agent-sdk/*, live and tracked via the manual agent-sdk-readme/quickstart sources). Concrete case for optimizations item #18 (lifecycle_status). Now 203 days / ~14 cycles — removal is well overdue.
+
+### 2026-10-25 — no fetch failures (actively-fetched sources)
+
+- **Note**: All actively-fetched sources succeeded. 8 github-raw via curl (5 changed: both SDK CHANGELOGs + READMEs, claude-code CHANGELOG; 3 unchanged: claude-code/skills READMEs, cookbooks index). hooks.md verified vs live and updated (hook concurrency cap + skill-hook per-source limits, both newly documented since 10-18). 6 live aggregation/model/release pages (release-notes api/platform/help-center updated; models/overview + api overview verified — lineup unchanged, new API version `2026-10-21` noted). github-repos API pages 1–2 (regenerated index, 116 repos). help-center page (Claude Duet). 6 new-source fetches (4 news + 2 research). 3 discovery index pages (news/research/engineering). No 404s on code.claude.com, platform.claude.com, support.claude.com, or www.anthropic.com. **Zero background agents** (all fetches inline by the orchestrator) → zero 600s-watchdog stalls. 0 sha256 mismatches after single-writer reconcile; **201/201 hashes verified**. **No model launch** (SDK CHANGELOGs add no new model ID, despite the SDK major-version bump to 2.0.0/1.0.0) → model-launch cascade did not fire; lineup-consistency check passed (15 active IDs). The only 404 was the known-dead agent-sdk source (above), intentionally not fetched.
+
 ### 2026-10-18 — manifest metadata timestamp drift (self-inflicted, caught + fixed same run)
 
 - **Error**: The single-writer reconcile script set `metadata.last_full_update` to 2026-10-18 but left the TOP-LEVEL `last_full_update` at 2026-10-11. `validate.js` and the staleness math read the top-level field, so the mirror reported wrong "days behind" numbers while passing (dates silently disagreed). Root cause: `manifest.json` carries a `metadata` block that duplicates `last_full_update`/`last_discovery_run`, and the script assumed `metadata.X` was authoritative.

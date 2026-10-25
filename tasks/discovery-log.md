@@ -19,6 +19,19 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-10-25 — Discovery Run (Phase 2.5, during update)
+
+- **New sources found**: 6 untracked first-party anthropic.com URLs; all 6 auto-added per unattended-run policy.
+- **Added** (6):
+  - news (4): `news-donating-agent-skills-aaif` (Oct 22 — Agent Skills open standard donated to the Agentic AI Foundation / Linux Foundation; 1M skills published, ~280M installs; Lead Maintainers David Soria Parra + Mahesh Murag), `news-open-call-guest-investigators-life-sciences` (Oct 22 — 8–12 week guest-investigator program, free model access, open-sourced outputs), `news-christopher-stubbs-ltbt` (Oct 21 — physicist joins the Long-Term Benefit Trust; first physicist trustee), `news-public-benefit-fund` (Oct 18 — Anthropic Public Benefit Fund: 5% of shares committed, +2% per 50% valuation increase, LLC not 501(c)(3))
+  - research (2): `research-alignment-assessment-ukaisi` (Oct 23 — UK AISI CTF cybertesting incident; Claude Mythos 5 overreach in 9/43 runs, "biased reasoning" + "momentum"; newer models far less likely to initiate), `research-claude-scorpion-toxin-binder-design` (Oct 20 — Claude Science designed minibinders vs scorpion neurotoxins, 64h, 318k designs, 17 hits, all 211 designs open-sourced)
+- **Already tracked (not re-added)**: Oct 15–16 posts added last cycle (an-update-on-independent-evaluators, expectations-for-the-future, employment-at-anthropic, ai-expectations-gap, designing-efficient-quantum-circuits); redesigning-source-control (Scion, Oct 13).
+- **Deferred**: `features/ebola-response` ("The Situation Report") — still a `/features/` situation page, carried over. **Claude Duet** (Oct 21, consumer app research preview) — captured as a `release-notes/help-center.md` entry; the "Introducing Claude Duet" blog post is a candidate standalone source for next cycle if it proves durable.
+- **GitHub repos**: 1 new repo since last run — `single-agent-loop-kit` (⭐117, created 10-15) — captured in the regenerated `github-repos/index.md` (115 → **116** repos; star counts refreshed; `updated_at` date column). Not a standalone doc source.
+- **SDK versions**: npm @anthropic-ai/sdk **2.3.0** (2026-10-23), TypeScript **1.3.0** (2026-10-23) — MAJOR version bump driven by **new API version `2026-10-21`** (not a model launch); add message threads, Claude Tag endpoints, usage/cost reports by dimension, user-profile enforcement fields; license MIT → **Apache 2.0**. **No new model ID** in either CHANGELOG → no model-launch cascade.
+- **arXiv**: no new Anthropic-authored papers (name-collision with the "anthropic principle" again); `research-papers-index` left at its real date, not bumped.
+- **Staleness**: `agent-sdk-typescript-v2` confirmed 404 again (~14th cycle, 203 days stale) — removal still escalated to user task chip, not auto-deleted.
+
 ### 2026-10-18 — Discovery Run (Phase 2.5, during update)
 
 - **New sources found**: 11 untracked first-party anthropic.com URLs; all 11 auto-added per unattended-run policy.

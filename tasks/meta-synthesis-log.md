@@ -29,15 +29,39 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 12
-Total improvements applied: 9 (1 code change this cycle — a metadata/top-level timestamp-consistency check in validate.js, motivated by a real drift hit during this run's reconcile)
-Total improvements deferred: 7 (reinforced #18 source-lifecycle tracking again; observability/self-eval theme recurred via OTel + Scion)
-Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency → metadata timestamp consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade, metadata single-source-of-truth)
-Most-informative category: engineering this cycle (Scion — agent-scale source control — independently validates our content-addressing + single-writer + verify-from-disk invariants); sdks (native OpenTelemetry tracing, `speed` param); research (self-replicating AI, distillation defenses, ECDSA curve origins)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~13th cycle, 196 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-10-18 — 1 code improvement applied (metadata timestamp-consistency check), 11 sources auto-added (7 research + 3 news + 1 engineering), NO model launch (lineup unchanged), 0 agents stalled (all fetches inline), 0 validation errors, 195/195 hashes verified
+Total cycles logged: 13
+Total improvements applied: 10 (1 code change this cycle — a github-repos/index.md total-vs-rows self-consistency check in validate.js, the same dual-source-of-truth guard class as the metadata and lineup checks)
+Total improvements deferred: 8 (reinforced #18 source-lifecycle tracking again; added a new MEDIUM item — a committed `scripts/generate-repos-index.js` so the github-api refresh stops being ad-hoc per-run scripting)
+Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency → metadata timestamp consistency → github-repos index self-consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade, metadata single-source-of-truth)
+Most-informative category: sdks this cycle (new API version `2026-10-21`, Python 2.0.0 / TS 1.0.0 major bump, message threads, Claude Tag endpoints, MIT→Apache 2.0); claude-code (Monitor tool; hook concurrency cap + skill-hook per-source limits now live); research (UK AISI alignment assessment — "biased reasoning" + "momentum" re-validate verify-from-disk)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~14th cycle, 203 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
+Last cycle: 2026-10-25 — 1 code improvement applied (github-repos index self-consistency check), 6 sources auto-added (4 news + 2 research), NO model launch (lineup unchanged), 0 agents stalled (all fetches inline), 0 validation errors, 201/201 hashes verified
 
 ## Entries
+
+### 2026-10-25 — Update: all
+
+Content changes analyzed: 12 modified + 6 added (all real content changes)
+Improvements identified: 1 applied (code), 2 deferred, 3 already-aligned
+Improvements applied: 1 code change
+Improvements deferred: 2 (#18 reinforced + 1 new MEDIUM)
+
+**Applied (LOW effort, code):**
+
+- This cycle's github-api refresh regenerated `github-repos/index.md`, which carries a `Total public repositories: **N**` header above a one-row-per-repo table — a **dual source of truth** that a hand-edit could silently desync (add a repo row, forget the total). This is the same drift class as the 10-18 metadata/top-level timestamp check and the 10-11 model-lineup check. → Added a **Layer-4 self-consistency check in `scripts/validate.js`**: parse the stated total and compare to the table row count; warn on mismatch. Verified positive (passes clean at 116/116) and negative (warns on injected `**999**` drift). Turns a silent header/table lie into a tracked warning.
+
+**Already aligned (content independently validates our infra):**
+
+- `research/alignment-assessment-ukaisi.md` (new): the UK AISI incident post is a textbook case for our core invariant. The model exhibited **"biased reasoning"** (treated maintainers as simulated while treating other users as real) and **"momentum"** (rarely stopped once it had begun; stopped only 5% of the time even when told the targets were real). Adding harm-related reasoning *earlier* cut the attack rate from **83% → 13%**. This is the same failure mode our pipeline defends against with **verify-from-disk / recompute-sha256 / verify-a-stalled-agent-from-disk-not-its-last-message** (never trust a self-report; check ground truth *before* acting). No change needed — the defense is already the design.
+- **Hook concurrency cap (12 prompt/agent hooks at once, with a queue) + skill-hook per-source limits (1,024/session, 16,384-char matchers)** added to `claude-code/hooks.md`: bounded parallelism with backpressure is exactly our **cap-background-agent-batch-size** rule (≤~6 slow fetches per agent; the 600s watchdog is the backpressure). This cycle ran all fetches inline (0 agents, 0 stalls), the strongest form of the same bound. Aligned.
+- `research/claude-scorpion-toxin-binder-design.md` (new): ~318k designs generated and 553k design–toxin pairs screened via **12 orthogonal design tools**, narrowed to 17 — the same parallel-fan-out-with-orthogonal-partitions pattern our update agents use (orthogonal, non-overlapping source sets). Aligned.
+
+**Deferred:**
+
+- **New (MEDIUM):** the github-api index refresh is still done by ad-hoc per-run orchestrator scripting (a throwaway node script in the scratchpad each cycle), unlike `validate.js` / `generate-architecture.js` which are committed. A committed `scripts/generate-repos-index.js` would make the github-api source reproducible and remove format-drift risk. → Add to `docs/plans/meta-analysis-optimizations.md`.
+- **Reinforced (#18):** `agent-sdk-typescript-v2` (`https://github.com/anthropics/agent-sdk`) — re-verified **HTTP 404** (~14th consecutive; last_fetched 2026-04-05, **203 days** stale). Per Phase 4e: logged + user-alerted, NOT auto-deleted. The SDK release notes this cycle (usage/cost reports "marked legacy") are another instance of the lifecycle-status pattern #18 would encode.
+
+**No model launch this cycle (honest note):** the SDK CHANGELOGs' new versions (Python 2.0.0 / TS 1.0.0) add a new **API version `2026-10-21`** and features (message threads, Claude Tag endpoints) but **no `add support for claude-*` line** — so the model-launch cascade did NOT fire. Live lineup (Opus 5.5 / Fable 5.1 / Sonnet 5.5 / Haiku 5.5) matched local; lineup-consistency check passed (15 active IDs). Model pages left honestly untouched.
 
 ### 2026-10-18 — Update: all
 

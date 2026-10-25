@@ -284,6 +284,14 @@ Phase 0: Plan (always runs)
 
 **Fix (HIGH effort):** Build a small reproducible self-eval: fixtures with known-changed vs known-stable sources and a canned discovery result, then assert the pipeline (a) rewrites only the changed files, (b) leaves stable files' `fetched_at` untouched, (c) adds exactly the expected new manifest entries, (d) reconciles all sha256 from disk. Emit a scored pass/fail report. Motivated by the 2026-09-13 cycle, where these properties held but were confirmed only manually.
 
+### 25. Committed github-repos index generator (from the recurring github-api refresh)
+
+**Lesson:** `github-repos/index.md` is a `github-api` source that must be regenerated from `api.github.com/orgs/anthropics/repos` (2 pages of 100). Every cycle that refreshes it does so with a throwaway node script written into the scratchpad — unlike `validate.js` and `generate-architecture.js`, which are committed and reproducible. Ad-hoc regeneration risks format drift (description truncation length, star comma-formatting, date column source `updated_at` vs `pushed_at`, sort order).
+
+**Current state:** No committed generator; the orchestrator hand-writes one per run. The 2026-10-25 cycle added a `validate.js` self-consistency check (stated total vs table rows) as a backstop, but the generation itself is still unversioned.
+
+**Fix (MEDIUM effort):** Add `scripts/generate-repos-index.js` that fetches both pages, sorts by stars desc, and writes the exact table format (comma-separated stars, `updated_at` date column, description truncated at ~113 chars, "No description" fallback) plus the `Total public repositories: **N**` header. Run it in Phase 2/3 for the github-api source. Pairs with the new validate.js total-vs-rows check (item backstop) and the generate-architecture.js precedent.
+
 ---
 
 ## Implementation Plan
