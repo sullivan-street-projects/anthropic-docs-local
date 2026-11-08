@@ -29,15 +29,38 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 13
-Total improvements applied: 10 (1 code change this cycle — a github-repos/index.md total-vs-rows self-consistency check in validate.js, the same dual-source-of-truth guard class as the metadata and lineup checks)
-Total improvements deferred: 8 (reinforced #18 source-lifecycle tracking again; added a new MEDIUM item — a committed `scripts/generate-repos-index.js` so the github-api refresh stops being ad-hoc per-run scripting)
-Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency → metadata timestamp consistency → github-repos index self-consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade, metadata single-source-of-truth)
-Most-informative category: sdks this cycle (new API version `2026-10-21`, Python 2.0.0 / TS 1.0.0 major bump, message threads, Claude Tag endpoints, MIT→Apache 2.0); claude-code (Monitor tool; hook concurrency cap + skill-hook per-source limits now live); research (UK AISI alignment assessment — "biased reasoning" + "momentum" re-validate verify-from-disk)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~14th cycle, 203 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-10-25 — 1 code improvement applied (github-repos index self-consistency check), 6 sources auto-added (4 news + 2 research), NO model launch (lineup unchanged), 0 agents stalled (all fetches inline), 0 validation errors, 201/201 hashes verified
+Total cycles logged: 14
+Total improvements applied: 11 (1 code change this cycle — a `local_path` path-containment guard in validate.js, the same injection-rejection class as the SDKs' Nov-2026 path-parameter fix)
+Total improvements deferred: 8 (no new deferral this cycle; reinforced the committed `scripts/generate-repos-index.js` MEDIUM item and #18 source-lifecycle tracking)
+Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency → metadata timestamp consistency → github-repos index self-consistency → local_path path-containment) / tasks/lessons.md (agent-stall recovery, model-launch cascade, metadata single-source-of-truth)
+Most-informative category: sdks this cycle (structured API error handling — per-status/per-code error classes, error_code/details/api_message, tool_use_limit_reached_error + compaction_limit_reached_error, path-parameter injection rejection); claude-code (MCP tool calls run as background tasks; auto-mode server-side safety; permissions.denyInsteadOfPrompting); research (early-November science cluster — provable-inference/FlashProve, components-of-agent-memory, how-researchers-use-claude)
+Staleness alerts: threat-intelligence-report-september-2026.md still flagged truncated (from 09-13). agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) remains in-manifest and stale (404 at last verification 2026-10-25); not re-fetched this cycle.
+Last cycle: 2026-11-08 — 1 code improvement applied (local_path path-containment guard), 10 sources auto-added (8 research + 1 engineering + 1 news), NO model launch (lineup unchanged), 0 agents stalled (3 parallel agents, 0 stalls), 0 validation errors, 211/211 hashes verified
 
 ## Entries
+
+### 2026-11-08 — Update: all
+
+Content changes analyzed: 18 modified + 10 added (all real content changes)
+Improvements identified: 1 applied (code), 1 deferred (reinforced), 3 already-aligned
+Improvements applied: 1 code change
+Improvements deferred: 1 (reinforced: committed generate-repos-index.js)
+
+**Applied (LOW effort, code):**
+
+- Python SDK 2.4.0–2.6.0 and TS SDK 1.4.0–1.6.0 added a client-side guard that **rejects path parameters like ".;x" and "..;x"** before a request is sent — defense against path-segment injection. Our own `scripts/validate.js` checked `local_path` for presence and duplicates but **never for containment**: the update pipeline does `path.join(ROOT, local_path)` and WRITES there, so a manifest entry with an absolute path or a `..` escape would fetch-and-write outside the repo with nothing to catch it. → Added a **Layer-1 path-containment check**: `local_path` must be relative, contain no `..` segment, and resolve inside ROOT, else a blocking error ("unsafe local_path escapes repo root"). Verified positive (211/211 real paths pass, exit 0) and negative (blocks `../../tmp/evil.md`, `/etc/passwd`, `a/../../b.md`, `..\win.md`; allows `research/ok.md`, `sub/dir/file.md`). Same injection-rejection class as the SDK fix, applied to our file-write surface.
+
+**Already aligned (content independently validates our infra):**
+
+- `research/provable-inference.md` (new, FlashProve): verifiable zkSNARK attestation that a specific model actually produced an output — trust a result only after a **cryptographic proof recomputed from the inputs**, never the producer's say-so. That is our verify-from-disk / recompute-sha256 invariant exactly (this cycle: 211/211 hashes recomputed from disk; agent file-writes verified by `git diff --stat`, never by agent self-report). No change needed.
+- `research/components-of-agent-memory.md` (new): agents consolidate durable memory offline ("dreaming") and **restart later runs from the consolidated notes**, separating volatile working context from a persistent store. Same architecture as our `.update-session.json` resume + `tasks/lessons.md` / `meta-synthesis-log.md` accumulation — each weekly cycle wakes with consolidated notes. Aligned.
+- `claude-code/mcp-servers.md` (updated): MCP now carries explicit **tool-behavior hints** (`readOnlyHint`, `idempotentHint`) and hard **output caps** (50,000-char text result, 16 MiB response). Declaring read-only vs. mutating and bounding output is the same posture as our **single-writer-manifest** rule (content agents write files only; the orchestrator alone mutates `manifest.json`) and the truncation detector. Aligned.
+
+**Deferred:**
+
+- **Reinforced (MEDIUM):** the github-api index refresh is STILL ad-hoc per-run scratchpad scripting (this cycle regenerated `github-repos/index.md` from a throwaway node script again, 116 → 117 repos). A committed `scripts/generate-repos-index.js` remains the fix — already in `docs/plans/meta-analysis-optimizations.md`. The SDKs' new **structured error details (type, message, code, details)** this cycle are a second nudge toward reproducible, named infrastructure over ad-hoc handling.
+
+**No model launch this cycle (honest note):** SDK CHANGELOGs added new versions (Python 2.6.0 / TS 1.6.0) but **no `add support for claude-*` line** — the model-launch cascade did not fire. Live lineup (Opus 5.5 / Fable 5.1 / Sonnet 5.5 / Haiku 5.5) matched local; lineup-consistency check passed (15 active IDs). Model pages left untouched. npm (`@anthropic-ai/sdk` 1.6.0) and PyPI (`anthropic` 2.6.0) confirmed the local CHANGELOGs are at the latest published SDK versions.
 
 ### 2026-10-25 — Update: all
 

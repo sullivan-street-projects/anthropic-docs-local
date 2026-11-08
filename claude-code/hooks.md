@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-10-25T00:00:00Z"
+fetched_at: "2026-11-08T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -750,6 +750,9 @@ Hook behavior evolves frequently. Notable recent changes:
 
 | Version   | Change                                                                                                                                                                                        |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v2.1.314+ | `Monitor` tool commands are matched by `Bash` matchers in tool hook events.                                                                                                                   |
+| v2.1.304+ | Per-source skill hook limits: each skill source may register at most 1,024 hooks per session, with matchers totaling at most 16,384 characters.                                               |
+| v2.1.295+ | `onFailure` field on command and HTTP hooks: `"continue"` (default) or `"block"` on a non-zero exit / failed request.                                                                         |
 | v2.1.267+ | `cloud_credential_error` matcher added to `StopFailure` error types.                                                                                                                          |
 | v2.1.257+ | `scratchpad_dir` common input field (path to the session's scratchpad directory for temporary files).                                                                                         |
 | v2.1.218+ | Subagent frontmatter hooks blocked in untrusted (`-p`) folders until workspace trust is accepted.                                                                                             |

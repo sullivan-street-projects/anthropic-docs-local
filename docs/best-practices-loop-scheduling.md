@@ -2,7 +2,7 @@
 title: "Best Practices: /loop Command & Scheduling in Claude Code"
 source_url: "https://code.claude.com/docs/en/cli-usage"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-11-08T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -243,11 +243,17 @@ claude logs 7c5dcf5d
 # Stop a background session
 claude stop 7c5dcf5d
 
+# Restart a background session (running or stopped) with its conversation intact
+claude respawn 7c5dcf5d        # add --all to restart every running session
+
+# Remove a background session from the list
+claude rm 7c5dcf5d
+
 # Run a shell command as a background job
 claude --bg --exec 'pytest -x'
 ```
 
-Background agents run as separate processes managed by a supervisor daemon. Unlike `/loop`, they persist independently of your interactive session. Use `claude daemon status` for diagnostics and `claude daemon stop --any` to recover from an unresponsive supervisor.
+Background agents run as separate processes managed by a supervisor daemon. Unlike `/loop`, they persist independently of your interactive session. Use `claude daemon status` for diagnostics, `claude daemon logs` to follow the supervisor log, and `claude daemon stop --any` to recover from an unresponsive supervisor. `claude respawn --all` restarts every running session at once, which is useful for picking up an updated Claude Code binary.
 
 ---
 

@@ -182,6 +182,24 @@ function validateSchema(manifest) {
         );
       }
       paths.add(source.local_path);
+
+      // Path-containment guard: local_path must stay inside ROOT. The update
+      // pipeline does `path.join(ROOT, local_path)` and WRITES there, so a
+      // value that is absolute or escapes with `..` would let a manifest entry
+      // fetch-and-write outside the repo. (Mirrors the SDKs' Nov-2026 fix that
+      // rejects path parameters like ".;x" / "..;x" — same injection class.)
+      const lp = source.local_path;
+      const resolved = path.resolve(ROOT, lp);
+      const rootPrefix = ROOT.endsWith(path.sep) ? ROOT : ROOT + path.sep;
+      if (
+        path.isAbsolute(lp) ||
+        lp.split(/[\\/]/).includes("..") ||
+        !resolved.startsWith(rootPrefix)
+      ) {
+        error(
+          `${prefix} (${label}) unsafe local_path escapes repo root: ${lp}`,
+        );
+      }
     }
 
     if (!source.source_url) error(`${prefix} (${label}) missing source_url`);

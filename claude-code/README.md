@@ -2,7 +2,7 @@
 title: "Claude Code README"
 source_url: "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md"
 source_type: "github-raw"
-fetched_at: "2026-10-18T00:00:00Z"
+fetched_at: "2026-11-08T00:00:00Z"
 category: "claude-code"
 ---
 # Claude Code
@@ -54,7 +54,7 @@ For more installation options, uninstall steps, and troubleshooting, see the [se
 
 ## Plugins
 
-This repository includes several Claude Code plugins that extend functionality with custom commands and agents. See the [plugins directory](./plugins/README.md) for detailed documentation on available plugins.
+Anthropic's Claude Code plugins are developed in [claude-plugins-official](https://github.com/anthropics/claude-plugins-official). See the [plugins directory](./plugins/README.md) for more about plugins.
 
 ## Reporting Bugs
 

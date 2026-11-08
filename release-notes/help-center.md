@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-10-25T00:00:00Z"
+fetched_at: "2026-11-08T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -11,6 +11,19 @@ category: "release-notes"
 Updates to Claude consumer and business applications.
 
 > For developer platform release notes, see [Platform Release Notes](platform.md).
+
+---
+
+## November 2026
+
+### November 6, 2026
+
+- Track spend by cost code with project tags (beta): eligible Enterprise organizations can tag projects with existing codes, such as charge codes or client-matter numbers, and see most project spend by tag
+
+### November 5, 2026
+
+- New security and admin controls for Enterprise plans: Claude Enterprise adds a security center, inference hooks, centralized management, and additional access controls, several of them in beta
+- Personal Finance in Claude (beta): link bank, credit card, loan, and investment accounts to see balances and spending on one page and ask Claude about your finances — available on Pro, Max, and Ultra plans in the US only
 
 ---
 
