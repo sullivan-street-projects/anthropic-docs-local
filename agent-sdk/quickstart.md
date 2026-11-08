@@ -2,7 +2,7 @@
 title: "Agent SDK Quickstart"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/quickstart"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-11-08T00:00:00Z"
 category: "agent-sdk"
 ---
 
@@ -20,7 +20,7 @@ Get started with the Python or TypeScript Agent SDK to build AI agents that work
 
 ## Prerequisites
 
-- **Node.js 18+** or **Python 3.10+**
+- **Node.js 18.14+** or **Python 3.10+**
 - An **Anthropic account** ([sign up here](https://platform.claude.com/))
 
 ## Setup
@@ -84,7 +84,7 @@ pip install claude-agent-sdk
 
 If PowerShell blocks `Activate.ps1` with an execution policy error, run `Set-ExecutionPolicy -Scope Process RemoteSigned` first.
 
-> **Note:** Both the TypeScript and Python SDKs now bundle a native Claude Code binary for your platform, so you don't need to install Claude Code separately.
+> **Note:** Both the TypeScript and Python SDKs bundle a native Claude Code binary, so most installs need no separate Claude Code install. Some installs have no bundled binary and require installing Claude Code natively: the Python SDK's source distribution (for example on ARM64 Windows), and a TypeScript install that skips npm optional dependencies (for example `npm ci --omit=optional`). After a native install, the Python SDK finds Claude Code on your `PATH`; for TypeScript, set `pathToClaudeCodeExecutable` to its path.
 
 ### 3. Set Your API Key
 

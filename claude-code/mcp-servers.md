@@ -2,7 +2,7 @@
 title: "Claude Code MCP Servers"
 source_url: "https://code.claude.com/docs/en/mcp"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-11-08T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -345,7 +345,19 @@ An MCP server can also mark individual tools as always-loaded by including `"ant
 
 ### For MCP Server Authors
 
-Server instructions help Claude understand when to search for your tools. Claude Code truncates tool descriptions and server instructions at 2KB each -- keep them concise and put critical details near the start.
+Server instructions help Claude understand when to search for your tools. Claude Code cuts a tool description or server instructions that run past these default limits, and Claude sees only the text before the cut:
+
+- **Server instructions, and the description of a tool that loads upfront:** 4,096 characters
+- **The description of a tool that Claude loads through tool search:** 16,384 characters
+
+Keep descriptions and instructions concise and put critical details near the start. Set `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` (v2.1.280+) to use a single custom number for both limits. (Before v2.1.296 the shorter limit was 2,048 characters, and before v2.1.295 it applied to every tool description, including one loaded through tool search.)
+
+### Mark a Tool's Behavior (Server Authors)
+
+Set fields in a tool's `tools/list` entry to change how Claude Code treats it:
+
+- **`_meta["anthropic/requiresUserInteraction"]: true`** -- Claude Code shows the tool's permission prompt on every call, even in `acceptEdits`, `auto`, and `bypassPermissions` modes, and offers no "don't ask again" option. In `dontAsk` mode the call is denied. Use it for consent or access-grant steps where the prompt itself is the point. A `--permission-prompt-tool` `allow` result is converted to a deny; the Agent SDK's `canUseTool` callback still receives the call.
+- **`annotations.idempotentHint: true`** / **`annotations.readOnlyHint: true`** -- mark a tool as safe to repeat, so Claude Code can retry a call to an HTTP server or claude.ai connector once on a new connection if the connection closed while the call was pending. `readOnlyHint` also lets the tool's calls run in parallel with other read-only calls.
 
 ## Dynamic Tool Updates
 
@@ -457,7 +469,10 @@ Claude Desktop configuration:
 - Warning threshold: 10,000 tokens
 - Default maximum: 25,000 tokens
 - Configure: `MAX_MCP_OUTPUT_TOKENS=50000`
+- Character limit for text results: a successful result with no image content is saved to a file once it is longer than 50,000 characters, whatever its token count (setting `MAX_MCP_OUTPUT_TOKENS` doesn't change this threshold)
 - Per-tool override: Set `_meta["anthropic/maxResultSizeChars"]` in tool's `tools/list` response (up to 500,000 characters hard ceiling)
+- Response/message size cap: when a response from an HTTP or SSE server passes 16 MiB (after decompression, per JSON body or event), Claude Code stops reading it and the request fails; a WebSocket message over 16 MiB closes the connection
+- Error results: error text longer than ~11,000 characters keeps only its first and last 5,000 characters, with a marker between them
 
 ## Environment Variables
 
@@ -524,6 +539,10 @@ Key behaviors:
 - `allowedMcpServers: []` = complete lockdown
 - Command arrays must match exactly (command and all arguments in correct order)
 - URL patterns support wildcards (`*`) for matching
+
+### Option 3: Provide Servers Without Exclusive Control (`managedMcpServers`)
+
+The `managedMcpServers` managed setting (v2.1.259+) deploys MCP servers to every user without taking exclusive control the way `managed-mcp.json` does -- users can still add their own servers alongside the ones you provide. Combine it with `allowedMcpServers`/`deniedMcpServers` to also restrict what users may add. See the [Managed MCP documentation](https://code.claude.com/docs/en/managed-mcp) for the full set of controls.
 
 ## Plugin MCP Servers
 

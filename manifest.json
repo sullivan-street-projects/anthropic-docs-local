@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-10-25T00:00:00Z",
+  "last_full_update": "2026-11-08T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -9,10 +9,10 @@
       "local_path": "claude-code/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "c8721cc2c518ca8dc8a61875deb924c6d3f282fc59727f65f08977075049af8e"
+      "sha256": "0138d389f95871694f673954bb83f85b98cd6802d04f606a9687daa48dcdbd9d"
     },
     {
       "id": "claude-code-changelog",
@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "d1259a51f192926a1b962e1d5547bdc533972b397db0565476ddec19a3329c1d"
+      "sha256": "fe8b9e37eeef6dbfc5b9c339623db5a902e5f4f292c095908fe6c717a1c78d15"
     },
     {
       "id": "claude-code-features",
@@ -45,10 +45,10 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "https://code.claude.com/docs/en/hooks",
       "source_type": "manual",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "3d873793a1418d87e3cb6e9f146b034d9172171f2da0b4543fee60d6c2bce90a"
+      "sha256": "448133fa6be83a423a3ce3f9f3007a7204f2f143543b7cbcef7e045a99935934"
     },
     {
       "id": "claude-code-mcp",
@@ -57,10 +57,10 @@
       "local_path": "claude-code/mcp-servers.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "1ef883dac0ddb0e6c98756940229901bcc43658028d70d1ac2a0cd7a24285ed9"
+      "sha256": "43da0a0eb146964423201c06101019508d01c6cb028fdd813181f5a1e7a587ae"
     },
     {
       "id": "claude-code-plugins",
@@ -129,10 +129,10 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "23a29c357c59db5ada1e0aeb8af4d988a1df04ce32a2d39b51811b12ed3bdc5a"
+      "sha256": "55942ba64ef2af91b66acd3d5f7a4a42c10f415915fe45be9a36c14721891d41"
     },
     {
       "id": "python-sdk-changelog",
@@ -141,10 +141,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "11402aebdfc2f6970b5ded7a962cd8b938add31efc0d50b87a3779cd719c4685"
+      "sha256": "3ad696cc87db93a8be6008de10cefdbd5ce220c32cece1f655de2e560c386e91"
     },
     {
       "id": "typescript-sdk-readme",
@@ -153,10 +153,10 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "b8e2c6b754b5cf9fc3e89915f2050df58375cff1c63dc78735b0782300e8da0d"
+      "sha256": "4db3e8bfb010f202b2783a61bd5a9d778237fb99395fde96f417eb8fc8a6303f"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -165,10 +165,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "4b2683d796053b6ae19ce4d4882230a23d8f2ed30faab143ead0407a72803307"
+      "sha256": "3bdfa135f47c287be1e57d347895582705fd35bfb67fb5c96f8486d531b0c172"
     },
     {
       "id": "other-sdks-overview",
@@ -189,10 +189,10 @@
       "local_path": "skills/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "dcc4c05466fe4ac251601bed822176cdbd75e070dac1a1ab2d84c85262aa3640"
+      "sha256": "a18cb572aec0a7cf014ac69d31e42dbb5e5045f757ddeeb6c966d16719239348"
     },
     {
       "id": "skills-catalog",
@@ -239,10 +239,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "2c4baf11675915f06143850d4f0a827ec23bfd7470fc036150ae224a7b588f9c"
+      "sha256": "b18fa0037fe1ce42b32a772c6ec2028721b868b1641a662fc0af26deacf2087c"
     },
     {
       "id": "release-notes-platform",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "e2860aa0ab4e043a19817fe2c72b691c8d35a4731a086e0f1c1b7c4024ad9c26"
+      "sha256": "3c4181f212b831957bfee9bf2853b7dbae1478e7c03dd7eef815cabd290f47b5"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "539ddb3adff3d23f85a5623ce2a67f2cff290f8df7295a0b15af5983c25fe97f"
+      "sha256": "979adab4a27ecc5c213b73a736b1918f1b8ad644874e440f17aa9304b1c5b510"
     },
     {
       "id": "release-notes-help-center",
@@ -275,10 +275,10 @@
       "local_path": "release-notes/help-center.md",
       "source_url": "https://support.claude.com/en/articles/12138966-release-notes",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "3ff7428b9b7ed63263e3059ee9f83f3b9ea42e1de606fbb8e57dfa3f567c86dc"
+      "sha256": "2dab627092173d154ab07e2bd83ac387b4b79f041f6ebd2678d40ec0994281b8"
     },
     {
       "id": "api-overview",
@@ -443,10 +443,10 @@
       "local_path": "agent-sdk/quickstart.md",
       "source_url": "https://code.claude.com/docs/en/agent-sdk/quickstart",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "b77c2464df06418e3ec597395210207461537506f4e58169c23a2ce641afe39c"
+      "sha256": "9a561e2ef93b247260a765891f6f563b1165ba7c81a4b589b4df58b43d2b9953"
     },
     {
       "id": "agent-sdk-examples",
@@ -467,10 +467,10 @@
       "local_path": "cookbooks/index.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "f5fef4360ee6de50a08f103bb6a21d46b96f1538f9460870a35819ca87e925c5"
+      "sha256": "198a015171afeebdb83a4537091fd1c57fc5ce08f3bd35ef671fbeb98546eda4"
     },
     {
       "id": "research-index",
@@ -961,10 +961,10 @@
       "local_path": "docs/best-practices-loop-scheduling.md",
       "source_url": "https://code.claude.com/docs/en/cli-usage",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-11-08T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "74e87295902a5b10f1786788a20f971c0bac0177d860c0202550a451b60eca6f"
+      "sha256": "8a8f3c0475a3af925930a34f5ca48f2ba54ff9b787e897e86ac41f45d1e19d07"
     },
     {
       "id": "best-practices-mcp-credentials",
@@ -2491,11 +2491,131 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "97b07d659bb8d04f3d625a9e7771ddac0eab807ecb0f7230ae110cf87fe1ed9f"
+    },
+    {
+      "id": "research-early-progress-drug-development",
+      "name": "Early progress on accelerating drug development with Claude",
+      "category": "research",
+      "local_path": "research/early-progress-drug-development.md",
+      "source_url": "https://www.anthropic.com/research/early-progress-drug-development",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "34d6d147a34db1134abbd8ef4c8e788cbad1044794c287d79de9a3aea050a20a"
+    },
+    {
+      "id": "research-investigating-vault-particles",
+      "name": "Investigating vault particles with Claude",
+      "category": "research",
+      "local_path": "research/investigating-vault-particles-with-claude.md",
+      "source_url": "https://www.anthropic.com/research/investigating-vault-particles-with-claude",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "c8b0991aa9096fdb4907eadf9e20ccaf55544fe0065a554987abd1425def8c61"
+    },
+    {
+      "id": "research-how-researchers-use-claude",
+      "name": "AI for scientific discovery: How researchers use Claude",
+      "category": "research",
+      "local_path": "research/how-researchers-use-claude.md",
+      "source_url": "https://www.anthropic.com/research/how-researchers-use-claude",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "59e72b2ecf786536e6f8dd8c2be5d878a457f161c37841f8621b39418e0d2059"
+    },
+    {
+      "id": "research-agents-judgment-calls",
+      "name": "How AI agents shape experts' judgment calls",
+      "category": "research",
+      "local_path": "research/agents-judgment-calls.md",
+      "source_url": "https://www.anthropic.com/research/agents-judgment-calls",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "e236abffb54f36b5dd7453abdf32452281198cd9056176d71fbfe15dbd9e0dca"
+    },
+    {
+      "id": "research-teaching-ai-scientific-models",
+      "name": "Teaching AI to build scientific models",
+      "category": "research",
+      "local_path": "research/teaching-ai-to-build-scientific-models.md",
+      "source_url": "https://www.anthropic.com/research/teaching-ai-to-build-scientific-models",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "255f860eb54a42b4177c981aa438ded977b096de419e827035d4bd9248d4e4ea"
+    },
+    {
+      "id": "research-provable-inference",
+      "name": "Progress on provable inference for large language models",
+      "category": "research",
+      "local_path": "research/provable-inference.md",
+      "source_url": "https://www.anthropic.com/research/provable-inference",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "8bd8696fd69d06e13bbd80ca804e7e0b6adada7790c04674aaecaf257678825e"
+    },
+    {
+      "id": "research-components-of-agent-memory",
+      "name": "The components of agent memory",
+      "category": "research",
+      "local_path": "research/components-of-agent-memory.md",
+      "source_url": "https://www.anthropic.com/research/components-of-agent-memory",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "32bc9075c6f79356077048b61561e41adf2d7a92d3677fd8e0f6548ddeff6654"
+    },
+    {
+      "id": "research-project-eve-mmorpgs",
+      "name": "Project EVE: Claude plays MMORPGs",
+      "category": "research",
+      "local_path": "research/project-eve-claude-plays-mmorpgs.md",
+      "source_url": "https://www.anthropic.com/research/project-eve-claude-plays-mmorpgs",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "28e5cb3f5e8abe216d7cad87f4b5ca3e747ee8078f8879053e75c4957aec3fd4"
+    },
+    {
+      "id": "engineering-confidential-inference-trusted-vms",
+      "name": "Confidential Inference via Trusted Virtual Machines",
+      "category": "engineering",
+      "local_path": "engineering/confidential-inference-trusted-vms.md",
+      "source_url": "https://www.anthropic.com/engineering/confidential-inference-trusted-vms",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "14f3bc0829a46362ae0c45d4e3024ce3d4cb33cd30344723dbea26b877aebf24"
+    },
+    {
+      "id": "news-s1-sec",
+      "name": "Anthropic files S-1 with the SEC for proposed initial public offering",
+      "category": "news",
+      "local_path": "news/s1-sec.md",
+      "source_url": "https://www.anthropic.com/news/s1-sec",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-08T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "be3f7807ca9de7fe7a7f1030c4bda5da1454eb41f521f9472ae2d1fe1f48c0f9"
     }
   ],
-  "last_discovery_run": "2026-10-25T00:00:00Z",
+  "last_discovery_run": "2026-11-08T00:00:00Z",
   "metadata": {
-    "last_full_update": "2026-10-25T00:00:00Z",
-    "last_discovery_run": "2026-10-25T00:00:00Z"
+    "last_full_update": "2026-11-08T00:00:00Z",
+    "last_discovery_run": "2026-11-08T00:00:00Z"
   }
 }
