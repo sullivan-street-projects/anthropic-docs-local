@@ -19,6 +19,21 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 
 ## Log
 
+### 2026-11-08 — Discovery Run (Phase 2.5, during update)
+
+- **New sources found**: ~16 untracked anthropic.com URLs + 1 new GitHub repo; 10 auto-added per unattended-run policy (the verified HIGH research cluster + 1 engineering backfill + the S-1 news item).
+- **Added** (10):
+  - research (8): `research-early-progress-drug-development` (Oct 27 — 6 drug-developer partnerships, preclinical gains), `research-investigating-vault-particles` (Nov 4 — first prokaryotic vault particle 3D structure solved with Claude), `research-how-researchers-use-claude` (Nov 5 — usage study across 207K sessions), `research-agents-judgment-calls` (Oct 27 — experts deferred to agents ~86% of the time), `research-teaching-ai-scientific-models` (Nov 6 — build/constrain/interpret framework; guest post), `research-provable-inference` (Nov 2 — zkSNARK FlashProve attestation of model inference; companion to the new FlashProve repo), `research-components-of-agent-memory` (Nov 6 — offline "dreaming" memory consolidation), `research-project-eve-mmorpgs` (Nov 6 — Frontier Red Team; Claude plays EVE, markets/teams/sabotage detection)
+  - engineering (1): `engineering-confidential-inference-trusted-vms` — **backfill, not new**: real publish date Jun 18, 2025; previously-untracked engineering post on encrypted inference via attested VMs/TPM. Added to fill the gap; `fetched_at` 2026-11-08 reflects mirror creation, not publication.
+  - news (1): `news-s1-sec` (Oct 26 — Anthropic files S-1 with the SEC for a proposed IPO; Nasdaq symbol "ANT", terms TBD)
+- **SDK versions**: npm `@anthropic-ai/sdk` **1.6.0** and PyPI `anthropic` **2.6.0** both match the local CHANGELOGs' latest — no SDK bump needed beyond the github-raw refresh.
+- **Deferred** (found, not added this cycle):
+  - MEDIUM news/features/institute (verified URLs, lower priority): `news/ai-for-science-expands-foundations-research-institutions`, `news/expanding-partnership-gsa`, `institute/econ-scenarios`, `features/project-deal`, `features/claude-on-mars` (manifest tracks a different `/mars` URL), `features/ebola-response` (carried over again).
+  - **Needs URL confirmation before adding** (do NOT add on a guessed slug): a "dreaming helps Claude organize memory" research post (the `components-of-agent-memory` post was added; if there is a separate distinct post, confirm its slug); **alignment.anthropic.com** November posts (welfare regard in multi-agent systems; abstractive red-teaming of model character; "A3" automated alignment agent; Anthropic Residency). MEMORY.md lists alignment.anthropic.com as a domain to check but it is NOT yet in the manifest — flag a dedicated alignment-blog pass for a future run.
+  - **Out of scope (third-party, not first-party Anthropic):** METR's "Anthropic AI R&D acceleration" assessment (metr.org, Nov 5) — external evaluation; could be logged as such if the repo ever tracks third-party evals.
+- **GitHub repos**: 1 new repo since last run — `FlashProve` (⭐968, created 10-30, Lean; "A research prototype for zero-knowledge proofs of AI inference. Not maintained.") — captured in the regenerated `github-repos/index.md` (116 → **117** repos; star counts refreshed). Companion to the `research-provable-inference` post. Not a standalone doc source.
+- **arXiv**: no new first-party Anthropic papers for Nov 2026. "Formalizing Fermat's Last Theorem" already tracked.
+
 ### 2026-10-25 — Discovery Run (Phase 2.5, during update)
 
 - **New sources found**: 6 untracked first-party anthropic.com URLs; all 6 auto-added per unattended-run policy.
