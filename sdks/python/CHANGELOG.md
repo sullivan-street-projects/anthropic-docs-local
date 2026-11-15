@@ -2,10 +2,186 @@
 title: "Python SDK CHANGELOG"
 source_url: "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md"
 source_type: "github-raw"
-fetched_at: "2026-10-25T00:00:00Z"
+fetched_at: "2026-11-15T00:00:00Z"
 category: "sdks"
 ---
 # Changelog
+
+## [2.8.0](https://github.com/anthropics/anthropic-sdk-python/compare/v2.7.0...v2.8.0) (2026-11-10)
+
+### Features
+
+* **api:** add Claude Tag metrics to the analytics summaries and users reports
+* **api:** add reply_mode to Claude Tag Slack channel settings
+
+
+### Bug Fixes
+
+* **bedrock:** send ";" in a model ID as is, and refuse a model ID whose part before the first ";" is empty, "." or ".."
+* **google-cloud:** percent-encode the project, location and workspace ID in the workspace and organization base URL paths
+* **google-cloud:** refuse an empty project, location or workspace ID that would be written into a derived base URL
+* **vertex:** refuse an empty model, project ID or region instead of writing it into the request path
+* **vertex:** send ";" in the model as %3B in the request path
+
+
+### Chores
+
+* **docs:** clarify display_name for RBAC Roles created by Anthropic
+* **docs:** clarify plugin delete and skill name conflict descriptions
+* **docs:** clarify when to omit user_profile_id on external keys
+* **docs:** note that Claude Tag settings accept self-hosted runner pools
+* **internal:** make three timing tests tolerate slow test machines
+* **internal:** remove a redundant import from the message types
+
+
+### Documentation
+
+* **examples:** show multiagent when creating a Managed Agents agent
+
+## [2.7.0](https://github.com/anthropics/anthropic-sdk-python/compare/v2.6.0...v2.7.0) (2026-11-09)
+
+### Features
+
+* **api:** accept user_profile.program_status_updated on organization webhook endpoints
+* **api:** add claude-fable-5-2 and claude-mythos-5-2
+* **api:** add parent organization filtering and grouping to the usage and cost reports
+* **api:** add the sandbox_egress_restricted error to Admin API write methods
+* **api:** add the user_profile.program_status_updated webhook event
+
+
+### Bug Fixes
+
+* **bedrock,vertex:** add the parse and count_tokens methods missing from beta.messages.with_raw_response and with_streaming_response
+* **bedrock,vertex:** send the X-Stainless-Async header and stream raw requests that name no stream class
+* **bedrock:** sign requests that have no Connection header instead of raising KeyError
+* **bedrock:** write a list in a query as a[]=1&a[]=2 on the Bedrock Mantle clients, as Anthropic does
+* **client:** allow API errors to be unpickled and copied
+* **client:** read ANTHROPIC_CUSTOM_HEADERS on the Bedrock, Bedrock Mantle and Vertex clients
+* **foundry:** stop copy, with_options and with_middleware from raising when ANTHROPIC_FOUNDRY_RESOURCE is set
+* **parse:** keep const in structured output schemas, and drop type beside const and enum
+
+
+### Chores
+
+* **api:** remove some error detail types and update descriptions
+* **docs:** say when a work heartbeat does not compare its value
+* **internal:** add this repository's review rules
+* **internal:** remove two comments from the error classes
+
+## [2.6.0](https://github.com/anthropics/anthropic-sdk-python/compare/v2.5.0...v2.6.0) (2026-11-05)
+
+### Features
+
+* **api:** add error code for ramp limit errors
+* **api:** add error codes for External Key validation failures
+* **api:** add support for signing organization members out everywhere
+
+
+### Bug Fixes
+
+* **bedrock,vertex:** raise error-code and status exception classes on platform clients
+* **bedrock:** keep a custom http_client and aws_profile on copies made with copy and with_options
+
+
+### Chores
+
+* **client:** stop recording sampling parameters on OpenTelemetry spans
+* **docs:** describe the type and message of API errors
+* **internal:** define the status error mapping once on the base client
+* **internal:** tell contributors when a runtime type check belongs
+* **tests:** remove ambient ANTHROPIC_ and AWS_ variables before the tests run
+
+
+### Documentation
+
+* **client:** describe the type, message, code and details of API errors
+* **client:** list each method's errors without their descriptions
+
+## [2.5.0](https://github.com/anthropics/anthropic-sdk-python/compare/v2.4.0...v2.5.0) (2026-11-04)
+
+### Features
+
+* **api:** add error details types and new error type values
+* **api:** add ids filter to list workspaces
+* **client:** add error classes for HTTP statuses and API error codes, and error_code, details and api_message on APIStatusError
+
+
+### Bug Fixes
+
+* **api:** capitalize CMEK in error details type names
+* **api:** move some error details types to the resource they describe
+* **bedrock:** raise a ValueError when model is "." or ".." instead of sending the request to a different path
+* **bedrock:** raise a ValueError when model is empty instead of sending the request to `/model//invoke`
+* **client:** make OverloadedError and ServiceUnavailableError subclasses of InternalServerError
+* **client:** make the first parse of each response model thread-safe
+* **client:** reject path parameters such as '..;x' and ';x'
+* **client:** validate unions correctly across threads on pydantic v1
+* **tools:** keep the memory tool from renaming or deleting the /memories directory
+* **vertex:** percent-encode the model, project ID and region in the request path
+
+
+### Chores
+
+* **api:** update example values for pattern-constrained string fields
+* **ci:** also run the tests with deferred pydantic model builds
+* **docs:** clarify plugin reach values
+* **docs:** clarify plugin version description and plugin reach
+* **docs:** clarify plugin version description length
+* **docs:** clarify some API field descriptions
+* **docs:** clarify three error descriptions
+* **docs:** clarify which blocks to send back around a fallback block
+* **docs:** correct Claude Tag direct message notes in usage reports
+* **docs:** reword Dream and RBAC role permission descriptions
+* **docs:** update the telemetry destination headers description
+* **docs:** use the Claude Platform name in analytics filter docs
+* **internal:** accept changelog entry files in the changelog check
+* **internal:** move error body helpers into the internal utils
+* **internal:** remove stale TODO comments and a test that could not pass
+* **tests:** check that a None path param is rejected
+
+
+### Documentation
+
+* **api:** show each field's own description for `speed`
+* clean up escapes and code spans in doc comments
+
+## [2.4.0](https://github.com/anthropics/anthropic-sdk-python/compare/v2.3.0...v2.4.0) (2026-11-02)
+
+### Features
+
+* **api:** add GA methods for analytics, spend limits and RBAC
+* **api:** add named beta types for unified metrics and RBAC delete responses
+* **api:** add shared analytics order and increase request actor types
+* **api:** add tool_use_limit_reached_error and compaction_limit_reached_error session error types
+* **api:** add types for analytics group_by and spend limit period filters
+* **api:** add user_profile_id to External Keys and Workspaces
+
+
+### Bug Fixes
+
+* **api:** make spend_limit nullable in the spend limit increase request approve response
+* **api:** require always-sent analytics fields and drop the unused project product field
+* **client:** let pydantic validate params types that accept omit
+
+
+### Chores
+
+* **ci:** remove unused build upload steps
+* **docs:** clarify the Slack channel id description
+* **docs:** clarify what disabling the Compliance API stops
+* **docs:** clarify what the capability_access_all role action grants
+* **docs:** link Dreams model fields to the supported models section
+* **docs:** update example user ID in Admin API examples
+* **internal:** add a section for each repository's own review rules
+* **internal:** plainer wording in worker comments
+
+### Documentation
+
+* **client:** add missing await to the async parse() docstring example
+* **examples:** keep the message threads example valid on Sonnet 5.5
+* **examples:** use current model IDs
+* **readme:** point to the docs site for documentation
+* link to the SDK documentation instead of removed README sections
 
 ## [2.3.0](https://github.com/anthropics/anthropic-sdk-python/compare/v2.2.0...v2.3.0) (2026-10-23)
 

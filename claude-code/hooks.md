@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-10-25T00:00:00Z"
+fetched_at: "2026-11-15T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -277,6 +277,15 @@ Use regex patterns to target specific MCP tools or groups:
 
 - `mcp__memory__.*` matches all tools from the `memory` server
 - `mcp__.*__write.*` matches any tool containing "write" from any server
+
+### Match Monitor Commands (Claude Code v2.1.314+)
+
+A `PreToolUse` or `PermissionRequest` hook with a `Bash` matcher also runs on shell commands Claude starts with the [Monitor tool](https://code.claude.com/docs/en/tools-reference#monitor-tool) (the tool and plugin monitors added in the 2.1.3xx line). For these Monitor commands the hook can **deny** them or have Claude Code ask the user, but `allow` and `updatedInput` have **no effect**:
+
+- **`Bash` matcher** (e.g. `Bash`, `^Bash$`, `Bash.*`, `Bash|PowerShell`): the hook receives a Bash call; name Bash in `if` (e.g. `Bash(tail *)`). `allow`/`updatedInput` are ignored for Monitor commands.
+- **Matcher that includes Monitor** (e.g. `Bash|Monitor`, `.*`, or no matcher): the hook receives the Monitor call's own input, and `allow`/`updatedInput` apply. Name Monitor in `if` (e.g. `Monitor(tail *)`), which matches by the same rules `Bash(...)` follows.
+
+A `Bash` matcher does not run for a WebSocket watch, and a `PostToolUse` hook with a `Bash` matcher does not run for Monitor.
 
 ### Bash `if` Condition Matching
 

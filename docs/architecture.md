@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-10-25T13:14:14.031Z"
+generated_at: "2026-11-15T14:19:53.891Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-10-25
+> Auto-generated from manifest.json on 2026-11-15
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 201 |
+| Total Sources | 202 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-10-25T00:00:00Z |
-| Last Discovery Run | 2026-10-25T00:00:00Z |
+| Last Full Update | 2026-11-15T00:00:00Z |
+| Last Discovery Run | 2026-11-15T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 181 | WebFetch with content extraction |
+| web-extracted | 182 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 171 | High-confidence sources, auto-trusted |
+| auto | 172 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -149,6 +149,7 @@ generator: "scripts/generate-architecture.js"
 | [Claude Opus 4.8](../models/claude-opus-4-8.md) | web-extracted | 0.85 |
 | [Claude Opus 5](../models/claude-opus-5.md) | web-extracted | 0.85 |
 | [Claude Sonnet 5](../models/claude-sonnet-5.md) | web-extracted | 0.85 |
+| [Claude Fable 5.2 and Claude Mythos 5.2](../models/claude-fable-5-2-mythos-5-2.md) | web-extracted | 0.85 |
 | [Claude Fable 5.1 and Claude Mythos 5.1](../models/claude-fable-5-1-mythos-5-1.md) | web-extracted | 0.85 |
 | [Claude Opus 5.5](../models/claude-opus-5-5.md) | web-extracted | 0.85 |
 | [Claude Haiku 5.5](../models/claude-haiku-5-5.md) | web-extracted | 0.85 |
@@ -397,6 +398,7 @@ anthropic-docs-local/
 │   ├── claude-opus-4-8.md
 │   ├── claude-opus-5.md
 │   ├── claude-sonnet-5.md
+│   ├── claude-fable-5-2-mythos-5-2.md
 │   ├── claude-fable-5-1-mythos-5-1.md
 │   ├── claude-opus-5-5.md
 │   ├── claude-haiku-5-5.md
