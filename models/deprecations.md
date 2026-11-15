@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-11-15T00:00:00Z"
 category: "models"
 ---
 
@@ -52,6 +52,8 @@ To identify usage of deprecated models:
 
 | API Model Name               | Current State | Deprecated        | Tentative Retirement Date          |
 | :--------------------------- | :------------ | :---------------- | :--------------------------------- |
+| `claude-fable-5-2`           | Active        | N/A               | Not sooner than November 9, 2027   |
+| `claude-mythos-5-2`          | Active        | N/A               | Not sooner than November 9, 2027   |
 | `claude-fable-5-1`           | Active        | N/A               | Not sooner than September 1, 2027  |
 | `claude-mythos-5-1`          | Active        | N/A               | Not sooner than September 1, 2027  |
 | `claude-fable-5`             | Active        | N/A               | Not sooner than June 9, 2027       |

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "last_full_update": "2026-10-25T00:00:00Z",
+  "last_full_update": "2026-11-15T00:00:00Z",
   "sources": [
     {
       "id": "claude-code-readme",
@@ -9,10 +9,10 @@
       "local_path": "claude-code/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "c8721cc2c518ca8dc8a61875deb924c6d3f282fc59727f65f08977075049af8e"
+      "sha256": "b87471155c1f2800cb5397e94b15ed9848a66fc08c3008d16a37d305860cc5f3"
     },
     {
       "id": "claude-code-changelog",
@@ -21,10 +21,10 @@
       "local_path": "claude-code/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "d1259a51f192926a1b962e1d5547bdc533972b397db0565476ddec19a3329c1d"
+      "sha256": "f4a34da0de4accb4d8a5c1260ef9845eef48be8acb747088da0e868b6f53d379"
     },
     {
       "id": "claude-code-features",
@@ -45,10 +45,10 @@
       "local_path": "claude-code/hooks.md",
       "source_url": "https://code.claude.com/docs/en/hooks",
       "source_type": "manual",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "3d873793a1418d87e3cb6e9f146b034d9172171f2da0b4543fee60d6c2bce90a"
+      "sha256": "841329135c7dcd813293648bcef02ea2a361d507a302f97e4ef4d9bceb5eb657"
     },
     {
       "id": "claude-code-mcp",
@@ -129,10 +129,10 @@
       "local_path": "sdks/python/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "23a29c357c59db5ada1e0aeb8af4d988a1df04ce32a2d39b51811b12ed3bdc5a"
+      "sha256": "c54c3fb007db1fbe3ebf3d7863933c81e4e280669b29a8c55e7cc19139c0588c"
     },
     {
       "id": "python-sdk-changelog",
@@ -141,10 +141,10 @@
       "local_path": "sdks/python/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "11402aebdfc2f6970b5ded7a962cd8b938add31efc0d50b87a3779cd719c4685"
+      "sha256": "a0e8c383b0c4ab522e0e89642c6e1aa5c30aa99f6aafaab9ede777bf5ddf56f6"
     },
     {
       "id": "typescript-sdk-readme",
@@ -153,10 +153,10 @@
       "local_path": "sdks/typescript/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "b8e2c6b754b5cf9fc3e89915f2050df58375cff1c63dc78735b0782300e8da0d"
+      "sha256": "d6acdba5d707c240e9fefa423134ee9b3089a1627855fb601e96f401b80acd80"
     },
     {
       "id": "typescript-sdk-changelog",
@@ -165,10 +165,10 @@
       "local_path": "sdks/typescript/CHANGELOG.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "4b2683d796053b6ae19ce4d4882230a23d8f2ed30faab143ead0407a72803307"
+      "sha256": "74904909f7f02f535059ffc25f501ef34f782d4a56981ae2e12da4a783a84bdb"
     },
     {
       "id": "other-sdks-overview",
@@ -189,10 +189,10 @@
       "local_path": "skills/README.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "dcc4c05466fe4ac251601bed822176cdbd75e070dac1a1ab2d84c85262aa3640"
+      "sha256": "da5ff6576068863b7e53f4ffe251abcafcef39c534b2e47987579ca479c14e4c"
     },
     {
       "id": "skills-catalog",
@@ -239,10 +239,10 @@
       "local_path": "github-repos/index.md",
       "source_url": "https://api.github.com/orgs/anthropics/repos?per_page=100",
       "source_type": "github-api",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.9,
-      "sha256": "2c4baf11675915f06143850d4f0a827ec23bfd7470fc036150ae224a7b588f9c"
+      "sha256": "db1cbd278d821e2d7946243bffd9884afc6dbefb19e0a7e7141334dc24d560e1"
     },
     {
       "id": "release-notes-platform",
@@ -251,10 +251,10 @@
       "local_path": "release-notes/platform.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "e2860aa0ab4e043a19817fe2c72b691c8d35a4731a086e0f1c1b7c4024ad9c26"
+      "sha256": "353e908ba4e1f0567d7162a5d273ca74e50ec8046fdaa7896768bf78fa18bf51"
     },
     {
       "id": "release-notes-api",
@@ -263,10 +263,10 @@
       "local_path": "release-notes/api.md",
       "source_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-25T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "539ddb3adff3d23f85a5623ce2a67f2cff290f8df7295a0b15af5983c25fe97f"
+      "sha256": "1ce69b820329bc447788dd315f28a1b5eb7568ad7aec7e8cb2ccd3d6826cc493"
     },
     {
       "id": "release-notes-help-center",
@@ -287,10 +287,10 @@
       "local_path": "api/overview.md",
       "source_url": "https://platform.claude.com/docs/en/api/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-09-13T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "8cd5faf47a7f5bf0fe008a7746cb9541cac2825a23bff85205edb2da5f61a60d"
+      "sha256": "f695794d65e42db1b2474b3180ba60d3dfb83bbb578c37773cde5ddbcf9e49b0"
     },
     {
       "id": "api-messages",
@@ -359,10 +359,10 @@
       "local_path": "models/overview.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/models/overview",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "690c21e6a635d6fe20630f82720a7713e396865b4da699af9457498522f6a519"
+      "sha256": "a11f37ac05eecf258b19f775646f59e3249d7f7aa000601b5d2bc6d8554709bc"
     },
     {
       "id": "model-opus-4-6",
@@ -419,10 +419,10 @@
       "local_path": "models/deprecations.md",
       "source_url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "5665217828709cd0a3924e8c74144529eadfa2bc8e2d13cbe180089eb50fa24f"
+      "sha256": "cfff42a21c4128e73a7c82cb77f989baa350cba335386a4b5f8c841e6b458338"
     },
     {
       "id": "agent-sdk-readme",
@@ -467,10 +467,10 @@
       "local_path": "cookbooks/index.md",
       "source_url": "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/README.md",
       "source_type": "github-raw",
-      "last_fetched": "2026-10-18T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.95,
-      "sha256": "f5fef4360ee6de50a08f103bb6a21d46b96f1538f9460870a35819ca87e925c5"
+      "sha256": "a30a7ff4517eb5207898fa4479059db4839a6eb90eff5ce48d4ce46518af93ed"
     },
     {
       "id": "research-index",
@@ -877,10 +877,10 @@
       "local_path": "api/models-overview.md",
       "source_url": "https://platform.claude.com/docs/en/docs/about-claude/models",
       "source_type": "web-extracted",
-      "last_fetched": "2026-10-11T00:00:00Z",
+      "last_fetched": "2026-11-15T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "6ca14bd7a43f443819c53771713e1170ef57173866d80767d333cce4da67b4e0"
+      "sha256": "1d941edd40158febb50b49c995f7ef73066e8161007ee11236b18a140be36818"
     },
     {
       "id": "api-migration-guide",
@@ -1739,6 +1739,18 @@
       "sha256": "9aef44ae6c04fad83e8aaff286ff9ebc65c29cc62bc818f0a98f56bcedabc16b"
     },
     {
+      "id": "model-fable-5-2-mythos-5-2",
+      "name": "Claude Fable 5.2 and Claude Mythos 5.2",
+      "category": "models",
+      "local_path": "models/claude-fable-5-2-mythos-5-2.md",
+      "source_url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-15T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "364733795df3ea499a7f6e3e19923eb28136ec17a1500683911e9ee656a10d90"
+    },
+    {
       "id": "model-fable-5-1-mythos-5-1",
       "name": "Claude Fable 5.1 and Claude Mythos 5.1",
       "category": "models",
@@ -2493,9 +2505,9 @@
       "sha256": "97b07d659bb8d04f3d625a9e7771ddac0eab807ecb0f7230ae110cf87fe1ed9f"
     }
   ],
-  "last_discovery_run": "2026-10-25T00:00:00Z",
+  "last_discovery_run": "2026-11-15T00:00:00Z",
   "metadata": {
-    "last_full_update": "2026-10-25T00:00:00Z",
-    "last_discovery_run": "2026-10-25T00:00:00Z"
+    "last_full_update": "2026-11-15T00:00:00Z",
+    "last_discovery_run": "2026-11-15T00:00:00Z"
   }
 }

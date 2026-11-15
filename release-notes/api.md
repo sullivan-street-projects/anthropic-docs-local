@@ -2,7 +2,7 @@
 title: "API Release Notes"
 source_url: "https://platform.claude.com/docs/en/release-notes/overview"
 source_type: "web-extracted"
-fetched_at: "2026-10-25T00:00:00Z"
+fetched_at: "2026-11-15T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -12,6 +12,26 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 
 > For release notes on Claude Apps, see the [Release notes for Claude Apps in the Claude Help Center](https://support.claude.com/en/articles/12138966-release-notes).
 > For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
+
+### November 12, 2026
+
+- **Self-hosted Claude Managed Agents** launched: run the full Managed Agents service on your own infrastructure (agents, sessions, and history stored there), routing model requests to the provider you choose (Anthropic by default). Contact your account team for access.
+
+### November 9, 2026
+
+- **Claude Fable 5.2** (`claude-fable-5-2`) and **Claude Mythos 5.2** (`claude-mythos-5-2`) launched: 1M-token context, 128K max output, always-on adaptive thinking, at **$8 / $40 per MTok** (Fable/Mythos 5.1 were $10 / $50). Fable 5.2 is broadly available (Claude API, Bedrock, Claude Platform on AWS, Google Cloud, Microsoft Foundry); Mythos 5.2 is limited to Anthropic-verified organizations. Fable 5.1 / Mythos 5.1 move to legacy.
+- **Fable 5.2 / Mythos 5.2 API behavior:** the [prefix check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check) is enforced for all accounts (a changed prefix with a later thinking block returns 400); computer use requires `computer_toolset_20260801` (earlier `computer_20251124` returns 400 except on Amazon Bedrock); thinking blocks are account-bound and read only by the Fable/Mythos 5.2 pair; both require 30-day data retention. The beta advisor tool requires a Fable/Mythos 5.2 advisor for a Fable/Mythos 5.2 executor.
+- **Fast mode for Claude Fable 5.2** on the Messages API (Claude API): up to 2.5x output tokens/sec at $16 / $80 per MTok via `speed: "fast"`. **Dreams** (research preview) now supports Fable 5.2.
+
+### November 5, 2026
+
+- **Compliance API — Security posture** (beta, Enterprise): `GET /v1/compliance/organizations/{organization_id}/security_posture` returns current Security posture results; the Activity Feed records attestation changes.
+- **IP allowlisting** (beta): restrict covered services to listed IPv4/IPv6 addresses or CIDR ranges (up to 1,000 per organization), limiting where a leaked API key works.
+- **Sign a member out everywhere** (beta) via the Admin API for Claude Enterprise organizations.
+
+### November 3, 2026
+
+- **Text watermark** now marks output from **Claude Mythos 5, Claude Opus 4.7, and Claude Sonnet 4.6** on supported platforms; on Sonnet 4.6, non-default `temperature`/`top_p`/`top_k` output might not carry it.
 
 ### October 22, 2026
 

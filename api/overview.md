@@ -2,7 +2,7 @@
 title: "API Overview"
 source_url: "https://platform.claude.com/docs/en/api/overview"
 source_type: "web-extracted"
-fetched_at: "2026-09-13T00:00:00Z"
+fetched_at: "2026-11-15T00:00:00Z"
 category: "api"
 ---
 
@@ -48,7 +48,7 @@ For details on both authentication methods and when to use each, see [Authentica
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
 | `x-api-key`         | Your API key from Console                                                                                                                                                                                               | One of `x-api-key` or `Authorization` |
 | `Authorization`     | `Bearer <token>`, where `<token>` is a short-lived access token obtained from `POST /v1/oauth/token` via [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) | One of `x-api-key` or `Authorization` |
-| `anthropic-version` | API version (for example, `2023-06-01`)                                                                                                                                                                                 | Yes                                   |
+| `anthropic-version` | API version (for example, `2026-10-21`)                                                                                                                                                                                 | Yes                                   |
 | `content-type`      | `application/json`                                                                                                                                                                                                      | Yes                                   |
 
 If you are using the [Client SDKs](#client-sdks), the SDK will send these headers automatically. For API versioning details, see [API versions](https://platform.claude.com/docs/en/api/versioning).
