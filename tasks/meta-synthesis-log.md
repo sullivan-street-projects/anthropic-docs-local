@@ -29,15 +29,35 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 13
-Total improvements applied: 10 (1 code change this cycle — a github-repos/index.md total-vs-rows self-consistency check in validate.js, the same dual-source-of-truth guard class as the metadata and lineup checks)
-Total improvements deferred: 8 (reinforced #18 source-lifecycle tracking again; added a new MEDIUM item — a committed `scripts/generate-repos-index.js` so the github-api refresh stops being ad-hoc per-run scripting)
-Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency → metadata timestamp consistency → github-repos index self-consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade, metadata single-source-of-truth)
-Most-informative category: sdks this cycle (new API version `2026-10-21`, Python 2.0.0 / TS 1.0.0 major bump, message threads, Claude Tag endpoints, MIT→Apache 2.0); claude-code (Monitor tool; hook concurrency cap + skill-hook per-source limits now live); research (UK AISI alignment assessment — "biased reasoning" + "momentum" re-validate verify-from-disk)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~14th cycle, 203 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-10-25 — 1 code improvement applied (github-repos index self-consistency check), 6 sources auto-added (4 news + 2 research), NO model launch (lineup unchanged), 0 agents stalled (all fetches inline), 0 validation errors, 201/201 hashes verified
+Total cycles logged: 14
+Total improvements applied: 11 (this cycle: a high-value LESSON — fetch platform/code.claude.com docs via the `.md` endpoint instead of WebFetch, the durable fix for the recurring truncation failure class; no validate.js code change was needed this cycle)
+Total improvements deferred: 9 (added a new MEDIUM — a committed fetch helper that pulls platform/code.claude.com sources from their `.md` endpoints; #18 source-lifecycle and #25 generate-repos-index.js still open)
+Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency → metadata timestamp consistency → github-repos index self-consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade, metadata single-source-of-truth, `.md`-endpoint fetching)
+Most-informative category: models + sdks this cycle (Claude Fable 5.2 / Mythos 5.2 launch — featured-model change + price cut to $8/$40; SDK trigger `add claude-fable-5-2 and claude-mythos-5-2`); claude-code (Monitor tool → hooks `Bash` matcher now matches Monitor commands, v2.1.314+); release-notes (self-hosted Managed Agents, Compliance Security posture, IP allowlisting)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~15th cycle, ~224 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (anthropic.com article — NOT fixable by the `.md`-endpoint trick, which is docs-host only).
+Last cycle: 2026-11-15 — model-launch cascade applied (Fable 5.2 / Mythos 5.2), 1 source auto-added, 1 high-value lesson applied (`.md` endpoints), 0 agents stalled (all fetches inline via curl `.md`), 0 validation errors, 202/202 hashes verified, lineup consistent (17 active IDs)
 
 ## Entries
+
+### 2026-11-15 — Update: all
+
+Content changes analyzed: 13 modified + 1 added (all real content changes)
+Improvements identified: 1 applied (lesson), 1 deferred (MEDIUM), 2 already-aligned
+Improvements applied: 1 high-value lesson (process change, no code)
+Improvements deferred: 1 new MEDIUM (+ #18 and #25 still open)
+
+**Applied (LOW effort, process/doc):**
+
+- This cycle fetched every volatile docs source from the **`.md` endpoint** of `platform.claude.com`/`code.claude.com` (append `.md` to any docs path) instead of WebFetch. It gave byte-exact, untruncated markdown for the deprecations/overview/pricing tables, the 4,347-line hooks page, release notes, and the api overview — directly defusing the repo's longest-standing failure class ("WebFetch silently truncates long pages", open since 09-13). → Recorded as a **lesson in `tasks/lessons.md`** (with the scope caveat that it's docs-hosts only; anthropic.com/support.claude.com still need extraction). This is a process change usable immediately by every future run; it needs no code to adopt, so it's applied, not deferred.
+
+**Already aligned (content independently validates our infra):**
+
+- **Model-launch cascade (Fable 5.2 / Mythos 5.2)** → the `validate.js` Layer-4 model-lineup-consistency check (added 2026-10-11) did exactly its job: after I added fable-5-2/mythos-5-2 to deprecations and both overview files, it confirmed **17 active IDs consistent across lineup files** with 0 gaps — the automated backstop against the half-applied cascade worked on a real launch. No change needed.
+- **Unattended auto-add of first-party sources** → the memory rule ("during scheduled runs, add HIGH/MEDIUM first-party sources immediately") was applied: the Fable 5.2 / Mythos 5.2 announcement was added as `models/claude-fable-5-2-mythos-5-2.md` (202 sources total) with 0 validation errors, rather than merely reported. Aligned.
+
+**Deferred:**
+
+- **MEDIUM — a committed fetch helper for `.md`-endpoint sources.** The `.md`-endpoint technique is currently a lesson + ad-hoc `curl` per run. Formalize it as a small committed script (or a documented step in the update skill) that, for every `platform.claude.com`/`code.claude.com` source, fetches `source_url + ".md"`, diffs against the local file, and reports changed sections — so the cleanest fetch path stops being tribal knowledge. Pairs with #25 (generate-repos-index.js); both are the "stop doing this ad-hoc every week" class. Added to `docs/plans/meta-analysis-optimizations.md`.
 
 ### 2026-10-25 — Update: all
 

@@ -294,6 +294,16 @@ Phase 0: Plan (always runs)
 
 ---
 
+### 26. Committed `.md`-endpoint fetch helper for Claude docs sources (from 2026-11-15 meta-synthesis)
+
+**Lesson:** `platform.claude.com/docs/...` and `code.claude.com/docs/...` serve a clean, complete, verbatim Markdown copy of every page at `path + ".md"`. Fetching the volatile docs sources (model pages, deprecations, release notes, hooks/mcp/plugins/features, api overview) this way — plain `curl`, no agent — gives untruncated, byte-exact tables and IDs and is the durable fix for the recurring "WebFetch silently truncates long pages" failure class (open since 09-13). The 2026-11-15 cycle used it for the whole docs set with zero truncation and clean input to the model-lineup-consistency check. It is currently tribal knowledge (a lessons.md note + ad-hoc per-run `curl`).
+
+**Current state:** No committed helper; each run hand-writes the `curl` + diff. The web-extracted/manual docs sources carry `source_url`s on these two hosts, so the `.md` URL is mechanically derivable.
+
+**Fix (MEDIUM effort):** Add a small committed script (or a documented, enforced step in the update skill) that, for every source whose `source_url` is on `platform.claude.com`/`code.claude.com`, fetches `source_url + ".md"` to the scratchpad, diffs against the local curated file, and reports changed sections for surgical editing (never blind-replace — the model/overview files are curated condensations, not byte mirrors). Keep the scope guard: `www.anthropic.com` and `support.claude.com` do NOT serve `.md` and still need HTML extraction. Pairs with #25 — both convert "ad-hoc every week" into committed, reproducible tooling.
+
+---
+
 ## Implementation Plan
 
 ### Phase 1: Schema + data fixes (items #1, #5, #6, #7, #18)

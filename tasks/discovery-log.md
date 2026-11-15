@@ -238,3 +238,13 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 - **Deferred**: none
 - **Rejected**: none
 - **Notes**: Engineering blog index showed nothing newer than April 2026. arXiv search surfaced no new Anthropic-authored Sep 2026 papers (research-papers-index left at its real date — honest, not bumped). New GitHub repos noted (uplifting-biomolecular-modeling, claude-for-financial-advisors) and captured in the regenerated github-repos/index.md rather than as standalone doc sources.
+
+### 2026-11-15 — Discovery Run (Phase 2.5, during update)
+
+- **Index pages scanned**: www.anthropic.com/news (26 article links), /engineering, /research (70 unique slugs total); platform.claude.com + code.claude.com docs via `.md` endpoints.
+- **New sources added**: 1
+  - model-fable-5-2-mythos-5-2 (models/claude-fable-5-2-mythos-5-2.md) — Claude Fable 5.2 / Mythos 5.2 launch, Nov 9, 2026; source `www.anthropic.com/claude-fable-and-mythos-5-2` (NO `/news/` prefix, same pattern as the 5.1 page). Auto-added per unattended-run policy (HIGH-value first-party model launch).
+- **New GitHub repo**: `FlashProve` (org repo count 116 → 117) — captured in the regenerated github-repos/index.md, not as a standalone doc source.
+- **Deferred / not added**: 44 discovered /news|/research slugs were flagged "untracked" by the slug-vs-manifest diff, but the large majority are nav/filter pages (`/news/announcements`, `/news/product`, `/research/team`, etc.) or older engineering/research posts now surfaced under `/research/` paths that the manifest already tracks under `/engineering/` URLs. Not bulk-added (high false-positive rate; would need per-URL date verification). Worth a targeted follow-up discovery run to reconcile the /engineering ↔ /research path moves.
+- **arXiv**: no new Anthropic-authored papers found (results were third-party papers citing Anthropic's constitution/work). research-papers-index left at its real date (2026-08-16) — honest, not bumped.
+- **Notes**: Fetched all volatile docs sources via the `.md` endpoint (see new lessons.md entry) — zero truncation, clean lineup-table input.
