@@ -2,7 +2,7 @@
 title: "Claude Code Plugins"
 source_url: "https://code.claude.com/docs/en/plugins"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-11-16T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -11,6 +11,44 @@ category: "claude-code"
 Plugins are reusable, distributable packages of Claude Code extensions. They bundle skills, agents, hooks, MCP servers, LSP servers, background monitors, and default settings into a single installable unit.
 
 > **Last updated:** September 13, 2026
+
+## Plugins Overview
+
+A plugin is a directory of components, usually with a manifest at `.claude-plugin/plugin.json`, that Claude Code installs and loads as one unit. Most plugins come from a marketplace (a catalog listing plugins and where to fetch each one). To try one, run `/plugin` in a terminal session and install from the **Discover** tab.
+
+Components include skills, agents, hooks, MCP servers, and a **hooks module**: hooks written as JavaScript functions that can also draw panes and add commands. A plugin with a hooks module is called a **mod**; some mods are built into Claude Code.
+
+> A Claude Code plugin is not the VS Code extension or JetBrains plugin, and a plugin marketplace is not [Claude Marketplace](https://claude.com/marketplace) (the website for browsing plugins, connectors, and partner products). The same plugin format also installs on claude.ai and in Cowork, where a different set of components loads.
+
+### What an Enabled Plugin Adds to Every Session
+
+- **Context and usage**: names and descriptions of each model-invocable skill, agent, and command are in context every turn, even in sessions where nothing from the plugin runs; MCP tool cost follows MCP tool search
+- **Processes**: the plugin's MCP servers run and its hooks fire in every session where it's enabled
+- **Permissions**: whatever the plugin runs, it runs as you
+
+Check the footprint before installing (plugins in the official marketplace show a **Context cost** estimate in the **Marketplaces** tab of `/plugin`), after installing (the **Installed** tab's **Not used recently** group), or stop a plugin without uninstalling via `/plugin` or `claude plugin disable`.
+
+### Availability Layers
+
+An installed plugin must be present in **settings** (marketplaces added, plugins enabled), on **disk** (`~/.claude/plugins/`), and in the **session** (loaded at startup or on reload).
+
+### Marketplace Tiers
+
+Claude Code adds Anthropic's official marketplace the first time you start an interactive terminal session (unless managed policy blocks it); it does not add the community marketplace on its own. A marketplace's name places it in one of three tiers, and official/community names are accepted only for marketplaces sourced from `github.com/anthropics/` repositories:
+
+- **Official**: e.g., `claude-plugins-official`, `claude-code-plugins`
+- **Community**: e.g., `claude-community`
+- **Third-party**: every other marketplace, including your coworker's or organization's
+
+Whatever the tier, an installed plugin can run code with your user privileges. Organizations can allowlist or block marketplaces, force-install plugins, and turn off session-only loading through managed settings.
+
+### Install Scopes
+
+- **User scope**: enabled for you in every project on this computer (shared across the terminal, desktop app local sessions, and VS Code extension)
+- **Project scope**: enabled for everyone in the repository via committed `.claude/settings.json`; each collaborator still installs it locally
+- **Local scope**: enabled for you in this repository only
+
+Cloud sessions (including claude.ai/code) don't load the plugins in your local settings.
 
 ## Plugins vs Standalone Configuration
 
@@ -471,6 +509,7 @@ The [claude-plugins-official](https://github.com/anthropics/claude-plugins-offic
 - [Discover and Install Plugins](https://code.claude.com/docs/en/discover-plugins)
 - [Plugins Reference](https://code.claude.com/docs/en/plugins-reference)
 - [Plugin Marketplaces](https://code.claude.com/docs/en/plugin-marketplaces)
+- [Plugins Overview](https://code.claude.com/docs/en/plugins/overview)
 - [Plugin Hints](https://code.claude.com/docs/en/plugin-hints)
 - [Plugin Evals](https://code.claude.com/docs/en/plugin-evals)
 - [Skills Documentation](https://code.claude.com/docs/en/skills)

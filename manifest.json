@@ -973,10 +973,10 @@
       "local_path": "docs/best-practices-mcp-credentials.md",
       "source_url": "https://code.claude.com/docs/en/mcp",
       "source_type": "manual",
-      "last_fetched": "2026-09-20T00:00:00Z",
+      "last_fetched": "2026-11-16T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "d5082524baaa3c160bd6aec60da98838edbde8656fda3dc5ae1304001416f2a4"
+      "sha256": "255a5ee8b84922590af2c1732817b87e59ca222b1c51ff25ed8587e2efad4cb2"
     },
     {
       "id": "research-opendev-coding-agents",
@@ -2503,6 +2503,30 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "8fb9b52ebc39a67500a52808edff19024153c1af34d1c821adc6398cca8e3183"
+    },
+    {
+      "id": "research-provable-inference",
+      "name": "Progress on provable inference for large language models",
+      "category": "research",
+      "local_path": "research/provable-inference.md",
+      "source_url": "https://www.anthropic.com/research/provable-inference",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "650b4fafa65ac18ffac3b4be5729e9db8a72f5f3d183dbbfc803ab034d127510"
+    },
+    {
+      "id": "research-early-progress-drug-development",
+      "name": "Early progress on accelerating drug development with Claude",
+      "category": "research",
+      "local_path": "research/early-progress-drug-development.md",
+      "source_url": "https://www.anthropic.com/research/early-progress-drug-development",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "6bc66c41e963efc62d70dfb7d19de67c990f8f590ec6433d70ed1215c911fc4e"
     }
   ],
   "last_discovery_run": "2026-11-16T00:00:00Z",

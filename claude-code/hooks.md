@@ -2,7 +2,7 @@
 title: "Claude Code Hooks"
 source_url: "https://code.claude.com/docs/en/hooks"
 source_type: "manual"
-fetched_at: "2026-10-25T00:00:00Z"
+fetched_at: "2026-11-16T00:00:00Z"
 category: "claude-code"
 ---
 
@@ -31,7 +31,7 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `PostToolUse`         | After tool succeeds                                                | Tool name                                                                                                                                                                                                                                                                      | Each tool call             |
 | `PostToolUseFailure`  | After tool fails                                                   | Tool name                                                                                                                                                                                                                                                                      | Each failed tool call      |
 | `PostToolBatch`       | Full batch of parallel tool calls resolves                         | No matcher support                                                                                                                                                                                                                                                             | Before next model call     |
-| `Notification`        | Notification events fire                                           | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`, `elicitation_url_dialog`, `elicitation_complete`, `elicitation_response`, `agent_needs_input`, `agent_completed`, `quota_auto_resume_fired`, `quota_auto_resume_stale`, `quota_auto_resume_disabled` | Various                    |
+| `Notification`        | Notification events fire                                           | `permission_prompt`, `idle_prompt`, `auth_success`, `auth_storage_failure`, `elicitation_dialog`, `elicitation_url_dialog`, `elicitation_complete`, `elicitation_response`, `agent_needs_input`, `agent_completed`, `quota_auto_resume_fired`, `quota_auto_resume_stale`, `quota_auto_resume_disabled`, `plugin_notification` | Various                    |
 | `MessageDisplay`      | Assistant message text is displayed                                | No matcher support                                                                                                                                                                                                                                                             | Each display               |
 | `SubagentStart`       | Subagent spawned                                                   | Agent type                                                                                                                                                                                                                                                                     | Each subagent spawn        |
 | `SubagentStop`        | Subagent finishes                                                  | Agent type                                                                                                                                                                                                                                                                     | Each subagent finish       |
@@ -52,7 +52,7 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 | `PostModelSwitch`     | After the session's model changes, including auto-switches         | Canonical model name                                                                                                                                                                                                                                                           | After model changes        |
 | `Elicitation`         | MCP server requests user input                                     | MCP server name                                                                                                                                                                                                                                                                | MCP elicitation requests   |
 | `ElicitationResult`   | User responds to MCP elicitation                                   | MCP server name                                                                                                                                                                                                                                                                | MCP elicitation responses  |
-| `SessionEnd`          | Session terminates                                                 | `clear`, `resume`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other`                                                                                                                                                                                       | Once per session           |
+| `SessionEnd`          | Session terminates                                                 | `clear`, `resume`, `logout`, `prompt_input_exit`, `other` (`bypass_permissions_disabled` removed in v2.1.234)                                                                                                                                                                                       | Once per session           |
 
 ## Hook Types
 
@@ -251,9 +251,9 @@ Matcher evaluation types:
 | `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `PermissionRequest`, `PermissionDenied`                                                                      | Tool name                    | `Bash`, `Edit\|Write`, `mcp__.*`                                                                                                                                                                                                                                               |
 | `SessionStart`                                                                                                                                                  | How session started          | `startup`, `resume`, `clear`, `compact`, `fork`                                                                                                                                                                                                                                |
 | `Setup`                                                                                                                                                         | CLI flag                     | `init`, `maintenance`                                                                                                                                                                                                                                                          |
-| `SessionEnd`                                                                                                                                                    | Why session ended            | `clear`, `resume`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other`                                                                                                                                                                                       |
+| `SessionEnd`                                                                                                                                                    | Why session ended            | `clear`, `resume`, `logout`, `prompt_input_exit`, `other` (`bypass_permissions_disabled` removed in v2.1.234)                                                                                                                                                                                       |
 | `FileChanged`                                                                                                                                                   | Literal filenames (basename) | `.envrc`, `.env`                                                                                                                                                                                                                                                               |
-| `Notification`                                                                                                                                                  | Notification type            | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog`, `elicitation_url_dialog`, `elicitation_complete`, `elicitation_response`, `agent_needs_input`, `agent_completed`, `quota_auto_resume_fired`, `quota_auto_resume_stale`, `quota_auto_resume_disabled` |
+| `Notification`                                                                                                                                                  | Notification type            | `permission_prompt`, `idle_prompt`, `auth_success`, `auth_storage_failure`, `elicitation_dialog`, `elicitation_url_dialog`, `elicitation_complete`, `elicitation_response`, `agent_needs_input`, `agent_completed`, `quota_auto_resume_fired`, `quota_auto_resume_stale`, `quota_auto_resume_disabled`, `plugin_notification` |
 | `DirectoryAdded`                                                                                                                                                | How directory was added      | `slash_command`, `register_repo_root`                                                                                                                                                                                                                                          |
 | `SubagentStart`, `SubagentStop`                                                                                                                                 | Agent type                   | `Bash`, `Explore`, `Plan`, or custom agent names                                                                                                                                                                                                                               |
 | `PreCompact`, `PostCompact`                                                                                                                                     | What triggered compaction    | `manual`, `auto`                                                                                                                                                                                                                                                               |
@@ -277,6 +277,15 @@ Use regex patterns to target specific MCP tools or groups:
 
 - `mcp__memory__.*` matches all tools from the `memory` server
 - `mcp__.*__write.*` matches any tool containing "write" from any server
+
+For MCP tools, `PreToolUse` input also carries `mcp_server`: an object with the server's `name` and a `source` saying where its definition came from (`plugin`, `sdk`, or a configuration scope such as `user` or `project`). Base trust decisions on `source` rather than on `name` or the `mcp__<server>__` prefix (v2.1.274+).
+
+### Match Monitor Commands
+
+A `PreToolUse` or `PermissionRequest` hook with a `Bash` matcher (including `Bash|PowerShell`, `^Bash$`, `Bash.*`) also runs on shell commands Claude starts with the Monitor tool, but its `allow` and `updatedInput` have no effect on them (v2.1.314+). It doesn't run for a WebSocket watch, and a `PostToolUse` hook with a `Bash` matcher doesn't run for Monitor.
+
+- **Matcher that includes Monitor** (`Bash|Monitor`, `.*`, or no matcher): the hook gets the Monitor call's own input, and `allow`/`updatedInput` apply. In `if`, name Monitor, e.g. `Monitor(tail *)`
+- **`Bash` matcher**: the hook gets a Bash call; name Bash in `if` (e.g. `Bash(tail *)`). It doesn't run if its `if` names Monitor
 
 ### Bash `if` Condition Matching
 
@@ -356,7 +365,7 @@ Leading `VAR=value` assignments are stripped. Filter fails open on parse errors.
 | PreToolUse                                                                                                                              | `hookSpecificOutput`           | `permissionDecision` (allow/deny/ask/defer), `permissionDecisionReason`, `updatedInput`, `additionalContext` |
 | PermissionRequest                                                                                                                       | `hookSpecificOutput`           | `decision.behavior` (allow/deny), `decision.updatedInput`, `decision.appliedRule`                            |
 | PermissionDenied                                                                                                                        | `hookSpecificOutput`           | `retry: true` to tell model it may retry                                                                     |
-| PostToolUse                                                                                                                             | `hookSpecificOutput`           | `updatedToolOutput` (modify result), `additionalContext`                                                     |
+| PostToolUse                                                                                                                             | `hookSpecificOutput`           | `updatedToolOutput` (modify result), `additionalContext`, `classifierContext` (note for auto mode classifier) |
 | MessageDisplay                                                                                                                          | `hookSpecificOutput`           | `displayContent` (replace displayed text, screen only)                                                       |
 | Elicitation, ElicitationResult                                                                                                          | `hookSpecificOutput`           | `action` (accept/decline/cancel), `content`                                                                  |
 | WorktreeCreate                                                                                                                          | stdout path                    | Print absolute path to created worktree                                                                      |
@@ -393,6 +402,12 @@ PreToolUse hooks can:
   "reason": "explanation"
 }
 ```
+
+### PostToolUse Extras
+
+- **`classifierContext`** (v2.1.236+): short note about the tool call's result sent to the auto mode classifier (for its review of later actions) rather than to Claude.
+- **`tool_response.bashEditDiff`** (v2.1.269+): when a Bash command changes files in a Git repository, PostToolUse receives the changed files. Recorded in every mode when the `bashEditDiffEnabled` setting is on; otherwise only in auto and `bypassPermissions` modes when Claude is directed to edit through Bash. Set `bashEditDiffEnabled: false` to disable. Git-ignored files and submodules aren't listed.
+- **After an interrupt** (v2.1.319+): if `Ctrl+Enter` ends the turn while a tool runs and the tool finishes, PostToolUse hooks run on its result with 10 seconds to finish (command hooks still running are then killed, whatever their `timeout`). A message queued with `Enter` doesn't interrupt, so hooks keep their usual timeout; `Esc` cancels the hooks at once.
 
 ### Universal Fields
 
@@ -744,14 +759,25 @@ These lifecycle events cannot block, but their `hookSpecificOutput` can inject c
 
 `Setup` and `SubagentStart` support `additionalContext` only.
 
+SessionStart input includes `source` and optionally `model`, `agent_type`, and `session_title`. When `source` is `"resume"` or `"fork"` and the transcript has at least one Claude response, it also receives (v2.1.251+): `seconds_since_last_response`, `context_tokens`, `prompt_cache_likely_expired`, and `estimated_cache_write_usd` — useful for reporting what resuming a stale conversation costs.
+
 ## Recent Additions & Version Notes
 
 Hook behavior evolves frequently. Notable recent changes:
 
 | Version   | Change                                                                                                                                                                                        |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v2.1.319+ | `PostToolUse` hooks run (with a 10s limit) after `Ctrl+Enter` interrupts a turn; deferred tool calls resume correctly when the tool becomes available.                                         |
+| v2.1.314+ | `PreToolUse`/`PermissionRequest` hooks with a `Bash` matcher also run on Monitor tool commands.                                                                                               |
+| v2.1.288+ | `auth_storage_failure` Notification type (sign-in completes but credentials can't be saved; fires in place of `auth_success`). Separately, a `plugin_notification` type now fires when a mod raises `$.ui.notify`. |
+| v2.1.274+ | `mcp_server` provenance object (`name`, `source`) in PreToolUse input for MCP tools.                                                                                                         |
+| v2.1.269+ | `tool_response.bashEditDiff` in PostToolUse input (controlled by `bashEditDiffEnabled`).                                                                                                    |
+| v2.1.268+ | `CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS` also sets the per-hook timeout for SessionEnd hooks without their own `timeout`.                                                                    |
 | v2.1.267+ | `cloud_credential_error` matcher added to `StopFailure` error types.                                                                                                                          |
 | v2.1.257+ | `scratchpad_dir` common input field (path to the session's scratchpad directory for temporary files).                                                                                         |
+| v2.1.251+ | SessionStart resume-cost fields (`seconds_since_last_response`, `context_tokens`, `prompt_cache_likely_expired`, `estimated_cache_write_usd`).                                                |
+| v2.1.236+ | `classifierContext` PostToolUse output field for the auto mode classifier.                                                                                                                   |
+| v2.1.234+ | `bypass_permissions_disabled` SessionEnd reason removed.                                                                                                                                      |
 | v2.1.218+ | Subagent frontmatter hooks blocked in untrusted (`-p`) folders until workspace trust is accepted.                                                                                             |
 | v2.1.214+ | Single-segment glob matching in `if` rules: `Edit(src/**)` matches only `src/` in cwd, not at any depth. Exit 2 with invalid JSON now blocks the action (previously treated as non-blocking). |
 | v2.1.207+ | Plugin option values removed from shell-form hooks; use `CLAUDE_PLUGIN_OPTION_<KEY>` env vars instead.                                                                                        |
@@ -762,7 +788,7 @@ Hook behavior evolves frequently. Notable recent changes:
 | v2.1.141+ | `terminalSequence` output field for OSC escape sequences (OSC 0/1/2/9/9;4/99/777, BEL).                                                                                                       |
 | v2.1.139+ | Command hooks run in their own session without a controlling terminal.                                                                                                                        |
 
-Per-event timeout defaults are also narrowed for some events: `UserPromptSubmit` lowers to 30s, `MessageDisplay` to 10s, and `SessionEnd` runs on a ~1.5s total budget.
+Per-event timeout defaults are also narrowed for some events: `UserPromptSubmit` lowers to 30s, `MessageDisplay` to 10s, and `SessionEnd` runs on a ~1.5s total budget. The SessionEnd budget rises to the highest per-hook `timeout` in settings files (up to 60s; plugin hook timeouts don't count), or set `CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS` to override it explicitly.
 
 ## Sources
 
