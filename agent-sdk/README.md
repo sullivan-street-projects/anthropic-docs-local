@@ -2,17 +2,17 @@
 title: "Claude Agent SDK"
 source_url: "https://platform.claude.com/docs/en/agent-sdk/overview"
 source_type: "manual"
-fetched_at: "2026-09-20T00:00:00Z"
+fetched_at: "2026-11-16T00:00:00Z"
 category: "agent-sdk"
 ---
 
 # Claude Agent SDK
 
-Build production AI agents with Claude Code as a library. The Agent SDK gives you the same tools, agent loop, and context management that power Claude Code, programmable in Python and TypeScript.
+Build production AI agents with Claude Code as a library.
+
+An agent is an application that completes a task by planning its own steps and calling tools that read files, run commands, or edit code. The Agent SDK gives you the same tools, [agent loop](https://code.claude.com/docs/en/agent-sdk/agent-loop), and context management that power Claude Code, programmable in Python and TypeScript.
 
 > **Note:** The Claude Code SDK has been renamed to the Claude Agent SDK. See the [Migration Guide](https://code.claude.com/docs/en/agent-sdk/migration-guide) if migrating from the old SDK.
-
-> **Last updated:** August 16, 2026
 
 ## Overview
 
@@ -60,18 +60,18 @@ for await (const message of query({
 }
 ```
 
-## When to Use
+## Compare the Agent SDK to Other Claude Tools
 
-| Use Case                                                           | Recommended    |
-| ------------------------------------------------------------------ | -------------- |
-| CI/CD pipelines                                                    | Agent SDK      |
-| Production AI agents                                               | Agent SDK      |
-| Custom applications                                                | Agent SDK      |
-| Interactive development                                            | CLI            |
-| Quick one-off tasks                                                | CLI            |
-| Production agents without operating sandbox/session infrastructure | Managed Agents |
+The Agent SDK, the CLI, the Client SDK, and Managed Agents differ in who runs the agent, what comes built in, and how you reach it.
 
-Many teams use both: CLI for daily development, SDK for production. Workflows translate directly between them.
+| You want to | Use | What you get |
+| ----------- | --- | ------------ |
+| Embed Claude Code's agent in your own Python or TypeScript application, in a process you operate | **Agent SDK** | A library that runs the Claude Code binary, with Claude Code's capabilities, such as built-in tools, permissions, sessions, and hooks |
+| Do interactive development or run one-off tasks from a terminal | [**Claude Code CLI**](https://code.claude.com/docs/en/overview) | The terminal interface, built for daily interactive use |
+| Call the Claude API directly from your own code | [**Client SDK**](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) | Direct access to the Claude API from any of the client SDK languages. You write the tool loop yourself, or let the client SDK's beta [tool runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner) drive it |
+| Have Anthropic host the agent, configured through the Claude API | [**Managed Agents**](https://platform.claude.com/docs/en/managed-agents/overview) | A hosted agent harness that runs the agent loop, with sessions in an Anthropic-managed cloud sandbox or a [self-hosted sandbox](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes) on your own infrastructure. Use it from the [SDK for your language](https://platform.claude.com/docs/en/managed-agents/quickstart#install-the-sdk), the `ant` CLI, or the REST API |
+
+To drive the same agent loop from a language other than Python or TypeScript, [run the CLI as a subprocess](https://code.claude.com/docs/en/headless) with the `-p` flag and `--output-format json`.
 
 ## Installation
 
@@ -81,7 +81,7 @@ Many teams use both: CLI for daily development, SDK for production. Workflows tr
 npm install @anthropic-ai/claude-agent-sdk
 ```
 
-> **Note:** Both the TypeScript and Python SDKs now bundle a native Claude Code binary for your platform, so you don't need to install Claude Code separately.
+> **Note:** Both the TypeScript and Python SDKs bundle a native Claude Code binary, so most installs need no separate Claude Code install. Exceptions: a Python source-distribution install (for example on ARM64 Windows) or a TypeScript install that skips npm optional dependencies (for example `npm ci --omit=optional`) gets no bundled binary; see the [Quickstart](https://code.claude.com/docs/en/agent-sdk/quickstart).
 
 ### Python (uv -- recommended)
 
@@ -129,6 +129,19 @@ See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedroc
 
 ## Capabilities
 
+These Claude Code capabilities are available in the SDK:
+
+| Capability | What it does | Learn more |
+| ---------- | ------------ | ---------- |
+| Built-in tools | Read, write, edit files, run commands, and search the web | [Tools reference](https://code.claude.com/docs/en/tools-reference) |
+| Hooks | Run custom code at key points in the agent lifecycle | [Hooks](https://code.claude.com/docs/en/agent-sdk/hooks) |
+| Subagents | Spawn specialized agents for focused subtasks | [Subagents](https://code.claude.com/docs/en/agent-sdk/subagents) |
+| MCP | Connect external tools and data sources via the Model Context Protocol | [MCP](https://code.claude.com/docs/en/agent-sdk/mcp) |
+| Permissions | Control which tools run automatically, which need approval | [Permissions](https://code.claude.com/docs/en/agent-sdk/permissions) |
+| Sessions | Maintain context across exchanges, resume or fork later | [Sessions](https://code.claude.com/docs/en/agent-sdk/sessions) |
+| Skills, commands, and memory | Load automatically from your project's `.claude/` and from `~/.claude/`, same as Claude Code | [Skills](https://code.claude.com/docs/en/agent-sdk/skills), [Commands](https://code.claude.com/docs/en/agent-sdk/skills#commands-in-agent-sdk-sessions), [Memory](https://code.claude.com/docs/en/agent-sdk/modifying-system-prompts), [Configuration loading](https://code.claude.com/docs/en/agent-sdk/claude-code-features) |
+| Plugins | Package skills, agents, hooks, and MCP servers, and load them by local path | [Plugins](https://code.claude.com/docs/en/agent-sdk/plugins) |
+
 ### Hooks
 
 Run custom code at key points in the agent lifecycle. SDK hooks use callback functions to validate, log, block, or transform agent behavior.
@@ -155,14 +168,14 @@ Maintain context across multiple exchanges. Claude remembers files read, analysi
 
 ### Claude Code Features
 
-Set `setting_sources=["project"]` (Python) or `settingSources: ['project']` (TypeScript) to enable. With default options the SDK loads these from `.claude/` in your working directory and `~/.claude/`.
+These load automatically from your project's `.claude/` and from `~/.claude/`, same as Claude Code. See [Configuration loading](https://code.claude.com/docs/en/agent-sdk/claude-code-features) to control which sources load.
 
 | Feature                                                                      | Description                                                                   | Location                           |
 | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------- |
 | [Skills](https://code.claude.com/docs/en/agent-sdk/skills)                   | Specialized capabilities Claude uses automatically or you invoke with `/name` | `.claude/skills/*/SKILL.md`        |
-| [Commands](https://code.claude.com/docs/en/agent-sdk/slash-commands)         | Custom commands in the legacy format. Use skills for new custom commands      | `.claude/commands/*.md`            |
+| [Commands](https://code.claude.com/docs/en/agent-sdk/skills#commands-in-agent-sdk-sessions)         | Custom commands in the legacy format. Use skills for new custom commands      | `.claude/commands/*.md`            |
 | [Memory](https://code.claude.com/docs/en/agent-sdk/modifying-system-prompts) | Project context and instructions                                              | `CLAUDE.md` or `.claude/CLAUDE.md` |
-| [Plugins](https://code.claude.com/docs/en/agent-sdk/plugins)                 | Extend with skills, agents, hooks, and MCP servers                            | Programmatic via `plugins` option  |
+| [Plugins](https://code.claude.com/docs/en/agent-sdk/plugins)                 | Extend with skills, agents, hooks, and MCP servers                            | Load by local path via `plugins`   |
 
 ## Permission Modes
 
@@ -174,58 +187,6 @@ Set `setting_sources=["project"]` (Python) or `settingSources: ['project']` (Typ
 | `dontAsk`           | Denies anything not in `allowedTools`                                                         | Locked-down headless agents               |
 | `bypassPermissions` | Runs every tool without prompting, unless an explicit `ask` rule matches                      | Sandboxed CI, fully trusted environments  |
 | `default`           | Requires a `canUseTool` callback to handle approval                                           | Custom approval flows                     |
-
-## Compare the Agent SDK to Other Claude Tools
-
-### vs Anthropic Client SDK
-
-The Anthropic Client SDK gives you direct API access where you send prompts and implement tool execution yourself. The Agent SDK gives you Claude with built-in tool execution.
-
-| Feature            | Client SDK             | Agent SDK                   |
-| ------------------ | ---------------------- | --------------------------- |
-| Tool execution     | You implement the loop | Claude handles autonomously |
-| Built-in tools     | None                   | Full set                    |
-| Context management | Manual                 | Automatic                   |
-| Use case           | Custom tool loops      | Production agents           |
-
-```python
-# Client SDK: You implement the tool loop
-response = client.messages.create(...)
-while response.stop_reason == "tool_use":
-    result = your_tool_executor(response.tool_use)
-    response = client.messages.create(tool_result=result, **params)
-
-# Agent SDK: Claude handles tools autonomously
-async for message in query(prompt="Fix the bug in auth.py"):
-    print(message)
-```
-
-### vs Claude Code CLI
-
-Same capabilities, different interface. Many teams use both: CLI for daily development, SDK for production.
-
-| Use case                | Best choice |
-| ----------------------- | ----------- |
-| Interactive development | CLI         |
-| CI/CD pipelines         | SDK         |
-| Custom applications     | SDK         |
-| One-off tasks           | CLI         |
-| Production automation   | SDK         |
-
-### vs Managed Agents
-
-[Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) is a hosted REST API: Anthropic runs the agent and the sandbox, and your application sends events and streams back results. The Agent SDK is a library that runs the agent loop inside your own process.
-
-|                    | Agent SDK                                                                    | Managed Agents                                                                                                |
-| ------------------ | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Runs in**        | Your process, your infrastructure                                            | Anthropic-managed infrastructure                                                                              |
-| **Interface**      | Python or TypeScript library                                                 | REST API                                                                                                      |
-| **Agent works on** | Files on your infrastructure                                                 | A managed sandbox per session                                                                                 |
-| **Session state**  | JSONL on your filesystem                                                     | Anthropic-hosted event log                                                                                    |
-| **Custom tools**   | In-process Python or TypeScript functions                                    | Claude triggers the tool; you execute and return results                                                      |
-| **Best for**       | Local prototyping, agents that work directly on your filesystem and services | Production agents without operating sandbox or session infrastructure, long-running and asynchronous sessions |
-
-A common path is to prototype with the Agent SDK locally, then move to Managed Agents for production.
 
 ## Changelog
 
@@ -263,6 +224,16 @@ Use of the Claude Agent SDK is governed by [Anthropic's Commercial Terms of Serv
 - Python: [claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python)
 - TypeScript: [claude-agent-sdk-typescript](https://github.com/anthropics/claude-agent-sdk-typescript)
 - Demos: [claude-agent-sdk-demos](https://github.com/anthropics/claude-agent-sdk-demos)
+
+## Next Steps
+
+- [Quickstart](https://code.claude.com/docs/en/agent-sdk/quickstart): build your first agent that finds and fixes bugs
+- [Migration guide](https://code.claude.com/docs/en/agent-sdk/migration-guide): migrate from the Claude Code SDK packages to the Agent SDK
+- [Agent loop](https://code.claude.com/docs/en/agent-sdk/agent-loop): how Claude plans, calls tools, and decides when a task is done
+- [Example agents](https://github.com/anthropics/claude-agent-sdk-demos): demo apps for local development
+- [TypeScript SDK](https://code.claude.com/docs/en/agent-sdk/typescript): full TypeScript API reference and examples
+- [Python SDK](https://code.claude.com/docs/en/agent-sdk/python): full Python API reference and examples
+- [Agent harness design](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code): how the Claude Code team uses dynamic workflows to orchestrate many subagents at once
 
 ## Sources
 

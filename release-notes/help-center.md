@@ -2,7 +2,7 @@
 title: "Help Center Release Notes"
 source_url: "https://support.claude.com/en/articles/12138966-release-notes"
 source_type: "web-extracted"
-fetched_at: "2026-10-25T00:00:00Z"
+fetched_at: "2026-11-16T00:00:00Z"
 category: "release-notes"
 ---
 
@@ -11,6 +11,27 @@ category: "release-notes"
 Updates to Claude consumer and business applications.
 
 > For developer platform release notes, see [Platform Release Notes](platform.md).
+
+---
+
+## November 2026
+
+### November 12, 2026
+
+- Claude Meetings (beta) rolling out to Team and Enterprise plans in Claude and Claude Desktop: Claude can join a Google Meet call as a visible participant to take notes, answer questions, and create documents, whiteboards, and slides.
+
+### November 9, 2026
+
+- Claude Fable 5.2 launched (see the platform release notes and `models/claude-fable-5-2-mythos-5-2.md`); eligible paid plans get extra Fable usage (up to 50% of weekly limits for Pro and standard Team seats).
+
+### November 6, 2026
+
+- Spend tracking by cost code (beta): eligible Enterprise organizations can tag projects with existing codes (charge codes, client-matter numbers) and view spend by tag.
+
+### November 5, 2026
+
+- Enterprise security and admin controls: Claude Enterprise adds a security center, inference hooks, centralized management, and additional access controls (several in beta).
+- Personal Finance in Claude (beta): link bank, credit card, loan, and investment accounts to view balances and spending and ask Claude about your finances. Pro, Max, and Ultra plans, US only.
 
 ---
 

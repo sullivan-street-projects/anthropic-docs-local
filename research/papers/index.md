@@ -2,7 +2,7 @@
 title: "Research Papers Index"
 source_url: "https://arxiv.org/search/?query=anthropic&searchtype=all"
 source_type: "arxiv-pdfs"
-fetched_at: "2026-08-16T00:00:00Z"
+fetched_at: "2026-11-16T00:00:00Z"
 category: "research"
 ---
 
@@ -108,6 +108,8 @@ All papers are authored by Anthropic researchers and available on arXiv under op
 ## Updates
 
 Papers in this directory are snapshots. Check arXiv for the latest versions, as some papers receive significant updates.
+
+Last checked for new papers: November 16, 2026. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the August 16 check. Recent Anthropic research has appeared as anthropic.com / system-card / Alignment Science Blog publications (e.g. the Claude Fable 5.2 and Mythos 5.2 system card, Nov 9, 2026) and third-party assessments (METR's AI R&D acceleration assessment of Anthropic, Nov 5, 2026) rather than arXiv preprints. No entries added.
 
 Last checked for new papers: August 16, 2026. No new Anthropic-authored arXiv papers with verified arXiv IDs identified since the August 2 check. Searches surfaced only (a) third-party arXiv papers that cite Anthropic but are not Anthropic-authored, and (b) recent Anthropic research published as anthropic.com / Alignment Science Blog posts without confirmed arXiv identifiers (e.g. "Agentic Misalignment in Summer 2026," alignment.anthropic.com, Jul 13, 2026). No entries added.
 

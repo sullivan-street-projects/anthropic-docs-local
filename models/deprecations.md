@@ -2,7 +2,7 @@
 title: "Model Deprecations"
 source_url: "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 source_type: "web-extracted"
-fetched_at: "2026-10-11T00:00:00Z"
+fetched_at: "2026-11-16T00:00:00Z"
 category: "models"
 ---
 
@@ -19,7 +19,7 @@ As safer and more capable models launch, Anthropic regularly retires older ones.
 
 **Warning:** Deprecated models are likely to be less reliable than active models. Move workloads to active models to maintain the highest level of support and reliability.
 
-The dates on this page apply to Anthropic-operated platforms: the Claude API, Claude Platform on AWS, and Microsoft Foundry. Partner-operated platforms (Amazon Bedrock and Google Cloud) set their own retirement schedules, so a model's lifecycle status and dates can differ.
+The dates on this page apply to Anthropic-operated platforms: the Claude API, Claude Platform on AWS, Claude Models on Google Cloud (Anthropic managed), and Microsoft Foundry. Partner-operated platforms (Amazon Bedrock and Claude Models on Google Cloud (Google managed)) set their own retirement schedules, so a model's lifecycle status and dates can differ.
 
 ## Migrating to Replacements
 
@@ -52,6 +52,8 @@ To identify usage of deprecated models:
 
 | API Model Name               | Current State | Deprecated        | Tentative Retirement Date          |
 | :--------------------------- | :------------ | :---------------- | :--------------------------------- |
+| `claude-fable-5-2`           | Active        | N/A               | Not sooner than November 9, 2027   |
+| `claude-mythos-5-2`          | Active        | N/A               | Not sooner than November 9, 2027   |
 | `claude-fable-5-1`           | Active        | N/A               | Not sooner than September 1, 2027  |
 | `claude-mythos-5-1`          | Active        | N/A               | Not sooner than September 1, 2027  |
 | `claude-fable-5`             | Active        | N/A               | Not sooner than June 9, 2027       |
@@ -153,11 +155,11 @@ On April 14, 2026, Anthropic notified developers using Claude Sonnet 4 and Claud
 
 ## API Parameter Deprecations
 
-Anthropic occasionally deprecates request parameters that no longer apply to current models. How the API treats a deprecated parameter depends on the model. Most SDKs keep deprecated parameters in their request types so existing code continues to type-check. The Python SDK (v1.0 and later) removes `temperature`, `top_p`, and `top_k`, so passing them raises a `TypeError`.
+Anthropic occasionally deprecates request parameters that no longer apply to current models. A new model can reject a deprecated parameter, and a new API version can remove it for every model. Most SDKs keep deprecated parameters in their request types so existing code continues to type-check. The Python SDK (v1.0 and later) removes `temperature`, `top_p`, and `top_k`, so passing them raises a `TypeError`.
 
 | Parameter                       | Status                                 | Behavior                                                                                                      | Recommended Replacement                         |
 | :------------------------------ | :------------------------------------- | :------------------------------------------------------------------------------------------------------------ | :---------------------------------------------- |
-| `temperature`, `top_p`, `top_k` | Deprecated (Claude Opus 4.7 and later) | Returns a 400 error when set to a non-default value on Claude 4.7 and later models and Claude Mythos Preview. | Omit and use prompting to guide model behavior. |
+| `temperature`, `top_p`, `top_k` | Removed in API version `2026-10-21` | Returns a 400 error. Earlier API versions return it when set to a non-default value on Claude 4.7 and later models and Claude Mythos Preview. | Omit and use prompting to guide model behavior. |
 
 For migration steps, see the [Migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide).
 
