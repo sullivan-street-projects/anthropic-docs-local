@@ -2527,6 +2527,78 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "6bc66c41e963efc62d70dfb7d19de67c990f8f590ec6433d70ed1215c911fc4e"
+    },
+    {
+      "id": "engineering-building-strong-safety-evaluations",
+      "name": "Building strong safety evaluations",
+      "category": "engineering",
+      "local_path": "engineering/building-strong-safety-evaluations.md",
+      "source_url": "https://www.anthropic.com/research/building-strong-safety-evaluations",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "e682ed0cc91d2950ab9ac97289430abeaeda457fc3dbc74b35242f0954864456"
+    },
+    {
+      "id": "engineering-components-of-agent-memory",
+      "name": "The components of agent memory",
+      "category": "engineering",
+      "local_path": "engineering/components-of-agent-memory.md",
+      "source_url": "https://www.anthropic.com/research/components-of-agent-memory",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "846a2878ed171616c9a89107bb0b434bd5be4168aadfab06651ae7aef8ace720"
+    },
+    {
+      "id": "research-agents-judgment-calls",
+      "name": "How AI agents shape experts' judgment calls",
+      "category": "research",
+      "local_path": "research/agents-judgment-calls.md",
+      "source_url": "https://www.anthropic.com/research/agents-judgment-calls",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "2913708514299eb3d689c59f1e53c698e57617c29df62cd337c6a0da085e84af"
+    },
+    {
+      "id": "news-roadshow-launch",
+      "name": "Anthropic launches roadshow for proposed initial public offering",
+      "category": "news",
+      "local_path": "news/roadshow-launch.md",
+      "source_url": "https://www.anthropic.com/news/roadshow-launch",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "c2d870f8ec47184e2f0d99db581d8d5eaf04bad151954f694084e47693a2807c"
+    },
+    {
+      "id": "news-s1-sec",
+      "name": "Anthropic files S-1 with the SEC for proposed initial public offering",
+      "category": "news",
+      "local_path": "news/s1-sec.md",
+      "source_url": "https://www.anthropic.com/news/s1-sec",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "5b512c896783ca942e183527cf1338bf00841a50048874720ded1061cd8cd505"
+    },
+    {
+      "id": "news-ai-for-science-expands",
+      "name": "AI for Science expands to foundations and research institutions",
+      "category": "news",
+      "local_path": "news/ai-for-science-expands-foundations-research-institutions.md",
+      "source_url": "https://www.anthropic.com/news/ai-for-science-expands-foundations-research-institutions",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "51609fbd4210ad84d11b481a7ed42ab28ca0aa820aedf230fdc7b7a8e8ec2efe"
     }
   ],
   "last_discovery_run": "2026-11-16T00:00:00Z",
