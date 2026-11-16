@@ -1,6 +1,6 @@
 ---
 title: "Introducing Contextual Retrieval"
-source_url: "https://www.anthropic.com/engineering/contextual-retrieval"
+source_url: "https://www.anthropic.com/research/contextual-retrieval"
 source_type: "web-extracted"
 fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"

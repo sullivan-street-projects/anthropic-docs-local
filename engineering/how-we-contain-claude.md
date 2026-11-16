@@ -1,6 +1,6 @@
 ---
 title: "How we contain Claude across products"
-source_url: "https://www.anthropic.com/engineering/how-we-contain-claude"
+source_url: "https://www.anthropic.com/research/how-we-contain-claude"
 source_type: "web-extracted"
 fetched_at: "2026-08-16T00:00:00Z"
 category: "engineering"

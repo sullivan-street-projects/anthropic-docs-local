@@ -1,6 +1,6 @@
 ---
 title: "Harness design for long-running application development"
-source_url: "https://www.anthropic.com/engineering/harness-design-long-running-apps"
+source_url: "https://www.anthropic.com/research/harness-design-long-running-apps"
 source_type: "web-extracted"
 fetched_at: "2026-08-16T00:00:00Z"
 category: "engineering"

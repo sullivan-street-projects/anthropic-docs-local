@@ -1,6 +1,6 @@
 ---
 title: "A postmortem of three recent issues"
-source_url: "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues"
+source_url: "https://www.anthropic.com/research/a-postmortem-of-three-recent-issues"
 source_type: "web-extracted"
 fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"

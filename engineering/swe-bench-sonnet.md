@@ -1,6 +1,6 @@
 ---
 title: "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet"
-source_url: "https://www.anthropic.com/engineering/swe-bench-sonnet"
+source_url: "https://www.anthropic.com/research/swe-bench-sonnet"
 source_type: "web-extracted"
 fetched_at: "2026-09-06T00:00:00Z"
 category: "engineering"

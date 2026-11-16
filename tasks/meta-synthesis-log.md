@@ -29,15 +29,39 @@ Improvements deferred: N
 
 ## Trends (auto-generated)
 
-Total cycles logged: 13
-Total improvements applied: 10 (1 code change this cycle — a github-repos/index.md total-vs-rows self-consistency check in validate.js, the same dual-source-of-truth guard class as the metadata and lineup checks)
-Total improvements deferred: 8 (reinforced #18 source-lifecycle tracking again; added a new MEDIUM item — a committed `scripts/generate-repos-index.js` so the github-api refresh stops being ad-hoc per-run scripting)
-Most-improved infrastructure: scripts/validate.js (truncation detection → PDF-integrity coverage → model-lineup consistency → metadata timestamp consistency → github-repos index self-consistency) / tasks/lessons.md (agent-stall recovery, model-launch cascade, metadata single-source-of-truth)
-Most-informative category: sdks this cycle (new API version `2026-10-21`, Python 2.0.0 / TS 1.0.0 major bump, message threads, Claude Tag endpoints, MIT→Apache 2.0); claude-code (Monitor tool; hook concurrency cap + skill-hook per-source limits now live); research (UK AISI alignment assessment — "biased reasoning" + "momentum" re-validate verify-from-disk)
-Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — confirmed 404 again (~14th cycle, 203 days stale); removal still escalated to a user task chip. threat-intelligence-report-september-2026.md still flagged truncated (from 09-13).
-Last cycle: 2026-10-25 — 1 code improvement applied (github-repos index self-consistency check), 6 sources auto-added (4 news + 2 research), NO model launch (lineup unchanged), 0 agents stalled (all fetches inline), 0 validation errors, 201/201 hashes verified
+Total cycles logged: 14
+Total improvements applied: 12 (this cycle: 27 relocated source_urls updated per Phase 4e + a relocated-URL lint in validate.js)
+Total improvements deferred: 9 (new: the github-api source cannot refresh from scoped cloud sessions; reinforced #18 and #25)
+Most-improved infrastructure: scripts/validate.js (truncation detection → PDF integrity → model-lineup consistency → metadata timestamp consistency → github-repos index self-consistency → relocated-URL lint) / tasks/lessons.md
+Most-informative category: models this cycle (Claude Fable 5.2 / Mythos 5.2 launch, Nov 9: $8/$40, fast mode, prefix check enforced for all accounts); claude-code (MCP runtime v2, MCP tasks beta, hook input changes); release-notes (message threads, 128 MB requests, Opus 4.8 fast-mode deprecation, self-hosted Managed Agents)
+Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — now unverifiable from this session (proxy 403, not a 404); still escalated for removal. github-repos-index (github-api) not refreshed this cycle — org API blocked by session repo scoping.
+Last cycle: 2026-11-16 — 2 improvements applied, 1 deferred, model-launch cascade applied (Fable/Mythos 5.2), 13 sources auto-added, 0 agent stalls (6 background agents, batches ≤6), 0 validation errors
 
 ## Entries
+
+### 2026-11-16 — Update: all
+
+Content changes analyzed: ~35 modified + 13 added (3-week gap: the 11-01 and 11-08 runs did not happen)
+Improvements identified: 2 applied, 1 deferred, 3 already-aligned
+
+**Applied (LOW effort):**
+
+- Discovery found that anthropic.com moved its engineering blog: `/engineering/<slug>` now 308-redirects to `/research/<slug>`. 27 manifest entries pointed at old paths. Per Phase 4e ("relocated → update source_url") → updated `source_url` in manifest.json AND each file's frontmatter (re-verified with curl; content untouched).
+- Added a **relocated-URL lint** to `scripts/validate.js` Layer 4 (warns on any `anthropic.com/engineering/` source_url), so future discovery URL-diffing compares against canonical URLs and a hand-added old-path URL is caught.
+
+**Already aligned:**
+
+- The model-lineup consistency check (added 10-11) caught a real cascade slip this cycle: rewriting the Fable section dropped the only mention of `claude-mythos-5` from both lineup files. Validate warned, fix took one edit. The guard works as designed.
+- `research/agents-judgment-calls.md` (new): analysts adopted a hidden agent preference 86% of the time, usually without noticing — the same "don't trust the self-report, check ground truth" principle behind verify-from-disk/recompute-sha256. Aligned.
+- `engineering/building-strong-safety-evaluations.md` and `engineering/components-of-agent-memory.md` (new): match our structured, file-based memory (`tasks/*.md`) and validate-before-commit design. No change needed.
+
+**Deferred:**
+
+- **New (MEDIUM):** the `github-api` source (`github-repos/index.md`) cannot refresh from a cloud session whose GitHub access is scoped to this repo. `api.github.com/orgs/anthropics/repos` returns 403 ("sessions are bound to their configured repositories"). Options: run that refresh from a local session, or use a non-API path. Logged in update-failures; index left at 10-25 (honest, not bumped).
+- **Reinforced #18 / #25:** agent-sdk-typescript-v2 is still unresolved; the generate-repos-index script would also need a fetch path that works under scoped sessions.
+
+**Model launch this cycle:** "add claude-fable-5-2 and claude-mythos-5-2" in Python SDK 2.7.0 / TS SDK 1.7.0 fired the cascade, which was applied across models/overview.md, api/models-overview.md, models/deprecations.md, release-notes/{platform,api,help-center}.md, plus a new models/claude-fable-5-2-mythos-5-2.md. Lineup check: 17 active IDs consistent.
+
 
 ### 2026-10-25 — Update: all
 

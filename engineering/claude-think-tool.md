@@ -1,6 +1,6 @@
 ---
 title: 'The "Think" Tool: Enabling Claude to Stop and Think in Complex Tool Use Situations'
-source_url: "https://www.anthropic.com/engineering/claude-think-tool"
+source_url: "https://www.anthropic.com/research/claude-think-tool"
 source_type: "web-extracted"
 fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"

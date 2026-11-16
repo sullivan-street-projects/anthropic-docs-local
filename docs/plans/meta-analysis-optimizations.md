@@ -294,6 +294,12 @@ Phase 0: Plan (always runs)
 
 ---
 
+### 26. github-api refresh path that works in scoped cloud sessions (from the 2026-11-16 run)
+
+**Current state:** Scheduled cloud runs have GitHub access scoped to this repository. `api.github.com/orgs/anthropics/repos` returns 403 there ("sessions are bound to their configured repositories"), so `github-repos/index.md` could not be refreshed on 2026-11-16 and star counts went stale.
+
+**Fix (MEDIUM effort):** Decide on a supported path. Either (a) run the github-api refresh (ideally via item #25's script) from a local or unscoped session on a slower cadence, or (b) mark the source `refresh: local-only` in the manifest so scheduled runs skip it explicitly instead of logging a failure each cycle. Do not work around the session scope.
+
 ## Implementation Plan
 
 ### Phase 1: Schema + data fixes (items #1, #5, #6, #7, #18)

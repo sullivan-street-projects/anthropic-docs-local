@@ -18,6 +18,23 @@ Track source-specific failures with resolutions. Review at session start to avoi
 
 ## Log
 
+### 2026-11-16 — github-repos-index (github-api) not refreshed
+
+- **Error**: `https://api.github.com/orgs/anthropics/repos?per_page=100` returned HTTP 403 via curl and `gh`: "This GitHub API path is not available: sessions are bound to their configured repositories."
+- **Resolution**: Skipped. `github-repos/index.md` left at its 2026-10-25 content and timestamp (not bumped). Did not route around the session scope.
+- **Prevention**: Run the github-api refresh from a session with unscoped GitHub access, or find a non-API source. See meta-synthesis 2026-11-16 deferred item.
+
+### 2026-11-16 — agent-sdk-typescript-v2 (unverifiable, ~15th cycle)
+
+- **Error**: `https://github.com/anthropics/agent-sdk` now returns 403 from this session's proxy, not the earlier 404, so it could not be re-verified. Last confirmed 404 was 2026-10-25.
+- **Resolution**: Not fetched, not deleted (needs user confirmation).
+- **Prevention**: Remove the manifest entry and `agent-sdk/typescript-v2-preview.md`, or repoint them to code.claude.com/docs/en/agent-sdk/*. Still waiting on the user.
+
+### 2026-11-16 — no other fetch failures
+
+- **Note**: All 8 github-raw sources were fetched with curl. All 9 manual docs were checked against the live pages: 8 changed, agent-sdk/examples.md unchanged. 5 live model and release-note pages were fetched, 13 new sources added. 6 background agents ran in batches of 6 or fewer with no 600s-watchdog stalls. arXiv: no new Anthropic-authored papers (the arXiv API rate-limited the discovery agent; web search found nothing).
+
+
 ### 2026-10-25 — agent-sdk-typescript-v2 (confirmed 404, ~14th cycle)
 
 - **Error**: `https://github.com/anthropics/agent-sdk` returns HTTP 404 (re-verified via the repos API scan; not fetched). last_fetched 2026-04-05 (203 days stale). Emits one Layer-4 staleness warning per cycle.

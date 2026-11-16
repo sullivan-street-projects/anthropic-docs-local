@@ -1,6 +1,6 @@
 ---
 title: "Scaling Managed Agents: Decoupling the brain from the hands"
-source_url: "https://www.anthropic.com/engineering/managed-agents"
+source_url: "https://www.anthropic.com/research/managed-agents"
 source_type: "web-extracted"
 fetched_at: "2026-08-16T00:00:00Z"
 category: "engineering"

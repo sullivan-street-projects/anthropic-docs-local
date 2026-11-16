@@ -1,6 +1,6 @@
 ---
 title: "Claude Desktop Extensions: One-click MCP Server Installation"
-source_url: "https://www.anthropic.com/engineering/desktop-extensions"
+source_url: "https://www.anthropic.com/research/desktop-extensions"
 source_type: "web-extracted"
 fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"

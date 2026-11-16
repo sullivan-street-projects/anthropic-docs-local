@@ -1,6 +1,6 @@
 ---
 title: "Claude Code: Best Practices for Agentic Coding"
-source_url: "https://www.anthropic.com/engineering/claude-code-best-practices"
+source_url: "https://code.claude.com/docs/en/best-practices"
 source_type: "web-extracted"
 fetched_at: "2026-08-02T00:00:00Z"
 category: "engineering"

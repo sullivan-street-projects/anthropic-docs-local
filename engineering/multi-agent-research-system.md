@@ -1,6 +1,6 @@
 ---
 title: "How we built our multi-agent research system"
-source_url: "https://www.anthropic.com/engineering/multi-agent-research-system"
+source_url: "https://www.anthropic.com/research/multi-agent-research-system"
 source_type: "web-extracted"
 fetched_at: "2026-07-12T00:00:00Z"
 category: "engineering"

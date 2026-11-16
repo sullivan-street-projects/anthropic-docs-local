@@ -576,6 +576,25 @@ function validateIntegrity(manifest) {
       }
     }
   }
+
+  // Relocated-URL lint (added 2026-11-16).
+  // anthropic.com moved its engineering blog from /engineering/<slug> to
+  // /research/<slug>; every old URL now 308-redirects. Tracked source_urls
+  // should point at the canonical location so discovery URL-diffing doesn't
+  // treat a moved post as "new" (or miss it). Warn on any /engineering/ URL.
+  const relocated = manifest.sources.filter((s) =>
+    /^https?:\/\/(www\.)?anthropic\.com\/engineering\//.test(s.source_url || ""),
+  );
+  if (relocated.length > 0) {
+    warn(
+      `${relocated.length} source_url(s) use relocated anthropic.com/engineering/ paths (now 308 → /research/): ${relocated
+        .map((s) => s.id)
+        .slice(0, 5)
+        .join(", ")}${relocated.length > 5 ? ", ..." : ""}`,
+    );
+  } else {
+    ok("No source_urls on relocated anthropic.com/engineering/ paths");
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
