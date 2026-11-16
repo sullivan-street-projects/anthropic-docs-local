@@ -35,13 +35,13 @@ Total improvements deferred: 9 (new: the github-api source cannot refresh from s
 Most-improved infrastructure: scripts/validate.js (truncation detection → PDF integrity → model-lineup consistency → metadata timestamp consistency → github-repos index self-consistency → relocated-URL lint) / tasks/lessons.md
 Most-informative category: models this cycle (Claude Fable 5.2 / Mythos 5.2 launch, Nov 9: $8/$40, fast mode, prefix check enforced for all accounts); claude-code (MCP runtime v2, MCP tasks beta, hook input changes); release-notes (message threads, 128 MB requests, Opus 4.8 fast-mode deprecation, self-hosted Managed Agents)
 Staleness alerts: agent-sdk-typescript-v2 (github.com/anthropics/agent-sdk) — now unverifiable from this session (proxy 403, not a 404); still escalated for removal. github-repos-index (github-api) not refreshed this cycle — org API blocked by session repo scoping.
-Last cycle: 2026-11-16 — 2 improvements applied, 1 deferred, model-launch cascade applied (Fable/Mythos 5.2), 13 sources auto-added, 0 agent stalls (6 background agents, batches ≤6), 0 validation errors
+Last cycle: 2026-11-16 — 2 improvements applied, 1 deferred, model-launch cascade applied (Fable/Mythos 5.2), 12 sources auto-added (1 deferred: write blocked), 0 agent stalls (6 background agents, batches ≤6), 0 validation errors
 
 ## Entries
 
 ### 2026-11-16 — Update: all
 
-Content changes analyzed: ~35 modified + 13 added (3-week gap: the 11-01 and 11-08 runs did not happen)
+Content changes analyzed: ~35 modified + 12 added (3-week gap: the 11-01 and 11-08 runs did not happen)
 Improvements identified: 2 applied, 1 deferred, 3 already-aligned
 
 **Applied (LOW effort):**

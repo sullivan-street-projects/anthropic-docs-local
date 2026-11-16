@@ -1,23 +1,23 @@
 ---
 title: "Architecture Overview"
-generated_at: "2026-10-25T13:14:14.031Z"
+generated_at: "2026-11-16T13:14:01.520Z"
 generator: "scripts/generate-architecture.js"
 ---
 
 # Anthropic Docs Local - Architecture
 
-> Auto-generated from manifest.json on 2026-10-25
+> Auto-generated from manifest.json on 2026-11-16
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
-| Total Sources | 201 |
+| Total Sources | 213 |
 | Research Papers | 14 |
 | Categories | 12 |
 | Schema Version | 1.0.0 |
-| Last Full Update | 2026-10-25T00:00:00Z |
-| Last Discovery Run | 2026-10-25T00:00:00Z |
+| Last Full Update | 2026-11-16T00:00:00Z |
+| Last Discovery Run | 2026-11-16T00:00:00Z |
 
 ## Source Types Distribution
 
@@ -25,7 +25,7 @@ generator: "scripts/generate-architecture.js"
 |------|-------|-------------|
 | github-raw | 8 | Direct fetch from GitHub raw URLs |
 | github-api | 1 | GitHub API endpoint parsing |
-| web-extracted | 181 | WebFetch with content extraction |
+| web-extracted | 193 | WebFetch with content extraction |
 | manual | 9 | Agent-synthesized from internal docs |
 | arxiv-pdfs | 2 | Downloaded PDF papers |
 
@@ -33,7 +33,7 @@ generator: "scripts/generate-architecture.js"
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| auto | 171 | High-confidence sources, auto-trusted |
+| auto | 183 | High-confidence sources, auto-trusted |
 | needs-review | 0 | Should be periodically human-verified |
 | human-verified | 0 | Recently verified by human |
 
@@ -126,6 +126,8 @@ generator: "scripts/generate-architecture.js"
 | [An Update on Recent Claude Code Quality Reports](../engineering/april-23-postmortem.md) | web-extracted | 0.85 |
 | [Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet](../engineering/swe-bench-sonnet.md) | web-extracted | 0.85 |
 | [Redesigning source control at Anthropic](../engineering/redesigning-source-control.md) | web-extracted | 0.85 |
+| [Building strong safety evaluations](../engineering/building-strong-safety-evaluations.md) | web-extracted | 0.85 |
+| [The components of agent memory](../engineering/components-of-agent-memory.md) | web-extracted | 0.85 |
 
 ### github-repos
 
@@ -153,6 +155,7 @@ generator: "scripts/generate-architecture.js"
 | [Claude Opus 5.5](../models/claude-opus-5-5.md) | web-extracted | 0.85 |
 | [Claude Haiku 5.5](../models/claude-haiku-5-5.md) | web-extracted | 0.85 |
 | [Claude Sonnet 5.5](../models/claude-sonnet-5-5.md) | web-extracted | 0.85 |
+| [Claude Fable 5.2 and Claude Mythos 5.2](../models/claude-fable-5-2-mythos-5-2.md) | web-extracted | 0.85 |
 
 ### news
 
@@ -209,6 +212,9 @@ generator: "scripts/generate-architecture.js"
 | [Open call for guest investigators in the life sciences](../news/open-call-guest-investigators-life-sciences.md) | web-extracted | 0.85 |
 | [Physicist Christopher Stubbs joins Anthropic's Long-Term Benefit Trust](../news/christopher-stubbs-joins-long-term-benefit-trust.md) | web-extracted | 0.85 |
 | [Investing in the public benefit](../news/public-benefit-fund.md) | web-extracted | 0.85 |
+| [Anthropic launches roadshow for proposed initial public offering](../news/roadshow-launch.md) | web-extracted | 0.85 |
+| [Anthropic files S-1 with the SEC for proposed initial public offering](../news/s1-sec.md) | web-extracted | 0.85 |
+| [AI for Science expands to foundations and research institutions](../news/ai-for-science-expands-foundations-research-institutions.md) | web-extracted | 0.85 |
 
 ### release-notes
 
@@ -280,6 +286,12 @@ generator: "scripts/generate-architecture.js"
 | [Working at the frontier shapes expectations for the future](../research/expectations-for-the-future.md) | web-extracted | 0.85 |
 | [An alignment assessment of the UK AISI cybertesting incident](../research/alignment-assessment-ukaisi.md) | web-extracted | 0.85 |
 | [How Claude designed protein binders against scorpion neurotoxins](../research/claude-scorpion-toxin-binder-design.md) | web-extracted | 0.85 |
+| [Progress on provable inference for large language models](../research/provable-inference.md) | web-extracted | 0.85 |
+| [Early progress on accelerating drug development with Claude](../research/early-progress-drug-development.md) | web-extracted | 0.85 |
+| [How AI agents shape experts' judgment calls](../research/agents-judgment-calls.md) | web-extracted | 0.85 |
+| [Claude can design electronic prototypes from start to finish](../research/claude-electronics-design.md) | web-extracted | 0.85 |
+| [Teaching AI to build scientific models](../research/teaching-ai-to-build-scientific-models.md) | web-extracted | 0.85 |
+| [AI for scientific discovery: How researchers use Claude](../research/how-researchers-use-claude.md) | web-extracted | 0.85 |
 
 ### sdks
 
@@ -381,7 +393,9 @@ anthropic-docs-local/
 │   ├── how-we-contain-claude.md
 │   ├── april-23-postmortem.md
 │   ├── swe-bench-sonnet.md
-│   └── redesigning-source-control.md
+│   ├── redesigning-source-control.md
+│   ├── building-strong-safety-evaluations.md
+│   └── components-of-agent-memory.md
 ├── github-repos/
 │   └── index.md
 ├── models/
@@ -400,7 +414,8 @@ anthropic-docs-local/
 │   ├── claude-fable-5-1-mythos-5-1.md
 │   ├── claude-opus-5-5.md
 │   ├── claude-haiku-5-5.md
-│   └── claude-sonnet-5-5.md
+│   ├── claude-sonnet-5-5.md
+│   └── claude-fable-5-2-mythos-5-2.md
 ├── news/
 │   ├── claude-code-security.md
 │   ├── detecting-distillation-attacks.md
@@ -452,7 +467,10 @@ anthropic-docs-local/
 │   ├── donating-agent-skills-to-the-agentic-ai-foundation.md
 │   ├── open-call-guest-investigators-life-sciences.md
 │   ├── christopher-stubbs-joins-long-term-benefit-trust.md
-│   └── public-benefit-fund.md
+│   ├── public-benefit-fund.md
+│   ├── roadshow-launch.md
+│   ├── s1-sec.md
+│   └── ai-for-science-expands-foundations-research-institutions.md
 ├── release-notes/
 │   ├── platform.md
 │   ├── api.md
@@ -515,7 +533,13 @@ anthropic-docs-local/
 │   ├── employment-at-anthropic.md
 │   ├── expectations-for-the-future.md
 │   ├── alignment-assessment-ukaisi.md
-│   └── claude-scorpion-toxin-binder-design.md
+│   ├── claude-scorpion-toxin-binder-design.md
+│   ├── provable-inference.md
+│   ├── early-progress-drug-development.md
+│   ├── agents-judgment-calls.md
+│   ├── claude-electronics-design.md
+│   ├── teaching-ai-to-build-scientific-models.md
+│   └── how-researchers-use-claude.md
 ├── sdks/
 │   ├── README.md
 │   ├── CHANGELOG.md

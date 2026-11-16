@@ -30,9 +30,15 @@ Track source-specific failures with resolutions. Review at session start to avoi
 - **Resolution**: Not fetched, not deleted (needs user confirmation).
 - **Prevention**: Remove the manifest entry and `agent-sdk/typescript-v2-preview.md`, or repoint them to code.claude.com/docs/en/agent-sdk/*. Still waiting on the user.
 
+### 2026-11-16 — research-investigating-vault-particles (write blocked)
+
+- **Error**: The discovery-added page `https://www.anthropic.com/research/investigating-vault-particles-with-claude` (Nov 4) fetched fine, but a safety check stopped the subagent's write of `research/investigating-vault-particles-with-claude.md`.
+- **Resolution**: Not retried and not added to the manifest. Deferred in discovery-log for manual review.
+- **Prevention**: None needed. A blocked write is a deliberate stop, not something to route around in unattended runs.
+
 ### 2026-11-16 — no other fetch failures
 
-- **Note**: All 8 github-raw sources were fetched with curl. All 9 manual docs were checked against the live pages: 8 changed, agent-sdk/examples.md unchanged. 5 live model and release-note pages were fetched, 13 new sources added. 6 background agents ran in batches of 6 or fewer with no 600s-watchdog stalls. arXiv: no new Anthropic-authored papers (the arXiv API rate-limited the discovery agent; web search found nothing).
+- **Note**: All 8 github-raw sources were fetched with curl. All 9 manual docs were checked against the live pages: 8 changed, agent-sdk/examples.md unchanged. 5 live model and release-note pages were fetched, 12 new sources added. 6 background agents ran in batches of 6 or fewer with no 600s-watchdog stalls. arXiv: no new Anthropic-authored papers (the arXiv API rate-limited the discovery agent; web search found nothing).
 
 
 ### 2026-10-25 — agent-sdk-typescript-v2 (confirmed 404, ~14th cycle)

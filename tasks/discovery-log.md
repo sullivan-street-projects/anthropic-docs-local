@@ -242,12 +242,12 @@ Track new sources found per discovery run. Prevents re-discovering or missing so
 ### 2026-11-16 — Discovery Run (Phase 2.5, during update)
 
 - **New sources found**: 14 first-party anthropic.com items published since 10-20 (all resolved 200)
-- **Added (13, auto-added per unattended-run policy)**:
+- **Added (12, auto-added per unattended-run policy)**:
   - models: model-fable-5-2-mythos-5-2 (www.anthropic.com/claude-fable-and-mythos-5-2, Nov 9; no /news/ prefix)
   - engineering: building-strong-safety-evaluations (Nov 13), components-of-agent-memory (Nov 6), both served at /research/
-  - research: claude-electronics-design (Nov 9), teaching-ai-to-build-scientific-models (Nov 6), how-researchers-use-claude (Nov 5), investigating-vault-particles-with-claude (Nov 4), provable-inference (Nov 2, FlashProve), early-progress-drug-development (Oct 27), agents-judgment-calls (Oct 27)
+  - research: claude-electronics-design (Nov 9), teaching-ai-to-build-scientific-models (Nov 6), how-researchers-use-claude (Nov 5), provable-inference (Nov 2, FlashProve), early-progress-drug-development (Oct 27), agents-judgment-calls (Oct 27)
   - news: roadshow-launch (Nov 10, IPO roadshow), s1-sec (Oct 26, S-1 filing), ai-for-science-expands-foundations-research-institutions (Oct 28)
-- **Deferred**: expanding-partnership-gsa (Oct 27, LOW). Fable 5.2 / Mythos 5.2 system card (www.anthropic.com/document/claude-fable-5-2-mythos-5-2-system-card), a high-value PDF; flag for a PDF-capable run.
+- **Deferred**: investigating-vault-particles-with-claude (Nov 4, research). The page fetched, but a safety check blocked writing the mirror file. Not retried in an unattended run; review manually. expanding-partnership-gsa (Oct 27, LOW). Fable 5.2 / Mythos 5.2 system card (www.anthropic.com/document/claude-fable-5-2-mythos-5-2-system-card), a high-value PDF; flag for a PDF-capable run.
 - **Rejected**: third-party items (METR AI R&D acceleration assessment of Anthropic, Nov 5; press coverage of the amended S-1/IPO timing).
 - **Notes**: The engineering blog moved to /research/ (see lessons). No new Anthropic-authored arXiv papers (arXiv API rate-limited; spot-checked the search listing). The older /features/ and /institute/ pages listed on the news index (ebola-response, project-deal, making-of-claude-code, claude-on-mars, econ-scenarios) were not checked against the manifest. Consider a full --discover run.
 

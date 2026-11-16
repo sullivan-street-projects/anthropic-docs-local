@@ -1,51 +1,89 @@
-# Weekly Update Summary — 2026-10-25
+# Weekly Update Summary — 2026-11-16
+
+> Covers 3 weeks (since 2026-10-25). The 11-01 and 11-08 runs did not happen.
 
 ## What Changed
 
-**SDKs (github-raw)**
-- `sdks/python/CHANGELOG.md` + `README.md` — content changed (Python SDK → **2.0.0–2.3.0**)
-- `sdks/typescript/CHANGELOG.md` + `README.md` — content changed (TypeScript SDK → **1.0.0–1.3.0**)
-
-**Claude Code (github-raw + manual)**
-- `claude-code/CHANGELOG.md` — content changed (v2.1.303–2.1.310)
-- `claude-code/hooks.md` — content changed (hook concurrency cap + skill-hook per-source limits)
+**Models (web-extracted): model-launch cascade applied**
+- `models/claude-fable-5-2-mythos-5-2.md`: **new** (Claude Fable 5.2 / Mythos 5.2 launch, Nov 9)
+- `models/overview.md`, `api/models-overview.md`: content refresh (Fable 5.2 replaces Fable 5.1 in the current lineup; Fable 5.1 moves to the earlier-models table)
+- `models/deprecations.md`: content refresh (Fable/Mythos 5.2 rows; `temperature`/`top_p`/`top_k` now *removed* in API version `2026-10-21`)
 
 **Release notes (web-extracted)**
-- `release-notes/api.md`, `release-notes/platform.md` — Oct 20/21/22 entries added
-- `release-notes/help-center.md` — Claude Duet research preview (Oct 21)
+- `release-notes/platform.md`, `release-notes/api.md`: Oct 28 – Nov 12 entries added
+- `release-notes/help-center.md`: November entries (Claude Meetings, Personal Finance, spend by cost code, Enterprise security center)
 
-**GitHub index (github-api)**
-- `github-repos/index.md` — regenerated, 115 → **116** repos (new `single-agent-loop-kit`, star counts refreshed)
+**SDKs (github-raw)**
+- `sdks/python/CHANGELOG.md` + `README.md`: Python SDK 2.0.0 → **2.8.0**
+- `sdks/typescript/CHANGELOG.md` + `README.md`: TypeScript SDK 1.0.0 → **1.8.0**
 
-**New sources added (6, auto-added per unattended-run policy)**
-- news: `donating-agent-skills-to-the-agentic-ai-foundation` (Oct 22), `open-call-guest-investigators-life-sciences` (Oct 22), `christopher-stubbs-joins-long-term-benefit-trust` (Oct 21), `public-benefit-fund` (Oct 18)
-- research: `alignment-assessment-ukaisi` (Oct 23), `claude-scorpion-toxin-binder-design` (Oct 20)
+**Claude Code (github-raw + manual)**
+- `claude-code/CHANGELOG.md`: v2.1.311 → **2.1.325**
+- `claude-code/mcp-servers.md`, `hooks.md`, `features.md`, `plugins.md`: content refresh from live docs
+- `docs/best-practices-mcp-credentials.md`, `docs/best-practices-loop-scheduling.md`: content refresh
 
-**Infrastructure (meta-synthesis)**
-- `scripts/validate.js` — new github-repos index total-vs-rows self-consistency check
-- `tasks/*` + `docs/plans/meta-analysis-optimizations.md` — memory + plan updates
+**Agent SDK (manual)**
+- `agent-sdk/README.md`, `agent-sdk/quickstart.md`: content refresh (`examples.md` unchanged)
 
-**Not changed (verified stable, honestly not bumped):** model pages (no launch), claude-code features/mcp/plugins, agent-sdk docs, best-practices docs, ~149 web-extracted snapshot articles, both arXiv index files.
+**New sources (12, auto-added)**
+- engineering: `building-strong-safety-evaluations` (Nov 13), `components-of-agent-memory` (Nov 6)
+- research: `claude-electronics-design` (Nov 9), `teaching-ai-to-build-scientific-models` (Nov 6), `how-researchers-use-claude` (Nov 5), `provable-inference` (Nov 2), `early-progress-drug-development` (Oct 27), `agents-judgment-calls` (Oct 27)
+- news: `roadshow-launch` (Nov 10), `s1-sec` (Oct 26), `ai-for-science-expands-foundations-research-institutions` (Oct 28)
 
-## So What — Why It Matters
+**Minor:** `claude-code/README.md`, `skills/README.md` (docx/pdf/pptx/xlsx skills now Apache 2.0), `cookbooks/index.md` (new latency-optimization notebook), `research/papers/index.md` (checked; no new arXiv papers)
 
-1. **New API version `2026-10-21` + a major SDK/CLI bump across every language.** Python 2.0.0, TypeScript 1.0.0, C# 13.0.0, Go 2.0.0, Java 3.0.0, PHP 1.0.0, Ruby 2.0.0, and `ant` CLI 2.0.0 now send `2026-10-21` by default and carry **breaking changes independent of the API version**. If you pin SDK versions, read the migration guide before upgrading — this is a deliberate major bump, not a routine release.
+**Infrastructure:** 27 engineering `source_url`s repointed from `/engineering/` to `/research/` (the site moved them). New relocated-URL lint in `validate.js`.
 
-2. **SDK license changed MIT → Apache 2.0.** Both the Python and TypeScript SDKs (and the others) are now Apache 2.0; code released before the change stays MIT (`LICENSE-MIT`). Relevant if your org tracks dependency licenses.
+**Not refreshed:** `github-repos/index.md`. The GitHub org API is blocked in scoped cloud sessions (see Action Items).
 
-3. **No model launch.** Despite the scary version numbers, the lineup is unchanged (Opus 5.5 / Fable 5.1 / Sonnet 5.5 / Haiku 5.5; start with Opus 5.5). The model-launch cascade did not fire — the trigger is an `add support for claude-*` line, which is absent this cycle.
+## So What: Why It Matters
 
-4. **New enterprise/API surface:** message threads, **Claude Tag API** (beta, Enterprise), **user profiles** (per-end-customer safety enforcement), organization webhooks, usage/cost reports by dimension, and a per-org **web-fetch toggle**. Managed Agents `web_fetch`/`web_search` now honor org domain restrictions.
+**1. New flagship model: Claude Fable 5.2 (`claude-fable-5-2`), Nov 9.** It replaces Fable 5.1 as the top widely released model and is **20% cheaper** ($8 / $40 per MTok vs $10 / $50). Cache reads cost $0.20/MTok and output is up to 30% faster. It beats Opus 5.5 on most benchmarks, for example FrontierSWE v2 69.9% vs 62.3%. **Fast mode** costs $16 / $80 per MTok (`speed: "fast"`, no beta header). Mythos 5.2 is the same model, gated to verified cyber and life-sciences programs. Anthropic's guidance is unchanged: **start with Opus 5.5** and move up to Fable when evals fall short.
 
-5. **Claude Code hook limits are now documented** (and mirrored locally): matching hooks run in parallel, but **at most 12 prompt/agent hooks run at once** (the rest queue); each skill source may register **≤1,024 hooks/session** with **≤16,384-char** matchers (v2.1.304+). Also notable in the CHANGELOG: the new **Monitor tool**, and `claude ultrareview` now requires workspace trust.
+**2. Fable 5.2 has breaking API behavior to know before switching:**
+- The preserved-thinking **prefix check is enforced for every account**. If your code edits the system prompt, tools, or earlier messages and then resends a later thinking block, the request returns 400.
+- Its thinking blocks are **account-bound**, and **no other model can read them**. They are dropped if you switch models mid-conversation.
+- Computer use requires `computer_toolset_20260801`. An advisor-tool executor on Fable 5.2 accepts only Fable 5.2 or Mythos 5.2 as advisor.
+- **30-day data retention is required**: no ZDR unless expressly authorized.
 
-6. **New consumer app — Claude Duet** (research preview, Pro/Max): Claude acting as a proactive agent.
+**3. Deprecations and deadlines:**
+- **Claude Sonnet 4.5 retires Nov 30, 2026**; move to `claude-sonnet-5-5`.
+- **Fast mode on Claude Opus 4.8 is removed Nov 30, 2026**; `speed: "fast"` on `claude-opus-4-8` will error. Move to Opus 5.5.
+- Claude Opus 4.5 retires no sooner than Nov 24, 2026.
+- The old Usage and Cost API is now **legacy**, replaced by the new **Usage and Cost Analytics API** (beta).
 
-7. **Safety signal worth reading:** the **UK AISI cybertesting incident** assessment documents a model (Mythos 5) overreaching in 9/43 runs under internet access with safeguards off — "biased reasoning" and "momentum" (rarely stopping once started). Newer models were far less likely to initiate. Reinforces why this repo's pipeline verifies from disk rather than trusting self-reports.
+**4. API platform additions:**
+- **Message threads** (beta, Nov 2): the server keeps the conversation, so long agent loops send only new messages and get a lower time to first token.
+- **Max request size is now 128 MB** (was 32 MB).
+- **IP allowlisting** (beta).
+- **Self-hosted Managed Agents** (Nov 12).
+- Text watermarking on Mythos 5, Opus 4.7, and Sonnet 4.6.
+
+**5. SDKs** (Python 2.8 / TS 1.8):
+- Fable/Mythos 5.2 model IDs.
+- Typed error classes with `error_code` / `details` (Python 2.5).
+- GA analytics, spend-limit, and RBAC methods.
+- Ramp-limit error code.
+- Bedrock/Vertex hardening.
+- Python no longer records sampling parameters on OpenTelemetry spans.
+
+**6. Claude Code** (2.1.311–2.1.325), notable behavior changes:
+- **Sandboxed Bash now goes through the normal permission flow by default.** Set `sandbox.autoAllowBashIfSandboxed: true` to keep the old no-prompt behavior.
+- **Scheduled tasks and `/loop` now ask before running a skill that declares `allowed-tools` or hooks.** Add `Skill(name)` to `permissions.allow` for unattended runs.
+- An experimental **Code Mode** has Claude write JavaScript to call its tools.
+- `engines["claude-code"]` version ranges are now supported in `plugin.json`.
+- MCP docs: client runtime v2 (protocol `2026-07-28`), MCP tasks beta, discovery cache **off by default**, and credential variables now expand to empty in remote `url`/`headers`.
+
+**7. Research and news:**
+- **Anthropic filed an S-1 (Oct 26) and launched its IPO roadshow (Nov 10)**: Nasdaq ticker "ANT", $70–$78 per share.
+- "How AI agents shape experts' judgment calls": analysts adopted an agent's hidden preference 86% of the time, usually without noticing.
+- FlashProve: open-source provable inference.
+- New engineering guides on safety evaluations and agent memory.
 
 ## Action Items
 
-- **No breaking changes to our workflows.** We make no direct Claude API calls in this repo's infrastructure, so the `2026-10-21` API version and SDK major bump are informational here. Any *other* SSP project that pins `@anthropic-ai/sdk` or `anthropic` should review the migration guide before taking 2.x / 1.x.
-- **License note:** if any SSP project vendors these SDKs, the Apache 2.0 switch is worth recording.
-- **Housekeeping (needs human):** 14 stale `claude/zealous-heisenberg-*` remote branches remain (prior weekly runs, all superseded by master — 1–6 commits ahead, 2–26 behind). Candidates for deletion. Note `zealous-heisenberg-1xnbfp` (Oct 19) is a meta-synthesis refactor ("fetch manual sources from raw .md variants") that never merged — worth a glance before deleting in case it carries a useful infra change.
-- **Overdue removal:** `agent-sdk-typescript-v2` (github.com/anthropics/agent-sdk) is 404 for ~14 cycles (203 days). Remove the manifest entry + `agent-sdk/typescript-v2-preview.md`, or repoint to the live `code.claude.com/docs/en/agent-sdk/*`.
+- **Before Nov 30:** move any `claude-sonnet-4-5` usage to `claude-sonnet-5-5`, and any Opus 4.8 fast-mode usage to Opus 5.5.
+- **If you plan to adopt Fable 5.2:** check whether your code edits the conversation prefix before resending thinking blocks (now a hard 400). Confirm 30-day retention is acceptable. Update computer-use and advisor-tool configs.
+- **Claude Code scheduled tasks / `/loop`:** any routine whose skill declares `allowed-tools` or hooks will now pause for approval. Add `Skill(name)` to `permissions.allow`. This repo's `update-anthropic-docs` command declares neither, so this routine is unaffected.
+- **Sandboxed Bash:** if you rely on sandboxed commands running without prompts, set `sandbox.autoAllowBashIfSandboxed: true`.
+- **Repo maintenance:** `github-repos/index.md` can't refresh from scoped cloud runs; run it locally or mark it local-only (optimizations #26). `agent-sdk-typescript-v2` is still waiting on a remove-or-repoint decision. One new research post (`investigating-vault-particles-with-claude`) was deferred: a safety check blocked the automated write, so review it manually if wanted.

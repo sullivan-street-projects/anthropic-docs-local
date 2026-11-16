@@ -755,84 +755,84 @@
       "name": "Effective context engineering for AI agents",
       "category": "engineering",
       "local_path": "engineering/effective-context-engineering.md",
-      "source_url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "source_url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "f57ab0c56b09f6aa256f9a91b26751948c479cca4656032ab5bb3af728e070ef"
+      "sha256": "c10124918c8272e16591daa7541ec14b62972f386cd27bec53d3ba467df52ac9"
     },
     {
       "id": "engineering-effective-harnesses",
       "name": "Effective harnesses for long-running agents",
       "category": "engineering",
       "local_path": "engineering/effective-harnesses-for-long-running-agents.md",
-      "source_url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "source_url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "23101850f751665fcb4c41bbacbd00d388e60553f0642647bbdfce14a94ecd36"
+      "sha256": "e0ad4c43747f2a00c4abc319f05fbb1be3962b07b8c08d2b74c3fc69187e4f55"
     },
     {
       "id": "engineering-multi-agent-research-system",
       "name": "How we built our multi-agent research system",
       "category": "engineering",
       "local_path": "engineering/multi-agent-research-system.md",
-      "source_url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+      "source_url": "https://www.anthropic.com/research/multi-agent-research-system",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "d5f30ec99e13f27bd297ac108250c454a1e43e12dd70f3fbd7a2b4e18e889b65"
+      "sha256": "9a96053da8ed3ab1a732a6c5a88d0cf0a8a175aba64ad796e21a38585141170f"
     },
     {
       "id": "engineering-writing-tools-for-agents",
       "name": "Writing Effective Tools for Agents",
       "category": "engineering",
       "local_path": "engineering/writing-tools-for-agents.md",
-      "source_url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+      "source_url": "https://www.anthropic.com/research/writing-tools-for-agents",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "31da56e7ef4186fb8c083d36f8364ab0677138a201c53e97ab4d1448a2bed35e"
+      "sha256": "58b2cb152e774cdeecc30c2fad06f81c2fdb3c5341c1a6f0f4c2a7c09cdd54b4"
     },
     {
       "id": "engineering-ai-resistant-technical-evaluations",
       "name": "Designing AI-resistant technical evaluations",
       "category": "engineering",
       "local_path": "engineering/ai-resistant-technical-evaluations.md",
-      "source_url": "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations",
+      "source_url": "https://www.anthropic.com/research/AI-resistant-technical-evaluations",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "088575ab1ccf8c70e11de1fb2ad3a7eedfa7e72c08207a8a749da2eceb8a737d"
+      "sha256": "e57d0d540d881fd23769766cbb829bca1f2e96211ff3bb7ca49eca5ecf9c6e59"
     },
     {
       "id": "engineering-postmortem-three-recent-issues",
       "name": "A postmortem of three recent issues",
       "category": "engineering",
       "local_path": "engineering/postmortem-three-recent-issues.md",
-      "source_url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+      "source_url": "https://www.anthropic.com/research/a-postmortem-of-three-recent-issues",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "c01c154d5b7ec307fa8dd651782547c2e2d32348f3d9c227165a01875fbfb6bd"
+      "sha256": "86476b2acd0c80aa1028fd3ee066c3bc9757274d142431ca268fc1e4ed22e8ff"
     },
     {
       "id": "engineering-demystifying-evals",
       "name": "Demystifying Evals for AI Agents",
       "category": "engineering",
       "local_path": "engineering/demystifying-evals-for-ai-agents.md",
-      "source_url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "source_url": "https://www.anthropic.com/research/demystifying-evals-for-ai-agents",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "060aca1d3e2d7b1ffe8c6d8aa9b42effb78c2556b01dcf192f1cfb8387026c53"
+      "sha256": "b116c38fe7b09d56f0bf6c3cfb2d1e7e752c9238a9abc26ac545f331341ca206"
     },
     {
       "id": "api-adaptive-thinking",
@@ -1008,12 +1008,12 @@
       "name": "Effective Context Engineering for AI Agents",
       "category": "claude-code",
       "local_path": "claude-code/context-engineering.md",
-      "source_url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "source_url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "verified",
       "confidence": 0.9,
-      "sha256": "e1885df12f025a3163438a724655e058b9ce6f361c622a5aa5ac594116d3b293"
+      "sha256": "50705e3aede57966f7d9ef1e377a1414ed4e483a457ff1cfae5e0fc6d08552b7"
     },
     {
       "id": "claude-code-how-anthropic-teams-use",
@@ -1154,120 +1154,120 @@
       "name": "Eval awareness in Claude Opus 4.6's BrowseComp performance",
       "category": "engineering",
       "local_path": "engineering/eval-awareness-browsecomp.md",
-      "source_url": "https://www.anthropic.com/engineering/eval-awareness-browsecomp",
+      "source_url": "https://www.anthropic.com/research/eval-awareness-browsecomp",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "aff5f42f7fcdf6ca1e414d90a5453bd98c43e8ec130d9cb6da12a66c00039c11"
+      "sha256": "baf66bca2e07b03b486781eb881320ce177bd025447ac10125b720d42762277f"
     },
     {
       "id": "engineering-building-c-compiler",
       "name": "Building a C compiler with a team of parallel Claudes",
       "category": "engineering",
       "local_path": "engineering/building-c-compiler.md",
-      "source_url": "https://www.anthropic.com/engineering/building-c-compiler",
+      "source_url": "https://www.anthropic.com/research/building-c-compiler",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "5a223e1ce6ed3e55446f103ec544a65c9e55326d4bfb8a8b28fffe74457fc482"
+      "sha256": "4843c8ccb334772ad86021d04bd15f1cefca6df9c121534e55dc3f3eb794eeb7"
     },
     {
       "id": "engineering-infrastructure-noise",
       "name": "Quantifying infrastructure noise in agentic coding evals",
       "category": "engineering",
       "local_path": "engineering/infrastructure-noise.md",
-      "source_url": "https://www.anthropic.com/engineering/infrastructure-noise",
+      "source_url": "https://www.anthropic.com/research/infrastructure-noise",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "1d2d7c9b6cbdd2f4391580a64a42f9b52e64e7d4f7275a7b05fcaee41dd432bf"
+      "sha256": "86b2d81e903a6a020d01374a91ef1263468444fbb273f94aafe3ed5af05d6aa1"
     },
     {
       "id": "engineering-advanced-tool-use",
       "name": "Introducing advanced tool use on the Claude Developer Platform",
       "category": "engineering",
       "local_path": "engineering/advanced-tool-use.md",
-      "source_url": "https://www.anthropic.com/engineering/advanced-tool-use",
+      "source_url": "https://www.anthropic.com/research/advanced-tool-use",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "d7fa614f96daf1859e00df8906c31fed76a572ee2cce480b827a3ed7723eab67"
+      "sha256": "27f2f21443cef4b876ee961fcd315af6e1b1b1ff2a064d12b0270f565d033850"
     },
     {
       "id": "engineering-code-execution-with-mcp",
       "name": "Code execution with MCP: Building more efficient agents",
       "category": "engineering",
       "local_path": "engineering/code-execution-with-mcp.md",
-      "source_url": "https://www.anthropic.com/engineering/code-execution-with-mcp",
+      "source_url": "https://www.anthropic.com/research/code-execution-with-mcp",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "3162c09285cac656404a1141427ecac9e04696cfc22f8131be45ae12981f280e"
+      "sha256": "c30815b8ca361bfd9962ceaa40a01d59dd0c3f9a0d74a865d30d93a66f84857f"
     },
     {
       "id": "engineering-claude-code-sandboxing",
       "name": "Beyond permission prompts: making Claude Code more secure and autonomous",
       "category": "engineering",
       "local_path": "engineering/claude-code-sandboxing.md",
-      "source_url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
+      "source_url": "https://www.anthropic.com/research/claude-code-sandboxing",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "c585fa07fb181bdb3a0c30418e95e3b773475f7e56fd475f5a464a0151df9654"
+      "sha256": "2a04f2d2ca5bdc613d648dd40107c33045822f2ed216b4d6982f2c5aeefa6826"
     },
     {
       "id": "engineering-desktop-extensions",
       "name": "Desktop Extensions: One-click MCP server installation",
       "category": "engineering",
       "local_path": "engineering/desktop-extensions.md",
-      "source_url": "https://www.anthropic.com/engineering/desktop-extensions",
+      "source_url": "https://www.anthropic.com/research/desktop-extensions",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "2754c3e36fbc6b8e223852c7efe87f289dd1f100f1680067de0dd3bcfde6c29f"
+      "sha256": "3a11f9f6c699f695b5fecd8f655a05a8ef83559a3a81773bef170f6d3f212d2d"
     },
     {
       "id": "engineering-claude-think-tool",
       "name": "The think tool",
       "category": "engineering",
       "local_path": "engineering/claude-think-tool.md",
-      "source_url": "https://www.anthropic.com/engineering/claude-think-tool",
+      "source_url": "https://www.anthropic.com/research/claude-think-tool",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "574ff8aadfcfa9209b358c420f8834bf57a58aaf32247e8fec68468bced16038"
+      "sha256": "3961030383900c6312cac28eb41f97134e2f3f5b0c056502711ba71d3ad5b6be"
     },
     {
       "id": "engineering-building-effective-agents",
       "name": "Building effective agents",
       "category": "engineering",
       "local_path": "engineering/building-effective-agents.md",
-      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_url": "https://www.anthropic.com/research/building-effective-agents",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "a072001c50148084cb3cbe166ee325b815b343e13bfafa82a386baadc118cef7"
+      "sha256": "028c2b95234ba2fe48b53acab4cf1fe39eeda683e779aec782053a6a92b146ce"
     },
     {
       "id": "engineering-contextual-retrieval",
       "name": "Contextual Retrieval",
       "category": "engineering",
       "local_path": "engineering/contextual-retrieval.md",
-      "source_url": "https://www.anthropic.com/engineering/contextual-retrieval",
+      "source_url": "https://www.anthropic.com/research/contextual-retrieval",
       "source_type": "web-extracted",
       "last_fetched": "2026-07-12T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "1edaef05ae443229d1a3d1db52467585ca096c0aedc4207436e179329f13ef76"
+      "sha256": "8bd3850c0ef6eb10e1487e0539d6d68c87c32cd6539cd6864a25a8be118e0c25"
     },
     {
       "id": "research-measuring-agent-autonomy",
@@ -1526,73 +1526,73 @@
       "name": "Claude Code: Best practices for agentic coding",
       "category": "engineering",
       "local_path": "engineering/claude-code-best-practices.md",
-      "source_url": "https://www.anthropic.com/engineering/claude-code-best-practices",
+      "source_url": "https://code.claude.com/docs/en/best-practices",
       "source_type": "web-extracted",
       "last_fetched": "2026-08-02T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
       "notes": "Source 308-redirects to https://code.claude.com/docs/en/best-practices (maintained current version).",
-      "sha256": "237cf9747865bce3a8668095ad421ece95f9b54322d5a78a3f888c97385cb350"
+      "sha256": "ce479c90e2bc368405c01baa966635737b7e88d1743ea7f0a8ad4d0da89c1858"
     },
     {
       "id": "equipping-agents-agent-skills",
       "name": "Equipping agents for the real world with Agent Skills",
       "category": "engineering",
       "local_path": "engineering/equipping-agents-agent-skills.md",
-      "source_url": "https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills",
+      "source_url": "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills",
       "source_type": "web-extracted",
       "last_fetched": "2026-08-16T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.8,
-      "sha256": "3c7f1c3fa4d7a490968aef5386681e62697f102ad629d68ce9d7af2c9a0051f0"
+      "sha256": "e532b4db65ac9e33c1cf085869b5ad2580e28b53f9ccaafc828c68f2384a237f"
     },
     {
       "id": "claude-code-auto-mode",
       "name": "How we built Claude Code auto mode",
       "category": "engineering",
       "local_path": "engineering/claude-code-auto-mode.md",
-      "source_url": "https://www.anthropic.com/engineering/claude-code-auto-mode",
+      "source_url": "https://www.anthropic.com/research/claude-code-auto-mode",
       "source_type": "web-extracted",
       "last_fetched": "2026-08-16T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.8,
-      "sha256": "bd2ee50095aff0833ce49a16a00bbbb7b090a82bdbd8441aa5ffb630790abad5"
+      "sha256": "a0cf3b81a6ce89e254618b0ea56829645a7a8013597e4ac0f1629a80cc5c4209"
     },
     {
       "id": "managed-agents",
       "name": "Scaling Managed Agents",
       "category": "engineering",
       "local_path": "engineering/managed-agents.md",
-      "source_url": "https://www.anthropic.com/engineering/managed-agents",
+      "source_url": "https://www.anthropic.com/research/managed-agents",
       "source_type": "web-extracted",
       "last_fetched": "2026-08-16T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.8,
-      "sha256": "16d258932d683fabf95399d2cda1134113a5d0f3331545a8d8e97e10033db412"
+      "sha256": "88202473fa6909b4c8285d08466d1a0223d97bbdb0dc5751905f823c1f7a0f1e"
     },
     {
       "id": "harness-design-long-running-apps",
       "name": "Harness design for long-running application development",
       "category": "engineering",
       "local_path": "engineering/harness-design-long-running-apps.md",
-      "source_url": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+      "source_url": "https://www.anthropic.com/research/harness-design-long-running-apps",
       "source_type": "web-extracted",
       "last_fetched": "2026-08-16T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.8,
-      "sha256": "1e7c381f2b92a0cc1b09a3f4c708e08562a84e127c9ba75ee15f2ab1a7d7a15c"
+      "sha256": "a29a373fb9d0c4a4693b536b8790cd47fb475db1f922e08cf067f506a0c2e2c7"
     },
     {
       "id": "how-we-contain-claude",
       "name": "How we contain Claude across products",
       "category": "engineering",
       "local_path": "engineering/how-we-contain-claude.md",
-      "source_url": "https://www.anthropic.com/engineering/how-we-contain-claude",
+      "source_url": "https://www.anthropic.com/research/how-we-contain-claude",
       "source_type": "web-extracted",
       "last_fetched": "2026-08-16T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.8,
-      "sha256": "d5ed792b0335391fc01a0562e68e2952218e36fa3d568e41b59784e1cd90558b"
+      "sha256": "c8f27666f3d388aa4b042e79b4da03c241d0c32bf917d75883dede300d0bfcc2"
     },
     {
       "id": "making-of-claude-code",
@@ -1875,24 +1875,24 @@
       "name": "An Update on Recent Claude Code Quality Reports",
       "category": "engineering",
       "local_path": "engineering/april-23-postmortem.md",
-      "source_url": "https://www.anthropic.com/engineering/april-23-postmortem",
+      "source_url": "https://www.anthropic.com/research/april-23-postmortem",
       "source_type": "web-extracted",
       "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "9fe026a46ba9d012a0e529a188090707ca2956973affc0928f70b4613c507910"
+      "sha256": "3acb3ffce5f6b99f87f6ae46939b467eb456f1fb44774d73ac8c109dc38eee79"
     },
     {
       "id": "engineering-swe-bench-sonnet",
       "name": "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet",
       "category": "engineering",
       "local_path": "engineering/swe-bench-sonnet.md",
-      "source_url": "https://www.anthropic.com/engineering/swe-bench-sonnet",
+      "source_url": "https://www.anthropic.com/research/swe-bench-sonnet",
       "source_type": "web-extracted",
       "last_fetched": "2026-09-06T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "76fb7f0057ed8a713db8e04491bb16e7b79b2d6e0ab30baed18c902048a27f04"
+      "sha256": "f3a99308ef4a9eea4a9eebb7b18e8d03cdab8e386e5292b31f94320bb929559d"
     },
     {
       "id": "news-threat-intelligence-september-2026",
@@ -2413,12 +2413,12 @@
       "name": "Redesigning source control at Anthropic",
       "category": "engineering",
       "local_path": "engineering/redesigning-source-control.md",
-      "source_url": "https://www.anthropic.com/engineering/redesigning-source-control",
+      "source_url": "https://www.anthropic.com/research/redesigning-source-control",
       "source_type": "web-extracted",
       "last_fetched": "2026-10-18T00:00:00Z",
       "review_status": "auto",
       "confidence": 0.85,
-      "sha256": "889b27b312ddce5422b575d2566de9ac9b9abb180f92d18071016d8acc2c6fc0"
+      "sha256": "82679d20e3a02b39fed07d309f2a44a5ae7e8b153fae701d0357b35fc861dc60"
     },
     {
       "id": "news-donating-agent-skills-aaif",
@@ -2599,6 +2599,42 @@
       "review_status": "auto",
       "confidence": 0.85,
       "sha256": "51609fbd4210ad84d11b481a7ed42ab28ca0aa820aedf230fdc7b7a8e8ec2efe"
+    },
+    {
+      "id": "research-claude-electronics-design",
+      "name": "Claude can design electronic prototypes from start to finish",
+      "category": "research",
+      "local_path": "research/claude-electronics-design.md",
+      "source_url": "https://www.anthropic.com/research/claude-electronics-design",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "ae9bfec5b9a16faca62f81c58d4395e099d7c96bcec401d4d615f82a42649697"
+    },
+    {
+      "id": "research-teaching-ai-to-build-scientific-models",
+      "name": "Teaching AI to build scientific models",
+      "category": "research",
+      "local_path": "research/teaching-ai-to-build-scientific-models.md",
+      "source_url": "https://www.anthropic.com/research/teaching-ai-to-build-scientific-models",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "b21977ce7d5b4222fff5a62647ea8e574a26297d54d1bd3157b1cec0ef38ab51"
+    },
+    {
+      "id": "research-how-researchers-use-claude",
+      "name": "AI for scientific discovery: How researchers use Claude",
+      "category": "research",
+      "local_path": "research/how-researchers-use-claude.md",
+      "source_url": "https://www.anthropic.com/research/how-researchers-use-claude",
+      "source_type": "web-extracted",
+      "last_fetched": "2026-11-16T00:00:00Z",
+      "review_status": "auto",
+      "confidence": 0.85,
+      "sha256": "713cf3d71c3ad94c46990987ba284b190a19e2bf85c96c9a57b768ef95d26f09"
     }
   ],
   "last_discovery_run": "2026-11-16T00:00:00Z",
